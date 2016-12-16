@@ -1,0 +1,39 @@
+{
+  "name": "kenrobot",
+  "version": "1.1.0",
+  "description": "啃萝卜智能硬件平台",
+  "author": "KenRobot",
+  "copyright": "©2016 KenRobot",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "private",
+    "url": "http://www.kenrobot.com"
+  },
+  "main": "main.js",
+  "scripts": {
+    "pack": "build --win --ia32 --dir",
+    "dist": "build --win --ia32",
+    "release": "build --win --ia32"
+  },
+  "build": {
+    "appId": "com.kenrobot.KenRobot",
+    "win": {
+      "target": "zip"
+    }
+  },
+  "dependencies": {
+    "fs-extra": "^1.0.0",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "electron": "^1.4.12",
+    "electron-builder": "^10.8.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "minimist": "^1.2.0",
+    "run-sequence": "^1.2.2"
+  }
+}
