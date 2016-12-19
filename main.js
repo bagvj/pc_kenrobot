@@ -204,6 +204,21 @@ ipcMain.on('app:buildProject', (e, deferId, file, options) => {
 	})
 })
 
+ipcMain.on('app:uploadProject', (e, deferId, file, com, options) => {
+	var scriptPath = getScript("upload")
+	var options = options || {}
+	var command = `${scriptPath} ${file} ${com}`
+	child_process.exec(command, null, (err, stdout, stderr) => {
+		if(err) {
+			console.error(err)
+			e.sender.send('app:uploadProject', deferId, false, err)
+			return
+		}
+
+		e.sender.send('app:uploadProject', deferId, true, stdout)
+	})
+})
+
 function getScript(name) {
 	return path.join("scripts", `${name}.${os.platform() == "linux" ? "sh" : "bat"}`)
 }
