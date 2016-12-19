@@ -17,6 +17,8 @@
   },
   "build": {
     "appId": "com.kenrobot.KenRobot",
+    "files": ["assets"],
+    "extraResources": ["arduino", "scripts"],
     "win": {
       "target": "zip"
     }

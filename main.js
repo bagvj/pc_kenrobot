@@ -8,6 +8,7 @@ const shell = electron.shell
 const fs = require('fs-extra')
 const child_process = require('child_process')
 const path = require('path')
+const os = require('os')
 
 let mainWindow
 
@@ -187,3 +188,22 @@ ipcMain.on('app:saveProject', (e, deferId, code) => {
 		})
 	})
 })
+
+ipcMain.on('app:buildProject', (e, deferId, file, options) => {
+	var scriptPath = getScript("build")
+	var options = options || {}
+	var command = `${scriptPath} ${file} ${options.board_type || "uno"}`
+	child_process.exec(command, null, (err, stdout, stderr) => {
+		if(err) {
+			console.error(err)
+			e.sender.send('app:buildProject', deferId, false, err)
+			return
+		}
+
+		e.sender.send('app:buildProject', deferId, true, stdout)
+	})
+})
+
+function getScript(name) {
+	return path.join("scripts", `${name}.${os.platform() == "linux" ? "sh" : "bat"}`)
+}
