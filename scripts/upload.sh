@@ -14,7 +14,7 @@ UPLOADER=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/bin/avrdude
 UPLOADER_CONF=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/etc/avrdude.conf
 
 # COM端口
-ARDUINO_COMPORT=%2
+ARDUINO_COMPORT=$2
 
 ARDUINO_MCU=atmega328p
 ARDUINO_PROGRAMMER=arduino
@@ -23,9 +23,9 @@ ARDUINO_BURNRATE=115200
 ${UPLOADER} -C ${UPLOADER_CONF} -p ${ARDUINO_MCU} -P ${ARDUINO_COMPORT} -c ${ARDUINO_PROGRAMMER} -b ${ARDUINO_BURNRATE} -U "flash:w:${HEX_PATH}:i"
 
 if [ $? -ne 0 ]; then
-	echo build fail
+	echo upload fail
     exit 2
 fi
 
-echo build success
+echo upload success
 exit 0

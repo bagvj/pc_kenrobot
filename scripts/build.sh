@@ -30,7 +30,7 @@ if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
-${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -build-path=${BUILD_PATH} -warnings=all -verbose ${SKETCH}
+${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 
 if [ $? -ne 0 ]; then
 	echo build fail
