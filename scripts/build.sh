@@ -18,7 +18,6 @@ BOARD_TYPE=$2
 
 DIR=$(dirname "$0")
 LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
-# LOCAL_ARDUINO_PATH=/home/dev/arduino-1.6.13
 # EXTRA_LIBRARIES=
 
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
@@ -34,9 +33,9 @@ fi
 ${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -build-path=${BUILD_PATH} -warnings=all -verbose ${SKETCH}
 
 if [ $? -ne 0 ]; then
-	echo "编译失败"
+	echo build fail
     exit 2
 fi
 
-echo "编译成功"
+echo build success
 exit 0
