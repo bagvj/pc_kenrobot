@@ -13,7 +13,7 @@ rem 主板类型
 set BOARD_TYPE=%2
 
 set DIR=%~dp0
-set LOCAL_ARDUINO_PATH=%DIR%..\\Arduino-windows
+set LOCAL_ARDUINO_PATH=%DIR%..\\Arduino-win
 
 set BUILDER="%LOCAL_ARDUINO_PATH%\\arduino-builder.exe"
 set HARDWARE="%LOCAL_ARDUINO_PATH%\\hardware"

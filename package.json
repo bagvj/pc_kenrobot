@@ -1,33 +1,29 @@
 {
   "name": "kenrobot",
   "version": "1.1.0",
-  "description": "啃萝卜智能硬件平台",
-  "author": "KenRobot",
-  "copyright": "©2016 KenRobot",
-  "license": "CC0-1.0",
-  "repository": {
-    "type": "private",
-    "url": "http://www.kenrobot.com"
-  },
-  "main": "main.js",
+  "private": true,
   "scripts": {
+    "postinstall": "install-app-deps",
     "pack": "build --win --ia32 --dir",
     "dist": "build --win --ia32",
     "release": "build --win --ia32"
   },
   "build": {
     "appId": "com.kenrobot.KenRobot",
-    "files": ["assets"],
-    "extraResources": ["arduino", "scripts"],
-    "win": {
-      "target": "zip"
-    }
-  },
-  "dependencies": {
-    "fs-extra": "^1.0.0",
-    "q": "^1.4.1"
+    "files": [
+      "assets",
+      "index.html",
+      "main.js",
+      "renderer.js",
+      "node_modules"
+    ],
+    "extraFiles": [
+      "arduino-${os}",
+      "scripts"
+    ]
   },
   "devDependencies": {
+    "7zip-bin": "^2.0.4",
     "electron": "^1.4.12",
     "electron-builder": "^10.8.1",
     "gulp": "^3.9.1",
@@ -35,7 +31,11 @@
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
     "minimist": "^1.2.0",
-    "run-sequence": "^1.2.2"
+    "nan": "^2.4.0",
+    "run-sequence": "^1.2.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

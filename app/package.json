@@ -1,0 +1,21 @@
+{
+  "name": "kenrobot",
+  "version": "1.1.0",
+  "description": "啃萝卜智能硬件平台",
+  "author": "KenRobot",
+  "copyright": "©2016 KenRobot",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "private",
+    "url": "http://www.kenrobot.com"
+  },
+  "main": "main.js",
+  "dependencies": {
+    "electron-debug": "^1.1.0",
+    "electron-is": "^2.3.0",
+    "electron-log": "^1.2.2",
+    "fs-extra": "^1.0.0",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {}
+}
