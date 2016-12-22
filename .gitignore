@@ -1,8 +1,6 @@
 node_modules
 dist
 assets
-dist_bak
-app_bak
-src_bak
+bak
 .vscode
 .git-completion.bash
