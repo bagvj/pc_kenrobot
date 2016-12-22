@@ -1,10 +1,5 @@
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
-const ipcMain = electron.ipcMain
-const net = electron.net
-const dialog = electron.dialog
-const shell = electron.shell
+const {app, BrowserWindow, ipcMain, net, dialog, shell, Menu} = require('electron')
+
 const child_process = require('child_process')
 const path = require('path')
 
@@ -15,192 +10,205 @@ const debug = require('electron-debug')
 const log = require('electron-log')
 const encoding = require('encoding')
 
-if(is.dev()) {
-	//开发版，注册devTools快捷键
-	debug({
-		showDevTools: true
-	})
-}
-
 let mainWindow
+
+init()
+
+function init() {
+	if(app.makeSingleInstance((commandLine, workingDirectory) => {
+		if(mainWindow) {
+			mainWindow.isMinimized() && mainWindow.restore()
+			mainWindow.focus()
+		}
+	})) {
+		app.quit()
+	}
+
+	var logPath = path.join(__dirname, '..', 'log', 'log.txt')
+	fs.ensureDirSync(path.dirname(logPath))
+	log.transports.file.level = 'debug'
+	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
+	log.transports.file.file = logPath
+	log.transports.file.streamConfig = { flags: 'a' }
+
+	log.debug("app start")
+
+	listenEvent()
+	listenMessage()
+}
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
+		icon: "assets/image/logo3.png",
 		width: 1280,
-		height: 800
+		height: 800,
+		// frame: false
 	})
 
-	mainWindow.setMenu(null)
 	mainWindow.loadURL(`file://${__dirname}/index.html`)
+	mainWindow.focus()
 
 	mainWindow.on('closed', _ => {
 		mainWindow = null
 	})
 }
 
-app.on('ready', _ => {
-	log.info('app ready')
-	createWindow()
-})
+function listenEvent() {
+	app.on('ready', _ => {
+		log.debug('app ready')
 
-app.on('window-all-closed', _ => {
-	if (process.platform !== 'darwin') {
-		app.quit()
-	}
-})
+		is.dev() && debug({showDevTools: true})
 
-app.on('activate', _ => {
-	if (mainWindow === null) {
 		createWindow()
-	}
-})
-
-app.on('quit', _ => {
-	log.info('app quit')
-})
-
-ipcMain.on('app:reload', (e, deferId) => {
-	mainWindow.reload()
-	e.sender.send('app:reload', deferId, true, true)
-})
-
-ipcMain.on('app:openUrl', (e, deferId, url) => {
-	var success = url && shell.openExternal(url)
-	e.sender.send('app:openUrl', deferId, success, success)
-})
-
-ipcMain.on('app:netRequest', (e, deferId, options) => {
-	const request = net.request(options)
-	if(options.header) {
-		for(var key in options.header) {
-			request.setHeader(key, options.header[key])
+	}).on('window-all-closed', _ => {
+		if (process.platform !== 'darwin') {
+			app.quit()
 		}
-	}
-	request.on('response', response => {
-		var chunks = []
-		var size = 0
-		response.on('data', chunk => {
-			chunks.push(chunk)
-			size += chunk.length
-		}).on('end', _ => {
-			var data
-			switch(chunks.length) {
-				case 0:
-					data = new Buffer(0)
-					break
-				case 1:
-					data = chunks[0]
-					break
-				default:
-					data = new Buffer(size)
-					var pos = 0
-					chunks.forEach(chunk => {
-						chunk.copy(data, pos)
-						pos += chunk.len
-					})
-					break
+	}).on('activate', _ => {
+		if (mainWindow === null) {
+			createWindow()
+		}
+	}).on('quit', _ => {
+		log.debug('app quit')
+	})
+}
+
+function listenMessage() {
+	ipcMain.on('app:reload', (e, deferId) => {
+		mainWindow.reload()
+		e.sender.send('app:reload', deferId, true, true)
+	}).on('app:openUrl', (e, deferId, url) => {
+		var success = url && shell.openExternal.bind(shell, url)
+		e.sender.send('app:openUrl', deferId, success, success)
+	}).on('app:netRequest', (e, deferId, options) => {
+		var request = net.request(options)
+		if(options.header) {
+			for(var key in options.header) {
+				request.setHeader(key, options.header[key])
 			}
-			data = data.toString()
-			if(options.json) {
-				var temp
-				try{
-					temp = JSON.parse(data)
-				} catch (ex) {
-					e.sender.send('app:netRequest', deferId, false, data)
-					return
+		}
+		request.on('response', response => {
+			var chunks = []
+			var size = 0
+			response.on('data', chunk => {
+				chunks.push(chunk)
+				size += chunk.length
+			}).on('end', _ => {
+				var data
+				switch(chunks.length) {
+					case 0:
+						data = new Buffer(0)
+						break
+					case 1:
+						data = chunks[0]
+						break
+					default:
+						data = new Buffer(size)
+						var pos = 0
+						chunks.forEach(chunk => {
+							chunk.copy(data, pos)
+							pos += chunk.len
+						})
+						break
 				}
-				data = temp
-			}
-			e.sender.send('app:netRequest', deferId, true, data)
+				data = data.toString()
+				if(options.json) {
+					var temp
+					try{
+						temp = JSON.parse(data)
+					} catch (ex) {
+						e.sender.send('app:netRequest', deferId, false, data)
+						return
+					}
+					data = temp
+				}
+				e.sender.send('app:netRequest', deferId, true, data)
+			})
+		}).on('abort', _ => {
+			log.error(err)
+			e.sender.send('app:netRequest', deferId, false, 'abort')
+		}).on('error', err => {
+			log.error(err)
+			e.sender.send('app:netRequest', deferId, false, err)
+		}).end()
+	}).on('app:execCommand', (e, deferId, command, options) => {
+		execCommand(command, options).then(stdout => {
+			e.sender.send('app:execCommand', deferId, true, stdout)
+		}, err => {
+			e.sender.send('app:execCommand', deferId, false, err)
 		})
-	}).on('abort', _ => {
-		log.error(err)
-		e.sender.send('app:netRequest', deferId, false, 'abort')
-	}).on('error', err => {
-		log.error(err)
-		e.sender.send('app:netRequest', deferId, false, err)
-	}).end()
-})
-
-ipcMain.on('app:execCommand', (e, deferId, command, options) => {
-	execCommand(command, options).then(stdout => {
-		e.sender.send('app:execCommand', deferId, true, stdout)
-	}, err => {
-		e.sender.send('app:execCommand', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:readFile', (e, deferId, file, options) => {
-	readFile(file, options).then(data => {
-		e.sender.send('app:readFile', deferId, true, data)
-	}, err => {
-		e.sender.send('app:readFile', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:writeFile', (e, deferId, file, data) => {
-	writeFile(file, data).then(_ => {
-		e.sender.send('app:writeFile', deferId, true, true)
-	}, err => {
-		e.sender.send('app:writeFile', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:removeFile', (e, deferId, file) => {
-	removeFile(file).then(_ => {
-		e.sender.send('app:removeFile', deferId, true, true)
-	}, err => {
-		e.sender.send('app:removeFile', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:saveProject', (e, deferId, file, code, isTemp) => {
-	saveProject(file, code, isTemp).then(file => {
-		e.sender.send('app:saveProject', deferId, true, file)
-	}, err => {
-		e.sender.send('app:saveProject', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:buildProject', (e, deferId, file, options) => {
-	buildProject(file, options).then(hex => {
-		e.sender.send('app:buildProject', deferId, true, hex)
-	}, err => {
-		e.sender.send('app:buildProject', deferId, false, err)
-	})
-})
-
-ipcMain.on('app:uploadHex', (e, deferId, hex, options) => {
-	getSerialPorts().then(ports => {
-		if(ports.length == 1) {
-			uploadHex(hex, ports[0].path, options).then(_ => {
-				e.sender.send('app:uploadHex', deferId, true, true)
-			}, err => {
-				e.sender.send('app:uploadHex', deferId, false, err)
-			})
+	}).on('app:readFile', (e, deferId, file, options) => {
+		readFile(file, options).then(data => {
+			e.sender.send('app:readFile', deferId, true, data)
+		}, err => {
+			e.sender.send('app:readFile', deferId, false, err)
+		})
+	}).on('app:writeFile', (e, deferId, file, data) => {
+		writeFile(file, data).then(_ => {
+			e.sender.send('app:writeFile', deferId, true, true)
+		}, err => {
+			e.sender.send('app:writeFile', deferId, false, err)
+		})
+	}).on('app:removeFile', (e, deferId, file) => {
+		removeFile(file).then(_ => {
+			e.sender.send('app:removeFile', deferId, true, true)
+		}, err => {
+			e.sender.send('app:removeFile', deferId, false, err)
+		})
+	}).on('app:saveProject', (e, deferId, file, code, isTemp) => {
+		saveProject(file, code, isTemp).then(file => {
+			e.sender.send('app:saveProject', deferId, true, file)
+		}, err => {
+			e.sender.send('app:saveProject', deferId, false, err)
+		})
+	}).on('app:buildProject', (e, deferId, file, options) => {
+		buildProject(file, options).then(hex => {
+			e.sender.send('app:buildProject', deferId, true, hex)
+		}, err => {
+			e.sender.send('app:buildProject', deferId, false, err)
+		})
+	}).on('app:uploadHex', (e, deferId, hex, options) => {
+		getSerialPorts().then(ports => {
+			if(ports.length == 1) {
+				uploadHex(hex, ports[0].path, options).then(_ => {
+					e.sender.send('app:uploadHex', deferId, true, true)
+				}, err => {
+					e.sender.send('app:uploadHex', deferId, false, err)
+				})
+			} else {
+				e.sender.send('app:uploadHex', deferId, false, {
+					status: "SELECT_PORT",
+					ports: ports,
+				})
+			}
+		}, err => {
+			e.sender.send('app:uploadHex', deferId, false, err)
+		})
+	}).on('app:uploadHex2', (e, deferId, hex, com, options) => {
+		uploadHex(hex, com, options).then(_ => {
+			e.sender.send('app:uploadHex2', deferId, true, true)
+		}, err => {
+			e.sender.send('app:uploadHex2', deferId, false, err)
+		})
+	}).on('app:errorReport', (e, deferId, type, content) => {
+		if(type == "debug") {
+			var messages = JSON.parse(content)
+			log.debug(`------ debug message ------\n${messages.join('\n')}`)
 		} else {
-			e.sender.send('app:uploadHex', deferId, false, {
-				status: "SELECT_PORT",
-				ports: ports,
-			})
+			var errors = JSON.parse(content)
+			var str = errors.reduce((result, error) => {
+				result += `\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`
+				return result
+			}, '')
+			log.error(`------ error message ------${str}`)
 		}
-	}, err => {
-		e.sender.send('app:uploadHex', deferId, false, err)
 	})
-})
-
-ipcMain.on('app:uploadHex2', (e, deferId, hex, com, options) => {
-	uploadHex(hex, com, options).then(_ => {
-		e.sender.send('app:uploadHex2', deferId, true, true)
-	}, err => {
-		e.sender.send('app:uploadHex2', deferId, false, err)
-	})
-})
+}
 
 function getSerialPorts() {
 	var deferred = Q.defer()
 
-	log.info("getSerialPorts")
+	log.debug("getSerialPorts")
 	if(is.windows()) {
 		execCommand("scripts\\lscom.exe").then(stdout => {
 			var comReg = /(COM\d+): (.*) \(COM\d+\)/g
@@ -248,7 +256,7 @@ function showSaveDialog(options) {
 	options.defaultPath = app.getPath("documents")
 	options.buttonLabel = "保存"
 
-	log.info(`showSaveDialog: options: ${JSON.stringify(options)}`)
+	log.debug(`showSaveDialog: options: ${JSON.stringify(options)}`)
 	dialog.showSaveDialog(mainWindow, options, file => {
 		if(!file) {
 			deferred.reject()
@@ -265,7 +273,7 @@ function readFile(file, options) {
 	var deferred = Q.defer()
 	options = options || "utf8"
 
-	log.info(`readFile:${file}, options: ${JSON.stringify(options)}`)
+	log.debug(`readFile:${file}, options: ${JSON.stringify(options)}`)
 	fs.readFile(file, options, (err, data) => {
 		if(err) {
 			log.error(err)
@@ -282,7 +290,7 @@ function readFile(file, options) {
 function writeFile(file, data) {
 	var deferred = Q.defer()
 
-	log.info(`writeFile:${file}`)
+	log.debug(`writeFile:${file}`)
 	fs.outputFile(file, data, err => {
 		if(err) {
 			log.error(err)
@@ -299,7 +307,7 @@ function writeFile(file, data) {
 function removeFile(file) {
 	var deferred = Q.defer()
 
-	log.info(`removeFile:${file}`)
+	log.debug(`removeFile:${file}`)
 	fs.remove(file, data, err => {
 		if(err) {
 			log.error(err)
@@ -316,7 +324,7 @@ function removeFile(file) {
 function saveProject(oldFile, code, isTemp) {
 	var deferred = Q.defer()
 
-	log.info(`saveProject: isTemp:${isTemp}`)
+	log.debug(`saveProject: isTemp:${isTemp}`)
 	if(oldFile) {
 		writeFile(path.join(oldFile, path.basename(oldFile) + ".ino"), code).then(_ => {
 			deferred.resolve(oldFile)
@@ -354,7 +362,7 @@ function buildProject(file, options) {
 
 	var command = `${scriptPath} ${file} ${options.board_type}`
 
-	log.info(`buildProject:${file}, options: ${JSON.stringify(options)}`)
+	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 	execCommand(command).then(_ => {
 		deferred.resolve(path.join(file, "build", path.basename(file) + ".ino.hex"))
 	}, err => {
@@ -367,7 +375,7 @@ function buildProject(file, options) {
 function uploadHex(hex, com, options) {
 	var deferred = Q.defer()
 
-	log.info(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
+	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
 	var command = `${scriptPath} ${hex} ${com}`
 
@@ -384,7 +392,7 @@ function execCommand(command, options) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	log.info(`execCommand:${command}, options: ${JSON.stringify(options)}`)
+	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}`)
 	child_process.exec(command, options, (err, stdout, stderr) => {
 		if(err) {
 			log.error(err)

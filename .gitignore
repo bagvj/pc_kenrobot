@@ -2,5 +2,6 @@ node_modules
 dist
 assets
 bak
+log
 .vscode
 .git-completion.bash

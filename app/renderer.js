@@ -1,7 +1,6 @@
 (function(global, exports) {
+	const {ipcRenderer} = require('electron')
 	const Q = require('q')
-	const electron = require('electron')
-	const ipcRenderer = electron.ipcRenderer
 
 	var registeredEvents = []
 	var defers = {}
