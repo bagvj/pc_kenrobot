@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "7zip-bin": "^2.0.4",
+    "browserify": "^13.1.1",
     "electron": "^1.4.12",
     "electron-builder": "^10.8.1",
     "gulp": "^3.9.1",

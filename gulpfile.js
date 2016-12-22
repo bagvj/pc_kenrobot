@@ -81,4 +81,4 @@ gulp.task('build', ['pack'], _ => {
 })
 
 // 默认任务
-gulp.task('default', ['build'])
+gulp.task('default', ['pack'])
