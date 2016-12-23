@@ -1,0 +1,114 @@
+.titlebar-region {
+	background-color: #ededed;
+	border: 1px solid #d3d3d3;
+	-webkit-app-region: drag;
+
+	.logo {
+		position: absolute;
+		width: 60px;
+		height: 50px;
+		left: 0;
+		background: url(../image/logo.png) center center no-repeat;
+		background-size: 50px;
+	}
+
+	.left-widget {
+		-webkit-app-region: no-drag;
+		float:left;
+
+		&:first-child {
+			margin-left: 60px;
+		}
+	}
+
+	.right-widget {
+		-webkit-app-region: no-drag;
+		float: right;
+
+		&:last-child {
+			margin-right: 112px;
+		}
+	}
+
+	.app-menu {
+		height: 50px;
+		display: none;
+
+		ul {
+			float: left;
+
+			li {
+				float: left;
+			}
+		}
+	}
+
+	.login-region {
+		display: none;
+		-webkit-app-region: no-drag;
+		height: 50px;
+		border-right: 1px solid #d3d3de;
+
+		.placeholder {
+			height: 50px;
+
+			.photo {
+				display: inline-block;
+				width: 36px;
+				height: 36px;
+				margin: 7px 5px 7px 0;
+			}
+
+			.name {
+				display: inline-block;
+				margin-right: 30px;
+				line-height: 50px;
+			}
+		}
+	}
+
+	.window-btns {
+		-webkit-app-region: no-drag;
+		height: 50px;
+		width: 112px;
+		position: absolute;
+		right: 0;
+
+		ul {
+			float: left;
+			margin-top: 15px;
+			margin-bottom: 15px;
+
+			li {
+				cursor: pointer;
+				float: left;
+				width: 20px;
+				height: 20px;
+				margin-left: 10px;
+
+				&:first-child {
+					margin-left: 16px;
+				}
+
+				&:last-child {
+					margin-right: 16px;
+				}
+
+				&:hover {
+					i {
+						color: #6A6D73;
+					}
+				}
+
+				i {
+					line-height: 20px;
+					width: 20px;
+					height: 20px;
+					font-size: 20px;
+					color: #ddd;
+					transition: color 0.2s;
+				}
+			}
+		}
+	}
+}

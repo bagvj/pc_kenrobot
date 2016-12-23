@@ -7,9 +7,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/net', '
 
 		var region = $('.sidebar-region');
 
-		$('.logo', region).on('click', onLogoClick);
-		$('.center > li', region).on('click', onTabClick);
-		$('.bottom > li', region).on('click', onBottomTabClick);
+		$('li', region).on('click', onTabClick);
 
 		tabs = $('.sidebar-tabs');
 
@@ -54,31 +52,6 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/net', '
 
 		emitor.trigger("sidebar", "activeTab", action);
 		
-		return false;
-	}
-
-	function onLogoClick(e) {
-		var isWeixin = navigator.userAgent.match(/MicroMessenger/) ? true : false;
-		if(isWeixin) {
-			window.location.href = window.location.pathname + "?" + new Date().getTime();
-		} else {
-			var url = $(this).data('href')
-			config.target == "pc" ? net.open(url) : (window.location.href = url);
-		}
-	}
-
-	function onBottomTabClick(e) {
-		var li = $(this);
-		var action = li.data('action');
-		switch(action) {
-			case "share":
-				emitor.trigger("project", "share");
-				break;
-			case "help": 
-				net.open(li.data("href"));
-				break;
-		}
-
 		return false;
 	}
 

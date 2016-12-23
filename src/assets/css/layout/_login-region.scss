@@ -90,19 +90,3 @@
 		}
 	}
 }
-
-@media screen and (max-width: $wide-screen-width) {
-	.login-region {
-		right: calc(100vw - 60px);
-		top: calc(100vh - 55px);
-
-		.photo {
-			cursor: default;
-		}
-
-		.login-menu {
-			top: -67px;
-			left: 63px;
-		}
-	}
-}

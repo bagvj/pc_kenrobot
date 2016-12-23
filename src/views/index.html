@@ -11,32 +11,165 @@
 	</head>
 	<body>
 		<div class="main no-select">
-			<div class="sidebar-region">
-				<div class="top">
-					<div class="logo" data-href="http://www.kenrobot.com"></div>
-					<div class="name">教育版</div>
-					<div class="url">edu.kenrobot.com</div>
+			<div class="titlebar-region">
+				<div class="logo"></div>
+				<div class="left-widget app-menu">
+					<ul>
+						<li>
+							<div class="placeholder">文件</div>
+							<ul>
+								<li class="item">
+									<span class="text">新建项目</span><span class="shortcut">Ctrl+N</span>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<span class="text">打开项目</span><span class="shortcut">Ctrl+O</span>
+								</li>
+								<li class="item">
+									<span class="text">保存项目</span><span class="shortcut">Ctrl+S</span>
+								</li>
+								<li class="item">
+									<span class="text">另存为</span><span class="shortcut">Ctrl+Shift+S</span>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="placeholder">编辑</div>
+							<ul>
+								<li class="item">
+									<span class="text">注释/取消注释</span><span class="shortcut">Ctrl+/</span>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<span class="text">复制</span><span class="shortcut">Ctrl+C</span>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="placeholder">案例</div>
+							<ul>
+								<li class="item">
+									<div class="placeholder">
+										<span class="text">基础示例</span><span class="arrow"></span>
+									</div>
+									<ul>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+									</ul>
+								</li>
+								<li class="item">
+									<div class="placeholder">
+										<span class="text">高级示例</span><span class="arrow"></span>
+									</div>
+									<ul>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+									</ul>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<div class="placeholder">
+										<span class="text">实用示例</span><span class="arrow"></span>
+									</div>
+									<ul>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+										<li class="item">
+											<span class="text">hello world</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="placeholder">选项</div>
+							<ul>
+								<li class="item">
+									<span class="text">语言</span>
+								</li>
+								<li class="item">
+									<span class="text">主题</span>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<span class="text">设置</span>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="placeholder">帮助</div>
+							<ul>
+								<li class="item">
+									<span class="text">Arduino驱动下载</span>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<span class="text">检查更新</span>
+								</li>
+								<li class="item">
+									<span class="text">啃萝卡官网</span>
+								</li>
+								<li class="item">
+									<span class="text">Arduino论坛</span>
+								</li>
+								<li class="seperator"></li>
+								<li class="item">
+									<span class="text">关于啃萝卜</span>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
-				<ul class="center">
-					<li data-action="project"><i class="icon kenrobot ken-edu-project"></i><span class="name">项目</span></li>
+				<div class="right-widget login-region">
+					<div class="placeholder">
+						<div class="photo no-user">
+							<img src="assets/image/default-user.png" />
+						</div>
+						<div class="name">未登录</div>
+					</div>
+					<div class="login-menu">
+						<ul>
+							<li data-action="setting"><span>设置</span></li>
+							<li data-action="logout"><span>退出</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="window-btns">
+					<ul>
+						<li data-action="min"><i class="kenrobot ken-screen-min"></i></li>
+						<li data-action="max"><i class="kenrobot ken-screen-max"></i></li>
+						<li data-action="close"><i class="kenrobot ken-close"></i></li>
+					</ul>
+				</div>
+			</div>
+			<div class="sidebar-region">
+				<ul>
 					<li data-action="hardware"><i class="icon kenrobot ken-edu-hardware"></i><span class="name">硬件</span></li>
 					<li data-action="software"><i class="icon kenrobot ken-edu-block"></i><span class="name">编程</span></li>
 					<li data-action="code"><i class="icon kenrobot ken-edu-code"></i><span class="name">源码</span></li>
-				</ul>
-				<ul class="bottom">
-					<li data-action="share"><i class="icon kenrobot ken-edu-share"></i><span class="name">分享</span></li>
-					<li class="open-url" data-action="help" data-href="http://www.kenrobot.com/index.php?app=square&mod=Index&act=help"><i class="icon kenrobot ken-edu-help"></i><span class="name">帮助</span></li>
+					<li data-action="upload"><i class="icon kenrobot ken-upload"></i><span class="name">上传</span></li>
 				</ul>
 			</div>
 			<div class="content-region">
 				<div class="sidebar-tabs">
-					<div class="tab tab-project no-scrollbar">
-						<div class="new-project">
-							<i class="icon kenrobot ken-new"></i>
-							<div class="new">新建项目</div>
-						</div>
-						<ul class="list"></ul>
-					</div>
 					<div class="tab tab-hardware">
 						<div class="search-wrap">
 							<input class="search" type="text" placeholder="搜索..." />
@@ -77,44 +210,15 @@
 					</div>
 				</div>
 				<div class="wrap">
-					<div class="content-header">
-						<div class="project-region">
-							<div class="name-wrap">
-								<div class="name ellipsis"></div>
-							</div>
-							<div class="project-wrap clearfix">
-								<input class="x-btn new" type="button" value="新建项目" />
+					<div class="content-tabs">
+						<div class="tab tab-hardware" data-action="hardware">
+							<div class="boards-region">
+								<div class="boards-label">控制板:</div>
 								<div class="x-select boards">
 									<div class="placeholder"></div>
 									<ul></ul>
 								</div>
-								<input class="x-btn share" type="button" value="分享" />
-								<input class="x-btn save" type="button" value="保存" />
-								<input class="x-btn upload" type="button" value="上传" />
 							</div>
-						</div>
-						<div class="login-region">
-							<div class="photo no-user" data-href="#">
-								<img src="assets/image/default-user.png" />
-							</div>
-							<div class="login-menu">
-								<div class="tab tab-user">
-									<ul>
-										<li data-action="setting"><span>设置</span></li>
-										<li data-action="logout"><span>退出</span></li>
-									</ul>
-								</div>
-								<div class="tab tab-no-user active">
-									<ul>
-										<li data-action="login"><span>登录</span></li>
-										<li data-action="register"><span>注册</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="content-tabs">
-						<div class="tab tab-hardware" data-action="hardware">
 							<div id="hardware-container" class="hardware-container" droppable="true">
 								<div class="board absolute-center"></div>
 							</div>

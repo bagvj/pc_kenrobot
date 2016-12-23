@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor', 'app/model/userModel', 'app/model/projectModel', 'app/model/uploadModel', 'app/component/content/project', 'app/component/content/hardware', 'app/component/content/software', 'app/component/content/code'], function($1, config, util, emitor, userModel, projectModel, uploadModel, project, hardware, software, code) {
+define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor', 'app/model/userModel', 'app/model/projectModel', 'app/model/uploadModel', 'app/component/content/hardware', 'app/component/content/software', 'app/component/content/code'], function($1, config, util, emitor, userModel, projectModel, uploadModel, hardware, software, code) {
 	var currentProject;
 	var tempProject;
 	var myProjects;
@@ -27,17 +27,11 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			projectInfo.id = 0;
 			tempProject = projectInfo;
 		}
-		project.updateProject(projectInfo);
 
 		currentProject && (currentProject.project_data = getProjectData());
 		currentProject = projectInfo;
 
-		project.updateCurrentProject(projectInfo);
-
 		var projectData = projectInfo.project_data;
-		var board = projectData.hardware && projectData.hardware.board || "ArduinoUNO";
-		project.setBoard(board);
-
 		hardware.setData(projectData.hardware);
 		software.setData(projectData.software);
 		code.setData(projectData.code);
@@ -84,12 +78,10 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		projectModel.getSchema().done(function(schema) {
 			hardware.loadSchema(schema.hardware);
 			software.loadSchema(schema.software);
-			project.updateBoards(schema.hardware.boards);
 		}).then(function() {
 			userModel.attach().done(function() {
 				userModel.authCheck().then(function() {
 					loadMyProject().then(function() {
-						project.updateList(myProjects);
 						emitor.trigger("route", "init");
 					}, function() {
 						emitor.trigger("route", "init");
@@ -102,9 +94,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function onUserLogin() {
-		loadMyProject().done(function() {
-			project.updateList(myProjects, false);
-		});
+
 	}
 
 	function onProjectView(hash) {
@@ -307,20 +297,17 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			var projectInfo = convertProject(result.data);
 			if (saveType == "new") {
 				myProjects.unshift(projectInfo);
-				project.addProject(projectInfo);
 
 				util.message("新建成功");
 				emitor.trigger("route", "set", "/project/" + projectInfo.hash);
 			} else if (saveType == "copy") {
 				myProjects.unshift(projectInfo);
-				project.addProject(projectInfo);
 
 				util.message("复制成功");
 				emitor.trigger("route", "set", "/project/" + projectInfo.hash);
 			} else if (saveType == "save") {
 				if (newSave) {
 					myProjects.unshift(projectInfo);
-					project.updateProject(projectInfo, true);
 					currentProject = projectInfo;
 					tempProject = null;
 				} else {
@@ -332,7 +319,6 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 				var index = findProjectIndex(myProjects, projectInfo.id);
 				myProjects[index] = projectInfo;
 
-				project.updateProject(projectInfo);
 				util.message("更新成功");
 			}
 		});
@@ -341,7 +327,6 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	function onProjectDeleteSuccess(id) {
 		var index = findProjectIndex(myProjects, id);
 		index >= 0 && myProjects.splice(index, 1);
-		project.removeProject(id);
 
 		var info = getCurrentProject();
 		if (info.id != id) {

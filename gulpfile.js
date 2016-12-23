@@ -131,7 +131,7 @@ gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
 gulp.task('build', ['pack'], _ => {
 	builder.build({
-		targets: builder.Platform.WINDOWS.createTarget(args.target || "dir", builder.archFromString(args.arch || "ia32")),
+		targets: builder.Platform.WINDOWS.createTarget(args.target || (args.release ? "zip" : "dir"), builder.archFromString(args.arch || "ia32")),
 		devMetadata: {
 			asar: args.release == true,
 		}

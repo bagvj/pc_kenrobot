@@ -62,6 +62,7 @@ $seperator-width: 5px;
 			height: 100%;
 			width: $sidebar-tabs-width;
 			display: none;
+			background-color: white;
 
 			&.active {
 				display: block;
@@ -104,7 +105,7 @@ $seperator-width: 5px;
 
 		.content-tabs {
 			position: absolute;
-			top: 97px;
+			top: 0;
 			bottom: 0;
 			left: 0;
 			right: 0;
@@ -122,46 +123,6 @@ $seperator-width: 5px;
 					visibility: visible;
 				}
 			}	
-		}
-	}
-}
-
-@media screen and (max-width: $wide-screen-width) {
-	.content-region {
-		.sidebar-tabs {
-			border-right: 1px solid #eceef1;
-
-			&:after {
-				display: none;
-			}
-
-			&.active {
-				&:after {
-					display: none;
-				}
-			}
-
-			&.slide-in {
-				@include animation(sidebar-tabs-slide-in 0.3s cubic-bezier(0, 0.8, 0.1, 1) both);
-
-				& + .wrap {
-					@include animation(none);
-				}
-			}
-
-			&.slide-out {
-				@include animation(sidebar-tabs-slide-out 0.3s cubic-bezier(0, 0.8, 0.1, 1) forwards);
-
-				& + .wrap {
-					@include animation(none);
-				}
-			}
-		}
-
-		& > .wrap {
-			.content-tabs {
-				top: 46px;
-			}
 		}
 	}
 }

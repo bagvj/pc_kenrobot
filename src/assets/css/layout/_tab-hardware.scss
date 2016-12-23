@@ -150,6 +150,88 @@
 .content-tabs {
 	.tab-hardware {
 		padding: 30px;
+
+		.boards-region {
+			position: relative;
+			z-index: 13;
+			padding: 20px 30px 0 30px;
+
+
+			.boards {
+				margin-left: 15px;
+				width: 240px;
+				height: 42px;
+				float: left;
+
+				.placeholder {
+					padding: 8px 30px 8px 8px;
+					border: 1px solid #c4d1dd;
+
+					&:after {
+						content: ' ';
+						width: 0;
+						height: 0;
+						border: 8px solid transparent;
+						border-top-color: #c4d1dd;
+						position: absolute;
+						top: 15px;
+						right: 12px;
+					}
+				}
+
+				.board-name {
+					height: 24px;
+					line-height: 24px;
+					font-size: 12px;
+					color: #75828e;
+					letter-spacing: 1px;
+					float: left;
+				}
+
+				.board {
+					margin-right: 8px;
+					width: 42px;
+					height: 24px;
+					background-size: contain;
+					background-position: center;
+					background-repeat: no-repeat;
+					float: left;
+				}
+
+				& > ul {
+					background-color: #f7f9f9;
+
+					li {
+						height: 42px;
+						padding: 8px 30px 8px 8px;
+						transition: background-color 0.2s;
+
+						&:hover {
+							background-color: #f2f2f2;
+						}
+					}
+				}
+
+				&.active {
+					.placeholder {
+						border-bottom: none;
+
+						&:after {
+							border-top-color: transparent;
+							border-bottom-color: #c4d1dd;
+							top: 6px;
+						}
+					}
+
+					& > ul {
+						border-left: 1px solid #c4d1dd;
+						border-right: 1px solid #c4d1dd;
+						border-bottom: 1px solid #c4d1dd;
+					}
+				}
+			}
+		}
+
 		
 		.hardware-container {
 			height: 100%;

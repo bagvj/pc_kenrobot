@@ -4,6 +4,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var componentList;
 	var search;
 	var boardData;
+	var boardList;
 
 	var container;
 	var componentDialog;
@@ -11,6 +12,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var boardContextMenu;
 	var contextMenuTarget;
 	var componentTemplate = '<li data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" /></div><div class="name">{{label}}</div></li>'
+	var boardTemplate = '<li data-value="{{name}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
 
 	var mouseDownComponentDom;
 	var dragContainer;
@@ -36,6 +38,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		hardwareModel.init(container[0]);
 		dragContainer = $('.component-drag-layer')[0];
 
+		boardList = $('.boards', region).on('click', '.placeholder', onShowBoardSelect).on('click', 'ul > li', onBoardSelectClick);
+		
 		componentDialog = $('.component-dialog', region);
 		$('.name', componentDialog).on('blur', onComponentNameBlur);
 
@@ -54,6 +58,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	function loadSchema(schema) {
 		hardwareModel.loadSchema(schema);
 
+		updateBoards(schema.boards);
 		updateComponents(schema.components);
 	}
 
@@ -68,6 +73,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	function setData(hardwareData) {
 		hardwareData = hardwareData || {};
 		hardwareModel.setData(hardwareData);
+		setBoard(hardwareData.board || "Arduino");
 
 		hideComponentDialog();
 	}
@@ -378,6 +384,35 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		}
 
 		componentDialog.addClass("active").data("uid", uid).find(".name").val(componentData.varName);
+	}
+
+	function setBoard(name) {
+		boardList.find('> ul > li[data-value="' + name + '"]').click();
+	}
+
+	function updateBoards(boards) {
+		var ul = boardList.find("> ul").empty();
+		boards.forEach(function(board) {
+			var li = boardTemplate.replace(/\{\{name\}\}/g, board.name)
+				.replace(/\{\{label\}\}/, board.label)
+				.replace(/\{\{src\}\}/, board.imageUrl);
+			ul.append(li);
+		});
+		ul.find("> li").eq(0).click();
+	}
+
+	function onShowBoardSelect(e) {
+		boardList.toggleClass("active");
+		return false;
+	}
+
+	function onBoardSelectClick(e) {
+		var li = $(this);
+		var name = li.data("value");
+		boardList.removeClass("active").find(".placeholder").html(li.html());
+		boardList.data("value", name);
+
+		name && emitor.trigger("hardware", "boardChange", name);
 	}
 
 	return {

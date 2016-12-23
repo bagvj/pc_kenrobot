@@ -39,10 +39,9 @@ function init() {
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		icon: "assets/image/logo3.png",
 		width: 1280,
 		height: 800,
-		// frame: false
+		frame: false
 	})
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -77,6 +76,14 @@ function listenMessage() {
 	ipcMain.on('app:reload', (e, deferId) => {
 		mainWindow.reload()
 		e.sender.send('app:reload', deferId, true, true)
+	}).on('app:min', (e, deferId) => {
+		mainWindow.minimize()
+		e.sender.send('app:reload', deferId, true, true)
+	}).on('app:max', (e, deferId) => {
+		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+		e.sender.send('app:reload', deferId, true, true)
+	}).on('app:quit', (e, deferId) => {
+		app.quit()
 	}).on('app:openUrl', (e, deferId, url) => {
 		var success = url && shell.openExternal.bind(shell, url)
 		e.sender.send('app:openUrl', deferId, success, success)
