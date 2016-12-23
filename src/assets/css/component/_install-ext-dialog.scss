@@ -1,0 +1,40 @@
+.install-ext-dialog {
+	width: 500px;
+	height: 306px;
+	background-color: white;
+
+	.x-dialog-title {
+		color: white;
+	    background-color: #939ba4;
+	}
+	
+	.x-dialog-content {
+		height: 220px;
+		display: block;
+		padding: 15px;
+
+		.step {
+			margin-top: 10px;
+			margin-left: 24px;
+			line-height: 24px;
+			a {
+				text-decoration: none;
+				color: #4bc1ec;
+			}
+		}
+
+		.des {
+			margin-left: 24px;
+			margin-top: 10px;
+			font-size: 12px;
+
+			.helpless {
+				font-size: 18px;
+			}
+		}
+	}
+
+	.x-dialog-btns {
+		width: 100px;
+	}
+}

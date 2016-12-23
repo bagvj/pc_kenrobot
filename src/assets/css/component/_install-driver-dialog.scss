@@ -1,0 +1,30 @@
+.install-driver-dialog {
+	width: 500px;
+	height: 236px;
+	background-color: white;
+
+	.x-dialog-title {
+		color: white;
+	    background-color: #939ba4;
+	}
+	
+	.x-dialog-content {
+		height: 150px;
+		display: block;
+		padding: 15px;
+
+		.step {
+			margin-top: 10px;
+			margin-left: 24px;
+			line-height: 24px;
+			a {
+				text-decoration: none;
+				color: #4bc1ec;
+			}
+		}
+	}
+
+	.x-dialog-btns {
+		width: 100px;
+	}
+}

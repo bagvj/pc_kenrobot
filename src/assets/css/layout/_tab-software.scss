@@ -1,0 +1,342 @@
+$module-color: #ec6e68;
+$function-color: #f69023;
+$var-color: #eeca24;
+$code-color: #a3ce47;
+$math-color: #47c5ca;
+$text-color: #20b5f9;
+$control-color: #0b75d2;
+$logic-color: #d764ae;
+
+$focus-color: #f1cb33;
+
+.sidebar-tabs {
+	.tab-software {
+		.filters-wrap {
+			padding-left: 20px;
+			padding-right: 20px;
+			height: 144px;
+			margin-bottom: 20px;
+			position: relative;
+
+			&:after {
+				content: ' ';
+				height: 1px;
+				display: block;
+				position: relative;
+				background-color: #eceef1;
+				top: 164px;
+				left: 0;
+			}
+
+			.filters {
+				float: left;
+
+				li {
+					border-radius: 5px;
+					width: 80px;
+					height: 36px;
+					font-size: 13px;
+					letter-spacing: 2px;
+					text-align: center;
+					line-height: 36px;
+					border-width: 1px;
+					border-style: solid;
+					margin-right: 10px;
+					margin-top: 12px;
+					cursor: pointer;
+					float: left;
+					transition: all 0.2s;
+
+					&:nth-child(3n) {
+						margin-right: 0;
+					}
+
+					&[data-filter="module"] {
+						color: $module-color;
+						border-color: $module-color;
+
+						&.active, &:hover {
+							background-color: $module-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="function"] {
+						color: $function-color;
+						border-color: $function-color;
+
+						&.active, &:hover {
+							background-color: $function-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="var"] {
+						color: $var-color;
+						border-color: $var-color;
+
+						&.active, &:hover {
+							background-color: $var-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="code"] {
+						color: $code-color;
+						border-color: $code-color;
+
+						&.active, &:hover {
+							background-color: $code-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="math"] {
+						color: $math-color;
+						border-color: $math-color;
+
+						&.active, &:hover {
+							background-color: $math-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="text"] {
+						color: $text-color;
+						border-color: $text-color;
+
+						&.active, &:hover {
+							background-color: $text-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="control"] {
+						color: $control-color;
+						border-color: $control-color;
+
+						&.active, &:hover {
+							background-color: $control-color;
+							color: white;
+						}
+					}
+
+					&[data-filter="logic"] {
+						color: $logic-color;
+						border-color: $logic-color;
+
+						&.active, &:hover {
+							background-color: $logic-color;
+							color: white;
+						}
+					}
+				}
+			}
+		}
+
+		.filter {
+			margin-left: 20px;
+			margin-right: 20px;
+			padding-top: 15px;
+
+			.filter-name {
+				color: #718ac0;
+				line-height: 28px;
+				height: 28px;
+				display: inline-block;
+				letter-spacing: 2px;
+			}
+
+			.advanced {
+				float: right;
+				font-size: 12px;
+				color: #718ac0;
+				letter-spacing: 2px;
+				height: 28px;
+				width: 54px;
+				border-radius: 5px;
+				background-color: #eceef1;
+				cursor: pointer;
+			}
+		}
+
+		.blocks-wrap {
+			left: 0;
+			right: 0;
+			top: 220px;
+			bottom: 20px;
+			position: absolute;
+			overflow-x: hidden;
+
+			.blocks {
+				li {
+					display: none;
+					padding: 5px 15px;
+
+					&.active {
+						display: block;
+					}
+				}
+
+				.block {
+					position: relative;
+				}
+			}
+		}
+	}
+}
+
+.content-tabs {
+	.tab-software {
+		padding: 30px;
+
+		.software-container {
+			height: 100%;
+			position: relative;
+		}
+
+		.block-group-region {
+			background-color: white;
+			margin-bottom: 20px;
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+
+			.group-header {
+				span {
+					height: 40px;
+					font-size: 16px;
+					line-height: 40px;
+					padding-left: 40px;
+					color: #718ac0;
+					position: relative;
+					cursor: pointer;
+					display: inline-block;
+
+					&:before {
+						content: ' ';
+						width: 0;
+						height: 0;
+						border: 8px solid transparent;
+						border-left-color: #718ac0;
+						position: absolute;
+						left: 12px;
+						top: 12px;
+					}
+				}
+			}
+
+			.group-extension {
+				padding-left: 20px;
+				padding-bottom: 50px;
+				display: none;
+				position: relative;
+
+				.group-description {
+					font-size: 13px;
+					color: #a9b6d2;
+					line-height: 18px;
+					margin-bottom: 18px;
+					cursor: default;
+				}
+
+				.group-placeholder {
+					padding: 12px;
+					color: #a9b6d2;
+					border: 2px dashed #a9b6d2;
+					font-size: 13px;
+					line-height: 18px;
+					display: inline-block;
+					cursor: default;
+				}
+
+				&.dragging {
+					.group-placeholder {
+						border: 2px solid $focus-color;
+					}
+				}
+			}
+
+			.block-group {
+				position: relative;
+				height: 0;
+				width: 100%;
+				cursor: default;
+
+				& > .connector-root {
+					height: 70px;
+					width: 290px;
+					left: -20px;
+					top: -60px;
+					background-color: transparent;
+				}
+			}
+
+			&.active {
+				.group-header {
+					span {
+						&:before {
+							border-left-color: transparent;
+							border-top-color: #718ac0;
+							top: 16px;
+						}
+					}
+				}
+
+				.group-extension {
+					display: block;
+				}
+			}
+
+			&.with-content {
+				.group-extension {
+					padding-top: 20px;
+					padding-bottom: 20px;
+
+					.group-description {
+						display: none;
+					}
+
+					.group-placeholder {
+						display: none;
+					}
+				}
+
+				.block-group {
+					position: relative;
+					height: auto;
+					width: 100%;
+
+					& > .connector-root {
+						height: 5px;
+						left: 0;
+						top: 0;
+					}
+				}
+			}
+		}
+
+		.block-menu {
+			li[data-action="comment"] {
+				display: none;
+			}
+
+			li[data-action="uncomment"] {
+				display: none;
+			}
+
+			&.comment {
+				li[data-action="comment"] {
+					display: block;
+				}
+			}
+
+			&.uncomment{
+				li[data-action="uncomment"] {
+					display: block;
+				}
+			}
+		}
+	}
+}

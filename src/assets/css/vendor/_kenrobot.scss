@@ -1,0 +1,184 @@
+
+@font-face {font-family: "kenrobot";
+  src: url('../font/kenrobot.eot?t=1480507722095'); /* IE9*/
+  src: url('../font/kenrobot.eot?t=1480507722095#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../font/kenrobot.woff?t=1480507722095') format('woff'), /* chrome, firefox */
+  url('../font/kenrobot.ttf?t=1480507722095') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../font/kenrobot.svg?t=1480507722095') format('svg'); /* iOS 4.1- */
+}
+
+.kenrobot {
+  font-family:"kenrobot" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ken-stop:before { content: "\e624"; }
+
+.ken-search:before { content: "\e630"; }
+
+.ken-edu-share:before { content: "\e64f"; }
+
+.ken-hd:before { content: "\e63e"; }
+
+.ken-fullscreen:before { content: "\e64a"; }
+
+.ken-weibo:before { content: "\e635"; }
+
+.ken-pause:before { content: "\e62b"; }
+
+.ken-qzone:before { content: "\e636"; }
+
+.ken-wechat:before { content: "\e650"; }
+
+.ken-edu-code:before { content: "\e64d"; }
+
+.ken-setting2:before { content: "\e628"; }
+
+.ken-switch-on2:before { content: "\e626"; }
+
+.ken-switch-off2:before { content: "\e627"; }
+
+.ken-check:before { content: "\e631"; }
+
+.ken-refresh:before { content: "\e764"; }
+
+.ken-arduino:before { content: "\e637"; }
+
+.ken-new:before { content: "\e824"; }
+
+.ken-comment:before { content: "\e62d"; }
+
+.ken-next:before { content: "\e639"; }
+
+.ken-github:before { content: "\e735"; }
+
+.ken-play:before { content: "\e62c"; }
+
+.ken-project2:before { content: "\e61a"; }
+
+.ken-chapter:before { content: "\e640"; }
+
+.ken-setting:before { content: "\e63a"; }
+
+.ken-rank:before { content: "\e641"; }
+
+.ken-arrow-left:before { content: "\e642"; }
+
+.ken-clear:before { content: "\e629"; }
+
+.ken-demo:before { content: "\e62e"; }
+
+.ken-add:before { content: "\e600"; }
+
+.ken-close:before { content: "\e601"; }
+
+.ken-icon-code:before { content: "\e602"; }
+
+.ken-component:before { content: "\e603"; }
+
+.ken-delete:before { content: "\e604"; }
+
+.ken-icon-hardware:before { content: "\e606"; }
+
+.ken-info-error:before { content: "\e607"; }
+
+.ken-info-info:before { content: "\e608"; }
+
+.ken-info-info2:before { content: "\e609"; }
+
+.ken-info-success:before { content: "\e60a"; }
+
+.ken-info-warning:before { content: "\e60b"; }
+
+.ken-library:before { content: "\e60c"; }
+
+.ken-switch-off:before { content: "\e60d"; }
+
+.ken-switch-on:before { content: "\e60e"; }
+
+.ken-project:before { content: "\e610"; }
+
+.ken-setting1:before { content: "\e611"; }
+
+.ken-share:before { content: "\e612"; }
+
+.ken-logout:before { content: "\e613"; }
+
+.ken-triangle-down:before { content: "\e614"; }
+
+.ken-triangle-left:before { content: "\e615"; }
+
+.ken-triangle-right:before { content: "\e616"; }
+
+.ken-triangle-up:before { content: "\e617"; }
+
+.ken-user:before { content: "\e618"; }
+
+.ken-move:before { content: "\e619"; }
+
+.ken-clone:before { content: "\e61b"; }
+
+.ken-board:before { content: "\e61c"; }
+
+.ken-switch:before { content: "\e61d"; }
+
+.ken-icon-folder:before { content: "\e61e"; }
+
+.ken-save:before { content: "\e605"; }
+
+.ken-terminal:before { content: "\e61f"; }
+
+.ken-upload:before { content: "\e620"; }
+
+.ken-build:before { content: "\e621"; }
+
+.ken-download:before { content: "\e622"; }
+
+.ken-format:before { content: "\e623"; }
+
+.ken-message:before { content: "\e63c"; }
+
+.ken-note:before { content: "\e62f"; }
+
+.ken-qq:before { content: "\e700"; }
+
+.ken-edu-help:before { content: "\e64e"; }
+
+.ken-serial:before { content: "\e62a"; }
+
+.ken-play1:before { content: "\e63d"; }
+
+.ken-stop1:before { content: "\e63f"; }
+
+.ken-hot:before { content: "\e633"; }
+
+.ken-tool:before { content: "\e632"; }
+
+.ken-guide:before { content: "\e634"; }
+
+.ken-arrow-right:before { content: "\e643"; }
+
+.ken-task-0:before { content: "\e644"; }
+
+.ken-task-2:before { content: "\e645"; }
+
+.ken-task-3:before { content: "\e646"; }
+
+.ken-logo:before { content: "\e647"; }
+
+.ken-face:before { content: "\e648"; }
+
+.ken-share1:before { content: "\e64b"; }
+
+.ken-exit-fullscreen:before { content: "\e638"; }
+
+.ken-password:before { content: "\e6c6"; }
+
+.ken-edu-hardware:before { content: "\e63b"; }
+
+.ken-edu-block:before { content: "\e649"; }
+
+.ken-edu-project:before { content: "\e64c"; }

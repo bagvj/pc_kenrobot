@@ -1,0 +1,1019 @@
+$module-color: #ec6e68;
+$module-deep-color: #d64a4a;
+$function-color: #f69023;
+$function-deep-color: #d87812;
+$var-color: #eeca24;
+$var-deep-color: #d9b40d;
+$code-color: #a3ce47;
+$code-deep-color: #91bb37;
+$math-color: #47c5ca;
+$math-deep-color: #2caaaf;
+$text-color: #20b5f9;
+$text-deep-color: #10a0e2;
+$control-color: #0b75d2;
+$control-deep-color: #0363b7;
+$logic-color: #d764ae;
+$logic-deep-color: #c04995;
+
+$connector-color: rgba(0, 0, 0, 0.5);
+$placeholder-color: rgba(255, 255, 255, 0.5);
+
+$disabled-image: url(../image/block.svg);
+$disabled-color: gray;
+$disabled-deep-color: #dadada;
+
+.block {
+	pointer-events: auto;
+	position: absolute;
+	cursor: pointer;
+	color: white;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	border-radius: 3px;
+	height: 40px;
+	margin: 2px;
+	display: table;
+	user-select: none;
+
+	.block-output {
+		margin: 0 2px;
+		position: relative;
+	}
+
+	&.block-statement {
+		padding-left: 14px;
+
+		.statement-content {
+			height: 40px;
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+
+	&.block-statement-input {
+		&:before {
+			width: 14px;
+			height: 100%;
+			display: block;
+			border-bottom-left-radius: 3px;
+			border-top-left-radius: 3px;
+			position: absolute;
+			content: ' ';
+		}
+
+		.statement-header {
+			height: 40px;
+			display: inline-flex;
+			align-items: center;
+			padding-left: 14px;
+			border-radius: 5px;
+			position: absolute;
+		}
+
+		.statement-extension {
+			padding-top: 40px;
+
+			.statement-extension-content {
+				margin-bottom: 40px;
+				margin-left: 14px;
+				border-radius: 3px;
+
+				& > .block {
+					position: relative;
+				}
+			}
+
+			.statement-extension-end {
+				height: 20px;
+				width: 150px;
+				border-radius: 5px;
+				padding-left: 14px;
+				position: relative;
+
+				&.with-content {
+					width: auto;
+					height: 40px;
+					display: inline-flex;
+					align-items: center;
+				}
+			}
+		}
+	}
+
+	&.block-output {
+		padding-left: 14px;
+		display: inline-flex;
+		align-items: center;
+
+		&:before {
+			content: ' ';
+			left: -10px;
+			top: 14px;
+			border-radius: 50%;
+			height: 14px;
+			width: 14px;
+			position: absolute;
+		}
+	}
+
+	&.block-group {
+		.group-content {
+			& > .block {
+				position: relative;
+			}
+		}
+	}
+
+	span {
+		margin-right: 14px;
+	}
+
+	input {
+		color: white;
+		width: 100px;
+		padding-left: 10px;
+		padding-right: 10px;
+		margin-right: 10px;
+		border-radius: 5px;
+		font-size: 14px;
+		height: 24px;
+		box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+		user-select: none;
+
+		@include placeholder {
+			color: $placeholder-color;
+		}
+	}
+
+	.select-wrap {
+		display:inline-block;
+		position: relative;
+
+		&::after {
+			content: ' ';
+			position: absolute;
+			width: 0;
+			height: 0;
+			border: 6px solid transparent;
+			border-top-color: white;
+			top: 10px;
+			right: 14px;
+			display: block;
+			pointer-events: none;
+		}
+	}
+
+	select {
+		appearance: none;
+		border-radius: 5px;
+		color: white;
+		margin-right: 10px;
+		padding-left: 10px;
+		padding-right: 25px;
+		font-size: 14px;
+		height: 24px;
+		box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+	}
+
+	textarea {
+		color: white;
+		text-overflow: ellipsis;
+		font-size: 14px;
+		height: 24px;
+		line-height: 24px;
+		padding-left: 10px;
+		padding-right: 10px;
+		margin: 7px 10px;
+		border-radius: 5px;
+		box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+		user-select: none;
+
+		@include placeholder {
+			color: $placeholder-color;
+		}
+	}
+
+	.connector {
+		position: absolute;
+
+		&.connector-top {
+			top: 0;
+			left: 0;
+			height: 4px;
+			width: 100%;
+
+			&.active {
+				background-color: $connector-color;
+			}
+		}
+
+		&.connector-bottom {
+			bottom: 0;
+			left: 0;
+			height: 4px;
+			width: 100%;
+
+			&.active {
+				background-color: $connector-color;
+			}
+		}
+
+		&.connector-input {
+			&.active {
+				&:after {
+					content: ' ';
+					width: 14px;
+					height: 14px;
+					position: absolute;
+					left: -10px;
+					top: 14px;
+					background-color: $connector-color;
+					border-radius: 50%;
+				}
+			}
+		}
+
+		&.connector-root {
+			width: calc(100% - 14px);
+			height: 4px;
+			top: 36px;
+			left: 14px;
+
+			&.active {
+				background-color: $connector-color;
+			}
+		}
+	}
+
+	.block-input {
+		min-width: 50px;
+		position: relative;
+		border-radius: 5px;
+		height: 40px;
+		display: inline-block;
+		margin-left: 6px;
+		margin-right: 10px;
+
+		&:before {
+			width: 14px;
+			height: 14px;
+			content: ' ';
+			position: absolute;
+			border-radius: 50%;
+			left: -10px;
+			top: 14px;
+		}
+	}
+
+	&.dragging {
+		z-index: 9;
+		opacity: 0.8;
+	}
+
+	&.module {
+		background-color: $module-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $module-color;
+			}
+
+			& > .statement-header {
+				background-color: $module-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $module-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $module-deep-color;
+					&:before {
+						background-color: $module-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $module-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $module-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $module-deep-color;
+					&:before {
+						background-color: $module-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $module-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $module-deep-color;
+					&:before {
+						background-color: $module-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $module-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $module-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $module-deep-color;
+				&:before {
+					background-color: $module-deep-color;
+				}
+			}
+		}
+	}
+
+	&.function {
+		background-color: $function-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $function-color;
+			}
+
+			& > .statement-header {
+				background-color: $function-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $function-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $function-deep-color;
+					&:before {
+						background-color: $function-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $function-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $function-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $function-deep-color;
+					&:before {
+						background-color: $function-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $function-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $function-deep-color;
+					&:before {
+						background-color: $function-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $function-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $function-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $function-deep-color;
+				&:before {
+					background-color: $function-deep-color;
+				}
+			}
+		}
+	}
+
+	&.var {
+		background-color: $var-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $var-color;
+			}
+
+			& > .statement-header {
+				background-color: $var-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $var-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $var-deep-color;
+					&:before {
+						background-color: $var-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $var-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $var-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $var-deep-color;
+					&:before {
+						background-color: $var-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $var-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $var-deep-color;
+					&:before {
+						background-color: $var-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $var-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $var-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $var-deep-color;
+				&:before {
+					background-color: $var-deep-color;
+				}
+			}
+		}
+	}
+
+	&.code {
+		background-color: $code-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $code-color;
+			}
+
+			& > .statement-header {
+				background-color: $code-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $code-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $code-deep-color;
+					&:before {
+						background-color: $code-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $code-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $code-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $code-deep-color;
+					&:before {
+						background-color: $code-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $code-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $code-deep-color;
+					&:before {
+						background-color: $code-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $code-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $code-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $code-deep-color;
+				&:before {
+					background-color: $code-deep-color;
+				}
+			}
+		}
+	}
+
+	&.math {
+		background-color: $math-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $math-color;
+			}
+
+			& > .statement-header {
+				background-color: $math-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $math-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $math-deep-color;
+					&:before {
+						background-color: $math-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $math-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $math-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $math-deep-color;
+					&:before {
+						background-color: $math-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $math-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $math-deep-color;
+					&:before {
+						background-color: $math-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $math-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $math-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $math-deep-color;
+				&:before {
+					background-color: $math-deep-color;
+				}
+			}
+		}
+	}
+
+	&.text {
+		background-color: $text-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $text-color;
+			}
+
+			& > .statement-header {
+				background-color: $text-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $text-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $text-deep-color;
+					&:before {
+						background-color: $text-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $text-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $text-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $text-deep-color;
+					&:before {
+						background-color: $text-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $text-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $text-deep-color;
+					&:before {
+						background-color: $text-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $text-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $text-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $text-deep-color;
+				&:before {
+					background-color: $text-deep-color;
+				}
+			}
+		}
+	}
+
+	&.control {
+		background-color: $control-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $control-color;
+			}
+
+			& > .statement-header {
+				background-color: $control-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $control-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $control-deep-color;
+					&:before {
+						background-color: $control-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $control-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $control-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $control-deep-color;
+					&:before {
+						background-color: $control-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $control-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $control-deep-color;
+					&:before {
+						background-color: $control-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $control-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $control-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $control-deep-color;
+				&:before {
+					background-color: $control-deep-color;
+				}
+			}
+		}
+	}
+
+	&.logic {
+		background-color: $logic-color;
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: $logic-color;
+			}
+
+			& > .statement-header {
+				background-color: $logic-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $logic-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $logic-deep-color;
+					&:before {
+						background-color: $logic-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension > .statement-extension-end {
+				background-color: $logic-color;
+
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $logic-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $logic-deep-color;
+					&:before {
+						background-color: $logic-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			& > .statement-content {
+				& > input, & > .select-wrap > select, & > textarea {
+					background-color: $logic-deep-color;
+				}
+
+				& > .block-input {
+					background-color: $logic-deep-color;
+					&:before {
+						background-color: $logic-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			&:before {
+				background-color: $logic-color;
+			}
+
+			& > input, & > .select-wrap > select, & > textarea {
+				background-color: $logic-deep-color;
+			}
+
+			& > .block-input {
+				background-color: $logic-deep-color;
+				&:before {
+					background-color: $logic-deep-color;
+				}
+			}
+		}
+	}
+
+	&.disabled {
+		color: $disabled-color;
+
+		.select-wrap {
+			&:after {
+				border-top-color: $disabled-deep-color;
+			}
+		}
+
+		.block-input {
+			background-color: $disabled-deep-color;
+			&:before {
+				background-color: $disabled-deep-color;
+			}
+		}
+
+		&.block-statement-input {
+			background-color: transparent;
+
+			&:before {
+				background-color: white;
+				background-image: $disabled-image;
+			}
+
+			& > .statement-header {
+				background-color: white;
+				background-image: $disabled-image;
+
+				& > span {
+					color: $disabled-color;
+				}
+
+				& > .select-wrap > select {
+					color: $disabled-color;
+					background-color: white;
+				}
+
+				& > input, & > textarea {
+					color: $disabled-color;
+					background-color: white;
+
+					@include placeholder {
+						color: $disabled-color;
+					}
+				}
+
+				& > .block-input {
+					background-color: $disabled-deep-color;
+					&:before {
+						background-color: $disabled-deep-color;
+					}
+				}
+			}
+
+			& > .statement-extension .statement-extension-end {
+				background-color: white;
+				background-image: $disabled-image;
+
+				& > span {
+					color: $disabled-color;
+				}
+
+				& > .select-wrap > select {
+					color: $disabled-color;
+					background-color: white;
+				}
+
+				& > input, & > textarea {
+					color: $disabled-color;
+					background-color: white;
+
+					@include placeholder {
+						color: $disabled-color;
+					}
+				}
+
+				& > .block-input {
+					background-color: $disabled-deep-color;
+					&:before {
+						background-color: $disabled-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-statement {
+			background-color: white;
+			background-image: $disabled-image;
+
+			& > .statement-content {
+				& > span {
+					color: $disabled-color;
+				}
+
+				& > .select-wrap > select {
+					color: $disabled-color;
+					background-color: white;
+				}
+
+				& > input, & > textarea {
+					color: $disabled-color;
+					background-color: white;
+
+					@include placeholder {
+						color: $disabled-color;
+					}
+				}
+
+				& > .block-input {
+					background-color: $disabled-deep-color;
+					&:before {
+						background-color: $disabled-deep-color;
+					}
+				}
+			}
+		}
+
+		&.block-output {
+			background-color: white;
+			background-image: $disabled-image;
+
+			&:before {
+				background-color: white;
+				background-image: $disabled-image;
+				background-position: 4px 0;
+			}
+
+			& > span {
+				color: $disabled-color;
+			}
+
+			& > .select-wrap > select {
+				color: $disabled-color;
+				background-color: white;
+			}
+
+			& > input, & > textarea {
+				color: $disabled-color;
+				background-color: white;
+
+				@include placeholder {
+					color: $disabled-color;
+				}
+			}
+
+			& > .block-input {
+				background-color: $disabled-deep-color;
+				&:before {
+					background-color: $disabled-deep-color;
+				}
+			}
+		}
+	}
+}

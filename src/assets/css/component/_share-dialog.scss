@@ -1,0 +1,87 @@
+.share-dialog {
+	width: 360px;
+	height: 280px;
+	border-radius: 5px;
+	background-color: white;
+	color: white;
+
+	.x-dialog-header {
+		height: 170px;
+		width: 100%;
+		top: -52px;
+		left: 0;
+		position: absolute;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(../image/dialog-pretty.png);
+	}
+
+	.x-dialog-content {
+		color: #333;
+		height: auto;
+		border-radius: 5px;
+		margin-top: 118px;
+		padding: 14px;
+		color: #39426a;
+		display: block;
+		overflow: auto;
+
+		.share {
+			height: 24px;
+			line-height: 24px;
+
+			& > i {
+				margin-right: 10px;
+				font-size: 24px;
+				height: 24px;
+				float: left;
+			}
+
+			&[data-action="wechat"] > i {
+				color: #62b900;
+			}
+
+			&[data-action="weibo"] > i {
+				color: #E5222E;
+			}
+
+			&[data-action="qzone"] > i {
+				color: #FFC536;
+			}
+
+			&[data-action="kenrobot"] > i {
+				color: #0088FF;
+			}
+		}
+
+		.left {
+			float: left;
+			height: 130px;
+			margin-left: 45px;
+			padding-right: 30px;
+			border-right: 1px solid #eaeaea;
+
+			.qrcode {
+				margin-top: 6px;
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		.right {
+			float: left;
+			height: 130px;
+			margin-left: 30px;
+
+			& > ul > li {
+				cursor: pointer;
+				margin-bottom: 14px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}

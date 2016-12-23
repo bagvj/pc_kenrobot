@@ -1,0 +1,274 @@
+.x-message {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 11px 24px 11px 14px;
+    left: 0;
+    right: 0;
+    min-width: 400px;
+    width: 400px;
+    font-size: 14px;
+    border-width: 1px;
+    border-style: solid;
+    cursor: default;
+
+    .x-message-close {
+        color: #c1ccba;
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 36px;
+        line-height: 36px;
+        font-size: 24px;
+        user-select: none;
+
+        &:hover {
+            color: #ff6666;
+        }
+    }
+
+    &.info {
+        color: #009b00;
+        background-color: #f2fee9;
+        border-color: #c6deb7;
+    }
+
+    &.error {
+        color: #9b3500;
+        background-color: #fff7ee;
+        border-color: #ded8b7;
+    }
+}
+
+@include keyframes('dialog-fadeIn') {
+    from {
+        opacity: 0;
+        transform: translateY(-400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@include keyframes('dialog-fadeOut') {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-300px);
+    }
+}
+
+.x-dialog {
+    width: 400px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    display: none;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    color: #515151;
+
+    &.active {
+        display: block;
+    }
+
+    &.dialog-in {
+        transform: translateY(0);
+    }
+
+    &.dialog-fadeIn {
+        @include animation('dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+    }
+
+    &.dialog-fadeOut {
+        @include animation('dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+    }
+
+    .x-dialog-title {
+        font-size: 16px;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+    }
+
+    .x-dialog-close {
+        font-size: 20px;
+        right: 10px;
+        top: 3px;
+        z-index: 10;
+        position: absolute;
+        cursor: pointer;
+
+        &:hover {
+            color: #ff6666;
+        }
+    }
+    
+    .x-dialog-content {
+        height: 110px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+
+    .x-dialog-btns {
+        margin-bottom: 20px;
+        white-space: nowrap;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+
+        .x-dialog-btn {
+            width: 100px;
+            height: 30px;
+            display: inline-block;
+
+            &.confirm {
+                background-color: #4bc1ec;
+            }
+
+            &.cancel {
+                background-color: #ea9c68;
+            }
+        }
+    }
+}
+
+.x-context-menu {
+    display: none;
+    position: absolute;
+
+    float: left;
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    z-index: 100;
+
+
+    & > li {
+        height: 30px;
+        cursor: pointer;
+        float: left;
+        width: 100px;
+        font-size: 12px;
+        color: #718ac0;
+        letter-spacing: 2px;
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+
+        &:hover {
+            background-color: #f7f9f9;
+        }
+    }
+
+    &.active {
+        display: block;
+    }
+}
+
+.x-select {
+    position: relative;
+
+    .placeholder {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        height: 100%;
+        border: 1px solid #c4d1dd;
+    }
+
+    & > ul {
+        display: none;
+        z-index: 100;
+        top: 100%;
+        width: 100%;
+        position: absolute;
+
+        li {
+            display: block;
+            cursor: pointer;
+        }
+    }
+
+    &.active {
+        & > ul {
+            display: block;
+        }
+    }
+}
+
+
+@include keyframes('a-dialog-fadeIn') {
+    from {
+        opacity: 0;
+        transform: translateY(-400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@include keyframes('a-dialog-fadeOut') {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-300px);
+    }
+}
+
+.a-dialog {
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    display: none;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+
+    &.active {
+        display: block;
+    }
+
+    &.dialog-fadeIn {
+        @include animation('a-dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+    }
+
+    &.dialog-fadeOut {
+        @include animation('a-dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+    }
+
+    .dialog-close {
+        color: #515151;
+        font-size: 26px;
+        right: 10px;
+        top: 0;
+        position: absolute;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #ff6666;
+        }
+    }
+}

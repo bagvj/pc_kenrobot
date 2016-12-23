@@ -1,0 +1,262 @@
+.project-region {
+	position: relative;
+	z-index: 13;
+	padding: 20px 30px 0 30px;
+	
+	.name-wrap {
+		margin-bottom: 15px;
+		height: 20px;
+	}
+
+	.name {
+		color: #39426a;
+		letter-spacing: 1px;
+		line-height: 20px;
+		font-size: 14px;
+		max-width: 210px;
+		display: inline-block;
+	}
+
+	.project-wrap {
+		.x-btn {
+			background-color: #0b7bdc;
+			border-radius: 5px;
+			height: 42px;
+			line-height: 42px;
+			letter-spacing: 1.75px;
+			color: white;
+			float: left;
+			transition: background-color 0.2s;
+
+			&:hover {
+				background-color: #2093ff;
+			}
+		}
+
+		.new {
+			width: 100px;
+			border: 1px solid #0b7bdc;
+			color: #0088ff;
+			background-color: white;
+			transition: background-color 0.2s, color 0.2s;
+
+			&:hover {
+				color: white;
+				border-color: #2093ff;
+			}
+		}
+
+		.boards {
+			margin-left: 15px;
+			width: 240px;
+			height: 42px;
+			float: left;
+
+			.placeholder {
+				padding: 8px 30px 8px 8px;
+				border: 1px solid #c4d1dd;
+
+				&:after {
+					content: ' ';
+					width: 0;
+					height: 0;
+					border: 8px solid transparent;
+					border-top-color: #c4d1dd;
+					position: absolute;
+					top: 15px;
+					right: 12px;
+				}
+			}
+
+			.board-name {
+				height: 24px;
+				line-height: 24px;
+				font-size: 12px;
+				color: #75828e;
+				letter-spacing: 1px;
+				float: left;
+			}
+
+			.board {
+				margin-right: 8px;
+				width: 42px;
+				height: 24px;
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				float: left;
+			}
+
+			& > ul {
+				background-color: #f7f9f9;
+
+				li {
+					height: 42px;
+					padding: 8px 30px 8px 8px;
+					transition: background-color 0.2s;
+
+					&:hover {
+						background-color: #f2f2f2;
+					}
+				}
+			}
+
+			&.active {
+				.placeholder {
+					border-bottom: none;
+
+					&:after {
+						border-top-color: transparent;
+						border-bottom-color: #c4d1dd;
+						top: 6px;
+					}
+				}
+
+				& > ul {
+					border-left: 1px solid #c4d1dd;
+					border-right: 1px solid #c4d1dd;
+					border-bottom: 1px solid #c4d1dd;
+				}
+			}
+		}
+
+		.share {
+			display: none;
+		}
+
+		.save {
+			width: 60px;
+			margin-left: 15px;
+		}
+
+		.upload {
+			width: 60px;
+			margin-left: 15px;
+		}
+	}
+}
+
+@media screen and (max-width: $wide-screen-width) {
+	@include keyframes('project-region-slide-in') {
+		from {
+			transform: translateY(-270px);
+		}
+		to {
+			transform: translateY(0);
+		}
+	}
+
+	@include keyframes('project-region-slide-out') {
+		from {
+			transform: translateY(0);
+		}
+		to {
+			transform: translateY(-270px);
+		}
+	}
+
+	.project-region {
+		padding-top: 26px;
+		padding-bottom: 0;
+
+		.name-wrap {
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+		}
+
+		.name {
+			position: relative;
+			padding-right: 20px;
+			color: #333;
+			cursor: pointer;
+
+			&:before {
+				content: '';
+				background-color: #718ac0;
+				width: 12px;
+				height: 12px;
+				position: absolute;
+				border-radius: 50%;
+				top: 4px;
+				right: 2px;
+			}
+
+			&:after {
+				content: '';
+				width: 4px;
+				height: 4px;
+				border: 4px solid transparent;
+				border-top-color: white;
+				position: absolute;
+				right: 4px;
+				top: 8px;
+			}
+		}
+
+		.project-wrap {
+			background-color: rgba(255, 255, 255, 0.9);
+			border: 1px solid #cad1e0;
+			border-radius: 5px;
+			padding: 40px 60px;
+			display: none;
+			margin-top: 30px;
+			margin-left: auto;
+			margin-right: auto;
+			width: 502px;
+
+			.new {
+				margin-right: 40px;
+				background-color: transparent;
+				border: 1px solid #0b7bdc;
+				color: #0b7bdc;
+				margin-bottom: 40px;
+			}
+
+			.boards {
+				margin-left: 0;
+				margin-bottom: 40px;
+			}
+
+			.share {
+				width: 100px;
+				background-color: #f2bc15;
+				display: block;
+			}
+
+			.save {
+				width: 100px;
+				margin-left: 40px;
+			}
+
+			.upload {
+				width: 100px;
+				margin-left: 40px;
+			}
+		}
+
+		&.active {
+			.project-wrap {
+				background-color: white;
+				display: block;
+			}
+		}
+
+		&.slide-in {
+			.project-wrap {
+				background-color: white;
+				display: block;
+				@include animation(project-region-slide-in 0.3s cubic-bezier(0, 0.8, 0.1, 1) both);
+			}
+		}
+
+		&.slide-out {
+			.project-wrap {
+				background-color: white;
+				display: block;
+				@include animation(project-region-slide-out 0.3s cubic-bezier(0, 0.8, 0.1, 1) forwards);
+			}
+		}
+	}
+}

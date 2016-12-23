@@ -1,0 +1,135 @@
+.no-select {
+  -moz-user-select: none;
+  -o-user-select:none;
+  -khtml-user-select:none;
+  -webkit-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  cursor: default;
+}
+
+.can-select {
+  -moz-user-select: text;
+  -o-user-select:text;
+  -khtml-user-select:text;
+  -webkit-user-select:text;
+  -ms-user-select:text;
+  user-select:text;
+  cursor: auto;
+}
+
+.no-scrollbar {
+  overflow-y: auto;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::-moz-scrollbar {
+    display: none;
+  }
+
+  &::-ms-scrollbar {
+    display: none;
+  }
+
+  &::-o-scrollbar {
+    display: none;
+  }
+
+  &::scrollbar {
+    display: none;
+  }
+}
+
+.absolute-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+}
+
+.modal {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  background-color: rgba(47, 50, 60, 0.88);
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-o-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($args...) {
+  -webkit-animation: $args;
+  -o-animation: $args;
+  -ms-animation: $args;
+  -ms-animation: $args;
+  animation: $args;
+}
+
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+}
