@@ -13,143 +13,144 @@
 		<div class="main no-select">
 			<div class="titlebar-region">
 				<div class="logo"></div>
-				<div class="left-widget app-menu">
-					<ul>
-						<li>
-							<div class="placeholder">文件</div>
-							<ul>
-								<li class="item">
-									<span class="text">新建项目</span><span class="shortcut">Ctrl+N</span>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<span class="text">打开项目</span><span class="shortcut">Ctrl+O</span>
-								</li>
-								<li class="item">
-									<span class="text">保存项目</span><span class="shortcut">Ctrl+S</span>
-								</li>
-								<li class="item">
-									<span class="text">另存为</span><span class="shortcut">Ctrl+Shift+S</span>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<div class="placeholder">编辑</div>
-							<ul>
-								<li class="item">
-									<span class="text">注释/取消注释</span><span class="shortcut">Ctrl+/</span>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<span class="text">复制</span><span class="shortcut">Ctrl+C</span>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<div class="placeholder">案例</div>
-							<ul>
-								<li class="item">
-									<div class="placeholder">
-										<span class="text">基础示例</span><span class="arrow"></span>
-									</div>
-									<ul>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-									</ul>
-								</li>
-								<li class="item">
-									<div class="placeholder">
-										<span class="text">高级示例</span><span class="arrow"></span>
-									</div>
-									<ul>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-									</ul>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<div class="placeholder">
-										<span class="text">实用示例</span><span class="arrow"></span>
-									</div>
-									<ul>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-										<li class="item">
-											<span class="text">hello world</span>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<div class="placeholder">选项</div>
-							<ul>
-								<li class="item">
-									<span class="text">语言</span>
-								</li>
-								<li class="item">
-									<span class="text">主题</span>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<span class="text">设置</span>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<div class="placeholder">帮助</div>
-							<ul>
-								<li class="item">
-									<span class="text">Arduino驱动下载</span>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<span class="text">检查更新</span>
-								</li>
-								<li class="item">
-									<span class="text">啃萝卡官网</span>
-								</li>
-								<li class="item">
-									<span class="text">Arduino论坛</span>
-								</li>
-								<li class="seperator"></li>
-								<li class="item">
-									<span class="text">关于啃萝卜</span>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div class="right-widget login-region">
-					<div class="placeholder">
-						<div class="photo no-user">
-							<img src="assets/image/default-user.png" />
-						</div>
-						<div class="name">未登录</div>
-					</div>
-					<div class="login-menu">
+				<div class="left-widgets">
+					<div class="app-menu">
 						<ul>
-							<li data-action="setting"><span>设置</span></li>
-							<li data-action="logout"><span>退出</span></li>
+							<li>
+								<div class="placeholder">文件</div>
+								<ul>
+									<li data-action="new-project">
+										<span class="text">新建项目</span><span class="shortcut">Ctrl+N</span>
+									</li>
+									<li class="seperator"></li>
+									<li data-action="open-project">
+										<span class="text">打开项目</span><span class="shortcut">Ctrl+O</span>
+									</li>
+									<li data-action="save-project">
+										<span class="text">保存项目</span><span class="shortcut">Ctrl+S</span>
+									</li>
+									<li data-action="save-as-project">
+										<span class="text">另存为</span><span class="shortcut">Ctrl+Shift+S</span>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="placeholder">编辑</div>
+								<ul>
+									<li data-action="toggle-comment">
+										<span class="text">注释/取消注释</span><span class="shortcut">Ctrl+/</span>
+									</li>
+									<li class="seperator"></li>
+									<li data-action="copy">
+										<span class="text">复制</span><span class="shortcut">Ctrl+C</span>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="placeholder">案例</div>
+								<ul>
+									<li>
+										<div class="placeholder arrow">基本示例</div>
+										<ul>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<div class="placeholder arrow">高级示例</div>
+										<ul>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+										</ul>
+									</li>
+									<li class="seperator"></li>
+									<li>
+										<div class="placeholder arrow">实用示例</div>
+										<ul>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+											<li data-action="open-demo">
+												<span class="text">hello world</span>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="placeholder">选项</div>
+								<ul>
+									<li>
+										<span class="text">语言</span>
+									</li>
+									<li>
+										<span class="text">主题</span>
+									</li>
+									<li class="seperator"></li>
+									<li>
+										<span class="text">设置</span>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="placeholder">帮助</div>
+								<ul>
+									<li data-action="download-arduino-driver">
+										<span class="text">Arduino驱动下载</span>
+									</li>
+									<li class="seperator"></li>
+									<li data-action="check-update">
+										<span class="text">检查更新</span>
+									</li>
+									<li data-action="visit-kenrobot">
+										<span class="text">啃萝卡官网</span>
+									</li>
+									<li data-action="visit-arduino">
+										<span class="text">Arduino论坛</span>
+									</li>
+									<li class="seperator"></li>
+									<li data-action="suggestion">
+										<span class="text">建议反馈</span>
+									</li>
+									<li data-action="about-kenrobot">
+										<span class="text">关于啃萝卜</span>
+									</li>
+								</ul>
+							</li>
 						</ul>
+					</div>
+				</div>
+				<div class="right-widgets">
+					<div class="login-region">
+						<div class="placeholder">
+							<div class="photo no-user">
+								<img src="assets/image/default-user.png" />
+							</div>
+							<div class="name">未登录</div>
+						</div>
+						<div class="login-menu">
+							<ul>
+								<li data-action="setting"><span>设置</span></li>
+								<li data-action="logout"><span>退出</span></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="window-btns">

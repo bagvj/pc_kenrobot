@@ -30,6 +30,11 @@ define(function() {
 				//最大长度
 				maxCodeLength: 10 * 1024 * 1024
 			},
+			url: {
+				kenrobot: "http://www.kenrobot.com",
+				arduino: "http://www.arduino.cc",
+				arduinoDriver: "http://ide.kenrobot.com/download/arduino-driver-x{BIT}.zip",
+			}
 		},
 		//调试模式
 		debug: {

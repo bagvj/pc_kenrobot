@@ -1,7 +1,18 @@
 .titlebar-region {
 	background-color: #ededed;
-	border: 1px solid #d3d3d3;
 	-webkit-app-region: drag;
+	z-index: 19;
+
+	&:after {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		content: '';
+		border: 1px solid #d3d3d3;
+		pointer-events: none;
+	}
 
 	.logo {
 		position: absolute;
@@ -12,47 +23,152 @@
 		background-size: 50px;
 	}
 
-	.left-widget {
+	.left-widgets {
 		-webkit-app-region: no-drag;
 		float:left;
-
-		&:first-of-type {
-			margin-left: 60px;
-		}
+		margin-left: 60px;
 	}
 
-	.right-widget {
+	.right-widgets {
 		-webkit-app-region: no-drag;
 		float: right;
-
-		&:last-of-type {
-			margin-right: 112px;
-		}
+		margin-right: 112px;
 	}
 
 	.app-menu {
 		height: 50px;
-		display: none;
+		display: block;
+		margin-left: 20px;
+
+		&.active {
+			li {
+				&:hover {
+					& > ul {
+						display: block;
+					}
+				}
+			}
+		}
 
 		ul {
 			float: left;
+			background-color: #ededed;
 		}
 
 		li {
 			float: left;
-			
-			.placeholder {
-				display: block;
-			}
+			font-size: 14px;
+			color: #666;
+			letter-spacing: 0;
+			cursor: pointer;
+			position: relative;
+			display: block;
 
-			&:hover {
-				& > ul {
-					display: block;
-				}
-			}
+			// &:hover {
+			// 	& > ul {
+			// 		display: block;
+			// 	}
+			// }
 
 			& > ul {
 				display: none;
+				position: absolute;
+				box-shadow: 2px 6px 10px 0 rgba(105, 109, 115, 0.4);
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+
+				li {
+					line-height: 30px;
+					padding-left: 15px;
+					padding-right: 15px;
+					width: 180px;
+
+					&:hover {
+						color: white;
+						background: #6a6d73;
+
+						.shortcut {
+							color: white;
+						}
+
+						.placeholder {
+							&.arrow:after {
+								border-left-color: white;
+							}
+						}
+					}
+
+					&.seperator {
+						height: 1px;
+						background-color: #d3d3de;
+						pointer-events: none;
+						line-height: 1px;
+					}
+
+					.text {
+						line-height: 30px;
+						display: inline-block;
+						float: left;
+					}
+
+					.shortcut {
+						line-height: 30px;
+						display: inline-block;
+						font-size: 12px;
+						float: right;
+						color: #999;
+					}
+
+					.placeholder {
+						position: relative;
+
+						&.arrow:after {
+							content: '';
+							width: 4px;
+							height: 6px;
+							border: 3px solid transparent;
+							border-left-color: #666;
+							display: block;
+							position: absolute;
+							top: 13px;
+							right: 0;
+						}
+					}
+
+					ul {
+						left: 100%;
+						top: 0;
+					}
+				}
+			}
+		}
+
+		& > ul > li {
+			margin-right: 30px;
+			height: 50px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+			
+			& > .placeholder {
+				text-align: center;
+				line-height: 50px;
+				padding-right: 11px;
+
+				&:after {
+					content: '';
+					width: 6px;
+					height: 4px;
+					border: 3px solid transparent;
+					border-top-color: #666;
+					display: block;
+					position: absolute;
+					top: 24px;
+					right: 2px;
+				}
 			}
 		}
 	}

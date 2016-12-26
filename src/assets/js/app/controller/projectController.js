@@ -340,73 +340,33 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	function onProjectUpload() {
 		onCodeRefresh();
 
-		if(config.target == "pc") {
-			var project_data = getProjectData();
-			kenrobot.postMessage("app:saveProject", savePath, project_data.code).then(function(path) {
-				savePath = path;
-				util.message("保存成功，开始编译");
-				kenrobot.postMessage("app:buildProject", path).then(function(hex) {
-					util.message("编译成功，正在上传请稍候");
-					kenrobot.postMessage("app:uploadHex", hex).then(function(result) {
-						util.message("上传成功");
-					}, function(err) {
-						if(err.status && err.status == "SELECT_PORT") {
-							onProjectUploadFail(3, err.ports).then(function(portPath) {
-								kenrobot.postMessage("app:uploadHex2", hex, portPath);
-							});
-						} else {
-							util.message("上传失败")
-						}
-					});
-				}, function(err) {
-					util.message("编译失败");
-				});
-			}, function(result) {
-				util.message("保存失败");
-			});
-			return;
-		}
-
-		var projectInfo = getCurrentProject();
-		if (projectInfo.id == 0) {
-			emitor.trigger('project', 'show', {
-				data: projectInfo,
-				type: 'save'
-			});
-			return;
-		}
-
-		projectInfo.project_data = JSON.stringify(getProjectData());
-		projectInfo.user_id = userModel.getUserId();
-
-		projectModel.save(projectInfo).done(function(result) {
-			if (result.status != 0) {
-				util.message(result.message);
-				return;
-			}
-
-			var boardData = hardware.getBoardData();
-			projectModel.build(projectInfo.id, boardData.type).done(function(res) {
-				if (res.status != 0) {
-					util.message(res.message);
-					return;
-				}
-
+		var project_data = getProjectData();
+		kenrobot.postMessage("app:saveProject", savePath, project_data.code).then(function(path) {
+			savePath = path;
+			util.message("保存成功，开始编译");
+			kenrobot.postMessage("app:buildProject", path).then(function(hex) {
 				util.message("编译成功，正在上传请稍候");
-				uploadModel.check(true).then(function() {
-					uploadModel.upload(res.url).then(function() {
-						util.message("上传成功");
-					}, function(code, args) {
-						onProjectUploadFail(code, args).done(function(portPath) {
-							uploadModel.upload(res.url, portPath).then(function() {
-								util.message("上传成功");
-							}, onProjectUploadFail);
+				kenrobot.postMessage("app:uploadHex", hex).then(function(result) {
+					util.message("上传成功");
+				}, function(err) {
+					console.log("upload fail");
+					console.dir(err);
+					if(err.status && err.status == "SELECT_PORT") {
+						onProjectUploadFail(3, err.ports).then(function(portPath) {
+							kenrobot.postMessage("app:uploadHex2", hex, portPath);
 						});
-					});
-				}, function(code) {
-					code > 100 && util.message("暂时不支持上传");
+					} else if(err.status && err.status == "NOT_FOUND_PORT") {
+						console.log("bbbbbbb");
+						onProjectUploadFail(1);
+					} else {
+						util.message("上传失败")
+					}
 				});
+			}, function(err) {
+				util.message("编译失败");
 			});
+		}, function(result) {
+			util.message("保存失败");
 		});
 	}
 

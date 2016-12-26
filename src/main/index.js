@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, net, dialog, shell, Menu} = require('electron')
+const {app, BrowserWindow, ipcMain, net, dialog, shell, Menu, globalShortcut} = require('electron')
 
 const child_process = require('child_process')
 const path = require('path')
@@ -188,8 +188,10 @@ function listenMessage() {
 					ports: ports,
 				})
 			}
-		}, err => {
-			e.sender.send('app:uploadHex', deferId, false, err)
+		}, _ => {
+			e.sender.send('app:uploadHex', deferId, false, {
+				status: "NOT_FOUND_PORT"
+			})
 		})
 	}).on('app:uploadHex2', (e, deferId, hex, com, options) => {
 		uploadHex(hex, com, options).then(_ => {
@@ -330,6 +332,7 @@ function removeFile(file) {
 
 function saveProject(oldFile, code, isTemp) {
 	var deferred = Q.defer()
+	isTemp = isTemp === true
 
 	log.debug(`saveProject: isTemp:${isTemp}`)
 	if(oldFile) {

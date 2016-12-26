@@ -1,9 +1,63 @@
-define(['vendor/jquery'], function($1) {
+define(['vendor/jquery', 'app/util/emitor', 'app/config/config'], function($1, emitor, config) {
 	var region;
+	var appMenu;
+
 	function init() {
 		region = $('.titlebar-region');
 
+		appMenu = $('.app-menu', region).on('click', "> ul > li", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
+		$('> ul > li', appMenu).on('click', activeAppMenu);
+
 		$('.window-btns li', region).on('click', onWindowBtnClick);
+	}
+
+	function activeAppMenu(e) {
+		appMenu.addClass("active");
+	}
+
+	function inactiveAppMenu(e) {
+		appMenu.removeClass("active");
+	}
+
+	function onAppMenuClick(e) {
+		var li = $(this);
+		var action = li.data("action");
+		if(!action) {
+			return;
+		}
+
+		switch(action) {
+			case "new-project":
+			case "open-project":
+			case "save-project":
+			case "save-as-project":
+			case "toggle-comment":
+			case "copy":
+				emitor.trigger("app", "shortcut", action);
+				break;
+			case "open-demo":
+
+				break;
+			case "download-arduino-driver":
+				var bit = /WOW64|Win64/.test(navigator.userAgent) ? 64 : 32;
+				kenrobot.postMessage("app:openUrl", config.url.arduinoDriver.replace("{BIT}", bit));
+				break;
+			case "check-update":
+				kenrobot.postMessage("app:checkUpdate");
+				break;
+			case "visit-kenrobot":
+				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
+				break;
+			case "visit-arduino":
+				kenrobot.postMessage("app:openUrl", config.url.arduino);
+				break;
+			case "suggestion":
+
+				break;
+			case "about-kenrobot":
+
+				break;
+		}
 	}
 
 	function onWindowBtnClick(e) {

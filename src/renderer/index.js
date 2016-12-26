@@ -35,4 +35,5 @@
 	}
 
 	exports.postMessage = postMessage
+	exports.addEventListener = addEventListener
 })(window, window.kenrobot || (window.kenrobot = {}))
