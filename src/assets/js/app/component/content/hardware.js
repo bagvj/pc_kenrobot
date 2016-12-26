@@ -24,16 +24,13 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var dragMouseY;
 
 	function init() {
-		var sidebarTab = $('.sidebar-tabs .tab-hardware');
-		search = $('.search', sidebarTab);
-		filterList = $('.filters', sidebarTab);
-		componentList = $('.components', sidebarTab);
+		region = $('.content-region .tab-hardware');
+
+		search = $('.search', region).on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
+		filterList = $('.filters', region).on('click', '> li', onFilterClick);
+		componentList = $('.components', region);
 		componentList.parent().perfectScrollbar();
 
-		search.on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
-		$('> li', filterList).on('click', onFilterClick);
-
-		region = $('.content-tabs .tab-hardware');
 		container = $('.hardware-container', region).on('containerEvent', onContainerEvent);
 		hardwareModel.init(container[0]);
 		dragContainer = $('.component-drag-layer')[0];

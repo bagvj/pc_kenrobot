@@ -1,75 +1,24 @@
 .sidebar-region {
-	background-color: #0b75d2;
-	z-index: 15;
-
-	.top {
-		padding-top: 20px;
-		height: 160px;
-		background-image: radial-gradient(circle 135px at 48px 20px, #1bb2f0 10%, #0b75d2 95%);
-		color: white;
-
-		.logo {
-			width: 64px;
-			height: 64px;
-			background: url(../image/logo3.png) no-repeat center;
-			background-size: contain;
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: 10px;
-			cursor: pointer;
-
-			display: block;
-		}
-
-		.name {
-			cursor: default;
-			text-align: center;
-			height: 24px;
-			line-height: 24px;
-			letter-spacing: 6px;
-			font-size: 18px;
-		}
-
-		.url {
-			cursor: default;
-			text-align: center;
-			font-size: 12px;
-			letter-spacing: 1.33px;
-		}
-	}
-
-	.center {
-		margin-top: 20px;
-	}
-
-	.bottom {
-		position: absolute;
-		bottom: 20px;
-		width: 100%;
-
-		li {
-			&:after {
-				display: none;
-			}
-		}
-	}
+	background-color: #eceef1;
 
 	& > ul > li {
 		cursor: pointer;
-		color: white;
-		letter-spacing: 5.33px;
-		height: 60px;
-		line-height: 60px;
-		text-align: center;
-		transition: background-color 0.2s;
+		color: #8a95a6;
+		height: 45px;
+		transition: color 0.2s;
 		position: relative;
+		margin-top: 20px;
+
+		&:first-child {
+			margin-top: 10px;
+		}
 
 		&:hover {
-			background-color: #0088ff;
+			color: #20a0ff;
 		}
 
 		&.active {
-			background-color: #0088ff;
+			color: #20a0ff;
 
 			&:after {
 				display: block;
@@ -80,83 +29,28 @@
 			display: none;
 			position: absolute;
 			content: '';
-			width: 0;
-			height: 0;
-			top: calc(50% - 8px);
-			right: -1px;
-			border: 8px transparent solid;
-			border-right-color: white;
+			width: 3px;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: #20a0ff;
 		}
-
-		&.fold {
-			&:after {
-				border-right-color: #f7f9f9;
-			}
-		}
-
-		.icon {
-			float: left;
-			font-size: 20px;
-			line-height: 60px;
-			margin-right: 20px;
-			margin-left: 36px;
-			width: 20px;
-		}
-
-		.name {
-			color: white;
-			float: left;
-			font-size: 14px;
-		}
-	}
-}
-
-
-.sidebar-region {
-	.top {
-		padding-top: 12px;
-		padding-bottom: 12px;
-		height: auto;
-		margin-bottom: 0;
-		background-image: radial-gradient(circle 80px at 40px 30px, #1bb2f0 10%, #0b75d2 95%);
-
-		.name {
-			font-size: 12px;
-			letter-spacing: 4px;
-		}
-
-		.url {
-			display: none;
-		}
-	}
-
-	.center {
-		margin-top: 0;
-	}
-
-	.bottom {
-		display: none;
-	}
-
-	& > ul > li {
-		line-height: inherit;
-		padding-top: 6px;
 
 		.icon {
 			font-size: 22px;
-			height: auto;
+			line-height: 28px;
+			height: 28px;
 			display: block;
-			margin-right: 0;
-			width: auto;
-			margin-left: 0;
-			line-height: 31px;
-			float: none;
+			text-align: center;
 		}
 
 		.name {
+			text-align: center;
+			line-height: 12px;
+			letter-spacing: 2px;
 			font-size: 12px;
 			display: block;
-			float: none;
+			margin-top: 5px;
 		}
 	}
 }

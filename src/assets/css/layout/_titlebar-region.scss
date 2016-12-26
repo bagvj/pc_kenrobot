@@ -16,7 +16,7 @@
 		-webkit-app-region: no-drag;
 		float:left;
 
-		&:first-child {
+		&:first-of-type {
 			margin-left: 60px;
 		}
 	}
@@ -25,7 +25,7 @@
 		-webkit-app-region: no-drag;
 		float: right;
 
-		&:last-child {
+		&:last-of-type {
 			margin-right: 112px;
 		}
 	}
@@ -36,9 +36,23 @@
 
 		ul {
 			float: left;
+		}
 
-			li {
-				float: left;
+		li {
+			float: left;
+			
+			.placeholder {
+				display: block;
+			}
+
+			&:hover {
+				& > ul {
+					display: block;
+				}
+			}
+
+			& > ul {
+				display: none;
 			}
 		}
 	}
@@ -96,7 +110,7 @@
 
 				&:hover {
 					i {
-						color: #6A6D73;
+						color: #999;
 					}
 				}
 
@@ -105,7 +119,7 @@
 					width: 20px;
 					height: 20px;
 					font-size: 20px;
-					color: #ddd;
+					color: #ccc;
 					transition: color 0.2s;
 				}
 			}

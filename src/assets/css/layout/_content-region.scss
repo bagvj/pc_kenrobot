@@ -1,128 +1,17 @@
-$sidebar-tabs-width: 300px;
-$seperator-width: 5px;
-
-
-@include keyframes('sidebar-tabs-slide-in') {
-	from {
-		transform: translateX(0 - $sidebar-tabs-width - $seperator-width);
-	}
-	to {
-		transform: translateX(0);
-	}
-}
-
-@include keyframes('sidebar-tabs-slide-out') {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(0 - $sidebar-tabs-width - $seperator-width);
-	}
-}
-
-@include keyframes('content-wrap-slide-in') {
-	from {
-		left: 0;
-	}
-	to {
-		left: $sidebar-tabs-width + $seperator-width;
-	}
-}
-
-@include keyframes('content-wrap-slide-out') {
-	from {
-		left: $sidebar-tabs-width + $seperator-width;
-	}
-	to {
-		left: 0;
-	}
-}
-
 .content-region {
 	background-color: #f7f9f9;
-	
-	.sidebar-tabs {
+
+	.tab {
 		position: absolute;
+		width: 100%;
 		height: 100%;
-		z-index: 14;
-
-		&:after {
-			display: none;
-			position: absolute;
-			content: ' ';
-			width: $seperator-width;
-			top: 0;
-			bottom: 0;
-			right: -$seperator-width;
-			background-color: #eceef1;
-		}
-
-		.tab {
-			position: relative;
-			height: 100%;
-			width: $sidebar-tabs-width;
-			display: none;
-			background-color: white;
-
-			&.active {
-				display: block;
-			}
-		}
-
-		&.slide-in {
-			@include animation(sidebar-tabs-slide-in 0.3s cubic-bezier(0, 0.8, 0.1, 1) both);
-
-			& + .wrap {
-				@include animation(content-wrap-slide-in 0.3s cubic-bezier(0, 0.8, 0.1, 1) both);
-			}
-		}
-
-		&.slide-out {
-			@include animation(sidebar-tabs-slide-out 0.3s cubic-bezier(0, 0.8, 0.1, 1) forwards);
-
-			& + .wrap {
-				@include animation(content-wrap-slide-out 0.3s cubic-bezier(0, 0.8, 0.1, 1) forwards);
-			}
-		}
+		top: 0;
+		left: -9999px;
+		visibility: hidden;
 
 		&.active {
-			&:after {
-				display: block;
-			}
-		}
-	}
-
-	& > .wrap {
-		height: 100%;
-		position: absolute;
-		left: 0;
-		right: 0;
-		// overflow: hidden;
-
-		.content-header {
-			
-		}
-
-		.content-tabs {
-			position: absolute;
-			top: 0;
-			bottom: 0;
 			left: 0;
-			right: 0;
-
-			.tab {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				top: 0;
-				left: -9999px;
-				visibility: hidden;
-
-				&.active {
-					left: 0;
-					visibility: visible;
-				}
-			}	
+			visibility: visible;
 		}
 	}
 }

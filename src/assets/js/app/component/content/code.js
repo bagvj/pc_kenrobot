@@ -1,10 +1,7 @@
 define(['vendor/jquery', 'app/util/util', 'app/util/emitor', 'app/model/codeModel'], function($1, util, emitor, codeModel) {
-	var region;
-	var container;
-
 	function init() {
-		region = $('.content-tabs .tab-code');
-		container = $(".code-container", region);
+		var region = $('.content-region .tab-code');
+		var container = $(".code-container", region);
 		codeModel.init(container[0]);
 
 		emitor.on('app', 'start', onAppStart);

@@ -10,17 +10,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var modules;
 
 	function init() {
-		var sidebarTab = $('.sidebar-tabs .tab-software');
-		filterList = $('.filters', sidebarTab);
-		blockList = $('.blocks', sidebarTab);
+		region = $('.content-region .tab-software');
+
+		filterList = $('.filters', region).on('click', '> li', onFilterClick);
+		blockList = $('.blocks', region);
 		blockList.parent().perfectScrollbar();
 
-		filterWrap = $('.filter', sidebarTab);
-		$('.advanced', filterWrap).on("click", onAdvancedClick).data("basic");
+		filterWrap = $('.filter', region).on('click', '.advanced', onAdvancedClick).data('basic');
 
-		$('> li', filterList).on('click', onFilterClick);
-
-		region = $('.content-tabs .tab-software');
 		container = $(".software-container", region);
 		container.perfectScrollbar();
 
