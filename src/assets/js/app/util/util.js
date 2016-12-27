@@ -9,7 +9,7 @@ define(function() {
 			"info": "消息",
 		},
 		max: 4,
-		stayDuration: 5000,
+		stayDuration: 3000,
 	}
 
 	function message(args) {

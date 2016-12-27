@@ -32,86 +32,125 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function onProjectNew() {
+		savePath = null;
 		openProject(getDefaultProject());
 	}
 
 	function onProjectOpen() {
-
+		kenrobot.postMessage("app:openProject").then(function(result) {
+			savePath = result.path;
+			openProject(result.projectInfo);
+			util.message({
+				text: "打开成功",
+				type: "success"
+			});
+		}, function(err) {
+			util.message({
+				text: "打开失败",
+				type: "error",
+			});
+		});
 	}
 
 	function onProjectSave(saveAs) {
-		var project_data = getProjectData();
-		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, project_data.code).then(function(path) {
-			savePath = path;
-			util.message("保存成功");
+		onCodeRefresh();
+
+		var projectInfo = getCurrentProject();
+		projectInfo.project_data = getProjectData();
+		saveAs = saveAs == true ? true : savePath == null;
+
+		doProjectSave(projectInfo, saveAs).then(function() {
+			util.message({
+				text: "保存成功",
+				type: "success"
+			});
+		}, function() {
+			util.message({
+				text: "保存失败",
+				type: "warning",
+			});
 		});
 	}
 
 	function onProjectUpload() {
 		onCodeRefresh();
 
-		var project_data = getProjectData();
-		kenrobot.postMessage("app:saveProject", savePath, project_data.code).then(function(path) {
-			savePath = path;
+		var projectInfo = getCurrentProject();
+		projectInfo.project_data = getProjectData();
+		var saveAs = savePath == null;
+
+		doProjectSave(projectInfo, saveAs).then(function() {
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", path).then(function(hex) {
+			kenrobot.postMessage("app:buildProject", savePath).then(function(hex) {
 				util.message("编译成功，正在上传请稍候");
 				kenrobot.postMessage("app:uploadHex", hex).then(function() {
-					util.message("上传成功");
+					util.message({
+						text: "上传成功",
+						type: "success"
+					});
 				}, function(err) {
-					console.log("upload fail");
-					if(err.status && err.status == "SELECT_PORT") {
-						onProjectUploadFail(3, err.ports).then(function(portPath) {
-							kenrobot.postMessage("app:uploadHex2", hex, portPath);
-						});
-					} else if(err.status && err.status == "NOT_FOUND_PORT") {
-						onProjectUploadFail(1);
-					} else {
-						util.message("上传失败")
-					}
+					onProjectUploadFail(err).then(function(portPath) {
+						kenrobot.postMessage("app:uploadHex2", hex, portPath);
+					});
 				});
 			}, function() {
-				util.message("编译失败");
+				util.message({
+					text: "保存失败",
+					type: "error",
+				});
 			});
 		}, function() {
-			util.message("保存失败");
+			util.message({
+				text: "保存失败",
+				type: "warning",
+			});
 		});
 	}
 
-	function onProjectUploadFail(code, args) {
+	function doProjectSave(projectInfo, saveAs) {
 		var promise = $.Deferred();
 
-		switch (code) {
-			case 1:
-			case 2:
-				emitor.trigger('common', 'show', {
-					type: 'warn warn-info',
-					content: '未检测到有Arduino开发板或其他串口设备插入。<span class="link" data-type="link" data-close-dialog="true">驱动问题</span>？解决后请关闭窗口，然后重试',
-					onLink: function(type) {
-						setTimeout(function() {
-							emitor.trigger("installDriver", "show");
-						}, 400);
-					}
-				});
-				break;
-			case 3:
-				var ports = args;
-				emitor.trigger("port", "show", {
-					ports: ports,
-					callback: function(portPath) {
-						promise.resolve(portPath);
-					}
-				});
-				break;
-			case 4:
-				util.message("连接失败");
-				break;
-			case 5:
-				util.message("上传失败");
-				break;
-			case 101:
-				util.message("暂时不支持上传");
-				break;
+		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, projectInfo).then(function(result) {
+			projectInfo.updated_at = result.updated_at;
+			if(saveAs) {
+				savePath = result.path;
+				projectInfo.project_name = result.project_name;
+			}
+			promise.resolve();
+		}, function() {
+			promise.reject();
+		});
+
+		return promise;
+	}
+
+	function onProjectUploadFail(err) {
+		var promise = $.Deferred();
+		var status = err.status;
+
+		if(status == "SELECT_PORT") {
+			var ports = err.ports;
+			emitor.trigger("port", "show", {
+				ports: ports,
+				callback: function(portPath) {
+					promise.resolve(portPath);
+				}
+			});
+		} else if(status == "NOT_FOUND_PORT") {
+			emitor.trigger('common', 'show', {
+				type: 'warn warn-info',
+				content: '未检测到有Arduino开发板或其他串口设备插入。<span class="link" data-type="link" data-close-dialog="true">驱动问题</span>？解决后请关闭窗口，然后重试',
+				onLink: function(type) {
+					setTimeout(function() {
+						emitor.trigger("installDriver", "show");
+					}, 400);
+				}
+			});
+		} else {
+			util.message({
+				text: "上传失败",
+				type: "error",
+			});
 		}
 
 		return promise;
@@ -147,10 +186,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	function getDefaultProject() {
 		var now = new Date();
 		return {
-			id: 0,
 			project_name: "我的项目",
-			project_intro: "项目简介",
-			public_type: 2,
 			project_data: {},
 			created_at: now,
 			updated_at: now,

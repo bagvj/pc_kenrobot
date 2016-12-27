@@ -37,7 +37,16 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				emitor.trigger("app", "shortcut", action);
 				break;
 			case "open-demo":
-
+				util.message("敬请期待");
+				break;
+			case "language":
+				util.message("敬请期待");
+				break;
+			case "theme":
+				util.message("敬请期待");
+				break;
+			case "setting":
+				util.message("敬请期待");
 				break;
 			case "download-arduino-driver":
 				var bit = /WOW64|Win64/.test(navigator.userAgent) ? 64 : 32;

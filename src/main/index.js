@@ -85,7 +85,7 @@ function listenMessage() {
 	}).on('app:quit', (e, deferId) => {
 		app.quit()
 	}).on('app:openUrl', (e, deferId, url) => {
-		var success = url && shell.openExternal.bind(shell, url)
+		var success = url && shell.openExternal(url)
 		e.sender.send('app:openUrl', deferId, success, success)
 	}).on('app:netRequest', (e, deferId, options) => {
 		var request = net.request(options)
@@ -162,12 +162,18 @@ function listenMessage() {
 		}, err => {
 			e.sender.send('app:removeFile', deferId, false, err)
 		})
-	}).on('app:saveProject', (e, deferId, file, code, isTemp) => {
-		saveProject(file, code, isTemp).then(file => {
+	}).on('app:saveProject', (e, deferId, file, projectInfo, isTemp) => {
+		saveProject(file, projectInfo, isTemp).then(file => {
 			e.sender.send('app:saveProject', deferId, true, file)
 		}, err => {
 			e.sender.send('app:saveProject', deferId, false, err)
 		})
+	}).on('app:openProject', (e, deferId, file) => {
+		openProject(file).then(data => {
+			e.sender.send('app:openProject', deferId, true, data)
+		}, err => {
+			e.sender.send('app:openProject', deferId, false, err)
+		})	
 	}).on('app:buildProject', (e, deferId, file, options) => {
 		buildProject(file, options).then(hex => {
 			e.sender.send('app:buildProject', deferId, true, hex)
@@ -248,6 +254,26 @@ function getScript(name) {
 	return path.join("scripts", `${name}.${is.windows() ? "bat" : "sh"}`)
 }
 
+function showOpenDialog(options) {
+	var deferred = Q.defer()
+	options = options || {}
+	options.title = "打开"
+	options.defaultPath = app.getPath("documents")
+	options.buttonLabel = "打开"
+
+	log.debug(`showOpenDialog: options: ${JSON.stringify(options)}`)
+	dialog.showOpenDialog(mainWindow, options, files => {
+		if(!files) {
+			deferred.reject()
+			return
+		}
+
+		deferred.resolve(files[0])
+	})
+
+	return deferred.promise
+}
+
 function showSaveDialog(options) {
 	var deferred = Q.defer()
 	options = options || {}
@@ -263,6 +289,24 @@ function showSaveDialog(options) {
 		}
 
 		deferred.resolve(file)
+	})
+
+	return deferred.promise
+}
+
+function readJson(file, options) {
+	var deferred = Q.defer()
+	options = options || {}
+
+	log.debug(`readJson:${file}, options: ${JSON.stringify(options)}`)
+	fs.readJson(file, options, (err, data) => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		deferred.resolve(data)
 	})
 
 	return deferred.promise
@@ -320,36 +364,72 @@ function removeFile(file) {
 	return deferred.promise
 }
 
-function saveProject(oldFile, code, isTemp) {
+function saveProject(oldFile, projectInfo, isTemp) {
 	var deferred = Q.defer()
 	isTemp = isTemp === true
 
 	log.debug(`saveProject: isTemp:${isTemp}`)
-	if(oldFile) {
-		writeFile(path.join(oldFile, path.basename(oldFile) + ".ino"), code).then(_ => {
-			deferred.resolve(oldFile)
-		}, err => {
-			deferred.reject(err)
-		})
-	} else if(isTemp) {
-		var file = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
-		writeFile(path.join(file, path.basename(file) + ".ino"), code).then(_ => {
-			deferred.resolve(file)
-		}, err => {
-			deferred.reject(err)
-		})
-	} else {
-		showSaveDialog().then(file => {
-			writeFile(path.join(file, path.basename(file) + ".ino"), code).then(_ => {
-				deferred.resolve(file)
-			}, err => {
-				deferred.reject(err)
+
+	var save = file => {
+		var updated_at = new Date()
+		projectInfo.updated_at = updated_at
+		projectInfo.project_name = path.basename(file)
+
+		Q.all([
+			writeFile(path.join(file, path.basename(file) + ".ino"), projectInfo.project_data.code),
+			writeFile(path.join(file, "project.json"), JSON.stringify(projectInfo))
+		]).then(_ => {
+			deferred.resolve({
+				path: file,
+				updated_at: projectInfo.updated_at,
+				project_name: projectInfo.project_name
 			})
 		}, _ => {
 			deferred.reject()
 		})
 	}
+
+	if(oldFile) {
+		save(oldFile)
+	} else if(isTemp) {
+		var file = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
+		save(file)
+	} else {
+		showSaveDialog().then(file => {
+			save(file)
+		}, _ => {
+			deferred.reject()
+		})
+	}
 	
+	return deferred.promise
+}
+
+function openProject(file) {
+	var deferred = Q.defer()
+
+	var read = file => {
+		readJson(path.join(file, "project.json")).then(projectInfo => {
+			deferred.resolve({
+				path: file,
+				projectInfo: projectInfo
+			})
+		}, err => {
+			deferred.reject(err)
+		})
+	}
+	if(file) {
+		read(file)
+	} else {
+		showOpenDialog({
+			properties: ["openDirectory"]
+		}).then(file => {
+			read(file)
+		}, err => {
+			deferred.reject(err)
+		})
+	}
+
 	return deferred.promise
 }
 

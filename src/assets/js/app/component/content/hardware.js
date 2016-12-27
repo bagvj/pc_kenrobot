@@ -68,8 +68,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	function setData(hardwareData) {
 		hardwareData = hardwareData || {};
-		hardwareModel.setData(hardwareData);
 		setBoard(hardwareData.board || "ArduinoUNO");
+		
+		hardwareModel.setData(hardwareData);
 
 		hideComponentDialog();
 	}
