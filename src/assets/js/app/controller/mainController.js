@@ -1,22 +1,27 @@
-define(['vendor/jquery', 'vendor/director', 'vendor/mousetrap', 'app/config/config', 'app/util/util', 'app/util/emitor'], function($1, $2, Mousetrap, config, util, emitor) {
+define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor'], function($1, Mousetrap, util, emitor) {
 	var mainWrap;
-	var router;
 
 	function init() {
-		configRoute();
-
 		targetHandle();
 
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		emitor.on('app', 'start', onAppStart);
 		emitor.on('app', 'shortcut', onShortcut);
-
-		emitor.on('route', 'set', onSetRoute);
-		emitor.on('route', 'init', onInitRoute);
 	}
 
 	function onAppStart() {
+		registerShortcut();
+	}
+
+	function targetHandle() {
+		$('.open-url').off('click').on('click', function() {
+			var url = $(this).data('href');
+			kenrobot.postMessage("app:openUrl", url);
+		});
+	}
+
+	function registerShortcut() {
 		var shortcuts = [{
 			key: ["ctrl+n", "command+n"],
 			name: "new-project"
@@ -46,27 +51,20 @@ define(['vendor/jquery', 'vendor/director', 'vendor/mousetrap', 'app/config/conf
 		});
 	}
 
-	function targetHandle() {
-		$('.open-url').off('click').on('click', function() {
-			var url = $(this).data('href');
-			kenrobot.postMessage("app:openUrl", url);
-		});
-	}
-
 	function onShortcut(name) {
 		var args = Array.from(arguments);
 		switch(name) {
 			case "new-project":
-				emitor.trigger('project', 'view', 'new');
+				emitor.trigger('project', 'new');
 				break;
 			case "open-project":
-
+				emitor.trigger('project', 'open');
 				break;
 			case "save-project":
-				emitor.trigger('project', 'save', null, 'file');
+				emitor.trigger('project', 'save');
 				break;
 			case "save-as-project":
-
+				emitor.trigger('project', 'save', true);
 				break;
 			case "toggle-comment":
 
@@ -96,34 +94,6 @@ define(['vendor/jquery', 'vendor/director', 'vendor/mousetrap', 'app/config/conf
 	function onWindowResize(e) {
 		hideContextMenu();
 		hideSelectMenu();
-	}
-
-	function configRoute() {
-		router = Router({
-			'/': onRouteDefault,
-			'/project/([0-9a-zA-Z]{6}|new|temp)/?': onRouteViewProject,
-			'.*': onRouteOther, 
-		});
-	}
-
-	function onInitRoute() {
-		router.init("/");
-	}
-
-	function onRouteDefault() {
-		emitor.trigger("project", "view");
-	}
-
-	function onRouteViewProject(hash) {
-		emitor.trigger("project", "view", hash);
-	}
-
-	function onRouteOther() {
-		onSetRoute("/");
-	}
-
-	function onSetRoute(path) {
-		router.setRoute(path);
 	}
 
 	function hideSelectMenu() {

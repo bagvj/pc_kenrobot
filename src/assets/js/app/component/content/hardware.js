@@ -47,7 +47,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 		emitor.on('app', 'start', onAppStart);
 		emitor.on('app', 'contextMenu', onContextMenu);
-		emitor.on('hardware', 'boardChange', onBoardChange);
 		emitor.on('hardware', 'resize', onResize);
 		emitor.on('sidebar', 'activeTab', onActiveTab);
 	}
@@ -70,7 +69,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	function setData(hardwareData) {
 		hardwareData = hardwareData || {};
 		hardwareModel.setData(hardwareData);
-		setBoard(hardwareData.board || "Arduino");
+		setBoard(hardwareData.board || "ArduinoUNO");
 
 		hideComponentDialog();
 	}
@@ -409,7 +408,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		boardList.removeClass("active").find(".placeholder").html(li.html());
 		boardList.data("value", name);
 
-		name && emitor.trigger("hardware", "boardChange", name);
+		name && onBoardChange(name);
 	}
 
 	return {

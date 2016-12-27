@@ -1,8 +1,7 @@
-define(['./mainController', './userController', './projectController'], function(mainController, userController, projectController) {
+define(['./mainController', './projectController'], function(mainController, projectController) {
 
 	function init() {
 		mainController.init();
-		userController.init();
 		projectController.init();
 	}
 

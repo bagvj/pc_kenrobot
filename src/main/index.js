@@ -199,18 +199,8 @@ function listenMessage() {
 		}, err => {
 			e.sender.send('app:uploadHex2', deferId, false, err)
 		})
-	}).on('app:errorReport', (e, deferId, type, content) => {
-		if(type == "debug") {
-			var messages = JSON.parse(content)
-			log.debug(`------ debug message ------\n${messages.join('\n')}`)
-		} else {
-			var errors = JSON.parse(content)
-			var str = errors.reduce((result, error) => {
-				result += `\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`
-				return result
-			}, '')
-			log.error(`------ error message ------${str}`)
-		}
+	}).on('app:errorReport', (e, deferId, error) => {
+		log.error(`------ error message ------\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`)
 	})
 }
 

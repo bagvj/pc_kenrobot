@@ -1,29 +1,105 @@
 define(function() {
+	var messages = [];
+	var messageConfig = {
+		template: '<div class="x-message {type}"><i class="x-message-close kenrobot ken-close"></i><i class="x-message-icon kenrobot ken-info-{type}"></i><div class="x-message-wrap"><div class="x-message-title">{title}</div><div class="x-message-content">{text}</div></div></div>',
+		titles: {
+			"success": "成功",
+			"error": "错误",
+			"warning": "警告",
+			"info": "消息",
+		},
+		max: 4,
+		stayDuration: 5000,
+	}
+
 	function message(args) {
-		var duration = 400;
+		args = typeof args == "string" ? {text: args} : args;
 		var messageLayer = $(".message-layer");
 
-		$(".x-message", messageLayer).stop(true).fadeOut(duration / 2, function() {
-			$(this).remove();
+		var text = args.text;
+		var type = args.type || "info";
+		var title = args.title || messageConfig.titles[type];
+
+		var html = messageConfig.template.replace(/\{type\}/g, type).replace(/\{text\}/g, text).replace(/\{title\}/g, title)
+		var messageDiv = $(html).appendTo(messageLayer);
+		messages.push(messageDiv);
+		
+		$('.x-message-close', messageDiv).on('click', function() {
+			onMessageHide(messageDiv);
 		});
 
-		args = typeof args == "string" ? {
-			text: args
-		} : args;
-		var type = args.type || "info";
+		if(messages.length > messageConfig.max) {
+			var oldMessageDiv = messages.shift();
+			oldMessageDiv.find("x-message-close").click();
+		}
+
+		messageDiv.css("top", 140 * messages.length - 60).addClass("x-fadeIn").delay(messageConfig.stayDuration, "stay").queue("stay", function() {
+			messageDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(500, "fadeOut").queue("fadeOut", function() {
+				onMessageHide(messageDiv);
+			});
+			messageDiv.dequeue("fadeOut");
+		});
+		messageDiv.dequeue("stay");
+	}
+
+	function onMessageHide(messageDiv) {
+		messages.splice(messages.indexOf(messageDiv), 1);
+		messageDiv.remove();
+		messages.forEach(function(div) {
+			div.animate({
+				"top": div.position().top - 140
+			}, 100, "swing");
+		});
+	}
+
+	var confirmConfig = {
+		titles: {
+			"confirm": "提示",
+			"warning": "提示",
+		},
+		template: '<div class="x-confirm {type}"><i class="x-confirm-close kenrobot ken-close"></i><div class="x-confirm-title">{title}</div><div class="x-confirm-content">{text}</div><div class="x-confirm-btns"><input class="confirm" type="button" value="{confirmLabel}" /><input class="cancel" type="button" value="{cancelLabel}" /></div></div>',
+		cancelLabel: "取消",
+		confirmLabel: "确认",
+	}
+
+	function confirm(args) {
+		args = typeof args == "string" ? {text: args} : args;
+
 		var text = args.text;
-		var template = '<div class="x-message ' + type + '">' + text + '<div class="x-message-close">&times;</div></div>';
-		var messageDiv = $(template).appendTo(messageLayer);
-		$('.x-message-close', messageDiv).on('click', function() {
-			messageDiv.remove();
+		var type = args.type || "confirm";
+		var title = args.title || confirmConfig.titles[type];
+		var cancelLabel = args.cancelLabel || confirmConfig.cancelLabel;
+		var confirmLabel = args.confirmLabel || confirmConfig.confirmLabel;
+		var onCancel = args.onCancel;
+		var onConfirm = args.onConfirm;
+
+		var html = confirmConfig.template.replace(/\{type\}/g, type).replace(/\{title\}/g, title).replace(/\{text\}/, text).replace(/\{cancelLabel\}/, cancelLabel).replace(/\{confirmLabel\}/, confirmLabel);
+
+		var dialogLayer = $('.dialog-layer').addClass("active");
+		var confirmDiv = $(html).appendTo(dialogLayer);
+
+		var doClose = function(callback) {
+			confirmDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
+				confirmDiv.hide().removeClass("x-fadeOut");
+				dialogLayer.removeClass("active");
+				callback && callback();
+				confirmDiv.remove();
+			});
+			confirmDiv.dequeue("fadeOut");
+		};
+
+		$('.x-confirm-close,.x-confirm-btns .cancel', confirmDiv).on('click', function() {
+			doClose(onCancel);
 		});
-		messageDiv.css({
-			top: -messageDiv.height(),
-		}).animate({
-			top: messageLayer.data("offset") || 150,
-		}, duration, "swing").delay(2000).fadeOut(duration, function() {
-			messageDiv.remove();
+
+		$('.x-confirm-btns .confirm', confirmDiv).on('click', function() {
+			doClose(onConfirm);
 		});
+
+		confirmDiv.addClass("active").addClass("x-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
+			confirmDiv.removeClass("x-fadeIn");
+		});
+		confirmDiv.dequeue("fadeIn");
 	}
 
 	function dialog(args) {
@@ -82,10 +158,6 @@ define(function() {
 		return dialogWin;
 	}
 
-	function isInDialog() {
-		return $('.dialog-layer').hasClass("active");
-	}
-
 	function toggleActive(target, collapseMode, cls) {
 		cls = cls || "active";
 		if (collapseMode) {
@@ -107,82 +179,6 @@ define(function() {
 
 			return true;
 		}
-	}
-
-	function showMessage(selector, message, duration) {
-		duration = duration || 2000;
-		selector = $(selector).empty();
-		var messageDiv = $('<div>').text(message).appendTo(selector);
-		messageDiv.delay(duration).fadeOut(400, function() {
-			messageDiv.remove();
-		});
-	}
-
-	function aspectReset(aspect) {
-		var origin = aspect._advisor.orig;
-		aspect._advisor.remove();
-		return origin;
-	}
-
-	function parseJson(data) {
-		try {
-			return JSON.parse(data);
-		} catch (ex) {
-
-		}
-	}
-
-	function numberToChinese(input) {
-		var SYMBOLS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
-		var UNIT_MAP = {
-			'0': '',
-			'1': '十',
-			'2': '百',
-			'3': '千',
-			'4': '零万',
-			'5': '十',
-			'6': '百',
-			'7': '千',
-			'8': '零亿',
-			'9': '十'
-		};
-		var Y_MAP = [0, 4, 8];
-
-		if (input <= 0 || !parseInt(input, 10)) {
-			return '请输入正整数';
-		}
-
-		var inputStr = '' + input;
-		var inputArr = inputStr.split('').reverse();
-		var inputLength = inputArr.length;
-
-		if (inputLength > 10) {
-			return '请输入10位以内的正整数';
-		}
-
-		var result = '';
-
-		for (var i = 0; i < inputLength; i++) {
-			var value = inputArr[i];
-			var isY = Y_MAP.indexOf(i) !== -1;
-
-			if (isY || (!isY && value != 0)) {
-				result += UNIT_MAP[i];
-			}
-
-			result += SYMBOLS[value];
-		}
-
-		result = result.split('').reverse().join('');
-
-		result = result.replace(/零+$/, '')
-			.replace(/零+/, '零')
-			.replace(/零+万/, '万')
-			.replace(/零+亿/, '亿')
-			.replace(/亿万/, '亿')
-			.replace(/^一十/, '十');
-
-		return result;
 	}
 
 	/**
@@ -225,14 +221,6 @@ define(function() {
 		return format;
 	}
 
-	function isMobile() {
-		return navigator.userAgent.match(/Android|iPhone|iPad|iPod/i) ? true : false;
-	}
-
-	function isWeiXin() {
-		return navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
-	}
-
 	function showDialog(args) {
 		args = typeof args == "string" ? {
 			selector: args
@@ -270,16 +258,9 @@ define(function() {
 
 	return {
 		message: message,
-		showMessage: showMessage,
+		confirm: confirm,
 		dialog: dialog,
-		isInDialog: isInDialog,
 		toggleActive: toggleActive,
-		aspectReset: aspectReset,
-		parseJson: parseJson,
-		numberToChinese: numberToChinese,
 		formatDate: formatDate,
-		isMobile: isMobile,
-		isWeiXin: isWeiXin,
-		showDialog: showDialog,
 	}
 });

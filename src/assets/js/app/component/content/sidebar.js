@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/net', 'app/util/emitor'], function($1, config, util, net, emitor) {
+define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'], function($1, config, util, emitor) {
 	var region;
 
 	function init() {

@@ -1,18 +1,18 @@
-define(['vendor/jquery', 'app/util/emitor', 'app/config/config'], function($1, emitor, config) {
+define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'], function($1, emitor, util, config) {
 	var region;
 	var appMenu;
 
 	function init() {
 		region = $('.titlebar-region');
 
-		appMenu = $('.app-menu', region).on('click', "> ul > li", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
-		$('> ul > li', appMenu).on('click', activeAppMenu);
+		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
 
 		$('.window-btns li', region).on('click', onWindowBtnClick);
 	}
 
 	function activeAppMenu(e) {
-		appMenu.addClass("active");
+		appMenu.toggleClass("active");
+		return false;
 	}
 
 	function inactiveAppMenu(e) {
@@ -23,6 +23,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/config/config'], function($1, e
 		var li = $(this);
 		var action = li.data("action");
 		if(!action) {
+			inactiveAppMenu();
 			return;
 		}
 
@@ -44,6 +45,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/config/config'], function($1, e
 				break;
 			case "check-update":
 				kenrobot.postMessage("app:checkUpdate");
+				util.message("敬请期待");
 				break;
 			case "visit-kenrobot":
 				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
@@ -52,12 +54,13 @@ define(['vendor/jquery', 'app/util/emitor', 'app/config/config'], function($1, e
 				kenrobot.postMessage("app:openUrl", config.url.arduino);
 				break;
 			case "suggestion":
-
+				util.message("感谢您的意见和反馈", "感谢", "success");
 				break;
 			case "about-kenrobot":
-
+				util.message("关于啃萝卜");
 				break;
 		}
+		inactiveAppMenu();
 	}
 
 	function onWindowBtnClick(e) {

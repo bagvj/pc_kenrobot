@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder browserify vinyl-source-stream vinyl-buffer
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder vinyl-source-stream vinyl-buffer
  */
 
 const gulp = require('gulp') //基础库
@@ -20,7 +20,6 @@ const runSequence = require('run-sequence') //顺序执行
 
 const builder = require('electron-builder') //electron打包
 
-const browserify = require('browserify')
 const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
 
@@ -91,7 +90,7 @@ gulp.task('pack-assets-js', ['clean-assets-js'], _ => {
 })
 
 gulp.task('pack-assets-css', ['clean-assets-css'], _ => {
-	return sass(ASSETS_SRC + 'css/*.scss', {style: 'expanded'})
+	return sass(ASSETS_SRC + 'css/*.scss', {style: "expanded"})
 		.pipe(autoprefixer())
 		.pipe(gulpif(args.release, cleanCSS()))
 		.pipe(gulp.dest(ASSETS_DIST + 'css/'))
