@@ -1,4 +1,4 @@
-define(['app/util/compitableEvents', 'vendor/jsPlumb'], function(compitableEvents) {
+define(['vendor/jsPlumb'], function() {
 
 	var config = {
 		color: '#F1C933',
@@ -106,7 +106,8 @@ define(['app/util/compitableEvents', 'vendor/jsPlumb'], function(compitableEvent
 			repaint();
 		}, false);
 
-		document.addEventListener(compitableEvents.up, onDomMouseUp);
+		document.addEventListener("touchend", onDomMouseUp);
+		document.addEventListener("mouseup", onDomMouseUp);
 	};
 
 	function getSchema() {
@@ -299,7 +300,8 @@ define(['app/util/compitableEvents', 'vendor/jsPlumb'], function(compitableEvent
 		componentDom.style.width = componentConfig.width + 'px';
 		componentDom.style.height = componentConfig.height + 'px';
 		componentDom.draggable = false;
-		componentDom.addEventListener(compitableEvents.down, onComponentMouseDown);
+		componentDom.addEventListener("touchstart", onComponentMouseDown);
+		componentDom.addEventListener("mousedown", onComponentMouseDown);
 
 		[].forEach.call(container.querySelectorAll('.component-endpoint'), function(endpoint) {
 			endpoint.classList.remove('selected');
@@ -377,7 +379,8 @@ define(['app/util/compitableEvents', 'vendor/jsPlumb'], function(compitableEvent
 		var uid = componentDom.dataset.uid;
 		var componentData = getComponentData(uid);
 		
-		componentDom.removeEventListener(compitableEvents.down, onComponentMouseDown);
+		componentDom.removeEventListener("touchstart", onComponentMouseDown);
+		componentDom.removeEventListener("mousedown", onComponentMouseDown);
 
 		getConnections(componentDom).forEach(function(connection) {
 			connection.setType('removing');
@@ -413,7 +416,8 @@ define(['app/util/compitableEvents', 'vendor/jsPlumb'], function(compitableEvent
 	function removeAllComponents() {
 		jsPlumbInstance.deleteEveryEndpoint();
 		[].forEach.call(container.querySelectorAll('.component'), function(componentDom) {
-			componentDom.removeEventListener(compitableEvents.down, onComponentMouseDown);
+			componentDom.removeEventListener("touchstart", onComponentMouseDown);
+			componentDom.removeEventListener("mousedown", onComponentMouseDown);
 			jsPlumb.remove(componentDom);
 		});
 

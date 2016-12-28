@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/emitor', 'app/util/compitableEvents', 'app/model/hardwareModel'], function($1, $2, util, emitor, compitableEvents, hardwareModel) {
+define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/emitor', 'app/model/hardwareModel'], function($1, $2, util, emitor, hardwareModel) {
 	var region;
 	var filterList;
 	var componentList;
@@ -99,7 +99,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			componentList.append(li);
 		});
 		[].forEach.call(componentList[0].querySelectorAll("li .image"), function(imageDom) {
-			imageDom.addEventListener(compitableEvents.down, onComponentMouseDown);
+			imageDom.addEventListener("mousedown", onComponentMouseDown);
+			imageDom.addEventListener("touchstart", onComponentMouseDown);
 		});
 
 		filterList.find('[data-filter="all"]').click();
@@ -190,45 +191,53 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 		mouseDownComponentDom = e.currentTarget;
 		startPreMouseMove = true;
-		document.addEventListener(compitableEvents.up, onComponentMouseUpBeforeMove);
-		document.addEventListener(compitableEvents.move, onComponentPreMouseMove);
+		document.addEventListener("mouseup", onComponentMouseUpBeforeMove);
+		document.addEventListener("touchend", onComponentMouseUpBeforeMove);
+		document.addEventListener("mousemove", onComponentPreMouseMove);
+		document.addEventListener("touchmove", onComponentPreMouseMove);
 	}
 
 	function onComponentMouseUpBeforeMove(e) {
 		mouseDownComponentDom = null;
-		document.removeEventListener(compitableEvents.up, onComponentMouseUpBeforeMove);
-		document.removeEventListener(compitableEvents.move, onComponentPreMouseMove);
+		document.removeEventListener("mouseup", onComponentMouseUpBeforeMove);
+		document.removeEventListener("touchend", onComponentMouseUpBeforeMove);
+		document.removeEventListener("mousemove", onComponentPreMouseMove);
+		document.removeEventListener("touchmove", onComponentPreMouseMove);
 	}
 
 	function onComponentPreMouseMove(e) {
-		e = compitableEvents.isMobile ? e.changedTouches[0] : e;
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
 		if (startPreMouseMove) {
 			startPreMouseMove = false;
-			preMouseMoveX = e.pageX;
-			preMouseMoveY = e.pageY;
+			preMouseMoveX = touch.pageX;
+			preMouseMoveY = touch.pageY;
 
 			var rect = mouseDownComponentDom.getBoundingClientRect();
 			var containerRect = dragContainer.getBoundingClientRect();
 
-			dragMouseX = e.pageX - rect.left + containerRect.left - dragContainer.scrollLeft;
-			dragMouseY = e.pageY - rect.top + containerRect.top - dragContainer.scrollTop;
+			dragMouseX = touch.pageX - rect.left + containerRect.left - dragContainer.scrollLeft;
+			dragMouseY = touch.pageY - rect.top + containerRect.top - dragContainer.scrollTop;
 		} else {
-			var distanceX = e.pageX - preMouseMoveX;
-			var distanceY = e.pageY - preMouseMoveY;
+			var distanceX = touch.pageX - preMouseMoveX;
+			var distanceY = touch.pageY - preMouseMoveY;
 
 			if ((Math.abs(distanceX) >= 5) || (Math.abs(distanceY) >= 5)) {
-				document.removeEventListener(compitableEvents.move, onComponentPreMouseMove);
-				document.addEventListener(compitableEvents.move, onComponentMouseMove);
+				document.removeEventListener("mousemove", onComponentPreMouseMove);
+				document.removeEventListener("touchmove", onComponentPreMouseMove);
+				document.addEventListener("mousemove", onComponentMouseMove);
+				document.addEventListener("touchmove", onComponentMouseMove);
 			}
 		}
 	}
 
 	function onComponentMouseMove(e) {
-		e = compitableEvents.isMobile ? e.changedTouches[0] : e;
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
 		
 		if (mouseDownComponentDom) {
-			document.removeEventListener(compitableEvents.up, onComponentMouseUpBeforeMove);
-			document.addEventListener(compitableEvents.up, onComponentMouseUp);
+			document.removeEventListener("mouseup", onComponentMouseUpBeforeMove);
+			document.removeEventListener("touchend", onComponentMouseUpBeforeMove);
+			document.addEventListener("mouseup", onComponentMouseUp);
+			document.addEventListener("touchend", onComponentMouseUp);
 			
 			var li = $(mouseDownComponentDom).closest("li")[0];
 			dragComponentDom = document.createElement("img");
@@ -243,18 +252,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			emitor.trigger("sidebar", "toggle");
 		}
 
-		dragComponentMove(dragComponentDom, e.clientX, e.clientY);
+		dragComponentMove(dragComponentDom, touch.clientX, touch.clientY);
 	}
 
 	function onComponentMouseUp(e) {
-		e = compitableEvents.isMobile ? e.changedTouches[0] : e;
-		document.removeEventListener(compitableEvents.move, onComponentMouseMove);
-		document.removeEventListener(compitableEvents.up, onComponentMouseUp);
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
+		document.removeEventListener("mousemove", onComponentMouseMove);
+		document.removeEventListener("touchmove", onComponentMouseMove);
+		document.removeEventListener("mouseup", onComponentMouseUp);
+		document.removeEventListener("touchend", onComponentMouseUp);
 		var name = dragComponentDom.dataset.name;
 		dragComponentDom.remove();
 		dragComponentDom = null;
 		container.removeClass("can-drop");
-		onContainerDrop(name, e.pageX, e.pageY);
+		onContainerDrop(name, touch.pageX, touch.pageY);
 
 		emitor.trigger("sidebar", "toggle");
 	}

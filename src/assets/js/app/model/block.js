@@ -1,4 +1,4 @@
-define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEvents, emitor) {
+define(['app/util/emitor'], function(emitor) {
 	var blocks = {};
 	var connectors = {};
 	var ioConnectors = {};
@@ -55,7 +55,8 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 
 				buildContent(this);
 				buildConnectors(this);
-				this.dom.addEventListener(compitableEvents.down, onBlockMouseDown);
+				this.dom.addEventListener("mousedown", onBlockMouseDown);
+				this.dom.addEventListener("touchstart", onBlockMouseDown);
 				break;
 			case "statement":
 				this.dom.innerHTML = '<div class="statement-content"></div>';
@@ -63,14 +64,16 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 
 				buildContent(this);
 				buildConnectors(this);
-				this.dom.addEventListener(compitableEvents.down, onBlockMouseDown);
+				this.dom.addEventListener("mousedown", onBlockMouseDown);
+				this.dom.addEventListener("touchstart", onBlockMouseDown);
 				break;
 			case "output":
 				this.contentDom = this.dom;
 
 				buildContent(this);
 				buildConnectors(this);
-				this.dom.addEventListener(compitableEvents.down, onBlockMouseDown);
+				this.dom.addEventListener("mousedown", onBlockMouseDown);
+				this.dom.addEventListener("touchstart", onBlockMouseDown);
 				break;
 			case "group":
 				this.dom.innerHTML = '<div class="group-content"></div>';
@@ -376,47 +379,55 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 
 		mouseDownBlockDom = e.currentTarget;
 		startPreMouseMove = true;
-		document.addEventListener(compitableEvents.up, onBlockMouseUpBeforeMove);
-		document.addEventListener(compitableEvents.move, onBlockPreMouseMove);
+		document.addEventListener("mouseup", onBlockMouseUpBeforeMove);
+		document.addEventListener("touchend", onBlockMouseUpBeforeMove);
+		document.addEventListener("mousemove", onBlockPreMouseMove);
+		document.addEventListener("touchmove", onBlockPreMouseMove);
 	}
 
 	function onBlockMouseUpBeforeMove(e) {
 		mouseDownBlockDom = null;
-		document.removeEventListener(compitableEvents.up, onBlockMouseUpBeforeMove);
-		document.removeEventListener(compitableEvents.move, onBlockPreMouseMove);
+		document.removeEventListener("mouseup", onBlockMouseUpBeforeMove);
+		document.removeEventListener("touchend", onBlockMouseUpBeforeMove);
+		document.removeEventListener("mousemove", onBlockPreMouseMove);
+		document.removeEventListener("touchmove", onBlockPreMouseMove);
 	}
 
 	function onBlockPreMouseMove(e) {
-		e = compitableEvents.isMobile ? e.changedTouches[0] : e;
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
 		if (startPreMouseMove) {
 			startPreMouseMove = false;
-			preMouseMoveX = e.pageX;
-			preMouseMoveY = e.pageY;
+			preMouseMoveX = touch.pageX;
+			preMouseMoveY = touch.pageY;
 
 			var rect = mouseDownBlockDom.getBoundingClientRect();
 			var containerRect = dragContainer.getBoundingClientRect();
 
 			dragBlockPreX = rect.left
 			dragBlockPreY = rect.top;
-			dragMouseX = e.pageX - rect.left + containerRect.left - dragContainer.scrollLeft;
-			dragMouseY = e.pageY - rect.top + containerRect.top - dragContainer.scrollTop;
+			dragMouseX = touch.pageX - rect.left + containerRect.left - dragContainer.scrollLeft;
+			dragMouseY = touch.pageY - rect.top + containerRect.top - dragContainer.scrollTop;
 		} else {
-			var distanceX = e.pageX - preMouseMoveX;
-			var distanceY = e.pageY - preMouseMoveY;
+			var distanceX = touch.pageX - preMouseMoveX;
+			var distanceY = touch.pageY - preMouseMoveY;
 
 			if ((Math.abs(distanceX) >= 5) || (Math.abs(distanceY) >= 5)) {
-				document.removeEventListener(compitableEvents.move, onBlockPreMouseMove);
-				document.addEventListener(compitableEvents.move, onBlockMouseMove);
+				document.removeEventListener("mousemove", onBlockPreMouseMove);
+				document.removeEventListener("touchmove", onBlockPreMouseMove);
+				document.addEventListener("mousemove", onBlockMouseMove);
+				document.addEventListener("touchmove", onBlockMouseMove);
 			}
 		}
 	}
 
 	function onBlockMouseMove(e) {
-		e = compitableEvents.isMobile ? e.changedTouches[0] : e;
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
 		var block;
 		if (mouseDownBlockDom) {
-			document.removeEventListener(compitableEvents.up, onBlockMouseUpBeforeMove);
-			document.addEventListener(compitableEvents.up, onBlockMouseUp);
+			document.removeEventListener("mouseup", onBlockMouseUpBeforeMove);
+			document.removeEventListener("touchend", onBlockMouseUpBeforeMove);
+			document.addEventListener("mouseup", onBlockMouseUp);
+			document.addEventListener("touchend", onBlockMouseUp);
 			block = getBlock(mouseDownBlockDom.dataset.uid);
 
 			if (!block.connectable) {
@@ -445,7 +456,7 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 		}
 
 		block = block || dragBlock;
-		var instance = dragBlockMove(block, e.clientX, e.clientY);
+		var instance = dragBlockMove(block, touch.clientX, touch.clientY);
 		switch (block.data.type) {
 			case "statement":
 			case "statement-input":
@@ -459,8 +470,10 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 	}
 
 	function onBlockMouseUp(e) {
-		document.removeEventListener(compitableEvents.move, onBlockMouseMove);
-		document.removeEventListener(compitableEvents.up, onBlockMouseUp);
+		document.removeEventListener("mousemove", onBlockMouseMove);
+		document.removeEventListener("touchmove", onBlockMouseMove);
+		document.removeEventListener("mouseup", onBlockMouseUp);
+		document.removeEventListener("touchend", onBlockMouseUp);
 
 		var block = dragBlock;
 		var dropConnectorDom = container.querySelector(".connector.active") || dragContainer.querySelector(".connector.active");
@@ -784,12 +797,17 @@ define(['app/util/compitableEvents', 'app/util/emitor'], function(compitableEven
 	}
 
 	function removeBlock(block, redraw) {
-		block.dom.removeEventListener(compitableEvents.down, onBlockMouseDown);
+		block.dom.removeEventListener("mousedown", onBlockMouseDown);
+		block.dom.removeEventListener("touchstart", onBlockMouseDown);
 		if (mouseDownBlockDom && mouseDownBlockDom.dataset.uid == uid) {
-			document.removeEventListener(compitableEvents.move, onBlockPreMouseMove);
-			document.removeEventListener(compitableEvents.move, onBlockMouseMove);
-			document.removeEventListener(compitableEvents.up, onBlockMouseUpBeforeMove);
-			document.removeEventListener(compitableEvents.up, onBlockMouseUp);
+			document.removeEventListener("mousemove", onBlockPreMouseMove);
+			document.removeEventListener("touchmove", onBlockPreMouseMove);
+			document.removeEventListener("mousemove", onBlockMouseMove);
+			document.removeEventListener("touchmove", onBlockMouseMove);
+			document.removeEventListener("mouseup", onBlockMouseUpBeforeMove);
+			document.removeEventListener("touchend", onBlockMouseUpBeforeMove);
+			document.removeEventListener("mouseup", onBlockMouseUp);
+			document.removeEventListener("touchend", onBlockMouseUp);
 		}
 
 		switch (block.data.type) {
