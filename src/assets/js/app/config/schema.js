@@ -127,7 +127,7 @@ define(function() {
 					uid: "6be0dd9d-2e52-4b7d-9dfc-c9edad53ad13",
 					width: 9,
 					height: 12,
-					x: 0.940,
+					x: 0.94,
 					y: 0.088,
 					name: "0",
 					tags: ["digital", "serial-tx"],
@@ -136,7 +136,7 @@ define(function() {
 					uid: "6be0dd9d-2e52-4b7d-9dfc-c9edad53aa00",
 					width: 9,
 					height: 12,
-					x: 0.770,
+					x: 0.77,
 					y: 0.935,
 					name: "A0",
 					tags: ["analog-in"],
@@ -181,7 +181,7 @@ define(function() {
 					uid: "6be0dd9d-2e52-4b7d-9dfc-c9edad53aa05",
 					width: 9,
 					height: 12,
-					x: 0.940,
+					x: 0.94,
 					y: 0.935,
 					name: "A5",
 					tags: ["analog-in"],
@@ -382,361 +382,6 @@ define(function() {
 					tags: ["analog-in"],
 					overlay: [0.5, -0.5]
 				}]
-			}, {
-				label: "Arduino/Genuino 101",
-				name: "Arduino101",
-				type: "genuino101",
-				tags: ["Arduino"],
-				pins: [{
-					uid: "ab7cd85a-9abe-48c4-a8bc-a22eb5578995",
-					width: 9,
-					height: 12,
-					x: 0.475,
-					y: 0.07,
-					name: "13",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "d83f0b0d-11c5-45fe-8d91-a728dc9152f6",
-					width: 9,
-					height: 12,
-					x: 0.506,
-					y: 0.07,
-					name: "12",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "b23995cd-9283-4153-9247-3f2d99c5c577",
-					width: 9,
-					height: 12,
-					x: 0.537,
-					y: 0.07,
-					name: "11",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "08f5be15-9437-4fea-b641-960297a9256d",
-					width: 9,
-					height: 12,
-					x: 0.568,
-					y: 0.07,
-					name: "10",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "5b9d5525-f336-48a1-9bea-05bf97e2e15a",
-					width: 9,
-					height: 12,
-					x: 0.599,
-					y: 0.07,
-					name: "9",
-					tags: ["digital", "analog-out", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "e0ddd32c-0b2e-40de-83d3-5a1a9495cabd",
-					width: 9,
-					height: 12,
-					x: 0.63,
-					y: 0.07,
-					name: "8",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "0cad225d-c342-47de-a330-24ef08502843",
-					width: 9,
-					height: 12,
-					x: 0.697,
-					y: 0.07,
-					name: "7",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "9f398c7d-0b85-4692-bffe-28e6129e1ece",
-					width: 9,
-					height: 12,
-					x: 0.728,
-					y: 0.07,
-					name: "6",
-					tags: ["digital", "analog-out", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "65ec63cb-ed89-49a4-8244-f1b90c435144",
-					width: 9,
-					height: 12,
-					x: 0.759,
-					y: 0.07,
-					name: "5",
-					tags: ["digital", "analog-out", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "ce53f383-f875-4267-b46a-562e046960b7",
-					width: 9,
-					height: 12,
-					x: 0.79,
-					y: 0.07,
-					name: "4",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "50c69484-c163-44f3-841e-b6c45ca72bab",
-					width: 9,
-					height: 12,
-					x: 0.832,
-					y: 0.07,
-					name: "3",
-					tags: ["digital", "analog-out", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "32be564f-f9d4-45ba-beaa-705507da4e2a",
-					width: 9,
-					height: 12,
-					x: 0.864,
-					y: 0.07,
-					name: "2",
-					tags: ["digital", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "c2064580-c984-4a8d-9f06-12f25b0392e0",
-					width: 9,
-					height: 12,
-					x: 0.894,
-					y: 0.07,
-					name: "1",
-					tags: ["digital", "serial-rx", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "79bda001-83ca-4bbc-90c4-a850c1ea2a08",
-					width: 9,
-					height: 12,
-					x: 0.925,
-					y: 0.07,
-					name: "0",
-					tags: ["digital", "serial-tx", "init"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "e817da0e-74c0-4514-86a9-df8580424048",
-					width: 9,
-					height: 12,
-					x: 0.770,
-					y: 0.935,
-					name: "A0",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "2b7dc051-c089-433e-b137-5fbc805410d7",
-					width: 9,
-					height: 12,
-					x: 0.804,
-					y: 0.935,
-					name: "A1",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "083d705a-1cb4-47de-b845-f90b44cc3213",
-					width: 9,
-					height: 12,
-					x: 0.838,
-					y: 0.935,
-					name: "A2",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "0b974abf-92c8-42dd-8344-f06761fc5e3d",
-					width: 9,
-					height: 12,
-					x: 0.872,
-					y: 0.935,
-					name: "A3",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "39df0dce-50a1-4358-b488-76c6aef65514",
-					width: 9,
-					height: 12,
-					x: 0.906,
-					y: 0.935,
-					name: "A4",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "5b7f72ce-3bee-4a78-bb97-bd01ba778492",
-					width: 9,
-					height: 12,
-					x: 0.940,
-					y: 0.935,
-					name: "A5",
-					tags: ["analog-in", "init"],
-					overlay: [0.5, -0.5]
-				}, {
-					width: 32,
-					height: 60,
-					x: 0.040,
-					y: 0.296,
-					name: "Serial",
-					tags: ["serial"],
-					uid: "5b07ef5c-861f-404b-b118-b59e5eceb90c",
-					overlay: [0.5, 1.5]
-				}]
-			}, {
-				label: "KenBlock",
-				name: "KenBlock",
-				type: "uno",
-				tags: ["KenBlock"],
-				pins: [{
-					uid: "c9168884-b454-4342-b677-f06dacb0b3cc",
-					width: 32,
-					height: 20,
-					x: 0.333,
-					y: 0.851,
-					name: "2",
-					tags: ["digital"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "55798942-05de-4d9c-82e8-ddced2259aec",
-					width: 32,
-					height: 20,
-					x: 0.431,
-					y: 0.851,
-					name: "3",
-					tags: ["digital", "analog-out"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "c297515b-2a2d-4b5c-96a8-e740d83a75ce",
-					width: 32,
-					height: 20,
-					x: 0.529,
-					y: 0.851,
-					name: "8",
-					tags: ["digital"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "86624d9f-0ddb-4356-8664-0afc9223e12e",
-					width: 32,
-					height: 20,
-					x: 0.627,
-					y: 0.851,
-					name: "9",
-					tags: ["digital", "analog-out"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "e29d477e-8923-40c2-8922-af988a78811f",
-					width: 32,
-					height: 20,
-					x: 0.725,
-					y: 0.851,
-					name: "10",
-					tags: ["digital", "analog-out"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "08001087-da26-451b-b124-5c100d928201",
-					width: 32,
-					height: 20,
-					x: 0.823,
-					y: 0.851,
-					name: "11",
-					tags: ["digital", "analog-out"],
-					overlay: [0.5, -0.5]
-				}, {
-					width: 32,
-					height: 20,
-					x: 0.333,
-					y: 0.149,
-					name: "A0",
-					tags: ["analog-in"],
-					uid: "7186a1cf-2fab-4c5a-8d1e-19836d4a561d",
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "7c10ef7d-a65e-497d-868a-b9c2e43bea81",
-					width: 32,
-					height: 20,
-					x: 0.431,
-					y: 0.149,
-					name: "A1",
-					tags: ["analog-in"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "15ad5a73-f510-44bc-b4ac-5886a8211d38",
-					width: 32,
-					height: 20,
-					x: 0.529,
-					y: 0.149,
-					name: "A2",
-					tags: ["analog-in"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "129d8693-115f-40c4-a6c1-4315bd020254",
-					width: 32,
-					height: 20,
-					x: 0.627,
-					y: 0.149,
-					name: "A3",
-					tags: ["analog-in"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "d679b1cd-91d4-4aed-8f6f-6ad31d041518",
-					width: 32,
-					height: 20,
-					x: 0.725,
-					y: 0.149,
-					name: "A6",
-					tags: ["analog-in"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "15c50e12-8705-4d47-803d-5c50b7512981",
-					width: 32,
-					height: 20,
-					x: 0.823,
-					y: 0.149,
-					name: "A7",
-					tags: ["analog-in"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "ed9cbaec-e3fb-4acb-87d9-c4825bb5594c",
-					width: 40,
-					height: 20,
-					x: 0.228,
-					y: 0.851,
-					name: "USART",
-					tags: ["serial"],
-					overlay: [0.5, -0.5]
-				}, {
-					uid: "e6f796e0-d283-41d3-a996-7316acb2c4cc",
-					width: 40,
-					height: 20,
-					x: 0.228,
-					y: 0.149,
-					name: "IIC",
-					tags: ["iic"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "cc94cecf-1424-4352-8309-474a814981f5",
-					width: 40,
-					height: 20,
-					x: 0.97,
-					y: 0.72,
-					name: "IIC",
-					tags: ["iic"],
-					overlay: [0.5, 1.5],
-					rotate: true
-				}, {
-					uid: "0ae7f137-66e0-437a-998f-c71a2ec62c3b",
-					width: 20,
-					height: 54,
-					x: 0.97,
-					y: 0.336,
-					name: "MA",
-					tags: ["motor"],
-					overlay: [0.5, 1.5]
-				}, {
-					uid: "ee0399c9-2700-4456-96e1-47803c1ff60a",
-					width: 20,
-					height: 54,
-					x: 0.97,
-					y: 0.54,
-					name: "MB",
-					tags: ["motor"],
-					overlay: [0.5, 1.5]
-				}]
 			}],
 			components: [{
 				uid: "bd3ddead-5062-4ab3-9b3d-2ba85e938d0e",
@@ -750,11 +395,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -769,11 +414,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["analog-in"],
+					tags: ["analog-in"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -788,12 +433,12 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
 					include: "#include <DHT.h>",
-					var: 'DHT {NAME}({s}, DHT22);',
-					setup: '{NAME}.begin();'
+					var: "DHT {NAME}({s}, DHT22);",
+					setup: "{NAME}.begin();"
 				}
 			}, {
 				uid: "b75731dd-555f-4ba6-b275-e4fefb3d9c64",
@@ -807,22 +452,22 @@ define(function() {
 				pins: [{
 					name: "k",
 					anchor: [0.25, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}, {
 					name: "sa",
 					anchor: [0.5, 1],
 					tags: ["init"],
-					spec: "3",
+					spec: "3"
 				}, {
 					name: "sb",
 					anchor: [0.75, 1],
 					tags: ["init"],
-					spec: "2",
+					spec: "2"
 				}],
 				code: {
 					include: "#include <Encoder.h>",
-					var: 'Encoder {NAME}({sa}, {sb});',
-					setup: '{NAME}.begin();'
+					var: "Encoder {NAME}({sa}, {sb});",
+					setup: "{NAME}.begin();"
 				}
 			}, {
 				uid: "e1bde3b1-11f6-48c2-ad56-a8f0220d6e7a",
@@ -836,11 +481,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -855,11 +500,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["analog-in"],
+					tags: ["analog-in"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -874,11 +519,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -893,11 +538,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, INPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, INPUT);"
 				},
 				raw: true
 			}, {
@@ -912,17 +557,17 @@ define(function() {
 				pins: [{
 					name: "tri",
 					anchor: [0.333, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}, {
 					name: "ech",
 					anchor: [0.667, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
 					include: "#include <SR04.h>",
-					var: 'SR04 {NAME}({ech}, {tri});',
+					var: "SR04 {NAME}({ech}, {tri});"
 				}
-			},  {
+			}, {
 				uid: "aa1a2f4c-2934-414a-823f-9961fbf23c55",
 				name: "led",
 				label: "LED",
@@ -937,8 +582,8 @@ define(function() {
 					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, OUTPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, OUTPUT);"
 				},
 				raw: true
 			}, {
@@ -964,8 +609,8 @@ define(function() {
 					tags: ["analog-out"]
 				}],
 				code: {
-					include: '#include <RGBLed.h>',
-					var: 'RGBLed {NAME}({r}, {g}, {b});',
+					include: "#include <RGBLed.h>",
+					var: "RGBLed {NAME}({r}, {g}, {b});"
 				}
 			}, {
 				uid: "abf7ad9a-2bd9-40f4-bf83-0af03e8f4d5a",
@@ -988,9 +633,9 @@ define(function() {
 					spec: "A5"
 				}],
 				code: {
-					include: '#include <LiquidCrystal_I2C.h>',
-					var: 'LiquidCrystal_I2C {NAME}(0x27, 16, 2);',
-					setup: '{NAME}.begin();{NAME}.clear();'
+					include: "#include <LiquidCrystal_I2C.h>",
+					var: "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
+					setup: "{NAME}.begin();{NAME}.clear();"
 				}
 			}, {
 				uid: "9b26a7f3-facc-4f80-83ad-8a29f909c1d7",
@@ -1004,11 +649,11 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
-					var: 'int {NAME} = {s};',
-					setup: 'pinMode({NAME}, OUTPUT);'
+					var: "int {NAME} = {s};",
+					setup: "pinMode({NAME}, OUTPUT);"
 				}
 			}, {
 				uid: "a44f6a20-c35a-46dc-b495-9bcb0618c7ec",
@@ -1022,12 +667,12 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
 					include: "#include <Servo.h>",
-					var: 'Servo {NAME};',
-					setup: '{NAME}.attach({s});'
+					var: "Servo {NAME};",
+					setup: "{NAME}.attach({s});"
 				}
 			}, {
 				uid: "1b286953-9e06-496d-baaf-c831c0f61d87",
@@ -1041,14 +686,14 @@ define(function() {
 				pins: [{
 					name: "s",
 					anchor: [0.5, 1],
-					tags: ["digital"],
+					tags: ["digital"]
 				}],
 				code: {
 					include: "#include <Servo.h>",
-					var: 'Servo {NAME};',
-					setup: '{NAME}.attach({s});'
+					var: "Servo {NAME};",
+					setup: "{NAME}.attach({s});"
 				}
-			},{
+			}, {
 				uid: "4b8594a2-b7ff-44fe-a8b0-319640722b30",
 				name: "serial",
 				label: "串口模块",
@@ -1064,7 +709,7 @@ define(function() {
 					spec: "Serial"
 				}],
 				code: {
-					setup: 'Serial.begin(9600);'
+					setup: "Serial.begin(9600);"
 				}
 			}, {
 				uid: "d4a3cc37-804e-4a07-b567-aa5ca519bc61",
@@ -1078,16 +723,14 @@ define(function() {
 				pins: [{
 					name: "rxd",
 					anchor: [0.33, 1],
-					tags: ["digital", "analog-in"],
-					// spec: "0"
+					tags: ["digital", "analog-in"]
 				}, {
 					name: "txd",
 					anchor: [0.67, 1],
-					tags: ["digital", "analog-in"],
-					// spec: "1"
+					tags: ["digital", "analog-in"]
 				}],
 				code: {
-					setup: 'Serial.begin(9600);'
+					setup: "Serial.begin(9600);"
 				}
 			}, {
 				uid: "c0dc58aa-2032-4c54-9fc8-3235b7e46bc1",
@@ -1101,14 +744,14 @@ define(function() {
 				pins: [{
 					name: "rxd",
 					anchor: [0.33, 1],
-					tags: ["digital", "analog-in"],
+					tags: ["digital", "analog-in"]
 				}, {
 					name: "txd",
 					anchor: [0.67, 1],
-					tags: ["digital", "analog-in"],
+					tags: ["digital", "analog-in"]
 				}],
 				code: {
-					setup: 'Serial.begin(9600);'
+					setup: "Serial.begin(9600);"
 				}
 			}, {
 				uid: "563eeca3-ddf2-454d-8bed-7918652da3a6",
@@ -1123,16 +766,16 @@ define(function() {
 					name: "sda",
 					anchor: [0.333, 0],
 					tags: ["analog-in"],
-					spec: 'A4'
+					spec: "A4"
 				}, {
 					name: "scl",
 					anchor: [0.667, 0],
 					tags: ["analog-in"],
-					spec: 'A5'
+					spec: "A5"
 				}],
 				code: {
 					include: "#include <Time.h>",
-					var: 'tmElements_t {NAME};',
+					var: "tmElements_t {NAME};"
 				}
 			}]
 		},
@@ -1197,7 +840,7 @@ define(function() {
 				},
 				tags: ["module"],
 				module: "hardwareVariable"
-			},  {
+			}, {
 				type: "output",
 				name: "digitalRead",
 				connectors: [{
@@ -2140,847 +1783,6 @@ define(function() {
 				tags: ["module"],
 				module: "rgb"
 			}, {
-				type: "output",
-				name: "SEN006Read",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "45f8b420-e328-429d-8e78-a0d778431819"
-				}],
-				content: [{
-					type: "text",
-					value: "获取摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "X轴或Y轴的值，坐标轴为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					name: "45f8b420-e328-429d-8e78-a0d778431819"
-				}],
-				code: "{JOYSTICK}.read({INDEX})",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "SEN006"
-			}, {
-				type: "output",
-				name: "SEN006ReadX",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "X轴的值"
-				}],
-				code: "{JOYSTICK}.readX()",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "SEN006"
-			}, {
-				type: "output",
-				name: "SEN006ReadY",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "Y轴的值"
-				}],
-				code: "{JOYSTICK}.readY()",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "SEN006"
-			}, {
-				type: "output",
-				name: "SEN006Angle",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "的角度"
-				}],
-				code: "{JOYSTICK}.angle()",
-				returnType: {
-					type: "simple",
-					value: "float"
-				},
-				tags: ["module"],
-				module: "SEN006"
-			}, {
-				type: "output",
-				name: "SEN006OffCenter",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "离中心的距离"
-				}],
-				code: "{JOYSTICK}.OffCenter()",
-				returnType: {
-					type: "simple",
-					value: "float"
-				},
-				tags: ["module"],
-				module: "SEN006"
-			}, {
-				type: "output",
-				name: "SEN017ReadSensors",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取巡线阵列"
-				}, {
-					id: "LINE",
-					type: "dynamic-select",
-					options: "SEN017s"
-				}, {
-					type: "text",
-					value: "的传感器状态"
-				}],
-				code: "{LINE}.readSensors()",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "SEN017"
-			}, {
-				type: "output",
-				name: "SEN017ReadSensor",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "79c13bfc-59fe-4ee1-a075-2c4572b50f44"
-				}],
-				content: [{
-					type: "text",
-					value: "获取巡线阵列"
-				}, {
-					id: "LINE",
-					type: "dynamic-select",
-					options: "SEN017s"
-				}, {
-					type: "text",
-					value: "的某个传感器的状态，传感器序号为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					name: "79c13bfc-59fe-4ee1-a075-2c4572b50f44"
-				}],
-				code: "{LINE}.readSensors({INDEX})",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "SEN017"
-			}, {
-				type: "statement",
-				name: "ACT002Show",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}],
-				content: [{
-					type: "text",
-					value: "彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "显示"
-				}],
-				code: "{LED}.show();",
-				tags: ["module"],
-				module: "ACT002"
-			}, {
-				type: "output",
-				name: "ACT002GetNumber",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的值"
-				}],
-				code: "{LED}.getNumber()",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT002SetNumber",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "4d9a6bee-e01d-4314-93c2-7d7f27b03812"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的值为"
-				}, {
-					blockInputId: "NUMBER",
-					type: "block-input",
-					acceptType: "number",
-					name: "4d9a6bee-e01d-4314-93c2-7d7f27b03812"
-				}],
-				code: "{LED}.setNumber({NUMBER});",
-				tags: ["module"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT002SetColor",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "ce1dccd8-0d31-4de8-9bf6-976f0d36f847"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "4adce8d3-8232-4a19-a8f0-e5dd4b85f5f0"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "cb442ce5-3a46-4aa4-a456-38ae732d0fc9"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的颜色，红色为"
-				}, {
-					blockInputId: "RED",
-					type: "block-input",
-					acceptType: "number",
-					name: "ce1dccd8-0d31-4de8-9bf6-976f0d36f847"
-				}, {
-					type: "text",
-					value: "绿色为"
-				}, {
-					blockInputId: "GREEN",
-					type: "block-input",
-					acceptType: "number",
-					name: "4adce8d3-8232-4a19-a8f0-e5dd4b85f5f0"
-				}, {
-					type: "text",
-					value: "蓝色为"
-				}, {
-					blockInputId: "BLUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "cb442ce5-3a46-4aa4-a456-38ae732d0fc9"
-				}],
-				code: "{LED}.setColor({RED}, {GREEN}, {BLUE});",
-				tags: ["module"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT002SetColor2",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a1a513e2-7672-407c-b36f-360b54c49e8e"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "5645ecae-9edc-4bbd-9b4a-29abd88832d8"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的颜色，索引为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					acceptType: "number",
-					name: "a1a513e2-7672-407c-b36f-360b54c49e8e"
-				}, {
-					type: "text",
-					value: "值为"
-				}, {
-					blockInputId: "VALUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "5645ecae-9edc-4bbd-9b4a-29abd88832d8"
-				}],
-				code: "{LED}.setColor({INDEX}, {VALUE});",
-				tags: ["module"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT005Tone",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "9c9ec54a-36ce-4196-a175-9e611efceddf"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "34e4fd81-8159-4e8c-bbe2-e52fcc9ee009"
-				}],
-				content: [{
-					type: "text",
-					value: "蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "发出声音，频率为"
-				}, {
-					blockInputId: "FREQUENCY",
-					type: "block-input",
-					acceptType: "number",
-					name: "9c9ec54a-36ce-4196-a175-9e611efceddf"
-				}, {
-					type: "text",
-					value: "Hz，持续时间为"
-				}, {
-					blockInputId: "DURATION",
-					type: "block-input",
-					acceptType: "number",
-					name: "34e4fd81-8159-4e8c-bbe2-e52fcc9ee009"
-				}, {
-					type: "text",
-					value: "毫秒"
-				}],
-				code: "{BUZZER}.tone({FREQUENCY}, {DURATION});",
-				tags: ["module"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT005Didi",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}],
-				content: [{
-					type: "text",
-					value: "蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "发出嘀嘀声"
-				}],
-				code: "{BUZZER}.Didi();",
-				tags: ["module"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT005NoTone",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}],
-				content: [{
-					type: "text",
-					value: "关闭蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}],
-				code: "{BUZZER}.noTone();",
-				tags: ["module"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT008Init",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "初始化"
-				}],
-				code: "{SEGMENT}.init();",
-				tags: ["module"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Display",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "8e242abc-8d0b-4947-a29f-a2028bd6b64c"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "显示数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "8e242abc-8d0b-4947-a29f-a2028bd6b64c"
-				}],
-				code: "{SEGMENT}.display({DATA});",
-				tags: ["module"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008SetBrightness",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "c5d8e6f0-28c9-47af-b939-b515bd0e1dd4"
-				}],
-				content: [{
-					type: "text",
-					value: "设置数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "亮度为"
-				}, {
-					blockInputId: "BRIGHTNESS",
-					type: "block-input",
-					acceptType: "number",
-					name: "c5d8e6f0-28c9-47af-b939-b515bd0e1dd4"
-				}],
-				code: "{SEGMENT}.setBrightness({BRIGHTNESS});",
-				tags: ["module"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008ClearDisplay",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}],
-				content: [{
-					type: "text",
-					value: "清除数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "显示"
-				}],
-				code: "{SEGMENT}.clearDisplay();",
-				tags: ["module"],
-				module: "ACT008"
-			}, {
-				type: "output",
-				name: "ACT009GetDeviceCount",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}],
-				content: [{
-					type: "text",
-					value: "获取点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "的模块数量"
-				}],
-				code: "{LCD}.getDeviceCount()",
-				returnType: {
-					type: "simple",
-					value: "short"
-				},
-				tags: ["module"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009Display",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "b2dd8577-68e0-4a38-a041-f4c4b4301c7a"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "c9ee8ac8-96b7-49b0-b907-11be6f352a70"
-				}],
-				content: [{
-					type: "text",
-					value: "点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "显示，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "b2dd8577-68e0-4a38-a041-f4c4b4301c7a"
-				}, {
-					type: "text",
-					value: "数据为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "c9ee8ac8-96b7-49b0-b907-11be6f352a70"
-				}],
-				code: "{LCD}.display({ADDR}, {DATA});",
-				tags: ["module"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009Shutdown",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "d1e01a1f-ebff-441a-9672-1207e3dda8df"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "boolean",
-					name: "fd3a61fa-83b0-4bfc-a5cf-159dd2096109"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "关断模式，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "d1e01a1f-ebff-441a-9672-1207e3dda8df"
-				}, {
-					type: "text",
-					value: "状态为"
-				}, {
-					blockInputId: "STATUS",
-					type: "block-input",
-					acceptType: "boolean",
-					name: "fd3a61fa-83b0-4bfc-a5cf-159dd2096109"
-				}],
-				code: "{LCD}.shutdown({ADDR}, {STATUS});",
-				tags: ["module"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009SetScanLimit",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "8d0eb454-5d48-4c02-8e1e-9219177db4c5"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "079428c7-bbb6-47bd-bf23-b9ef1e547493"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "扫描界限，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "8d0eb454-5d48-4c02-8e1e-9219177db4c5"
-				}, {
-					type: "text",
-					value: "数量为"
-				}, {
-					blockInputId: "LIMIT",
-					type: "block-input",
-					acceptType: "number",
-					name: "079428c7-bbb6-47bd-bf23-b9ef1e547493"
-				}],
-				code: "{LCD}.setScanLimit({ADDR}, {LIMIT});",
-				tags: ["module"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009SetIndensity",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "69ca1287-7c0c-478d-943e-6b79abccb75c"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "3404b249-a24b-4afb-a0aa-b122c9eb63e0"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "亮度，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "69ca1287-7c0c-478d-943e-6b79abccb75c"
-				}, {
-					type: "text",
-					value: "亮度为"
-				}, {
-					blockInputId: "INDTENSITY",
-					type: "block-input",
-					acceptType: "number",
-					name: "3404b249-a24b-4afb-a0aa-b122c9eb63e0"
-				}],
-				code: "{LCD}.setIntensity({ADDR}, {INDTENSITY});",
-				tags: ["module"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009ClearDisplay",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "063e64db-6ce0-4818-bdfa-90ee400da4c1"
-				}],
-				content: [{
-					type: "text",
-					value: "清除点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "显示，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "063e64db-6ce0-4818-bdfa-90ee400da4c1"
-				}],
-				code: "{LCD}.clearDisplay({ADDR});",
-				tags: ["module"],
-				module: "ACT009"
-			}, {
 				type: "statement",
 				name: "rtcInit",
 				connectors: [{
@@ -3643,1281 +2445,6 @@ define(function() {
 				code: "{LED}.setRGBcolor({RED},{GREEN},{BLUE});",
 				tags: ["module", "advanced"],
 				module: "rgb"
-			}, {
-				type: "statement",
-				name: "SEN006SetPin",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "7487ae62-79d7-4783-a090-5e2e4602ed92"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "942dca2e-54fc-4a0b-809e-1810e9de9695"
-				}],
-				content: [{
-					type: "text",
-					value: "设置摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "的引脚，X为"
-				}, {
-					blockInputId: "X",
-					type: "block-input",
-					acceptType: "number",
-					name: "7487ae62-79d7-4783-a090-5e2e4602ed92"
-				}, {
-					type: "text",
-					value: "Y为"
-				}, {
-					blockInputId: "Y",
-					type: "block-input",
-					acceptType: "number",
-					name: "942dca2e-54fc-4a0b-809e-1810e9de9695"
-				}],
-				code: "{JOYSTICK}.setpin({X}, {Y});",
-				tags: ["module", "advanced"],
-				module: "SEN006"
-			}, {
-				type: "statement",
-				name: "SEN006CalCenterValue",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "b9101a87-ba5b-47f8-a961-11d84c477aa7"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "80843961-c4f8-44db-94b3-a565eb0f3357"
-				}],
-				content: [{
-					type: "text",
-					value: "校正摇杆"
-				}, {
-					id: "JOYSTICK",
-					type: "dynamic-select",
-					options: "SEN006s"
-				}, {
-					type: "text",
-					value: "的中心点，X轴偏移量为"
-				}, {
-					blockInputId: "X_OFFSET",
-					type: "block-input",
-					acceptType: "number",
-					name: "b9101a87-ba5b-47f8-a961-11d84c477aa7"
-				}, {
-					type: "text",
-					value: "Y轴偏移量为"
-				}, {
-					blockInputId: "Y_OFFSET",
-					type: "block-input",
-					acceptType: "number",
-					name: "80843961-c4f8-44db-94b3-a565eb0f3357"
-				}],
-				code: "{JOYSTICK}.CalCenterValue({X_OFFSET}, {Y_OFFSET});",
-				tags: ["module", "advanced"],
-				module: "SEN006"
-			}, {
-				type: "statement",
-				name: "SEN017SetPin",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a7a7a3e6-20d3-4325-8991-640a46245a4f"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "9864f191-1571-4277-934b-745d917c8793"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "1f1b4a92-aace-41d7-80d8-be43a927fe8a"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "62113218-19d6-4b3d-b7ec-e08a0463ab68"
-				}],
-				content: [{
-					type: "text",
-					value: "设置巡线阵列"
-				}, {
-					id: "LINE",
-					type: "dynamic-select",
-					options: "SEN017s"
-				}, {
-					type: "text",
-					value: "的引脚，D1为"
-				}, {
-					blockInputId: "D1",
-					type: "block-input",
-					acceptType: "number",
-					name: "a7a7a3e6-20d3-4325-8991-640a46245a4f"
-				}, {
-					type: "text",
-					value: "D2为"
-				}, {
-					blockInputId: "D2",
-					type: "block-input",
-					acceptType: "number",
-					name: "9864f191-1571-4277-934b-745d917c8793"
-				}, {
-					type: "text",
-					value: "D3为"
-				}, {
-					blockInputId: "D3",
-					type: "block-input",
-					acceptType: "number",
-					name: "1f1b4a92-aace-41d7-80d8-be43a927fe8a"
-				}, {
-					type: "text",
-					value: "D4为"
-				}, {
-					blockInputId: "D4",
-					type: "block-input",
-					acceptType: "number",
-					name: "62113218-19d6-4b3d-b7ec-e08a0463ab68"
-				}],
-				code: "{LINE}.setpin({D1}, {D2}, {D3}, {D4});",
-				tags: ["module", "advanced"],
-				module: "SEN017"
-			}, {
-				type: "statement",
-				name: "ACT002SetPinAdvanced",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "23a19473-9337-444a-9fc1-5c5037b1a928"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的引脚"
-				}, {
-					blockInputId: "PIN",
-					type: "block-input",
-					acceptType: "number",
-					name: "23a19473-9337-444a-9fc1-5c5037b1a928"
-				}],
-				code: "{LED}.setpin({PIN});",
-				tags: ["module", "advanced"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT002SetColorAdvanced",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a78378a4-288e-4c59-b3fe-140fcff76ab3"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a7db4f9f-4c42-4201-a869-df4c6e6e294e"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "bf8f7ddb-b806-4ce2-a8cf-94221d59ab1e"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "f198ff94-ab2b-4462-9a74-8737cf810219"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的颜色，索引为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					acceptType: "number",
-					name: "a78378a4-288e-4c59-b3fe-140fcff76ab3"
-				}, {
-					type: "text",
-					value: "红色为"
-				}, {
-					blockInputId: "RED",
-					type: "block-input",
-					acceptType: "number",
-					name: "a7db4f9f-4c42-4201-a869-df4c6e6e294e"
-				}, {
-					type: "text",
-					value: "绿色为"
-				}, {
-					blockInputId: "GREEN",
-					type: "block-input",
-					acceptType: "number",
-					name: "bf8f7ddb-b806-4ce2-a8cf-94221d59ab1e"
-				}, {
-					type: "text",
-					value: "蓝色为"
-				}, {
-					blockInputId: "BLUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "f198ff94-ab2b-4462-9a74-8737cf810219"
-				}],
-				code: "{LED}.setColor({INDEX}, {RED}, {GREEN}, {BLUE});",
-				tags: ["module", "advanced"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT002SetColorAt",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "be700e00-0037-4fe2-9651-79cc641d7eaf"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "42cf1754-0995-4eb3-97ae-b72b5b53b045"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "212eb953-50d9-4119-be7b-7d710beca448"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "8a570b92-eb58-4e9e-91bd-689c4309b154"
-				}],
-				content: [{
-					type: "text",
-					value: "设置彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的颜色，在索引为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					acceptType: "number",
-					name: "be700e00-0037-4fe2-9651-79cc641d7eaf"
-				}, {
-					type: "text",
-					value: "红色为"
-				}, {
-					blockInputId: "RED",
-					type: "block-input",
-					acceptType: "number",
-					name: "42cf1754-0995-4eb3-97ae-b72b5b53b045"
-				}, {
-					type: "text",
-					value: "绿色为"
-				}, {
-					blockInputId: "GREEN",
-					type: "block-input",
-					acceptType: "number",
-					name: "212eb953-50d9-4119-be7b-7d710beca448"
-				}, {
-					type: "text",
-					value: "蓝色为"
-				}, {
-					blockInputId: "BLUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "8a570b92-eb58-4e9e-91bd-689c4309b154"
-				}],
-				code: "{LED}.setColorAt({INDEX}, {RED}, {GREEN}, {BLUE});",
-				tags: ["module", "advanced"],
-				module: "ACT002"
-			}, {
-				type: "output",
-				name: "ACT002GetColorAt",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "122d0e54-5e58-4e22-8896-56070b2b7a21"
-				}],
-				content: [{
-					type: "text",
-					value: "获取彩色LED"
-				}, {
-					id: "LED",
-					type: "dynamic-select",
-					options: "ACT002s"
-				}, {
-					type: "text",
-					value: "的颜色，索引为"
-				}, {
-					blockInputId: "INDEX",
-					type: "block-input",
-					name: "122d0e54-5e58-4e22-8896-56070b2b7a21"
-				}],
-				code: "{LED}.getColorAt({INDEX})",
-				returnType: {
-					type: "simple",
-					value: "cRGB"
-				},
-				tags: ["module", "advanced"],
-				module: "ACT002"
-			}, {
-				type: "statement",
-				name: "ACT005SetPin",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "c243ecff-5b4c-4e98-acbe-f7c97a05e734"
-				}],
-				content: [{
-					type: "text",
-					value: "设置蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "引脚为"
-				}, {
-					blockInputId: "PIN",
-					type: "block-input",
-					acceptType: "number",
-					name: "c243ecff-5b4c-4e98-acbe-f7c97a05e734"
-				}],
-				code: "{BUZZER}.setpin({PIN});",
-				tags: ["module", "advanced"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT005ToneAdvanced",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "525fdbdf-9d6c-4f8f-a8cb-cd3849756675"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "b8bd82e7-1251-4f8b-b8cb-ca8fc1b068cf"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "fb32e4d7-82de-4981-ac8a-63ac436511e9"
-				}],
-				content: [{
-					type: "text",
-					value: "蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "发出声音，引脚为"
-				}, {
-					blockInputId: "PIN",
-					type: "block-input",
-					acceptType: "number",
-					name: "525fdbdf-9d6c-4f8f-a8cb-cd3849756675"
-				}, {
-					type: "text",
-					value: "频率为"
-				}, {
-					blockInputId: "FREQUENCY",
-					type: "block-input",
-					acceptType: "number",
-					name: "b8bd82e7-1251-4f8b-b8cb-ca8fc1b068cf"
-				}, {
-					type: "text",
-					value: "Hz，持续时间为"
-				}, {
-					blockInputId: "DURATION",
-					type: "block-input",
-					acceptType: "number",
-					name: "fb32e4d7-82de-4981-ac8a-63ac436511e9"
-				}, {
-					type: "text",
-					value: "毫秒"
-				}],
-				code: "{BUZZER}.tone({PIN}, {FREQUENCY}, {DURATION});",
-				tags: ["module", "advanced"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT005DidiAdvanced",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "c0fea7ec-d21f-43b8-a034-aba9019e32c3"
-				}],
-				content: [{
-					type: "text",
-					value: "蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "发出嘀嘀声，引脚为"
-				}, {
-					blockInputId: "PIN",
-					type: "block-input",
-					acceptType: "number",
-					name: "c0fea7ec-d21f-43b8-a034-aba9019e32c3"
-				}],
-				code: "{BUZZER}.Didi({PIN});",
-				tags: ["module", "advanced"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT005NoToneAdvanced",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "aef18e3d-2146-463e-9210-ca2bce54dd0e"
-				}],
-				content: [{
-					type: "text",
-					value: "关闭蜂鸣器"
-				}, {
-					id: "BUZZER",
-					type: "dynamic-select",
-					options: "ACT005s"
-				}, {
-					type: "text",
-					value: "引脚为"
-				}, {
-					blockInputId: "PIN",
-					type: "block-input",
-					acceptType: "number",
-					name: "aef18e3d-2146-463e-9210-ca2bce54dd0e"
-				}],
-				code: "{BUZZER}.noTone({PIN});",
-				tags: ["module", "advanced"],
-				module: "ACT005"
-			}, {
-				type: "statement",
-				name: "ACT008Display2",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "17d73bf3-bbb9-4e8d-a729-8743e3bbedda"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "7d29b5ab-03ba-4d2b-a5c2-fa439b8ee758"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "指定位"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "17d73bf3-bbb9-4e8d-a729-8743e3bbedda"
-				}, {
-					type: "text",
-					value: "显示数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "7d29b5ab-03ba-4d2b-a5c2-fa439b8ee758"
-				}],
-				code: "{SEGMENT}.display({ADDR}, {DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Display3",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "fa1bb295-4220-4d9b-9972-87df4762a8a4"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "9725f5d6-798d-4fb4-bf61-1582fa1892ef"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "0cdfe9c3-4c3d-4460-932b-b61cfbecfbc5"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "指定位"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "fa1bb295-4220-4d9b-9972-87df4762a8a4"
-				}, {
-					type: "text",
-					value: "显示数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "9725f5d6-798d-4fb4-bf61-1582fa1892ef"
-				}, {
-					type: "text",
-					value: "显示时钟点"
-				}, {
-					blockInputId: "POINT",
-					type: "block-input",
-					acceptType: "number",
-					name: "0cdfe9c3-4c3d-4460-932b-b61cfbecfbc5"
-				}],
-				code: "{SEGMENT}.display({ADDR}, {DATA}, {POINT});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008SetPin",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "4a8da18f-4948-45ad-88fb-f61f638cc279"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "7cf72655-3199-461e-833d-9fc0bfdd4f79"
-				}],
-				content: [{
-					type: "text",
-					value: "设置数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "引脚，DATA为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "4a8da18f-4948-45ad-88fb-f61f638cc279"
-				}, {
-					type: "text",
-					value: "CLK为"
-				}, {
-					blockInputId: "CLK",
-					type: "block-input",
-					acceptType: "number",
-					name: "7cf72655-3199-461e-833d-9fc0bfdd4f79"
-				}],
-				code: "{SEGMENT}.setpin({DATA}, {CLK});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Write",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "dcc2313c-1906-4094-ad29-c567c32cef7a"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "写入数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "dcc2313c-1906-4094-ad29-c567c32cef7a"
-				}],
-				code: "{SEGMENT}.write({DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Write2",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "47fd804a-f1cb-4d8c-be23-898dda80a098"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "6c7d142b-d19c-49ac-9fe9-3320b8fcc69e"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "写入数据，位地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "47fd804a-f1cb-4d8c-be23-898dda80a098"
-				}, {
-					type: "text",
-					value: "数据为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "6c7d142b-d19c-49ac-9fe9-3320b8fcc69e"
-				}],
-				code: "{SEGMENT}.write({ADDR}, {DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "output",
-				name: "ACT008Coding",
-				connectors: [{
-					type: "connector-output",
-					accept: "connector-input"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "8b40d6ea-834f-4870-b09a-b88b91ffb684"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "转换数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					name: "8b40d6ea-834f-4870-b09a-b88b91ffb684"
-				}, {
-					type: "text",
-					value: "为数码管段码"
-				}],
-				code: "{SEGMENT}.coding({DATA})",
-				returnType: {
-					type: "simple",
-					value: "int"
-				},
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Coding2",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "f33f7baa-17c5-4405-a1ce-36ef9d1d696f"
-				}],
-				content: [{
-					type: "text",
-					value: "数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "转换数据"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "f33f7baa-17c5-4405-a1ce-36ef9d1d696f"
-				}, {
-					type: "text",
-					value: "为数码管段码数组"
-				}],
-				code: "{SEGMENT}.coding({DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT008Set",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "d9b811eb-353f-44fa-bb1c-9cc422af6462"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "218b6269-8ae2-44d2-8728-58b64f45191f"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "8bf83db2-323c-42cc-a6dd-ae63effae27b"
-				}],
-				content: [{
-					type: "text",
-					value: "设置数码管"
-				}, {
-					id: "SEGMENT",
-					type: "dynamic-select",
-					options: "ACT008s"
-				}, {
-					type: "text",
-					value: "亮度为"
-				}, {
-					blockInputId: "BRIGHTNESS",
-					type: "block-input",
-					acceptType: "number",
-					name: "d9b811eb-353f-44fa-bb1c-9cc422af6462"
-				}, {
-					type: "text",
-					value: "数据地址为"
-				}, {
-					blockInputId: "DATA_ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "218b6269-8ae2-44d2-8728-58b64f45191f"
-				}, {
-					type: "text",
-					value: "显示地址为"
-				}, {
-					blockInputId: "DISPLAY_ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "8bf83db2-323c-42cc-a6dd-ae63effae27b"
-				}],
-				code: "{SEGMENT}.set({BRIGHTNESS}, {DATA_ADDR}, {DISPLAY_ADDR});",
-				tags: ["module", "advanced"],
-				module: "ACT008"
-			}, {
-				type: "statement",
-				name: "ACT009SetPin",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a51a9749-5f80-4092-a2b3-ddeca3473aeb"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "d5014d11-7d0a-4a01-bd57-0628400d759a"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "e661dd26-e81c-4802-b971-b0859bd4f4aa"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "3cb3d2c2-93c8-4815-9b1f-54eecfcab023"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "引脚，DATA为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "a51a9749-5f80-4092-a2b3-ddeca3473aeb"
-				}, {
-					type: "text",
-					value: "CLK为"
-				}, {
-					blockInputId: "CLK",
-					type: "block-input",
-					acceptType: "number",
-					name: "d5014d11-7d0a-4a01-bd57-0628400d759a"
-				}, {
-					type: "text",
-					value: "CS为"
-				}, {
-					blockInputId: "CS",
-					type: "block-input",
-					acceptType: "number",
-					name: "e661dd26-e81c-4802-b971-b0859bd4f4aa"
-				}, {
-					type: "text",
-					value: "数量为"
-				}, {
-					blockInputId: "NUM",
-					type: "block-input",
-					acceptType: "number",
-					name: "3cb3d2c2-93c8-4815-9b1f-54eecfcab023"
-				}],
-				code: "{LCD}.setpin({DATA}, {CLK}, {CS}, {NUM});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009SetLed",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "f2069e73-7c79-43b5-865f-8fbbb1392156"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "c4d622c5-1def-4bba-86ff-305fb133a816"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "b48aaa24-bb98-4765-9fab-20f59249f038"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "fbfc5e58-ab7b-40e6-b225-ab240ed7696f"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "指定点的LED亮灭，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "f2069e73-7c79-43b5-865f-8fbbb1392156"
-				}, {
-					type: "text",
-					value: "行"
-				}, {
-					blockInputId: "ROW",
-					type: "block-input",
-					acceptType: "number",
-					name: "c4d622c5-1def-4bba-86ff-305fb133a816"
-				}, {
-					type: "text",
-					value: "列"
-				}, {
-					blockInputId: "COL",
-					type: "block-input",
-					acceptType: "number",
-					name: "b48aaa24-bb98-4765-9fab-20f59249f038"
-				}, {
-					type: "text",
-					value: "亮灭"
-				}, {
-					blockInputId: "STATE",
-					type: "block-input",
-					acceptType: "number",
-					name: "fbfc5e58-ab7b-40e6-b225-ab240ed7696f"
-				}],
-				code: "{LCD}.setLed({ADDR}, {ROW}, {COL}, {STATE});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009SetRow",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "afc8783a-257f-4877-b1de-e691efc56ad8"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "2e81a42d-aaaa-4489-9abb-3baf8d1a8c19"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "2699a77f-dfa2-4412-9c83-757e88af0fda"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "指定行的LED亮灭，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "afc8783a-257f-4877-b1de-e691efc56ad8"
-				}, {
-					type: "text",
-					value: "行"
-				}, {
-					blockInputId: "ROW",
-					type: "block-input",
-					acceptType: "number",
-					name: "2e81a42d-aaaa-4489-9abb-3baf8d1a8c19"
-				}, {
-					type: "text",
-					value: "亮灭"
-				}, {
-					blockInputId: "VALUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "2699a77f-dfa2-4412-9c83-757e88af0fda"
-				}],
-				code: "{LCD}.setRow({ADDR}, {ROW}, {VALUE});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009SetColumn",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "1ec003a0-8e02-41ab-b746-c825a1d372c3"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "3ea29551-3f0b-4be3-8c33-8064ae8dc775"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "a3328dd9-8ff3-4f3a-9c0e-4ac811ad3da7"
-				}],
-				content: [{
-					type: "text",
-					value: "设置点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "指定列的LED亮灭，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "1ec003a0-8e02-41ab-b746-c825a1d372c3"
-				}, {
-					type: "text",
-					value: "列"
-				}, {
-					blockInputId: "COL",
-					type: "block-input",
-					acceptType: "number",
-					name: "3ea29551-3f0b-4be3-8c33-8064ae8dc775"
-				}, {
-					type: "text",
-					value: "亮灭"
-				}, {
-					blockInputId: "VALUE",
-					type: "block-input",
-					acceptType: "number",
-					name: "a3328dd9-8ff3-4f3a-9c0e-4ac811ad3da7"
-				}],
-				code: "{LCD}.setColumn({ADDR}, {COL}, {VALUE});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009DisplayRotation",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "6e2c90e2-71fb-44cd-890c-ba70597a978e"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "2df43577-798f-48c5-bc58-08a812cb250a"
-				}],
-				content: [{
-					type: "text",
-					value: "点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "旋转90度显示，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "6e2c90e2-71fb-44cd-890c-ba70597a978e"
-				}, {
-					type: "text",
-					value: "数据为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "2df43577-798f-48c5-bc58-08a812cb250a"
-				}],
-				code: "{LCD}.displayRotation({ADDR}, {DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
-			}, {
-				type: "statement",
-				name: "ACT009DisplayMinRotation",
-				connectors: [{
-					type: "connector-top",
-					accept: "connector-bottom"
-				}, {
-					type: "connector-bottom",
-					accept: "connector-top"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "805cd578-0a23-410d-83da-b15b410ff142"
-				}, {
-					type: "connector-input",
-					accept: "connector-output",
-					acceptType: "all",
-					name: "2f0d9241-5093-4578-90e4-a509b957c659"
-				}],
-				content: [{
-					type: "text",
-					value: "点阵模块"
-				}, {
-					id: "LCD",
-					type: "dynamic-select",
-					options: "ACT009s"
-				}, {
-					type: "text",
-					value: "8*8旋转90度显示，地址为"
-				}, {
-					blockInputId: "ADDR",
-					type: "block-input",
-					acceptType: "number",
-					name: "805cd578-0a23-410d-83da-b15b410ff142"
-				}, {
-					type: "text",
-					value: "数据为"
-				}, {
-					blockInputId: "DATA",
-					type: "block-input",
-					acceptType: "number",
-					name: "2f0d9241-5093-4578-90e4-a509b957c659"
-				}],
-				code: "{LCD}.displayMinRotation({ADDR}, {DATA});",
-				tags: ["module", "advanced"],
-				module: "ACT009"
 			}, {
 				type: "statement",
 				name: "oscillatorAdvanced",
