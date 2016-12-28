@@ -312,6 +312,24 @@ function readJson(file, options) {
 	return deferred.promise
 }
 
+function writeJson(file, data, options) {
+	var deferred = Q.defer()
+	options = options || {}
+
+	log.debug(`writeJson:${file}, options: ${JSON.stringify(options)}`)
+	fs.outputJson(file, data, options, err => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
 function readFile(file, options) {
 	var deferred = Q.defer()
 	options = options || "utf8"
@@ -377,7 +395,7 @@ function saveProject(oldFile, projectInfo, isTemp) {
 
 		Q.all([
 			writeFile(path.join(file, path.basename(file) + ".ino"), projectInfo.project_data.code),
-			writeFile(path.join(file, "project.json"), JSON.stringify(projectInfo))
+			writeJson(path.join(file, "project.json"), projectInfo)
 		]).then(_ => {
 			deferred.resolve({
 				path: file,

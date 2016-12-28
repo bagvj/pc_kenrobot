@@ -121,7 +121,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		var target = $(e.target);
 		if (target.hasClass('component') && target.parents(container.selector).length) {
 			contextMenuTarget = target;
-			var offset = region.offset();
+			var offset = componentContextMenu.parent().offset();
 			var top = e.pageY - offset.top;
 			var height = componentContextMenu.height();
 
@@ -133,7 +133,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 				top: top,
 			});
 		} else if ((target.hasClass('board') || target.closest('.board').length) && target.parents(container.selector).length) {
-			var offset = region.offset();
+			var offset = boardContextMenu.parent().offset();
 			boardContextMenu.addClass("active").css({
 				left: e.pageX - offset.left,
 				top: e.pageY - offset.top,

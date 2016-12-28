@@ -217,7 +217,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			(!block.isEnable() && !block.isFree()) ? blockContextMenu.addClass("uncomment") : blockContextMenu.removeClass("uncomment");
 
 			var height = blockContextMenu.height();
-			var offset = region.offset();
+			var offset = blockContextMenu.parent().offset();
 			var top = e.pageY - offset.top;
 			var left = e.pageX - offset.left;
 
