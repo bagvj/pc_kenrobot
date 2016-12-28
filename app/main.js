@@ -9,6 +9,9 @@ const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
 const encoding = require('encoding')
+const minimist = require('minimist') //命令行参数解析
+
+var args = minimist(process.argv.slice(1)) //命令行参数
 
 let mainWindow
 
@@ -43,6 +46,7 @@ function createWindow() {
 		height: 800,
 		frame: false
 	})
+	args.fullscreen && mainWindow.maximize()
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`)
 	mainWindow.focus()
@@ -56,7 +60,7 @@ function listenEvent() {
 	app.on('ready', _ => {
 		log.debug('app ready')
 
-		is.dev() && debug({showDevTools: true})
+		is.dev() && args.dev && debug({showDevTools: true})
 
 		createWindow()
 	}).on('window-all-closed', _ => {
