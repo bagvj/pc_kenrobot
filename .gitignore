@@ -5,3 +5,4 @@ log
 .sass-cache
 .vscode
 .git-completion.bash
+.DS_Store
