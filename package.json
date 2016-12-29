@@ -2,12 +2,6 @@
   "name": "kenrobot",
   "version": "1.1.0",
   "private": true,
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "pack": "build --win --ia32 --dir",
-    "dist": "build --win --ia32",
-    "release": "build --win --ia32"
-  },
   "build": {
     "appId": "com.kenrobot.KenRobot",
     "files": [
@@ -16,10 +10,6 @@
       "main.js",
       "renderer.js",
       "node_modules"
-    ],
-    "extraFiles": [
-      "arduino-${os}",
-      "scripts"
     ]
   },
   "devDependencies": {

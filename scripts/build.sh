@@ -17,8 +17,11 @@ BUILD_PATH=${SKETCH_PATH}/build
 BOARD_TYPE=$2
 
 DIR=$(dirname "$0")
-LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
-# EXTRA_LIBRARIES=
+if [[ `arch` == arm* ]];then
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
+elif
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
+fi
 
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware

@@ -72,6 +72,11 @@ gulp.task('clean-views', _ => {
 		.pipe(clean())
 })
 
+gulp.task('clean-dist', _ => {
+	return gulp.src(DIST, {read: false})
+		.pipe(clean())
+})
+
 gulp.task('pack-assets-js', ['clean-assets-js'], _ => {
 	if(args.release) {
 		gulp.src([ASSETS_SRC + 'js/require.js'])
@@ -128,18 +133,40 @@ gulp.task('pack-views', ['clean-views'], _ => {
 
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
-gulp.task('build', ['pack'], _ => {
+gulp.task('build', ['clean-dist'], callback => {
+	var platform = args.platform || "win"
+	var targets
+	if(platform == "linux") {
+		targets = builder.Platform.LINUX.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+	} else if(platform == "arm") {
+		targets = builder.Platform.LINUX.createTarget("dir", builder.Arch.armv7l)
+	} else if(platform == "mac") {
+		targets = builder.Platform.MAC.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+	} else {
+		targets = builder.Platform.WINDOWS.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+	}
+
 	builder.build({
-		targets: builder.Platform.WINDOWS.createTarget(args.target || (args.release ? "zip" : "dir"), builder.archFromString(args.arch || "ia32")),
-		devMetadata: {
-			asar: args.release == true,
+		targets: targets,
+		config: {
+			extraFiles: [
+      			`arduino-${platform}`,
+      			"scripts"
+    		],
 		}
 	}).then(result => {
 		console.dir(result)
+		callback()
+	}, err => {
+		console.error(err)
+		callback(err)
 	}).catch(err => {
 		console.error(err)
+		callback(err)
 	})
 })
+
+gulp.task('build-pack', ['build', 'pack'])
 
 // 默认任务
 gulp.task('default', ['pack'])
