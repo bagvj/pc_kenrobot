@@ -39,6 +39,11 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 			case "open-demo":
 				util.message("敬请期待");
 				break;
+			case "fullscreen":
+				kenrobot.postMessage("app:fullscreen").done(function(fullscreen) {
+					li.find('.text').text(fullscreen ? "退出全屏" : "全屏")
+				});
+				break;
 			case "language":
 				util.message("敬请期待");
 				break;

@@ -46,7 +46,7 @@ function createWindow() {
 		height: 800,
 		frame: false
 	})
-	args.fullscreen && mainWindow.maximize()
+	args.fullscreen && mainWindow.setFullScreen(true)
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`)
 	mainWindow.focus()
@@ -82,10 +82,14 @@ function listenMessage() {
 		e.sender.send('app:reload', deferId, true, true)
 	}).on('app:min', (e, deferId) => {
 		mainWindow.minimize()
-		e.sender.send('app:reload', deferId, true, true)
+		e.sender.send('app:min', deferId, true, true)
 	}).on('app:max', (e, deferId) => {
 		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
-		e.sender.send('app:reload', deferId, true, true)
+		e.sender.send('app:max', deferId, true, true)
+	}).on('app:fullscreen', (e, deferId) => {
+		var fullscreen = !mainWindow.isFullScreen()
+		mainWindow.setFullScreen(fullscreen)
+		e.sender.send('app:fullscreen', deferId, true, fullscreen)
 	}).on('app:quit', (e, deferId) => {
 		app.quit()
 	}).on('app:openUrl', (e, deferId, url) => {
