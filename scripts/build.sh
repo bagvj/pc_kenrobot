@@ -19,7 +19,7 @@ BOARD_TYPE=$2
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
-elif
+else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
 

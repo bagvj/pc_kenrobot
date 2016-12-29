@@ -8,7 +8,11 @@
 HEX_PATH=$1
 
 DIR=$(dirname "$0")
-LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
+if [[ `arch` == arm* ]];then
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
+else
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
+fi
 
 UPLOADER=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/bin/avrdude
 UPLOADER_CONF=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/etc/avrdude.conf
