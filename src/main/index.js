@@ -84,7 +84,11 @@ function listenMessage() {
 		mainWindow.minimize()
 		e.sender.send('app:min', deferId, true, true)
 	}).on('app:max', (e, deferId) => {
-		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+		if(mainWindow.isFullScreen()) {
+			mainWindow.setFullScreen(false)
+		} else {
+			mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+		}
 		e.sender.send('app:max', deferId, true, true)
 	}).on('app:fullscreen', (e, deferId) => {
 		var fullscreen = !mainWindow.isFullScreen()
