@@ -235,8 +235,8 @@ function getSerialPorts() {
 			deferred.reject(err)
 		})
 	} else {
-		execCommand("ls /dev/ttyS*").then(stdout => {
-			var comReg = /(\/dev\/ttyS[^\s]+)/g
+		execCommand("ls /dev/tty*").then(stdout => {
+			var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
 			var ports = []
 			var match
 			while((match = comReg.exec(stdout))) {
@@ -479,7 +479,8 @@ function uploadHex(hex, com, options) {
 
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
-	var command = `${scriptPath} ${hex} ${com}`
+	var sudo = is.windows() ? "" : "sudo "
+	var command = `${sudo}${scriptPath} ${hex} ${com}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()
