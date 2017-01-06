@@ -914,21 +914,6 @@ define(['app/util/emitor'], function(emitor) {
 			!element && (element = block.contentDom.querySelector('[data-content-id="' + elem + '"]'));
 			value = element.value || '';
 
-			// for (var j = 0; j < block.componentsArray.sensors.length; j++) {
-			// 	if (value === block.componentsArray.sensors[j].name) {
-			// 		type = block.componentsArray.sensors[j].type;
-			// 		if (type === 'analog') {
-			// 			value = 'analogRead(' + block.componentsArray.sensors[j].pin.s + ')';
-			// 		} else if (type === 'digital') {
-			// 			value = 'digitalRead(' + block.componentsArray.sensors[j].pin.s + ')';
-			// 		} else if (type === 'LineFollower') { // patch. When the new Web2Board is launched with float * as return, remove block
-			// 			value = '(float *)' + block.componentsArray.sensors[j].name + '.read()';
-			// 		} else {
-			// 			value = block.componentsArray.sensors[j].name + '.read()';
-			// 		}
-			// 		code = code.replace(new RegExp('{' + elem + '.type}', 'g'), value);
-			// 	}
-			// }
 			if (element.dataset.contentType == 'string-input') {
 				value = validString(value);
 			} else if (element.dataset.contentType == 'char-input') {
@@ -999,7 +984,9 @@ define(['app/util/emitor'], function(emitor) {
 		if (!block.enable) {
 			code = '';
 		}
-		return code;
+
+		var key = block.uid.replace(/-/g, "_");
+		return "__block_" + key + " " + code + "__block_" + key + " ";
 	}
 
 	function getBlockStructure(block) {

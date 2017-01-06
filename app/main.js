@@ -31,8 +31,6 @@ function init() {
 	fs.ensureDirSync(path.dirname(logPath))
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	log.transports.file.file = logPath
-	log.transports.file.streamConfig = { flags: 'a' }
 
 	log.debug("app start")
 

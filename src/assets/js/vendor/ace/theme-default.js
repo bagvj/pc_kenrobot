@@ -120,6 +120,9 @@ exports.cssText = "\
 .ace-default .ace_content {\
   padding-left: 15px;\
 }\
+.ace-default .ace_block.ace_tag {\
+  display: none;\
+}\
 ";
 
 var dom = require("../lib/dom");

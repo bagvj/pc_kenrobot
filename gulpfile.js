@@ -143,7 +143,7 @@ gulp.task('build', ['clean-dist'], callback => {
 	} else if(platform == "mac") {
 		targets = builder.Platform.MAC.createTarget("dir", builder.archFromString(args.arch || "ia32"))
 	} else {
-		targets = builder.Platform.WINDOWS.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+		targets = builder.Platform.WINDOWS.createTarget(args.target || "dir", builder.archFromString(args.arch || "ia32"))
 	}
 
 	builder.build({

@@ -4,15 +4,21 @@
   "private": true,
   "build": {
     "appId": "com.kenrobot.KenRobot",
+    "compression": "store",
     "files": [
       "assets",
       "index.html",
       "main.js",
       "renderer.js",
       "node_modules"
-    ]
+    ],
+    "win": {
+      "title": "kenrobot",
+      "msi": true
+    }
   },
   "devDependencies": {
+    "7zip-bin-win": "^2.0.2",
     "electron": "^1.4.13",
     "electron-builder": "^10.13.0",
     "gulp": "^3.9.1",

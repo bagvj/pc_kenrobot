@@ -1,0 +1,3 @@
+KenRobot license
+
+this is a license for test.

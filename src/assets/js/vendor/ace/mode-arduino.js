@@ -115,6 +115,11 @@ var arduinoHighlightRules = function() {
     this.$rules = { 
         "start" : [
             {
+                token: "block.tag",
+                regex: /__block_[a-zA-Z0-9_]+/,
+                next: "start"
+            },
+            {
                 token : "comment",
                 regex : "//$",
                 next : "start"

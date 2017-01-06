@@ -6,3 +6,5 @@ log
 .vscode
 .git-completion.bash
 .DS_Store
+build/bin
+build/output
