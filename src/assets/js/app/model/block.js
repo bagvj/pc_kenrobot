@@ -985,8 +985,7 @@ define(['app/util/emitor'], function(emitor) {
 			code = '';
 		}
 
-		var key = block.uid.replace(/-/g, "_");
-		return "__block_" + key + " " + code + "__block_" + key + " ";
+		return code;
 	}
 
 	function getBlockStructure(block) {
