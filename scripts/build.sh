@@ -22,6 +22,9 @@ if [[ `arch` == arm* ]];then
 else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
+if [[ `uname -a` == Darwin ]];then
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-mac
+fi
 
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware
