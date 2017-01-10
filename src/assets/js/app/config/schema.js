@@ -1679,9 +1679,6 @@ define(function() {
 						label: "红色",
 						value: "255,0,0"
 					}, {
-						label: "红色",
-						value: "0,255,0"
-					}, {
 						label: "深绿",
 						value: "0,60,102"
 					}, {
