@@ -15,8 +15,8 @@ set OUT_DIR="%UserProfile%\Desktop"
 set NSIS="tools\NSIS\makensis.exe"
 set SCRIPT="build.nsi"
 
-rem if exist %BIN_PACK% del %BIN_PACK%
-rem %ZIP% a -r %BIN_PACK% %BIN_DIR%
+if exist %BIN_PACK% del %BIN_PACK%
+%ZIP% a -r %BIN_PACK% %BIN_DIR%
 
 if exist %SKIN_PACK% del %SKIN_PACK%
 %ZIP% a -r %SKIN_PACK% %SKIN_DIR%
