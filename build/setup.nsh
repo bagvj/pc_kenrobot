@@ -1,11 +1,8 @@
 ; ===================== 外部插件以及宏 =============================
-!include "StrFunc.nsh"
 !include "WordFunc.nsh"
-${StrRep}
-${StrStr}
 !include "LogicLib.nsh"
 !include "nsDialogs.nsh"
-!include "common.nsh"
+!include "FileFunc.nsh"
 !include "x64.nsh"
 !include "MUI.nsh"
 !include "WinVer.nsh" 
@@ -421,18 +418,24 @@ FunctionEnd
 
 ; 判断选定的安装路径是否合法，主要检测硬盘是否存在[只能是HDD]，路径是否包含非法字符 结果保存在$R5中 
 Function checkInstallPath
-	${GetRoot} "$INSTDIR" $R3   ;获取安装根目录
+	; 获取安装根目录
+	${GetRoot} "$INSTDIR" $R3
 	StrCpy $R0 "$R3\"
-	StrCpy $R1 "invalid"  
-	${GetDrives} "HDD" "HDDDetection"            ;获取将要安装的根目录磁盘类型
+	StrCpy $R1 "invalid"
+	;获取将要安装的根目录磁盘类型
+	${GetDrives} "HDD" "HDDDetection"
 
-	${If} $R1 == "HDD"              ;是硬盘       
-		 StrCpy $R5 "1"	 
-		 ${DriveSpace} "$R3\" "/D=F /S=M" $R0           ; 获取指定盘符的剩余可用空间，/D=F剩余空间， /S=M单位兆字节  
-		 ${If} $R0 < 100                                ; 即程序安装后需要占用的实际空间，单位：MB  
-		    StrCpy $R5 "-1"		; 表示空间不足 
+	;是硬盘
+	${If} $R1 == "HDD"
+		 StrCpy $R5 "1"
+		 ; 获取指定盘符的剩余可用空间，/D=F剩余空间， /S=M单位兆字节
+		 ${DriveSpace} "$R3\" "/D=F /S=M" $R0
+		 ; 安装所需要大小，单位MB 
+		 ${If} $R0 < ${INSTALL_REQUIRE_SIZE}
+		    ; 表示空间不足
+		    StrCpy $R5 "-1"
 	     ${Endif}
-	${Else}  
+	${Else}
 	     ; 0表示不合法 
 		 StrCpy $R5 "0"
 	${Endif}
@@ -517,6 +520,8 @@ FunctionEnd
 
 ;  生成卸载入口 
 Function createUninstall
+	; 获取安装后的大小
+	${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
 	; 写入注册信息 
 	SetRegView 32
 	WriteRegStr HKLM "Software\${PRODUCT_PATHNAME}" "InstPath" "$INSTDIR"
@@ -529,10 +534,9 @@ Function createUninstall
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "DisplayIcon" "$INSTDIR\${EXE_NAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "Publisher" "${PRODUCT_PUBLISHER}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "DisplayVersion" "${PRODUCT_VERSION}"
-FunctionEnd
-
-Function un.exitDUISetup
-	nsNiuniuSkin::exitDUISetup
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "NoRepair" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_PATHNAME}" "EstimatedSize" $0
 FunctionEnd
 
 ; 执行具体的卸载 
@@ -560,7 +564,12 @@ FunctionEnd
 
 ; 在线程中删除文件，以便显示进度 
 Function un.removeFiles
-	${Locate} "$INSTDIR" "/G=0 /M=*.*" "un.onDeleteFileFound"
+	${Locate} "$INSTDIR" "" "un.onDeleteFileFound"
+	${Locate} "$APPDATA\${PRODUCT_PATHNAME}" "" "un.onDeleteFileFound"
+
+	RMDir /r /REBOOTOK "$INSTDIR"
+	RMDir /r /REBOOTOK "$APPDATA\${PRODUCT_PATHNAME}"
+
 	StrCpy $installState "1"
 	nsNiuniuSkin::SetControlAttribute "closeBtn" "enabled" "true"
 	nsNiuniuSkin::SetSliderValue "uninstallProgressSlider" 100

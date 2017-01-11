@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Window size="500,300" maxinfo="500,300" mininfo="500,300" sizebox="0,0,0,0" caption="0,0,0,300" bktrans="true" showdirty="false">
 	<Font id="0" name="微软雅黑" size="14" default="true" />
 	<Font id="1" name="微软雅黑" size="12" />
@@ -143,7 +143,7 @@
 						<Label name="uninstallConfirmLabel" text="" textcolor="#FF999999" font="0" padding="0,60,0,20" />
 						<Label text="卸载目录:" height="14" font="0" textcolor="#FF999999" />
 						<Label name="uninstallDirLabel" width="260" height="30" padding="0,10,0,10" text="" font="1" textcolor="#FF999999" bkimage="res/bg_path.png" textpadding="10,0,10,0" />
-						<CheckBox name="reverseDataChk" width="75" height="14" selected="true" text="保留数据" textcolor="#FF999999" font="1" textpadding="18,-1,0,0" normalimage="file='res/chk_no_normal.png' dest='0,0,14,14'" normalhotimage="file='res/chk_no_hover.png' dest='0,0,14,14'" selectedimage="file='res/chk_yes_normal.png' dest='0,0,14,14'" selectedhotimage="file='res/chk_yes_hover.png' dest='0,0,14,14'" />
+						<CheckBox name="reverseDataChk" width="75" height="14" selected="true" enabled="false" visible="false" text="保留数据" textcolor="#FF999999" font="1" textpadding="18,-1,0,0" normalimage="file='res/chk_no_normal.png' dest='0,0,14,14'" normalhotimage="file='res/chk_no_hover.png' dest='0,0,14,14'" selectedimage="file='res/chk_yes_normal.png' dest='0,0,14,14'" selectedhotimage="file='res/chk_yes_hover.png' dest='0,0,14,14'" />
 						<HorizontalLayout padding="0,60,0,0">
 							<Button name="uninstallCancelBtn" width="112" height="36" padding="16,0,20,0" text="取消卸载" textcolor="#FFFFFFFF" font="0" normalimage="res/btn_gray_normal.png" hotimage="res/btn_gray_hover.png" pushedimage="res/btn_gray_pressed.png" disabledimage="res/btn_gray_disabled.png" />
 							<Button name="uninstallBtn" width="112" height="36" text="确认卸载" textcolor="#FFFFFFFF" font="0" normalimage="res/btn_blue_normal.png" hotimage="res/btn_blue_hover.png" pushedimage="res/btn_blue_pressed.png" disabledimage="res/btn_blue_disabled.png" />
