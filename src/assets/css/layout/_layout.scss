@@ -53,9 +53,19 @@ html, body {
 	pointer-events: none;
 	height: auto;
 	left: 60px;
-	top: 125px;
+	top: 50px;
 	bottom: 0;
 	right: 0;
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+
+.modal-message-layer {
+	z-index: 30;
+	background-color: rgba(32, 36, 40, 0.9);
 	display: none;
 
 	&.active {

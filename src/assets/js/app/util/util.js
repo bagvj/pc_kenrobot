@@ -1,4 +1,4 @@
-define(function() {
+define(['vendor/jquery'], function() {
 	var messages = [];
 	var messageConfig = {
 		template: '<div class="x-message {type}"><i class="x-message-close kenrobot ken-close"></i><i class="x-message-icon kenrobot ken-info-{type}"></i><div class="x-message-wrap"><div class="x-message-title">{title}</div><div class="x-message-content">{text}</div></div></div>',
@@ -19,6 +19,8 @@ define(function() {
 		var text = args.text;
 		var type = args.type || "info";
 		var title = args.title || messageConfig.titles[type];
+
+		kenrobot && kenrobot.postMessage("app:log", text);
 
 		var html = messageConfig.template.replace(/\{type\}/g, type).replace(/\{text\}/g, text).replace(/\{title\}/g, title)
 		var messageDiv = $(html).appendTo(messageLayer);
@@ -256,11 +258,21 @@ define(function() {
 		}).dequeue("fadeIn");
 	}
 
+	function hideModalMessage() {
+		$('.modal-message-layer').removeClass("active").find(".x-modal-message").removeClass("active").find(".content").empty();
+	}
+
+	function modalMessage(text) {
+		$('.modal-message-layer').addClass("active").find(".x-modal-message").addClass("active").find(".content").text(text);
+	}
+
 	return {
 		message: message,
 		confirm: confirm,
 		dialog: dialog,
 		toggleActive: toggleActive,
 		formatDate: formatDate,
+		modalMessage: modalMessage,
+		hideModalMessage: hideModalMessage,
 	}
 });

@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, net, dialog, shell, Menu, globalShortcut} = require('electron')
+const {app, BrowserWindow, ipcMain, net, dialog, shell} = require('electron')
 
 const child_process = require('child_process')
 const path = require('path')
@@ -8,7 +8,6 @@ const fs = require('fs-extra')
 const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
-const encoding = require('encoding')
 const minimist = require('minimist') //命令行参数解析
 
 var args = minimist(process.argv.slice(1)) //命令行参数
@@ -217,6 +216,8 @@ function listenMessage() {
 		})
 	}).on('app:errorReport', (e, deferId, error) => {
 		log.error(`------ error message ------\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`)
+	}).on('app:log', (e, deferId, text, level) => {
+		log.log(level || "debug", text)
 	})
 }
 

@@ -410,6 +410,85 @@
     }
 }
 
+@include keyframes("x-modal-message-circle-1") {
+    0% {
+        z-index: 32;
+        transform: translateX(40px);
+    }
+    50% {
+        transform: translateX(-40px);
+    }
+    100% {
+        transform: translateX(40px);
+    }
+}
+
+@include keyframes("x-modal-message-circle-3") {
+    0% {
+        transform: translateX(-40px);
+    }
+    50% {
+        transform: translateX(40px);
+    }
+    100% {
+        z-index: 32;
+        transform: translateX(-40px);
+    }
+}
+
+.x-modal-message {
+    display: none;
+    height: 68px;
+    margin-top: auto;
+    margin-bottom: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+
+    &.active {
+        display: block;
+    }
+
+    .loading {
+        height: 20px;
+        text-align: center;
+
+        .circle {
+            display: inline-block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+
+            &.circle-1 {
+                background-color: #20a0ff;
+                @include animation('x-modal-message-circle-1' 1.5s infinite linear);
+            }
+
+            &.circle-2 {
+                background-color: #fdd83a;
+                z-index: 31;
+            }
+
+            &.circle-3 {
+                background-color: #f96060;
+                @include animation('x-modal-message-circle-3' 1.5s infinite linear);
+            }
+        }
+    }
+
+    .content {
+        margin-top: 24px;
+        font-size: 18px;
+        color: #a4aebd;
+        letter-spacing: 10px;
+        text-align: center;
+        line-height: 24px;
+    }
+}
+
 
 @include keyframes('a-dialog-fadeIn') {
     from {

@@ -80,22 +80,26 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		var saveAs = savePath == null;
 
 		doProjectSave(projectInfo, saveAs).then(function() {
-			util.message("保存成功，开始编译");
+			util.modalMessage("保存成功，开始编译");
 			kenrobot.postMessage("app:buildProject", savePath).then(function(hex) {
-				util.message("编译成功，正在上传请稍候");
-				kenrobot.postMessage("app:uploadHex", hex).then(function() {
-					util.message({
-						text: "上传成功",
-						type: "success"
+				util.modalMessage("编译成功，正在上传请稍候");
+				setTimeout(function() {
+					kenrobot.postMessage("app:uploadHex", hex).then(function() {
+						util.hideModalMessage();
+						util.message({
+							text: "上传成功",
+							type: "success"
+						});
+					}, function(err) {
+						onProjectUploadFail(err).then(function(portPath) {
+							kenrobot.postMessage("app:uploadHex2", hex, portPath);
+						});
 					});
-				}, function(err) {
-					onProjectUploadFail(err).then(function(portPath) {
-						kenrobot.postMessage("app:uploadHex2", hex, portPath);
-					});
-				});
+				}, 2000);
 			}, function() {
+				util.hideModalMessage();
 				util.message({
-					text: "保存失败",
+					text: "编译失败",
 					type: "error",
 				});
 			});

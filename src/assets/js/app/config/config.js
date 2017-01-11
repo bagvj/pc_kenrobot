@@ -9,13 +9,6 @@ define(function() {
 				//公钥
 				publicKey: "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6\nuHt34Sac1Arm6F2QUzsdUEUmvGyLIOIGcdb+F6pTdx4ftY+wZi7Aomp4k3vNqXmX\nT0mE0vpQlCmsPUcMHXuUi93XTGPxLXIv9NXxCJZXSYI0JeyuhT9/ithrYlbMlyNc\nwKB/BwSpp+Py2MTT2wIDAQAB\n-----END PUBLIC KEY-----"
 			},
-			//项目
-			project: {
-				//编译url
-				buildUrl: "http://ide.kenrobot.com/api/build",
-				//最大长度
-				maxCodeLength: 10 * 1024 * 1024
-			},
 			url: {
 				kenrobot: "http://www.kenrobot.com",
 				arduino: "http://www.arduino.cn",

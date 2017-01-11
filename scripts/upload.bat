@@ -7,7 +7,7 @@ rem hex文件路径
 set HEX_PATH=%~f1
 
 set DIR=%~dp0
-set LOCAL_ARDUINO_PATH=%DIR%..\\Arduino-win
+set LOCAL_ARDUINO_PATH=%DIR%..\\arduino-win
 
 set UPLOADER="%LOCAL_ARDUINO_PATH%\\hardware\\tools\\avr\\bin\\avrdude.exe"
 set UPLOADER_CONF="%LOCAL_ARDUINO_PATH%\\hardware\\tools\\avr\\etc\\avrdude.conf"

@@ -64,12 +64,6 @@
 			position: relative;
 			display: block;
 
-			// &:hover {
-			// 	& > ul {
-			// 		display: block;
-			// 	}
-			// }
-
 			& > ul {
 				display: none;
 				position: absolute;
@@ -78,6 +72,7 @@
 				border-bottom-right-radius: 5px;
 				padding-top: 5px;
 				padding-bottom: 5px;
+				left: -15px;
 
 				li {
 					line-height: 30px;
