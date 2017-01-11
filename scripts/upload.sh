@@ -10,6 +10,8 @@ HEX_PATH=$1
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
+elif [[ `uname -a` == Darwin ]];then
+	LOCAL_ARDUINO_PATH=${DIR}/../arduino-mac
 else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
