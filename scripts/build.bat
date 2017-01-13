@@ -17,8 +17,8 @@ set LOCAL_ARDUINO_PATH="%DIR%..\arduino-win"
 
 set BUILDER="%LOCAL_ARDUINO_PATH:~1,-1%\arduino-builder.exe"
 set HARDWARE="%LOCAL_ARDUINO_PATH:~1,-1%\hardware"
-set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr,%LOCALAPPDATA%\Arduino15\packages"
-set LIBRARIES="%LOCAL_ARDUINO_PATH:~1,-1%\libraries,%USERPROFILE%\Documents\Arduino\libraries"
+set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"
+set LIBRARIES="%LOCAL_ARDUINO_PATH:~1,-1%\libraries"
 set FQBN="arduino:avr:%BOARD_TYPE%"
 
 if not exist %BUILD_PATH% (
