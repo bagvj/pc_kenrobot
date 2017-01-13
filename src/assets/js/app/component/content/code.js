@@ -20,11 +20,9 @@ define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1,
 	}
 
 	function onAppStart() {
-
-	}
-
-	function onActiveTab(name) {
-		name == "software" && emitor.trigger("code", "refresh");
+		setInterval(function() {
+			emitor.trigger("code", "refresh");
+		}, 1000);
 	}
 
 	return {

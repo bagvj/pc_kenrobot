@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder vinyl-source-stream vinyl-buffer
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder
  */
 
 const gulp = require('gulp') //基础库
@@ -19,9 +19,6 @@ const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
 
 const builder = require('electron-builder') //electron打包
-
-const source = require('vinyl-source-stream')
-const buffer = require('vinyl-buffer')
 
 const path = require('path') //路径
 const child_process = require('child_process') //子进程
