@@ -7,7 +7,7 @@ set BIN_PACK="output\app.7z"
 set SKIN_PACK="output\skin.zip"
 
 set PRODUCT_DISPLAY_VERSION="0.1.1"
-set PRODUCT_VERSION="0.1.1.1"
+set PRODUCT_VERSION="0.1.1.2"
 set INSTALL_OUTPUT_NAME="kenrobot_v0.1.1.exe"
 
 set OUT_DIR="%UserProfile%\Desktop"
