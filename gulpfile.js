@@ -170,3 +170,13 @@ gulp.task('build-pack', ['build', 'pack'])
 
 // 默认任务
 gulp.task('default', ['pack'])
+
+gulp.task('clean-bin', _ => {
+	return gulp.src('./build/bin', {read: false})
+		.pipe(clean())
+})
+
+gulp.task('pre-exe', ['clean-bin'], _ => {
+	return gulp.src('./dist/win-ia32-unpacked/**/*')
+		.pipe(gulp.dest('./build/bin'))
+})

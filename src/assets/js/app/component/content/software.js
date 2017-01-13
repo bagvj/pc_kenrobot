@@ -8,9 +8,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var contextMenuTarget;
 	var blockContextMenu;
 	var modules;
+	var codeRegion;
 
 	function init() {
-		region = $('.content-region .tab-software');
+		dragContainer = $('.block-drag-layer');
+
+		region = $('.content-region .tab-software')
+			.on('click', '.block-group-region .group-header > span', onGroupHeaderClick)
+			.on('click', '.switch-hardware', onSwitchHardwareClick)
+			.on('click', '.upload', onUploadClick)
+			.on('click', '.show-code', onShowCodeClick);
 
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
 		blockList = $('.blocks', region);
@@ -21,19 +28,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		container = $(".software-container", region);
 		container.perfectScrollbar();
 
-		$('.block-group-region .group-header > span', region).on('click', onGroupHeaderClick);
-		dragContainer = $('.block-drag-layer');
-
 		softwareModel.init(container[0], dragContainer[0]);
 
-		blockContextMenu = $('.block-menu', region);
-		$('> li', blockContextMenu).on('click', onBlockContextMenu);
+		blockContextMenu = $('.block-menu', region).on('click', '> li', onBlockContextMenu);
 
-		emitor.on('app', 'start', onAppStart);
-		emitor.on('app', 'contextMenu', onContextMenu);
-		emitor.on('sidebar', 'activeTab', onActiveTab);
-		emitor.on('block', 'drag-start', onBlockDragStart);
-		emitor.on('block', 'drag-end', onBlockDragEnd);
+		codeRegion = $('.code-region', region);
+
+		emitor.on('app', 'start', onAppStart)
+			.on('app', 'contextMenu', onContextMenu)
+			.on('app', 'activeTab', onActiveTab);
 	}
 
 	function loadSchema(schema) {
@@ -193,12 +196,23 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	}
 
-	function onBlockDragStart() {
-		emitor.trigger("sidebar", "toggle");
+	function onSwitchHardwareClick(e) {
+		emitor.trigger("app", "activeTab", "hardware");
 	}
 
-	function onBlockDragEnd() {
-		emitor.trigger("sidebar", "toggle");
+	function onUploadClick(e) {
+		emitor.trigger("project", "upload");
+	}
+
+	function onShowCodeClick(e) {
+		if(codeRegion.hasClass("active")) {
+			codeRegion.removeClass("slide-in").addClass("slide-out").delay(200, "slide-out").queue("slide-out", function() {
+				codeRegion.removeClass("active").removeClass("slide-out");
+			});
+			codeRegion.dequeue("slide-out");
+		} else {
+			codeRegion.addClass("active").addClass("slide-in");
+		}
 	}
 
 	function onActiveTab(name) {

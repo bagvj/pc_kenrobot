@@ -19,8 +19,11 @@ require.config({
 		"vendor/ace/theme-default": {
 			deps: ['./ace'],
 		},
+		"vendor/ace/theme-black": {
+			deps: ['./ace'],
+		},
 		"vendor/ace/ext-language_tools": {
-			deps: ['./ace', "./mode-arduino", "./snippets/text", "./snippets/arduino", "./theme-default"],
+			deps: ['./ace', "./mode-arduino", "./snippets/text", "./snippets/arduino", "./theme-default", "./theme-black"],
 		},
 	},
 });

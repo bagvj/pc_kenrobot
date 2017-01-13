@@ -6,8 +6,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
-		emitor.on('app', 'start', onAppStart);
-		emitor.on('app', 'shortcut', onShortcut);
+		emitor.on('app', 'start', onAppStart).on('app', 'shortcut', onShortcut);
 	}
 
 	function onAppStart() {
@@ -52,7 +51,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 	}
 
 	function onShortcut(name) {
-		var args = Array.from(arguments);
+		// var args = Array.from(arguments);
 		switch(name) {
 			case "new-project":
 				emitor.trigger('project', 'new');
@@ -78,8 +77,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 	function onContextMenu(e) {
 		e.preventDefault();
 
-		hideContextMenu();
-		hideSelectMenu();
+		hideMenu();
 
 		emitor.trigger("app", "contextMenu", e);
 
@@ -87,21 +85,15 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 	}
 
 	function onWindowClick(e) {
-		hideContextMenu();
-		hideSelectMenu();
+		hideMenu();
 	}
 
 	function onWindowResize(e) {
-		hideContextMenu();
-		hideSelectMenu();
+		hideMenu();
 	}
 
-	function hideSelectMenu() {
-		$('.x-select').removeClass("active");
-	}
-
-	function hideContextMenu() {
-		$('.x-context-menu').removeClass("active");
+	function hideMenu() {
+		$('.x-select, .x-context-menu').removeClass("active");
 	}
 
 	return {

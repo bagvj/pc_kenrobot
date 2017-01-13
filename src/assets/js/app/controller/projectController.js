@@ -3,15 +3,13 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	var savePath;
 
 	function init() {
-		emitor.on('app', 'start', onAppStart);
-
-		emitor.on('project', 'new', onProjectNew);
-		emitor.on('project', 'open', onProjectOpen);
-		emitor.on('project', 'save', onProjectSave);
-		emitor.on('project', 'upload', onProjectUpload);
-
-		emitor.on('code', 'refresh', onCodeRefresh);
-		emitor.on('software', 'update-block', onSoftwareBlockUpdate);
+		emitor.on('app', 'start', onAppStart)
+		    .on('project', 'new', onProjectNew)
+			.on('project', 'open', onProjectOpen)
+			.on('project', 'save', onProjectSave)
+			.on('project', 'upload', onProjectUpload)
+			.on('code', 'refresh', onCodeRefresh)
+			.on('software', 'update-block', onSoftwareBlockUpdate);
 	}
 
 	function openProject(projectInfo) {

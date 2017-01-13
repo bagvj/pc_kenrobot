@@ -18,17 +18,9 @@ html, body {
 		height: 50px;
 	}
 
-	.sidebar-region {
-		position: absolute;
-		left: 0;
-		width: 60px;
-		top: 50px;
-		bottom: 0;
-	}
-
 	.content-region {
 		position: absolute;
-		left: 60px;
+		left: 0;
 		right: 0;
 		top: 50px;
 		bottom: 0;
@@ -52,7 +44,7 @@ html, body {
 	z-index: 20;
 	pointer-events: none;
 	height: auto;
-	left: 60px;
+	left: 0;
 	top: 50px;
 	bottom: 0;
 	right: 0;

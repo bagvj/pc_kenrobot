@@ -164,16 +164,8 @@
 					</ul>
 				</div>
 			</div>
-			<div class="sidebar-region">
-				<ul>
-					<li data-action="hardware"><i class="icon kenrobot ken-edu-hardware"></i><span class="name">1.硬件</span></li>
-					<li data-action="software"><i class="icon kenrobot ken-edu-block"></i><span class="name">2.编程</span></li>
-					<li data-action="code"><i class="icon kenrobot ken-edu-code"></i><span class="name">3.源码</span></li>
-					<li data-action="upload"><i class="icon kenrobot ken-upload2"></i><span class="name">4.上传</span></li>
-				</ul>
-			</div>
 			<div class="content-region">
-				<div class="tab tab-hardware" data-action="hardware">
+				<div class="tab tab-hardware">
 					<div class="left-region">
 						<div class="search-wrap">
 							<input class="search" type="text" placeholder="搜索..." />
@@ -192,32 +184,41 @@
 						</div>
 					</div>
 					<div class="center-region">
-						<div class="boards-region">
-							<div class="boards-label">控制板:</div>
-							<div class="x-select boards">
-								<div class="placeholder"></div>
-								<ul></ul>
+						<div class="top-region">
+							<div class="boards-region">
+								<span class="boards-label">控制板:</span>
+								<div class="x-select boards">
+									<div class="placeholder"></div>
+									<ul></ul>
+								</div>
+							</div>
+							<div class="component-option-region">
+								<span class="name-label">名字</span>
+								<input class="name" type="text" spellcheck="false" />
+							</div>
+							<div class="switch-region">
+								<div class="switch-software">
+									<i class="kenrobot ken-edu-block"></i><span>编程</span>
+								</div>
 							</div>
 						</div>
-						<div id="hardware-container" class="hardware-container" droppable="true">
-							<div class="board absolute-center"></div>
+						<div class="canvas-region">
+							<div id="hardware-container" class="hardware-container" droppable="true">
+								<div class="board absolute-center"></div>
+							</div>
+							<ul class="x-context-menu component-menu">
+								<li data-action="copy">复制</li>
+								<li data-action="disconnect">断开</li>
+								<li data-action="delete">删除</li>
+							</ul>
+							<ul class="x-context-menu board-menu">
+								<li data-action="disconnect">断开</li>
+								<li data-action="delete">删除</li>
+							</ul>
 						</div>
-						<div class="component-dialog">
-							<span class="name-label">名字</span>
-							<input class="name" type="text" spellcheck="false" />
-						</div>
-						<ul class="x-context-menu component-menu">
-							<li data-action="copy">复制</li>
-							<li data-action="disconnect">断开</li>
-							<li data-action="delete">删除</li>
-						</ul>
-						<ul class="x-context-menu board-menu">
-							<li data-action="disconnect">断开</li>
-							<li data-action="delete">删除</li>
-						</ul>
 					</div>
 				</div>
-				<div class="tab tab-software" data-action="software">
+				<div class="tab tab-software">
 					<div class="left-region">
 						<div class="filters-wrap">
 							<ul class="filters">
@@ -240,39 +241,54 @@
 						</div>
 					</div>
 					<div class="center-region">
-						<div id="software-container" class="software-container no-scrollbar">
-							<div class="block-group-region block-global">
-								<div class="group-header"><span>全局变量、函数</span></div>
-								<div class="group-extension">
-									<div class="group-description">如果你有变量需要在setup和loop里面同时使用，要在这里定义哦<br />如果你需要定义函数，要在这里定义哦</div>
-									<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
+						<div class="code-region">
+							<div id="code-container" class="code-container"></div>
+						</div>
+						<div class="software-region">
+							<div class="top-region">
+								<div class="upload">
+									<i class="kenrobot ken-upload2"></i><span>上传</span>
+								</div>
+								<div class="show-code">
+									<i class="kenrobot ken-edu-code"></i><span>显示源码</span>
+								</div>
+								<div class="switch-hardware">
+									<i class="kenrobot ken-edu-hardware"></i><span>返回硬件</span>
 								</div>
 							</div>
-							<div class="block-group-region block-setup">
-								<div class="group-header"><span>Setup</span></div>
-								<div class="group-extension">
-									<div class="group-description">什么事情需要程序开始时只做一遍，放在这里面吧</div>
-									<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
+							<div class="block-region">
+								<div id="software-container" class="software-container no-scrollbar">
+									<div class="block-group-region block-global">
+										<div class="group-header"><span>全局变量、函数</span></div>
+										<div class="group-extension">
+											<div class="group-description">如果你有变量需要在setup和loop里面同时使用，要在这里定义哦<br />如果你需要定义函数，要在这里定义哦</div>
+											<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
+										</div>
+									</div>
+									<div class="block-group-region block-setup">
+										<div class="group-header"><span>Setup</span></div>
+										<div class="group-extension">
+											<div class="group-description">什么事情需要程序开始时只做一遍，放在这里面吧</div>
+											<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
+										</div>
+									</div>
+									<div class="block-group-region block-loop">
+										<div class="group-header"><span>Loop</span></div>
+										<div class="group-extension">
+											<div class="group-description">这里就是程序一直在做的事情，记得是无限循环哦</div>
+											<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="block-group-region block-loop">
-								<div class="group-header"><span>Loop</span></div>
-								<div class="group-extension">
-									<div class="group-description">这里就是程序一直在做的事情，记得是无限循环哦</div>
-									<div class="group-placeholder">拖一个块放到这里开始你第一个程序吧</div>
-								</div>
+								<ul class="x-context-menu block-menu">
+									<li data-action="copy">复制</li>
+									<li data-action="comment">注释</li>
+									<li data-action="uncomment">取消注释</li>
+									<li data-action="delete">删除</li>
+								</ul>
 							</div>
 						</div>
-						<ul class="x-context-menu block-menu">
-							<li data-action="copy">复制</li>
-							<li data-action="comment">注释</li>
-							<li data-action="uncomment">取消注释</li>
-							<li data-action="delete">删除</li>
-						</ul>
 					</div>
-				</div>
-				<div class="tab tab-code" data-action="code">
-					<div id="code-container" class="code-container"></div>
 				</div>
 			</div>
 		</div>

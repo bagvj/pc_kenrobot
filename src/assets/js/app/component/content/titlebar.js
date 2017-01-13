@@ -3,11 +3,8 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 	var appMenu;
 
 	function init() {
-		region = $('.titlebar-region');
-
+		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
-
-		$('.window-btns li', region).on('click', onWindowBtnClick);
 	}
 
 	function activeAppMenu(e) {

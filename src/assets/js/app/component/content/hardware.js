@@ -7,7 +7,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var boardList;
 
 	var container;
-	var componentDialog;
+	var componentOption;
 	var componentContextMenu;
 	var boardContextMenu;
 	var contextMenuTarget;
@@ -24,7 +24,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var dragMouseY;
 
 	function init() {
-		region = $('.content-region .tab-hardware');
+		region = $('.content-region .tab-hardware').on('click', '.switch-software', onSwitchSoftwareClick);
 
 		search = $('.search', region).on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
@@ -36,19 +36,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		dragContainer = $('.component-drag-layer')[0];
 
 		boardList = $('.boards', region).on('click', '.placeholder', onShowBoardSelect).on('click', 'ul > li', onBoardSelectClick);
-		
-		componentDialog = $('.component-dialog', region);
-		$('.name', componentDialog).on('blur', onComponentNameBlur);
+		componentOption = $('.component-option-region', region).on('blur', '.name', onComponentNameBlur);
+		boardContextMenu = $('.board-menu', region).on('click', '> li', onBoardContextMenu);
+		componentContextMenu = $('.component-menu', region).on('click', '> li', onComponentContextMenu);
 
-		boardContextMenu = $('.board-menu', region);
-		$('> li', boardContextMenu).on('click', onBoardContextMenu);
-		componentContextMenu = $('.component-menu', region);
-		$('> li', componentContextMenu).on('click', onComponentContextMenu);
-
-		emitor.on('app', 'start', onAppStart);
-		emitor.on('app', 'contextMenu', onContextMenu);
-		emitor.on('hardware', 'resize', onResize);
-		emitor.on('sidebar', 'activeTab', onActiveTab);
+		emitor.on('app', 'start', onAppStart)
+			.on('app', 'contextMenu', onContextMenu)
+			.on('app', 'activeTab', onActiveTab)
+			.on('hardware', 'resize', onResize);
 	}
 
 	function loadSchema(schema) {
@@ -108,6 +103,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	function onAppStart() {
 
+	}
+
+	function onSwitchSoftwareClick(e) {
+		emitor.trigger("app", "activeTab", "software");
 	}
 
 	function onActiveTab(name) {
@@ -248,8 +247,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			container.addClass("can-drop");
 
 			mouseDownComponentDom = null;
-
-			emitor.trigger("sidebar", "toggle");
 		}
 
 		dragComponentMove(dragComponentDom, touch.clientX, touch.clientY);
@@ -266,8 +263,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		dragComponentDom = null;
 		container.removeClass("can-drop");
 		onContainerDrop(name, touch.pageX, touch.pageY);
-
-		emitor.trigger("sidebar", "toggle");
 	}
 
 	function dragComponentMove(componentDom, clientX, clientY) {
@@ -315,7 +310,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			showComponentDialog(e.originalEvent.data.uid);
 		} else if(action == "remove-component") {
 			var uid = e.originalEvent.data.uid;
-			uid == componentDialog.data("uid") && hideComponentDialog();
+			uid == componentOption.data("uid") && hideComponentDialog();
 		} else if(action == "remove-all-components") {
 			hideComponentDialog();
 		}
@@ -374,14 +369,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	}
 
 	function onComponentNameBlur(e) {
-		var uid = componentDialog.data("uid");
-		var name = componentDialog.find(".name").val();
+		var uid = componentOption.data("uid");
+		var name = componentOption.find(".name").val();
 		var componentData = hardwareModel.getComponentData(uid);
 		componentData.varName = name;
 	}
 
 	function hideComponentDialog() {
-		componentDialog.removeClass("active").data("uid", "").find(".name").val("");
+		componentOption.removeClass("active").data("uid", "").find(".name").val("");
 	}
 
 	function showComponentDialog(uid) {
@@ -391,7 +386,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			return;
 		}
 
-		componentDialog.addClass("active").data("uid", uid).find(".name").val(componentData.varName);
+		componentOption.addClass("active").data("uid", uid).find(".name").val(componentData.varName);
 	}
 
 	function setBoard(name) {
@@ -429,9 +424,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		getData: getData,
 		setData: setData,
 		getBoardData: getBoardData,
-
 		getBlockData: getBlockData,
-
 		reset: reset,
 	};
 });

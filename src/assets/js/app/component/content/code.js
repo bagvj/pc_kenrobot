@@ -1,11 +1,10 @@
-define(['vendor/jquery', 'app/util/util', 'app/util/emitor', 'app/model/codeModel'], function($1, util, emitor, codeModel) {
+define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1, emitor, codeModel) {
 	function init() {
-		var region = $('.content-region .tab-code');
+		var region = $('.content-region .code-region');
 		var container = $(".code-container", region);
 		codeModel.init(container[0]);
 
 		emitor.on('app', 'start', onAppStart);
-		emitor.on('sidebar', 'activeTab', onActiveTab);
 	}
 
 	function getData() {
@@ -25,7 +24,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor', 'app/model/codeMode
 	}
 
 	function onActiveTab(name) {
-		name == "code" && emitor.trigger("code", "refresh");
+		name == "software" && emitor.trigger("code", "refresh");
 	}
 
 	return {

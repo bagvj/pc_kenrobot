@@ -18,13 +18,15 @@ define(function() {
 			callback: callback,
 			priority: priority,
 		});
+
+		return this;
 	}
 
 	function off(target, type, callback) {
 		var name = getEventName(target, type);
 		var hanlders = hanlderMap[name];
 		if(!hanlders) {
-			return;
+			return this;
 		}
 
 		for(var i = 0; i < hanlders.length; i++) {
@@ -34,13 +36,15 @@ define(function() {
 				break;
 			}
 		}
+
+		return this;
 	}
 
 	function trigger(target, type) {
 		var name = getEventName(target, type);
 		var hanlders = hanlderMap[name];
 		if(!hanlders) {
-			return;
+			return this;
 		}
 
 		hanlders = hanlders.concat().sort(function(a, b) {
@@ -52,10 +56,12 @@ define(function() {
 			var handler = hanlders[i];
 			handler.callback.apply(this, args);
 		}
+
+		return this;
 	}
 
-	function delayTrigger(target, type) {
-		var args = [].concat.call(arguments)[0];
+	function delayTrigger(time, target, type) {
+		var args = Array.from(arguments).splice(1);
 		var self = this;
 		var name = getEventName(target, type);
 		var timerId = delayTimers[name];
@@ -63,8 +69,10 @@ define(function() {
 		timerId = setTimeout(function() {
 			delayTimers[name] = null;
 			trigger.apply(self, args);
-		}, 100);
+		}, time);
 		delayTimers[name] = timerId;
+
+		return this;
 	}
 
 	return {
