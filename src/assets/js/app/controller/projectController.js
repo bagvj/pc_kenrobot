@@ -89,8 +89,22 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 							type: "success"
 						});
 					}, function(err) {
+						util.hideModalMessage();
 						onProjectUploadFail(err).then(function(portPath) {
-							kenrobot.postMessage("app:uploadHex2", hex, portPath);
+							util.modalMessage("正在上传请稍候");
+							kenrobot.postMessage("app:uploadHex2", hex, portPath).then(function() {
+								util.hideModalMessage();
+								util.message({
+									text: "上传成功",
+									type: "success"
+								});
+							}, function() {
+								util.hideModalMessage();
+								util.message({
+									text: "上传失败",
+									type: "error",
+								});
+							});
 						});
 					});
 				}, 2000);
