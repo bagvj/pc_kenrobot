@@ -418,36 +418,16 @@ FunctionEnd
 
 ; 判断选定的安装路径是否合法，主要检测硬盘是否存在[只能是HDD]，路径是否包含非法字符 结果保存在$R5中 
 Function checkInstallPath
+	StrCpy $R5 "1"
 	; 获取安装根目录
 	${GetRoot} "$INSTDIR" $R3
-	StrCpy $R0 "$R3\"
-	StrCpy $R1 "invalid"
-	;获取将要安装的根目录磁盘类型
-	${GetDrives} "HDD" "HDDDetection"
-
-	;是硬盘
-	${If} $R1 == "HDD"
-		 StrCpy $R5 "1"
-		 ; 获取指定盘符的剩余可用空间，/D=F剩余空间， /S=M单位兆字节
-		 ${DriveSpace} "$R3\" "/D=F /S=M" $R0
-		 ; 安装所需要大小，单位MB 
-		 ${If} $R0 < ${INSTALL_REQUIRE_SIZE}
-		    ; 表示空间不足
-		    StrCpy $R5 "-1"
-	     ${Endif}
-	${Else}
-	     ; 0表示不合法 
-		 StrCpy $R5 "0"
+	; 获取指定盘符的剩余可用空间，/D=F剩余空间， /S=M单位兆字节
+	${DriveSpace} "$R3\" "/D=F /S=M" $R0
+	; 安装所需要大小，单位MB 
+	${If} $R0 < ${INSTALL_REQUIRE_SIZE}
+		; 表示空间不足
+		StrCpy $R5 "-1"
 	${Endif}
-FunctionEnd
-
-Function HDDDetection
-	${If} "$R0" == "$9"
-		StrCpy $R1 "HDD"
-		Goto hddDetectionAbort
-	${Endif}
-	Push $0
-hddDetectionAbort:
 FunctionEnd
 
 ; 获取默认的安装路径 

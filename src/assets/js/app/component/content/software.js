@@ -216,8 +216,13 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	}
 
 	function onActiveTab(name) {
-		name == "software" ? dragContainer.addClass("active") : dragContainer.removeClass("active");
-		name == "software" && emitor.trigger("software", "update-block");
+		if(name == "software") {
+			dragContainer.addClass("active");
+			emitor.trigger("software", "update-block").trigger("code", "refresh");
+
+		} else {
+			dragContainer.removeClass("active");
+		}
 	}
 
 	function onContextMenu(e) {		

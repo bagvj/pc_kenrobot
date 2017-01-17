@@ -26,8 +26,6 @@ function init() {
 		app.quit()
 	}
 
-	var logPath = path.join(__dirname, '..', 'log', 'log.txt')
-	fs.ensureDirSync(path.dirname(logPath))
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 

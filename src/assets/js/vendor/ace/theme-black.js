@@ -98,7 +98,7 @@ exports.cssText = "\
   color: #0088ff;\
 }\
 .ace-black .ace_operator {\
-  color: rgba(18, 42, 64, 0.8);\
+  color: #999;\
 }\
 .ace-black .ace_br1 {\
   border-top-left-radius: 0;\

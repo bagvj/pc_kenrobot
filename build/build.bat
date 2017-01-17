@@ -7,11 +7,11 @@ set BIN_PACK="output\app.7z"
 set SKIN_PACK="output\skin.zip"
 
 set PRODUCT_DISPLAY_VERSION="0.1.1"
-set PRODUCT_VERSION="0.1.1.2"
+set PRODUCT_VERSION="0.1.1.3"
 set INSTALL_OUTPUT_NAME="kenrobot_v0.1.1.exe"
 
-rem set OUT_DIR="%UserProfile%\Desktop"
-set OUT_DIR="output"
+set OUT_DIR="%UserProfile%\Desktop"
+rem set OUT_DIR="output"
 
 set NSIS="tools\NSIS\makensis.exe"
 set SCRIPT="build.nsi"
