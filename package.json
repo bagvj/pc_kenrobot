@@ -11,11 +11,7 @@
       "main.js",
       "renderer.js",
       "node_modules"
-    ],
-    "win": {
-      "title": "kenrobot",
-      "msi": true
-    }
+    ]
   },
   "devDependencies": {
     "electron": "^1.4.14",

@@ -55,17 +55,22 @@ gulp.task('clean-assets-font', _ => {
 })
 
 gulp.task('clean-main', _ => {
-	return gulp.src(APP + 'main.js', {read: false})
+	return gulp.src(APP + 'main', {read: false})
 		.pipe(clean())
 })
 
 gulp.task('clean-renderer', _ => {
-	return gulp.src(APP + 'renderer.js', {read: false})
+	return gulp.src(APP + 'renderer', {read: false})
 		.pipe(clean())
 })
 
 gulp.task('clean-views', _ => {
 	return gulp.src(ASSETS_DIST + '*.html', {read: false})
+		.pipe(clean())
+})
+
+gulp.task('clean-config', _ => {
+	return gulp.src(ASSETS_DIST + '*.yml', {read: false})
 		.pipe(clean())
 })
 
@@ -111,24 +116,26 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	return gulp.src(SRC + 'main/index.js')
-		.pipe(rename('main.js'))
-		.pipe(gulp.dest(APP))
+	return gulp.src(SRC + 'main/**/*')
+		.pipe(gulp.dest(APP + 'main/'))
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], _ => {
-	return gulp.src(SRC + 'renderer/index.js')
-		.pipe(rename('renderer.js'))
-		.pipe(gulp.dest(APP))
+	return gulp.src(SRC + 'renderer/**/*')
+		.pipe(gulp.dest(APP + 'renderer/'))
 })
 
 gulp.task('pack-views', ['clean-views'], _ => {
 	return gulp.src(SRC + 'views/**.html')
-		// .pipe(gulpif(args.release, minifyHtml()))
 		.pipe(gulp.dest(APP))
 })
 
-gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
+gulp.task('pack-config', ['clean-config'], _ => {
+	return gulp.src([SRC + '/app-update.yml'])
+		.pipe(gulp.dest(APP))
+})
+
+gulp.task('pack', ['pack-config', 'pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
 gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
@@ -155,9 +162,6 @@ gulp.task('build', ['clean-dist'], callback => {
 		console.dir(result)
 		callback()
 	}, err => {
-		console.error(err)
-		callback(err)
-	}).catch(err => {
 		console.error(err)
 		callback(err)
 	})
