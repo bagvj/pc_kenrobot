@@ -30,7 +30,7 @@ function init() {
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 
-	log.debug("app start")
+	log.debug(`app start, version ${app.getVersion()}`)
 
 	listenEvent()
 	listenMessage()
@@ -74,29 +74,37 @@ function listenEvent() {
 }
 
 function listenMessage() {
-	ipcMain.on('app:reload', (e, deferId) => {
+	ipcMain.on('app:getVersion', (e, deferId) => {
+		console.log(app.getVersion())
+	})
+	.on('app:reload', (e, deferId) => {
 		mainWindow.reload()
 		e.sender.send('app:reload', deferId, true, true)
-	}).on('app:min', (e, deferId) => {
+	})
+	.on('app:min', (e, deferId) => {
 		mainWindow.minimize()
 		e.sender.send('app:min', deferId, true, true)
-	}).on('app:max', (e, deferId) => {
+	})
+	.on('app:max', (e, deferId) => {
 		if(mainWindow.isFullScreen()) {
 			mainWindow.setFullScreen(false)
 		} else {
 			mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
 		}
 		e.sender.send('app:max', deferId, true, true)
-	}).on('app:fullscreen', (e, deferId) => {
+	})
+	.on('app:fullscreen', (e, deferId) => {
 		var fullscreen = !mainWindow.isFullScreen()
 		mainWindow.setFullScreen(fullscreen)
 		e.sender.send('app:fullscreen', deferId, true, fullscreen)
-	}).on('app:quit', (e, deferId) => {
+	})
+	.on('app:quit', (e, deferId) => {
 		app.quit()
 	}).on('app:openUrl', (e, deferId, url) => {
 		var success = url && shell.openExternal(url)
 		e.sender.send('app:openUrl', deferId, success, success)
-	}).on('app:netRequest', (e, deferId, options) => {
+	})
+	.on('app:netRequest', (e, deferId, options) => {
 		var request = net.request(options)
 		if(options.header) {
 			for(var key in options.header) {
@@ -147,49 +155,57 @@ function listenMessage() {
 			log.error(err)
 			e.sender.send('app:netRequest', deferId, false, err)
 		}).end()
-	}).on('app:execCommand', (e, deferId, command, options) => {
+	})
+	.on('app:execCommand', (e, deferId, command, options) => {
 		execCommand(command, options).then(stdout => {
 			e.sender.send('app:execCommand', deferId, true, stdout)
 		}, err => {
 			e.sender.send('app:execCommand', deferId, false, err)
 		})
-	}).on('app:readFile', (e, deferId, file, options) => {
+	})
+	.on('app:readFile', (e, deferId, file, options) => {
 		readFile(file, options).then(data => {
 			e.sender.send('app:readFile', deferId, true, data)
 		}, err => {
 			e.sender.send('app:readFile', deferId, false, err)
 		})
-	}).on('app:writeFile', (e, deferId, file, data) => {
+	})
+	.on('app:writeFile', (e, deferId, file, data) => {
 		writeFile(file, data).then(_ => {
 			e.sender.send('app:writeFile', deferId, true, true)
 		}, err => {
 			e.sender.send('app:writeFile', deferId, false, err)
 		})
-	}).on('app:removeFile', (e, deferId, file) => {
+	})
+	.on('app:removeFile', (e, deferId, file) => {
 		removeFile(file).then(_ => {
 			e.sender.send('app:removeFile', deferId, true, true)
 		}, err => {
 			e.sender.send('app:removeFile', deferId, false, err)
 		})
-	}).on('app:saveProject', (e, deferId, file, projectInfo, isTemp) => {
+	})
+	.on('app:saveProject', (e, deferId, file, projectInfo, isTemp) => {
 		saveProject(file, projectInfo, isTemp).then(file => {
 			e.sender.send('app:saveProject', deferId, true, file)
 		}, err => {
 			e.sender.send('app:saveProject', deferId, false, err)
 		})
-	}).on('app:openProject', (e, deferId, file) => {
+	})
+	.on('app:openProject', (e, deferId, file) => {
 		openProject(file).then(data => {
 			e.sender.send('app:openProject', deferId, true, data)
 		}, err => {
 			e.sender.send('app:openProject', deferId, false, err)
 		})	
-	}).on('app:buildProject', (e, deferId, file, options) => {
+	})
+	.on('app:buildProject', (e, deferId, file, options) => {
 		buildProject(file, options).then(hex => {
 			e.sender.send('app:buildProject', deferId, true, hex)
 		}, err => {
 			e.sender.send('app:buildProject', deferId, false, err)
 		})
-	}).on('app:uploadHex', (e, deferId, hex, options) => {
+	})
+	.on('app:uploadHex', (e, deferId, hex, options) => {
 		getSerialPorts().then(ports => {
 			if(ports.length == 1) {
 				uploadHex(hex, ports[0].path, options).then(_ => {
@@ -208,15 +224,18 @@ function listenMessage() {
 				status: "NOT_FOUND_PORT"
 			})
 		})
-	}).on('app:uploadHex2', (e, deferId, hex, com, options) => {
+	})
+	.on('app:uploadHex2', (e, deferId, hex, com, options) => {
 		uploadHex(hex, com, options).then(_ => {
 			e.sender.send('app:uploadHex2', deferId, true, true)
 		}, err => {
 			e.sender.send('app:uploadHex2', deferId, false, err)
 		})
-	}).on('app:errorReport', (e, deferId, error) => {
+	})
+	.on('app:errorReport', (e, deferId, error) => {
 		log.error(`------ error message ------\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`)
-	}).on('app:log', (e, deferId, text, level) => {
+	})
+	.on('app:log', (e, deferId, text, level) => {
 		log.log(level || "debug", text)
 	})
 }
