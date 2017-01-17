@@ -9,7 +9,6 @@ const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
-const AppUpdater = require('./AppUpdater')
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -44,7 +43,7 @@ function createWindow() {
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
-	mainWindow.loadURL(`file://${__dirname}/../index.html`)
+	mainWindow.loadURL(`file://${__dirname}/index.html`)
 	mainWindow.focus()
 
 	mainWindow.on('closed', _ => {
@@ -59,7 +58,6 @@ function listenEvent() {
 		is.dev() && args.dev && debug({showDevTools: true})
 
 		createWindow()
-		AppUpdater.init()
 	}).on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
 			app.quit()

@@ -382,6 +382,361 @@ define(function() {
 					tags: ["analog-in"],
 					overlay: [0.5, -0.5]
 				}]
+			}, {
+				label: "Arduino/Genuino 101",
+				name: "Arduino101",
+				type: "genuino101",
+				tags: ["Arduino"],
+				pins: [{
+					uid: "ab7cd85a-9abe-48c4-a8bc-a22eb5578995",
+					width: 9,
+					height: 12,
+					x: 0.475,
+					y: 0.07,
+					name: "13",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "d83f0b0d-11c5-45fe-8d91-a728dc9152f6",
+					width: 9,
+					height: 12,
+					x: 0.506,
+					y: 0.07,
+					name: "12",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "b23995cd-9283-4153-9247-3f2d99c5c577",
+					width: 9,
+					height: 12,
+					x: 0.537,
+					y: 0.07,
+					name: "11",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "08f5be15-9437-4fea-b641-960297a9256d",
+					width: 9,
+					height: 12,
+					x: 0.568,
+					y: 0.07,
+					name: "10",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "5b9d5525-f336-48a1-9bea-05bf97e2e15a",
+					width: 9,
+					height: 12,
+					x: 0.599,
+					y: 0.07,
+					name: "9",
+					tags: ["digital", "analog-out", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "e0ddd32c-0b2e-40de-83d3-5a1a9495cabd",
+					width: 9,
+					height: 12,
+					x: 0.63,
+					y: 0.07,
+					name: "8",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "0cad225d-c342-47de-a330-24ef08502843",
+					width: 9,
+					height: 12,
+					x: 0.697,
+					y: 0.07,
+					name: "7",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "9f398c7d-0b85-4692-bffe-28e6129e1ece",
+					width: 9,
+					height: 12,
+					x: 0.728,
+					y: 0.07,
+					name: "6",
+					tags: ["digital", "analog-out", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "65ec63cb-ed89-49a4-8244-f1b90c435144",
+					width: 9,
+					height: 12,
+					x: 0.759,
+					y: 0.07,
+					name: "5",
+					tags: ["digital", "analog-out", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "ce53f383-f875-4267-b46a-562e046960b7",
+					width: 9,
+					height: 12,
+					x: 0.79,
+					y: 0.07,
+					name: "4",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "50c69484-c163-44f3-841e-b6c45ca72bab",
+					width: 9,
+					height: 12,
+					x: 0.832,
+					y: 0.07,
+					name: "3",
+					tags: ["digital", "analog-out", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "32be564f-f9d4-45ba-beaa-705507da4e2a",
+					width: 9,
+					height: 12,
+					x: 0.864,
+					y: 0.07,
+					name: "2",
+					tags: ["digital", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "c2064580-c984-4a8d-9f06-12f25b0392e0",
+					width: 9,
+					height: 12,
+					x: 0.894,
+					y: 0.07,
+					name: "1",
+					tags: ["digital", "serial-rx", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "79bda001-83ca-4bbc-90c4-a850c1ea2a08",
+					width: 9,
+					height: 12,
+					x: 0.925,
+					y: 0.07,
+					name: "0",
+					tags: ["digital", "serial-tx", "init"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "e817da0e-74c0-4514-86a9-df8580424048",
+					width: 9,
+					height: 12,
+					x: 0.770,
+					y: 0.935,
+					name: "A0",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "2b7dc051-c089-433e-b137-5fbc805410d7",
+					width: 9,
+					height: 12,
+					x: 0.804,
+					y: 0.935,
+					name: "A1",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "083d705a-1cb4-47de-b845-f90b44cc3213",
+					width: 9,
+					height: 12,
+					x: 0.838,
+					y: 0.935,
+					name: "A2",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "0b974abf-92c8-42dd-8344-f06761fc5e3d",
+					width: 9,
+					height: 12,
+					x: 0.872,
+					y: 0.935,
+					name: "A3",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "39df0dce-50a1-4358-b488-76c6aef65514",
+					width: 9,
+					height: 12,
+					x: 0.906,
+					y: 0.935,
+					name: "A4",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "5b7f72ce-3bee-4a78-bb97-bd01ba778492",
+					width: 9,
+					height: 12,
+					x: 0.940,
+					y: 0.935,
+					name: "A5",
+					tags: ["analog-in", "init"],
+					overlay: [0.5, -0.5]
+				}, {
+					width: 32,
+					height: 60,
+					x: 0.040,
+					y: 0.296,
+					name: "Serial",
+					tags: ["serial"],
+					uid: "5b07ef5c-861f-404b-b118-b59e5eceb90c",
+					overlay: [0.5, 1.5]
+				}]
+			}, {
+				label: "KenBlock",
+				name: "KenBlock",
+				type: "uno",
+				tags: ["KenBlock"],
+				pins: [{
+					uid: "c9168884-b454-4342-b677-f06dacb0b3cc",
+					width: 32,
+					height: 20,
+					x: 0.333,
+					y: 0.851,
+					name: "2",
+					tags: ["digital"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "55798942-05de-4d9c-82e8-ddced2259aec",
+					width: 32,
+					height: 20,
+					x: 0.431,
+					y: 0.851,
+					name: "3",
+					tags: ["digital", "analog-out"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "c297515b-2a2d-4b5c-96a8-e740d83a75ce",
+					width: 32,
+					height: 20,
+					x: 0.529,
+					y: 0.851,
+					name: "8",
+					tags: ["digital"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "86624d9f-0ddb-4356-8664-0afc9223e12e",
+					width: 32,
+					height: 20,
+					x: 0.627,
+					y: 0.851,
+					name: "9",
+					tags: ["digital", "analog-out"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "e29d477e-8923-40c2-8922-af988a78811f",
+					width: 32,
+					height: 20,
+					x: 0.725,
+					y: 0.851,
+					name: "10",
+					tags: ["digital", "analog-out"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "08001087-da26-451b-b124-5c100d928201",
+					width: 32,
+					height: 20,
+					x: 0.823,
+					y: 0.851,
+					name: "11",
+					tags: ["digital", "analog-out"],
+					overlay: [0.5, -0.5]
+				}, {
+					width: 32,
+					height: 20,
+					x: 0.333,
+					y: 0.149,
+					name: "A0",
+					tags: ["analog-in"],
+					uid: "7186a1cf-2fab-4c5a-8d1e-19836d4a561d",
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "7c10ef7d-a65e-497d-868a-b9c2e43bea81",
+					width: 32,
+					height: 20,
+					x: 0.431,
+					y: 0.149,
+					name: "A1",
+					tags: ["analog-in"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "15ad5a73-f510-44bc-b4ac-5886a8211d38",
+					width: 32,
+					height: 20,
+					x: 0.529,
+					y: 0.149,
+					name: "A2",
+					tags: ["analog-in"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "129d8693-115f-40c4-a6c1-4315bd020254",
+					width: 32,
+					height: 20,
+					x: 0.627,
+					y: 0.149,
+					name: "A3",
+					tags: ["analog-in"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "d679b1cd-91d4-4aed-8f6f-6ad31d041518",
+					width: 32,
+					height: 20,
+					x: 0.725,
+					y: 0.149,
+					name: "A6",
+					tags: ["analog-in"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "15c50e12-8705-4d47-803d-5c50b7512981",
+					width: 32,
+					height: 20,
+					x: 0.823,
+					y: 0.149,
+					name: "A7",
+					tags: ["analog-in"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "ed9cbaec-e3fb-4acb-87d9-c4825bb5594c",
+					width: 40,
+					height: 20,
+					x: 0.228,
+					y: 0.851,
+					name: "USART",
+					tags: ["serial"],
+					overlay: [0.5, -0.5]
+				}, {
+					uid: "e6f796e0-d283-41d3-a996-7316acb2c4cc",
+					width: 40,
+					height: 20,
+					x: 0.228,
+					y: 0.149,
+					name: "IIC",
+					tags: ["iic"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "cc94cecf-1424-4352-8309-474a814981f5",
+					width: 40,
+					height: 20,
+					x: 0.97,
+					y: 0.72,
+					name: "IIC",
+					tags: ["iic"],
+					overlay: [0.5, 1.5],
+					rotate: true
+				}, {
+					uid: "0ae7f137-66e0-437a-998f-c71a2ec62c3b",
+					width: 20,
+					height: 54,
+					x: 0.97,
+					y: 0.336,
+					name: "MA",
+					tags: ["motor"],
+					overlay: [0.5, 1.5]
+				}, {
+					uid: "ee0399c9-2700-4456-96e1-47803c1ff60a",
+					width: 20,
+					height: 54,
+					x: 0.97,
+					y: 0.54,
+					name: "MB",
+					tags: ["motor"],
+					overlay: [0.5, 1.5]
+				}]
 			}],
 			components: [{
 				uid: "bd3ddead-5062-4ab3-9b3d-2ba85e938d0e",

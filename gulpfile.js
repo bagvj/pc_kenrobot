@@ -69,11 +69,6 @@ gulp.task('clean-views', _ => {
 		.pipe(clean())
 })
 
-gulp.task('clean-config', _ => {
-	return gulp.src(ASSETS_DIST + '*.yml', {read: false})
-		.pipe(clean())
-})
-
 gulp.task('clean-dist', _ => {
 	return gulp.src(DIST, {read: false})
 		.pipe(clean())
@@ -116,13 +111,15 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	return gulp.src(SRC + 'main/**/*')
-		.pipe(gulp.dest(APP + 'main/'))
+	return gulp.src(SRC + 'main/index.js')
+		.pipe(rename("main.js"))
+		.pipe(gulp.dest(APP))
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], _ => {
-	return gulp.src(SRC + 'renderer/**/*')
-		.pipe(gulp.dest(APP + 'renderer/'))
+	return gulp.src(SRC + 'renderer/index.js')
+		.pipe(rename("renderer.js"))
+		.pipe(gulp.dest(APP))
 })
 
 gulp.task('pack-views', ['clean-views'], _ => {
@@ -130,12 +127,7 @@ gulp.task('pack-views', ['clean-views'], _ => {
 		.pipe(gulp.dest(APP))
 })
 
-gulp.task('pack-config', ['clean-config'], _ => {
-	return gulp.src([SRC + '/app-update.yml'])
-		.pipe(gulp.dest(APP))
-})
-
-gulp.task('pack', ['pack-config', 'pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
+gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
 gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
