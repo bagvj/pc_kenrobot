@@ -263,7 +263,7 @@ function getScript(name) {
 	if(is.windows()) {
 		return path.join("scripts", `${name}.bat}`)
 	} else if(is.macOS()) {
-		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join('Contents', 'scripts', `${name}.sh`)
+		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join(app.getAppPath(), 'Contents', 'scripts', `${name}.sh`)
 	} else {
 		return path.join("scripts", `${name}.sh`)
 	}
