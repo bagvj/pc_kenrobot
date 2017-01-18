@@ -1,9 +1,12 @@
 #!/bin/bash
 set -e
 
-title='啃萝卜' # dmg 文件 mount 了之后在文件系统中显示的名称
-background_picture_name='mac-dmg-bg.png' # dmg 文件在 mount 了之后界面中显示的背景图片路径
+title='啃萝卜' # dmg文件mount了之后在文件系统中显示的名称
+background_picture_name='mac_bg.png' # dmg文件在mount了之后界面中显示的背景图片路径
 application_name='啃萝卜.app' # 应用程序的名称
+size='370M' # 大小
+product_name='kenrobot' # 产品名
+version='0.1.1' # 版本号
 
 window_left=200
 window_top=100
@@ -13,9 +16,12 @@ app_icon_top=200    # 应用的 logo 在窗口中的 y 坐标
 applications_link_left=450 # Application 文件链接在窗口中的 x 坐标
 applications_link_top=200  # Application 文件链接在窗口中的 y 坐标
 
-mkdir -p dmg-releases
-rm -f dmg-releases/pack.temp.dmg
-hdiutil create -size 370M -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" dmg-releases/pack.temp.dmg
+output_dir='output'
+output_name='kenrobot.dmg'
+
+mkdir -p ${output_dir}
+rm -f ${output_dir}/${output_name}
+hdiutil create -size ${size} -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" ${output_dir}/${output_name}
 
 function ejectDmgMount() {
   # 弹出临时的 dmg mount
@@ -34,7 +40,7 @@ function ejectDmgMount() {
 if [ -d /Volumes/${title} ]; then
   ejectDmgMount
 fi
-hdiutil mount dmg-releases/pack.temp.dmg
+hdiutil mount ${output_dir}/${output_name}
 
 image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
 image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
@@ -63,29 +69,22 @@ function setDmgFinderInfo() {
   ' | osascript
 }
 
-
-# 打包某一个渠道的 dmg 版本
-function buildDmgForChannel() {
-  local channel=$1
-  
+# 打包dmg
+function buildDmg() {
   # mount 临时的 dmg 文件
   if [ -d /Volumes/${title} ]; then
     ejectDmgMount
   fi
-  hdiutil mount dmg-releases/pack.temp.dmg
-  
-  # 变更渠道标识文件，我们是使用一个文本文件做的记录，这样分渠道打包时，不需要重新编译
-  echo $channel &gt; "/Volumes/${title}/${app_folder_name}/Contents/Resources/configuration_source.txt"
+  hdiutil mount ${output_dir}/${output_name}
 
   setDmgFinderInfo
   ejectDmgMount
   
   # 导出只读的 dmg 文件
   today=`date '+%Y-%m-%d.%H'`
-  hdiutil convert ./dmg-releases/pack.temp.dmg -format UDZO -imagekey zlib-level=9 \
-  -o "./dmg-releases/${project_name}-${version}-${channel}-${today}.dmg"
+  hdiutil convert ./${output_dir}/${output_name} -format UDZO -imagekey zlib-level=9 \
+  -o "./${output_dir}/${product_name}-${version}-${today}.dmg"
 }
 
-buildDmgForChannel 1kxun
-
-rm -rf ./dmg-releases/pack.temp.dmg
+buildDmg
+rm -rf ./${output_dir}/${output_name}
