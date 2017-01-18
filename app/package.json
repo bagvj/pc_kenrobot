@@ -1,7 +1,7 @@
 {
   "main": "main.js",
   "name": "kenrobot",
-  "version": "1.1.0",
+  "version": "0.1.1",
   "description": "啃萝卜智能硬件平台",
   "author": "KenRobot",
   "copyright": "©2016 KenRobot",
