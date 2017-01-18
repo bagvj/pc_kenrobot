@@ -1,9 +1,9 @@
 @echo off
 
-rem 浣跨敤鏂规硶: upload.bat hex COM
-rem 浣跨敤绀轰緥: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.hex COM5
+rem 使用方法: upload.bat hex COM
+rem 使用示例: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.hex COM5
 
-rem hex鏂囦欢璺緞
+rem hex文件路径
 set HEX_PATH=%~f1
 
 set DIR=%~dp0
@@ -12,7 +12,7 @@ set LOCAL_ARDUINO_PATH=%DIR%..\\arduino-win
 set UPLOADER="%LOCAL_ARDUINO_PATH%\\hardware\\tools\\avr\\bin\\avrdude.exe"
 set UPLOADER_CONF="%LOCAL_ARDUINO_PATH%\\hardware\\tools\\avr\\etc\\avrdude.conf"
 
-rem COM绔彛
+rem COM端口
 set ARDUINO_COMPORT=%2
 
 set ARDUINO_MCU=atmega328p

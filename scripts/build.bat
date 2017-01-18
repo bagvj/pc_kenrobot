@@ -1,15 +1,15 @@
 @echo off
 
-rem ä½¿ç”¨æ–¹æ³•: build.bat é¡¹ç›®å ä¸»æ¿ç±»å‹
-rem ä½¿ç”¨ç¤ºä¾‹: 1. build.bat test uno 2. build.bat c:\project\test uno
+rem Ê¹ÓÃ·½·¨: build.bat ÏîÄ¿Ãû Ö÷°åÀàĞÍ
+rem Ê¹ÓÃÊ¾Àı: 1. build.bat test uno 2. build.bat c:\project\test uno
 
-rem é¡¹ç›®è·¯å¾„
+rem ÏîÄ¿Â·¾¶
 set SKETCH_PATH=%~f1
 set SKETCH=%~n1
 set SKETCH="%SKETCH_PATH%\%SKETCH%.ino"
 set BUILD_PATH="%SKETCH_PATH%\build"
 
-rem ä¸»æ¿ç±»å‹
+rem Ö÷°åÀàĞÍ
 set BOARD_TYPE=%2
 
 set DIR=%~dp0
