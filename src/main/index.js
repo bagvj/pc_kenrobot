@@ -239,6 +239,21 @@ function getSerialPorts() {
 		}, err => {
 			deferred.reject(err)
 		})
+	else if(is.macOS()) {
+		execCommand("ls /dev/cu.usbmodem*").then(stdout => {
+			var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
+			var ports = []
+			var match
+			while((match = comReg.exec(stdout))) {
+				ports.push({
+					path: match[1]
+				})
+			}
+
+			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+		}, err => {
+			deferred.reject(err)
+		})
 	} else {
 		execCommand("ls /dev/tty*").then(stdout => {
 			var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
@@ -263,7 +278,7 @@ function getScript(name) {
 	if(is.windows()) {
 		return path.join("scripts", `${name}.bat}`)
 	} else if(is.macOS()) {
-		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join(app.getAppPath(), 'Contents', 'scripts', `${name}.sh`)
+		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join(app.getAppPath(), '..', '..', 'scripts', `${name}.sh`)
 	} else {
 		return path.join("scripts", `${name}.sh`)
 	}
