@@ -18,7 +18,7 @@ applications_link_top=132  # Application 文件链接在窗口中的 y 坐标
 
 output_dir='output'
 output_name='kenrobot.dmg'
-app_folder_name='kenrobot.app'
+app_src='bin/kenrobot.app'
 
 function ejectDmgMount() {
   # 弹出临时的 dmg mount
@@ -89,8 +89,8 @@ image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -o
 image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
 
 # 复制编译好的app目录
-rm -rf /Volumes/${title}/${app_folder_name}
-cp -R ${app_folder_name} /Volumes/${title}/${app_folder_name}
+rm -rf /Volumes/${title}/${application_name}
+cp -R ${app_src} /Volumes/${title}/${application_name}
 rm -f /Volumes/${title}/Applications
 ln -s /Applications /Volumes/${title}/Applications
 
