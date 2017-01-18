@@ -77,7 +77,7 @@ function buildDmg() {
 echo begin build dmg
 cd $(dirname $0)
 mkdir -p ${output_dir}
-rm -f ${output_dir}/${output_name}
+rm -f ${output_dir}/*.dmg
 hdiutil create -size ${size} -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" ${output_dir}/${output_name}
 
 # 如果有 mount 了其他的 dmg 文件在 Finder 里面了，先弹出掉
