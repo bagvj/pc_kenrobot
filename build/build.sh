@@ -11,10 +11,10 @@ version='0.1.1' # 版本号
 window_left=200
 window_top=100
 app_icon_width=128  # 应用的 logo 大小
-app_icon_left=150   # 应用的 logo 在窗口中的 x 坐标
-app_icon_top=200    # 应用的 logo 在窗口中的 y 坐标
-applications_link_left=450 # Application 文件链接在窗口中的 x 坐标
-applications_link_top=200  # Application 文件链接在窗口中的 y 坐标
+app_icon_left=50   # 应用的 logo 在窗口中的 x 坐标
+app_icon_top=132    # 应用的 logo 在窗口中的 y 坐标
+applications_link_left=362 # Application 文件链接在窗口中的 x 坐标
+applications_link_top=132  # Application 文件链接在窗口中的 y 坐标
 
 output_dir='output'
 output_name='kenrobot.dmg'
@@ -70,7 +70,7 @@ function buildDmg() {
   ejectDmgMount
   
   # 导出只读的 dmg 文件
-  today=`date '+%Y-%m-%d.%H'`
+  today=`date '+%Y-%m-%d'`
   hdiutil convert ./${output_dir}/${output_name} -format UDZO -imagekey zlib-level=9 -o "./${output_dir}/${product_name}-${version}-${today}.dmg"
 }
 
