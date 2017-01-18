@@ -260,6 +260,21 @@ function getSerialPorts() {
 		}, err => {
 			deferred.reject(err)
 		})
+	} else if(is.macOS()) {
+		execCommand("ls /dev/cu.usbmodem*").then(stdout => {
+			var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
+			var ports = []
+			var match
+			while((match = comReg.exec(stdout))) {
+				ports.push({
+					path: match[1]
+				})
+			}
+
+			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+		}, err => {
+			deferred.reject(err)
+		})
 	} else {
 		execCommand("ls /dev/tty*").then(stdout => {
 			var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
@@ -281,7 +296,13 @@ function getSerialPorts() {
 }
 
 function getScript(name) {
-	return path.join("scripts", `${name}.${is.windows() ? "bat" : "sh"}`)
+	if(is.windows()) {
+		return path.join("scripts", `${name}.bat}`)
+	} else if(is.macOS()) {
+		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join(app.getAppPath(), '..', '..', 'scripts', `${name}.sh`)
+	} else {
+		return path.join("scripts", `${name}.sh`)
+	}
 }
 
 function showOpenDialog(options) {
@@ -488,6 +509,7 @@ function buildProject(file, options) {
 	options = options || {}
 	options.board_type = options.board_type || "uno"
 
+	log.debug(path.resolve(scriptPath))
 	var command = `${scriptPath} ${file} ${options.board_type}`
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
@@ -505,8 +527,8 @@ function uploadHex(hex, com, options) {
 
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
-	var sudo = is.windows() ? "" : "sudo "
-	var command = `${sudo}${scriptPath} ${hex} ${com}`
+	log.debug(path.resolve(scriptPath))
+	var command = `${scriptPath} ${hex} ${com}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()
