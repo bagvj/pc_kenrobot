@@ -506,9 +506,8 @@ function uploadHex(hex, com, options) {
 
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
-	var sudo = is.windows() ? "" : "sudo "
 	log.debug(path.resolve(scriptPath))
-	var command = `${sudo}${scriptPath} ${hex} ${com}`
+	var command = `${scriptPath} ${hex} ${com}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()
