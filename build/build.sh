@@ -11,10 +11,10 @@ version='0.1.1' # 版本号
 window_left=200
 window_top=100
 app_icon_width=128  # 应用的 logo 大小
-app_icon_left=50   # 应用的 logo 在窗口中的 x 坐标
-app_icon_top=132    # 应用的 logo 在窗口中的 y 坐标
-applications_link_left=362 # Application 文件链接在窗口中的 x 坐标
-applications_link_top=132  # Application 文件链接在窗口中的 y 坐标
+app_icon_left=114   # 应用的 logo 在窗口中的 x 坐标
+app_icon_top=196    # 应用的 logo 在窗口中的 y 坐标
+applications_link_left=416 # Application 文件链接在窗口中的 x 坐标
+applications_link_top=196  # Application 文件链接在窗口中的 y 坐标
 
 output_dir='output'
 output_name='kenrobot.dmg'
