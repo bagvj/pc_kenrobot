@@ -50,6 +50,8 @@ function setDmgFinderInfo() {
              set arrangement of theViewOptions to not arranged
              set icon size of theViewOptions to '$app_icon_width'
              set background picture of theViewOptions to file ".background:bg.png"
+             set position of item "'${application_name}'" of container window to {'$app_icon_left', '$app_icon_top'}
+             set position of item "Applications" of container window to {'$applications_link_left', '$applications_link_top'}
              update without registering applications
              close
        end tell
