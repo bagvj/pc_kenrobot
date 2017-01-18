@@ -239,7 +239,7 @@ function getSerialPorts() {
 		}, err => {
 			deferred.reject(err)
 		})
-	else if(is.macOS()) {
+	} else if(is.macOS()) {
 		execCommand("ls /dev/cu.usbmodem*").then(stdout => {
 			var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
 			var ports = []
