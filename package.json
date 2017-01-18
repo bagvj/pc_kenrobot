@@ -1,6 +1,4 @@
 {
-  "name": "kenrobot",
-  "version": "1.1.0",
   "private": true,
   "build": {
     "appId": "com.kenrobot.KenRobot",

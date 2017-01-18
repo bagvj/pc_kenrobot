@@ -102,7 +102,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 								util.hideModalMessage();
 								util.message({
 									text: "上传失败",
-									type: "error",
+									type: "error"
 								});
 							});
 						});
