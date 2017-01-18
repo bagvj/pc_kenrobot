@@ -20,31 +20,6 @@ output_dir='output'
 output_name='kenrobot.dmg'
 app_folder_name='kenrobot.app'
 
-mkdir -p ${output_dir}
-rm -f ${output_dir}/${output_name}
-hdiutil create -size ${size} -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" ${output_dir}/${output_name}
-
-# 如果有 mount 了其他的 dmg 文件在 Finder 里面了，先弹出掉
-if [ -d /Volumes/${title} ]; then
-  ejectDmgMount
-fi
-hdiutil mount ${output_dir}/${output_name}
-
-image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
-image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
-
-# 复制编译好的app目录
-rm -rf /Volumes/${title}/${app_folder_name}
-cp -R ${app_folder_name} /Volumes/${title}/${app_folder_name}
-
-mkdir -p /Volumes/${title}/.background
-rm -f /Volumes/${title}/.background/*
-cp ./${background_picture_name} /Volumes/${title}/.background/bg.png
-
-buildDmg
-rm -rf ./${output_dir}/${output_name}
-exit 0
-
 function ejectDmgMount() {
   # 弹出临时的 dmg mount
   echo '
@@ -95,6 +70,31 @@ function buildDmg() {
   
   # 导出只读的 dmg 文件
   today=`date '+%Y-%m-%d.%H'`
-  hdiutil convert ./${output_dir}/${output_name} -format UDZO -imagekey zlib-level=9 \
-  -o "./${output_dir}/${product_name}-${version}-${today}.dmg"
+  hdiutil convert ./${output_dir}/${output_name} -format UDZO -imagekey zlib-level=9 -o "./${output_dir}/${product_name}-${version}-${today}.dmg"
 }
+
+echo begin build dmg
+mkdir -p ${output_dir}
+rm -f ${output_dir}/${output_name}
+hdiutil create -size ${size} -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" ${output_dir}/${output_name}
+
+# 如果有 mount 了其他的 dmg 文件在 Finder 里面了，先弹出掉
+if [ -d /Volumes/${title} ]; then
+  ejectDmgMount
+fi
+hdiutil mount ${output_dir}/${output_name}
+
+image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
+image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
+
+# 复制编译好的app目录
+rm -rf /Volumes/${title}/${app_folder_name}
+cp -R ${app_folder_name} /Volumes/${title}/${app_folder_name}
+
+mkdir -p /Volumes/${title}/.background
+rm -f /Volumes/${title}/.background/*
+cp ./${background_picture_name} /Volumes/${title}/.background/bg.png
+
+buildDmg
+rm -rf ./${output_dir}/${output_name}
+echo build success
