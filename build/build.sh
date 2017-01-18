@@ -18,7 +18,7 @@ applications_link_top=200  # Application 文件链接在窗口中的 y 坐标
 
 output_dir='output'
 output_name='kenrobot.dmg'
-app_folder_name='kenrobot'
+app_folder_name='kenrobot.app'
 
 mkdir -p ${output_dir}
 rm -f ${output_dir}/${output_name}
