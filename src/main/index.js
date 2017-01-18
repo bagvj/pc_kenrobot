@@ -260,7 +260,13 @@ function getSerialPorts() {
 }
 
 function getScript(name) {
-	return path.join("scripts", `${name}.${is.windows() ? "bat" : "sh"}`)
+	if(is.windows()) {
+		return path.join("scripts", `${name}.bat}`)
+	} else if(is.macOS()) {
+		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join('Contents', 'scripts', `${name}.sh`)
+	} else {
+		return path.join("scripts", `${name}.sh`)
+	}
 }
 
 function showOpenDialog(options) {
@@ -467,6 +473,7 @@ function buildProject(file, options) {
 	options = options || {}
 	options.board_type = options.board_type || "uno"
 
+	log.debug(path.resolve(scriptPath))
 	var command = `${scriptPath} ${file} ${options.board_type}`
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
@@ -485,6 +492,7 @@ function uploadHex(hex, com, options) {
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
 	var sudo = is.windows() ? "" : "sudo "
+	log.debug(path.resolve(scriptPath))
 	var command = `${sudo}${scriptPath} ${hex} ${com}`
 
 	execCommand(command).then(_ => {
