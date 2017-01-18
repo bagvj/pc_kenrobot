@@ -18,10 +18,32 @@ applications_link_top=200  # Application 文件链接在窗口中的 y 坐标
 
 output_dir='output'
 output_name='kenrobot.dmg'
+app_folder_name='kenrobot'
 
 mkdir -p ${output_dir}
 rm -f ${output_dir}/${output_name}
 hdiutil create -size ${size} -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" ${output_dir}/${output_name}
+
+# 如果有 mount 了其他的 dmg 文件在 Finder 里面了，先弹出掉
+if [ -d /Volumes/${title} ]; then
+  ejectDmgMount
+fi
+hdiutil mount ${output_dir}/${output_name}
+
+image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
+image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
+
+# 复制编译好的app目录
+rm -rf /Volumes/${title}/${app_folder_name}
+cp -R ${app_folder_name} /Volumes/${title}/${app_folder_name}
+
+mkdir -p /Volumes/${title}/.background
+rm -f /Volumes/${title}/.background/*
+cp ./${background_picture_name} /Volumes/${title}/.background/bg.png
+
+buildDmg
+rm -rf ./${output_dir}/${output_name}
+exit 0
 
 function ejectDmgMount() {
   # 弹出临时的 dmg mount
@@ -36,14 +58,6 @@ function ejectDmgMount() {
      end tell
   ' | osascript
 }
-# 如果有 mount 了其他的 dmg 文件在 Finder 里面了，先弹出掉
-if [ -d /Volumes/${title} ]; then
-  ejectDmgMount
-fi
-hdiutil mount ${output_dir}/${output_name}
-
-image_width=`sips -g pixelWidth ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
-image_height=`sips -g pixelHeight ${background_picture_name} | tail -n 1 | grep -oE '[0-9]+$'`
 
 function setDmgFinderInfo() {
   window_right=$(($image_width+$window_left))
@@ -61,7 +75,6 @@ function setDmgFinderInfo() {
              set icon size of theViewOptions to '$app_icon_width'
              set background picture of theViewOptions to file ".background:bg.png"
              set position of item "'${application_name}'" of container window to {'$app_icon_left', '$app_icon_top'}
-             set position of item "Applications" of container window to {'$applications_link_left', '$applications_link_top'}
              update without registering applications
              close
        end tell
@@ -85,6 +98,3 @@ function buildDmg() {
   hdiutil convert ./${output_dir}/${output_name} -format UDZO -imagekey zlib-level=9 \
   -o "./${output_dir}/${product_name}-${version}-${today}.dmg"
 }
-
-buildDmg
-rm -rf ./${output_dir}/${output_name}
