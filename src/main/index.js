@@ -40,7 +40,8 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1280,
 		height: 800,
-		frame: false
+		frame: false,
+		show: false
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
@@ -49,17 +50,24 @@ function createWindow() {
 
 	mainWindow.on('closed', _ => {
 		mainWindow = null
+	}).once('ready-to-show', () => {
+		mainWindow.show()
 	})
 }
 
 function listenEvent() {
 	app.on('ready', _ => {
+		var exec = require('child_process').exec; 
+		exec('NET SESSION', function(err,so,se) {
+      		console.log(se.length === 0 ? "admin" : "not admin");
+    	})
+		
 		log.debug('app ready')
 
 		is.dev() && args.dev && debug({showDevTools: true})
 
 		createWindow()
-		AppUpdater.init()
+		// AppUpdater.init(mainWindow)
 	}).on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
 			app.quit()

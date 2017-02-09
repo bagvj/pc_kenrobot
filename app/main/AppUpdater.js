@@ -1,11 +1,11 @@
 const {BrowserWindow} = require('electron')
 
-const {autoUpdater} = require('electron-auto-updater')
+const {autoUpdater} = require('electron-updater')
 const is = require('electron-is')
 const os = require('os')
 const log = require('electron-log')
 
-function init() {
+function init(win) {
 	log.debug("AppUpdater init")
 	// if(is.dev()) {
 	// 	return
@@ -29,12 +29,13 @@ function init() {
 	})
 	.on('update-downloaded', e => {
 		log.debug('update-downloaded')
+		autoUpdater.quitAndInstall()
 	})
-	autoUpdater.signals.updateDownloaded(result => {
-		notify("发现新版本", `已成功下载版本${result.version}，退出时将自动安装新版本`)
+	
+	win.webContents.once("did-finish-load", e => {
+		log.debug("app updater checkForUpdates")
+		autoUpdater.checkForUpdates()
 	})
-	log.debug("app updater checkForUpdates")
-	autoUpdater.checkForUpdates()
 }
 
 function notify(title, message) {

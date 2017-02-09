@@ -12,8 +12,8 @@
     ]
   },
   "devDependencies": {
-    "electron": "^1.4.14",
-    "electron-builder": "^10.13.0",
+    "electron": "^1.4.15",
+    "electron-builder": "^12.3.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-clean": "^0.3.2",
@@ -24,7 +24,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-requirejs-optimize": "^1.2.0",
     "gulp-ruby-sass": "^2.1.1",
-    "gulp-uglify": "^2.0.0",
+    "gulp-uglify": "^2.0.1",
     "minimist": "^1.2.0",
     "run-sequence": "^1.2.2"
   }
