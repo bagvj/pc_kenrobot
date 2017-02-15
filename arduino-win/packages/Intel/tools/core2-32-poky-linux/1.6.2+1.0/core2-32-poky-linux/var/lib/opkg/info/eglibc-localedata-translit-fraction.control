@@ -1,0 +1,13 @@
+Package: eglibc-localedata-translit-fraction
+Version: 2.19-r0
+Description: locale definition for translit-fraction
+ locale definition for translit-fraction
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Provides: glibc-localedata-translit-fraction
+Source: None

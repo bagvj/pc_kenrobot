@@ -1,0 +1,58 @@
+Package: meta-environment-i586
+Version: 1.0-r8
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144816
+Auto-Installed: yes
+
+Package: binutils-cross-canadian-i586
+Version: 2.23.1-r3
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144818
+Auto-Installed: yes
+
+Package: nativesdk-libtool
+Version: 2.4.2-r6.0
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144816
+Auto-Installed: yes
+
+Package: gcc-cross-canadian-i586
+Version: 4.7.2-r20
+Depends: nativesdk-libmpc, nativesdk-mpfr
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144823
+Auto-Installed: yes
+
+Package: nativesdk-libmpc
+Version: 0.8.2-r1
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144820
+Auto-Installed: yes
+
+Package: packagegroup-cross-canadian-i586
+Version: 1.0-r0
+Depends: meta-environment-i586, binutils-cross-canadian-i586, gcc-cross-canadian-i586
+Provides: task-cross-canadian-i586
+Status: install user installed
+Architecture: all
+Installed-Time: 1427144823
+
+Package: nativesdk-mpfr
+Version: 3.1.1-r0
+Status: install ok installed
+Architecture: i686-nativesdk-mingw32
+Installed-Time: 1427144820
+Auto-Installed: yes
+
+Package: nativesdk-packagegroup-sdk-host
+Version: 1.0-r11
+Depends: nativesdk-libtool
+Status: install user installed
+Architecture: all
+Installed-Time: 1427144816
+

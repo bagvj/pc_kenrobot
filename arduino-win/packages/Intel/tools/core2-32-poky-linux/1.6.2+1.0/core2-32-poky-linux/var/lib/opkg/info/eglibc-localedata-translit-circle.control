@@ -1,0 +1,13 @@
+Package: eglibc-localedata-translit-circle
+Version: 2.19-r0
+Description: locale definition for translit-circle
+ locale definition for translit-circle
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Provides: glibc-localedata-translit-circle
+Source: None

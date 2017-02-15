@@ -1,0 +1,13 @@
+Package: eglibc-localedata-iso14651-t1-common
+Version: 2.19-r0
+Description: locale definition for iso14651-t1-common
+ locale definition for iso14651-t1-common
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Provides: glibc-localedata-iso14651-t1-common
+Source: None

@@ -1,0 +1,17 @@
+Package: packagegroup-core-standalone-sdk-target-dbg
+Version: 1.0-r8
+Description: packagegroup-core-standalone-sdk-target version 1.0-r8 - Debugging files
+ Target packages for the standalone SDK  This package contains ELF symbols
+ and related sources for debugging purposes.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: packagegroup-core-standalone-sdk-target
+Homepage: unknown
+Recommends: libstdc++-dbg, packagegroup-core-standalone-sdk-target (= 1.0-r8), libgcc-s-dbg, libc-dbg, uclibc-thread-db-dbg
+Provides: task-core-standalone-sdk-target-dbg
+Replaces: task-core-standalone-sdk-target-dbg
+Conflicts: task-core-standalone-sdk-target-dbg
+Source: None

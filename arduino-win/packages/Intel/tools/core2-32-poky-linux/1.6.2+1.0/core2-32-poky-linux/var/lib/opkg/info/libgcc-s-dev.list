@@ -1,0 +1,14 @@
+/usr/lib/i586-poky-linux/4.8.2/crtendS.o
+/usr/lib/i586-poky-linux/4.8.2/crtbeginS.o
+/usr/lib/i586-poky-linux/4.8.2/libgcc_eh.a
+/usr/lib/i586-poky-linux/4.8.2/crtbeginT.o
+/usr/lib/i586-poky-linux/4.8.2/crtend.o
+/usr/lib/i586-poky-linux/4.8.2/crtprec80.o
+/usr/lib/i586-poky-linux/4.8.2/crtprec64.o
+/usr/lib/i586-poky-linux/4.8.2/crtfastmath.o
+/lib/libgcc_s.so
+/usr/lib/i586-poky-linux/4.8.2/
+/usr/lib/i586-poky-linux/
+/usr/lib/i586-poky-linux/4.8.2/crtbegin.o
+/usr/lib/i586-poky-linux/4.8.2/libgcc.a
+/usr/lib/i586-poky-linux/4.8.2/crtprec32.o

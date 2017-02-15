@@ -1,0 +1,15 @@
+Package: packagegroup-core-standalone-sdk-target-dev
+Version: 1.0-r8
+Description: Target packages for the standalone SDK - Development files
+ Target packages for the standalone SDK.  This package contains symbolic
+ links, header files, and related items necessary for software
+ development.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: packagegroup-core-standalone-sdk-target
+Depends: packagegroup-core-standalone-sdk-target (= 1.0-r8)
+Recommends: qemuwrapper-cross-dev, libgcc-s-dev, eglibc-utils-dev, eglibc-thread-db-dev, libstdc++-dev, libc6-dev, eglibc-gconv-ibm850-dev, libsegfault-dev, eglibc-gconv-iso8859-15-dev, eglibc-localedata-i18n-dev, eglibc-gconv-iso8859-1-dev, eglibc-gconv-cp1252-dev
+Source: None

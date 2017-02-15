@@ -1,0 +1,2582 @@
+Package: binutils-cross-canadian-i586-dbg
+Version: 2.23.1-r3
+Recommends: binutils-cross-canadian-i586 (= 2.23.1-r3)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9ee1f31744489b1835d3d8e2e6ac9b1e
+Size: 1304
+Filename: binutils-cross-canadian-i586-dbg_2.23.1-r3_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2 file://binutils-uclibc-100-uclibc-conf.patch file://binutils-uclibc-300-001_ld_makefile_patch.patch file://binutils-uclibc-300-006_better_file_error.patch file://binutils-uclibc-300-012_check_ldrunpath_length.patch file://binutils-uclibc-gas-needs-libm.patch file://binutils-x86_64_i386_biarch.patch file://libtool-2.4-update.patch file://libiberty_path_fix.patch file://binutils-poison.patch file://libtool-rpath-fix.patch file://binutils-armv5e.patch file://mips64-default-ld-emulation.patch file://backport/0001-bfd.patch file://backport/0003-Assemble-all-sources-files-in-each-test.patch file://backport/0005-bfd.patch file://backport/0010-bfd-ChangeLog.patch file://backport/0012-Fix-TLS-LD-to-LE-optimization-for-x32.patch file://backport/0013-gas-ChangeLog.patch file://backport/0014-Fix-opcode-for-64-bit-jecxz.patch file://backport/0017-ld-elf-comm-data.exp-Add-XFAIL-for-arm-targets-refer.patch file://backport/0018-bfd.patch file://backport/0024-bfd.patch file://backport/0026-ld-testsuite.patch file://backport/0001-doc-binutils.texi-elfedit-Fix-use-of-itemx-in-table.patch file://backport/0001-ld.texinfo-Replace-with-when-it-is-part-of-the-text.patch file://backport/binutils-fix-ineffectual-zero-of-cache.patch file://backport/binutils-replace-strncat-with-strcat.patch file://backport/0001-config-tc-ppc.c-md_assemble-Do-not-generate-APUinfo-.patch file://binutils-fix-over-array-bounds-issue.patch file://gas2.23.1_WR.patch file://gas2.23.1_flip_lock_flag_logic.patch
+Description:  A GNU collection of binary utilities - Debugging files  A GNU collection
+ of cross-canadian binary utilities for i586 target  This   package
+ contains ELF symbols and related sources for debugging purposes.
+OE: binutils-cross-canadian-i586
+HomePage: http://www.gnu.org/software/binutils/
+License: GPLv3
+Priority: optional
+
+Package: binutils-cross-canadian-i586-dev
+Version: 2.23.1-r3
+Depends: binutils-cross-canadian-i586 (= 2.23.1-r3)
+Recommends: nativesdk-gettext-dev, nativesdk-zlib-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 8bfa913abb641174bd695541d1aae317
+Size: 1342
+Filename: binutils-cross-canadian-i586-dev_2.23.1-r3_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2 file://binutils-uclibc-100-uclibc-conf.patch file://binutils-uclibc-300-001_ld_makefile_patch.patch file://binutils-uclibc-300-006_better_file_error.patch file://binutils-uclibc-300-012_check_ldrunpath_length.patch file://binutils-uclibc-gas-needs-libm.patch file://binutils-x86_64_i386_biarch.patch file://libtool-2.4-update.patch file://libiberty_path_fix.patch file://binutils-poison.patch file://libtool-rpath-fix.patch file://binutils-armv5e.patch file://mips64-default-ld-emulation.patch file://backport/0001-bfd.patch file://backport/0003-Assemble-all-sources-files-in-each-test.patch file://backport/0005-bfd.patch file://backport/0010-bfd-ChangeLog.patch file://backport/0012-Fix-TLS-LD-to-LE-optimization-for-x32.patch file://backport/0013-gas-ChangeLog.patch file://backport/0014-Fix-opcode-for-64-bit-jecxz.patch file://backport/0017-ld-elf-comm-data.exp-Add-XFAIL-for-arm-targets-refer.patch file://backport/0018-bfd.patch file://backport/0024-bfd.patch file://backport/0026-ld-testsuite.patch file://backport/0001-doc-binutils.texi-elfedit-Fix-use-of-itemx-in-table.patch file://backport/0001-ld.texinfo-Replace-with-when-it-is-part-of-the-text.patch file://backport/binutils-fix-ineffectual-zero-of-cache.patch file://backport/binutils-replace-strncat-with-strcat.patch file://backport/0001-config-tc-ppc.c-md_assemble-Do-not-generate-APUinfo-.patch file://binutils-fix-over-array-bounds-issue.patch file://gas2.23.1_WR.patch file://gas2.23.1_flip_lock_flag_logic.patch
+Description:  A GNU collection of binary utilities - Development files  A GNU
+ collection of cross-canadian binary utilities for i586 target  This
+ package contains symbolic links, header files, and related items
+ necessary for software development.
+OE: binutils-cross-canadian-i586
+HomePage: http://www.gnu.org/software/binutils/
+License: GPLv3
+Priority: optional
+
+Package: binutils-cross-canadian-i586-doc
+Version: 2.23.1-r3
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 69554a36457a86c6c1ac4d7d78792b79
+Size: 769406
+Filename: binutils-cross-canadian-i586-doc_2.23.1-r3_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2 file://binutils-uclibc-100-uclibc-conf.patch file://binutils-uclibc-300-001_ld_makefile_patch.patch file://binutils-uclibc-300-006_better_file_error.patch file://binutils-uclibc-300-012_check_ldrunpath_length.patch file://binutils-uclibc-gas-needs-libm.patch file://binutils-x86_64_i386_biarch.patch file://libtool-2.4-update.patch file://libiberty_path_fix.patch file://binutils-poison.patch file://libtool-rpath-fix.patch file://binutils-armv5e.patch file://mips64-default-ld-emulation.patch file://backport/0001-bfd.patch file://backport/0003-Assemble-all-sources-files-in-each-test.patch file://backport/0005-bfd.patch file://backport/0010-bfd-ChangeLog.patch file://backport/0012-Fix-TLS-LD-to-LE-optimization-for-x32.patch file://backport/0013-gas-ChangeLog.patch file://backport/0014-Fix-opcode-for-64-bit-jecxz.patch file://backport/0017-ld-elf-comm-data.exp-Add-XFAIL-for-arm-targets-refer.patch file://backport/0018-bfd.patch file://backport/0024-bfd.patch file://backport/0026-ld-testsuite.patch file://backport/0001-doc-binutils.texi-elfedit-Fix-use-of-itemx-in-table.patch file://backport/0001-ld.texinfo-Replace-with-when-it-is-part-of-the-text.patch file://backport/binutils-fix-ineffectual-zero-of-cache.patch file://backport/binutils-replace-strncat-with-strcat.patch file://backport/0001-config-tc-ppc.c-md_assemble-Do-not-generate-APUinfo-.patch file://binutils-fix-over-array-bounds-issue.patch file://gas2.23.1_WR.patch file://gas2.23.1_flip_lock_flag_logic.patch
+Description:  A GNU collection of binary utilities - Documentation files  A GNU
+ collection of cross-canadian binary utilities for i586 target  This
+ package contains documentation.
+OE: binutils-cross-canadian-i586
+HomePage: http://www.gnu.org/software/binutils/
+License: GPLv3
+Priority: optional
+
+Package: binutils-cross-canadian-i586
+Version: 2.23.1-r3
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 490affc91b259ca4248ffc67ff3fd13b
+Size: 6568948
+Filename: binutils-cross-canadian-i586_2.23.1-r3_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2 file://binutils-uclibc-100-uclibc-conf.patch file://binutils-uclibc-300-001_ld_makefile_patch.patch file://binutils-uclibc-300-006_better_file_error.patch file://binutils-uclibc-300-012_check_ldrunpath_length.patch file://binutils-uclibc-gas-needs-libm.patch file://binutils-x86_64_i386_biarch.patch file://libtool-2.4-update.patch file://libiberty_path_fix.patch file://binutils-poison.patch file://libtool-rpath-fix.patch file://binutils-armv5e.patch file://mips64-default-ld-emulation.patch file://backport/0001-bfd.patch file://backport/0003-Assemble-all-sources-files-in-each-test.patch file://backport/0005-bfd.patch file://backport/0010-bfd-ChangeLog.patch file://backport/0012-Fix-TLS-LD-to-LE-optimization-for-x32.patch file://backport/0013-gas-ChangeLog.patch file://backport/0014-Fix-opcode-for-64-bit-jecxz.patch file://backport/0017-ld-elf-comm-data.exp-Add-XFAIL-for-arm-targets-refer.patch file://backport/0018-bfd.patch file://backport/0024-bfd.patch file://backport/0026-ld-testsuite.patch file://backport/0001-doc-binutils.texi-elfedit-Fix-use-of-itemx-in-table.patch file://backport/0001-ld.texinfo-Replace-with-when-it-is-part-of-the-text.patch file://backport/binutils-fix-ineffectual-zero-of-cache.patch file://backport/binutils-replace-strncat-with-strcat.patch file://backport/0001-config-tc-ppc.c-md_assemble-Do-not-generate-APUinfo-.patch file://binutils-fix-over-array-bounds-issue.patch file://gas2.23.1_WR.patch file://gas2.23.1_flip_lock_flag_logic.patch
+Description:  A GNU collection of binary utilities  A GNU collection of cross-canadian
+ binary utilities for i586 target
+OE: binutils-cross-canadian-i586
+HomePage: http://www.gnu.org/software/binutils/
+License: GPLv3
+Priority: optional
+
+Package: gcc-cross-canadian-i586-doc
+Version: 4.7.2-r20
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d58d6db5a495401d3883efb0f58a2cb8
+Size: 510842
+Filename: gcc-cross-canadian-i586-doc_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  gcc-cross-canadian-i586 version 4.7.2-r20 - Documentation files  The
+ cross-canadian GNU cc and gcc C compilers for i586 target.  This
+ package contains documentation.
+OE: gcc-cross-canadian-i586
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: gcc-cross-canadian-i586
+Version: 4.7.2-r20
+Depends: nativesdk-libmpc, nativesdk-mpfr
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 0fdf25234d595f4a459fc0d234bb491a
+Size: 22065774
+Filename: gcc-cross-canadian-i586_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  gcc-cross-canadian-i586 version 4.7.2-r20  The cross-canadian GNU cc and
+ gcc C compilers for i586 target.
+OE: gcc-cross-canadian-i586
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: meta-environment-i586
+Version: 1.0-r8
+Section: base
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: c3970bb6c46f2ee032bd0c3c5888cfcf
+Size: 4048
+Filename: meta-environment-i586_1.0-r8_i686-nativesdk-mingw32.ipk
+Source: None
+Description:  meta-environment-i586 version 1.0-r8  Package of environment files for
+ SDK
+OE: meta-environment-i586
+HomePage: unknown
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat-bin
+Version: 2.1.0-r0
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 5aadf1fdcc4cc038b701379882dccb35
+Size: 89866
+Filename: nativesdk-expat-bin_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library.  Expat is an XML parser library
+ written in C. It is a stream-oriented   parser in which an application
+ registers handlers for things the parser   might find in the XML document
+ (like start tags)
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat-dbg
+Version: 2.1.0-r0
+Recommends: nativesdk-expat (= 2.1.0-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: e6354d0c2f07f0623c1955b7f94f9a42
+Size: 878
+Filename: nativesdk-expat-dbg_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library. - Debugging files  Expat is an XML
+ parser library written in C. It is a stream-oriented   parser in which an
+ application registers handlers for things the parser   might find in the
+ XML document (like start tags)  This package contains   ELF symbols and
+ related sources for debugging purposes.
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat-dev
+Version: 2.1.0-r0
+Depends: nativesdk-expat (= 2.1.0-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 33035569c0359d1da9a18eb4f1b558e0
+Size: 14014
+Filename: nativesdk-expat-dev_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library. - Development files  Expat is an
+ XML parser library written in C. It is a stream-oriented   parser in
+ which an application registers handlers for things the parser   might
+ find in the XML document (like start tags)  This package contains
+ symbolic links, header files, and related items necessary for software
+ development.
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat-doc
+Version: 2.1.0-r0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 17a09753a2e3697ece0ce06b328454ff
+Size: 4518
+Filename: nativesdk-expat-doc_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library. - Documentation files  Expat is an
+ XML parser library written in C. It is a stream-oriented   parser in
+ which an application registers handlers for things the parser   might
+ find in the XML document (like start tags)  This package contains
+ documentation.
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat-staticdev
+Version: 2.1.0-r0
+Depends: nativesdk-expat-dev (= 2.1.0-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 52d7ef016ed6ebdd220b07eadf4adf53
+Size: 71648
+Filename: nativesdk-expat-staticdev_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library. - Development files (Static
+ Libraries)  Expat is an XML parser library written in C. It is a stream-
+ oriented   parser in which an application registers handlers for things
+ the parser   might find in the XML document (like start tags)  This
+ package contains   static libraries for software development.
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-expat
+Version: 2.1.0-r0
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 5259e49c1586808a55a6c14963e41644
+Size: 802
+Filename: nativesdk-expat_2.1.0-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/expat/expat-2.1.0.tar.gz file://autotools.patch file://disable_mmap.patch
+Description:  A stream-oriented XML parser library.  Expat is an XML parser library
+ written in C. It is a stream-oriented   parser in which an application
+ registers handlers for things the parser   might find in the XML document
+ (like start tags)
+OE: nativesdk-expat
+HomePage: http://expat.sourceforge.net/
+License: MIT
+Priority: optional
+
+Package: nativesdk-gcc-runtime-dbg
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: ef2f4d395325b92c58e4a6c80fb35d8c
+Size: 8614
+Filename: nativesdk-gcc-runtime-dbg_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20 - Debugging files  The GNU cc and
+ gcc C compilers.  This package contains ELF symbols and   related sources
+ for debugging purposes.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-gettext-dbg
+Version: 0.18.2-r0
+Recommends: nativesdk-gettext (= 0.18.2-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: b0b3085f6b2fe833e8c1be20822b4ad1
+Size: 1110
+Filename: nativesdk-gettext-dbg_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - Debugging
+ files  Gettext offers to programmers, translators, and even users, a well
+ integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains ELF symbols and related sources for
+ debugging purposes.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-dev
+Version: 0.18.2-r0
+Depends: nativesdk-gettext (= 0.18.2-r0)
+Recommends: nativesdk-expat-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: fc695df557efdf067437b79612c9e782
+Size: 46700
+Filename: nativesdk-gettext-dev_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. -
+ Development files  Gettext offers to programmers, translators, and even
+ users, a well   integrated set of tools and documentation. Specifically,
+ the GNU   `gettext' utilities are a set of tools that provides a
+ framework to help   other GNU packages produce multi-lingual messages.
+ These tools include a   set of conventions about how programs should be
+ written to support   message catalogs, a directory and file naming
+ organization for the   message catalogs themselves, a runtime library
+ supporting the retrieval   of translated messages, and a few stand-alone
+ programs to massage in   various ways the sets of translatable strings,
+ or already translated   strings.  This package contains symbolic links,
+ header files, and related   items necessary for software development.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-doc
+Version: 0.18.2-r0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 3df39ed9e2fbc91e93c6626d196980b0
+Size: 1107114
+Filename: nativesdk-gettext-doc_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. -
+ Documentation files  Gettext offers to programmers, translators, and even
+ users, a well   integrated set of tools and documentation. Specifically,
+ the GNU   `gettext' utilities are a set of tools that provides a
+ framework to help   other GNU packages produce multi-lingual messages.
+ These tools include a   set of conventions about how programs should be
+ written to support   message catalogs, a directory and file naming
+ organization for the   message catalogs themselves, a runtime library
+ supporting the retrieval   of translated messages, and a few stand-alone
+ programs to massage in   various ways the sets of translatable strings,
+ or already translated   strings.  This package contains documentation.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-be
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-be-translation
+Recommends: nativesdk-virtual-locale-be
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 86eda0b3b2d5fba64e602ff9316fd00d
+Size: 11126
+Filename: nativesdk-gettext-locale-be_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - be
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the be
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-bg
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-bg-translation
+Recommends: nativesdk-virtual-locale-bg
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d0a29f8dd2a6c8f115ff0b229f28ce9c
+Size: 36634
+Filename: nativesdk-gettext-locale-bg_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - bg
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the bg
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ca
+Version: 0.18.2-r0
+Provides: nativesdk-ca-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-ca
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 88539bc4e9469a0f7f2d353b05530d54
+Size: 32252
+Filename: nativesdk-gettext-locale-ca_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ca
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ca
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-cs
+Version: 0.18.2-r0
+Provides: nativesdk-cs-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-cs
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: b2d8d28bc252d77b96b2089c1026be79
+Size: 7442
+Filename: nativesdk-gettext-locale-cs_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - cs
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the cs
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-da
+Version: 0.18.2-r0
+Provides: nativesdk-da-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-da
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 160f1b4009f886479711dfcc1afbd80a
+Size: 32718
+Filename: nativesdk-gettext-locale-da_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - da
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the da
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-de
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-de-translation
+Recommends: nativesdk-virtual-locale-de
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: ed4cec146726ec96aef1893457e8bba0
+Size: 34384
+Filename: nativesdk-gettext-locale-de_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - de
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the de
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-el
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-el-translation
+Recommends: nativesdk-virtual-locale-el
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 0bc6a18bc2e6ef3b234898c25851a163
+Size: 3698
+Filename: nativesdk-gettext-locale-el_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - el
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the el
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-en+boldquot
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-en+boldquot-translation
+Recommends: nativesdk-virtual-locale-en+boldquot
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 7f928239bd5a618b0ef9ca0786ba1ac9
+Size: 32534
+Filename: nativesdk-gettext-locale-en+boldquot_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. -
+ en@boldquot translations  Gettext offers to programmers, translators, and
+ even users, a well   integrated set of tools and documentation.
+ Specifically, the GNU   `gettext' utilities are a set of tools that
+ provides a framework to help   other GNU packages produce multi-lingual
+ messages. These tools include a   set of conventions about how programs
+ should be written to support   message catalogs, a directory and file
+ naming organization for the   message catalogs themselves, a runtime
+ library supporting the retrieval   of translated messages, and a few
+ stand-alone programs to massage in   various ways the sets of
+ translatable strings, or already translated   strings.  This package
+ contains language translation files for the   en@boldquot locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-en+quot
+Version: 0.18.2-r0
+Provides: nativesdk-en+quot-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-en+quot
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: a5a2306e1e602325d2e0e812423d71e3
+Size: 32428
+Filename: nativesdk-gettext-locale-en+quot_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - en@quot
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the
+ en@quot locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-eo
+Version: 0.18.2-r0
+Provides: nativesdk-eo-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-eo
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: aea6a2c9df1a5cfeb1ac32c69db58005
+Size: 4074
+Filename: nativesdk-gettext-locale-eo_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - eo
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the eo
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-es
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-es-translation
+Recommends: nativesdk-virtual-locale-es
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: b4aba87579fdf426397bd4b03e5f806f
+Size: 26440
+Filename: nativesdk-gettext-locale-es_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - es
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the es
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-et
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-et-translation
+Recommends: nativesdk-virtual-locale-et
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 7391bf7bdb800c82f58495905527e461
+Size: 4562
+Filename: nativesdk-gettext-locale-et_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - et
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the et
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-eu
+Version: 0.18.2-r0
+Provides: nativesdk-eu-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-eu
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6896ea926038c6f3f37a269adda53345
+Size: 18582
+Filename: nativesdk-gettext-locale-eu_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - eu
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the eu
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-fi
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-fi-translation
+Recommends: nativesdk-virtual-locale-fi
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 13f1deba741b4e3a9b0b2a0c61f49f09
+Size: 34010
+Filename: nativesdk-gettext-locale-fi_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - fi
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the fi
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-fr
+Version: 0.18.2-r0
+Provides: nativesdk-fr-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-fr
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 4f7f97db703e57c7d69ed7cdac19bed3
+Size: 34318
+Filename: nativesdk-gettext-locale-fr_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - fr
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the fr
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ga
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-ga-translation
+Recommends: nativesdk-virtual-locale-ga
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9dbf4d5bd0bb32cc0669cbe88a1b435a
+Size: 4188
+Filename: nativesdk-gettext-locale-ga_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ga
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ga
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-gl
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-gl-translation
+Recommends: nativesdk-virtual-locale-gl
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 48198d97070cd7a441b3f429dc8afed5
+Size: 9930
+Filename: nativesdk-gettext-locale-gl_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - gl
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the gl
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-hr
+Version: 0.18.2-r0
+Provides: nativesdk-hr-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-hr
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6494adb7ff9e552d0c4e8ea1833aad11
+Size: 4576
+Filename: nativesdk-gettext-locale-hr_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - hr
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the hr
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-id
+Version: 0.18.2-r0
+Provides: nativesdk-id-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-id
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 606a2ae5cd46945cfadbfea2d83b8c1b
+Size: 32470
+Filename: nativesdk-gettext-locale-id_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - id
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the id
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-it
+Version: 0.18.2-r0
+Provides: nativesdk-it-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-it
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 398fe93180ae5b370c4eb28c4c8df8cd
+Size: 32772
+Filename: nativesdk-gettext-locale-it_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - it
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the it
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ja
+Version: 0.18.2-r0
+Provides: nativesdk-ja-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-ja
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: c29cff1fa2760239b17bc40ed453fac0
+Size: 33120
+Filename: nativesdk-gettext-locale-ja_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ja
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ja
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ko
+Version: 0.18.2-r0
+Provides: nativesdk-ko-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-ko
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 91394b89f53622f2f6fe45f64e114b6d
+Size: 34286
+Filename: nativesdk-gettext-locale-ko_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ko
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ko
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-locale.alias
+Version: 0.18.2-r0
+Provides: nativesdk-locale.alias-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-locale.alias
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 43410d059a6dc01688c11cd1590dbbf9
+Size: 2534
+Filename: nativesdk-gettext-locale-locale.alias_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. -
+ locale.alias translations  Gettext offers to programmers, translators,
+ and even users, a well   integrated set of tools and documentation.
+ Specifically, the GNU   `gettext' utilities are a set of tools that
+ provides a framework to help   other GNU packages produce multi-lingual
+ messages. These tools include a   set of conventions about how programs
+ should be written to support   message catalogs, a directory and file
+ naming organization for the   message catalogs themselves, a runtime
+ library supporting the retrieval   of translated messages, and a few
+ stand-alone programs to massage in   various ways the sets of
+ translatable strings, or already translated   strings.  This package
+ contains language translation files for the   locale.alias locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-nb
+Version: 0.18.2-r0
+Provides: nativesdk-nb-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-nb
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: f961e0042bb50a2dbc66f014ddcd0308
+Size: 4382
+Filename: nativesdk-gettext-locale-nb_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - nb
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the nb
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-nl
+Version: 0.18.2-r0
+Provides: nativesdk-nl-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-nl
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6deee1352b7c56e161341f9ce3736ca8
+Size: 14640
+Filename: nativesdk-gettext-locale-nl_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - nl
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the nl
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-nn
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-nn-translation
+Recommends: nativesdk-virtual-locale-nn
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 63eef74b6338344c5061ad19eec83ce2
+Size: 8172
+Filename: nativesdk-gettext-locale-nn_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - nn
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the nn
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-pa
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-pa-translation
+Recommends: nativesdk-virtual-locale-pa
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 13ea264b192ed34463474d36ecf873a3
+Size: 10570
+Filename: nativesdk-gettext-locale-pa_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - pa
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the pa
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-pl
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-pl-translation
+Recommends: nativesdk-virtual-locale-pl
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: ed64a8e5242653393ed9b3b27f3319f3
+Size: 34068
+Filename: nativesdk-gettext-locale-pl_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - pl
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the pl
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-pt-br
+Version: 0.18.2-r0
+Provides: nativesdk-pt-br-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-pt-br
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: da83ca3154e62e3bf04d40aad4dc3fa4
+Size: 4090
+Filename: nativesdk-gettext-locale-pt-br_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - pt_BR
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the pt_BR
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-pt
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-pt-translation
+Recommends: nativesdk-virtual-locale-pt
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: fe31c5751b83b3e610865ffaa34137ef
+Size: 5528
+Filename: nativesdk-gettext-locale-pt_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - pt
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the pt
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ro
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-ro-translation
+Recommends: nativesdk-virtual-locale-ro
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d849e41c1d9aeea2fde20e07f31be18e
+Size: 24666
+Filename: nativesdk-gettext-locale-ro_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ro
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ro
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-ru
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-ru-translation
+Recommends: nativesdk-virtual-locale-ru
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d3bae4cb75f82f9fef0b0703811ea45c
+Size: 31430
+Filename: nativesdk-gettext-locale-ru_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - ru
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the ru
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-sk
+Version: 0.18.2-r0
+Provides: nativesdk-sk-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-sk
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 103ad9c36b34d76312a7b5231f06dcc0
+Size: 34174
+Filename: nativesdk-gettext-locale-sk_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - sk
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the sk
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-sl
+Version: 0.18.2-r0
+Provides: nativesdk-sl-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-sl
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 848988471cab07732d1599594323d750
+Size: 33640
+Filename: nativesdk-gettext-locale-sl_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - sl
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the sl
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-sr
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-sr-translation
+Recommends: nativesdk-virtual-locale-sr
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: a7410b9f371c04ea8c11f7396303cc7b
+Size: 28118
+Filename: nativesdk-gettext-locale-sr_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - sr
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the sr
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-sv
+Version: 0.18.2-r0
+Provides: nativesdk-sv-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-sv
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9e72a1c5109b882f00c96c3f6036c2b3
+Size: 32318
+Filename: nativesdk-gettext-locale-sv_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - sv
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the sv
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-tr
+Version: 0.18.2-r0
+Provides: nativesdk-tr-translation, nativesdk-gettext-locale
+Recommends: nativesdk-virtual-locale-tr
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9e8e5a9cbb8970674179035628f68c67
+Size: 30522
+Filename: nativesdk-gettext-locale-tr_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - tr
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the tr
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-uk
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-uk-translation
+Recommends: nativesdk-virtual-locale-uk
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 57204b2823b8109296a38f8e79474ac7
+Size: 37434
+Filename: nativesdk-gettext-locale-uk_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - uk
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the uk
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-vi
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-vi-translation
+Recommends: nativesdk-virtual-locale-vi
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 86dc21e7d713a9ba10d72bba8ea139c2
+Size: 35616
+Filename: nativesdk-gettext-locale-vi_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - vi
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the vi
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-zh-cn
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-zh-cn-translation
+Recommends: nativesdk-virtual-locale-zh-cn
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: edefc9fd0de2da3fd80768ce5e24a876
+Size: 33616
+Filename: nativesdk-gettext-locale-zh-cn_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - zh_CN
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the zh_CN
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-zh-hk
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-zh-hk-translation
+Recommends: nativesdk-virtual-locale-zh-hk
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 769095661cd0a6abef4b65cfad55c344
+Size: 4082
+Filename: nativesdk-gettext-locale-zh-hk_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - zh_HK
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the zh_HK
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-locale-zh-tw
+Version: 0.18.2-r0
+Provides: nativesdk-gettext-locale, nativesdk-zh-tw-translation
+Recommends: nativesdk-virtual-locale-zh-tw
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 044a3026a9fe1523002ea155df886096
+Size: 24674
+Filename: nativesdk-gettext-locale-zh-tw_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. - zh_TW
+ translations  Gettext offers to programmers, translators, and even users,
+ a well   integrated set of tools and documentation. Specifically, the GNU
+ `gettext' utilities are a set of tools that provides a framework to help
+ other GNU packages produce multi-lingual messages. These tools include a
+ set of conventions about how programs should be written to support
+ message catalogs, a directory and file naming organization for the
+ message catalogs themselves, a runtime library supporting the retrieval
+ of translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.  This package contains language translation files for the zh_TW
+ locale.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-runtime-doc
+Version: 0.18.2-r0
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 73afd9613bb23005034bab12245630df
+Size: 27020
+Filename: nativesdk-gettext-runtime-doc_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages.  Gettext
+ offers to programmers, translators, and even users, a well   integrated
+ set of tools and documentation. Specifically, the GNU   `gettext'
+ utilities are a set of tools that provides a framework to help   other
+ GNU packages produce multi-lingual messages. These tools include a   set
+ of conventions about how programs should be written to support   message
+ catalogs, a directory and file naming organization for the   message
+ catalogs themselves, a runtime library supporting the retrieval   of
+ translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-runtime
+Version: 0.18.2-r0
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 76c6e09740585cea4ab4fa5feac0cfa6
+Size: 3304
+Filename: nativesdk-gettext-runtime_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages.  Gettext
+ offers to programmers, translators, and even users, a well   integrated
+ set of tools and documentation. Specifically, the GNU   `gettext'
+ utilities are a set of tools that provides a framework to help   other
+ GNU packages produce multi-lingual messages. These tools include a   set
+ of conventions about how programs should be written to support   message
+ catalogs, a directory and file naming organization for the   message
+ catalogs themselves, a runtime library supporting the retrieval   of
+ translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext-staticdev
+Version: 0.18.2-r0
+Depends: nativesdk-gettext-dev (= 0.18.2-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 1adc7b8c6e96de471dbbc8128d243b8f
+Size: 304358
+Filename: nativesdk-gettext-staticdev_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages. -
+ Development files (Static Libraries)  Gettext offers to programmers,
+ translators, and even users, a well   integrated set of tools and
+ documentation. Specifically, the GNU   `gettext' utilities are a set of
+ tools that provides a framework to help   other GNU packages produce
+ multi-lingual messages. These tools include a   set of conventions about
+ how programs should be written to support   message catalogs, a directory
+ and file naming organization for the   message catalogs themselves, a
+ runtime library supporting the retrieval   of translated messages, and a
+ few stand-alone programs to massage in   various ways the sets of
+ translatable strings, or already translated   strings.  This package
+ contains static libraries for software   development.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gettext
+Version: 0.18.2-r0
+Conflicts: nativesdk-proxy-libintl
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 921d8410957c8d8df0d756fa75fd2963
+Size: 2168156
+Filename: nativesdk-gettext_0.18.2-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gettext/gettext-0.18.2.tar.gz file://parallel.patch
+Description:  Utilities and libraries for producing multi-lingual messages.  Gettext
+ offers to programmers, translators, and even users, a well   integrated
+ set of tools and documentation. Specifically, the GNU   `gettext'
+ utilities are a set of tools that provides a framework to help   other
+ GNU packages produce multi-lingual messages. These tools include a   set
+ of conventions about how programs should be written to support   message
+ catalogs, a directory and file naming organization for the   message
+ catalogs themselves, a runtime library supporting the retrieval   of
+ translated messages, and a few stand-alone programs to massage in
+ various ways the sets of translatable strings, or already translated
+ strings.
+OE: nativesdk-gettext
+HomePage: http://www.gnu.org/software/gettext/gettext.html
+License: GPLv3+ & LGPL-2.1+
+Priority: optional
+
+Package: nativesdk-gmp-dbg
+Version: 5.1.1-r0
+Recommends: nativesdk-gmp (= 5.1.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 12d25a179cd9f094ba6d6a34967cc7fa
+Size: 790
+Filename: nativesdk-gmp-dbg_5.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gmplib.org/pub/gmp-5.1.1/gmp-5.1.1.tar.bz2 file://configure.patch file://amd64.patch file://use-includedir.patch
+Description:  nativesdk-gmp version 5.1.1-r0 - Debugging files  GNU multiprecision
+ arithmetic library  This package contains ELF symbols   and related
+ sources for debugging purposes.
+OE: nativesdk-gmp
+HomePage: http://gmplib.org/
+License: LGPLv3&GPLv3
+Priority: optional
+
+Package: nativesdk-gmp-dev
+Version: 5.1.1-r0
+Depends: nativesdk-gmp (= 5.1.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: f121a6c2c2cdc1bf0707ef1ee5e596b2
+Size: 32512
+Filename: nativesdk-gmp-dev_5.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gmplib.org/pub/gmp-5.1.1/gmp-5.1.1.tar.bz2 file://configure.patch file://amd64.patch file://use-includedir.patch
+Description:  nativesdk-gmp version 5.1.1-r0 - Development files  GNU multiprecision
+ arithmetic library  This package contains symbolic   links, header files,
+ and related items necessary for software   development.
+OE: nativesdk-gmp
+HomePage: http://gmplib.org/
+License: LGPLv3&GPLv3
+Priority: optional
+
+Package: nativesdk-gmp-doc
+Version: 5.1.1-r0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: fe9d9791dbacdfbc0b510ff3324b7128
+Size: 131856
+Filename: nativesdk-gmp-doc_5.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gmplib.org/pub/gmp-5.1.1/gmp-5.1.1.tar.bz2 file://configure.patch file://amd64.patch file://use-includedir.patch
+Description:  nativesdk-gmp version 5.1.1-r0 - Documentation files  GNU multiprecision
+ arithmetic library  This package contains   documentation.
+OE: nativesdk-gmp
+HomePage: http://gmplib.org/
+License: LGPLv3&GPLv3
+Priority: optional
+
+Package: nativesdk-gmp-staticdev
+Version: 5.1.1-r0
+Depends: nativesdk-gmp-dev (= 5.1.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 8335cc6dfd7a6125a736d12e24226352
+Size: 259214
+Filename: nativesdk-gmp-staticdev_5.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gmplib.org/pub/gmp-5.1.1/gmp-5.1.1.tar.bz2 file://configure.patch file://amd64.patch file://use-includedir.patch
+Description:  nativesdk-gmp version 5.1.1-r0 - Development files (Static Libraries)
+ GNU multiprecision arithmetic library  This package contains static
+ libraries for software development.
+OE: nativesdk-gmp
+HomePage: http://gmplib.org/
+License: LGPLv3&GPLv3
+Priority: optional
+
+Package: nativesdk-gmp
+Version: 5.1.1-r0
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 63bdfc42d295006b647243a1a6eae596
+Size: 714
+Filename: nativesdk-gmp_5.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gmplib.org/pub/gmp-5.1.1/gmp-5.1.1.tar.bz2 file://configure.patch file://amd64.patch file://use-includedir.patch
+Description:  nativesdk-gmp version 5.1.1-r0  GNU multiprecision arithmetic library
+OE: nativesdk-gmp
+HomePage: http://gmplib.org/
+License: LGPLv3&GPLv3
+Priority: optional
+
+Package: nativesdk-libgcc-dbg
+Version: 4.7.2-r20
+Recommends: nativesdk-libgcc (= 4.7.2-r20)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 4273691f475fb38504062c1e4677d10e
+Size: 1482
+Filename: nativesdk-libgcc-dbg_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-libgcc version 4.7.2-r20 - Debugging files  The GNU cc and gcc
+ C compilers.  This package contains ELF symbols and   related sources for
+ debugging purposes.
+OE: nativesdk-libgcc
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgcc-dev
+Version: 4.7.2-r20
+Depends: nativesdk-libgcc (= 4.7.2-r20)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: c55fd13a79d90147b76889f2d125e726
+Size: 143806
+Filename: nativesdk-libgcc-dev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-libgcc version 4.7.2-r20 - Development files  The GNU cc and
+ gcc C compilers.  This package contains symbolic links,   header files,
+ and related items necessary for software development.
+OE: nativesdk-libgcc
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgcc
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6fb656e90098455196dde19cfa870beb
+Size: 118206
+Filename: nativesdk-libgcc_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-libgcc version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-libgcc
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgcov-dev
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 4b3fa4d0c93e6e73b77e1b5e01e8e87f
+Size: 23882
+Filename: nativesdk-libgcov-dev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-libgcc version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-libgcc
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgomp-dev
+Version: 4.7.2-r20
+Recommends: nativesdk-libgcc-dev, nativesdk-pthreads-win32-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 67caae6130109dbb08cab94abc627343
+Size: 3662
+Filename: nativesdk-libgomp-dev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgomp-staticdev
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6dacf2e8299fce7328c9837f65b2b15b
+Size: 30028
+Filename: nativesdk-libgomp-staticdev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libgomp
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 7298ec34d45a9deddbac7543c64c4536
+Size: 41318
+Filename: nativesdk-libgomp_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libiconv-dbg
+Version: 1.14-r1
+Recommends: nativesdk-libiconv (= 1.14-r1)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 1c19072dfe9a80f26e182778a5414b28
+Size: 854
+Filename: nativesdk-libiconv-dbg_1.14-r1_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz file://autoconf.patch file://add-relocatable-module.patch
+Description:  nativesdk-libiconv version 1.14-r1 - Debugging files  GNU libiconv -
+ libiconv is for you if your application needs to support   multiple
+ character encodings, but that support lacks from your system.   This
+ package contains ELF symbols and related sources for debugging
+ purposes.
+OE: nativesdk-libiconv
+HomePage: http://www.gnu.org/software/libiconv
+License: LGPLv3
+Priority: optional
+
+Package: nativesdk-libiconv-dev
+Version: 1.14-r1
+Depends: nativesdk-libiconv (= 1.14-r1)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 7e99066dfff1eeda29e8bb4c606b4d4e
+Size: 5022
+Filename: nativesdk-libiconv-dev_1.14-r1_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz file://autoconf.patch file://add-relocatable-module.patch
+Description:  nativesdk-libiconv version 1.14-r1 - Development files  GNU libiconv -
+ libiconv is for you if your application needs to support   multiple
+ character encodings, but that support lacks from your system.   This
+ package contains symbolic links, header files, and related items
+ necessary for software development.
+OE: nativesdk-libiconv
+HomePage: http://www.gnu.org/software/libiconv
+License: LGPLv3
+Priority: optional
+
+Package: nativesdk-libiconv-doc
+Version: 1.14-r1
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: ba8727095e7c935c988180473822594b
+Size: 10818
+Filename: nativesdk-libiconv-doc_1.14-r1_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz file://autoconf.patch file://add-relocatable-module.patch
+Description:  nativesdk-libiconv version 1.14-r1 - Documentation files  GNU libiconv -
+ libiconv is for you if your application needs to support   multiple
+ character encodings, but that support lacks from your system.   This
+ package contains documentation.
+OE: nativesdk-libiconv
+HomePage: http://www.gnu.org/software/libiconv
+License: LGPLv3
+Priority: optional
+
+Package: nativesdk-libiconv-staticdev
+Version: 1.14-r1
+Depends: nativesdk-libiconv-dev (= 1.14-r1)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: bb43eaeec98858e4d2875979d32167b1
+Size: 686480
+Filename: nativesdk-libiconv-staticdev_1.14-r1_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz file://autoconf.patch file://add-relocatable-module.patch
+Description:  nativesdk-libiconv version 1.14-r1 - Development files (Static Libraries)
+ GNU libiconv - libiconv is for you if your application needs to support
+ multiple character encodings, but that support lacks from your system.
+ This package contains static libraries for software development.
+OE: nativesdk-libiconv
+HomePage: http://www.gnu.org/software/libiconv
+License: LGPLv3
+Priority: optional
+
+Package: nativesdk-libiconv
+Version: 1.14-r1
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 1917f414b21612ec4c396a7449d18e18
+Size: 734164
+Filename: nativesdk-libiconv_1.14-r1_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz file://autoconf.patch file://add-relocatable-module.patch
+Description:  nativesdk-libiconv version 1.14-r1  GNU libiconv - libiconv is for you if
+ your application needs to support   multiple character encodings, but
+ that support lacks from your system.
+OE: nativesdk-libiconv
+HomePage: http://www.gnu.org/software/libiconv
+License: LGPLv3
+Priority: optional
+
+Package: nativesdk-libltdl-dev
+Version: 2.4.2-r6.0
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 2233a3b3fc93c4a90f9cb21974d54c16
+Size: 6218
+Filename: nativesdk-libltdl-dev_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script  This is GNU libtool, a generic library
+ support script. Libtool hides the   complexity of generating special
+ library types (such as shared libraries)   behind a consistent interface.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libmpc-dbg
+Version: 0.8.2-r1
+Recommends: nativesdk-libmpc (= 0.8.2-r1)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 4c55b87e32d1af875ee977d1fbb86ad3
+Size: 882
+Filename: nativesdk-libmpc-dbg_0.8.2-r1_i686-nativesdk-mingw32.ipk
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch
+Description:  nativesdk-libmpc version 0.8.2-r1 - Debugging files  Mpc is a C library
+ for the arithmetic of complex numbers with arbitrarily   high precision
+ and correct rounding of the result. It is built upon and   follows the
+ same principles as Mpfr  This package contains ELF symbols   and related
+ sources for debugging purposes.
+OE: nativesdk-libmpc
+HomePage: http://www.multiprecision.org/
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libmpc-dev
+Version: 0.8.2-r1
+Depends: nativesdk-libmpc (= 0.8.2-r1)
+Recommends: nativesdk-gmp-dev, nativesdk-mpfr-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 940f3ebc4a91b94a190d18bfcf068b36
+Size: 4440
+Filename: nativesdk-libmpc-dev_0.8.2-r1_i686-nativesdk-mingw32.ipk
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch
+Description:  nativesdk-libmpc version 0.8.2-r1 - Development files  Mpc is a C library
+ for the arithmetic of complex numbers with arbitrarily   high precision
+ and correct rounding of the result. It is built upon and   follows the
+ same principles as Mpfr  This package contains symbolic   links, header
+ files, and related items necessary for software   development.
+OE: nativesdk-libmpc
+HomePage: http://www.multiprecision.org/
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libmpc-doc
+Version: 0.8.2-r1
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9969ad9164a2d1778f61b6a9f37a5fb5
+Size: 15116
+Filename: nativesdk-libmpc-doc_0.8.2-r1_i686-nativesdk-mingw32.ipk
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch
+Description:  nativesdk-libmpc version 0.8.2-r1 - Documentation files  Mpc is a C
+ library for the arithmetic of complex numbers with arbitrarily   high
+ precision and correct rounding of the result. It is built upon and
+ follows the same principles as Mpfr  This package contains documentation.
+OE: nativesdk-libmpc
+HomePage: http://www.multiprecision.org/
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libmpc-staticdev
+Version: 0.8.2-r1
+Depends: nativesdk-libmpc-dev (= 0.8.2-r1)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 7dd089a4b671bad1dc19ab6c4c69083d
+Size: 35974
+Filename: nativesdk-libmpc-staticdev_0.8.2-r1_i686-nativesdk-mingw32.ipk
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch
+Description:  nativesdk-libmpc version 0.8.2-r1 - Development files (Static Libraries)
+ Mpc is a C library for the arithmetic of complex numbers with arbitrarily
+ high precision and correct rounding of the result. It is built upon and
+ follows the same principles as Mpfr  This package contains static
+ libraries for software development.
+OE: nativesdk-libmpc
+HomePage: http://www.multiprecision.org/
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libmpc
+Version: 0.8.2-r1
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 78af252e3dda31759e1cb95e2a257544
+Size: 800
+Filename: nativesdk-libmpc_0.8.2-r1_i686-nativesdk-mingw32.ipk
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch
+Description:  nativesdk-libmpc version 0.8.2-r1  Mpc is a C library for the arithmetic
+ of complex numbers with arbitrarily   high precision and correct rounding
+ of the result. It is built upon and   follows the same principles as Mpfr
+OE: nativesdk-libmpc
+HomePage: http://www.multiprecision.org/
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libssp-dev
+Version: 4.7.2-r20
+Recommends: nativesdk-libgcc-dev, nativesdk-pthreads-win32-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: f309b2ab96babf4e4fd8724495f8e9b7
+Size: 5242
+Filename: nativesdk-libssp-dev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libssp-staticdev
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 2726562ef1582b6b95a5152a29e3431b
+Size: 4860
+Filename: nativesdk-libssp-staticdev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libssp
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: a785521b84dfc28d26be4da49ccc88f7
+Size: 14342
+Filename: nativesdk-libssp_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libstdc++-dev
+Version: 4.7.2-r20
+Recommends: nativesdk-libgcc-dev, nativesdk-pthreads-win32-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 618660495eea69013926f089b9c62ab2
+Size: 1035842
+Filename: nativesdk-libstdc++-dev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libstdc++-staticdev
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 2e16ff0cec73cfd0330a36cde50d09b7
+Size: 625486
+Filename: nativesdk-libstdc++-staticdev_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libstdc++
+Version: 4.7.2-r20
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 019a4f0cba1c0400c24628ddb1b6656b
+Size: 377464
+Filename: nativesdk-libstdc++_4.7.2-r20_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2 file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch file://100-uclibc-conf.patch file://gcc-uclibc-locale-ctype_touplow_t.patch file://200-uclibc-locale.patch file://203-uclibc-locale-no__x.patch; file://204-uclibc-locale-wchar_fix.patch; file://205-uclibc-locale-update.patch; file://301-missing-execinfo_h.patch file://302-c99-snprintf.patch file://303-c99-complex-ugly-hack.patch file://304-index_macro.patch file://305-libmudflap-susv3-legacy.patch file://306-libstdc++-namespace.patch file://740-sh-pr24836.patch file://800-arm-bigendian.patch file://gcc-poison-system-directories.patch file://gcc-poison-dir-extend.patch file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch file://64bithack.patch file://optional_libstdc.patch file://disable_relax_pic_calls_flag.patch file://COLLECT_GCC_OPTIONS.patch file://use-defaults.h-and-t-oe-in-B.patch file://ppc_with_cpu.patch file://ppce5500-e6500-support.patch file://rs6000-tables.patch file://define_insn_reservation.patch file://pr32219.patch file://fortran-cross-compile-hack.patch file://libgcc-sjlj-check.patch file://cpp-honor-sysroot.patch file://mips64-default-n64.patch file://GLIBC_DYNAMIC_LINKER.patch file://arm-hard-float-loader.patch file://gcc-argument-list-too-long.patch file://fix-g++-sysroot.patch file://disablesdt.patch file://libtool.patch file://gcc-armv4-pass-fix-v4bx-to-ld.patch file://ppc_no_crtsavres.patch file://0001-crtstuff.c-USE_PT_GNU_EH_FRAME-Define-for-systems-us.patch file://0001-Makefile.in-vis_hide-gen-hide-list-Do-not-make-defin.patch file://use-ml-conf-files-from-B.patch file://wcast-qual-PR55383.patch file://disable-texinfo-5.patch file://avoid-oob-array-access.patch file://cpp.patch file://gengtype.patch
+Description:  nativesdk-gcc-runtime version 4.7.2-r20  The GNU cc and gcc C compilers.
+OE: nativesdk-gcc-runtime
+HomePage: http://www.gnu.org/software/gcc/
+License: GPL-3.0-with-GCC-exception & GPLv3
+Priority: optional
+
+Package: nativesdk-libtool-dbg
+Version: 2.4.2-r6.0
+Recommends: nativesdk-libtool (= 2.4.2-r6.0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 0b5ee00fd7b7d329d26ca8575ea00a96
+Size: 998
+Filename: nativesdk-libtool-dbg_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script - Debugging files  This is GNU libtool, a
+ generic library support script. Libtool hides the   complexity of
+ generating special library types (such as shared libraries)   behind a
+ consistent interface.  This package contains ELF symbols and   related
+ sources for debugging purposes.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libtool-dev
+Version: 2.4.2-r6.0
+Depends: nativesdk-libtool (= 2.4.2-r6.0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: e05f7cf4a6d3978efe5c2ae687dbb496
+Size: 1650
+Filename: nativesdk-libtool-dev_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script - Development files  This is GNU libtool,
+ a generic library support script. Libtool hides the   complexity of
+ generating special library types (such as shared libraries)   behind a
+ consistent interface.  This package contains symbolic links,   header
+ files, and related items necessary for software development.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libtool-doc
+Version: 2.4.2-r6.0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 59ebc0e620fa2296f9108143ca8a5da5
+Size: 99320
+Filename: nativesdk-libtool-doc_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script - Documentation files  This is GNU
+ libtool, a generic library support script. Libtool hides the   complexity
+ of generating special library types (such as shared libraries)   behind a
+ consistent interface.  This package contains documentation.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libtool-staticdev
+Version: 2.4.2-r6.0
+Depends: nativesdk-libtool-dev (= 2.4.2-r6.0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: cb3cd4de6549ed57bae26dfa9cb14bf6
+Size: 17970
+Filename: nativesdk-libtool-staticdev_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script - Development files (Static Libraries)
+ This is GNU libtool, a generic library support script. Libtool hides the
+ complexity of generating special library types (such as shared libraries)
+ behind a consistent interface.  This package contains static libraries
+ for software development.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-libtool
+Version: 2.4.2-r6.0
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 45e6c022acc414d17aef8590012cc092
+Size: 466400
+Filename: nativesdk-libtool_2.4.2-r6.0_i686-nativesdk-mingw32.ipk
+Source: ftp://ftp.gnu.org/gnu/libtool/libtool-2.4.2.tar.gz file://trailingslash.patch file://rename-with-sysroot.patch file://use-sysroot-in-libpath.patch file://fix-final-rpath.patch file://avoid_absolute_paths_for_general_utils.patch file://fix-rpath.patch file://respect-fstack-protector.patch file://norm-rpath.patch file://dont-depend-on-help2man.patch file://prefix.patch file://fixinstall.patch
+Description:  Generic library support script  This is GNU libtool, a generic library
+ support script. Libtool hides the   complexity of generating special
+ library types (such as shared libraries)   behind a consistent interface.
+OE: nativesdk-libtool
+HomePage: http://www.gnu.org/software/libtool/libtool.html
+License: GPLv2 & LGPLv2.1
+Priority: optional
+
+Package: nativesdk-mingw-w64-headers-dbg
+Version: 2.0.8-r0
+Recommends: nativesdk-mingw-w64-headers (= 2.0.8-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 3c4eeb2aff4d60ea9dfd06b5eebf39e9
+Size: 788
+Filename: nativesdk-mingw-w64-headers-dbg_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz file://epsilon.patch
+Description:  nativesdk-mingw-w64-headers version 2.0.8-r0 - Debugging files  Header
+ files from the MingGW-w64 project  This package contains ELF   symbols
+ and related sources for debugging purposes.
+OE: nativesdk-mingw-w64-headers
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-headers-dev
+Version: 2.0.8-r0
+Depends: nativesdk-mingw-w64-headers (= 2.0.8-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 42c2d746e2376717c9b9b1bf56261423
+Size: 3720398
+Filename: nativesdk-mingw-w64-headers-dev_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz file://epsilon.patch
+Description:  nativesdk-mingw-w64-headers version 2.0.8-r0 - Development files  Header
+ files from the MingGW-w64 project  This package contains symbolic
+ links, header files, and related items necessary for software
+ development.
+OE: nativesdk-mingw-w64-headers
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-headers
+Version: 2.0.8-r0
+Section: base
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 5ea8c7b43d654bfa8b99a410b911da3a
+Size: 710
+Filename: nativesdk-mingw-w64-headers_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz file://epsilon.patch
+Description:  nativesdk-mingw-w64-headers version 2.0.8-r0  Header files from the
+ MingGW-w64 project
+OE: nativesdk-mingw-w64-headers
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-runtime-dbg
+Version: 2.0.8-r0
+Recommends: nativesdk-mingw-w64-runtime (= 2.0.8-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 87944eff3b74ebe3c807d6456497fe8e
+Size: 778
+Filename: nativesdk-mingw-w64-runtime-dbg_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz
+Description:  nativesdk-mingw-w64-runtime version 2.0.8-r0 - Debugging files  Runtime
+ libraries from MinGW-w64 project  This package contains ELF   symbols and
+ related sources for debugging purposes.
+OE: nativesdk-mingw-w64-runtime
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-runtime-dev
+Version: 2.0.8-r0
+Depends: nativesdk-mingw-w64-runtime (= 2.0.8-r0)
+Recommends: nativesdk-mingw-w64-headers-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 1c23c7b4415ba809ba2694ee1e5a81ef
+Size: 6396
+Filename: nativesdk-mingw-w64-runtime-dev_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz
+Description:  nativesdk-mingw-w64-runtime version 2.0.8-r0 - Development files  Runtime
+ libraries from MinGW-w64 project  This package contains symbolic   links,
+ header files, and related items necessary for software   development.
+OE: nativesdk-mingw-w64-runtime
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-runtime-staticdev
+Version: 2.0.8-r0
+Depends: nativesdk-mingw-w64-runtime-dev (= 2.0.8-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d521bb36a4f65b77915eb4917783e200
+Size: 2455946
+Filename: nativesdk-mingw-w64-runtime-staticdev_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz
+Description:  nativesdk-mingw-w64-runtime version 2.0.8-r0 - Development files (Static
+ Libraries)  Runtime libraries from MinGW-w64 project  This package
+ contains static   libraries for software development.
+OE: nativesdk-mingw-w64-runtime
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mingw-w64-runtime
+Version: 2.0.8-r0
+Section: base
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 0f414d9f0f0bb7adc892484cc64233da
+Size: 10024
+Filename: nativesdk-mingw-w64-runtime_2.0.8-r0_i686-nativesdk-mingw32.ipk
+Source: http://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v2.0.8.tar.gz
+Description:  nativesdk-mingw-w64-runtime version 2.0.8-r0  Runtime libraries from
+ MinGW-w64 project
+OE: nativesdk-mingw-w64-runtime
+HomePage: unknown
+License: ZPL
+Priority: optional
+
+Package: nativesdk-mpfr-dbg
+Version: 3.1.1-r0
+Recommends: nativesdk-mpfr (= 3.1.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 5eb07b1771666d1bcab071e5a5b42e68
+Size: 800
+Filename: nativesdk-mpfr-dbg_3.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.mpfr.org/mpfr-3.1.1/mpfr-3.1.1.tar.bz2 file://long-long-thumb.patch
+Description:  nativesdk-mpfr version 3.1.1-r0 - Debugging files  A C library for
+ multiple-precision floating-point computations with exact   rounding
+ This package contains ELF symbols and related sources for   debugging
+ purposes.
+OE: nativesdk-mpfr
+HomePage: http://www.mpfr.org/
+License: GPLv3&LGPLv3
+Priority: optional
+
+Package: nativesdk-mpfr-dev
+Version: 3.1.1-r0
+Depends: nativesdk-mpfr (= 3.1.1-r0)
+Recommends: nativesdk-gmp-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: dfde6fdc005a8316899acc5487f182e5
+Size: 13428
+Filename: nativesdk-mpfr-dev_3.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.mpfr.org/mpfr-3.1.1/mpfr-3.1.1.tar.bz2 file://long-long-thumb.patch
+Description:  nativesdk-mpfr version 3.1.1-r0 - Development files  A C library for
+ multiple-precision floating-point computations with exact   rounding
+ This package contains symbolic links, header files, and related   items
+ necessary for software development.
+OE: nativesdk-mpfr
+HomePage: http://www.mpfr.org/
+License: GPLv3&LGPLv3
+Priority: optional
+
+Package: nativesdk-mpfr-doc
+Version: 3.1.1-r0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 160ec272131630c05dfc2c1afe60ba1c
+Size: 89292
+Filename: nativesdk-mpfr-doc_3.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.mpfr.org/mpfr-3.1.1/mpfr-3.1.1.tar.bz2 file://long-long-thumb.patch
+Description:  nativesdk-mpfr version 3.1.1-r0 - Documentation files  A C library for
+ multiple-precision floating-point computations with exact   rounding
+ This package contains documentation.
+OE: nativesdk-mpfr
+HomePage: http://www.mpfr.org/
+License: GPLv3&LGPLv3
+Priority: optional
+
+Package: nativesdk-mpfr-staticdev
+Version: 3.1.1-r0
+Depends: nativesdk-mpfr-dev (= 3.1.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 8c83d2e256f74495a130692ea997d486
+Size: 198746
+Filename: nativesdk-mpfr-staticdev_3.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.mpfr.org/mpfr-3.1.1/mpfr-3.1.1.tar.bz2 file://long-long-thumb.patch
+Description:  nativesdk-mpfr version 3.1.1-r0 - Development files (Static Libraries)  A
+ C library for multiple-precision floating-point computations with exact
+ rounding  This package contains static libraries for software
+ development.
+OE: nativesdk-mpfr
+HomePage: http://www.mpfr.org/
+License: GPLv3&LGPLv3
+Priority: optional
+
+Package: nativesdk-mpfr
+Version: 3.1.1-r0
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: cd4c06ce02a0337f66a74bf085deb270
+Size: 720
+Filename: nativesdk-mpfr_3.1.1-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.mpfr.org/mpfr-3.1.1/mpfr-3.1.1.tar.bz2 file://long-long-thumb.patch
+Description:  nativesdk-mpfr version 3.1.1-r0  A C library for multiple-precision
+ floating-point computations with exact   rounding
+OE: nativesdk-mpfr
+HomePage: http://www.mpfr.org/
+License: GPLv3&LGPLv3
+Priority: optional
+
+Package: nativesdk-pthreads-win32-dbg
+Version: 2.9.1-r0
+Recommends: nativesdk-pthreads-win32 (= 2.9.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 50e3d78bbd81f484e9884ecfeb955748
+Size: 792
+Filename: nativesdk-pthreads-win32-dbg_2.9.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.tar.gz
+Description:  nativesdk-pthreads-win32 version 2.9.1-r0 - Debugging files  A Win32
+ implementation of the POSIX standard threads API  This package   contains
+ ELF symbols and related sources for debugging purposes.
+OE: nativesdk-pthreads-win32
+HomePage: http://www.sourceware.org/pthreads-win32
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-pthreads-win32-dev
+Version: 2.9.1-r0
+Depends: nativesdk-pthreads-win32 (= 2.9.1-r0)
+Recommends: nativesdk-libgcc-dev
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: d1fb5f59c158229721c583c2ffe6ef91
+Size: 13164
+Filename: nativesdk-pthreads-win32-dev_2.9.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.tar.gz
+Description:  nativesdk-pthreads-win32 version 2.9.1-r0 - Development files  A Win32
+ implementation of the POSIX standard threads API  This package   contains
+ symbolic links, header files, and related items necessary for   software
+ development.
+OE: nativesdk-pthreads-win32
+HomePage: http://www.sourceware.org/pthreads-win32
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-pthreads-win32-staticdev
+Version: 2.9.1-r0
+Depends: nativesdk-pthreads-win32-dev (= 2.9.1-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 8e81b577dd95afd630a1b0e2236f8d56
+Size: 6886
+Filename: nativesdk-pthreads-win32-staticdev_2.9.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.tar.gz
+Description:  nativesdk-pthreads-win32 version 2.9.1-r0 - Development files (Static
+ Libraries)  A Win32 implementation of the POSIX standard threads API
+ This package   contains static libraries for software development.
+OE: nativesdk-pthreads-win32
+HomePage: http://www.sourceware.org/pthreads-win32
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-pthreads-win32
+Version: 2.9.1-r0
+Section: base
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6e177c25e2a2b47c7cf5dbdc6c704233
+Size: 33272
+Filename: nativesdk-pthreads-win32_2.9.1-r0_i686-nativesdk-mingw32.ipk
+Source: ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.tar.gz
+Description:  nativesdk-pthreads-win32 version 2.9.1-r0  A Win32 implementation of the
+ POSIX standard threads API
+OE: nativesdk-pthreads-win32
+HomePage: http://www.sourceware.org/pthreads-win32
+License: LGPLv2.1
+Priority: optional
+
+Package: nativesdk-zlib-dbg
+Version: 1.2.7-r0
+Recommends: nativesdk-zlib (= 1.2.7-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 6b690ea4d23564da797eda957c447688
+Size: 822
+Filename: nativesdk-zlib-dbg_1.2.7-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.zlib.net/zlib-1.2.7.tar.bz2 file://remove.ldconfig.call.patch
+Description:  Zlib Compression Library - Debugging files  Zlib is a general-purpose,
+ patent-free, lossless data compression library   which is used by many
+ different programs.  This package contains ELF   symbols and related
+ sources for debugging purposes.
+OE: nativesdk-zlib
+HomePage: http://zlib.net/
+License: Zlib
+Priority: optional
+
+Package: nativesdk-zlib-dev
+Version: 1.2.7-r0
+Depends: nativesdk-zlib (= 1.2.7-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: f2affe99cff3d3bb5556e0c9009253e0
+Size: 29132
+Filename: nativesdk-zlib-dev_1.2.7-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.zlib.net/zlib-1.2.7.tar.bz2 file://remove.ldconfig.call.patch
+Description:  Zlib Compression Library - Development files  Zlib is a general-purpose,
+ patent-free, lossless data compression library   which is used by many
+ different programs.  This package contains symbolic   links, header
+ files, and related items necessary for software   development.
+OE: nativesdk-zlib
+HomePage: http://zlib.net/
+License: Zlib
+Priority: optional
+
+Package: nativesdk-zlib-doc
+Version: 1.2.7-r0
+Section: doc
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 39e4f59c9d7a40f00989e76710d084e1
+Size: 3010
+Filename: nativesdk-zlib-doc_1.2.7-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.zlib.net/zlib-1.2.7.tar.bz2 file://remove.ldconfig.call.patch
+Description:  Zlib Compression Library - Documentation files  Zlib is a general-
+ purpose, patent-free, lossless data compression library   which is used
+ by many different programs.  This package contains   documentation.
+OE: nativesdk-zlib
+HomePage: http://zlib.net/
+License: Zlib
+Priority: optional
+
+Package: nativesdk-zlib-staticdev
+Version: 1.2.7-r0
+Depends: nativesdk-zlib-dev (= 1.2.7-r0)
+Section: devel
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: bb18fddfe8231a225bf131ccf61407b7
+Size: 45110
+Filename: nativesdk-zlib-staticdev_1.2.7-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.zlib.net/zlib-1.2.7.tar.bz2 file://remove.ldconfig.call.patch
+Description:  Zlib Compression Library - Development files (Static Libraries)  Zlib is
+ a general-purpose, patent-free, lossless data compression library   which
+ is used by many different programs.  This package contains static
+ libraries for software development.
+OE: nativesdk-zlib
+HomePage: http://zlib.net/
+License: Zlib
+Priority: optional
+
+Package: nativesdk-zlib
+Version: 1.2.7-r0
+Section: libs
+Architecture: i686-nativesdk-mingw32
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: c09c7a83d90de79d9fedd4e9e0d3fcd4
+Size: 54972
+Filename: nativesdk-zlib_1.2.7-r0_i686-nativesdk-mingw32.ipk
+Source: http://www.zlib.net/zlib-1.2.7.tar.bz2 file://remove.ldconfig.call.patch
+Description:  Zlib Compression Library  Zlib is a general-purpose, patent-free,
+ lossless data compression library   which is used by many different
+ programs.
+OE: nativesdk-zlib
+HomePage: http://zlib.net/
+License: Zlib
+Priority: optional
+

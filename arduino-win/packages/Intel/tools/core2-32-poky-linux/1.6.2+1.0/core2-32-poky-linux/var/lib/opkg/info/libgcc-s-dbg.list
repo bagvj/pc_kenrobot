@@ -1,0 +1,15 @@
+/usr/src/
+/lib/
+/usr/
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/gthr-default.h
+/usr/src/debug/
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/enable-execute-stack.c
+/usr/src/debug/libgcc/4.8.2-r0/
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/
+/lib/.debug/libgcc_s.so.1
+/usr/src/debug/libgcc/4.8.2-r0/build/
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/sfp-machine.h
+/lib/.debug/
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/md-unwind-support.h
+/usr/src/debug/libgcc/4.8.2-r0/build/libgcc/unwind.h
+/usr/src/debug/libgcc/

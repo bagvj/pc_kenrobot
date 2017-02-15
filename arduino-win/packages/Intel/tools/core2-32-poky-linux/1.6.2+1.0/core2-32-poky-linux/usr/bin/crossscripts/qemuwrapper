@@ -1,0 +1,8 @@
+#!/bin/sh
+qemu-i386 "$@"
+rc=$?
+if [ $rc = 255 ]; then
+	qemu-x86_64 "$@"
+	rc=$?
+fi
+exit $rc
