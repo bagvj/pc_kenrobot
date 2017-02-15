@@ -20,31 +20,18 @@ set HARDWARE="%LOCAL_ARDUINO_PATH:~1,-1%\hardware,%LOCAL_ARDUINO_PATH:~1,-1%\pac
 set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr,%LOCAL_ARDUINO_PATH:~1,-1%\packages"
 set LIBRARIES="%LOCAL_ARDUINO_PATH:~1,-1%\libraries"
 
-if %BOARD_TYPE% == genuino101 (
-	set FQBN="Intel:arc32:arduino_101"
-) else (
-	set FQBN="arduino:avr:%BOARD_TYPE%"
-)
-
 if not exist %BUILD_PATH% (
 	mkdir %BUILD_PATH%
 )
 
 if %BOARD_TYPE% == genuino101 (
-	goto genuino101
+	set FQBN="Intel:arc32:arduino_101"
+	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn=%FQBN% -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.arduino101load.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arduino101load\1.6.9+1.28" -prefs=runtime.tools.flashpack.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\flashpack\1.0.0" -prefs=runtime.tools.openocd.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\openocd\0.9.0+0.1" -prefs=runtime.tools.arc-elf32.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arc-elf32\1.6.9+1.0.1" %SKETCH%
 ) else (
-	goto arduino
+	set FQBN="arduino:avr:%BOARD_TYPE%"
+	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn=%FQBN% -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
 )
 
-:genuino101
-%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn=%FQBN% -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.arduino101load.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arduino101load\1.6.9+1.28" -prefs=runtime.tools.flashpack.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\flashpack\1.0.0" -prefs=runtime.tools.openocd.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\openocd\0.9.0+0.1" -prefs=runtime.tools.arc-elf32.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arc-elf32\1.6.9+1.0.1" %SKETCH%
-goto build-complete
-
-:arduino
-%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn=%FQBN% -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
-goto build-complete
-
-:build-complete
 if not %errorlevel% == 0 (
 	echo build fail
     goto end
