@@ -1,0 +1,325 @@
+Package: packagegroup-core-standalone-sdk-target-dbg
+Version: 1.0-r8
+Recommends: libsegfault-dbg, qemuwrapper-cross-dbg, libstdc++-dbg, libgcc-s-dbg, eglibc-utils-dbg, eglibc-thread-db-dbg, eglibc-gconv-ibm850-dbg, eglibc-gconv-iso8859-15-dbg, eglibc-gconv-cp1252-dbg, eglibc-localedata-i18n-dbg, libc6-dbg, eglibc-gconv-iso8859-1-dbg
+Provides: task-core-standalone-sdk-target-dbg
+Replaces: task-core-standalone-sdk-target-dbg
+Conflicts: task-core-standalone-sdk-target-dbg
+Status: install user installed
+Architecture: all
+Installed-Time: 1426804647
+
+Package: eglibc-locale-dbg
+Version: 2.19-r0
+Recommends: eglibc-gconv-libjis-dbg, eglibc-gconv-libksc-dbg, eglibc-gconv-libcns-dbg, eglibc-gconv-libjisx0213-dbg, libc6-dbg, eglibc-gconv-libgb-dbg, eglibc-gconv-libisoir165-dbg
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804654
+
+Package: libc6
+Version: 2.19-r0
+Provides: rtld(GNU_HASH), glibc
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804647
+Auto-Installed: yes
+
+Package: qemuwrapper-cross-dev
+Version: 1.0-r0
+Depends: qemuwrapper-cross (= 1.0-r0)
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804652
+
+Package: eglibc-localedata-translit-fraction
+Version: 2.19-r0
+Provides: glibc-localedata-translit-fraction
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: packagegroup-core-standalone-sdk-target-dev
+Version: 1.0-r8
+Depends: packagegroup-core-standalone-sdk-target (= 1.0-r8)
+Recommends: qemuwrapper-cross-dev, libgcc-s-dev, eglibc-utils-dev, eglibc-thread-db-dev, libstdc++-dev, libc6-dev, eglibc-gconv-ibm850-dev, libsegfault-dev, eglibc-gconv-iso8859-15-dev, eglibc-localedata-i18n-dev, eglibc-gconv-iso8859-1-dev, eglibc-gconv-cp1252-dev
+Status: install user installed
+Architecture: all
+Installed-Time: 1426804654
+
+Package: eglibc-extra-nss
+Version: 2.19-r0
+Depends: libc6 (>= 2.19)
+Provides: glibc-extra-nss
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804648
+Auto-Installed: yes
+
+Package: eglibc-localedata-iso14651-t1
+Version: 2.19-r0
+Depends: eglibc-localedata-iso14651-t1-common
+Provides: glibc-localedata-iso14651-t1
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: libstdc++-dev
+Version: 4.8.2-r0
+Depends: libstdc++6
+Recommends: libc6-dev, libgcc-s-dev
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: gcc-runtime-dbg
+Version: 4.8.2-r0
+Recommends: libc6-dbg, libgcc-s-dbg
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804653
+
+Package: eglibc-gconv-iso8859-1
+Version: 2.19-r0
+Depends: eglibc-gconv, libc6 (>= 2.19)
+Provides: glibc-gconv-iso8859-1
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804652
+Auto-Installed: yes
+
+Package: libstdc++6
+Version: 4.8.2-r0
+Depends: libgcc1 (>= 4.8.2), libc6 (>= 2.19)
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804650
+Auto-Installed: yes
+
+Package: eglibc-utils
+Version: 2.19-r0
+Depends: libc6 (>= 2.19)
+Provides: glibc-utils
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804649
+Auto-Installed: yes
+
+Package: eglibc-gconv
+Version: 2.19-r0
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804649
+Auto-Installed: yes
+
+Package: libthread-db1
+Version: 2.19-r0
+Depends: libc6 (>= 2.19)
+Provides: glibc-thread-db
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804648
+Auto-Installed: yes
+
+Package: linux-libc-headers-dev
+Version: 3.14-r0
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804649
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-small
+Version: 2.19-r0
+Provides: glibc-localedata-translit-small
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: qemuwrapper-cross
+Version: 1.0-r0
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804652
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-neutral
+Version: 2.19-r0
+Depends: eglibc-localedata-translit-circle, eglibc-localedata-translit-cjk-compat, eglibc-localedata-translit-small, eglibc-localedata-translit-compat, eglibc-localedata-translit-narrow, eglibc-localedata-translit-wide, eglibc-localedata-translit-font, eglibc-localedata-translit-fraction
+Provides: glibc-localedata-translit-neutral
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Depends: libgcc1, libgcc-s-dev, eglibc-gconv-cp1252, eglibc-utils, libc6, eglibc-gconv-ibm850, libstdc++-dev, libthread-db1, libc6-dev, eglibc-localedata-i18n, libsegfault, libstdc++6, eglibc-gconv-iso8859-1, libc6-dbg, eglibc-gconv-iso8859-15, qemuwrapper-cross
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Status: install user installed
+Architecture: all
+Installed-Time: 1426804652
+
+Package: eglibc-localedata-translit-compat
+Version: 2.19-r0
+Provides: glibc-localedata-translit-compat
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: eglibc-gconv-iso8859-15
+Version: 2.19-r0
+Depends: eglibc-gconv, libc6 (>= 2.19)
+Provides: glibc-gconv-iso8859-15
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804652
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-narrow
+Version: 2.19-r0
+Provides: glibc-localedata-translit-narrow
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: libc6-dbg
+Version: 2.19-r0
+Provides: libc-dbg, glibc-dbg
+Replaces: libc-dbg
+Conflicts: libc-dbg
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804647
+Auto-Installed: yes
+
+Package: eglibc-localedata-i18n
+Version: 2.19-r0
+Depends: eglibc-localedata-translit-neutral, eglibc-localedata-iso14651-t1
+Provides: glibc-localedata-i18n
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: libsegfault
+Version: 2.19-r0
+Depends: libc6 (>= 2.19)
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: libgcc-s-dbg
+Version: 4.8.2-r0
+Recommends: libc6-dbg
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804641
+Auto-Installed: yes
+
+Package: libc6-dev
+Version: 2.19-r0
+Depends: libthread-db1, eglibc-extra-nss, libcidn1, libc6 (= 2.19-r0)
+Recommends: linux-libc-headers-dev, eglibc-extra-nss-dev, libsegfault-dev, eglibc-thread-db-dev, libcidn-dev
+Provides: virtual-libc-dev, libc6-dev, glibc-dev, libc-dev
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804648
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-cjk-compat
+Version: 2.19-r0
+Provides: glibc-localedata-translit-cjk-compat
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: eglibc-gconv-cp1252
+Version: 2.19-r0
+Depends: eglibc-gconv, libc6 (>= 2.19)
+Provides: glibc-gconv-cp1252
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804649
+Auto-Installed: yes
+
+Package: libgcc-s-dev
+Version: 4.8.2-r0
+Depends: libgcc1 (= 4.8.2-r0)
+Recommends: libc6-dev
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804647
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-wide
+Version: 2.19-r0
+Provides: glibc-localedata-translit-wide
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-circle
+Version: 2.19-r0
+Provides: glibc-localedata-translit-circle
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: libcidn1
+Version: 2.19-r0
+Depends: libc6 (>= 2.19)
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804648
+Auto-Installed: yes
+
+Package: libgcc1
+Version: 4.8.2-r0
+Depends: libc6 (>= 2.19)
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804647
+Auto-Installed: yes
+
+Package: eglibc-localedata-translit-font
+Version: 2.19-r0
+Provides: glibc-localedata-translit-font
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: eglibc-localedata-iso14651-t1-common
+Version: 2.19-r0
+Provides: glibc-localedata-iso14651-t1-common
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804651
+Auto-Installed: yes
+
+Package: qemuwrapper-cross-dbg
+Version: 1.0-r0
+Status: install user installed
+Architecture: core2-32
+Installed-Time: 1426804641
+Auto-Installed: yes
+
+Package: eglibc-gconv-ibm850
+Version: 2.19-r0
+Depends: eglibc-gconv, libc6 (>= 2.19)
+Provides: glibc-gconv-ibm850
+Status: install ok installed
+Architecture: core2-32
+Installed-Time: 1426804649
+Auto-Installed: yes
+

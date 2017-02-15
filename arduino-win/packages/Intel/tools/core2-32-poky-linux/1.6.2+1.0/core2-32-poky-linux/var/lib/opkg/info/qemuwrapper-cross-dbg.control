@@ -1,0 +1,12 @@
+Package: qemuwrapper-cross-dbg
+Version: 1.0-r0
+Description: QEMU wrapper script - Debugging files
+ QEMU wrapper script.  This package contains ELF symbols and related
+ sources for debugging purposes.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: core2-32
+OE: qemuwrapper-cross
+Source: None

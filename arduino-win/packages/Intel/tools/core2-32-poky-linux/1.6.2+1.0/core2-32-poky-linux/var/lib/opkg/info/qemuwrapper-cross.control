@@ -1,0 +1,11 @@
+Package: qemuwrapper-cross
+Version: 1.0-r0
+Description: QEMU wrapper script
+ QEMU wrapper script.
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: core2-32
+OE: qemuwrapper-cross
+Source: None

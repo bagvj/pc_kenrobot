@@ -1,0 +1,14 @@
+Package: eglibc-locale-dbg
+Version: 2.19-r0
+Description: Locale data from eglibc - Debugging files
+ Locale data from eglibc.  This package contains ELF symbols and related
+ sources for debugging purposes.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Recommends: eglibc-gconv-libjis-dbg, eglibc-gconv-libksc-dbg, eglibc-gconv-libcns-dbg, eglibc-gconv-libjisx0213-dbg, libc6-dbg, eglibc-gconv-libgb-dbg, eglibc-gconv-libisoir165-dbg
+Source: None

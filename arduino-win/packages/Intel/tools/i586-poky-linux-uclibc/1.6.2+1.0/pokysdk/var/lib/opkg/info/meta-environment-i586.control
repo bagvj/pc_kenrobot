@@ -1,0 +1,12 @@
+Package: meta-environment-i586
+Version: 1.0-r8
+Description: meta-environment-i586 version 1.0-r8
+ Package of environment files for SDK
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: i686-nativesdk-mingw32
+OE: meta-environment-i586
+Homepage: unknown
+Source: None

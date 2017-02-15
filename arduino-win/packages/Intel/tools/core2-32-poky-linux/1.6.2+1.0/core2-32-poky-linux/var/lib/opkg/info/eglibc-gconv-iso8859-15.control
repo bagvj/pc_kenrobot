@@ -1,0 +1,14 @@
+Package: eglibc-gconv-iso8859-15
+Version: 2.19-r0
+Description: gconv module for character set iso8859-15
+ gconv module for character set iso8859-15
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Depends: eglibc-gconv, libc6 (>= 2.19)
+Provides: glibc-gconv-iso8859-15
+Source: None

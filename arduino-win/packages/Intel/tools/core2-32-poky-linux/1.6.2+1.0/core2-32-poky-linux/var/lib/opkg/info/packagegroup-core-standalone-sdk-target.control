@@ -1,0 +1,15 @@
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Description: Target packages for the standalone SDK
+ Target packages for the standalone SDK.
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: packagegroup-core-standalone-sdk-target
+Depends: libgcc1, libgcc-s-dev, eglibc-gconv-cp1252, eglibc-utils, libc6, eglibc-gconv-ibm850, libstdc++-dev, libthread-db1, libc6-dev, eglibc-localedata-i18n, libsegfault, libstdc++6, eglibc-gconv-iso8859-1, libc6-dbg, eglibc-gconv-iso8859-15, qemuwrapper-cross
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Source: None

@@ -1,0 +1,13 @@
+Package: nativesdk-packagegroup-sdk-host
+Version: 1.0-r11
+Description: Host packages for the standalone SDK or external toolchain
+ Host packages for the standalone SDK or external toolchain
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: nativesdk-packagegroup-sdk-host
+Homepage: unknown
+Depends: nativesdk-libtool
+Source: None

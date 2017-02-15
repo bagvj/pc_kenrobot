@@ -1,0 +1,14 @@
+Package: packagegroup-cross-canadian-i586
+Version: 1.0-r0
+Description: Host SDK package for cross canadian toolchain
+ Host SDK package for cross canadian toolchain
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: packagegroup-cross-canadian-i586
+Homepage: unknown
+Depends: meta-environment-i586, binutils-cross-canadian-i586, gcc-cross-canadian-i586
+Provides: task-cross-canadian-i586
+Source: None

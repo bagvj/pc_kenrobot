@@ -1,0 +1,13 @@
+Package: qemuwrapper-cross-dev
+Version: 1.0-r0
+Description: QEMU wrapper script - Development files
+ QEMU wrapper script.  This package contains symbolic links, header files,
+ and related items necessary for software development.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: core2-32
+OE: qemuwrapper-cross
+Depends: qemuwrapper-cross (= 1.0-r0)
+Source: None

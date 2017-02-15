@@ -1,0 +1,96 @@
+Package: nativesdk-packagegroup-sdk-host
+Version: 1.0-r11
+Depends: nativesdk-libtool
+Section: base
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: eb1e98866cbd00d7c93e87a4942aa856
+Size: 660
+Filename: nativesdk-packagegroup-sdk-host_1.0-r11_all.ipk
+Source: None
+Description:  Host packages for the standalone SDK or external toolchain  Host packages
+ for the standalone SDK or external toolchain
+OE: nativesdk-packagegroup-sdk-host
+HomePage: unknown
+License: MIT
+Priority: optional
+
+Package: packagegroup-core-standalone-sdk-target-dbg
+Version: 1.0-r8
+Provides: task-core-standalone-sdk-target-dbg
+Replaces: task-core-standalone-sdk-target-dbg
+Conflicts: task-core-standalone-sdk-target-dbg
+Recommends: libstdc++-dbg, packagegroup-core-standalone-sdk-target (= 1.0-r8), libgcc-s-dbg, libc-dbg, uclibc-thread-db-dbg
+Section: devel
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 077c0e1644b3549edf5c0b9b554c68cd
+Size: 788
+Filename: packagegroup-core-standalone-sdk-target-dbg_1.0-r8_all.ipk
+Source: None
+Description:  packagegroup-core-standalone-sdk-target version 1.0-r8 - Debugging files
+ Target packages for the standalone SDK  This package contains ELF symbols
+ and related sources for debugging purposes.
+OE: packagegroup-core-standalone-sdk-target
+HomePage: unknown
+License: MIT
+Priority: optional
+
+Package: packagegroup-core-standalone-sdk-target-dev
+Version: 1.0-r8
+Depends: packagegroup-core-standalone-sdk-target (= 1.0-r8)
+Recommends: uclibc-thread-db-dev, libgcc-s-dev, libc-dev, libstdc++-dev
+Section: devel
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: fbc044a28933455dc81ba231b711d952
+Size: 780
+Filename: packagegroup-core-standalone-sdk-target-dev_1.0-r8_all.ipk
+Source: None
+Description:  packagegroup-core-standalone-sdk-target version 1.0-r8 - Development
+ files  Target packages for the standalone SDK  This package contains
+ symbolic   links, header files, and related items necessary for software
+ development.
+OE: packagegroup-core-standalone-sdk-target
+HomePage: unknown
+License: MIT
+Priority: optional
+
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Depends: libgcc1, libgcc-s-dev, libstdc++-dev, libthread-db1, libc0, libc-dbg, libc-dev, libstdc++6
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Section: base
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: acae0020b5e42f59654dd0f472c56886
+Size: 720
+Filename: packagegroup-core-standalone-sdk-target_1.0-r8_all.ipk
+Source: None
+Description:  packagegroup-core-standalone-sdk-target version 1.0-r8  Target packages
+ for the standalone SDK
+OE: packagegroup-core-standalone-sdk-target
+HomePage: unknown
+License: MIT
+Priority: optional
+
+Package: packagegroup-cross-canadian-i586
+Version: 1.0-r0
+Depends: meta-environment-i586, binutils-cross-canadian-i586, gcc-cross-canadian-i586
+Provides: task-cross-canadian-i586
+Section: base
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9976bc05cf4575dce847c538fca5ea68
+Size: 688
+Filename: packagegroup-cross-canadian-i586_1.0-r0_all.ipk
+Source: None
+Description:  Host SDK package for cross canadian toolchain  Host SDK package for cross
+ canadian toolchain
+OE: packagegroup-cross-canadian-i586
+HomePage: unknown
+License: MIT
+Priority: optional
+

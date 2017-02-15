@@ -1,0 +1,14 @@
+Package: nativesdk-libmpc
+Version: 0.8.2-r1
+Description: nativesdk-libmpc version 0.8.2-r1
+ Mpc is a C library for the arithmetic of complex numbers with arbitrarily
+ high precision and correct rounding of the result. It is built upon and
+ follows the same principles as Mpfr
+Section: libs
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: LGPLv2.1
+Architecture: i686-nativesdk-mingw32
+OE: nativesdk-libmpc
+Homepage: http://www.multiprecision.org/
+Source: http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz file://libmpc_fix_for_automake-1.12.patch

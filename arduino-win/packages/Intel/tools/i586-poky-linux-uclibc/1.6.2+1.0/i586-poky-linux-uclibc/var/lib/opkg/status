@@ -1,0 +1,184 @@
+Package: packagegroup-core-standalone-sdk-target-dbg
+Version: 1.0-r8
+Recommends: libstdc++-dbg, packagegroup-core-standalone-sdk-target (= 1.0-r8), libgcc-s-dbg, libc-dbg, uclibc-thread-db-dbg
+Provides: task-core-standalone-sdk-target-dbg
+Replaces: task-core-standalone-sdk-target-dbg
+Conflicts: task-core-standalone-sdk-target-dbg
+Status: install user installed
+Architecture: all
+Installed-Time: 1427144816
+
+Package: libc0
+Version: 0_9_33-r8.4
+Provides: rtld(GNU_HASH), libsegfault
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144810
+Auto-Installed: yes
+
+Package: libstdc++-dev
+Version: 4.7.2-r20
+Depends: libstdc++6
+Recommends: libgcc-s-dev, libc-dev, uclibc-libm-dev
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144811
+Auto-Installed: yes
+
+Package: libpthread0
+Version: 0_9_33-r8.4
+Depends: libdl0 (>= 0_9_33), libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144815
+Auto-Installed: yes
+
+Package: libstdc++6
+Version: 4.7.2-r20
+Depends: libgcc1 (>= 4.7.2), libc0 (>= 0_9_33), libm0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144810
+Auto-Installed: yes
+
+Package: libresolv0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: libutil0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: libm0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144810
+Auto-Installed: yes
+
+Package: libthread-db1
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144811
+Auto-Installed: yes
+
+Package: linux-libc-headers-dev
+Version: 3.8-r0
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144815
+Auto-Installed: yes
+
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Depends: libgcc1, libgcc-s-dev, libstdc++-dev, libthread-db1, libc0, libc-dbg, libc-dev, libstdc++6
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Status: install user installed
+Architecture: all
+Installed-Time: 1427144816
+Auto-Installed: yes
+
+Package: libdl0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: libcrypt0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: libgcc-s-dbg
+Version: 4.7.2-r20
+Recommends: libgcc1 (= 4.7.2-r20), libc-dbg
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144816
+Auto-Installed: yes
+
+Package: libubacktrace0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33), libdl0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: librt0
+Version: 0_9_33-r8.4
+Depends: libdl0 (>= 0_9_33), libpthread0 (>= 0_9_33), libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144815
+Auto-Installed: yes
+
+Package: libgcc-s-dev
+Version: 4.7.2-r20
+Depends: libgcc1 (= 4.7.2-r20)
+Recommends: libc-dev
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144810
+Auto-Installed: yes
+
+Package: libc-dbg
+Version: 0_9_33-r8.4
+Recommends: uclibc-libdl-dbg, libc0 (= 0_9_33-r8.4), uclibc-libpthread-dbg
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144813
+Auto-Installed: yes
+
+Package: libnsl0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144814
+Auto-Installed: yes
+
+Package: libgcc1
+Version: 4.7.2-r20
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144810
+Auto-Installed: yes
+
+Package: libc-dev
+Version: 0_9_33-r8.4
+Depends: libuargp0, libubacktrace0, libresolv0, libthread-db1, libdl0, libm0, libnsl0, libutil0, libcrypt0, linux-libc-headers-dev, librt0
+Recommends: uclibc-librt-dev, uclibc-libpthread-dev, uclibc-libdl-dev, uclibc-libcrypt-dev, uclibc-libm-dev, uclibc-argp-dev, linux-libc-headers-dev, uclibc-libutil-dev, uclibc-thread-db-dev, uclibc-libresolv-dev, uclibc-libnsl-dev, uclibc-backtrace-dev
+Provides: virtual-libc-dev, libc-dev
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144816
+Auto-Installed: yes
+
+Package: libuargp0
+Version: 0_9_33-r8.4
+Depends: libc0 (>= 0_9_33)
+Status: install ok installed
+Architecture: i586
+Installed-Time: 1427144813
+Auto-Installed: yes
+

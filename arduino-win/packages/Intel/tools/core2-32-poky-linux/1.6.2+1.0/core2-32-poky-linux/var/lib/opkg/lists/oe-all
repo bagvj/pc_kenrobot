@@ -1,0 +1,73 @@
+Package: packagegroup-core-standalone-sdk-target-dbg
+Version: 1.0-r8
+Provides: task-core-standalone-sdk-target-dbg
+Replaces: task-core-standalone-sdk-target-dbg
+Conflicts: task-core-standalone-sdk-target-dbg
+Recommends: libsegfault-dbg, qemuwrapper-cross-dbg, libstdc++-dbg, libgcc-s-dbg, eglibc-utils-dbg, eglibc-thread-db-dbg, eglibc-gconv-ibm850-dbg, eglibc-gconv-iso8859-15-dbg, eglibc-gconv-cp1252-dbg, eglibc-localedata-i18n-dbg, libc6-dbg, eglibc-gconv-iso8859-1-dbg
+Section: devel
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 9c904022b0f3a958f92d1308f1fb94ad
+Size: 826
+Filename: packagegroup-core-standalone-sdk-target-dbg_1.0-r8_all.ipk
+Source: None
+Description:  Target packages for the standalone SDK - Debugging files  Target packages
+ for the standalone SDK.  This package contains ELF   symbols and related
+ sources for debugging purposes.
+OE: packagegroup-core-standalone-sdk-target
+License: MIT
+Priority: optional
+
+Package: packagegroup-core-standalone-sdk-target-dev
+Version: 1.0-r8
+Depends: packagegroup-core-standalone-sdk-target (= 1.0-r8)
+Recommends: qemuwrapper-cross-dev, libgcc-s-dev, eglibc-utils-dev, eglibc-thread-db-dev, libstdc++-dev, libc6-dev, eglibc-gconv-ibm850-dev, libsegfault-dev, eglibc-gconv-iso8859-15-dev, eglibc-localedata-i18n-dev, eglibc-gconv-iso8859-1-dev, eglibc-gconv-cp1252-dev
+Section: devel
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: 8c6ff4c9c5dae1965a489fbab267dc43
+Size: 832
+Filename: packagegroup-core-standalone-sdk-target-dev_1.0-r8_all.ipk
+Source: None
+Description:  Target packages for the standalone SDK - Development files  Target
+ packages for the standalone SDK.  This package contains symbolic   links,
+ header files, and related items necessary for software   development.
+OE: packagegroup-core-standalone-sdk-target
+License: MIT
+Priority: optional
+
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Depends: libgcc1, libgcc-s-dev, eglibc-gconv-cp1252, eglibc-utils, libc6, eglibc-gconv-ibm850, libstdc++-dev, libthread-db1, libc6-dev, eglibc-localedata-i18n, libsegfault, libstdc++6, eglibc-gconv-iso8859-1, libc6-dbg, eglibc-gconv-iso8859-15, qemuwrapper-cross
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Section: base
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: c1ac2f925a2260eddcc8490ff117a40c
+Size: 776
+Filename: packagegroup-core-standalone-sdk-target_1.0-r8_all.ipk
+Source: None
+Description:  Target packages for the standalone SDK  Target packages for the
+ standalone SDK.
+OE: packagegroup-core-standalone-sdk-target
+License: MIT
+Priority: optional
+
+Package: packagegroup-cross-canadian-edison
+Version: 1.0-r0
+Depends: binutils-cross-canadian-i586, gcc-cross-canadian-i586, meta-environment-edison
+Section: base
+Architecture: all
+Maintainer: Poky <poky@yoctoproject.org>
+MD5Sum: fdbdb6cbfd60d0d9e9d371785b5f92ea
+Size: 664
+Filename: packagegroup-cross-canadian-edison_1.0-r0_all.ipk
+Source: None
+Description:  Host SDK package for cross canadian toolchain  Host SDK package for cross
+ canadian toolchain.
+OE: packagegroup-cross-canadian-edison
+License: MIT
+Priority: optional
+

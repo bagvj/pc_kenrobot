@@ -1,0 +1,14 @@
+Package: eglibc-localedata-i18n
+Version: 2.19-r0
+Description: locale definition for i18n
+ locale definition for i18n
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Depends: eglibc-localedata-translit-neutral, eglibc-localedata-iso14651-t1
+Provides: glibc-localedata-i18n
+Source: None

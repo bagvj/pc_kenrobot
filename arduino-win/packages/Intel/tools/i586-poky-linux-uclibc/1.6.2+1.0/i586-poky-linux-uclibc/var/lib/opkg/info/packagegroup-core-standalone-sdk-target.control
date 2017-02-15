@@ -1,0 +1,16 @@
+Package: packagegroup-core-standalone-sdk-target
+Version: 1.0-r8
+Description: packagegroup-core-standalone-sdk-target version 1.0-r8
+ Target packages for the standalone SDK
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: MIT
+Architecture: all
+OE: packagegroup-core-standalone-sdk-target
+Homepage: unknown
+Depends: libgcc1, libgcc-s-dev, libstdc++-dev, libthread-db1, libc0, libc-dbg, libc-dev, libstdc++6
+Provides: task-core-standalone-sdk-target
+Replaces: task-core-standalone-sdk-target
+Conflicts: task-core-standalone-sdk-target
+Source: None

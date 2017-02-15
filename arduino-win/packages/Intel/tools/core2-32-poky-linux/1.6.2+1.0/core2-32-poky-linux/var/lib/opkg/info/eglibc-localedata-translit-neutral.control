@@ -1,0 +1,14 @@
+Package: eglibc-localedata-translit-neutral
+Version: 2.19-r0
+Description: locale definition for translit-neutral
+ locale definition for translit-neutral
+Section: base
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2 & LGPLv2.1
+Architecture: core2-32
+OE: eglibc-locale
+Homepage: http://www.eglibc.org/
+Depends: eglibc-localedata-translit-circle, eglibc-localedata-translit-cjk-compat, eglibc-localedata-translit-small, eglibc-localedata-translit-compat, eglibc-localedata-translit-narrow, eglibc-localedata-translit-wide, eglibc-localedata-translit-font, eglibc-localedata-translit-fraction
+Provides: glibc-localedata-translit-neutral
+Source: None

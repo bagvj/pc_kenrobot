@@ -1,0 +1,14 @@
+Package: linux-libc-headers-dev
+Version: 3.8-r0
+Description: linux-libc-headers version 3.8-r0 - Development files
+ Sanitized set of kernel headers for the C library's use.  This package
+ contains symbolic links, header files, and related items necessary for
+ software development.
+Section: devel
+Priority: optional
+Maintainer: Poky <poky@yoctoproject.org>
+License: GPLv2
+Architecture: i586
+OE: linux-libc-headers
+Homepage: unknown
+Source: http://kernel.org/pub/linux/kernel/v3.0/linux-3.8.tar.bz2 file://scripts-Makefile.headersinst-install-headers-from-sc.patch
