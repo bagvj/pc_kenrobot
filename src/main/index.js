@@ -43,7 +43,7 @@ function createWindow() {
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
-	mainWindow.loadURL(`file://${__dirname}/index.html`)
+	mainWindow.loadURL(`file://${__dirname}/../index.html`)
 	mainWindow.focus()
 
 	mainWindow.on('closed', _ => {
@@ -512,7 +512,7 @@ function buildProject(file, options) {
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 	execCommand(command).then(_ => {
-		deferred.resolve(path.join(file, "build", path.basename(file) + ".ino.hex"))
+		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
 	}, err => {
 		deferred.reject(err)
 	})
@@ -526,7 +526,7 @@ function uploadHex(hex, com, options) {
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
 	log.debug(path.resolve(scriptPath))
-	var command = `${scriptPath} ${hex} ${com}`
+	var command = `${scriptPath} ${hex} ${com} ${options.board_type}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()

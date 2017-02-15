@@ -6,8 +6,8 @@
     "files": [
       "assets",
       "index.html",
-      "main.js",
-      "renderer.js",
+      "main",
+      "renderer",
       "node_modules"
     ]
   },

@@ -1,5 +1,5 @@
 {
-  "main": "main.js",
+  "main": "main/index.js",
   "name": "kenrobot",
   "version": "0.1.1",
   "description": "啃萝卜智能硬件平台",

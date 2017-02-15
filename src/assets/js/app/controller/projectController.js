@@ -76,13 +76,14 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		var saveAs = savePath == null;
+		var boardType = hardware.getBoardData().type;
 
 		doProjectSave(projectInfo, saveAs).then(function() {
 			util.modalMessage("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath).then(function(hex) {
+			kenrobot.postMessage("app:buildProject", savePath, {board_type: boardType}).then(function(hex) {
 				util.modalMessage("编译成功，正在上传请稍候");
 				setTimeout(function() {
-					kenrobot.postMessage("app:uploadHex", hex).then(function() {
+					kenrobot.postMessage("app:uploadHex", hex, {board_type: boardType}).then(function() {
 						util.hideModalMessage();
 						util.message({
 							text: "上传成功",
@@ -92,7 +93,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						util.hideModalMessage();
 						onProjectUploadFail(err).then(function(portPath) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:uploadHex2", hex, portPath).then(function() {
+							kenrobot.postMessage("app:uploadHex2", hex, portPath, {board_type: boardType}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",
