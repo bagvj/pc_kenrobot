@@ -9,10 +9,17 @@ const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
+const md5 = require('md5')
+const getmac = require('getmac')
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 let mainWindow
+let macList = [
+	'4bf895eb5b89678109c2b0349f81533b',
+	'd8723d0e1186d85f87a723bbd1666846',
+	'f8ef2aeaf40e695ad24a022d8524191a',
+]
 
 init()
 
@@ -25,6 +32,14 @@ function init() {
 	})) {
 		app.quit()
 	}
+
+	getmac.getMac((err, mac) => {
+		var key = md5(mac.replace(/-/g, ":"))
+		console.log(`${mac} => ${key}`)
+		if(err || macList.indexOf(key) < 0) {
+			app.quit()
+		}
+	})
 
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
@@ -73,7 +88,7 @@ function listenEvent() {
 
 function listenMessage() {
 	ipcMain.on('app:getVersion', (e, deferId) => {
-		console.log(app.getVersion())
+		e.sender.send('app:getVersion', deferId, true, app.getVersion())
 	})
 	.on('app:reload', (e, deferId) => {
 		mainWindow.reload()

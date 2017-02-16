@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron-builder getmac
  */
 
 const gulp = require('gulp') //基础库
@@ -17,6 +17,8 @@ const minifyHtml = require("gulp-minify-html") //html压缩
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
+const getmac = require('getmac') //获取mac地址
+const md5 = require('md5') //
 
 const builder = require('electron-builder') //electron打包
 
@@ -131,11 +133,11 @@ gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
 	var targets
 	if(platform == "linux") {
-		targets = builder.Platform.LINUX.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+		targets = builder.Platform.LINUX.createTarget(args.target || "AppImage", builder.archFromString(args.arch || "ia32"))
 	} else if(platform == "arm") {
-		targets = builder.Platform.LINUX.createTarget("dir", builder.Arch.armv7l)
+		targets = builder.Platform.LINUX.createTarget(args.target || "dir", builder.Arch.armv7l)
 	} else if(platform == "mac") {
-		targets = builder.Platform.MAC.createTarget("dir", builder.archFromString(args.arch || "ia32"))
+		targets = builder.Platform.MAC.createTarget(args.target || "dmg", builder.archFromString(args.arch || "ia32"))
 	} else {
 		targets = builder.Platform.WINDOWS.createTarget(args.target || "dir", builder.archFromString(args.arch || "ia32"))
 	}
@@ -180,4 +182,25 @@ gulp.task('pre-build', ['clean-bin'], _ => {
 		return gulp.src('./dist/win-ia32-unpacked/**/*')
 			.pipe(gulp.dest('./build/bin'))
 	}
+})
+
+gulp.task('mac', _ => {
+	getmac.getMac((err, mac) => {
+		if(err) {
+			console.log(err)
+			return
+		}
+
+		console.log(mac)
+	})
+})
+
+gulp.task('e-mac', _ => {
+	if(!args.mac) {
+		console.log('please spec mac use "--mac"')
+		return
+	}
+
+	var macs = args.mac.split(",")
+	macs.map(mac => mac.replace(/-/g, ":").trim()).forEach(mac => console.log(`${mac} => ${md5(mac)}`))
 })
