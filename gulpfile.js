@@ -202,5 +202,5 @@ gulp.task('e-mac', _ => {
 	}
 
 	var macs = args.mac.split(",")
-	macs.map(mac => mac.replace(/-/g, ":").trim()).forEach(mac => console.log(`${mac} => ${md5(mac)}`))
+	macs.map(mac => mac.replace(/-/g, ":").trim().toUpperCase()).forEach(mac => console.log(`${mac} => ${md5(mac)}`))
 })

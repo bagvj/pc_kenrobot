@@ -19,6 +19,7 @@ let macList = [
 	'4bf895eb5b89678109c2b0349f81533b',
 	'd8723d0e1186d85f87a723bbd1666846',
 	'f8ef2aeaf40e695ad24a022d8524191a',
+	'aae7858848910f56277004d207ea1865',
 ]
 
 init()
@@ -34,7 +35,7 @@ function init() {
 	}
 
 	getmac.getMac((err, mac) => {
-		var key = md5(mac.replace(/-/g, ":"))
+		var key = md5(mac.replace(/-/g, ":").toUpperCase())
 		console.log(`${mac} => ${key}`)
 		if(err || macList.indexOf(key) < 0) {
 			app.quit()
