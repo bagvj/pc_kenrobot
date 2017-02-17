@@ -1,6 +1,0 @@
-{
-	"host": "www.aaa.com",
-	"user": "test",
-	"pass": "this is a password",
-	"remotePath": "/path/to/upload/"
-}
