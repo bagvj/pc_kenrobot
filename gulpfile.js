@@ -71,6 +71,11 @@ gulp.task('clean-views', _ => {
 		.pipe(clean())
 })
 
+gulp.task('clean-config', _ => {
+	return gulp.src(ASSETS_DIST + '*.yml', {read: false})
+		.pipe(clean())
+})
+
 gulp.task('clean-dist', _ => {
 	return gulp.src(DIST, {read: false})
 		.pipe(clean())
@@ -124,6 +129,11 @@ gulp.task('pack-renderer', ['clean-renderer'], _ => {
 
 gulp.task('pack-views', ['clean-views'], _ => {
 	return gulp.src(SRC + 'views/**.html')
+		.pipe(gulp.dest(APP))
+})
+
+gulp.task('pack-config', ['clean-config'], _ => {
+	return gulp.src([SRC + '/app-update.yml'])
 		.pipe(gulp.dest(APP))
 })
 

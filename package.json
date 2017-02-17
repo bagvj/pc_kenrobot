@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^10.17.3",
+    "electron-builder": "^12.3.1",
     "getmac": "^1.2.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
