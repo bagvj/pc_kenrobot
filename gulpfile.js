@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp
  * npm install --save electron-debug electron-is electron-log fs-extra getmac md5 minimist q
  */
 
@@ -15,6 +15,7 @@ const autoprefixer = require('gulp-autoprefixer') //自动前缀
 const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
 const uglify = require('gulp-uglify') //js压缩
 const minifyHtml = require("gulp-minify-html") //html压缩
+const sftp = require('gulp-sftp') //
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -163,14 +164,21 @@ gulp.task('build', ['clean-dist'], callback => {
 		}
 	}).then(result => {
 		console.dir(result)
-		callback()
+		if(!args.upload) {
+			callback()
+			return
+		}
+		
+		var upload = require('./build/upload')
+		gulp.src(result)
+			.pipe(sftp(upload))
 	}, err => {
 		console.error(err)
 		callback(err)
 	})
 })
 
-gulp.task('build-pack', ['build', 'pack'])
+gulp.task('build-pack', ['pack', 'build'])
 
 // 默认任务
 gulp.task('default', ['pack'])
