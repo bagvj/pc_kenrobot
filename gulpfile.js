@@ -163,14 +163,25 @@ gulp.task('build', ['clean-dist'], callback => {
 		}
 	}).then(result => {
 		console.dir(result)
-		callback()
+		if(platform != "win" && args.upload) {
+			console.log("do upload")
+			//输出文件名
+			var output = result[0]
+			var uploadScript = './build/upload.sh'
+			child_process.exec(`${uploadScript} ${output}`, (err, stdout, stderr) => {
+			err && console.error(err)
+			console.log(stdout)
+		})
+		} else {
+			callback()
+		}
 	}, err => {
 		console.error(err)
 		callback(err)
 	})
 })
 
-gulp.task('build-pack', ['build', 'pack'])
+gulp.task('build-pack', ['pack', 'build'])
 
 // 默认任务
 gulp.task('default', ['pack'])
