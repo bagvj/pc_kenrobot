@@ -1,10 +1,10 @@
 @echo off
 
-rem 浣跨敤鏂规硶: upload.bat target COM [board_type]
-rem 鍙傛暟璇存槑: target, hex鎴栬�卋in; board_type, 涓绘澘绫诲瀷
-rem 浣跨敤绀轰緥: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.ino.hex COM5 3. 2. upload.bat c:\project\test.ino.bin COM5 genuino101
+rem 使用方法: upload.bat target COM [board_type]
+rem 参数说明: target, hex或者bin; board_type, 主板类型
+rem 使用示例: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.ino.hex COM5 3. 2. upload.bat c:\project\test.ino.bin COM5 genuino101
 
-rem 鐩爣鏂囦欢璺緞
+rem 目标文件路径
 set TARGET_PATH=%~f1
 
 set DIR=%~dp0
@@ -13,7 +13,7 @@ set LOCAL_ARDUINO_PATH="%DIR%..\arduino-win"
 set UPLOADER="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr\bin\avrdude.exe"
 set UPLOADER_CONF="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr\etc\avrdude.conf"
 
-rem COM绔彛
+rem COM端口
 set ARDUINO_COMPORT=%2
 
 set ARDUINO_MCU=atmega328p

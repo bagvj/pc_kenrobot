@@ -7,7 +7,7 @@
 !include "MUI.nsh"
 !include "WinVer.nsh" 
 
-!insertmacro MUI_LANGUAGE "SimpChinese"
+; !insertmacro MUI_LANGUAGE "SimpChinese"
 
 ; ===================== 安装包版本 =============================
 VIProductVersion             		"${PRODUCT_VERSION}"
