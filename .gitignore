@@ -8,3 +8,4 @@ log
 .DS_Store
 build/bin
 build/output
+build/upload.json

@@ -17,16 +17,18 @@
       "language": 2052
     },
     "dmg": {
-      "contents": [{
-        "x": 114,
-        "y": 196
-      },
-      {
-        "x": 416,
-        "y": 196,
-        "type": "link",
-        "path": "/Applications"
-      }],
+      "contents": [
+        {
+          "x": 114,
+          "y": 196
+        },
+        {
+          "x": 416,
+          "y": 196,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
       "iconSize": 128,
       "title": "¿ÐÂÜ²·"
     }
