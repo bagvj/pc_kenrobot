@@ -10,11 +10,6 @@
     "type": "private",
     "url": "http://www.kenrobot.com"
   },
-  "publish": {
-    "provider": "generic",
-    "owner": "KenRobot",
-    "url": "http://edu.kenrobot.com/pc/"
-  },
   "dependencies": {
     "electron-debug": "^1.1.0",
     "electron-is": "^2.4.0",
@@ -22,6 +17,8 @@
     "electron-updater": "^1.4.2",
     "encoding": "^0.1.12",
     "fs-extra": "^2.0.0",
+    "getmac": "^1.2.1",
+    "md5": "^2.2.1",
     "minimist": "^1.2.0",
     "q": "^1.4.1"
   }

@@ -9,15 +9,19 @@
       "main",
       "renderer",
       "node_modules"
-    ]
+    ],
+    "linux": {
+      "icon": "icon.png"
+    }
   },
   "devDependencies": {
     "electron": "^1.4.15",
     "electron-builder": "^12.3.1",
+    "getmac": "^1.2.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-clean": "^0.3.2",
-    "gulp-clean-css": "^2.3.2",
+    "gulp-clean-css": "^2.4.0",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-minify-html": "^1.0.6",
@@ -25,6 +29,7 @@
     "gulp-requirejs-optimize": "^1.2.0",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-uglify": "^2.0.1",
+    "md5": "^2.2.1",
     "minimist": "^1.2.0",
     "run-sequence": "^1.2.2"
   }

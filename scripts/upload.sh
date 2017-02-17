@@ -1,11 +1,12 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# 使用方法: upload.sh hex COM
-# 使用示例: 1. upload.sh test.hex COM5 2. upload.sh /home/project/test.hex COM5
+# 使用方法: upload.sh target COM [board_type]
+# 参数说明: target, hex或者bin; board_type, 主板类型
+# 使用示例: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5 genuino101
 
-# hex文件路径
-HEX_PATH=$1
+# 目标文件路径
+TARGET_PATH=$1
 
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
@@ -22,11 +23,17 @@ UPLOADER_CONF=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/etc/avrdude.conf
 # COM端口
 ARDUINO_COMPORT=$2
 
+BOARD_TYPE=$3
+
 ARDUINO_MCU=atmega328p
 ARDUINO_PROGRAMMER=arduino
 ARDUINO_BURNRATE=115200
 
-${UPLOADER} -C ${UPLOADER_CONF} -p ${ARDUINO_MCU} -P ${ARDUINO_COMPORT} -c ${ARDUINO_PROGRAMMER} -b ${ARDUINO_BURNRATE} -U "flash:w:${HEX_PATH}:i"
+if [[ ${BOARD_TYPE} = genuino101 ]]; then
+	${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/arduino101load/arduino101load.exe ${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/x86/bin ${TARGET_PATH} ${ARDUINO_COMPORT} verbose ATP1BLE000-1541C5635 141312
+else
+	${UPLOADER} -C ${UPLOADER_CONF} -p ${ARDUINO_MCU} -P ${ARDUINO_COMPORT} -c ${ARDUINO_PROGRAMMER} -b ${ARDUINO_BURNRATE} -U "flash:w:${TARGET_PATH}:i"
+fi
 
 if [ $? -ne 0 ]; then
 	echo upload fail

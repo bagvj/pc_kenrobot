@@ -9,11 +9,18 @@ const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
-const AppUpdater = require('./AppUpdater')
+const md5 = require('md5')
+const getmac = require('getmac')
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 let mainWindow
+let macList = [
+	'4bf895eb5b89678109c2b0349f81533b',
+	'd8723d0e1186d85f87a723bbd1666846',
+	'f8ef2aeaf40e695ad24a022d8524191a',
+	'aae7858848910f56277004d207ea1865',
+]
 
 init()
 
@@ -26,6 +33,14 @@ function init() {
 	})) {
 		app.quit()
 	}
+
+	//getmac.getMac((err, mac) => {
+	//	var key = md5(mac.replace(/-/g, ":").toUpperCase())
+	//	console.log(`${mac} => ${key}`)
+	//	if(err || macList.indexOf(key) < 0) {
+	//		app.quit()
+	//	}
+	//})
 
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
@@ -57,11 +72,6 @@ function createWindow() {
 
 function listenEvent() {
 	app.on('ready', _ => {
-		var exec = require('child_process').exec; 
-		exec('NET SESSION', function(err,so,se) {
-      		console.log(se.length === 0 ? "admin" : "not admin");
-    	})
-		
 		log.debug('app ready')
 
 		is.dev() && args.dev && debug({showDevTools: true})
@@ -83,7 +93,7 @@ function listenEvent() {
 
 function listenMessage() {
 	ipcMain.on('app:getVersion', (e, deferId) => {
-		console.log(app.getVersion())
+		e.sender.send('app:getVersion', deferId, true, app.getVersion())
 	})
 	.on('app:reload', (e, deferId) => {
 		mainWindow.reload()
@@ -522,7 +532,7 @@ function buildProject(file, options) {
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 	execCommand(command).then(_ => {
-		deferred.resolve(path.join(file, "build", path.basename(file) + ".ino.hex"))
+		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
 	}, err => {
 		deferred.reject(err)
 	})
@@ -536,7 +546,7 @@ function uploadHex(hex, com, options) {
 	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
 	log.debug(path.resolve(scriptPath))
-	var command = `${scriptPath} ${hex} ${com}`
+	var command = `${scriptPath} ${hex} ${com} ${options.board_type}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()

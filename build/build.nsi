@@ -2,8 +2,8 @@
 !define PRODUCT_PATHNAME            "kenrobot"                     ; 安装卸载项用到的KEY
 !define INSTALL_APPEND_PATH         "kenrobot"                     ; 安装路径追加的名称 
 !define EXE_NAME                    "kenrobot.exe"                 ; 可执行文件名
-!define PRODUCT_PUBLISHER           "kenrobot"     ; 发布者
-!define PRODUCT_LEGAL               "Copyright 2017"     ; 版权
+!define PRODUCT_PUBLISHER           "北京啃萝卜信息技术有限公司"     ; 发布者
+!define PRODUCT_LEGAL               "啃萝卜 Copyright（c）2017"     ; 版权
 
 !define INSTALL_LICENCE_FILENAME    "license.txt"                  ; 使用许可
 !define INSTALL_ICO                 "icon.ico"                     ; 安装图标

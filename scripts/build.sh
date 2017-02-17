@@ -26,16 +26,21 @@ else
 fi
 
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
-HARDWARE=${LOCAL_ARDUINO_PATH}/hardware
-TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr
+HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
+TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
 LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
-FQBN=arduino:avr:${BOARD_TYPE}
 
 if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
-${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+if [[ ${BOARD_TYPE} = genuino101 ]]; then
+	FQBN=Intel:arc32:arduino_101
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all -prefs=runtime.tools.arduino101load.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28 -prefs=runtime.tools.flashpack.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/flashpack/1.0.0 -prefs=runtime.tools.openocd.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/openocd/0.9.0+0.1 -prefs=runtime.tools.arc-elf32.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arc-elf32/1.6.9+1.0.1 ${SKETCH}
+else
+	FQBN=arduino:avr:${BOARD_TYPE}
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+fi
 
 if [ $? -ne 0 ]; then
 	echo build fail
