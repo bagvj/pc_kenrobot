@@ -9,3 +9,4 @@ log
 build/bin
 build/output
 build/upload.json
+app/mac.txt
