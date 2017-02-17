@@ -42,7 +42,7 @@ function init() {
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 
-	log.debug("app start")
+	log.debug(`app start, version ${app.getVersion()}`)
 
 	listenEvent()
 	listenMessage()
@@ -52,7 +52,8 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1280,
 		height: 800,
-		frame: false
+		frame: false,
+		show: false
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
@@ -61,6 +62,8 @@ function createWindow() {
 
 	mainWindow.on('closed', _ => {
 		mainWindow = null
+	}).once('ready-to-show', () => {
+		mainWindow.show()
 	})
 }
 
@@ -71,6 +74,7 @@ function listenEvent() {
 		is.dev() && args.dev && debug({showDevTools: true})
 
 		createWindow()
+		// AppUpdater.init(mainWindow)
 	}).on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
 			app.quit()
