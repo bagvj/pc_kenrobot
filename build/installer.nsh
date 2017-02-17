@@ -1,0 +1,1 @@
+LicenseText "kenrobot" "同意"
