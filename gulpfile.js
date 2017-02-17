@@ -181,9 +181,7 @@ gulp.task('build', ['clean-dist'], callback => {
 	})
 })
 
-gulp.task('build-pack', _ => {
-	return runSequence(['pack', 'build'])
-})
+gulp.task('build-pack', ['pack', 'build'])
 
 // 默认任务
 gulp.task('default', ['pack'])
