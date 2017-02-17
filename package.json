@@ -2,7 +2,7 @@
   "private": true,
   "build": {
     "appId": "com.kenrobot.KenRobot",
-    "compression": "store",
+    "compression": "maximum",
     "files": [
       "assets",
       "index.html",
@@ -12,6 +12,23 @@
     ],
     "linux": {
       "icon": "icon.png"
+    },
+    "nsis": {
+      "language": 2052
+    },
+    "dmg": {
+      "contents": [{
+        "x": 114,
+        "y": 196
+      },
+      {
+        "x": 416,
+        "y": 196,
+        "type": "link",
+        "path": "/Applications"
+      }],
+      "iconSize": 128,
+      "title": "¿ÐÂÜ²·"
     }
   },
   "devDependencies": {
