@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, net, dialog, shell} = require('electron')
+﻿const {app, BrowserWindow, ipcMain, net, dialog, shell} = require('electron')
 
 const child_process = require('child_process')
 const path = require('path')
@@ -26,7 +26,8 @@ let macList = [
 	'865adc2a7de563669c3de950a3e06f75',
 	'28a9c25b231e1dc4a0c58939881e0a77',
 	'fed320b2cde5402298c33122e4ef4300',
-    '830888fcdc8f631b5cbd5998388e3b08',
+	'830888fcdc8f631b5cbd5998388e3b08',
+	'02845031fada175f47836fc8c09d5afe',
 ]
 
 init()
