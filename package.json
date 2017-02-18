@@ -11,7 +11,7 @@
       "node_modules"
     ],
     "linux": {
-      "icon": "build/icon"
+      "icon": "icon"
     },
     "nsis": {
       "language": 2052
