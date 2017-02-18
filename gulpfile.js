@@ -223,3 +223,17 @@ gulp.task('e-mac', _ => {
 	var macs = args.mac.split(",")
 	macs.map(mac => mac.replace(/-/g, ":").trim().toUpperCase()).forEach(mac => console.log(`${mac} => ${md5(mac)}`))
 })
+
+gulp.task('upload', _ => {
+	if(!args.file) {
+		console.log('please spec file use "--file"')
+		return
+	}
+
+	var config = require('./build/upload')
+	args.remotePath && (config.remotePath = args.remotePath)
+	
+	var files = args.file.split(',')
+	return gulp.src(files)
+		.pipe(sftp(config))
+})
