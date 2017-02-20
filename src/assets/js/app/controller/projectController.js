@@ -23,8 +23,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function onAppStart() {
-		hardware.loadSchema(schema.hardware);
-		software.loadSchema(schema.software);
+		hardware.loadSchema(schema);
+		software.loadSchema(schema);
 		
 		openProject(getDefaultProject());
 	}

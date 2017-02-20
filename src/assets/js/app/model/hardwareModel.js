@@ -1,4 +1,4 @@
-define(['vendor/jsPlumb'], function() {
+define(['vendor/jsPlumb', 'app/util/util'], function($1, util) {
 
 	var config = {
 		color: '#F1C933',
@@ -120,11 +120,14 @@ define(['vendor/jsPlumb'], function() {
 			components: {},
 		};
 
+		var prefix = "assets/image/";
 		_schema.boards.forEach(function(board) {
+			board.imageUrl = prefix + "board/" + board.name + ".png";
 			schema.boards[board.name] = board;
 		});
 
 		_schema.components.forEach(function(component) {
+			component.imageUrl = prefix + "component/" + component.name + ".png";
 			schema.components[component.name] = component;
 		});
 	}
@@ -279,7 +282,7 @@ define(['vendor/jsPlumb'], function() {
 		delete componentData.x;
 		delete componentData.y;
 
-		componentData.uid = componentData.uid || jsPlumbUtil.uuid();
+		componentData.uid = componentData.uid || util.uuid(6);
 		componentData.pins = componentData.pins || {};
 		componentData.varName = componentData.varName || genVarName(componentData.name);
 		componentData.code = clone(componentConfig.code);
@@ -312,7 +315,7 @@ define(['vendor/jsPlumb'], function() {
 			var type = pin.tags.join(" ");
 			!componentData.endpoints && (endpoints[pin.name] = {
 				type: type,
-				uid: jsPlumbUtil.uuid()
+				uid: util.uuid(6)
 			});
 
 			componentData.pins[pin.name] = componentData.pins[pin.name] || "";
