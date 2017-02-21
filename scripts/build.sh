@@ -1,11 +1,11 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# 使用方法: build.sh 项目名 主板类型
-# 使用示例: 1. build.sh test uno 2. build.sh /home/project/test uno
+# useage:  build.sh project_path board_type
+# example: 1. build.sh test uno 2. build.sh /home/project/test uno
 
 if [ $# -ne 2 ];then
-	echo "参数个数必须为2"
+	echo "2 arguments required"
     exit 1
 fi
 
@@ -35,11 +35,9 @@ if [ ! -d ${BUILD_PATH} ]; then
 fi
 
 if [[ ${BOARD_TYPE} = genuino101 ]]; then
-	FQBN=Intel:arc32:arduino_101
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all -prefs=runtime.tools.arduino101load.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28 -prefs=runtime.tools.flashpack.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/flashpack/1.0.0 -prefs=runtime.tools.openocd.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/openocd/0.9.0+0.1 -prefs=runtime.tools.arc-elf32.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arc-elf32/1.6.9+1.0.1 ${SKETCH}
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn="Intel:arc32:arduino_101" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all -prefs=runtime.tools.arduino101load.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28 -prefs=runtime.tools.flashpack.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/flashpack/1.0.0 -prefs=runtime.tools.openocd.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/openocd/0.9.0+0.1 -prefs=runtime.tools.arc-elf32.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arc-elf32/1.6.9+1.0.1 ${SKETCH}
 else
-	FQBN=arduino:avr:${BOARD_TYPE}
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 fi
 
 if [ $? -ne 0 ]; then

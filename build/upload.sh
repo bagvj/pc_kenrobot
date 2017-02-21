@@ -1,1 +1,0 @@
-echo try to upload "$1" to server
