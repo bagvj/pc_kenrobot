@@ -1625,164 +1625,6 @@ define(function() {
 			"uid": "XikIW2"
 		}, {
 			"type": "output",
-			"name": "digitalReadAdvanced",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "0ucjX5"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "读取引脚"
-			}, {
-				"blockInputId": "PIN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "0ucjX5"
-			}, {
-				"type": "text",
-				"value": "的数字量"
-			}],
-			"code": "digitalRead({PIN})",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": [
-				"module",
-				"advanced"
-			],
-			"module": "default",
-			"uid": "xhc6IF"
-		}, {
-			"type": "output",
-			"name": "analogReadAdvanced",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "OAFY87"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "读取引脚"
-			}, {
-				"blockInputId": "PIN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "OAFY87"
-			}, {
-				"type": "text",
-				"value": "的模拟量"
-			}],
-			"code": "analogRead({PIN})",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": [
-				"module",
-				"advanced"
-			],
-			"module": "default",
-			"uid": "CrAfJs"
-		}, {
-			"type": "statement",
-			"name": "analogWriteAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "o0Lbdw"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "qwtp3O"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "设置引脚"
-			}, {
-				"blockInputId": "PIN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "o0Lbdw"
-			}, {
-				"type": "text",
-				"value": "模拟量为"
-			}, {
-				"blockInputId": "DATA",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "qwtp3O"
-			}],
-			"code": "analogWrite({PIN},{DATA});",
-			"tags": [
-				"module",
-				"advanced"
-			],
-			"module": "default",
-			"uid": "pf9d0N"
-		}, {
-			"type": "statement",
-			"name": "digitalWriteAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "8nQwAR"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "yd6jNr"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "设置引脚"
-			}, {
-				"blockInputId": "PIN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "8nQwAR"
-			}, {
-				"type": "text",
-				"value": "数字量为"
-			}, {
-				"blockInputId": "DATA",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "yd6jNr"
-			}],
-			"code": "digitalWrite({PIN},{DATA});",
-			"tags": [
-				"module",
-				"advanced"
-			],
-			"module": "default",
-			"uid": "fJeoIf"
-		}, {
-			"type": "output",
 			"name": "hts221Temperature",
 			"connectors": [{
 				"type": "connector-output",
@@ -2695,7 +2537,7 @@ define(function() {
 			"uid": "riThuE"
 		}, {
 			"type": "statement",
-			"name": "serialSend-v1",
+			"name": "serialSend",
 			"connectors": [{
 				"type": "connector-top",
 				"accept": "connector-bottom"
@@ -2733,6 +2575,164 @@ define(function() {
 			],
 			"module": "serial",
 			"uid": "p3UznJ"
+		}, {
+			"type": "output",
+			"name": "digitalReadAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "0ucjX5"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取引脚"
+			}, {
+				"blockInputId": "PIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "0ucjX5"
+			}, {
+				"type": "text",
+				"value": "的数字量"
+			}],
+			"code": "digitalRead({PIN})",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": [
+				"module",
+				"advanced"
+			],
+			"module": "default",
+			"uid": "xhc6IF"
+		}, {
+			"type": "output",
+			"name": "analogReadAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "OAFY87"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取引脚"
+			}, {
+				"blockInputId": "PIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "OAFY87"
+			}, {
+				"type": "text",
+				"value": "的模拟量"
+			}],
+			"code": "analogRead({PIN})",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": [
+				"module",
+				"advanced"
+			],
+			"module": "default",
+			"uid": "CrAfJs"
+		}, {
+			"type": "statement",
+			"name": "analogWriteAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "o0Lbdw"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "qwtp3O"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置引脚"
+			}, {
+				"blockInputId": "PIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "o0Lbdw"
+			}, {
+				"type": "text",
+				"value": "模拟量为"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "qwtp3O"
+			}],
+			"code": "analogWrite({PIN},{DATA});",
+			"tags": [
+				"module",
+				"advanced"
+			],
+			"module": "default",
+			"uid": "pf9d0N"
+		}, {
+			"type": "statement",
+			"name": "digitalWriteAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "8nQwAR"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "yd6jNr"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置引脚"
+			}, {
+				"blockInputId": "PIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "8nQwAR"
+			}, {
+				"type": "text",
+				"value": "数字量为"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "yd6jNr"
+			}],
+			"code": "digitalWrite({PIN},{DATA});",
+			"tags": [
+				"module",
+				"advanced"
+			],
+			"module": "default",
+			"uid": "fJeoIf"
 		}, {
 			"type": "output",
 			"name": "returnComponent",
@@ -2859,7 +2859,7 @@ define(function() {
 			"uid": "EH9wYs"
 		}, {
 			"type": "statement",
-			"name": "continuousServoStartAdvanced-v1",
+			"name": "continuousServoStartAdvanced",
 			"connectors": [{
 				"type": "connector-top",
 				"accept": "connector-bottom"
@@ -3278,6 +3278,738 @@ define(function() {
 				"advanced"
 			],
 			"uid": "nDEGXV"
+		}, {
+			"type": "output",
+			"name": "string",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "\""
+			}, {
+				"id": "TEXT",
+				"type": "string-input",
+				"placeholder": "文本"
+			}, {
+				"type": "text",
+				"value": "\""
+			}],
+			"code": "\"{TEXT}\"",
+			"returnType": {
+				"type": "simple",
+				"value": "String"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "kp7kKD"
+		}, {
+			"type": "output",
+			"name": "stringArray",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "大小为"
+			}, {
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 3
+			}, {
+				"type": "text",
+				"value": "的文本数组"
+			}],
+			"code": "(String *)malloc({VALUE}*sizeof(String))",
+			"returnType": {
+				"type": "simple",
+				"value": "String *"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "AXBfge"
+		}, {
+			"type": "output",
+			"name": "length",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "String",
+				"name": "DmY3cY"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "文本长度"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "String",
+				"name": "DmY3cY"
+			}],
+			"code": "{TEXT}.length()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "zWVg0E"
+		}, {
+			"type": "output",
+			"name": "stringCreate",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "tIQZ0R"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "创建一个文本"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "tIQZ0R"
+			}],
+			"code": "String({TEXT})",
+			"returnType": {
+				"type": "simple",
+				"value": "String"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "1ZtonP"
+		}, {
+			"type": "output",
+			"name": "stringSum",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "String",
+				"name": "nkbOkw"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "String",
+				"name": "4kdQw8"
+			}],
+			"content": [{
+				"blockInputId": "ARG1",
+				"type": "block-input",
+				"acceptType": "String",
+				"name": "nkbOkw"
+			}, {
+				"type": "text",
+				"value": "+"
+			}, {
+				"blockInputId": "ARG2",
+				"type": "block-input",
+				"acceptType": "String",
+				"name": "4kdQw8"
+			}],
+			"code": "String({ARG1})+String({ARG2})",
+			"returnType": {
+				"type": "simple",
+				"value": "String"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "9sXabi"
+		}, {
+			"type": "output",
+			"name": "boolean",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "True",
+					"value": "true"
+				}, {
+					"label": "False",
+					"value": "false"
+				}]
+			}],
+			"code": "{STATE}",
+			"returnType": {
+				"type": "simple",
+				"value": "bool"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "nllNTV"
+		}, {
+			"type": "output",
+			"name": "boolArray",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "大小为"
+			}, {
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "的布尔数组"
+			}],
+			"code": "(bool *)malloc({VALUE}*sizeof(bool))",
+			"returnType": {
+				"type": "simple",
+				"value": "bool *"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "KiTI7b"
+		}, {
+			"type": "output",
+			"name": "number",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 0
+			}],
+			"code": "{VALUE}",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "6kmKjU"
+		}, {
+			"type": "output",
+			"name": "numberArray",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "大小为"
+			}, {
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 3
+			}, {
+				"type": "text",
+				"value": "的浮点数数组"
+			}],
+			"code": "(float*)malloc({VALUE}*sizeof(float))",
+			"returnType": {
+				"type": "simple",
+				"value": "float *"
+			},
+			"tags": [
+				"data"
+			],
+			"uid": "HishdZ"
+		}, {
+			"type": "output",
+			"name": "stringArrayAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "pYYLrj"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数组，大小:"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "pYYLrj"
+			}, {
+				"type": "text",
+				"value": "类型:"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "文本",
+					"value": "String *"
+				}, {
+					"label": "字符",
+					"value": "char *"
+				}]
+			}],
+			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
+			"returnType": {
+				"type": "fromDropdown",
+				"id": "TYPE",
+				"options": "vars"
+			},
+			"tags": [
+				"data",
+				"advanced"
+			],
+			"uid": "vQnRye"
+		}, {
+			"type": "output",
+			"name": "char",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "'"
+			}, {
+				"id": "TEXT",
+				"type": "char-input",
+				"placeholder": "字符"
+			}, {
+				"type": "text",
+				"value": "'"
+			}],
+			"code": "'{TEXT}'",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": [
+				"data",
+				"advanced"
+			],
+			"uid": "iltYPk"
+		}, {
+			"type": "output",
+			"name": "numberArrayAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "mjLjIp"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数组，大小:"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "mjLjIp"
+			}, {
+				"type": "text",
+				"value": "类型:"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "浮点数",
+					"value": "float *"
+				}, {
+					"label": "整数",
+					"value": "int *"
+				}]
+			}],
+			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
+			"returnType": {
+				"type": "fromSelect",
+				"id": "TYPE",
+				"options": "vars"
+			},
+			"tags": [
+				"data",
+				"advanced"
+			],
+			"uid": "QEMney"
+		}, {
+			"type": "statement",
+			"name": "declareVariable",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "lTv4pX"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "var-input",
+				"value": ""
+			}, {
+				"type": "text",
+				"value": "="
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "lTv4pX"
+			}],
+			"returnType": {
+				"type": "fromInput",
+				"blockInputId": "VALUE"
+			},
+			"createDynamicContent": "vars",
+			"code": "{VALUE.connectionType} {NAME} = {VALUE};",
+			"tags": [
+				"variable"
+			],
+			"uid": "UUlc76"
+		}, {
+			"type": "output",
+			"name": "selectVariable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "VAR",
+				"type": "dynamic-select",
+				"options": "vars"
+			}],
+			"code": "{VAR}",
+			"returnType": {
+				"type": "fromDynamicSelect",
+				"id": "VAR",
+				"options": "vars"
+			},
+			"tags": [
+				"variable"
+			],
+			"uid": "eY9sHc"
+		}, {
+			"type": "statement",
+			"name": "setVariable",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "3heG3z"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "NAME",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "="
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": {
+					"type": "fromDynamicSelect",
+					"id": "NAME",
+					"options": "vars"
+				},
+				"name": "3heG3z"
+			}],
+			"code": "{NAME} = {VALUE};",
+			"tags": [
+				"variable"
+			],
+			"uid": "R5KH9G"
+		}, {
+			"type": "output",
+			"name": "arrayVariable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "VAR",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "["
+			}, {
+				"id": "POSITION",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "]"
+			}],
+			"code": "{VAR}[{POSITION}]",
+			"returnType": {
+				"type": "fromDynamicSelect",
+				"id": "VAR",
+				"pointer": "true",
+				"options": "vars"
+			},
+			"tags": [
+				"variable"
+			],
+			"uid": "Wp89X0"
+		}, {
+			"type": "statement",
+			"name": "setArrayVariable",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": {
+					"type": "fromDynamicSelect",
+					"id": "NAME",
+					"pointer": "true",
+					"options": "vars"
+				},
+				"name": "mWxqPh"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "NAME",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "["
+			}, {
+				"id": "ITERATOR",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "]"
+			}, {
+				"type": "text",
+				"value": "="
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": {
+					"type": "fromDynamicSelect",
+					"id": "NAME",
+					"pointer": "true",
+					"options": "vars"
+				},
+				"name": "mWxqPh"
+			}],
+			"code": "{NAME}[{ITERATOR}] = {VALUE};",
+			"tags": [
+				"variable"
+			],
+			"uid": "NCcGrH"
+		}, {
+			"type": "output",
+			"name": "arrayVariableAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "7Fu0OD"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "VAR",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "["
+			}, {
+				"blockInputId": "POSITION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "7Fu0OD"
+			}, {
+				"type": "text",
+				"value": "]"
+			}],
+			"code": "{VAR}[{POSITION}]",
+			"returnType": {
+				"type": "fromDynamicSelect",
+				"id": "VAR",
+				"pointer": "true",
+				"options": "vars"
+			},
+			"tags": [
+				"variable",
+				"advanced"
+			],
+			"uid": "EYPRz3"
+		}, {
+			"type": "statement",
+			"name": "setArrayVariableAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "LFEXe6"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "BppPJp"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "变量"
+			}, {
+				"id": "NAME",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "["
+			}, {
+				"blockInputId": "ITERATOR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "LFEXe6"
+			}, {
+				"type": "text",
+				"value": "]"
+			}, {
+				"type": "text",
+				"value": "="
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "BppPJp"
+			}],
+			"code": "{NAME}[{ITERATOR}] = {VALUE};",
+			"tags": [
+				"variable",
+				"advanced"
+			],
+			"uid": "V73XC2"
+		}, {
+			"type": "statement",
+			"name": "declareVariableAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "FfAMeF"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "var-input",
+				"value": ""
+			}, {
+				"type": "text",
+				"value": "为类型"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "整数",
+					"value": "int"
+				}, {
+					"label": "浮点数",
+					"value": "float"
+				}, {
+					"label": "文本",
+					"value": "String"
+				}, {
+					"label": "字符",
+					"value": "char"
+				}, {
+					"label": "布尔",
+					"value": "bool"
+				}]
+			}, {
+				"type": "text",
+				"value": "="
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "FfAMeF"
+			}],
+			"returnType": {
+				"type": "fromDropdown",
+				"id": "TYPE"
+			},
+			"createDynamicContent": "vars",
+			"code": "{TYPE} {NAME} = {VALUE};",
+			"tags": [
+				"variable",
+				"advanced"
+			],
+			"uid": "CNa5uK"
 		}, {
 			"type": "statement-input",
 			"name": "voidFunction",
@@ -3711,8 +4443,8 @@ define(function() {
 			],
 			"uid": "fkkekW"
 		}, {
-			"type": "statement",
-			"name": "declareVariable",
+			"type": "statement-input",
+			"name": "if",
 			"connectors": [{
 				"type": "connector-top",
 				"accept": "connector-bottom"
@@ -3720,446 +4452,771 @@ define(function() {
 				"type": "connector-bottom",
 				"accept": "connector-top"
 			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "lTv4pX"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "定义变量"
-			}, {
-				"id": "NAME",
-				"type": "var-input",
-				"value": ""
-			}, {
-				"type": "text",
-				"value": "="
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "lTv4pX"
-			}],
-			"returnType": {
-				"type": "fromInput",
-				"blockInputId": "VALUE"
-			},
-			"createDynamicContent": "vars",
-			"code": "{VALUE.connectionType} {NAME} = {VALUE};",
-			"tags": [
-				"variable"
-			],
-			"uid": "UUlc76"
-		}, {
-			"type": "output",
-			"name": "selectVariable",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "变量"
-			}, {
-				"id": "VAR",
-				"type": "dynamic-select",
-				"options": "vars"
-			}],
-			"code": "{VAR}",
-			"returnType": {
-				"type": "fromDynamicSelect",
-				"id": "VAR",
-				"options": "vars"
-			},
-			"tags": [
-				"variable"
-			],
-			"uid": "eY9sHc"
-		}, {
-			"type": "statement",
-			"name": "setVariable",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
+				"type": "connector-root",
 				"accept": "connector-top"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
 				"acceptType": "all",
-				"name": "3heG3z"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "变量"
-			}, {
-				"id": "NAME",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "="
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": {
-					"type": "fromDynamicSelect",
-					"id": "NAME",
-					"options": "vars"
-				},
-				"name": "3heG3z"
-			}],
-			"code": "{NAME} = {VALUE};",
-			"tags": [
-				"variable"
-			],
-			"uid": "R5KH9G"
-		}, {
-			"type": "output",
-			"name": "arrayVariable",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "变量"
-			}, {
-				"id": "VAR",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "["
-			}, {
-				"id": "POSITION",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "]"
-			}],
-			"code": "{VAR}[{POSITION}]",
-			"returnType": {
-				"type": "fromDynamicSelect",
-				"id": "VAR",
-				"pointer": "true",
-				"options": "vars"
-			},
-			"tags": [
-				"variable"
-			],
-			"uid": "Wp89X0"
-		}, {
-			"type": "statement",
-			"name": "setArrayVariable",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": {
-					"type": "fromDynamicSelect",
-					"id": "NAME",
-					"pointer": "true",
-					"options": "vars"
-				},
-				"name": "mWxqPh"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "变量"
-			}, {
-				"id": "NAME",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "["
-			}, {
-				"id": "ITERATOR",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "]"
-			}, {
-				"type": "text",
-				"value": "="
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": {
-					"type": "fromDynamicSelect",
-					"id": "NAME",
-					"pointer": "true",
-					"options": "vars"
-				},
-				"name": "mWxqPh"
-			}],
-			"code": "{NAME}[{ITERATOR}] = {VALUE};",
-			"tags": [
-				"variable"
-			],
-			"uid": "NCcGrH"
-		}, {
-			"type": "output",
-			"name": "arrayVariableAdvanced",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"name": "OI44Ub"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
 				"acceptType": "all",
-				"name": "7Fu0OD"
+				"name": "jLrfjv"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "变量"
+				"value": "如果"
 			}, {
-				"id": "VAR",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "["
-			}, {
-				"blockInputId": "POSITION",
+				"blockInputId": "ARG1",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "7Fu0OD"
+				"name": "OI44Ub"
 			}, {
-				"type": "text",
-				"value": "]"
-			}],
-			"code": "{VAR}[{POSITION}]",
-			"returnType": {
-				"type": "fromDynamicSelect",
-				"id": "VAR",
-				"pointer": "true",
-				"options": "vars"
-			},
-			"tags": [
-				"variable",
-				"advanced"
-			],
-			"uid": "EYPRz3"
-		}, {
-			"type": "statement",
-			"name": "setArrayVariableAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "LFEXe6"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "BppPJp"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "变量"
-			}, {
-				"id": "NAME",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "["
-			}, {
-				"blockInputId": "ITERATOR",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "LFEXe6"
-			}, {
-				"type": "text",
-				"value": "]"
-			}, {
-				"type": "text",
-				"value": "="
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "BppPJp"
-			}],
-			"code": "{NAME}[{ITERATOR}] = {VALUE};",
-			"tags": [
-				"variable",
-				"advanced"
-			],
-			"uid": "V73XC2"
-		}, {
-			"type": "statement",
-			"name": "declareVariableAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "FfAMeF"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "定义变量"
-			}, {
-				"id": "NAME",
-				"type": "var-input",
-				"value": ""
-			}, {
-				"type": "text",
-				"value": "为类型"
-			}, {
-				"id": "TYPE",
+				"id": "OPERATOR",
 				"type": "static-select",
 				"options": [{
-					"label": "整数",
-					"value": "int"
+					"label": "=",
+					"value": "=="
 				}, {
-					"label": "浮点数",
-					"value": "float"
+					"label": "!=",
+					"value": "!="
 				}, {
-					"label": "文本",
-					"value": "String"
+					"label": ">",
+					"value": ">"
 				}, {
-					"label": "字符",
-					"value": "char"
+					"label": ">=",
+					"value": ">="
 				}, {
-					"label": "布尔",
-					"value": "bool"
+					"label": "<",
+					"value": "<"
+				}, {
+					"label": "<=",
+					"value": "<="
 				}]
 			}, {
-				"type": "text",
-				"value": "="
-			}, {
-				"blockInputId": "VALUE",
+				"blockInputId": "ARG2",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "FfAMeF"
+				"name": "jLrfjv"
+			}, {
+				"type": "text",
+				"value": "那么"
 			}],
-			"returnType": {
-				"type": "fromDropdown",
-				"id": "TYPE"
-			},
-			"createDynamicContent": "vars",
-			"code": "{TYPE} {NAME} = {VALUE};",
+			"code": "if({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
 			"tags": [
-				"variable",
-				"advanced"
+				"logic"
 			],
-			"uid": "CNa5uK"
+			"uid": "heBaUa"
 		}, {
-			"type": "statement",
-			"name": "comment",
+			"type": "statement-input",
+			"name": "elseif",
 			"connectors": [{
 				"type": "connector-top",
 				"accept": "connector-bottom"
 			}, {
 				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "2zRq0N"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Tr9bYT"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "否则如果"
+			}, {
+				"blockInputId": "ARG1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "2zRq0N"
+			}, {
+				"id": "OPERATOR",
+				"type": "static-select",
+				"options": [{
+					"label": "=",
+					"value": "=="
+				}, {
+					"label": "!=",
+					"value": "!="
+				}, {
+					"label": ">",
+					"value": ">"
+				}, {
+					"label": ">=",
+					"value": ">="
+				}, {
+					"label": "<",
+					"value": "<"
+				}, {
+					"label": "<=",
+					"value": "<="
+				}]
+			}, {
+				"blockInputId": "ARG2",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Tr9bYT"
+			}, {
+				"type": "text",
+				"value": "那么"
+			}],
+			"code": "else if ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"tags": [
+				"logic"
+			],
+			"uid": "yaqR8I"
+		}, {
+			"type": "statement-input",
+			"name": "else",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
 				"accept": "connector-top"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "注释 //"
-			}, {
-				"id": "COMMENT",
-				"type": "comment-input",
-				"placeholder": "输入你的注释"
+				"value": "否则，那么"
 			}],
-			"code": "/*\n{COMMENT}\n*/",
+			"code": "else {{STATEMENTS}}",
 			"tags": [
-				"code"
+				"logic"
 			],
-			"uid": "iKZF8b"
+			"uid": "ZfRdU7"
 		}, {
-			"type": "statement",
-			"name": "code",
+			"type": "statement-input",
+			"name": "switch",
 			"connectors": [{
 				"type": "connector-top",
 				"accept": "connector-bottom"
 			}, {
 				"type": "connector-bottom",
 				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
 			}],
 			"content": [{
-				"id": "CODE",
-				"type": "code-input",
-				"value": "",
-				"placeholder": "输入你自己的代码"
+				"type": "text",
+				"value": "判断变量"
+			}, {
+				"id": "VAR",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "的值为"
 			}],
-			"code": "{CODE}\n",
+			"code": "switch (int({VAR})) {{STATEMENTS}}",
 			"tags": [
-				"code"
+				"logic"
 			],
-			"uid": "fRkMEy"
+			"uid": "3zhrCA"
 		}, {
-			"type": "output",
-			"name": "number",
+			"type": "statement-input",
+			"name": "for",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
 			}],
 			"content": [{
-				"id": "VALUE",
+				"type": "text",
+				"value": "计数循环变量"
+			}, {
+				"id": "VAR",
+				"type": "dynamic-select",
+				"options": "vars"
+			}, {
+				"type": "text",
+				"value": "从"
+			}, {
+				"id": "INIT",
 				"type": "number-input",
 				"value": 0
+			}, {
+				"type": "text",
+				"value": "到"
+			}, {
+				"id": "FINAL",
+				"type": "number-input",
+				"value": 10
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "自增",
+					"value": "+"
+				}, {
+					"label": "自减",
+					"value": "-"
+				}]
+			}, {
+				"id": "ADD",
+				"type": "number-input",
+				"value": 1
+			}, {
+				"type": "text",
+				"value": "执行"
 			}],
-			"code": "{VALUE}",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"eval": true,
 			"tags": [
-				"time"
+				"logic"
 			],
-			"uid": "6kmKjU"
+			"uid": "0ByIUU"
 		}, {
-			"type": "output",
-			"name": "numberArray",
+			"type": "statement-input",
+			"name": "while",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "1FYyjA"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "TpgKyQ"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "大小为"
+				"value": "如果"
 			}, {
-				"id": "VALUE",
-				"type": "number-input",
-				"value": 3
+				"blockInputId": "ARG1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "1FYyjA"
+			}, {
+				"id": "OPERATOR",
+				"type": "static-select",
+				"options": [{
+					"label": "=",
+					"value": "=="
+				}, {
+					"label": "!=",
+					"value": "!="
+				}, {
+					"label": ">",
+					"value": ">"
+				}, {
+					"label": ">=",
+					"value": ">="
+				}, {
+					"label": "<",
+					"value": "<"
+				}, {
+					"label": "<=",
+					"value": "<="
+				}]
+			}, {
+				"blockInputId": "ARG2",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "TpgKyQ"
 			}, {
 				"type": "text",
-				"value": "的浮点数数组"
+				"value": "则一直循环执行"
 			}],
-			"code": "(float*)malloc({VALUE}*sizeof(float))",
+			"code": "while ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"tags": [
+				"logic"
+			],
+			"uid": "5RidrE"
+		}, {
+			"type": "statement-input",
+			"name": "case",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果变量值为"
+			}, {
+				"id": "VAR",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "那么"
+			}],
+			"code": "case {VAR}:{{STATEMENTS}break;}",
+			"tags": [
+				"logic"
+			],
+			"uid": "ff0qMf"
+		}, {
+			"type": "statement-input",
+			"name": "caseDefault",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果都不是，那么"
+			}],
+			"code": "default:{{STATEMENTS}break;}",
+			"tags": [
+				"logic"
+			],
+			"uid": "vkklu3"
+		}, {
+			"type": "statement",
+			"name": "continue",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "开始下一次循环"
+			}],
+			"code": "continue;",
+			"tags": [
+				"logic"
+			],
+			"uid": "CmAGXf"
+		}, {
+			"type": "statement",
+			"name": "break",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "结束本轮循环"
+			}],
+			"code": "break;",
+			"tags": [
+				"logic"
+			],
+			"uid": "vbxsf7"
+		}, {
+			"type": "statement-input",
+			"name": "else",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "否则，那么"
+			}],
+			"code": "else {{STATEMENTS}}",
+			"tags": [
+				"logic"
+			],
+			"uid": "kEK1px"
+		}, {
+			"type": "statement-input",
+			"name": "ifAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "zgnZL5"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果"
+			}, {
+				"blockInputId": "CONDITION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "zgnZL5"
+			}, {
+				"type": "text",
+				"value": "那么"
+			}],
+			"code": "if({CONDITION}){{STATEMENTS}}",
+			"tags": [
+				"logic",
+				"advanced"
+			],
+			"uid": "LoJkxZ"
+		}, {
+			"type": "statement-input",
+			"name": "elseifAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "FH6cUn"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "否则如果"
+			}, {
+				"blockInputId": "VAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "FH6cUn"
+			}, {
+				"type": "text",
+				"value": "那么"
+			}],
+			"code": "else if ({VAR}){{STATEMENTS}}",
+			"tags": [
+				"logic",
+				"advanced"
+			],
+			"uid": "SB5Ph7"
+		}, {
+			"type": "statement-input",
+			"name": "forAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "9cShpo"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NMURWf"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "2vdfRL"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "计数循环变量"
+			}, {
+				"blockInputId": "VAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "9cShpo"
+			}, {
+				"type": "text",
+				"value": "从"
+			}, {
+				"blockInputId": "INIT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NMURWf"
+			}, {
+				"type": "text",
+				"value": "到"
+			}, {
+				"blockInputId": "FINAL",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "2vdfRL"
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "自增",
+					"value": "+"
+				}, {
+					"label": "自减",
+					"value": "-"
+				}]
+			}, {
+				"id": "ADD",
+				"type": "number-input",
+				"value": 1
+			}, {
+				"type": "text",
+				"value": "执行"
+			}],
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"eval": true,
+			"tags": [
+				"logic",
+				"advanced"
+			],
+			"uid": "0sHb8t"
+		}, {
+			"type": "statement-input",
+			"name": "switchAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "kyrV6g"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "判断变量"
+			}, {
+				"blockInputId": "VAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "kyrV6g"
+			}],
+			"code": "switch (int({VAR})) {{STATEMENTS}}",
+			"tags": [
+				"logic",
+				"advanced"
+			],
+			"uid": "Mjse7L"
+		}, {
+			"type": "statement-input",
+			"name": "whileAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Co2L2T"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果"
+			}, {
+				"blockInputId": "CONDITION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Co2L2T"
+			}, {
+				"type": "text",
+				"value": "则一直循环执行"
+			}],
+			"code": "while ({CONDITION}){{STATEMENTS}}",
+			"tags": [
+				"logic",
+				"advanced"
+			],
+			"uid": "3N9W0i"
+		}, {
+			"type": "output",
+			"name": "not",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Ii8UU4"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "非"
+			}, {
+				"blockInputId": "CONDITION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Ii8UU4"
+			}],
+			"code": "!{CONDITION}",
 			"returnType": {
 				"type": "simple",
-				"value": "float *"
+				"value": "bool"
 			},
 			"tags": [
-				"time"
+				"operation"
 			],
-			"uid": "HishdZ"
+			"uid": "PPCqQ0"
+		}, {
+			"type": "output",
+			"name": "equalityOperations",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ImBd30"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "hlOlws"
+			}],
+			"content": [{
+				"blockInputId": "ARG1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ImBd30"
+			}, {
+				"id": "OPERATOR",
+				"type": "static-select",
+				"options": [{
+					"label": "=",
+					"value": "=="
+				}, {
+					"label": "!=",
+					"value": "!="
+				}, {
+					"label": ">",
+					"value": ">"
+				}, {
+					"label": ">=",
+					"value": ">="
+				}, {
+					"label": "<",
+					"value": "<"
+				}, {
+					"label": "<=",
+					"value": "<="
+				}]
+			}, {
+				"blockInputId": "ARG2",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "hlOlws"
+			}],
+			"code": "{ARG1} {OPERATOR} {ARG2}",
+			"returnType": {
+				"type": "simple",
+				"value": "bool"
+			},
+			"tags": [
+				"operation"
+			],
+			"uid": "W0ekQd"
+		}, {
+			"type": "output",
+			"name": "logicOperations",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "9wgdRq"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "gEDZ41"
+			}],
+			"content": [{
+				"blockInputId": "ARG1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "9wgdRq"
+			}, {
+				"id": "OPERATOR",
+				"type": "static-select",
+				"options": [{
+					"label": "且",
+					"value": "&&"
+				}, {
+					"label": "或",
+					"value": "||"
+				}]
+			}, {
+				"blockInputId": "ARG2",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "gEDZ41"
+			}],
+			"code": "{ARG1} {OPERATOR} {ARG2}",
+			"returnType": {
+				"type": "simple",
+				"value": "bool"
+			},
+			"tags": [
+				"operation"
+			],
+			"uid": "pfjv98"
 		}, {
 			"type": "output",
 			"name": "basicOperations",
@@ -4217,7 +5274,7 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time"
+				"operation"
 			],
 			"uid": "E2DpR9"
 		}, {
@@ -4263,7 +5320,7 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time"
+				"operation"
 			],
 			"uid": "2qFcus"
 		}, {
@@ -4286,7 +5343,7 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time"
+				"operation"
 			],
 			"uid": "6XxLmC"
 		}, {
@@ -4329,7 +5386,7 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time"
+				"operation"
 			],
 			"uid": "Vc9dLY"
 		}, {
@@ -4375,13 +5432,12 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time",
-				"advanced"
+				"operation"
 			],
 			"uid": "Wmd0Ua"
 		}, {
 			"type": "output",
-			"name": "numberArrayAdvanced",
+			"name": "numConversion",
 			"connectors": [{
 				"type": "connector-output",
 				"accept": "connector-input"
@@ -4389,41 +5445,39 @@ define(function() {
 				"type": "connector-input",
 				"accept": "connector-output",
 				"acceptType": "all",
-				"name": "mjLjIp"
+				"name": "doo9Sc"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数组，大小:"
+				"value": "把"
 			}, {
-				"blockInputId": "VALUE",
+				"blockInputId": "NUMBER",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "mjLjIp"
+				"name": "doo9Sc"
 			}, {
 				"type": "text",
-				"value": "类型:"
+				"value": "转换为"
 			}, {
 				"id": "TYPE",
 				"type": "static-select",
 				"options": [{
-					"label": "浮点数",
-					"value": "float *"
-				}, {
 					"label": "整数",
-					"value": "int *"
+					"value": "int"
+				}, {
+					"label": "浮点数",
+					"value": "float"
 				}]
 			}],
-			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
+			"code": "({TYPE}) {NUMBER}",
 			"returnType": {
 				"type": "fromSelect",
-				"id": "TYPE",
-				"options": "vars"
+				"id": "TYPE"
 			},
 			"tags": [
-				"time",
-				"advanced"
+				"operation"
 			],
-			"uid": "QEMney"
+			"uid": "uRiJr0"
 		}, {
 			"type": "output",
 			"name": "mapAdvanced",
@@ -4506,281 +5560,54 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"time",
+				"operation",
 				"advanced"
 			],
 			"uid": "SGhMsC"
 		}, {
-			"type": "output",
-			"name": "numConversion",
+			"type": "statement",
+			"name": "comment",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
 			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "doo9Sc"
+				"type": "connector-bottom",
+				"accept": "connector-top"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "把"
+				"value": "注释 //"
 			}, {
-				"blockInputId": "NUMBER",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "doo9Sc"
-			}, {
-				"type": "text",
-				"value": "转换为"
-			}, {
-				"id": "TYPE",
-				"type": "static-select",
-				"options": [{
-					"label": "整数",
-					"value": "int"
-				}, {
-					"label": "浮点数",
-					"value": "float"
-				}]
+				"id": "COMMENT",
+				"type": "comment-input",
+				"placeholder": "输入你的注释"
 			}],
-			"code": "({TYPE}) {NUMBER}",
-			"returnType": {
-				"type": "fromSelect",
-				"id": "TYPE"
-			},
+			"code": "/*\n{COMMENT}\n*/",
 			"tags": [
-				"time",
-				"advanced"
+				"code"
 			],
-			"uid": "uRiJr0"
+			"uid": "iKZF8b"
 		}, {
-			"type": "output",
-			"name": "string",
+			"type": "statement",
+			"name": "code",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
 			}],
 			"content": [{
-				"type": "text",
-				"value": "\""
-			}, {
-				"id": "TEXT",
-				"type": "string-input",
-				"placeholder": "文本"
-			}, {
-				"type": "text",
-				"value": "\""
+				"id": "CODE",
+				"type": "code-input",
+				"value": "",
+				"placeholder": "输入你自己的代码"
 			}],
-			"code": "\"{TEXT}\"",
-			"returnType": {
-				"type": "simple",
-				"value": "String"
-			},
+			"code": "{CODE}\n",
 			"tags": [
-				"data"
+				"code"
 			],
-			"uid": "kp7kKD"
-		}, {
-			"type": "output",
-			"name": "stringArray",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "大小为"
-			}, {
-				"id": "VALUE",
-				"type": "number-input",
-				"value": 3
-			}, {
-				"type": "text",
-				"value": "的文本数组"
-			}],
-			"code": "(String *)malloc({VALUE}*sizeof(String))",
-			"returnType": {
-				"type": "simple",
-				"value": "String *"
-			},
-			"tags": [
-				"data"
-			],
-			"uid": "AXBfge"
-		}, {
-			"type": "output",
-			"name": "length",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "String",
-				"name": "DmY3cY"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "文本长度"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "String",
-				"name": "DmY3cY"
-			}],
-			"code": "{TEXT}.length()",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": [
-				"data"
-			],
-			"uid": "zWVg0E"
-		}, {
-			"type": "output",
-			"name": "stringCreate",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "tIQZ0R"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "创建一个文本"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "tIQZ0R"
-			}],
-			"code": "String({TEXT})",
-			"returnType": {
-				"type": "simple",
-				"value": "String"
-			},
-			"tags": [
-				"data"
-			],
-			"uid": "1ZtonP"
-		}, {
-			"type": "output",
-			"name": "stringSum",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "String",
-				"name": "nkbOkw"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "String",
-				"name": "4kdQw8"
-			}],
-			"content": [{
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "String",
-				"name": "nkbOkw"
-			}, {
-				"type": "text",
-				"value": "+"
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "String",
-				"name": "4kdQw8"
-			}],
-			"code": "String({ARG1})+String({ARG2})",
-			"returnType": {
-				"type": "simple",
-				"value": "String"
-			},
-			"tags": [
-				"data"
-			],
-			"uid": "9sXabi"
-		}, {
-			"type": "output",
-			"name": "stringArrayAdvanced",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "pYYLrj"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "数组，大小:"
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "pYYLrj"
-			}, {
-				"type": "text",
-				"value": "类型:"
-			}, {
-				"id": "TYPE",
-				"type": "static-select",
-				"options": [{
-					"label": "文本",
-					"value": "String *"
-				}, {
-					"label": "字符",
-					"value": "char *"
-				}]
-			}],
-			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
-			"returnType": {
-				"type": "fromDropdown",
-				"id": "TYPE",
-				"options": "vars"
-			},
-			"tags": [
-				"data",
-				"advanced"
-			],
-			"uid": "vQnRye"
-		}, {
-			"type": "output",
-			"name": "char",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "'"
-			}, {
-				"id": "TEXT",
-				"type": "char-input",
-				"placeholder": "字符"
-			}, {
-				"type": "text",
-				"value": "'"
-			}],
-			"code": "'{TEXT}'",
-			"returnType": {
-				"type": "simple",
-				"value": "char"
-			},
-			"tags": [
-				"data",
-				"advanced"
-			],
-			"uid": "iltYPk"
+			"uid": "fRkMEy"
 		}, {
 			"type": "statement",
 			"name": "wait",
@@ -4804,7 +5631,7 @@ define(function() {
 			}],
 			"code": "delay({TIME});",
 			"tags": [
-				"operation"
+				"time"
 			],
 			"uid": "s5clkj"
 		}, {
@@ -4824,412 +5651,9 @@ define(function() {
 				"value": "float"
 			},
 			"tags": [
-				"operation"
+				"time"
 			],
 			"uid": "M5LFrv"
-		}, {
-			"type": "statement-input",
-			"name": "if",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "OI44Ub"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "jLrfjv"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果"
-			}, {
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "OI44Ub"
-			}, {
-				"id": "OPERATOR",
-				"type": "static-select",
-				"options": [{
-					"label": "=",
-					"value": "=="
-				}, {
-					"label": "!=",
-					"value": "!="
-				}, {
-					"label": ">",
-					"value": ">"
-				}, {
-					"label": ">=",
-					"value": ">="
-				}, {
-					"label": "<",
-					"value": "<"
-				}, {
-					"label": "<=",
-					"value": "<="
-				}]
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "jLrfjv"
-			}, {
-				"type": "text",
-				"value": "那么"
-			}],
-			"code": "if({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"operation"
-			],
-			"uid": "heBaUa"
-		}, {
-			"type": "statement-input",
-			"name": "elseif",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "2zRq0N"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Tr9bYT"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "否则如果"
-			}, {
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "2zRq0N"
-			}, {
-				"id": "OPERATOR",
-				"type": "static-select",
-				"options": [{
-					"label": "=",
-					"value": "=="
-				}, {
-					"label": "!=",
-					"value": "!="
-				}, {
-					"label": ">",
-					"value": ">"
-				}, {
-					"label": ">=",
-					"value": ">="
-				}, {
-					"label": "<",
-					"value": "<"
-				}, {
-					"label": "<=",
-					"value": "<="
-				}]
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Tr9bYT"
-			}, {
-				"type": "text",
-				"value": "那么"
-			}],
-			"code": "else if ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"operation"
-			],
-			"uid": "yaqR8I"
-		}, {
-			"type": "statement-input",
-			"name": "else",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "否则，那么"
-			}],
-			"code": "else {{STATEMENTS}}",
-			"tags": [
-				"operation"
-			],
-			"uid": "ZfRdU7"
-		}, {
-			"type": "statement-input",
-			"name": "switch",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "判断变量"
-			}, {
-				"id": "VAR",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "的值为"
-			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
-			"tags": [
-				"operation"
-			],
-			"uid": "3zhrCA"
-		}, {
-			"type": "statement-input",
-			"name": "case",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果变量值为"
-			}, {
-				"id": "VAR",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "那么"
-			}],
-			"code": "case {VAR}:{{STATEMENTS}break;}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "ff0qMf"
-		}, {
-			"type": "statement-input",
-			"name": "caseDefault",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果都不是，那么"
-			}],
-			"code": "default:{{STATEMENTS}break;}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "vkklu3"
-		}, {
-			"type": "statement-input",
-			"name": "for-v1",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "计数循环变量"
-			}, {
-				"id": "VAR",
-				"type": "dynamic-select",
-				"options": "vars"
-			}, {
-				"type": "text",
-				"value": "从"
-			}, {
-				"id": "INIT",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "到"
-			}, {
-				"id": "FINAL",
-				"type": "number-input",
-				"value": 10
-			}, {
-				"id": "MODE",
-				"type": "static-select",
-				"options": [{
-					"label": "自增",
-					"value": "+"
-				}, {
-					"label": "自减",
-					"value": "-"
-				}]
-			}, {
-				"id": "ADD",
-				"type": "number-input",
-				"value": 1
-			}, {
-				"type": "text",
-				"value": "执行"
-			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
-			"eval": true,
-			"tags": [
-				"operation"
-			],
-			"uid": "0ByIUU"
-		}, {
-			"type": "statement-input",
-			"name": "while",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "1FYyjA"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "TpgKyQ"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果"
-			}, {
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "1FYyjA"
-			}, {
-				"id": "OPERATOR",
-				"type": "static-select",
-				"options": [{
-					"label": "=",
-					"value": "=="
-				}, {
-					"label": "!=",
-					"value": "!="
-				}, {
-					"label": ">",
-					"value": ">"
-				}, {
-					"label": ">=",
-					"value": ">="
-				}, {
-					"label": "<",
-					"value": "<"
-				}, {
-					"label": "<=",
-					"value": "<="
-				}]
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "TpgKyQ"
-			}, {
-				"type": "text",
-				"value": "则一直循环执行"
-			}],
-			"code": "while ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"operation"
-			],
-			"uid": "5RidrE"
-		}, {
-			"type": "statement",
-			"name": "continue",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "开始下一次循环"
-			}],
-			"code": "continue;",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "CmAGXf"
-		}, {
-			"type": "statement",
-			"name": "break",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "结束本轮循环"
-			}],
-			"code": "break;",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "vbxsf7"
 		}, {
 			"type": "statement",
 			"name": "waitAdvanced",
@@ -5256,441 +5680,10 @@ define(function() {
 			}],
 			"code": "delay({TIME});",
 			"tags": [
-				"operation",
+				"time",
 				"advanced"
 			],
 			"uid": "795c8s"
-		}, {
-			"type": "statement-input",
-			"name": "ifAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "zgnZL5"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果"
-			}, {
-				"blockInputId": "CONDITION",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "zgnZL5"
-			}, {
-				"type": "text",
-				"value": "那么"
-			}],
-			"code": "if({CONDITION}){{STATEMENTS}}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "LoJkxZ"
-		}, {
-			"type": "statement-input",
-			"name": "elseifAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "FH6cUn"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "否则如果"
-			}, {
-				"blockInputId": "VAR",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "FH6cUn"
-			}, {
-				"type": "text",
-				"value": "那么"
-			}],
-			"code": "else if ({VAR}){{STATEMENTS}}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "SB5Ph7"
-		}, {
-			"type": "statement-input",
-			"name": "else",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "否则，那么"
-			}],
-			"code": "else {{STATEMENTS}}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "kEK1px"
-		}, {
-			"type": "statement-input",
-			"name": "forAdvanced-v1",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "9cShpo"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "NMURWf"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "2vdfRL"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "计数循环变量"
-			}, {
-				"blockInputId": "VAR",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "9cShpo"
-			}, {
-				"type": "text",
-				"value": "从"
-			}, {
-				"blockInputId": "INIT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "NMURWf"
-			}, {
-				"type": "text",
-				"value": "到"
-			}, {
-				"blockInputId": "FINAL",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "2vdfRL"
-			}, {
-				"id": "MODE",
-				"type": "static-select",
-				"options": [{
-					"label": "自增",
-					"value": "+"
-				}, {
-					"label": "自减",
-					"value": "-"
-				}]
-			}, {
-				"id": "ADD",
-				"type": "number-input",
-				"value": 1
-			}, {
-				"type": "text",
-				"value": "执行"
-			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
-			"eval": true,
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "0sHb8t"
-		}, {
-			"type": "statement-input",
-			"name": "switchAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "kyrV6g"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "判断变量"
-			}, {
-				"blockInputId": "VAR",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "kyrV6g"
-			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "Mjse7L"
-		}, {
-			"type": "statement-input",
-			"name": "whileAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Co2L2T"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "如果"
-			}, {
-				"blockInputId": "CONDITION",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Co2L2T"
-			}, {
-				"type": "text",
-				"value": "则一直循环执行"
-			}],
-			"code": "while ({CONDITION}){{STATEMENTS}}",
-			"tags": [
-				"operation",
-				"advanced"
-			],
-			"uid": "3N9W0i"
-		}, {
-			"type": "output",
-			"name": "boolean",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "True",
-					"value": "true"
-				}, {
-					"label": "False",
-					"value": "false"
-				}]
-			}],
-			"code": "{STATE}",
-			"returnType": {
-				"type": "simple",
-				"value": "bool"
-			},
-			"tags": [
-				"logic"
-			],
-			"uid": "nllNTV"
-		}, {
-			"type": "output",
-			"name": "boolArray",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "大小为"
-			}, {
-				"id": "VALUE",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "的布尔数组"
-			}],
-			"code": "(bool *)malloc({VALUE}*sizeof(bool))",
-			"returnType": {
-				"type": "simple",
-				"value": "bool *"
-			},
-			"tags": [
-				"logic"
-			],
-			"uid": "KiTI7b"
-		}, {
-			"type": "output",
-			"name": "not",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Ii8UU4"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "非"
-			}, {
-				"blockInputId": "CONDITION",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Ii8UU4"
-			}],
-			"code": "!{CONDITION}",
-			"returnType": {
-				"type": "simple",
-				"value": "bool"
-			},
-			"tags": [
-				"logic"
-			],
-			"uid": "PPCqQ0"
-		}, {
-			"type": "output",
-			"name": "equalityOperations",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "ImBd30"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "hlOlws"
-			}],
-			"content": [{
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "ImBd30"
-			}, {
-				"id": "OPERATOR",
-				"type": "static-select",
-				"options": [{
-					"label": "=",
-					"value": "=="
-				}, {
-					"label": "!=",
-					"value": "!="
-				}, {
-					"label": ">",
-					"value": ">"
-				}, {
-					"label": ">=",
-					"value": ">="
-				}, {
-					"label": "<",
-					"value": "<"
-				}, {
-					"label": "<=",
-					"value": "<="
-				}]
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "hlOlws"
-			}],
-			"code": "{ARG1} {OPERATOR} {ARG2}",
-			"returnType": {
-				"type": "simple",
-				"value": "bool"
-			},
-			"tags": [
-				"logic"
-			],
-			"uid": "W0ekQd"
-		}, {
-			"type": "output",
-			"name": "logicOperations",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "9wgdRq"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "gEDZ41"
-			}],
-			"content": [{
-				"blockInputId": "ARG1",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "9wgdRq"
-			}, {
-				"id": "OPERATOR",
-				"type": "static-select",
-				"options": [{
-					"label": "且",
-					"value": "&&"
-				}, {
-					"label": "或",
-					"value": "||"
-				}]
-			}, {
-				"blockInputId": "ARG2",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "gEDZ41"
-			}],
-			"code": "{ARG1} {OPERATOR} {ARG2}",
-			"returnType": {
-				"type": "simple",
-				"value": "bool"
-			},
-			"tags": [
-				"logic"
-			],
-			"uid": "pfjv98"
 		}],
 		"ablums": []
 	};
