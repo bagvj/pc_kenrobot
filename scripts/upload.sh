@@ -30,7 +30,7 @@ ARDUINO_PROGRAMMER=arduino
 ARDUINO_BURNRATE=115200
 
 if [[ ${BOARD_TYPE} = genuino101 ]]; then
-	${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/arduino101load/arduino101load.exe ${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/x86/bin ${TARGET_PATH} ${ARDUINO_COMPORT} verbose ATP1BLE000-1541C5635 141312
+	${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/arduino101load/arduino101load ${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28/x86/bin ${TARGET_PATH} ${ARDUINO_COMPORT} verbose ATP1BLE000-1541C5635 141312
 else
 	${UPLOADER} -C ${UPLOADER_CONF} -p ${ARDUINO_MCU} -P ${ARDUINO_COMPORT} -c ${ARDUINO_PROGRAMMER} -b ${ARDUINO_BURNRATE} -U "flash:w:${TARGET_PATH}:i"
 fi
