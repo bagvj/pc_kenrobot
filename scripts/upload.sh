@@ -1,11 +1,11 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# 使用方法: upload.sh target COM [board_type]
-# 参数说明: target, hex或者bin; board_type, 主板类型
-# 使用示例: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5 genuino101
+# useage: upload.sh target COM [board_type]
+# arguments: target, hex or bin path; board_type, board type
+# example: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5 genuino101
 
-# 目标文件路径
+# target file path
 TARGET_PATH=$1
 
 DIR=$(dirname "$0")
@@ -20,7 +20,7 @@ fi
 UPLOADER=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/bin/avrdude
 UPLOADER_CONF=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/etc/avrdude.conf
 
-# COM端口
+# COM port
 ARDUINO_COMPORT=$2
 
 BOARD_TYPE=$3
