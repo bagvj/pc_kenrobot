@@ -5,8 +5,8 @@
 # arguments: target, hex or bin path
 # example: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5
 
-if [ $# -ne 1 ];then
-	echo "1 arguments required"
+if [ $# -ne 2 ];then
+	echo "2 arguments required"
     exit 1
 fi
 

@@ -519,7 +519,7 @@ function upload(target, comName, options) {
 	preUpload(comName, options.board_type).then(_ => {
 		var scriptPath = getScript("upload", options.board_type)
 		log.debug(path.resolve(scriptPath))
-		var command = `${scriptPath} ${target} ${comName} ${options.board_type}`
+		var command = `${scriptPath} ${target} ${comName}`
 
 		execCommand(command).then(_ => {
 			deferred.resolve()
