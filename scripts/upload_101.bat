@@ -2,9 +2,9 @@
 rem utf8
 chcp 65001
 
-rem useage: upload.bat target COM [board_type]
-rem arguments: target, hex or bin path; board_type, board type
-rem example: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.ino.hex COM5 3. 2. upload.bat c:\project\test.ino.bin COM5 genuino101
+rem useage: upload.bat target COM
+rem arguments: target, hex or bin path
+rem example: 1. upload.bat test.hex COM5 2. upload.bat c:\project\test.ino.hex COM5 3. 2. upload.bat c:\project\test.ino.bin COM5
 
 rem target file path
 set TARGET_PATH=%~f1

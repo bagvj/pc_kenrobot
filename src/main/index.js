@@ -495,8 +495,12 @@ function buildProject(file, options) {
 
 	var scriptPath = getScript("build", options.board_type)
 	log.debug(path.resolve(scriptPath))
-	var command = `${scriptPath} ${file} ${options.board_type}`
-
+	var command
+	if(options.board_type == "genuino101") {
+		command = `${scriptPath} ${file}`
+	} else {
+		command = `${scriptPath} ${file} ${options.board_type}`
+	}
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 	execCommand(command).then(_ => {
 		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
@@ -539,6 +543,7 @@ function preUpload(comName, boardType) {
 	var serialPort = new SerialPort(comName, {
 		baudRate: 1200
 	})
+
 	serialPort.on('open', _ => {
 		serialPort.set({
 			rts: true,

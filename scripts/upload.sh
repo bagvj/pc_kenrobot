@@ -5,6 +5,11 @@
 # arguments: target, hex or bin path; COM, com name
 # example: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5
 
+if [ $# -ne 1 ];then
+	echo "1 arguments required"
+    exit 1
+fi
+
 # target file path
 TARGET_PATH=$1
 
