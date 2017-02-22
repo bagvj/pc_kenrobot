@@ -1,4 +1,6 @@
 @echo off
+rem utf8
+chcp 65001
 
 rem useage:  build_101.bat project_path
 rem example: 1. build_101.bat test 2. build_101.bat c:\project\test

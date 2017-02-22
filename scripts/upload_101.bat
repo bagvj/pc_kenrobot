@@ -1,4 +1,6 @@
 @echo off
+rem utf8
+chcp 65001
 
 rem useage: upload.bat target COM [board_type]
 rem arguments: target, hex or bin path; board_type, board type

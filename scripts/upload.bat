@@ -1,4 +1,6 @@
 @echo off
+rem utf8
+chcp 65001
 
 rem useage: upload.bat target COM
 rem arguments: target, hex or bin path; COM, com name
