@@ -224,7 +224,7 @@ function listenMessage() {
 	.on('app:uploadHex', (e, deferId, hex, options) => {
 		getSerialPorts().then(ports => {
 			if(ports.length == 1) {
-				uploadHex(hex, ports[0].path, options).then(_ => {
+				uploadHex(hex, ports[0].comName, options).then(_ => {
 					e.sender.send('app:uploadHex', deferId, true, true)
 				}, err => {
 					e.sender.send('app:uploadHex', deferId, false, err)
@@ -262,56 +262,8 @@ function getSerialPorts() {
 	log.debug("getSerialPorts")
 	SerialPort.list((err, ports) => {
 		log.debug(`ports: ${ports.map(p => p.comName).join(', ')}`)
-		ports.length > 0 ? deferred.resolve(ports.map(p => {path: p.comName})) : deferred.reject()
+		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
 	})
-
-	// if(is.windows()) {
-	// 	execCommand("scripts\\lscom.exe").then(stdout => {
-	// 		var comReg = /(COM\d+): (.*) \(COM\d+\)/g
-	// 		var ports = []
-	// 		var match
-	// 		while((match = comReg.exec(stdout))) {
-	// 			ports.push({
-	// 				path: match[1],
-	// 				displayName: match[2]
-	// 			})
-	// 		}
-
-	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-	// 	}, err => {
-	// 		deferred.reject(err)
-	// 	})
-	// } else if(is.macOS()) {
-	// 	execCommand("ls /dev/cu.usbmodem*").then(stdout => {
-	// 		var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
-	// 		var ports = []
-	// 		var match
-	// 		while((match = comReg.exec(stdout))) {
-	// 			ports.push({
-	// 				path: match[1]
-	// 			})
-	// 		}
-
-	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-	// 	}, err => {
-	// 		deferred.reject(err)
-	// 	})
-	// } else {
-	// 	execCommand("ls /dev/tty*").then(stdout => {
-	// 		var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
-	// 		var ports = []
-	// 		var match
-	// 		while((match = comReg.exec(stdout))) {
-	// 			ports.push({
-	// 				path: match[1]
-	// 			})
-	// 		}
-
-	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-	// 	}, err => {
-	// 		deferred.reject(err)
-	// 	})
-	// }
 
 	return deferred.promise
 }
@@ -543,13 +495,13 @@ function buildProject(file, options) {
 	return deferred.promise
 }
 
-function uploadHex(hex, com, options) {
+function uploadHex(hex, comName, options) {
 	var deferred = Q.defer()
 
-	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
+	log.debug(`uploadHex:${hex}, ${comName}, options: ${JSON.stringify(options)}`)
 	var scriptPath = getScript("upload")
 	log.debug(path.resolve(scriptPath))
-	var command = `${scriptPath} ${hex} ${com} ${options.board_type}`
+	var command = `${scriptPath} ${hex} ${comName} ${options.board_type}`
 
 	execCommand(command).then(_ => {
 		deferred.resolve()

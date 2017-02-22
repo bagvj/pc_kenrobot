@@ -17,7 +17,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 		reset();
 		var ul = $("> ul", portList);
 		ports.forEach(function(port) {
-			$('<li>').data('value', port.path).text(port.displayName || port.path).appendTo(ul);
+			$('<li>').data('value', port.comName).text(port.comName).appendTo(ul);
 		});
 		$('li', ul).on('click', onPortSelectClick)[0].click();
 
@@ -33,8 +33,8 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 	}
 
 	function onConfirm() {
-		var portPath = portList.data("value");
-		callback(portPath);
+		var comName = portList.data("value");
+		callback(comName);
 	}
 
 	function reset() {

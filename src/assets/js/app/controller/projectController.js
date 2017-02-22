@@ -91,9 +91,9 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						});
 					}, function(err) {
 						util.hideModalMessage();
-						onProjectUploadFail(err).then(function(portPath) {
+						onProjectUploadFail(err).then(function(comName) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:uploadHex2", hex, portPath, {board_type: boardType}).then(function() {
+							kenrobot.postMessage("app:uploadHex2", hex, comName, {board_type: boardType}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",
@@ -149,8 +149,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			var ports = err.ports;
 			emitor.trigger("port", "show", {
 				ports: ports,
-				callback: function(portPath) {
-					promise.resolve(portPath);
+				callback: function(comName) {
+					promise.resolve(comName);
 				}
 			});
 		} else if(status == "NOT_FOUND_PORT") {
