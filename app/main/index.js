@@ -11,6 +11,7 @@ const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
 const md5 = require('md5')
 const getmac = require('getmac')
+const SerialPort = require('serialport') //串口
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -259,53 +260,58 @@ function getSerialPorts() {
 	var deferred = Q.defer()
 
 	log.debug("getSerialPorts")
-	if(is.windows()) {
-		execCommand("scripts\\lscom.exe").then(stdout => {
-			var comReg = /(COM\d+): (.*) \(COM\d+\)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1],
-					displayName: match[2]
-				})
-			}
+	SerialPort.list((err, ports) => {
+		log.debug(`ports: ${ports.map(p => p.comName).join(', ')}`)
+		ports.length > 0 ? deferred.resolve(ports.map(p => {path: p.comName})) : deferred.reject()
+	})
 
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	} else if(is.macOS()) {
-		execCommand("ls /dev/cu.usbmodem*").then(stdout => {
-			var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1]
-				})
-			}
+	// if(is.windows()) {
+	// 	execCommand("scripts\\lscom.exe").then(stdout => {
+	// 		var comReg = /(COM\d+): (.*) \(COM\d+\)/g
+	// 		var ports = []
+	// 		var match
+	// 		while((match = comReg.exec(stdout))) {
+	// 			ports.push({
+	// 				path: match[1],
+	// 				displayName: match[2]
+	// 			})
+	// 		}
 
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	} else {
-		execCommand("ls /dev/tty*").then(stdout => {
-			var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1]
-				})
-			}
+	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+	// 	}, err => {
+	// 		deferred.reject(err)
+	// 	})
+	// } else if(is.macOS()) {
+	// 	execCommand("ls /dev/cu.usbmodem*").then(stdout => {
+	// 		var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
+	// 		var ports = []
+	// 		var match
+	// 		while((match = comReg.exec(stdout))) {
+	// 			ports.push({
+	// 				path: match[1]
+	// 			})
+	// 		}
 
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	}
+	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+	// 	}, err => {
+	// 		deferred.reject(err)
+	// 	})
+	// } else {
+	// 	execCommand("ls /dev/tty*").then(stdout => {
+	// 		var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
+	// 		var ports = []
+	// 		var match
+	// 		while((match = comReg.exec(stdout))) {
+	// 			ports.push({
+	// 				path: match[1]
+	// 			})
+	// 		}
+
+	// 		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+	// 	}, err => {
+	// 		deferred.reject(err)
+	// 	})
+	// }
 
 	return deferred.promise
 }
