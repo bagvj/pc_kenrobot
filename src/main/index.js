@@ -30,6 +30,8 @@ let macList = [
 	'830888fcdc8f631b5cbd5998388e3b08',
 	'a47a1bb25f4f07752621ac5cee93f445',
 	'02845031fada175f47836fc8c09d5afe',
+	'13c130fc675c6af5dec9ec2072a0c2df',
+	'4a9152e4ed129bcb070bfb0fbc4b9973',
 ]
 
 init()
