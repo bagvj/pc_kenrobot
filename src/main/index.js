@@ -29,17 +29,6 @@ function init() {
 		app.quit()
 	}
 
-	//var str = fs.readFileSync('app/mac.txt', "utf8");
-	//var macList = str.split("\n").map(line => line.substring(line.indexOf("=>") + 2).trim());
-	
-	//getmac.getMac((err, mac) => {
-	//	var key = md5(mac.replace(/-/g, ":").toUpperCase())
-	//	console.log(`${mac} => ${key}`)
-	//	if(err || macList.indexOf(key) < 0) {
-	//		app.quit()
-	//	}
-	//})
-
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 
