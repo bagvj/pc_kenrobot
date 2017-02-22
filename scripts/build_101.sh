@@ -1,11 +1,11 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# useage:  build.sh project_path board_type
-# example: 1. build.sh test uno 2. build.sh /home/project/test uno
+# useage:  build_101.sh project_path
+# example: 1. build_101.sh test 2. build_101.sh /home/project/test
 
-if [ $# -ne 2 ];then
-	echo "2 arguments required"
+if [ $# -ne 1 ];then
+	echo "1 arguments required"
     exit 1
 fi
 
@@ -13,8 +13,6 @@ SKETCH_PATH=$1
 SKETCH=$(basename ${SKETCH_PATH})
 SKETCH=${SKETCH_PATH}/${SKETCH}.ino
 BUILD_PATH=${SKETCH_PATH}/build
-
-BOARD_TYPE=$2
 
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
@@ -34,7 +32,7 @@ if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
-${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn="Intel:arc32:arduino_101" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all -prefs=runtime.tools.arduino101load.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arduino101load/1.6.9+1.28 -prefs=runtime.tools.flashpack.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/flashpack/1.0.0 -prefs=runtime.tools.openocd.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/openocd/0.9.0+0.1 -prefs=runtime.tools.arc-elf32.path=${LOCAL_ARDUINO_PATH}/packages/Intel/tools/arc-elf32/1.6.9+1.0.1 ${SKETCH}
 
 if [ $? -ne 0 ]; then
 	echo build fail

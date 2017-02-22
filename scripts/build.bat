@@ -24,11 +24,7 @@ if not exist %BUILD_PATH% (
 	mkdir %BUILD_PATH%
 )
 
-if %BOARD_TYPE% == genuino101 (
-	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn="Intel:arc32:arduino_101" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.arduino101load.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arduino101load\1.6.9+1.28" -prefs=runtime.tools.flashpack.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\flashpack\1.0.0" -prefs=runtime.tools.openocd.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\openocd\0.9.0+0.1" -prefs=runtime.tools.arc-elf32.path="%LOCAL_ARDUINO_PATH:~1,-1%\packages\Intel\tools\arc-elf32\1.6.9+1.0.1" %SKETCH%
-) else (
-	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
-)
+%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
 
 if not %errorlevel% == 0 (
 	echo build fail

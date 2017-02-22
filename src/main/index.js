@@ -11,6 +11,7 @@ const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
 const md5 = require('md5')
 const getmac = require('getmac')
+const SerialPort = require('serialport') //串口
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -225,37 +226,37 @@ function listenMessage() {
 		})	
 	})
 	.on('app:buildProject', (e, deferId, file, options) => {
-		buildProject(file, options).then(hex => {
-			e.sender.send('app:buildProject', deferId, true, hex)
+		buildProject(file, options).then(target => {
+			e.sender.send('app:buildProject', deferId, true, target)
 		}, err => {
 			e.sender.send('app:buildProject', deferId, false, err)
 		})
 	})
-	.on('app:uploadHex', (e, deferId, hex, options) => {
+	.on('app:upload', (e, deferId, target, options) => {
 		getSerialPorts().then(ports => {
 			if(ports.length == 1) {
-				uploadHex(hex, ports[0].path, options).then(_ => {
-					e.sender.send('app:uploadHex', deferId, true, true)
+				upload(target, ports[0].comName, options).then(_ => {
+					e.sender.send('app:upload', deferId, true, true)
 				}, err => {
-					e.sender.send('app:uploadHex', deferId, false, err)
+					e.sender.send('app:upload', deferId, false, err)
 				})
 			} else {
-				e.sender.send('app:uploadHex', deferId, false, {
+				e.sender.send('app:upload', deferId, false, {
 					status: "SELECT_PORT",
 					ports: ports,
 				})
 			}
 		}, _ => {
-			e.sender.send('app:uploadHex', deferId, false, {
+			e.sender.send('app:upload', deferId, false, {
 				status: "NOT_FOUND_PORT"
 			})
 		})
 	})
-	.on('app:uploadHex2', (e, deferId, hex, com, options) => {
-		uploadHex(hex, com, options).then(_ => {
-			e.sender.send('app:uploadHex2', deferId, true, true)
+	.on('app:upload2', (e, deferId, target, comName, options) => {
+		upload(target, comName, options).then(_ => {
+			e.sender.send('app:upload2', deferId, true, true)
 		}, err => {
-			e.sender.send('app:uploadHex2', deferId, false, err)
+			e.sender.send('app:upload2', deferId, false, err)
 		})
 	})
 	.on('app:errorReport', (e, deferId, error) => {
@@ -270,64 +271,22 @@ function getSerialPorts() {
 	var deferred = Q.defer()
 
 	log.debug("getSerialPorts")
-	if(is.windows()) {
-		execCommand("scripts\\lscom.exe").then(stdout => {
-			var comReg = /(COM\d+): (.*) \(COM\d+\)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1],
-					displayName: match[2]
-				})
-			}
-
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	} else if(is.macOS()) {
-		execCommand("ls /dev/cu.usbmodem*").then(stdout => {
-			var comReg = /(\/dev\/cu\.usbmodem[^\s]+)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1]
-				})
-			}
-
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	} else {
-		execCommand("ls /dev/tty*").then(stdout => {
-			var comReg = /(\/dev\/tty(S|A)[^\s]+)/g
-			var ports = []
-			var match
-			while((match = comReg.exec(stdout))) {
-				ports.push({
-					path: match[1]
-				})
-			}
-
-			ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
-		}, err => {
-			deferred.reject(err)
-		})
-	}
+	SerialPort.list((err, ports) => {
+		log.debug(`ports: ${ports.map(p => p.comName).join(', ')}`)
+		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+	})
 
 	return deferred.promise
 }
 
-function getScript(name) {
+function getScript(name, boardType) {
+	var suffix = boardType == "genuino101" ? "_101" : ""
 	if(is.windows()) {
-		return path.join("scripts", `${name}.bat`)
+		return path.join("scripts", `${name}${suffix}.bat`)
 	} else if(is.macOS()) {
-		return is.dev() ? path.join(`scripts`, `${name}.sh`) : path.join(app.getAppPath(), '..', '..', 'scripts', `${name}.sh`)
+		return is.dev() ? path.join(`scripts`, `${name}${suffix}.sh`) : path.join(app.getAppPath(), '..', '..', 'scripts', `${name}${suffix}.sh`)
 	} else {
-		return path.join("scripts", `${name}.sh`)
+		return path.join("scripts", `${name}${suffix}.sh`)
 	}
 }
 
@@ -531,10 +490,10 @@ function openProject(file) {
 function buildProject(file, options) {
 	var deferred = Q.defer()
 
-	var scriptPath = getScript("build")
 	options = options || {}
 	options.board_type = options.board_type || "uno"
 
+	var scriptPath = getScript("build", options.board_type)
 	log.debug(path.resolve(scriptPath))
 	var command = `${scriptPath} ${file} ${options.board_type}`
 
@@ -548,20 +507,55 @@ function buildProject(file, options) {
 	return deferred.promise
 }
 
-function uploadHex(hex, com, options) {
+function upload(target, comName, options) {
 	var deferred = Q.defer()
 
-	log.debug(`uploadHex:${hex}, ${com}, options: ${JSON.stringify(options)}`)
-	var scriptPath = getScript("upload")
-	log.debug(path.resolve(scriptPath))
-	var command = `${scriptPath} ${hex} ${com} ${options.board_type}`
+	log.debug(`upload:${target}, ${comName}, options: ${JSON.stringify(options)}`)
 
-	execCommand(command).then(_ => {
-		deferred.resolve()
+	preUpload(comName, options.board_type).then(_ => {
+		var scriptPath = getScript("upload", options.board_type)
+		log.debug(path.resolve(scriptPath))
+		var command = `${scriptPath} ${target} ${comName} ${options.board_type}`
+
+		execCommand(command).then(_ => {
+			deferred.resolve()
+		}, err => {
+			deferred.reject(err)
+		})
 	}, err => {
 		deferred.reject(err)
 	})
 	
+	return deferred.promise
+}
+
+function preUpload(comName, boardType) {
+	var deferred = Q.defer()
+
+	if(boardType != "genuino101") {
+		return deferred.resolve()
+	} 
+
+	var serialPort = new SerialPort(comName, {
+		baudRate: 1200
+	})
+	serialPort.on('open', _ => {
+		serialPort.set({
+			rts: true,
+			dtr: false,
+		})
+		setTimeout(_ => {
+			serialPort.close(_ => {
+				deferred.resolve()
+			})
+		}, 650)
+	}).on('error', err => {
+		log.error(err)
+		serialPort.close(_ => {
+			deferred.reject(err)
+		})
+	})
+
 	return deferred.promise
 }
 

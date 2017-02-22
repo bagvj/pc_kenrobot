@@ -303,5 +303,6 @@ define(['vendor/jquery'], function() {
 		formatDate: formatDate,
 		modalMessage: modalMessage,
 		hideModalMessage: hideModalMessage,
+		uuid: uuid,
 	}
 });
