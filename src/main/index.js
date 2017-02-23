@@ -10,7 +10,6 @@ const debug = require('electron-debug')
 const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
 const md5 = require('md5')
-const getmac = require('getmac')
 const SerialPort = require('serialport') //串口
 
 var args = minimist(process.argv.slice(1)) //命令行参数
