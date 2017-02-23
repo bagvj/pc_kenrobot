@@ -10,29 +10,11 @@ const debug = require('electron-debug')
 const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
 const md5 = require('md5')
-const getmac = require('getmac')
 const SerialPort = require('serialport') //串口
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 let mainWindow
-
-let macList = [
-	'4bf895eb5b89678109c2b0349f81533b',
-	'd8723d0e1186d85f87a723bbd1666846',
-	'f8ef2aeaf40e695ad24a022d8524191a',
-	'aae7858848910f56277004d207ea1865',
-	'865adc2a7de563669c3de950a3e06f75',
-	'28a9c25b231e1dc4a0c58939881e0a77',
-	'865adc2a7de563669c3de950a3e06f75',
-	'28a9c25b231e1dc4a0c58939881e0a77',
-	'fed320b2cde5402298c33122e4ef4300',
-	'830888fcdc8f631b5cbd5998388e3b08',
-	'a47a1bb25f4f07752621ac5cee93f445',
-	'02845031fada175f47836fc8c09d5afe',
-	'13c130fc675c6af5dec9ec2072a0c2df',
-	'4a9152e4ed129bcb070bfb0fbc4b9973',
-]
 
 init()
 
@@ -46,12 +28,11 @@ function init() {
 		app.quit()
 	}
 	
-	getmac.getMac((err, mac) => {
-		var key = md5(mac.replace(/-/g, ":").toUpperCase())
-		if(err || macList.indexOf(key) < 0) {
-			app.quit()
-		}
-	})
+	var now = new Date()
+	var publishTime = new Date("2017-02-23")
+	if(now - publishTime > 86400 * 1000 * 2) {
+		app.quit()
+	}
 
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
