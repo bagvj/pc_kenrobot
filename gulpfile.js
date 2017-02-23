@@ -17,6 +17,7 @@ const uglify = require('gulp-uglify') //js压缩
 const minifyHtml = require("gulp-minify-html") //html压缩
 const sftp = require('gulp-sftp') //
 const Q = require('q')
+const fs = require('fs-extra')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -142,7 +143,7 @@ gulp.task('pack-config', ['clean-config'], _ => {
 
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
-gulp.task('do-build', ['clean-dist'], callback => {
+gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
 	var targets
 	if(platform == "linux") {
@@ -164,17 +165,28 @@ gulp.task('do-build', ['clean-dist'], callback => {
     		],
 		}
 	}).then(result => {
-		if(!args.upload) {
-			callback()
-			return
-		}
+		var output = result[0]
+		var branch = args.branch || "release"
+		var feature = args.feature || ""
+		var packageConfig = require('./app/package')
+		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${path.extname(output)}`
+		var file = path.join(path.dirname(output), name)
 
-		upload(result).then(_ => {
-			callback()
-		}, err => {
-			console.error(err)
-			callback(err)
-		})
+		fs.move(output, file, err => {
+			console.log(file)
+
+			if(!args.upload) {
+				callback()
+				return
+			}
+
+			upload(file).then(_ => {
+				callback()
+			}, err1 => {
+				console.error(err1)
+				callback(err1)
+			})
+		})		
 	}, err => {
 		console.error(err)
 		callback(err)
