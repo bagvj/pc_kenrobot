@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra
  * npm install --save electron-debug electron-is electron-log fs-extra getmac md5 minimist q
  */
 
@@ -16,6 +16,8 @@ const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
 const uglify = require('gulp-uglify') //js压缩
 const minifyHtml = require("gulp-minify-html") //html压缩
 const sftp = require('gulp-sftp') //
+const Q = require('q')
+const fs = require('fs-extra')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -163,15 +165,28 @@ gulp.task('build', ['clean-dist'], callback => {
     		],
 		}
 	}).then(result => {
-		console.dir(result)
-		if(!args.upload) {
-			callback()
-			return
-		}
-		
-		var upload = require('./build/upload')
-		gulp.src(result)
-			.pipe(sftp(upload))
+		var output = result[0]
+		var branch = args.branch || "release"
+		var feature = args.feature || ""
+		var packageConfig = require('./app/package')
+		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${path.extname(output)}`
+		var file = path.join(path.dirname(output), name)
+
+		fs.move(output, file, err => {
+			console.log(file)
+
+			if(!args.upload) {
+				callback()
+				return
+			}
+
+			upload(file).then(_ => {
+				callback()
+			}, err1 => {
+				console.error(err1)
+				callback(err1)
+			})
+		})		
 	}, err => {
 		console.error(err)
 		callback(err)
@@ -209,11 +224,23 @@ gulp.task('upload', _ => {
 		console.log('please spec file use "--file"')
 		return
 	}
-
-	var config = require('./build/upload')
-	args.remotePath && (config.remotePath = args.remotePath)
 	
 	var files = args.file.split(',')
-	return gulp.src(files)
-		.pipe(sftp(config))
+	var options = args.remotePath ? {remotePath: args.remotePath} : {}
+
+	return upload(files, options)
 })
+
+function upload(files, options) {
+	var defer = Q.defer()
+
+	var defaultOptions = require('./build/upload')
+	options = Object.assign(defaultOptions, options)
+
+	gulp.src(files)
+		.pipe(sftp(options))
+		.on('end', defer.resolve)
+		.on('error', defer.reject)
+
+	return defer.promise
+}
