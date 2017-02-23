@@ -1,9 +1,14 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# useage: upload.sh target COM [board_type]
-# arguments: target, hex or bin path; board_type, board type
-# example: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5 genuino101
+# useage: upload.sh target COM
+# arguments: target, hex or bin path; COM, com name
+# example: 1. upload.sh test.hex COM5 2. upload.sh c:\project\test.ino.hex COM5 3. 2. upload.sh /home/test/test.ino.bin COM5
+
+if [ $# -ne 2 ];then
+	echo "2 arguments required"
+    exit 1
+fi
 
 # target file path
 TARGET_PATH=$1
@@ -22,8 +27,6 @@ UPLOADER_CONF=${LOCAL_ARDUINO_PATH}/hardware/tools/avr/etc/avrdude.conf
 
 # COM port
 ARDUINO_COMPORT=$2
-
-BOARD_TYPE=$3
 
 ARDUINO_MCU=atmega328p
 ARDUINO_PROGRAMMER=arduino

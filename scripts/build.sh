@@ -26,8 +26,8 @@ else
 fi
 
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
-HARDWARE=${LOCAL_ARDUINO_PATH}/hardware
-TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr
+HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
+TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
 LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
 
 if [ ! -d ${BUILD_PATH} ]; then

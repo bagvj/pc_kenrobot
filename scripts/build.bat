@@ -16,8 +16,8 @@ set DIR=%~dp0
 set LOCAL_ARDUINO_PATH="%DIR%..\arduino-win"
 
 set BUILDER="%LOCAL_ARDUINO_PATH:~1,-1%\arduino-builder.exe"
-set HARDWARE="%LOCAL_ARDUINO_PATH:~1,-1%\hardware"
-set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"
+set HARDWARE="%LOCAL_ARDUINO_PATH:~1,-1%\hardware,%LOCAL_ARDUINO_PATH:~1,-1%\packages"
+set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr,%LOCAL_ARDUINO_PATH:~1,-1%\packages"
 set LIBRARIES="%LOCAL_ARDUINO_PATH:~1,-1%\libraries"
 
 if not exist %BUILD_PATH% (

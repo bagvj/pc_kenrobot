@@ -139,7 +139,7 @@ gulp.task('pack-config', ['clean-config'], _ => {
 		.pipe(gulp.dest(APP))
 })
 
-gulp.task('pack', ['pack-config', 'pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
+gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
 
 gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
@@ -182,26 +182,6 @@ gulp.task('build-pack', ['pack', 'build'])
 
 // 默认任务
 gulp.task('default', ['pack'])
-
-gulp.task('clean-bin', _ => {
-	return gulp.src('./build/bin', {read: false})
-		.pipe(clean())
-})
-
-gulp.task('pre-build', ['clean-bin'], _ => {
-	var platform = args.platform || "win"
-	if(platform == "linux") {
-		console.log("not support")
-	} else if(platform == "arm") {
-		console.log("not support")
-	} else if(platform == "mac") {
-		return gulp.src('./dist/mac/kenrobot.app/**/*')
-			.pipe(gulp.dest('./build/bin'))
-	} else {
-		return gulp.src('./dist/win-ia32-unpacked/**/*')
-			.pipe(gulp.dest('./build/bin'))
-	}
-})
 
 gulp.task('mac', _ => {
 	getmac.getMac((err, mac) => {

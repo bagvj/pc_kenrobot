@@ -1,12 +1,10 @@
-define(function() {
+define(['vendor/lodash'], function(_) {
 	var schema = {
 		"boards": [{
 			"label": "Arduino UNO",
 			"name": "ArduinoUNO",
 			"type": "uno",
-			"tags": [
-				"Arduino"
-			],
+			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "VB05cG",
 				"width": 9,
@@ -14,13 +12,8 @@ define(function() {
 				"x": 0.479,
 				"y": 0.088,
 				"name": "13",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "7kNSUd",
 				"width": 9,
@@ -28,13 +21,8 @@ define(function() {
 				"x": 0.513,
 				"y": 0.088,
 				"name": "12",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "p0Yjne",
 				"width": 9,
@@ -42,14 +30,8 @@ define(function() {
 				"x": 0.547,
 				"y": 0.088,
 				"name": "11",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "q6rOYR",
 				"width": 9,
@@ -57,14 +39,8 @@ define(function() {
 				"x": 0.581,
 				"y": 0.088,
 				"name": "10",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Z29m2f",
 				"width": 9,
@@ -72,14 +48,8 @@ define(function() {
 				"x": 0.615,
 				"y": 0.088,
 				"name": "9",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "8aVQDp",
 				"width": 9,
@@ -87,13 +57,8 @@ define(function() {
 				"x": 0.649,
 				"y": 0.088,
 				"name": "8",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "PnAa1t",
 				"width": 9,
@@ -101,13 +66,8 @@ define(function() {
 				"x": 0.704,
 				"y": 0.088,
 				"name": "7",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "xKpFzi",
 				"width": 9,
@@ -115,14 +75,8 @@ define(function() {
 				"x": 0.738,
 				"y": 0.088,
 				"name": "6",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "0gRT2X",
 				"width": 9,
@@ -130,14 +84,8 @@ define(function() {
 				"x": 0.772,
 				"y": 0.088,
 				"name": "5",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "q1DUJD",
 				"width": 9,
@@ -145,13 +93,8 @@ define(function() {
 				"x": 0.804,
 				"y": 0.088,
 				"name": "4",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "5XIyXm",
 				"width": 9,
@@ -159,15 +102,8 @@ define(function() {
 				"x": 0.838,
 				"y": 0.088,
 				"name": "3",
-				"tags": [
-					"digital",
-					"analog-out",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Z9Y9P2",
 				"width": 9,
@@ -175,14 +111,8 @@ define(function() {
 				"x": 0.872,
 				"y": 0.088,
 				"name": "2",
-				"tags": [
-					"digital",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -190,14 +120,8 @@ define(function() {
 				"x": 0.906,
 				"y": 0.088,
 				"name": "1",
-				"tags": [
-					"digital",
-					"serial-rx"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "serial-rx"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -205,14 +129,8 @@ define(function() {
 				"x": 0.94,
 				"y": 0.088,
 				"name": "0",
-				"tags": [
-					"digital",
-					"serial-tx"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "serial-tx"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "1jcO2Y",
 				"width": 9,
@@ -220,12 +138,8 @@ define(function() {
 				"x": 0.77,
 				"y": 0.935,
 				"name": "A0",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "qiTIRc",
 				"width": 9,
@@ -233,12 +147,8 @@ define(function() {
 				"x": 0.804,
 				"y": 0.935,
 				"name": "A1",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "AihHpE",
 				"width": 9,
@@ -246,12 +156,8 @@ define(function() {
 				"x": 0.838,
 				"y": 0.935,
 				"name": "A2",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "M4KhMo",
 				"width": 9,
@@ -259,12 +165,8 @@ define(function() {
 				"x": 0.872,
 				"y": 0.935,
 				"name": "A3",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "PBQRkE",
 				"width": 9,
@@ -272,12 +174,8 @@ define(function() {
 				"x": 0.906,
 				"y": 0.935,
 				"name": "A4",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "rjJtrb",
 				"width": 9,
@@ -285,35 +183,25 @@ define(function() {
 				"x": 0.94,
 				"y": 0.935,
 				"name": "A5",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"width": 32,
 				"height": 62,
 				"x": 0.045,
 				"y": 0.321,
 				"name": "Serial",
-				"tags": [
-					"serial"
-				],
+				"tags": ["serial"],
 				"uid": "q9OAeR",
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"overlay": [0.5, 1.5]
 			}],
-			"uid": "8gEwUv"
+			"uid": "8gEwUv",
+			"hidden": false
 		}, {
 			"label": "Arduino Leonardo",
 			"name": "ArduinoLeonardo",
 			"type": "leonardo",
-			"tags": [
-				"Arduino"
-			],
+			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "B54jYH",
 				"width": 9,
@@ -321,14 +209,8 @@ define(function() {
 				"x": 0.432,
 				"y": 0.049,
 				"name": "13",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "nPk3wi",
 				"width": 9,
@@ -336,13 +218,8 @@ define(function() {
 				"x": 0.469,
 				"y": 0.049,
 				"name": "12",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "5f8Iu5",
 				"width": 9,
@@ -350,14 +227,8 @@ define(function() {
 				"x": 0.506,
 				"y": 0.049,
 				"name": "11",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "mYZ8m1",
 				"width": 9,
@@ -365,14 +236,8 @@ define(function() {
 				"x": 0.542,
 				"y": 0.049,
 				"name": "10",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "R0NsXG",
 				"width": 9,
@@ -380,14 +245,8 @@ define(function() {
 				"x": 0.579,
 				"y": 0.049,
 				"name": "9",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "e8Cir0",
 				"width": 9,
@@ -395,13 +254,8 @@ define(function() {
 				"x": 0.615,
 				"y": 0.049,
 				"name": "8",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "c3BtK4",
 				"width": 9,
@@ -409,13 +263,8 @@ define(function() {
 				"x": 0.669,
 				"y": 0.049,
 				"name": "7",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "xGtGX9",
 				"width": 9,
@@ -423,14 +272,8 @@ define(function() {
 				"x": 0.706,
 				"y": 0.049,
 				"name": "6",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "q01tAI",
 				"width": 9,
@@ -438,14 +281,8 @@ define(function() {
 				"x": 0.742,
 				"y": 0.049,
 				"name": "5",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "VkPW5i",
 				"width": 9,
@@ -453,13 +290,8 @@ define(function() {
 				"x": 0.779,
 				"y": 0.049,
 				"name": "4",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "BDDbG4",
 				"width": 9,
@@ -467,15 +299,8 @@ define(function() {
 				"x": 0.815,
 				"y": 0.049,
 				"name": "3",
-				"tags": [
-					"digital",
-					"analog-out",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "ZHqDKX",
 				"width": 9,
@@ -483,14 +308,8 @@ define(function() {
 				"x": 0.852,
 				"y": 0.049,
 				"name": "2",
-				"tags": [
-					"digital",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "HOxHq3",
 				"width": 9,
@@ -498,15 +317,8 @@ define(function() {
 				"x": 0.889,
 				"y": 0.049,
 				"name": "1",
-				"tags": [
-					"digital",
-					"serial-rx",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "serial-rx", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "lFZMVY",
 				"width": 9,
@@ -514,15 +326,8 @@ define(function() {
 				"x": 0.925,
 				"y": 0.049,
 				"name": "0",
-				"tags": [
-					"digital",
-					"serial-tx",
-					"init"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["digital", "serial-tx", "init"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "vrii22",
 				"width": 9,
@@ -530,12 +335,8 @@ define(function() {
 				"x": 0.742,
 				"y": 0.953,
 				"name": "A0",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "BmWSfi",
 				"width": 9,
@@ -543,12 +344,8 @@ define(function() {
 				"x": 0.779,
 				"y": 0.953,
 				"name": "A1",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "1XiZOV",
 				"width": 9,
@@ -556,12 +353,8 @@ define(function() {
 				"x": 0.815,
 				"y": 0.953,
 				"name": "A2",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "1tGtL0",
 				"width": 9,
@@ -569,12 +362,8 @@ define(function() {
 				"x": 0.852,
 				"y": 0.953,
 				"name": "A3",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "Z9hMY9",
 				"width": 9,
@@ -582,12 +371,8 @@ define(function() {
 				"x": 0.889,
 				"y": 0.953,
 				"name": "A4",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "JYrcfH",
 				"width": 9,
@@ -595,21 +380,16 @@ define(function() {
 				"x": 0.925,
 				"y": 0.953,
 				"name": "A5",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, -0.5]
 			}],
-			"uid": "LBgQBg"
+			"uid": "LBgQBg",
+			"hidden": false
 		}, {
 			"label": "KenBlock",
 			"name": "KenBlock",
 			"type": "uno",
-			"tags": [
-				"KenBlock"
-			],
+			"tags": ["KenBlock"],
 			"pins": [{
 				"uid": "qxkAKU",
 				"width": 32,
@@ -617,12 +397,8 @@ define(function() {
 				"x": 0.333,
 				"y": 0.851,
 				"name": "2",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "NXNAIm",
 				"width": 32,
@@ -630,13 +406,8 @@ define(function() {
 				"x": 0.431,
 				"y": 0.851,
 				"name": "3",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "wzeJnF",
 				"width": 32,
@@ -644,12 +415,8 @@ define(function() {
 				"x": 0.529,
 				"y": 0.851,
 				"name": "8",
-				"tags": [
-					"digital"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "fmmyZX",
 				"width": 32,
@@ -657,13 +424,8 @@ define(function() {
 				"x": 0.627,
 				"y": 0.851,
 				"name": "9",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "fRpBoB",
 				"width": 32,
@@ -671,13 +433,8 @@ define(function() {
 				"x": 0.725,
 				"y": 0.851,
 				"name": "10",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "egMrwL",
 				"width": 32,
@@ -685,27 +442,17 @@ define(function() {
 				"x": 0.823,
 				"y": 0.851,
 				"name": "11",
-				"tags": [
-					"digital",
-					"analog-out"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["digital", "analog-out"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"width": 32,
 				"height": 20,
 				"x": 0.333,
 				"y": 0.149,
 				"name": "A0",
-				"tags": [
-					"analog-in"
-				],
+				"tags": ["analog-in"],
 				"uid": "oU5O1G",
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "NmIcmg",
 				"width": 32,
@@ -713,13 +460,8 @@ define(function() {
 				"x": 0.431,
 				"y": 0.149,
 				"name": "A1",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "fZV8Kk",
 				"width": 32,
@@ -727,13 +469,8 @@ define(function() {
 				"x": 0.529,
 				"y": 0.149,
 				"name": "A2",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "jNoICl",
 				"width": 32,
@@ -741,13 +478,8 @@ define(function() {
 				"x": 0.627,
 				"y": 0.149,
 				"name": "A3",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "yDAzJz",
 				"width": 32,
@@ -755,13 +487,8 @@ define(function() {
 				"x": 0.725,
 				"y": 0.149,
 				"name": "A6",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "0gylmK",
 				"width": 32,
@@ -769,13 +496,8 @@ define(function() {
 				"x": 0.823,
 				"y": 0.149,
 				"name": "A7",
-				"tags": [
-					"analog-in"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["analog-in"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "3Glx3m",
 				"width": 40,
@@ -783,12 +505,8 @@ define(function() {
 				"x": 0.228,
 				"y": 0.851,
 				"name": "USART",
-				"tags": [
-					"serial"
-				],
-				"overlay": [
-					0.5, -0.5
-				]
+				"tags": ["serial"],
+				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "kRXFU6",
 				"width": 40,
@@ -796,13 +514,8 @@ define(function() {
 				"x": 0.228,
 				"y": 0.149,
 				"name": "IIC",
-				"tags": [
-					"iic"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["iic"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "jWafPh",
 				"width": 40,
@@ -810,13 +523,8 @@ define(function() {
 				"x": 0.97,
 				"y": 0.72,
 				"name": "IIC",
-				"tags": [
-					"iic"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				],
+				"tags": ["iic"],
+				"overlay": [0.5, 1.5],
 				"rotate": true
 			}, {
 				"uid": "nBXvdu",
@@ -825,13 +533,8 @@ define(function() {
 				"x": 0.97,
 				"y": 0.336,
 				"name": "MA",
-				"tags": [
-					"motor"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["motor"],
+				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "RRfwhl",
 				"width": 20,
@@ -839,15 +542,208 @@ define(function() {
 				"x": 0.97,
 				"y": 0.54,
 				"name": "MB",
-				"tags": [
-					"motor"
-				],
-				"overlay": [
-					0.5,
-					1.5
-				]
+				"tags": ["motor"],
+				"overlay": [0.5, 1.5]
 			}],
-			"uid": "Nu4C0u"
+			"uid": "Nu4C0u",
+			"hidden": false
+		}, {
+			"label": "Arduino/Genuino 101",
+			"name": "Arduino101",
+			"type": "genuino101",
+			"tags": ["Arduino"],
+			"pins": [{
+				"uid": "4KSv7l",
+				"width": 9,
+				"height": 12,
+				"x": 0.475,
+				"y": 0.07,
+				"name": "13",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "dNbH9e",
+				"width": 9,
+				"height": 12,
+				"x": 0.506,
+				"y": 0.07,
+				"name": "12",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "jYjBXk",
+				"width": 9,
+				"height": 12,
+				"x": 0.537,
+				"y": 0.07,
+				"name": "11",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "Q7rNbn",
+				"width": 9,
+				"height": 12,
+				"x": 0.568,
+				"y": 0.07,
+				"name": "10",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "ZWdX8a",
+				"width": 9,
+				"height": 12,
+				"x": 0.599,
+				"y": 0.07,
+				"name": "9",
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "6ujNmZ",
+				"width": 9,
+				"height": 12,
+				"x": 0.63,
+				"y": 0.07,
+				"name": "8",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "uZgWrY",
+				"width": 9,
+				"height": 12,
+				"x": 0.697,
+				"y": 0.07,
+				"name": "7",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "6fx4LE",
+				"width": 9,
+				"height": 12,
+				"x": 0.728,
+				"y": 0.07,
+				"name": "6",
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "6CpW3l",
+				"width": 9,
+				"height": 12,
+				"x": 0.759,
+				"y": 0.07,
+				"name": "5",
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "GmUHNr",
+				"width": 9,
+				"height": 12,
+				"x": 0.79,
+				"y": 0.07,
+				"name": "4",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "k0H5GM",
+				"width": 9,
+				"height": 12,
+				"x": 0.832,
+				"y": 0.07,
+				"name": "3",
+				"tags": ["digital", "analog-out", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "Ixnbf8",
+				"width": 9,
+				"height": 12,
+				"x": 0.864,
+				"y": 0.07,
+				"name": "2",
+				"tags": ["digital", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "PteBrp",
+				"width": 9,
+				"height": 12,
+				"x": 0.894,
+				"y": 0.07,
+				"name": "1",
+				"tags": ["digital", "serial-rx", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "T4IYSf",
+				"width": 9,
+				"height": 12,
+				"x": 0.925,
+				"y": 0.07,
+				"name": "0",
+				"tags": ["digital", "serial-tx", "init"],
+				"overlay": [0.5, 1.5]
+			}, {
+				"uid": "NwwKuu",
+				"width": 9,
+				"height": 12,
+				"x": 0.77,
+				"y": 0.935,
+				"name": "A0",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"uid": "xDgAlg",
+				"width": 9,
+				"height": 12,
+				"x": 0.804,
+				"y": 0.935,
+				"name": "A1",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"uid": "Qy6B2J",
+				"width": 9,
+				"height": 12,
+				"x": 0.838,
+				"y": 0.935,
+				"name": "A2",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"uid": "C3th8k",
+				"width": 9,
+				"height": 12,
+				"x": 0.872,
+				"y": 0.935,
+				"name": "A3",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"uid": "9gAnIa",
+				"width": 9,
+				"height": 12,
+				"x": 0.906,
+				"y": 0.935,
+				"name": "A4",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"uid": "zNiM0h",
+				"width": 9,
+				"height": 12,
+				"x": 0.94,
+				"y": 0.935,
+				"name": "A5",
+				"tags": ["analog-in", "init"],
+				"overlay": [0.5, -0.5]
+			}, {
+				"width": 32,
+				"height": 60,
+				"x": 0.04,
+				"y": 0.296,
+				"name": "Serial",
+				"tags": ["serial"],
+				"uid": "Ma1a8g",
+				"overlay": [0.5, 1.5]
+			}],
+			"uid": "o8qZHI",
+			"hidden": true
 		}],
 		"components": [{
 			"uid": "VUrwFj",
@@ -855,20 +751,13 @@ define(function() {
 			"label": "按键",
 			"type": "button",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -881,20 +770,13 @@ define(function() {
 			"label": "电位器",
 			"type": "pot",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"analog-in"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["analog-in"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -907,20 +789,13 @@ define(function() {
 			"label": "温湿度传感器",
 			"type": "hts221",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"include": "#include <DHT.h>",
@@ -933,39 +808,22 @@ define(function() {
 			"label": "旋转编码器",
 			"type": "encoder",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "k",
-				"anchor": [
-					0.25,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.25, 1],
+				"tags": ["digital"]
 			}, {
 				"name": "sa",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"init"
-				],
+				"anchor": [0.5, 1],
+				"tags": ["init"],
 				"spec": "3"
 			}, {
 				"name": "sb",
-				"anchor": [
-					0.75,
-					1
-				],
-				"tags": [
-					"init"
-				],
+				"anchor": [0.75, 1],
+				"tags": ["init"],
 				"spec": "2"
 			}],
 			"code": {
@@ -979,20 +837,13 @@ define(function() {
 			"label": "光电对管",
 			"type": "infraredSensor",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1005,20 +856,13 @@ define(function() {
 			"label": "光敏传感器",
 			"type": "lightSensor",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"analog-in"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["analog-in"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1031,20 +875,13 @@ define(function() {
 			"label": "声音传感器",
 			"type": "soundSensor",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1057,20 +894,13 @@ define(function() {
 			"label": "碰撞传感器",
 			"type": "limitSwitch",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1083,29 +913,17 @@ define(function() {
 			"label": "超声波",
 			"type": "ultrasound",
 			"category": "sensor",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "tri",
-				"anchor": [
-					0.333,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.333, 1],
+				"tags": ["digital"]
 			}, {
 				"name": "ech",
-				"anchor": [
-					0.667,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.667, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"include": "#include <SR04.h>",
@@ -1117,20 +935,13 @@ define(function() {
 			"label": "LED",
 			"type": "led",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1143,38 +954,21 @@ define(function() {
 			"label": "三色LED",
 			"type": "rgb",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "r",
-				"anchor": [
-					0.25,
-					1
-				],
-				"tags": [
-					"analog-out"
-				]
+				"anchor": [0.25, 1],
+				"tags": ["analog-out"]
 			}, {
 				"name": "g",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"analog-out"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["analog-out"]
 			}, {
 				"name": "b",
-				"anchor": [
-					0.75,
-					1
-				],
-				"tags": [
-					"analog-out"
-				]
+				"anchor": [0.75, 1],
+				"tags": ["analog-out"]
 			}],
 			"code": {
 				"include": "#include <RGBLed.h>",
@@ -1186,30 +980,18 @@ define(function() {
 			"label": "液晶模块",
 			"type": "lcd",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "sda",
-				"anchor": [
-					0.33,
-					0
-				],
-				"tags": [
-					"analog-in"
-				],
+				"anchor": [0.33, 0],
+				"tags": ["analog-in"],
 				"spec": "A4"
 			}, {
 				"name": "scl",
-				"anchor": [
-					0.67,
-					0
-				],
-				"tags": [
-					"analog-in"
-				],
+				"anchor": [0.67, 0],
+				"tags": ["analog-in"],
 				"spec": "A5"
 			}],
 			"code": {
@@ -1223,20 +1005,13 @@ define(function() {
 			"label": "蜂鸣器",
 			"type": "buzzer",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -1248,20 +1023,13 @@ define(function() {
 			"label": "舵机",
 			"type": "servo",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"include": "#include <Servo.h>",
@@ -1274,20 +1042,13 @@ define(function() {
 			"label": "全角度舵机",
 			"type": "continuousServo",
 			"category": "action",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					0.5,
-					1
-				],
-				"tags": [
-					"digital"
-				]
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
 			}],
 			"code": {
 				"include": "#include <Servo.h>",
@@ -1300,20 +1061,13 @@ define(function() {
 			"label": "串口模块",
 			"type": "serial",
 			"category": "function",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "s",
-				"anchor": [
-					1,
-					0.5
-				],
-				"tags": [
-					"serial"
-				],
+				"anchor": [1, 0.5],
+				"tags": ["serial"],
 				"spec": "Serial"
 			}],
 			"code": {
@@ -1325,31 +1079,17 @@ define(function() {
 			"label": "蓝牙模块",
 			"type": "serial",
 			"category": "function",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "rxd",
-				"anchor": [
-					0.33,
-					1
-				],
-				"tags": [
-					"digital",
-					"analog-in"
-				]
+				"anchor": [0.33, 1],
+				"tags": ["digital", "analog-in"]
 			}, {
 				"name": "txd",
-				"anchor": [
-					0.67,
-					1
-				],
-				"tags": [
-					"digital",
-					"analog-in"
-				]
+				"anchor": [0.67, 1],
+				"tags": ["digital", "analog-in"]
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -1360,31 +1100,17 @@ define(function() {
 			"label": "wifi模块",
 			"type": "serial",
 			"category": "function",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "rxd",
-				"anchor": [
-					0.33,
-					1
-				],
-				"tags": [
-					"digital",
-					"analog-in"
-				]
+				"anchor": [0.33, 1],
+				"tags": ["digital", "analog-in"]
 			}, {
 				"name": "txd",
-				"anchor": [
-					0.67,
-					1
-				],
-				"tags": [
-					"digital",
-					"analog-in"
-				]
+				"anchor": [0.67, 1],
+				"tags": ["digital", "analog-in"]
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -1395,30 +1121,18 @@ define(function() {
 			"label": "时钟模块",
 			"type": "rtc",
 			"category": "function",
-			"boards": [
-				"Arduino"
-			],
+			"boards": ["Arduino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
 				"name": "sda",
-				"anchor": [
-					0.333,
-					0
-				],
-				"tags": [
-					"analog-in"
-				],
+				"anchor": [0.333, 0],
+				"tags": ["analog-in"],
 				"spec": "A4"
 			}, {
 				"name": "scl",
-				"anchor": [
-					0.667,
-					0
-				],
-				"tags": [
-					"analog-in"
-				],
+				"anchor": [0.667, 0],
+				"tags": ["analog-in"],
 				"spec": "A5"
 			}],
 			"code": {
@@ -1462,9 +1176,7 @@ define(function() {
 				"id": "SENSOR",
 				"options": "sensors"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "sensor",
 			"uid": "ujAaFv"
 		}, {
@@ -1488,9 +1200,7 @@ define(function() {
 				"id": "VARIABLE",
 				"options": "hardwareVariables"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "hardwareVariable",
 			"uid": "2DFZNm"
 		}, {
@@ -1516,9 +1226,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "default",
 			"uid": "GwndZo"
 		}, {
@@ -1544,9 +1252,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "default",
 			"uid": "tv3Wpb"
 		}, {
@@ -1581,9 +1287,7 @@ define(function() {
 				"name": "EYkzKw"
 			}],
 			"code": "digitalWrite({PIN},{DATA});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "default",
 			"uid": "iRGIlz"
 		}, {
@@ -1618,9 +1322,7 @@ define(function() {
 				"name": "oiP7fl"
 			}],
 			"code": "analogWrite({PIN},{DATA});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "default",
 			"uid": "XikIW2"
 		}, {
@@ -1646,9 +1348,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "hts221",
 			"uid": "d2guSS"
 		}, {
@@ -1674,9 +1374,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "hts221",
 			"uid": "0o473f"
 		}, {
@@ -1702,9 +1400,7 @@ define(function() {
 				"type": "simple",
 				"value": "int"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "encoder",
 			"uid": "1voV2T"
 		}, {
@@ -1732,9 +1428,7 @@ define(function() {
 				"id": "VALUE"
 			}],
 			"code": "{SENSOR}.write({VALUE});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "encoder",
 			"uid": "bVEFNF"
 		}, {
@@ -1760,9 +1454,7 @@ define(function() {
 				"type": "simple",
 				"value": "long"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "ultrasound",
 			"uid": "Uuo6ia"
 		}, {
@@ -1788,9 +1480,7 @@ define(function() {
 				"type": "simple",
 				"value": "long"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "ultrasound",
 			"uid": "KZOY8K"
 		}, {
@@ -1815,9 +1505,7 @@ define(function() {
 				"value": "Ping"
 			}],
 			"code": "{SENSOR}.Ping();",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "ultrasound",
 			"uid": "8mCcky"
 		}, {
@@ -1843,9 +1531,7 @@ define(function() {
 				"type": "simple",
 				"value": "long"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "ultrasound",
 			"uid": "KsZVo2"
 		}, {
@@ -1873,9 +1559,7 @@ define(function() {
 				"type": "number-input"
 			}],
 			"code": "{MOTOR}.run({SPEED});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "motor",
 			"uid": "Dp0uBY"
 		}, {
@@ -1900,9 +1584,7 @@ define(function() {
 				"value": "停止转动"
 			}],
 			"code": "{MOTOR}.stop();",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "motor",
 			"uid": "rXvmfz"
 		}, {
@@ -1962,9 +1644,7 @@ define(function() {
 				"value": "毫秒"
 			}],
 			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "buzzer",
 			"uid": "VzCbs8"
 		}, {
@@ -1986,9 +1666,7 @@ define(function() {
 				"options": "buzzers"
 			}],
 			"code": "noTone({BUZZER});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "buzzer",
 			"uid": "DSWgJ7"
 		}, {
@@ -2023,9 +1701,7 @@ define(function() {
 				}]
 			}],
 			"code": "{SERVO}.write({DIRECTION});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "continuousServo",
 			"uid": "Rh7nKH"
 		}, {
@@ -2050,9 +1726,7 @@ define(function() {
 				"value": "转动"
 			}],
 			"code": "{SERVO}.write(90);",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "continuousServo",
 			"uid": "0zPjpO"
 		}, {
@@ -2084,9 +1758,7 @@ define(function() {
 				"value": "的背光"
 			}],
 			"code": "{LCD}.{STATE}();",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "lcd",
 			"uid": "wzKQ12"
 		}, {
@@ -2115,9 +1787,7 @@ define(function() {
 				"placeholder": "Hi!"
 			}],
 			"code": "{LCD}.print(\"{TEXT}\");",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "lcd",
 			"uid": "cAzykL"
 		}, {
@@ -2160,9 +1830,7 @@ define(function() {
 				"placeholder": "Hi!"
 			}],
 			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print(\"{TEXT}\");",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "lcd",
 			"uid": "YpzjBM"
 		}, {
@@ -2184,9 +1852,7 @@ define(function() {
 				"options": "lcds"
 			}],
 			"code": "{LCD}.clear();",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "lcd",
 			"uid": "XXhFiq"
 		}, {
@@ -2218,9 +1884,7 @@ define(function() {
 				"options": "leds"
 			}],
 			"code": "digitalWrite({LED},{STATE});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "led",
 			"uid": "kAYJem"
 		}, {
@@ -2273,9 +1937,7 @@ define(function() {
 				}]
 			}],
 			"code": "{LED}.setRGBcolor({COLOR});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rgb",
 			"uid": "ti6LLp"
 		}, {
@@ -2318,9 +1980,7 @@ define(function() {
 				"value": 0
 			}],
 			"code": "{LED}.setRGBcolor({RED},{GREEN},{BLUE});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rgb",
 			"uid": "hMtr51"
 		}, {
@@ -2363,9 +2023,7 @@ define(function() {
 				"value": 0
 			}],
 			"code": "{LED}.crossFade({RED},{GREEN},{BLUE});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rgb",
 			"uid": "FUFTYU"
 		}, {
@@ -2387,9 +2045,7 @@ define(function() {
 				"options": "rtcs"
 			}],
 			"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rtc",
 			"uid": "EDzCeH"
 		}, {
@@ -2425,9 +2081,7 @@ define(function() {
 				"type": "simple",
 				"value": "String"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rtc",
 			"uid": "U1FBGb"
 		}, {
@@ -2475,9 +2129,7 @@ define(function() {
 				"type": "simple",
 				"value": "int"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "rtc",
 			"uid": "CQUeJX"
 		}, {
@@ -2509,9 +2161,7 @@ define(function() {
 				"value": "度"
 			}],
 			"code": "{SERVO}.write({POSITION});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "servo",
 			"uid": "i7pG0w"
 		}, {
@@ -2530,9 +2180,7 @@ define(function() {
 				"type": "simple",
 				"value": "char"
 			},
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "serial",
 			"uid": "riThuE"
 		}, {
@@ -2570,9 +2218,7 @@ define(function() {
 				}]
 			}],
 			"code": "Serial.{LN}({DATA});",
-			"tags": [
-				"module"
-			],
+			"tags": ["module"],
 			"module": "serial",
 			"uid": "p3UznJ"
 		}, {
@@ -2604,10 +2250,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "default",
 			"uid": "xhc6IF"
 		}, {
@@ -2639,10 +2282,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "default",
 			"uid": "CrAfJs"
 		}, {
@@ -2683,10 +2323,7 @@ define(function() {
 				"name": "qwtp3O"
 			}],
 			"code": "analogWrite({PIN},{DATA});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "default",
 			"uid": "pf9d0N"
 		}, {
@@ -2727,10 +2364,7 @@ define(function() {
 				"name": "yd6jNr"
 			}],
 			"code": "digitalWrite({PIN},{DATA});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "default",
 			"uid": "fJeoIf"
 		}, {
@@ -2754,10 +2388,7 @@ define(function() {
 				"id": "COMPONENT",
 				"options": "components"
 			},
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "component",
 			"uid": "ZgUO0e"
 		}, {
@@ -2814,10 +2445,7 @@ define(function() {
 				"value": "毫秒"
 			}],
 			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "IOYb1Y"
 		}, {
 			"type": "statement",
@@ -2851,10 +2479,7 @@ define(function() {
 				"name": "QPrCkn"
 			}],
 			"code": "{MOTOR}.run({SPEED});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "motor",
 			"uid": "EH9wYs"
 		}, {
@@ -2895,10 +2520,7 @@ define(function() {
 				"name": "TyJJe0"
 			}],
 			"code": "{SERVO}.write({DIRECTION});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "4qHqiF"
 		}, {
 			"type": "statement",
@@ -2928,10 +2550,7 @@ define(function() {
 				"value": "转动"
 			}],
 			"code": "{SERVO}.write(90);",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "PNFLTP"
 		}, {
 			"type": "statement",
@@ -2968,10 +2587,7 @@ define(function() {
 				"value": "的背光"
 			}],
 			"code": "{LCD}.{STATE}();",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "eQxZOO"
 		}, {
 			"type": "statement",
@@ -3011,10 +2627,7 @@ define(function() {
 				"name": "EAB78q"
 			}],
 			"code": "{LCD}.print({TEXT});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "Zfk1gV"
 		}, {
 			"type": "statement",
@@ -3051,10 +2664,7 @@ define(function() {
 				"name": "xSxDCC"
 			}],
 			"code": "digitalWrite({LED},{STATE});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "U7dzAq"
 		}, {
 			"type": "statement",
@@ -3094,10 +2704,7 @@ define(function() {
 				"name": "aTPm3X"
 			}],
 			"code": "{ENCODER}.write({VALUE});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "uQirVf"
 		}, {
 			"type": "statement",
@@ -3157,10 +2764,7 @@ define(function() {
 				"name": "D1j5vR"
 			}],
 			"code": "{LED}.setRGBcolor({RED},{GREEN},{BLUE});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"module": "rgb",
 			"uid": "GrE8rY"
 		}, {
@@ -3204,10 +2808,7 @@ define(function() {
 				"value": "度"
 			}],
 			"code": "{SERVO}.write({POSITION});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "wFdxeI"
 		}, {
 			"type": "statement",
@@ -3273,10 +2874,7 @@ define(function() {
 				"name": "ohuavW"
 			}],
 			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
-			"tags": [
-				"module",
-				"advanced"
-			],
+			"tags": ["module", "advanced"],
 			"uid": "nDEGXV"
 		}, {
 			"type": "output",
@@ -3301,9 +2899,7 @@ define(function() {
 				"type": "simple",
 				"value": "String"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "kp7kKD"
 		}, {
 			"type": "output",
@@ -3328,9 +2924,7 @@ define(function() {
 				"type": "simple",
 				"value": "String *"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "AXBfge"
 		}, {
 			"type": "output",
@@ -3358,9 +2952,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "zWVg0E"
 		}, {
 			"type": "output",
@@ -3388,9 +2980,7 @@ define(function() {
 				"type": "simple",
 				"value": "String"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "1ZtonP"
 		}, {
 			"type": "output",
@@ -3428,9 +3018,7 @@ define(function() {
 				"type": "simple",
 				"value": "String"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "9sXabi"
 		}, {
 			"type": "output",
@@ -3455,9 +3043,7 @@ define(function() {
 				"type": "simple",
 				"value": "bool"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "nllNTV"
 		}, {
 			"type": "output",
@@ -3482,9 +3068,7 @@ define(function() {
 				"type": "simple",
 				"value": "bool *"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "KiTI7b"
 		}, {
 			"type": "output",
@@ -3503,9 +3087,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "6kmKjU"
 		}, {
 			"type": "output",
@@ -3530,9 +3112,7 @@ define(function() {
 				"type": "simple",
 				"value": "float *"
 			},
-			"tags": [
-				"data"
-			],
+			"tags": ["data"],
 			"uid": "HishdZ"
 		}, {
 			"type": "output",
@@ -3574,10 +3154,7 @@ define(function() {
 				"id": "TYPE",
 				"options": "vars"
 			},
-			"tags": [
-				"data",
-				"advanced"
-			],
+			"tags": ["data", "advanced"],
 			"uid": "vQnRye"
 		}, {
 			"type": "output",
@@ -3602,10 +3179,7 @@ define(function() {
 				"type": "simple",
 				"value": "char"
 			},
-			"tags": [
-				"data",
-				"advanced"
-			],
+			"tags": ["data", "advanced"],
 			"uid": "iltYPk"
 		}, {
 			"type": "output",
@@ -3647,10 +3221,7 @@ define(function() {
 				"id": "TYPE",
 				"options": "vars"
 			},
-			"tags": [
-				"data",
-				"advanced"
-			],
+			"tags": ["data", "advanced"],
 			"uid": "QEMney"
 		}, {
 			"type": "statement",
@@ -3689,9 +3260,7 @@ define(function() {
 			},
 			"createDynamicContent": "vars",
 			"code": "{VALUE.connectionType} {NAME} = {VALUE};",
-			"tags": [
-				"variable"
-			],
+			"tags": ["variable"],
 			"uid": "UUlc76"
 		}, {
 			"type": "output",
@@ -3714,9 +3283,7 @@ define(function() {
 				"id": "VAR",
 				"options": "vars"
 			},
-			"tags": [
-				"variable"
-			],
+			"tags": ["variable"],
 			"uid": "eY9sHc"
 		}, {
 			"type": "statement",
@@ -3754,9 +3321,7 @@ define(function() {
 				"name": "3heG3z"
 			}],
 			"code": "{NAME} = {VALUE};",
-			"tags": [
-				"variable"
-			],
+			"tags": ["variable"],
 			"uid": "R5KH9G"
 		}, {
 			"type": "output",
@@ -3790,9 +3355,7 @@ define(function() {
 				"pointer": "true",
 				"options": "vars"
 			},
-			"tags": [
-				"variable"
-			],
+			"tags": ["variable"],
 			"uid": "Wp89X0"
 		}, {
 			"type": "statement",
@@ -3846,9 +3409,7 @@ define(function() {
 				"name": "mWxqPh"
 			}],
 			"code": "{NAME}[{ITERATOR}] = {VALUE};",
-			"tags": [
-				"variable"
-			],
+			"tags": ["variable"],
 			"uid": "NCcGrH"
 		}, {
 			"type": "output",
@@ -3888,10 +3449,7 @@ define(function() {
 				"pointer": "true",
 				"options": "vars"
 			},
-			"tags": [
-				"variable",
-				"advanced"
-			],
+			"tags": ["variable", "advanced"],
 			"uid": "EYPRz3"
 		}, {
 			"type": "statement",
@@ -3941,10 +3499,7 @@ define(function() {
 				"name": "BppPJp"
 			}],
 			"code": "{NAME}[{ITERATOR}] = {VALUE};",
-			"tags": [
-				"variable",
-				"advanced"
-			],
+			"tags": ["variable", "advanced"],
 			"uid": "V73XC2"
 		}, {
 			"type": "statement",
@@ -4005,10 +3560,7 @@ define(function() {
 			},
 			"createDynamicContent": "vars",
 			"code": "{TYPE} {NAME} = {VALUE};",
-			"tags": [
-				"variable",
-				"advanced"
-			],
+			"tags": ["variable", "advanced"],
 			"uid": "CNa5uK"
 		}, {
 			"type": "statement-input",
@@ -4037,9 +3589,7 @@ define(function() {
 				"value": "void"
 			},
 			"code": "void {FUNCNAME}(){{STATEMENTS}}",
-			"tags": [
-				"function"
-			],
+			"tags": ["function"],
 			"uid": "lZ0xnG"
 		}, {
 			"type": "statement",
@@ -4060,9 +3610,7 @@ define(function() {
 				"options": "voidFunctions"
 			}],
 			"code": "{FUNCTION}();",
-			"tags": [
-				"function"
-			],
+			"tags": ["function"],
 			"uid": "bnrwD0"
 		}, {
 			"type": "statement-input",
@@ -4106,9 +3654,7 @@ define(function() {
 				"blockInputId": "RETURN"
 			},
 			"code": "{RETURN.connectionType} {FUNCNAME}() {{STATEMENTS}return {RETURN};}",
-			"tags": [
-				"function"
-			],
+			"tags": ["function"],
 			"uid": "ZWKexM"
 		}, {
 			"type": "output",
@@ -4131,9 +3677,7 @@ define(function() {
 				"id": "FUNCTION",
 				"options": "returnFunctions"
 			},
-			"tags": [
-				"function"
-			],
+			"tags": ["function"],
 			"uid": "t34utI"
 		}, {
 			"type": "statement-input",
@@ -4179,10 +3723,7 @@ define(function() {
 				"blockInputId": "ARGS"
 			},
 			"code": "void {FUNCNAME} ({ARGS}){{STATEMENTS}}",
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "JsiS6Y"
 		}, {
 			"type": "statement",
@@ -4216,10 +3757,7 @@ define(function() {
 				"name": "zwFm5B"
 			}],
 			"code": "{FUNCTION}({ARGS});",
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "spCTvj"
 		}, {
 			"type": "statement-input",
@@ -4280,10 +3818,7 @@ define(function() {
 				"blockInputId": "ARGS"
 			},
 			"code": "{RETURN.connectionType} {FUNCNAME} ({ARGS}) {{STATEMENTS}return {RETURN};}",
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "iagCN1"
 		}, {
 			"type": "output",
@@ -4319,10 +3854,7 @@ define(function() {
 				"id": "FUNCTION",
 				"options": "returnFunctions"
 			},
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "E2jsga"
 		}, {
 			"type": "output",
@@ -4365,10 +3897,7 @@ define(function() {
 				"id": "TYPE",
 				"options": "vars"
 			},
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "5Ev42F"
 		}, {
 			"type": "output",
@@ -4407,10 +3936,7 @@ define(function() {
 				"type": "simple",
 				"value": "var"
 			},
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "IWkSja"
 		}, {
 			"type": "statement",
@@ -4437,10 +3963,7 @@ define(function() {
 				"name": "i7RIin"
 			}],
 			"code": "return {RETURN};",
-			"tags": [
-				"function",
-				"advanced"
-			],
+			"tags": ["function", "advanced"],
 			"uid": "fkkekW"
 		}, {
 			"type": "statement-input",
@@ -4505,9 +4028,7 @@ define(function() {
 				"value": "那么"
 			}],
 			"code": "if({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "heBaUa"
 		}, {
 			"type": "statement-input",
@@ -4572,9 +4093,7 @@ define(function() {
 				"value": "那么"
 			}],
 			"code": "else if ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "yaqR8I"
 		}, {
 			"type": "statement-input",
@@ -4594,9 +4113,7 @@ define(function() {
 				"value": "否则，那么"
 			}],
 			"code": "else {{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "ZfRdU7"
 		}, {
 			"type": "statement-input",
@@ -4623,9 +4140,7 @@ define(function() {
 				"value": "的值为"
 			}],
 			"code": "switch (int({VAR})) {{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "3zhrCA"
 		}, {
 			"type": "statement-input",
@@ -4681,9 +4196,7 @@ define(function() {
 			}],
 			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
 			"eval": true,
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "0ByIUU"
 		}, {
 			"type": "statement-input",
@@ -4748,9 +4261,7 @@ define(function() {
 				"value": "则一直循环执行"
 			}],
 			"code": "while ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "5RidrE"
 		}, {
 			"type": "statement-input",
@@ -4777,9 +4288,7 @@ define(function() {
 				"value": "那么"
 			}],
 			"code": "case {VAR}:{{STATEMENTS}break;}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "ff0qMf"
 		}, {
 			"type": "statement-input",
@@ -4799,9 +4308,7 @@ define(function() {
 				"value": "如果都不是，那么"
 			}],
 			"code": "default:{{STATEMENTS}break;}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "vkklu3"
 		}, {
 			"type": "statement",
@@ -4818,9 +4325,7 @@ define(function() {
 				"value": "开始下一次循环"
 			}],
 			"code": "continue;",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "CmAGXf"
 		}, {
 			"type": "statement",
@@ -4837,9 +4342,7 @@ define(function() {
 				"value": "结束本轮循环"
 			}],
 			"code": "break;",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "vbxsf7"
 		}, {
 			"type": "statement-input",
@@ -4859,9 +4362,7 @@ define(function() {
 				"value": "否则，那么"
 			}],
 			"code": "else {{STATEMENTS}}",
-			"tags": [
-				"logic"
-			],
+			"tags": ["logic"],
 			"uid": "kEK1px"
 		}, {
 			"type": "statement-input",
@@ -4894,10 +4395,7 @@ define(function() {
 				"value": "那么"
 			}],
 			"code": "if({CONDITION}){{STATEMENTS}}",
-			"tags": [
-				"logic",
-				"advanced"
-			],
+			"tags": ["logic", "advanced"],
 			"uid": "LoJkxZ"
 		}, {
 			"type": "statement-input",
@@ -4930,10 +4428,7 @@ define(function() {
 				"value": "那么"
 			}],
 			"code": "else if ({VAR}){{STATEMENTS}}",
-			"tags": [
-				"logic",
-				"advanced"
-			],
+			"tags": ["logic", "advanced"],
 			"uid": "SB5Ph7"
 		}, {
 			"type": "statement-input",
@@ -5007,10 +4502,7 @@ define(function() {
 			}],
 			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
 			"eval": true,
-			"tags": [
-				"logic",
-				"advanced"
-			],
+			"tags": ["logic", "advanced"],
 			"uid": "0sHb8t"
 		}, {
 			"type": "statement-input",
@@ -5040,10 +4532,7 @@ define(function() {
 				"name": "kyrV6g"
 			}],
 			"code": "switch (int({VAR})) {{STATEMENTS}}",
-			"tags": [
-				"logic",
-				"advanced"
-			],
+			"tags": ["logic", "advanced"],
 			"uid": "Mjse7L"
 		}, {
 			"type": "statement-input",
@@ -5076,10 +4565,7 @@ define(function() {
 				"value": "则一直循环执行"
 			}],
 			"code": "while ({CONDITION}){{STATEMENTS}}",
-			"tags": [
-				"logic",
-				"advanced"
-			],
+			"tags": ["logic", "advanced"],
 			"uid": "3N9W0i"
 		}, {
 			"type": "output",
@@ -5107,9 +4593,7 @@ define(function() {
 				"type": "simple",
 				"value": "bool"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "PPCqQ0"
 		}, {
 			"type": "output",
@@ -5166,9 +4650,7 @@ define(function() {
 				"type": "simple",
 				"value": "bool"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "W0ekQd"
 		}, {
 			"type": "output",
@@ -5213,9 +4695,7 @@ define(function() {
 				"type": "simple",
 				"value": "bool"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "pfjv98"
 		}, {
 			"type": "output",
@@ -5273,9 +4753,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "E2DpR9"
 		}, {
 			"type": "output",
@@ -5319,9 +4797,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "2qFcus"
 		}, {
 			"type": "statement",
@@ -5342,9 +4818,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "6XxLmC"
 		}, {
 			"type": "output",
@@ -5385,9 +4859,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "Vc9dLY"
 		}, {
 			"type": "output",
@@ -5431,9 +4903,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "Wmd0Ua"
 		}, {
 			"type": "output",
@@ -5474,9 +4944,7 @@ define(function() {
 				"type": "fromSelect",
 				"id": "TYPE"
 			},
-			"tags": [
-				"operation"
-			],
+			"tags": ["operation"],
 			"uid": "uRiJr0"
 		}, {
 			"type": "output",
@@ -5559,10 +5027,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"operation",
-				"advanced"
-			],
+			"tags": ["operation", "advanced"],
 			"uid": "SGhMsC"
 		}, {
 			"type": "statement",
@@ -5583,9 +5048,7 @@ define(function() {
 				"placeholder": "输入你的注释"
 			}],
 			"code": "/*\n{COMMENT}\n*/",
-			"tags": [
-				"code"
-			],
+			"tags": ["code"],
 			"uid": "iKZF8b"
 		}, {
 			"type": "statement",
@@ -5604,9 +5067,7 @@ define(function() {
 				"placeholder": "输入你自己的代码"
 			}],
 			"code": "{CODE}\n",
-			"tags": [
-				"code"
-			],
+			"tags": ["code"],
 			"uid": "fRkMEy"
 		}, {
 			"type": "statement",
@@ -5630,9 +5091,7 @@ define(function() {
 				"value": "毫秒"
 			}],
 			"code": "delay({TIME});",
-			"tags": [
-				"time"
-			],
+			"tags": ["time"],
 			"uid": "s5clkj"
 		}, {
 			"type": "output",
@@ -5650,9 +5109,7 @@ define(function() {
 				"type": "simple",
 				"value": "float"
 			},
-			"tags": [
-				"time"
-			],
+			"tags": ["time"],
 			"uid": "M5LFrv"
 		}, {
 			"type": "statement",
@@ -5679,14 +5136,27 @@ define(function() {
 				"name": "elQYZ8"
 			}],
 			"code": "delay({TIME});",
-			"tags": [
-				"time",
-				"advanced"
-			],
+			"tags": ["time", "advanced"],
 			"uid": "795c8s"
 		}],
 		"ablums": []
 	};
+
+	_.pullAll(schema.boards, _.filter(schema.boards, function(board) {
+		return board.hidden;
+	}));
+
+	_.pullAll(schema.components, _.filter(schema.components, function(component) {
+		return component.hidden;
+	}));
+
+	_.pullAll(schema.blocks, _.filter(schema.blocks, function(block) {
+		return block.hidden;
+	}));
+
+	_.pullAll(schema.ablums, _.filter(schema.ablums, function(ablum) {
+		return ablum.hidden;
+	}));
 
 	return schema;
 });
