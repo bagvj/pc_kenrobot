@@ -23,8 +23,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function onAppStart() {
-		hardware.loadSchema(schema.hardware);
-		software.loadSchema(schema.software);
+		hardware.loadSchema(schema);
+		software.loadSchema(schema);
 		
 		openProject(getDefaultProject());
 	}
@@ -80,10 +80,10 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 
 		doProjectSave(projectInfo, saveAs).then(function() {
 			util.modalMessage("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath, {board_type: boardType}).then(function(hex) {
+			kenrobot.postMessage("app:buildProject", savePath, {board_type: boardType}).then(function(target) {
 				util.modalMessage("编译成功，正在上传请稍候");
 				setTimeout(function() {
-					kenrobot.postMessage("app:upload", hex, {board_type: boardType}).then(function() {
+					kenrobot.postMessage("app:upload", target, {board_type: boardType}).then(function() {
 						util.hideModalMessage();
 						util.message({
 							text: "上传成功",
@@ -93,7 +93,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						util.hideModalMessage();
 						onProjectUploadFail(err).then(function(comName) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:upload2", hex, comName, {board_type: boardType}).then(function() {
+							kenrobot.postMessage("app:upload2", target, comName, {board_type: boardType}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",

@@ -539,7 +539,11 @@ function preUpload(comName, boardType) {
 	var deferred = Q.defer()
 
 	if(boardType != "genuino101") {
-		return deferred.resolve()
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+		
+		return deferred.promise
 	} 
 
 	var serialPort = new SerialPort(comName, {

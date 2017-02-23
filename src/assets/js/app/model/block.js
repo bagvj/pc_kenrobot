@@ -1,4 +1,4 @@
-define(['app/util/emitor'], function(emitor) {
+define(['app/util/util'], function(util) {
 	var blocks = {};
 	var connectors = {};
 	var ioConnectors = {};
@@ -32,7 +32,7 @@ define(['app/util/emitor'], function(emitor) {
 
 	function Block(blockData) {
 		this.data = blockData;
-		this.uid = genUid();
+		this.uid = util.uuid(6);
 		this.connectable = false;
 		this.enable = true;
 		this.connectors = [];
@@ -164,7 +164,7 @@ define(['app/util/emitor'], function(emitor) {
 		var containerDom;
 
 		block.data.connectors.forEach(function(connectorData) {
-			connectorUid = genUid();
+			connectorUid = util.uuid(6)
 			connector = {
 				uid: connectorUid,
 				data: connectorData,
@@ -451,8 +451,6 @@ define(['app/util/emitor'], function(emitor) {
 
 			dragBlock = block;
 			mouseDownBlockDom = null;
-
-			emitor.trigger("block", "drag-start");
 		}
 
 		block = block || dragBlock;
@@ -505,8 +503,6 @@ define(['app/util/emitor'], function(emitor) {
 		[].forEach.call(dragContainer.querySelectorAll(".block .connector.active"), function(connectorDom) {
 			connectorDom.classList.remove("active");
 		});
-
-		emitor.trigger("block", "drag-end");
 	}
 
 	function statementDragStart(block) {
@@ -1173,7 +1169,7 @@ define(['app/util/emitor'], function(emitor) {
 		} else if (name) {
 			blockVar = {
 				name: name,
-				id: genUid(),
+				id: util.uuid(6),
 				blockUid: block.uid,
 				type: type,
 				args: args,
@@ -1596,16 +1592,6 @@ define(['app/util/emitor'], function(emitor) {
 			}
 		}
 		return name;
-	}
-
-	function genUid() {
-		var d = new Date().getTime();
-		var uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			var r = (d + Math.random() * 16) % 16 | 0;
-			d = Math.floor(d / 16);
-			return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-		});
-		return uid;
 	}
 
 	function clone(data) {

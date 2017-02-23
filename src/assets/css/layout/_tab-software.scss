@@ -1,11 +1,11 @@
 $module-color: #ec6e68;
+$data-color: #20b5f9;
+$variable-color: #eeca24;
 $function-color: #f69023;
-$var-color: #eeca24;
-$code-color: #a3ce47;
-$math-color: #47c5ca;
-$text-color: #20b5f9;
-$control-color: #0b75d2;
 $logic-color: #d764ae;
+$operation-color: #0b75d2;
+$code-color: #a3ce47;
+$time-color: #47c5ca;
 
 $focus-color: #f1cb33;
 
@@ -203,12 +203,12 @@ $focus-color: #f1cb33;
 					}
 				}
 
-				&[data-filter="var"] {
-					color: $var-color;
-					border-color: $var-color;
+				&[data-filter="variable"] {
+					color: $variable-color;
+					border-color: $variable-color;
 
 					&.active, &:hover {
-						background-color: $var-color;
+						background-color: $variable-color;
 						color: white;
 					}
 				}
@@ -223,32 +223,32 @@ $focus-color: #f1cb33;
 					}
 				}
 
-				&[data-filter="math"] {
-					color: $math-color;
-					border-color: $math-color;
+				&[data-filter="time"] {
+					color: $time-color;
+					border-color: $time-color;
 
 					&.active, &:hover {
-						background-color: $math-color;
+						background-color: $time-color;
 						color: white;
 					}
 				}
 
-				&[data-filter="text"] {
-					color: $text-color;
-					border-color: $text-color;
+				&[data-filter="data"] {
+					color: $data-color;
+					border-color: $data-color;
 
 					&.active, &:hover {
-						background-color: $text-color;
+						background-color: $data-color;
 						color: white;
 					}
 				}
 
-				&[data-filter="control"] {
-					color: $control-color;
-					border-color: $control-color;
+				&[data-filter="operation"] {
+					color: $operation-color;
+					border-color: $operation-color;
 
 					&.active, &:hover {
-						background-color: $control-color;
+						background-color: $operation-color;
 						color: white;
 					}
 				}
