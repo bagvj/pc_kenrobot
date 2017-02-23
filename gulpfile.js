@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra
  * npm install --save electron-debug electron-is electron-log fs-extra getmac md5 minimist q
  */
 
