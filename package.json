@@ -17,13 +17,15 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
+      "warningsAsErrors": false,
       "menuCategory": true,
       "artifactName": "${productName}.${ext}",
       "appPackageUrl": "http://www.kenrobot.com/webinstall",
       "language": 2052
     },
     "linux": {
-      "icon": "icon"
+      "icon": "icon",
+      "depends": ["gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
     },
     "dmg": {
       "contents": [
