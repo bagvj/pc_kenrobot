@@ -15,16 +15,19 @@ set BOARD_TYPE=%2
 set DIR=%~dp0
 set LOCAL_ARDUINO_PATH="%DIR%..\arduino-win"
 
+for /f "tokens=2,*" %%j in ('REG QUERY "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" ^|find /i "Personal"') do  call set "USERDOCUMENT=%%k"
+set SKETCHBOOKFOLDER="%USERDOCUMENT%\Arduino"
+set LIBRARIES_PATH="%SKETCHBOOKFOLDER:~1,-1%\libraries"
 set BUILDER="%LOCAL_ARDUINO_PATH:~1,-1%\arduino-builder.exe"
 set HARDWARE="%LOCAL_ARDUINO_PATH:~1,-1%\hardware,%LOCAL_ARDUINO_PATH:~1,-1%\packages"
 set TOOLS="%LOCAL_ARDUINO_PATH:~1,-1%\tools-builder,%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr,%LOCAL_ARDUINO_PATH:~1,-1%\packages"
-set LIBRARIES="%LOCAL_ARDUINO_PATH:~1,-1%\libraries"
+set BUILT_IN_LIBRARIES_PATH="%LOCAL_ARDUINO_PATH:~1,-1%\libraries"
 
 if not exist %BUILD_PATH% (
 	mkdir %BUILD_PATH%
 )
 
-%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%LIBRARIES% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
+%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%BUILT_IN_LIBRARIES_PATH% -libraries=%LIBRARIES_PATH% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
 
 if not %errorlevel% == 0 (
 	echo build fail
