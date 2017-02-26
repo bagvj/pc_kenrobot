@@ -18,18 +18,17 @@ BOARD_TYPE=$2
 USERPATH=`echo $HOME`
 #先这么写  后期加入参数
 SKETCHBOOKFOLDER=${USERPATH}/Documents/Arduino
-LIBRARIES=""
 
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
 elif [[ `uname -s` == Darwin ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-mac
-    LIBRARIES=${SKETCHBOOKFOLDER}/libraries
 else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
 
+LIBRARIES=${SKETCHBOOKFOLDER}/libraries
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
 TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
