@@ -15,12 +15,15 @@ SKETCH=${SKETCH_PATH}/${SKETCH}.ino
 BUILD_PATH=${SKETCH_PATH}/build
 
 BOARD_TYPE=$2
+USERPATH=`echo $USER`
+LIBRARIES=""
 
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
 elif [[ `uname -s` == Darwin ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-mac
+    LIBRARIES=/Users/${USERPATH}/Documents/Arduino/libraries
 else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
@@ -28,13 +31,13 @@ fi
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
 TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
-LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
+BUILD_IN_LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
 
 if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
-${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 
 if [ $? -ne 0 ]; then
 	echo build fail
