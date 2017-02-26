@@ -15,7 +15,9 @@ SKETCH=${SKETCH_PATH}/${SKETCH}.ino
 BUILD_PATH=${SKETCH_PATH}/build
 
 BOARD_TYPE=$2
-USERPATH=`echo $USER`
+USERPATH=`echo $HOME`
+#先这么写  后期加入参数
+SKETCHBOOKFOLDER=${USERPATH}/Documents/Arduino
 LIBRARIES=""
 
 DIR=$(dirname "$0")
@@ -23,7 +25,7 @@ if [[ `arch` == arm* ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-arm
 elif [[ `uname -s` == Darwin ]];then
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-mac
-    LIBRARIES=/Users/${USERPATH}/Documents/Arduino/libraries
+    LIBRARIES=${SKETCHBOOKFOLDER}/libraries
 else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
