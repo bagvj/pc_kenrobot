@@ -35,6 +35,11 @@
 			height: 34px;
 			line-height: 34px;
 			padding-left: 11px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 320px;
+			padding-right: 32px;
 
 			&:after {
 				content: ' ';
@@ -56,6 +61,11 @@
 				padding-left: 11px;
 				line-height: 34px;
 				transition: background-color 0.2s;
+				padding-right: 11px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: 320px;
+				white-space: nowrap;
 
 				&:hover {
 					background-color: #f7f9f9;

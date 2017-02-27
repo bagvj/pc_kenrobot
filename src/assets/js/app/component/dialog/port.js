@@ -17,7 +17,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 		reset();
 		var ul = $("> ul", portList);
 		ports.forEach(function(port) {
-			$('<li>').data('value', port.comName).text(port.comName).appendTo(ul);
+			$('<li>').data('value', port.comName).text(port.boardName ? (port.comName + "(" + port.boardName + ")") : port.comName).attr("title", port.boardName || "").appendTo(ul);
 		});
 		$('li', ul).on('click', onPortSelectClick)[0].click();
 
@@ -51,7 +51,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 	function onPortSelectClick(e) {
 		var li = $(this);
 		var select = li.closest(".x-select");
-		select.removeClass("active").data("value", li.data("value")).find(".placeholder").html(li.html());
+		select.removeClass("active").data("value", li.data("value")).find(".placeholder").html(li.html()).attr('title', li.attr('title') || "");
 	}
 
 	return {

@@ -11,8 +11,11 @@ const log = require('electron-log')
 const minimist = require('minimist') //命令行参数解析
 const md5 = require('md5')
 const SerialPort = require('serialport') //串口
+const glob = require('glob') 
 
 var args = minimist(process.argv.slice(1)) //命令行参数
+
+var boardNames
 
 let mainWindow
 
@@ -64,6 +67,8 @@ function listenEvent() {
 
 		createWindow()
 		// AppUpdater.init(mainWindow)
+		loadBoards()
+
 	}).on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
 			app.quit()
@@ -249,8 +254,26 @@ function getSerialPorts() {
 
 	log.debug("getSerialPorts")
 	SerialPort.list((err, ports) => {
-		log.debug(`ports: ${ports.map(p => p.comName).join(', ')}`)
-		ports.length > 0 ? deferred.resolve(ports) : deferred.reject()
+		if(err) {
+			console.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		if(ports.length == 0) {
+			deferred.reject()
+			return
+		}
+
+		matchBoardNames(ports).then(_ => {
+			ports.forEach(p => log.debug(`${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`))
+			deferred.resolve(ports)
+		}, err1 => {
+			if(err1) {
+				console.error(err1)
+				deferred.reject(err1)
+			}
+		})
 	})
 
 	return deferred.promise
@@ -540,6 +563,108 @@ function preUpload(comName, boardType) {
 		serialPort.close(_ => {
 			deferred.reject(err)
 		})
+	})
+
+	return deferred.promise
+}
+
+function getSystemSuffix() {
+	if(is.windows()) {
+		return "win"
+	} else if(is.macOS()) {
+		return "mac"
+	} else {
+		var arch = os.arch()
+		if(arch.indexOf('arm') >= 0) {
+			return "arm"
+		} else {
+			return "linux"
+		}
+	}
+}
+
+function loadBoards(forceReload) {
+	var deferred = Q.defer()
+
+	if(boardNames && !forceReload) {
+		setTimeout(_ => {
+			deferred.resolve(boardNames)
+		}, 10)
+
+		return deferred.promise
+	}
+
+	var _boardNames = {}
+	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\n]+)/g
+	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\n]+)/g
+	var nameReg = /\n([^\.\n]+)\.name=([^\n]+)/g
+	
+	var searchPath = 'arduino-' + getSystemSuffix()
+	glob(`${searchPath}/**/boards.txt`, {}, (err, pathList) => {
+		if(err) {
+			console.error(err)
+			deferred.reject(err)
+			return
+		}
+		
+		pathList.forEach(p => {
+			var count = pathList.length
+			readFile(p).then(content => {
+				var pidList = content.match(pidReg)
+				var vidList = content.match(vidReg)
+				var nameList = content.match(nameReg)
+				var names = []
+				nameList.forEach(n => {
+					var type = n.substring(0, n.indexOf(".name")).trim()
+					var name = n.substring(n.indexOf("=") + 1).trim()
+					names[type] = name
+				})
+
+				var types = pidList.map(pid => pid.substring(0, pid.indexOf('.pid')).trim())
+				pidList = pidList.map(pid => pid.substring(pid.indexOf('=') + 3))
+				vidList = vidList.map(vid => vid.substring(vid.indexOf('=') + 3))
+
+				for(var i = 0; i < pidList.length; i++) {
+					_boardNames[pidList[i] + "_" + vidList[i]] = {
+						pid: pidList[i],
+						vid: vidList[i],
+						type: types[i],
+						name: names[types[i]]
+					}
+				}
+
+				count--
+				if(count == 0) {
+					boardNames = _boardNames
+					deferred.resolve(boardNames)
+				}
+			}, err1 => {
+				console.error(err1)
+				deferred.reject(err1)
+			})
+		})
+	})
+
+	return deferred.promise
+}
+
+function matchBoardNames(ports) {
+	var deferred = Q.defer()
+
+	loadBoards().then(names => {
+		ports.forEach(p => {
+			if(p.productId && p.vendorId) {
+				var board = boardNames[p.productId + "_" + p.vendorId]
+				if(board) {
+					p.boardName = board.name
+				}
+			}
+		})
+
+		deferred.resolve(ports)
+	}, err => {
+		console.error(err)
+		deferred.reject(err)
 	})
 
 	return deferred.promise

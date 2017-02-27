@@ -25,7 +25,14 @@
     },
     "linux": {
       "icon": "icon",
-      "depends": ["gconf2", "gconf-service", "libnotify4", "libappindicator1", "libxtst6", "libnss3"]
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
+      ]
     },
     "dmg": {
       "contents": [
@@ -46,13 +53,13 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^13.9.0",
+    "electron-builder": "^13.11.1",
     "fs-extra": "^2.0.0",
     "getmac": "^1.2.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-clean": "^0.3.2",
-    "gulp-clean-css": "^3.0.2",
+    "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-minify-html": "^1.0.6",

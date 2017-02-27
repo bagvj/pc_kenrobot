@@ -1,12 +1,12 @@
 {
   "main": "main/index.js",
   "name": "kenrobot",
-  "version": "0.1.7",
-  "homepage":"http://www.kenrobot.com",
+  "version": "0.1.9",
+  "homepage": "http://www.kenrobot.com",
   "description": "啃萝卜智能硬件平台",
   "author": {
-    "name":"kenrobot",
-    "email":"surrpot@kenrobot.com"
+    "name": "kenrobot",
+    "email": "surrpot@kenrobot.com"
   },
   "copyright": "©2016 KenRobot",
   "license": "CC0-1.0",
@@ -22,6 +22,7 @@
     "encoding": "^0.1.12",
     "fs-extra": "^2.0.0",
     "getmac": "^1.2.1",
+    "glob": "^7.1.1",
     "md5": "^2.2.1",
     "minimist": "^1.2.0",
     "q": "^1.4.1",

@@ -180,7 +180,8 @@ gulp.task('build', ['clean-dist'], callback => {
 				return
 			}
 
-			upload(file).then(_ => {
+			var options = args.remotePath ? {remotePath: args.remotePath} : {}
+			upload(file, options).then(_ => {
 				callback()
 			}, err1 => {
 				console.error(err1)
