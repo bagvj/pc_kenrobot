@@ -1,0 +1,93 @@
+#######################################
+# Syntax Coloring Map for library RoSysDrive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+RoWiFi		KEYWORD1
+RoLineTracking	KEYWORD1
+RoDHT11			KEYWORD1
+RoJoystick		KEYWORD1
+RoBuzzer		KEYWORD1
+Ro7SegmentDisplay	KEYWORD1
+RoLedMatrix		KEYWORD1
+RoRBGled		KEYWORD1
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# RoWiFi 关键字
+setPin			KEYWORD2
+run				KEYWORD2
+stop			KEYWORD2
+
+# RoLineTracking 关键字
+setPin			KEYWORD2
+readSensors		KEYWORD2
+
+# RoDHT11 关键字
+setPin			KEYWORD2
+readSensors		KEYWORD2
+readHumidity	KEYWORD2
+readTemperature	KEYWORD2
+
+# RoJoystick 关键字
+setPin			KEYWORD2
+readX			KEYWORD2
+readY			KEYWORD2
+read			KEYWORD2
+calCenterValue	KEYWORD2
+angle			KEYWORD2
+offcenter		KEYWORD2
+
+# RoBuzzer 关键字
+setPin			KEYWORD2
+didi			KEYWORD2
+tone			KEYWORD2
+noTone			KEYWORD2
+
+# Ro7SegmentDisplay 关键字
+init			KEYWORD2
+set				KEYWORD2
+setPin			KEYWORD2
+display			KEYWORD2
+displayBit		KEYWORD2
+clearDisplay	KEYWORD2
+setBrightness	KEYWORD2
+
+# RoLedMatrix 关键字
+setPin			KEYWORD2
+getDeviceCount	KEYWORD2
+shutDown		KEYWORD2
+setIntensity	KEYWORD2
+setDisplayType	KEYWORD2
+clearDisplay	KEYWORD2
+setLed			KEYWORD2
+setRow			KEYWORD2
+setColumn		KEYWORD2
+display			KEYWORD2
+
+# RoRBGled 关键字
+getColorAt		KEYWORD2
+setColor		KEYWORD2
+show			KEYWORD2
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+
