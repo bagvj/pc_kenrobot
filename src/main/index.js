@@ -1,23 +1,25 @@
 const {app, BrowserWindow, ipcMain, net, dialog, shell} = require('electron')
-
 const child_process = require('child_process')
 const path = require('path')
+const os = require('os')
 
-const Q = require('q')
-const fs = require('fs-extra')
 const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
+const {autoUpdater} = require('electron-updater')
+
+const Q = require('q')
+const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
-const md5 = require('md5')
 const SerialPort = require('serialport') //串口
-const glob = require('glob') 
+const glob = require('glob')
+
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 var boardNames
 
-let mainWindow
+var mainWindow
 
 init()
 
@@ -33,6 +35,10 @@ function init() {
 
 	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
+	if(!is.dev()) {
+		//非debug模式，禁用控制台输出
+		log.transports.console = false
+	}
 
 	log.debug(`app start, version ${app.getVersion()}`)
 
@@ -242,7 +248,9 @@ function listenMessage() {
 		})
 	})
 	.on('app:errorReport', (e, deferId, error) => {
-		log.error(`------ error message ------\n${error.message}(${error.src} at line ${error.line}:${error.col})\n${error.stack}`)
+		log.error(`------ error message ------`)
+		log.error(`${error.message}(${error.src} at line ${error.line}:${error.col})`)
+		log.error(`${error.stack}`)
 	})
 	.on('app:log', (e, deferId, text, level) => {
 		log.log(level || "debug", text)
@@ -595,9 +603,9 @@ function loadBoards(forceReload) {
 	}
 
 	var _boardNames = {}
-	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\n]+)/g
-	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\n]+)/g
-	var nameReg = /\n([^\.\n]+)\.name=([^\n]+)/g
+	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
+	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
+	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 	
 	var searchPath = 'arduino-' + getSystemSuffix()
 	glob(`${searchPath}/**/boards.txt`, {}, (err, pathList) => {
@@ -686,4 +694,46 @@ function execCommand(command, options) {
 	})
 
 	return deferred.promise
+}
+
+function updateInit(win) {
+	log.debug("AppUpdater init")
+	// if(is.dev()) {
+	// 	return
+	// }
+	const platform = os.platform()
+	if(platform == "linux" || platform == "darwin") {
+		return
+	}
+
+	autoUpdater.on('error', (err, message) => {
+		log.debug(`auto update error: ${message}, ${JSON.stringify(err)}`)
+	})
+	.on('checking-for-update', e => {
+		log.debug('checking-for-update')
+	})
+	.on('update-available', e => {
+		log.debug('update-available')
+	})
+	.on('download-progress', e => {
+		log.debug('download-progress')
+	})
+	.on('update-downloaded', e => {
+		log.debug('update-downloaded')
+		autoUpdater.quitAndInstall()
+	})
+	
+	win.webContents.once("did-finish-load", e => {
+		log.debug("app updater checkForUpdates")
+		autoUpdater.checkForUpdates()
+	})
+}
+
+function updateNotify(title, message) {
+	var windows = BrowserWindow.getAllWindows()
+	if(windows.length == 0) {
+		return
+	}
+
+	windows[0].webContents.send('notify', title, message)
 }
