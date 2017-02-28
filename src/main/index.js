@@ -615,8 +615,8 @@ function loadBoards(forceReload) {
 			return
 		}
 		
+		var count = pathList.length
 		pathList.forEach(p => {
-			var count = pathList.length
 			readFile(p).then(content => {
 				var pidList = content.match(pidReg)
 				var vidList = content.match(vidReg)
