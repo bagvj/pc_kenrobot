@@ -9,15 +9,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var blockContextMenu;
 	var modules;
 	var codeRegion;
+	var topRegion;
 
 	function init() {
 		dragContainer = $('.block-drag-layer');
 
-		region = $('.content-region .tab-software')
-			.on('click', '.block-group-region .group-header > span', onGroupHeaderClick)
-			.on('click', '.switch-hardware', onSwitchHardwareClick)
-			.on('click', '.upload', onUploadClick)
-			.on('click', '.show-code', onShowCodeClick);
+		region = $('.content-region .tab-software').on('click', '.block-group-region .group-header > span', onGroupHeaderClick);
+
+		topRegion = region.find('.top-region').on('click', '.tool-button', onToolButtonClick);
 
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
 		blockList = $('.blocks', region);
@@ -36,7 +35,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 		emitor.on('app', 'start', onAppStart)
 			.on('app', 'contextMenu', onContextMenu)
-			.on('app', 'activeTab', onActiveTab);
+			.on('app', 'resize', onAppResize)
+			.on('app', 'activeTab', onActiveTab)
+			.on('monitor', 'close', onMonitorClose);
 	}
 
 	function loadSchema(schema) {
@@ -196,23 +197,55 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	}
 
-	function onSwitchHardwareClick(e) {
-		emitor.trigger("app", "activeTab", "hardware");
+	function onAppResize(e) {
+		toggleToolButton(topRegion.width() < 580);
 	}
 
-	function onUploadClick(e) {
-		emitor.trigger("project", "upload");
+	function toggleToolButton(value) {
+		if(value) {
+			topRegion.find(".tool-button").addClass("simple");
+		} else {
+			topRegion.find(".tool-button").removeClass("simple");
+		}
 	}
 
-	function onShowCodeClick(e) {
+	function onToolButtonClick(e) {
+		var action = $(this).data('action');
+		switch(action) {
+			case "upload":
+				emitor.trigger("project", "upload");
+				break;
+			case "show-code":
+				toggleCode();
+				break;
+			case "show-monitor":
+				topRegion.find(".show-monitor").toggleClass("active");
+				emitor.trigger('monitor', 'toggle');
+				break;
+			case "save":
+				emitor.trigger("project", "save");
+				break;
+			case "switch-hardware":
+				emitor.trigger("app", "activeTab", "hardware");
+				break;
+		}
+	}
+
+	function toggleCode() {
 		if(codeRegion.hasClass("active")) {
 			codeRegion.removeClass("slide-in").addClass("slide-out").delay(200, "slide-out").queue("slide-out", function() {
 				codeRegion.removeClass("active").removeClass("slide-out");
 			});
 			codeRegion.dequeue("slide-out");
+			toggleToolButton(false);
 		} else {
 			codeRegion.addClass("active").addClass("slide-in");
+			toggleToolButton(true);
 		}
+	}
+
+	function onMonitorClose() {
+		topRegion.find(".show-monitor").removeClass("active");
 	}
 
 	function onActiveTab(name) {
@@ -336,18 +369,22 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		blockList.children().each(function(index, child) {
 			var blockLi = $(child);
 			var filters = blockLi.data('filter');
+
 			if(filters.indexOf(filter) < 0) {
+				//不是同一类block，(模块、数据)
 				blockLi.removeClass('active');
 				return;
 			}
 
 			var a = filters.indexOf("advanced") >= 0;
 			if((isAdvanced && !a) || (!isAdvanced && a)) {
+				//要显示高级但block不是高级的，或者要显示基础但block是高级的
 				blockLi.removeClass("active");
 				return;
 			}
 
 			if(filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
+				//block是模块，但没有相应硬件
 				blockLi.removeClass("active");
 				return;
 			}

@@ -34,5 +34,14 @@
 		return deferred.promise
 	}
 
+	function on(name, callback) {
+		ipcRenderer.on(name, (e, args) => {
+			callback.apply(this, args)
+		})
+
+		return this
+	}
+
 	exports.postMessage = postMessage
+	exports.on = on
 })(window, window.kenrobot || (window.kenrobot = {}))

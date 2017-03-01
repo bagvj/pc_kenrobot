@@ -2184,6 +2184,53 @@ define(['vendor/lodash'], function(_) {
 			"module": "serial",
 			"uid": "riThuE"
 		}, {
+			"type": "output",
+			"name": "serialAvailable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "返回串口可读数据长度"
+			}],
+			"code": "Serial.available()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module", "advanced"],
+			"module": "serial",
+			"uid": "lBwj1v"
+		}, {
+			"type": "statement",
+			"name": "serialWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口输出二进制流"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"code": "Serial.write({DATA});",
+			"tags": ["module", "advanced"],
+			"module": "serial",
+			"uid": "6yQc6n"
+		}, {
 			"type": "statement",
 			"name": "serialSend",
 			"connectors": [{
@@ -2446,6 +2493,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
 			"tags": ["module", "advanced"],
+			"module": "buzzer",
 			"uid": "IOYb1Y"
 		}, {
 			"type": "statement",
@@ -2521,6 +2569,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write({DIRECTION});",
 			"tags": ["module", "advanced"],
+			"module": "continuousServo",
 			"uid": "4qHqiF"
 		}, {
 			"type": "statement",
@@ -2551,6 +2600,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write(90);",
 			"tags": ["module", "advanced"],
+			"module": "continuousServo",
 			"uid": "PNFLTP"
 		}, {
 			"type": "statement",
@@ -2588,6 +2638,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.{STATE}();",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "eQxZOO"
 		}, {
 			"type": "statement",
@@ -2628,6 +2679,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.print({TEXT});",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "Zfk1gV"
 		}, {
 			"type": "statement",
@@ -2665,6 +2717,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "digitalWrite({LED},{STATE});",
 			"tags": ["module", "advanced"],
+			"module": "led",
 			"uid": "U7dzAq"
 		}, {
 			"type": "statement",
@@ -2705,6 +2758,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{ENCODER}.write({VALUE});",
 			"tags": ["module", "advanced"],
+			"module": "encoder",
 			"uid": "uQirVf"
 		}, {
 			"type": "statement",
@@ -2809,6 +2863,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write({POSITION});",
 			"tags": ["module", "advanced"],
+			"module": "servo",
 			"uid": "wFdxeI"
 		}, {
 			"type": "statement",
@@ -2875,6 +2930,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "nDEGXV"
 		}, {
 			"type": "output",

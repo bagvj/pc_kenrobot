@@ -6,18 +6,21 @@ const os = require('os')
 const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
-const {autoUpdater} = require('electron-updater')
 
 const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
 const glob = require('glob')
-
+const extract = require('extract-zip')
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 var boardNames
+var connectedPorts = {
+	autoPortId: 0,
+	ports: {}
+}
 
 var mainWindow
 
@@ -33,11 +36,13 @@ function init() {
 		app.quit()
 	}
 
-	log.transports.file.level = 'debug'
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	if(!is.dev()) {
+	if(is.dev() || args.dev) {
 		//非debug模式，禁用控制台输出
+		log.transports.file.level = 'debug'
+	} else {
 		log.transports.console = false
+		log.transports.file.level = 'error'
 	}
 
 	log.debug(`app start, version ${app.getVersion()}`)
@@ -50,6 +55,8 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1280,
 		height: 800,
+		minWidth: 1024,
+		minHeight: 768,
 		frame: false,
 		show: false
 	})
@@ -63,6 +70,38 @@ function createWindow() {
 	}).once('ready-to-show', () => {
 		mainWindow.show()
 	})
+
+	mainWindow.webContents.on('devtools-reload-page', _ => {
+		closeAllSerialPort()
+	})
+	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
+		var savePath = path.join(app.getPath("appData"), app.getName(), 'temp', item.getFilename())
+		item.setSavePath(savePath)
+
+		var url = item.getURL()
+		var pos = url.lastIndexOf("#")
+		var action = url.substring(pos + 1)
+		url = url.substring(0, pos)
+
+		item.on('updated', (evt, state) => {
+			if(state == "interrupted") {
+				log.debug(`download interrupted: ${url}`)
+			} else if(state === 'progressing') {
+				if(item.isPaused()) {
+					log.debug(`download paused: ${url}`)
+				}
+			}
+		})
+
+		item.once('done', (evt, state) => {
+			if(state == "completed") {
+				log.debug(`download success: ${url}, at ${savePath}`)
+				postMessage("app:onDownloadSuccess", savePath, action)
+			} else {
+				log.debug(`download fail: ${url}`)
+			}
+		})
+	})
 }
 
 function listenEvent() {
@@ -72,18 +111,23 @@ function listenEvent() {
 		is.dev() && args.dev && debug({showDevTools: true})
 
 		createWindow()
-		// AppUpdater.init(mainWindow)
-		loadBoards()
 
-	}).on('window-all-closed', _ => {
+		loadBoards()
+	})
+	.on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
 			app.quit()
 		}
-	}).on('activate', _ => {
+	})
+	.on('activate', _ => {
 		if (mainWindow === null) {
 			createWindow()
 		}
-	}).on('quit', _ => {
+	})
+	.on('will-quit', _ => {
+		closeAllSerialPort()
+	})
+	.on('quit', _ => {
 		log.debug('app quit')
 	})
 }
@@ -220,6 +264,48 @@ function listenMessage() {
 			e.sender.send('app:buildProject', deferId, false, err)
 		})
 	})
+	.on('app:getSerialPorts', (e, deferId) => {
+		getSerialPorts().then(ports => {
+			e.sender.send('app:getSerialPorts', deferId, true, ports)
+		}, err => {
+			e.sender.send('app:getSerialPorts', deferId, false, err)
+		})
+	})
+	.on('app:openSerialPort', (e, deferId, comName, options) => {
+		openSerialPort(comName, options).then(portId => {
+			e.sender.send('app:openSerialPort', deferId, true, portId)
+		}, err => {
+			e.sender.send('app:openSerialPort', deferId, false, err)
+		})
+	})
+	.on('app:writeSerialPort', (e, deferId, portId, buffer) => {
+		writeSerialPort(portId, buffer).then(_ => {
+			e.sender.send('app:writeSerialPort', deferId, true, true)
+		}, err => {
+			e.sender.send('app:writeSerialPort', deferId, false, err)
+		})
+	})
+	.on('app:closeSerialPort', (e, deferId, portId) => {
+		closeSerialPort(portId).then(_ => {
+			e.sender.send('app:closeSerialPort', deferId, true, true)
+		}, err => {
+			e.sender.send('app:closeSerialPort', deferId, false, err)
+		})
+	})
+	.on('app:updateSerialPort', (e, deferId, portId, options) => {
+		updateSerialPort(portId, options).then(_ => {
+			e.sender.send('app:updateSerialPort', deferId, true, true)
+		}, err => {
+			e.sender.send('app:updateSerialPort', deferId, false, err)
+		})
+	})
+	.on('app:flushSerialPort', (e, deferId, portId) => {
+		flushSerialPort(portId).then(_ => {
+			e.sender.send('app:flushSerialPort', deferId, true, true)
+		}, err => {
+			e.sender.send('app:flushSerialPort', deferId, false, err)
+		})
+	})
 	.on('app:upload', (e, deferId, target, options) => {
 		getSerialPorts().then(ports => {
 			if(ports.length == 1) {
@@ -251,10 +337,63 @@ function listenMessage() {
 		log.error(`------ error message ------`)
 		log.error(`${error.message}(${error.src} at line ${error.line}:${error.col})`)
 		log.error(`${error.stack}`)
+		e.sender.send('app:errorReport', deferId, true, true)
 	})
 	.on('app:log', (e, deferId, text, level) => {
 		log.log(level || "debug", text)
+		e.sender.send('app:log', deferId, true, true)
 	})
+	.on('app:getOSInfo', (e, deferId) => {
+		e.sender.send('app:getOSInfo', deferId, true, getOSInfo())
+	})
+	.on('app:download', (e, deferId, url, action) => {
+		log.debug(`download ${url}, action ${action}`)
+		mainWindow.webContents.downloadURL(`${url}#${action}`)
+		e.sender.send('app:download', deferId, true, true)
+	})
+	.on('app:installDriver', (e, defer, driverPath) => {
+		installDriver(driverPath).then(_ => {
+			e.sender.send('app:installDriver', deferId, true, true)
+		}, err => {
+			e.sender.send('app:installDriver', deferId, false, err)
+		})
+	})
+}
+
+function postMessage(name) {
+	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
+}
+
+function getOSInfo() {
+	return {
+		bit: is.x86() ? 32 : 64,
+		platform: getSystemSuffix()
+	}
+}
+
+function installDriver(driverPath) {
+	var deferred = Q.defer()
+
+	log.debug(`installDriver: ${driverPath}`)
+	var dir = path.dirname(driverPath)
+	extract(driverPath, {dir: dir}, err => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "arduino驱动安装.exe")
+		var command = `start /WAIT ${exePath}`
+		execCommand(command).then(_ => {
+			deferred.resolve()
+		}, err1 => {
+			log.error(err1)
+			deferred.reject(err1)
+		})
+	})
+
+	return deferred.promise
 }
 
 function getSerialPorts() {
@@ -263,7 +402,7 @@ function getSerialPorts() {
 	log.debug("getSerialPorts")
 	SerialPort.list((err, ports) => {
 		if(err) {
-			console.error(err)
+			log.error(err)
 			deferred.reject(err)
 			return
 		}
@@ -274,17 +413,152 @@ function getSerialPorts() {
 		}
 
 		matchBoardNames(ports).then(_ => {
-			ports.forEach(p => log.debug(`${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`))
+			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(ports)
 		}, err1 => {
 			if(err1) {
-				console.error(err1)
+				log.error(err1)
 				deferred.reject(err1)
 			}
 		})
 	})
 
 	return deferred.promise
+}
+
+function openSerialPort(comName, options) {
+	var deferred = Q.defer()
+
+	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
+	options.autoOpen = false
+	if(options.parser == "raw") {
+		options.parser = SerialPort.parsers.raw
+	} else {
+		var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
+		options.parser = SerialPort.parsers.readline(newline)
+	}
+
+	var port = new SerialPort(comName, options)
+	port.open(err => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		var portId = addPort(port)
+		port.flush(_ => {
+			deferred.resolve(portId)
+		})
+	})
+
+	return deferred.promise
+}
+
+function writeSerialPort(portId, buffer) {
+	var  deferred = Q.defer()
+
+	log.debug(`writeSerialPort: ${portId}, ${buffer}`)
+	var port = connectedPorts.ports[portId]
+	if(!port) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+		return deferred.promise
+	}
+
+	port.write(buffer, err => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		port.drain(_ => {
+			deferred.resolve()
+		})
+	})
+
+	return deferred.promise
+}
+
+function closeSerialPort(portId) {
+	var  deferred = Q.defer()
+
+	var port = connectedPorts.ports[portId]
+	if(!port) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+		return deferred.promise
+	}
+
+	port.close(_ => {
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
+function closeAllSerialPort() {
+	for(var key in connectedPorts.ports) {
+		connectedPorts.ports[key].close()
+	}
+	connectedPorts.ports = {}
+}
+
+function updateSerialPort(portId, options) {
+	var  deferred = Q.defer()
+
+	var port = connectedPorts.ports[portId]
+	if(!port) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+		return deferred.promise
+	}
+
+	port.update(options, _ => {
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
+function flushSerialPort(portId, options) {
+	var  deferred = Q.defer()
+
+	var port = connectedPorts.ports[portId]
+	if(!port) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+		return deferred.promise
+	}
+
+	port.flush(_ => {
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
+function addPort(port) {
+	var autoPortId = ++connectedPorts.autoPortId
+	connectedPorts.ports[autoPortId] = port
+
+	port.on('error', err => {
+		postMessage("app:onSerialPortError", autoPortId, err)
+	})
+	.on('close', _ => {
+		delete connectedPorts.ports[autoPortId]
+		postMessage("app:onSerialPortClose", autoPortId)
+	})
+	.on('data', data => {
+		postMessage("app:onSerialPortData", autoPortId, data)
+	})
+
+	return autoPortId
 }
 
 function getScript(name, boardType) {
@@ -610,7 +884,7 @@ function loadBoards(forceReload) {
 	var searchPath = 'arduino-' + getSystemSuffix()
 	glob(`${searchPath}/**/boards.txt`, {}, (err, pathList) => {
 		if(err) {
-			console.error(err)
+			log.error(err)
 			deferred.reject(err)
 			return
 		}
@@ -647,7 +921,7 @@ function loadBoards(forceReload) {
 					deferred.resolve(boardNames)
 				}
 			}, err1 => {
-				console.error(err1)
+				log.error(err1)
 				deferred.reject(err1)
 			})
 		})
@@ -671,7 +945,7 @@ function matchBoardNames(ports) {
 
 		deferred.resolve(ports)
 	}, err => {
-		console.error(err)
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -694,46 +968,4 @@ function execCommand(command, options) {
 	})
 
 	return deferred.promise
-}
-
-function updateInit(win) {
-	log.debug("AppUpdater init")
-	// if(is.dev()) {
-	// 	return
-	// }
-	const platform = os.platform()
-	if(platform == "linux" || platform == "darwin") {
-		return
-	}
-
-	autoUpdater.on('error', (err, message) => {
-		log.debug(`auto update error: ${message}, ${JSON.stringify(err)}`)
-	})
-	.on('checking-for-update', e => {
-		log.debug('checking-for-update')
-	})
-	.on('update-available', e => {
-		log.debug('update-available')
-	})
-	.on('download-progress', e => {
-		log.debug('download-progress')
-	})
-	.on('update-downloaded', e => {
-		log.debug('update-downloaded')
-		autoUpdater.quitAndInstall()
-	})
-	
-	win.webContents.once("did-finish-load", e => {
-		log.debug("app updater checkForUpdates")
-		autoUpdater.checkForUpdates()
-	})
-}
-
-function updateNotify(title, message) {
-	var windows = BrowserWindow.getAllWindows()
-	if(windows.length == 0) {
-		return
-	}
-
-	windows[0].webContents.send('notify', title, message)
 }

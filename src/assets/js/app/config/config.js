@@ -6,6 +6,8 @@ define(function() {
 				kenrobot: "http://www.kenrobot.com",
 				arduino: "http://www.arduino.cn",
 				arduinoDriver: "http://ide.kenrobot.com/download/arduino-driver-x{BIT}.zip",
+				support: "http://www.arduino.cn/forum-101-1.html",
+				about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",
 			}
 		},
 		//调试模式

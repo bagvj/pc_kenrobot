@@ -5,6 +5,8 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 	function init() {
 		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
+		
+		emitor.on('download', 'success', onDownloadSuccess);
 	}
 
 	function activeAppMenu(e) {
@@ -16,15 +18,35 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 		appMenu.removeClass("active");
 	}
 
+	function onDownloadSuccess(path, action) {
+		if(action != "driver-download") {
+			return;
+		}
+
+		util.confirm({
+			text: "驱动下载成功，是否安装?",
+			onConfirm: function() {
+				kenrobot.postMessage("app:installDriver", path).then(function() {
+					util.message("驱动安装成功");
+				}, function(err) {
+					util.message({
+						text: "驱动安装失败",
+						type: "error"
+					});
+				});
+			}
+		});
+	}
+
 	function onAppMenuClick(e) {
 		var li = $(this);
 		var action = li.data("action");
-		if(!action) {
+		if (!action) {
 			inactiveAppMenu();
 			return;
 		}
 
-		switch(action) {
+		switch (action) {
 			case "new-project":
 			case "open-project":
 			case "save-project":
@@ -51,8 +73,14 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				util.message("敬请期待");
 				break;
 			case "download-arduino-driver":
-				var bit = /WOW64|Win64/.test(navigator.userAgent) ? 64 : 32;
-				kenrobot.postMessage("app:openUrl", config.url.arduinoDriver.replace("{BIT}", bit));
+				kenrobot.postMessage("app:getOSInfo").then(function(info) {
+					if (info.platform != "win") {
+						util.message("您的系统是" + info.platform + ", 不需要安装驱动");
+						return
+					}
+
+					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit), "driver-download");
+				})
 				break;
 			case "check-update":
 				kenrobot.postMessage("app:checkUpdate");
@@ -65,10 +93,10 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				kenrobot.postMessage("app:openUrl", config.url.arduino);
 				break;
 			case "suggestion":
-				util.message("感谢您的意见和反馈", "感谢", "success");
+				kenrobot.postMessage("app:openUrl", config.url.support);
 				break;
 			case "about-kenrobot":
-				util.message("关于啃萝卜");
+				kenrobot.postMessage("app:openUrl", config.url.about);
 				break;
 		}
 		inactiveAppMenu();
@@ -76,7 +104,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 
 	function onWindowBtnClick(e) {
 		var action = $(this).data("action");
-		switch(action) {
+		switch (action) {
 			case "min":
 				kenrobot.postMessage("app:min");
 				break;
