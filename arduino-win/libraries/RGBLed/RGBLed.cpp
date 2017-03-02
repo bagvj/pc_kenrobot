@@ -11,9 +11,9 @@ RGBLed::RGBLed(int redPin,int greenPin,int bluePin){
     pinMode(_greenPin,OUTPUT);
     pinMode(_bluePin,OUTPUT);
 
-    _R = 0;
-    _G = 0;
-    _B = 0;
+    _red = 0;
+    _green = 0;
+    _blue = 0;
     RGBLed::setRGBWait(2);
   
 }
@@ -21,25 +21,25 @@ RGBLed::RGBLed(int redPin,int greenPin,int bluePin){
 
 void RGBLed::setRGBcolor(int redValue,int greenValue,int blueValue){
     
-    _R = redValue;
-    _G = greenValue;
-    _B = blueValue;
+    _red = redValue;
+    _green = greenValue;
+    _blue = blueValue;
 
-    analogWrite(_redPin, _R);
-    analogWrite(_greenPin, _G);
-    analogWrite(_bluePin, _B);
+    analogWrite(_redPin, _red);
+    analogWrite(_greenPin, _green);
+    analogWrite(_bluePin, _blue);
     delay(_wait); // Pause for optional '_wait' milliseconds before resuming the loop
 }
 
 // void RGBLed::setRGBcolor(int color[3]){
     
-//     _R = color[0];
-//     _G = color[1];
-//     _B = color[2];
+//     _red = color[0];
+//     _green = color[1];
+//     _blue = color[2];
 
-//     analogWrite(_redPin, _R);
-//     analogWrite(_greenPin, _G);
-//     analogWrite(_bluePin, _B);
+//     analogWrite(_redPin, _red);
+//     analogWrite(_greenPin, _green);
+//     analogWrite(_bluePin, _blue);
 //     //delay(_wait); // Pause for optional '_wait' milliseconds before resuming the loop
 // }
 
@@ -53,18 +53,18 @@ void RGBLed::setRGBWait(int newWait){
 void RGBLed::crossFade(int redValue,int greenValue,int blueValue){
 
 
-  int stepR = RGBLed::calculateStep(_R, redValue);
-  int stepG = RGBLed::calculateStep(_G, greenValue); 
-  int stepB = RGBLed::calculateStep(_B, blueValue);
+  int stepR = RGBLed::calculateStep(_red, redValue);
+  int stepG = RGBLed::calculateStep(_green, greenValue); 
+  int stepB = RGBLed::calculateStep(_blue, blueValue);
 
   for (int i = 0; i <= 1020; i++) {
-    _R = RGBLed::calculateVal(stepR, _R, i);
-    _G = RGBLed::calculateVal(stepG, _G, i);
-    _B = RGBLed::calculateVal(stepB, _B, i);
+    _red = RGBLed::calculateVal(stepR, _red, i);
+    _green = RGBLed::calculateVal(stepG, _green, i);
+    _blue = RGBLed::calculateVal(stepB, _blue, i);
 
-     analogWrite(_redPin, _R);
-     analogWrite(_greenPin, _G);
-     analogWrite(_bluePin, _B);
+     analogWrite(_redPin, _red);
+     analogWrite(_greenPin, _green);
+     analogWrite(_bluePin, _blue);
 
     delay(_wait); // Pause for '_wait' milliseconds before resuming the loop
 

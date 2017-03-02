@@ -21,9 +21,9 @@ class RGBLed
     int _greenPin;
     int _bluePin;
 
-    int _R;
-    int _G;
-    int _B;
+    int _red;
+    int _green;
+    int _blue;
 
     int _wait; // 10ms internal delay. Increase for slower fades
 

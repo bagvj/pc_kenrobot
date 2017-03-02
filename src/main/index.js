@@ -607,7 +607,7 @@ function addPort(port) {
 function getScript(name, boardType) {
 	var suffix = boardType == "genuino101" ? "_101" : ""
 	var resourcePath = getResourcePath()
-	return path.json(resourcePath, "scripts", `${name}${suffix}.${is.windows() ? "bat" : "sh"}`)
+	return path.join(resourcePath, "scripts", `${name}${suffix}.${is.windows() ? "bat" : "sh"}`)
 }
 
 function getResourcePath() {
