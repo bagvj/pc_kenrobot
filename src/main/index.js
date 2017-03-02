@@ -351,17 +351,60 @@ function listenMessage() {
 		mainWindow.webContents.downloadURL(`${url}#${action}`)
 		e.sender.send('app:download', deferId, true, true)
 	})
-	.on('app:installDriver', (e, defer, driverPath) => {
+	.on('app:installDriver', (e, deferId, driverPath) => {
 		installDriver(driverPath).then(_ => {
 			e.sender.send('app:installDriver', deferId, true, true)
 		}, err => {
 			e.sender.send('app:installDriver', deferId, false, err)
 		})
 	})
+	.on('app:getExamples', (e, deferId) => {
+		getExamples().then(examples => {
+			e.sender.send('app:getExamples', deferId, true, examples)
+		}, err => {
+			e.sender.send('app:getExamples', deferId, false, err)
+		})
+	})
+	.on("app:openExample", (e, deferId, category, name) => {
+		openExample(category, name).then(projectInfo => {
+			e.sender.send('app:openExample', deferId, true, projectInfo)
+		}, err => {
+			e.sender.send('app:openExample', deferId, false, err)
+		})
+	})
 }
 
 function postMessage(name) {
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
+}
+
+function openExample(category, name) {
+	var deferred = Q.defer()
+
+	var examplePath = path.join(getResourcePath(), "examples", category, name)
+	log.debug(`openExample: ${examplePath}`)
+	readJson(path.join(examplePath, "project.json")).then(projectInfo => {
+		deferred.resolve(projectInfo)
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function getExamples() {
+	var deferred = Q.defer()
+
+	log.debug('getExamples')
+	readJson(path.join(getResourcePath(), "examples", "examples.json")).then(examples => {
+		deferred.resolve(examples)
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function getOSInfo() {
@@ -563,13 +606,12 @@ function addPort(port) {
 
 function getScript(name, boardType) {
 	var suffix = boardType == "genuino101" ? "_101" : ""
-	if(is.windows()) {
-		return path.join("scripts", `${name}${suffix}.bat`)
-	} else if(is.macOS()) {
-		return is.dev() ? path.join(`scripts`, `${name}${suffix}.sh`) : path.join(app.getAppPath(), '..', '..', 'scripts', `${name}${suffix}.sh`)
-	} else {
-		return path.join("scripts", `${name}${suffix}.sh`)
-	}
+	var resourcePath = getResourcePath()
+	return path.json(resourcePath, "scripts", `${name}${suffix}.${is.windows() ? "bat" : "sh"}`)
+}
+
+function getResourcePath() {
+	return (is.macOS() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
 }
 
 function showOpenDialog(options) {

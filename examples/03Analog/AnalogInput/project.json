@@ -1,0 +1,148 @@
+{
+  "created_at": "2017-03-01T11:43:39.446Z",
+  "project_data": {
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint led_0 = 13;\nint pot_0 = A0;\n\nvoid setup() {\n    pinMode(led_0, OUTPUT);\n    pinMode(pot_0, INPUT);\n}\n\nvoid loop() {\n    digitalWrite(led_0, HIGH);\n    delay(pot_0);\n    digitalWrite(led_0, LOW);\n    delay(pot_0);\n}",
+    "hardware": {
+      "board": "ArduinoUNO",
+      "components": [
+        {
+          "endpoints": {
+            "s": {
+              "type": "analog-in",
+              "uid": "E7wMjk"
+            }
+          },
+          "name": "pot",
+          "uid": "ujl2ce",
+          "x": 15.2,
+          "y": 31.5
+        },
+        {
+          "endpoints": {
+            "s": {
+              "type": "digital",
+              "uid": "eXybRS"
+            }
+          },
+          "name": "led",
+          "uid": "dfu5RB",
+          "x": 27.6,
+          "y": 0.5
+        }
+      ],
+      "connections": [
+        {
+          "sourceUid": "E7wMjk",
+          "targetUid": "1jcO2Y"
+        },
+        {
+          "sourceUid": "eXybRS",
+          "targetUid": "VB05cG"
+        }
+      ]
+    },
+    "software": {
+      "global": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "loop": {
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "STATE",
+                "type": "static-select",
+                "value": "HIGH"
+              },
+              {
+                "id": "LED",
+                "type": "dynamic-select",
+                "value": "led_0"
+              }
+            ],
+            "enable": true,
+            "name": "led"
+          },
+          {
+            "children": [],
+            "content": [
+              {
+                "blockInputId": "TIME",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VARIABLE",
+                      "type": "dynamic-select",
+                      "value": "pot_0"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "hardwareVariable"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "waitAdvanced"
+          },
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "STATE",
+                "type": "static-select",
+                "value": "LOW"
+              },
+              {
+                "id": "LED",
+                "type": "dynamic-select",
+                "value": "led_0"
+              }
+            ],
+            "enable": true,
+            "name": "led"
+          },
+          {
+            "children": [],
+            "content": [
+              {
+                "blockInputId": "TIME",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VARIABLE",
+                      "type": "dynamic-select",
+                      "value": "pot_0"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "hardwareVariable"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "waitAdvanced"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "setup": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      }
+    }
+  },
+  "project_name": "AnalogInput",
+  "updated_at": "2017-03-01T11:54:10.309Z"
+}

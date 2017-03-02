@@ -35,20 +35,28 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		util.message("新建成功");
 	}
 
-	function onProjectOpen() {
-		kenrobot.postMessage("app:openProject").then(function(result) {
-			savePath = result.path;
-			openProject(result.projectInfo);
+	function onProjectOpen(projectInfo) {
+		if(projectInfo) {
+			openProject(projectInfo);
 			util.message({
 				text: "打开成功",
 				type: "success"
 			});
-		}, function(err) {
-			util.message({
-				text: "打开失败",
-				type: "error",
+		} else {
+			kenrobot.postMessage("app:openProject").then(function(result) {
+				savePath = result.path;
+				openProject(result.projectInfo);
+				util.message({
+					text: "打开成功",
+					type: "success"
+				});
+			}, function(err) {
+				util.message({
+					text: "打开失败",
+					type: "error",
+				});
 			});
-		});
+		}
 	}
 
 	function onProjectSave(saveAs) {

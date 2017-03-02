@@ -1,0 +1,172 @@
+{
+  "created_at": "2017-03-01T10:13:54.814Z",
+  "project_data": {
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint pot_0 = A0;\n\nvoid setup() {\n    pinMode(pot_0, INPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    Serial.println(((pot_0 * 5) * 1023));\n    delay(200);\n}",
+    "hardware": {
+      "board": "ArduinoUNO",
+      "components": [
+        {
+          "endpoints": {
+            "s": {
+              "type": "analog-in",
+              "uid": "X552Yy"
+            }
+          },
+          "name": "pot",
+          "uid": "fzmCV4",
+          "x": 19.3,
+          "y": 13.3
+        },
+        {
+          "endpoints": {
+            "s": {
+              "type": "serial",
+              "uid": "xmMFOC"
+            }
+          },
+          "name": "serial",
+          "uid": "KDPdy3",
+          "x": 17.8,
+          "y": 45.2
+        }
+      ],
+      "connections": [
+        {
+          "sourceUid": "X552Yy",
+          "targetUid": "1jcO2Y"
+        },
+        {
+          "sourceUid": "xmMFOC",
+          "targetUid": "q9OAeR"
+        }
+      ]
+    },
+    "software": {
+      "global": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "loop": {
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "blockInputId": "DATA",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "blockInputId": "ARG1",
+                      "type": "block-input",
+                      "value": {
+                        "children": [],
+                        "content": [
+                          {
+                            "blockInputId": "ARG1",
+                            "type": "block-input",
+                            "value": {
+                              "children": [],
+                              "content": [
+                                {
+                                  "id": "VARIABLE",
+                                  "type": "dynamic-select",
+                                  "value": "pot_0"
+                                }
+                              ],
+                              "enable": true,
+                              "name": "hardwareVariable"
+                            }
+                          },
+                          {
+                            "id": "OPERATOR",
+                            "type": "static-select",
+                            "value": "*"
+                          },
+                          {
+                            "blockInputId": "ARG2",
+                            "type": "block-input",
+                            "value": {
+                              "children": [],
+                              "content": [
+                                {
+                                  "id": "VALUE",
+                                  "type": "number-input",
+                                  "value": "5"
+                                }
+                              ],
+                              "enable": true,
+                              "name": "number"
+                            }
+                          }
+                        ],
+                        "enable": true,
+                        "name": "basicOperations"
+                      }
+                    },
+                    {
+                      "id": "OPERATOR",
+                      "type": "static-select",
+                      "value": "*"
+                    },
+                    {
+                      "blockInputId": "ARG2",
+                      "type": "block-input",
+                      "value": {
+                        "children": [],
+                        "content": [
+                          {
+                            "id": "VALUE",
+                            "type": "number-input",
+                            "value": "1023"
+                          }
+                        ],
+                        "enable": true,
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "enable": true,
+                  "name": "basicOperations"
+                }
+              },
+              {
+                "id": "LN",
+                "type": "static-select",
+                "value": "println"
+              }
+            ],
+            "enable": true,
+            "name": "serialSend"
+          },
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "TIME",
+                "type": "number-input",
+                "value": "200"
+              }
+            ],
+            "enable": true,
+            "name": "wait"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "setup": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      }
+    }
+  },
+  "project_name": "ReadAnalogVoltage",
+  "updated_at": "2017-03-01T10:55:34.269Z"
+}
