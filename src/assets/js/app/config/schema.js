@@ -1792,6 +1792,34 @@ define(['vendor/lodash'], function(_) {
 			"uid": "cAzykL"
 		}, {
 			"type": "statement",
+			"name": "lcdSetAddress",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "的地址"
+			}, {
+				"id": "ADDR",
+				"type": "number-input",
+			}],
+			"code": "{LCD}.setAddress({ADDR});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "nayhFh"
+		}, {
+			"type": "statement",
 			"name": "lcdWritePosition",
 			"connectors": [{
 				"type": "connector-top",
@@ -2197,7 +2225,7 @@ define(['vendor/lodash'], function(_) {
 			"code": "Serial.available()",
 			"returnType": {
 				"type": "simple",
-				"value": "boolean"
+				"value": "bool"
 			},
 			"tags": ["module", "advanced"],
 			"module": "serial",
@@ -3101,6 +3129,31 @@ define(['vendor/lodash'], function(_) {
 			},
 			"tags": ["data"],
 			"uid": "nllNTV"
+		}, {
+			"type": "output",
+			"name": "highLow",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "HIGH",
+					"value": "HIGH"
+				}, {
+					"label": "LOW",
+					"value": "LOW"
+				}]
+			}],
+			"code": "{STATE}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["data"],
+			"uid": "UgUd3U"
 		}, {
 			"type": "output",
 			"name": "boolArray",
@@ -4820,12 +4873,12 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "GN92uZ"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "1Cxk4b"
 			}],
 			"content": [{
@@ -4834,7 +4887,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "VAR",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "GN92uZ"
 			}, {
 				"type": "text",
@@ -4842,7 +4895,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "MAXVAL",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "1Cxk4b"
 			}, {
 				"type": "text",
@@ -5011,27 +5064,27 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "CoyGcy"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "KmRZUx"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "jPtORE"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "t2wN4F"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "hcWS8R"
 			}],
 			"content": [{
@@ -5040,7 +5093,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "VAR",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "CoyGcy"
 			}, {
 				"type": "text",
@@ -5048,7 +5101,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "INITMIN",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "KmRZUx"
 			}, {
 				"type": "text",
@@ -5056,7 +5109,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "INITMAX",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "jPtORE"
 			}, {
 				"type": "text",
@@ -5064,7 +5117,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "FINMIN",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "t2wN4F"
 			}, {
 				"type": "text",
@@ -5072,7 +5125,7 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"blockInputId": "FINMAX",
 				"type": "block-input",
-				"acceptType": "float",
+				"acceptType": "all",
 				"name": "hcWS8R"
 			}, {
 				"type": "text",
