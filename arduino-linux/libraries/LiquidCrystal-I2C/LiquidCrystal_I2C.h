@@ -120,6 +120,8 @@ public:
 	 */ 
 	void cursor();
 
+	void setAddress(uint8_t lcd_addr);
+
 	void scrollDisplayLeft();
 	void scrollDisplayRight();
 	void printLeft();

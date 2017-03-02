@@ -129,6 +129,10 @@ void LiquidCrystal_I2C::cursor() {
 	command(LCD_DISPLAYCONTROL | _displaycontrol);
 }
 
+void LiquidCrystal_I2C::setAddress(uint8_t lcd_addr) {
+	_addr = lcd_addr;
+}
+
 // Turn on and off the blinking cursor
 void LiquidCrystal_I2C::noBlink() {
 	_displaycontrol &= ~LCD_BLINKON;
