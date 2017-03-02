@@ -414,7 +414,6 @@ $focus-color: #f1cb33;
 		}
 
 		.save {
-			margin-left: 20px;
 			color: white;
 			background-color: #888694;
 			border: 1px solid #646271;
@@ -430,9 +429,8 @@ $focus-color: #f1cb33;
 			color: white;
 			background-color: #20A0FF;
 			border-color: #298cd5;
-			position: absolute;
-			right: 0;
 			margin-right: 20px;
+			margin-left: 20px;
 
 			&:hover {
 				background-color: #0078cf;
