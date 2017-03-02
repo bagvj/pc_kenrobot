@@ -1,0 +1,331 @@
+{
+  "created_at": "2017-03-01T13:16:50.228Z",
+  "project_data": {
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\n#include <RGBLed.h>\n\nRGBLed rgb_0(11, 10, 9);\nfloat SerialRGB = 0;\n\nvoid setup() {\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    if (Serial.read() > 0) {\n        SerialRGB = Serial.read();\n    }\n    switch (int(SerialRGB)) {\n        case 1:\n            {\n                rgb_0.setRGBcolor(255, 0, 0);\n                break;\n            }\n        case 2:\n            {\n                rgb_0.setRGBcolor(0, 60, 102);\n                break;\n            }\n        case 3:\n            {\n                rgb_0.setRGBcolor(40, 40, 255);\n                break;\n            }\n        case 4:\n            {\n                rgb_0.setRGBcolor(255, 0, 255);\n                break;\n            }\n        default:\n            {\n                rgb_0.setRGBcolor(255, 255, 255);\n                break;\n            }\n    }\n}",
+    "hardware": {
+      "board": "ArduinoUNO",
+      "components": [
+        {
+          "endpoints": {
+            "s": {
+              "type": "serial",
+              "uid": "hjOmES"
+            }
+          },
+          "name": "serial",
+          "uid": "AC4mlv",
+          "x": 23.9,
+          "y": 48.2
+        },
+        {
+          "endpoints": {
+            "b": {
+              "type": "analog-out",
+              "uid": "RhOneS"
+            },
+            "g": {
+              "type": "analog-out",
+              "uid": "pwTilB"
+            },
+            "r": {
+              "type": "analog-out",
+              "uid": "olaPP4"
+            }
+          },
+          "name": "rgb",
+          "uid": "WtPqwE",
+          "x": 42.5,
+          "y": 13.7
+        }
+      ],
+      "connections": [
+        {
+          "sourceUid": "hjOmES",
+          "targetUid": "q9OAeR"
+        },
+        {
+          "sourceUid": "olaPP4",
+          "targetUid": "p0Yjne"
+        },
+        {
+          "sourceUid": "pwTilB",
+          "targetUid": "q6rOYR"
+        },
+        {
+          "sourceUid": "RhOneS",
+          "targetUid": "Z29m2f"
+        }
+      ]
+    },
+    "software": {
+      "global": {
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "NAME",
+                "type": "var-input",
+                "value": "SerialRGB"
+              },
+              {
+                "blockInputId": "VALUE",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VALUE",
+                      "type": "number-input",
+                      "value": "0"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "number"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "declareVariable"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "loop": {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "content": [
+                  {
+                    "id": "NAME",
+                    "type": "dynamic-select",
+                    "value": "SerialRGB"
+                  },
+                  {
+                    "blockInputId": "VALUE",
+                    "type": "block-input",
+                    "value": {
+                      "children": [],
+                      "content": [],
+                      "enable": true,
+                      "name": "serialReceive"
+                    }
+                  }
+                ],
+                "enable": true,
+                "name": "setVariable"
+              }
+            ],
+            "content": [
+              {
+                "blockInputId": "ARG1",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [],
+                  "enable": true,
+                  "name": "serialReceive"
+                }
+              },
+              {
+                "id": "OPERATOR",
+                "type": "static-select",
+                "value": ">"
+              },
+              {
+                "blockInputId": "ARG2",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VALUE",
+                      "type": "number-input",
+                      "value": "0"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "number"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "if"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "LED",
+                        "type": "dynamic-select",
+                        "value": "rgb_0"
+                      },
+                      {
+                        "id": "COLOR",
+                        "type": "static-select",
+                        "value": "255,0,0"
+                      }
+                    ],
+                    "enable": true,
+                    "name": "rgbLedSimple"
+                  }
+                ],
+                "content": [
+                  {
+                    "id": "VAR",
+                    "type": "number-input",
+                    "value": "1"
+                  }
+                ],
+                "enable": true,
+                "name": "case"
+              },
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "LED",
+                        "type": "dynamic-select",
+                        "value": "rgb_0"
+                      },
+                      {
+                        "id": "COLOR",
+                        "type": "static-select",
+                        "value": "0,60,102"
+                      }
+                    ],
+                    "enable": true,
+                    "name": "rgbLedSimple"
+                  }
+                ],
+                "content": [
+                  {
+                    "id": "VAR",
+                    "type": "number-input",
+                    "value": "2"
+                  }
+                ],
+                "enable": true,
+                "name": "case"
+              },
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "LED",
+                        "type": "dynamic-select",
+                        "value": "rgb_0"
+                      },
+                      {
+                        "id": "COLOR",
+                        "type": "static-select",
+                        "value": "40,40,255"
+                      }
+                    ],
+                    "enable": true,
+                    "name": "rgbLedSimple"
+                  }
+                ],
+                "content": [
+                  {
+                    "id": "VAR",
+                    "type": "number-input",
+                    "value": "3"
+                  }
+                ],
+                "enable": true,
+                "name": "case"
+              },
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "LED",
+                        "type": "dynamic-select",
+                        "value": "rgb_0"
+                      },
+                      {
+                        "id": "COLOR",
+                        "type": "static-select",
+                        "value": "255,0,255"
+                      }
+                    ],
+                    "enable": true,
+                    "name": "rgbLedSimple"
+                  }
+                ],
+                "content": [
+                  {
+                    "id": "VAR",
+                    "type": "number-input",
+                    "value": "4"
+                  }
+                ],
+                "enable": true,
+                "name": "case"
+              },
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "LED",
+                        "type": "dynamic-select",
+                        "value": "rgb_0"
+                      },
+                      {
+                        "id": "COLOR",
+                        "type": "static-select",
+                        "value": "255,255,255"
+                      }
+                    ],
+                    "enable": true,
+                    "name": "rgbLedSimple"
+                  }
+                ],
+                "content": [],
+                "enable": true,
+                "name": "caseDefault"
+              }
+            ],
+            "content": [
+              {
+                "id": "VAR",
+                "type": "dynamic-select",
+                "value": "SerialRGB"
+              }
+            ],
+            "enable": true,
+            "name": "switch"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "setup": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      }
+    }
+  },
+  "project_name": "switchCase",
+  "updated_at": "2017-03-01T13:24:05.187Z"
+}

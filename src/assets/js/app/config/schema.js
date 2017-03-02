@@ -559,7 +559,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.475,
 				"y": 0.07,
 				"name": "13",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "dNbH9e",
@@ -568,7 +568,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.506,
 				"y": 0.07,
 				"name": "12",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "jYjBXk",
@@ -577,7 +577,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.537,
 				"y": 0.07,
 				"name": "11",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Q7rNbn",
@@ -586,7 +586,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.568,
 				"y": 0.07,
 				"name": "10",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "ZWdX8a",
@@ -595,7 +595,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.599,
 				"y": 0.07,
 				"name": "9",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "6ujNmZ",
@@ -604,7 +604,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.63,
 				"y": 0.07,
 				"name": "8",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "uZgWrY",
@@ -613,7 +613,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.697,
 				"y": 0.07,
 				"name": "7",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "6fx4LE",
@@ -622,7 +622,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.728,
 				"y": 0.07,
 				"name": "6",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "6CpW3l",
@@ -631,7 +631,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.759,
 				"y": 0.07,
 				"name": "5",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "GmUHNr",
@@ -640,7 +640,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.79,
 				"y": 0.07,
 				"name": "4",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "k0H5GM",
@@ -649,7 +649,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.832,
 				"y": 0.07,
 				"name": "3",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "Ixnbf8",
@@ -658,7 +658,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.864,
 				"y": 0.07,
 				"name": "2",
-				"tags": ["digital", "init"],
+				"tags": ["digital", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "PteBrp",
@@ -667,7 +667,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.894,
 				"y": 0.07,
 				"name": "1",
-				"tags": ["digital", "serial-rx", "init"],
+				"tags": ["digital", "serial-rx", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "T4IYSf",
@@ -676,7 +676,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.925,
 				"y": 0.07,
 				"name": "0",
-				"tags": ["digital", "serial-tx", "init"],
+				"tags": ["digital", "serial-tx", "init", "any"],
 				"overlay": [0.5, 1.5]
 			}, {
 				"uid": "NwwKuu",
@@ -685,7 +685,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.77,
 				"y": 0.935,
 				"name": "A0",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "xDgAlg",
@@ -694,7 +694,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.804,
 				"y": 0.935,
 				"name": "A1",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "Qy6B2J",
@@ -703,7 +703,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.838,
 				"y": 0.935,
 				"name": "A2",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "C3th8k",
@@ -712,7 +712,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.872,
 				"y": 0.935,
 				"name": "A3",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "9gAnIa",
@@ -721,7 +721,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.906,
 				"y": 0.935,
 				"name": "A4",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"uid": "zNiM0h",
@@ -730,7 +730,7 @@ define(['vendor/lodash'], function(_) {
 				"x": 0.94,
 				"y": 0.935,
 				"name": "A5",
-				"tags": ["analog-in", "init"],
+				"tags": ["analog-in", "init", "any"],
 				"overlay": [0.5, -0.5]
 			}, {
 				"width": 32,
@@ -960,15 +960,15 @@ define(['vendor/lodash'], function(_) {
 			"pins": [{
 				"name": "r",
 				"anchor": [0.25, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out", "any"]
 			}, {
 				"name": "g",
 				"anchor": [0.5, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out", "any"]
 			}, {
 				"name": "b",
 				"anchor": [0.75, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out", "any"]
 			}],
 			"code": {
 				"include": "#include <RGBLed.h>",
@@ -2184,6 +2184,53 @@ define(['vendor/lodash'], function(_) {
 			"module": "serial",
 			"uid": "riThuE"
 		}, {
+			"type": "output",
+			"name": "serialAvailable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "返回串口可读数据长度"
+			}],
+			"code": "Serial.available()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module", "advanced"],
+			"module": "serial",
+			"uid": "lBwj1v"
+		}, {
+			"type": "statement",
+			"name": "serialWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口输出二进制流"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"code": "Serial.write({DATA});",
+			"tags": ["module", "advanced"],
+			"module": "serial",
+			"uid": "6yQc6n"
+		}, {
 			"type": "statement",
 			"name": "serialSend",
 			"connectors": [{
@@ -2446,6 +2493,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
 			"tags": ["module", "advanced"],
+			"module": "buzzer",
 			"uid": "IOYb1Y"
 		}, {
 			"type": "statement",
@@ -2521,6 +2569,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write({DIRECTION});",
 			"tags": ["module", "advanced"],
+			"module": "continuousServo",
 			"uid": "4qHqiF"
 		}, {
 			"type": "statement",
@@ -2551,6 +2600,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write(90);",
 			"tags": ["module", "advanced"],
+			"module": "continuousServo",
 			"uid": "PNFLTP"
 		}, {
 			"type": "statement",
@@ -2588,6 +2638,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.{STATE}();",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "eQxZOO"
 		}, {
 			"type": "statement",
@@ -2628,6 +2679,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.print({TEXT});",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "Zfk1gV"
 		}, {
 			"type": "statement",
@@ -2665,6 +2717,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "digitalWrite({LED},{STATE});",
 			"tags": ["module", "advanced"],
+			"module": "led",
 			"uid": "U7dzAq"
 		}, {
 			"type": "statement",
@@ -2705,6 +2758,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{ENCODER}.write({VALUE});",
 			"tags": ["module", "advanced"],
+			"module": "encoder",
 			"uid": "uQirVf"
 		}, {
 			"type": "statement",
@@ -2809,6 +2863,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{SERVO}.write({POSITION});",
 			"tags": ["module", "advanced"],
+			"module": "servo",
 			"uid": "wFdxeI"
 		}, {
 			"type": "statement",
@@ -2875,6 +2930,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
 			"tags": ["module", "advanced"],
+			"module": "lcd",
 			"uid": "nDEGXV"
 		}, {
 			"type": "output",

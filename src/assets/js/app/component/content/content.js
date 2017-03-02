@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/util/util', 'app/util/emitor', './titlebar', './hardware', './software', './code'], function($1, util, emitor, titlebar, hardware, software, code) {
+define(['vendor/jquery', 'app/util/util', 'app/util/emitor', './titlebar', './hardware', './software', './code', './monitor'], function($1, util, emitor, titlebar, hardware, software, code, monitor) {
 	var region;
 
 	function init() {
@@ -8,6 +8,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor', './titlebar', './ha
 		hardware.init();
 		software.init();
 		code.init();
+		monitor.init();
 
 		emitor.on('app', 'start', onAppStart).on("app", "activeTab", onActiveTab);
 	}

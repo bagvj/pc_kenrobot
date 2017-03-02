@@ -24,7 +24,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var dragMouseY;
 
 	function init() {
-		region = $('.content-region .tab-hardware').on('click', '.switch-software', onSwitchSoftwareClick);
+		region = $('.content-region .tab-hardware').on('click', '.top-region .tool-button', onToolButtonClick);
 
 		search = $('.search', region).on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
@@ -105,8 +105,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	}
 
-	function onSwitchSoftwareClick(e) {
-		emitor.trigger("app", "activeTab", "software");
+	function onToolButtonClick(e) {
+		var action = $(this).data('action');
+		switch(action) {
+			case "show-monitor":
+				topRegion.find(".show-monitor").toggleClass("active");
+				emitor.trigger('monitor', 'toggle');
+				break;
+			case "save":
+				emitor.trigger("project", "save");
+				break;
+			case "switch-software":
+				emitor.trigger("app", "activeTab", "software");
+				break;
+		}
 	}
 
 	function onActiveTab(name) {

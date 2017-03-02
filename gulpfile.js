@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra glob git://github.com/mishoo/UglifyJS2.git#harmony
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob serialport
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob extract-zip serialport
  */
 
 const gulp = require('gulp') //基础库

@@ -7,10 +7,16 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		emitor.on('app', 'start', onAppStart).on('app', 'shortcut', onShortcut);
+
+		kenrobot.on("app:onDownloadSuccess", onDownloadSuccess);
 	}
 
 	function onAppStart() {
 		registerShortcut();
+	}
+
+	function onDownloadSuccess(path, action) {
+		emitor.trigger("download", "success", path, action);
 	}
 
 	function targetHandle() {
@@ -90,6 +96,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor']
 
 	function onWindowResize(e) {
 		hideMenu();
+		emitor.trigger("app", "resize", e);
 	}
 
 	function hideMenu() {

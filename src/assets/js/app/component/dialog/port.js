@@ -2,6 +2,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 	var dialogWin;
 	var portList;
 	var callback;
+	var ports;
 
 	function init() {
 		dialogWin = $('.port-dialog');
@@ -11,15 +12,19 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 	}
 
 	function onShow(args) {
-		var ports = args.ports;
+		ports = args.ports;
 		callback = args.callback;
 
 		reset();
 		var ul = $("> ul", portList);
-		ports.forEach(function(port) {
+		var index = 0;
+		ports.forEach(function(port, i) {
+			if(args.selected && port.comName == args.selected) {
+				index = i;
+			}
 			$('<li>').data('value', port.comName).text(port.boardName ? (port.comName + "(" + port.boardName + ")") : port.comName).attr("title", port.boardName || "").appendTo(ul);
 		});
-		$('li', ul).on('click', onPortSelectClick)[0].click();
+		$('li', ul).on('click', onPortSelectClick).eq(index).trigger("click");
 
 		util.dialog({
 			selector: dialogWin,
@@ -34,7 +39,14 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 
 	function onConfirm() {
 		var comName = portList.data("value");
-		callback(comName);
+		var port;
+		ports.forEach(function(p) {
+			if(p.comName == comName) {
+				port = p;
+				return true;
+			}
+		});
+		callback(port);
 	}
 
 	function reset() {

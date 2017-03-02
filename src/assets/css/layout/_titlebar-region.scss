@@ -88,7 +88,7 @@
 							color: white;
 						}
 
-						.placeholder {
+						& > .placeholder {
 							&.arrow:after {
 								border-left-color: white;
 							}

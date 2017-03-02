@@ -192,14 +192,8 @@
 		margin-left: 20px;
 		float: left;
 
-		.boards-label {
-			float: left;
-			line-height: 40px;
-		}
-
 		.boards {
-			margin-left: 15px;
-			width: 240px;
+			width: 230px;
 			height: 40px;
 			float: left;
 
@@ -280,8 +274,8 @@
 	.component-option-region {
 		float: left;
 		height: 40px;
-		width: 220px;
-		margin-left: 20px;
+		width: 210px;
+		margin-left: 10px;
 		border-radius: 5px;
 		border: 1px solid #f69c4d;
 		background-color: #fdbf2d;
@@ -302,7 +296,7 @@
 			height: 28px;
 			line-height: 28px;
 			background-color: white;
-			width: 160px;
+			width: 150px;
 			color: #718ac0;
 			letter-spacing: 1px;
 			padding: 4px 10px;
@@ -313,32 +307,89 @@
 		}
 	}
 
-	.switch-region {
-		float: right;
-		margin-right: 20px;
+	.tool-button {
+		height: 40px;
+		width: 40px;
+		border-radius: 5px;
+		line-height: 40px;
+		border-width: 1px;
+		border-style: solid;
+		float: left;
+		cursor: pointer;
+		transition: 0.2s background-color 0.2s border-color;
 
-		.switch-software {
-			height: 40px;
-			width: 100px;
-			background: #20a0ff;
-			border: 1px solid #298cd5;
-			border-radius: 5px;
-			color: white;
-			cursor: pointer;
+		& > i {
+			display: block;
+			font-size: 24px;
+			margin-left: auto;
+			margin-right: auto;
+			width: 24px;
+		}
 
+		& > span {
+			font-size: 16px;
+		}
+
+		&.simple {
+			width: 40px;
+			
 			& > i {
-				font-size: 24px;
-				line-height: 40px;
-				float: left;
-				margin-left: 17px;
-				margin-right: 6px;
+				float: none;
+				margin-left: auto;
+				margin-right: auto;
 			}
 
 			& > span {
-				line-height: 40px;
-				float: left;
-				font-size: 16px;
+				display: none;
 			}
+		}
+	}
+
+	.show-monitor {
+		margin-left: 20px;
+		color: white;
+		background-color: #888694;
+		border: 1px solid #646271;
+		
+		&:hover {
+			background-color: #646271;
+			border-color: #646271;
+		}
+
+		&.active {
+			background-color: #646271;
+			border-color: #646271;
+		}
+	}
+
+	.save {
+		color: white;
+		background-color: #888694;
+		border: 1px solid #646271;
+		
+		&:hover {
+			background-color: #646271;
+			border-color: #646271;
+		}
+	}
+
+	.switch-software {
+		width: 100px;
+		color: white;
+		background-color: #20A0FF;
+		border-color: #298cd5;
+		margin-right: 20px;
+		margin-left: 20px;
+
+		&:hover {
+			background-color: #0078cf;
+			border-color: #0078cf;
+		}
+
+		& > i {
+			float: left;
+			margin-left: 17px;
+			margin-right: 8px;
 		}
 	}
 

@@ -1,0 +1,109 @@
+{
+  "created_at": "2017-03-01T12:12:32.649Z",
+  "project_data": {
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: Smoothing.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint pot_0 = A0;\nfloat * Arr = (float * ) malloc(10 * sizeof(float));\n\nvoid setup() {\n    pinMode(pot_0, INPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    Arr[] = ;\n}",
+    "hardware": {
+      "board": "ArduinoUNO",
+      "components": [
+        {
+          "endpoints": {
+            "s": {
+              "type": "analog-in",
+              "uid": "BT3eom"
+            }
+          },
+          "name": "pot",
+          "uid": "gq9JeT",
+          "x": 31,
+          "y": 3.2
+        },
+        {
+          "endpoints": {
+            "s": {
+              "type": "serial",
+              "uid": "807Ev3"
+            }
+          },
+          "name": "serial",
+          "uid": "JWwerD",
+          "x": 19.7,
+          "y": 39.8
+        }
+      ],
+      "connections": [
+        {
+          "sourceUid": "BT3eom",
+          "targetUid": "1jcO2Y"
+        },
+        {
+          "sourceUid": "807Ev3",
+          "targetUid": "q9OAeR"
+        }
+      ]
+    },
+    "software": {
+      "global": {
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "NAME",
+                "type": "var-input",
+                "value": "Arr"
+              },
+              {
+                "blockInputId": "VALUE",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VALUE",
+                      "type": "number-input",
+                      "value": "10"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "numberArray"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "declareVariable"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "loop": {
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "NAME",
+                "type": "dynamic-select",
+                "value": "Arr"
+              }
+            ],
+            "enable": true,
+            "name": "setArrayVariable"
+          }
+        ],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      },
+      "setup": {
+        "children": [],
+        "content": [],
+        "enable": true,
+        "name": "group"
+      }
+    }
+  },
+  "project_name": "Smoothing",
+  "updated_at": "2017-03-01T12:49:02.190Z"
+}

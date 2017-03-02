@@ -32,22 +32,31 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	function onProjectNew() {
 		savePath = null;
 		openProject(getDefaultProject());
+		util.message("新建成功");
 	}
 
-	function onProjectOpen() {
-		kenrobot.postMessage("app:openProject").then(function(result) {
-			savePath = result.path;
-			openProject(result.projectInfo);
+	function onProjectOpen(projectInfo) {
+		if(projectInfo) {
+			openProject(projectInfo);
 			util.message({
 				text: "打开成功",
 				type: "success"
 			});
-		}, function(err) {
-			util.message({
-				text: "打开失败",
-				type: "error",
+		} else {
+			kenrobot.postMessage("app:openProject").then(function(result) {
+				savePath = result.path;
+				openProject(result.projectInfo);
+				util.message({
+					text: "打开成功",
+					type: "success"
+				});
+			}, function(err) {
+				util.message({
+					text: "打开失败",
+					type: "error",
+				});
 			});
-		});
+		}
 	}
 
 	function onProjectSave(saveAs) {
@@ -91,9 +100,9 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						});
 					}, function(err) {
 						util.hideModalMessage();
-						onProjectUploadFail(err).then(function(comName) {
+						onProjectUploadFail(err).then(function(port) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:upload2", target, comName, {board_type: boardType}).then(function() {
+							kenrobot.postMessage("app:upload2", target, port.comName, {board_type: boardType}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",
@@ -149,8 +158,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			var ports = err.ports;
 			emitor.trigger("port", "show", {
 				ports: ports,
-				callback: function(comName) {
-					promise.resolve(comName);
+				callback: function(port) {
+					promise.resolve(port);
 				}
 			});
 		} else if(status == "NOT_FOUND_PORT") {
