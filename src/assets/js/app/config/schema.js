@@ -1018,6 +1018,28 @@ define(['vendor/lodash'], function(_) {
 				"setup": "pinMode({NAME}, OUTPUT);"
 			}
 		}, {
+			"uid": "gqwDEu",
+			"name": "dcMotor",
+			"label": "电机",
+			"type": "dcMotor",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "a",
+				"anchor": [0.333, 1],
+				"tags": ["analog-out"]
+			}, {
+				"name": "b",
+				"anchor": [0.667, 1],
+				"tags": ["analog-out"]
+			}],
+			"code": {
+				"include": "#include <DCMotor.h>",
+				"var": "DCMotor {NAME}({a}, {b});",
+			}
+		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
 			"label": "舵机",
@@ -2193,6 +2215,56 @@ define(['vendor/lodash'], function(_) {
 			"module": "servo",
 			"uid": "i7pG0w"
 		}, {
+			"type": "statement",
+			"name": "dcMotorRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机"
+			}, {
+				"id": "DC",
+				"type": "dynamic-select",
+				"options": "dcMotors"
+			}, {
+				"type": "text",
+				"value": "速度为"
+			}, {
+				"id": "SPEED",
+				"type": "number-input"
+			}],
+			"code": "{DC}.run({SPEED});",
+			"tags": ["module"],
+			"module": "dcMotor",
+			"uid": "fnIYDN"
+		}, {
+			"type": "statement",
+			"name": "dcMotorStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "停止电机"
+			}, {
+				"id": "DC",
+				"type": "dynamic-select",
+				"options": "dcMotors"
+			}],
+			"code": "{DC}.stop();",
+			"tags": ["module"],
+			"module": "dcMotor",
+			"uid": "29o9wz"
+		}, {
 			"type": "output",
 			"name": "serialReceive",
 			"connectors": [{
@@ -2849,6 +2921,47 @@ define(['vendor/lodash'], function(_) {
 			"tags": ["module", "advanced"],
 			"module": "rgb",
 			"uid": "GrE8rY"
+		}, {
+			"type": "statement",
+			"name": "dcMotorRunAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "skSSuQ"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "lOOvO2"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机"
+			}, {
+				"blockInputId": "DC",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "skSSuQ"
+			}, {
+				"type": "text",
+				"value": "速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "lOOvO2"
+			}],
+			"code": "{DC}.run({SPEED});",
+			"tags": ["module", "advanced"],
+			"module": "dcMotor",
+			"uid": "vBhAoh"
 		}, {
 			"type": "statement",
 			"name": "servoNormalAdvanced",
