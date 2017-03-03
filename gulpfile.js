@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra glob git://github.com/mishoo/UglifyJS2.git#harmony
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra glob
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob extract-zip serialport
  */
 
@@ -124,23 +124,13 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	// if(args.release) {
-	// 	var result = uglifyJS.minify(glob.sync(SRC + 'main/index.js'))
-	// 	fs.outputFile(APP + 'main/index.js', result.code)
-	// } else {
-		return gulp.src(SRC + 'main/**/*.js')
-			.pipe(gulp.dest(APP + 'main/'))
-	// }
+	return gulp.src(SRC + 'main/**/*.js')
+		.pipe(gulp.dest(APP + 'main/'))
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], cb => {
-	// if(args.release) {
-	// 	var result = uglifyJS.minify(glob.sync(SRC + 'renderer/index.js'))
-	// 	fs.outputFile(APP + 'renderer/index.js', result.code)
-	// } else {
-		return gulp.src(SRC + 'renderer/**/*.js')
+	return gulp.src(SRC + 'renderer/**/*.js')
 			.pipe(gulp.dest(APP + 'renderer/'))
-	// }
 })
 
 gulp.task('pack-views', ['clean-views'], _ => {

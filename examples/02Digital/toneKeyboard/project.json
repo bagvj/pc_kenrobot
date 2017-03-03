@@ -1,7 +1,7 @@
 {
   "created_at": "2017-03-01T11:22:29.181Z",
   "project_data": {
-    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint button_0 = 2;\nint button_1 = 3;\nint button_2 = 4;\nint buzzer_0 = 8;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(button_1, INPUT);\n    pinMode(button_2, INPUT);\n    pinMode(buzzer_0, OUTPUT);\n}\n\nvoid loop() {\n    if (button_0 == 1) {\n        tone(buzzer_0, 261, 200);\n        delay(200);\n    }\n    if (button_1 == 1) {\n        tone(buzzer_0, 293, 200);\n        delay(200);\n    }\n    if (button_2 == 1) {\n        tone(buzzer_0, 329, 200);\n        delay(200);\n    }\n}",
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: toneKeyboard.ino\n * Author: 啃萝卜\n * Create: 2017/03/03\n * Modify: 2017/03/03\n */\n\nint button_0 = 2;\nint button_1 = 3;\nint button_2 = 4;\nint buzzer_0 = 8;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(button_1, INPUT);\n    pinMode(button_2, INPUT);\n    pinMode(buzzer_0, OUTPUT);\n}\n\nvoid loop() {\n    if (digitalRead(button_0) == 1) {\n        tone(buzzer_0, 261, 200);\n        delay(200);\n    }\n    if (digitalRead(button_1) == 1) {\n        tone(buzzer_0, 293, 200);\n        delay(200);\n    }\n    if (digitalRead(button_2) == 1) {\n        tone(buzzer_0, 329, 200);\n        delay(200);\n    }\n}",
     "hardware": {
       "board": "ArduinoUNO",
       "components": [
@@ -14,8 +14,8 @@
           },
           "name": "button",
           "uid": "UpfZ9Z",
-          "x": 80,
-          "y": 9.8
+          "x": 79.8,
+          "y": 9.7
         },
         {
           "endpoints": {
@@ -26,7 +26,7 @@
           },
           "name": "button",
           "uid": "XhLZyH",
-          "x": 61.6,
+          "x": 61.5,
           "y": 1.1
         },
         {
@@ -38,8 +38,8 @@
           },
           "name": "button",
           "uid": "82h7na",
-          "x": 41.6,
-          "y": 1.2
+          "x": 41.5,
+          "y": 1.1
         },
         {
           "endpoints": {
@@ -51,7 +51,7 @@
           "name": "buzzer",
           "uid": "obCU7G",
           "x": 18.4,
-          "y": 9.8
+          "y": 9.7
         }
       ],
       "connections": [
@@ -115,13 +115,13 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
+                      "id": "PIN",
                       "type": "dynamic-select",
                       "value": "button_0"
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "digitalRead"
                 }
               },
               {
@@ -182,13 +182,13 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
+                      "id": "PIN",
                       "type": "dynamic-select",
                       "value": "button_1"
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "digitalRead"
                 }
               },
               {
@@ -249,13 +249,13 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
+                      "id": "PIN",
                       "type": "dynamic-select",
                       "value": "button_2"
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "digitalRead"
                 }
               },
               {
@@ -297,5 +297,5 @@
     }
   },
   "project_name": "toneKeyboard",
-  "updated_at": "2017-03-01T11:35:55.284Z"
+  "updated_at": "2017-03-03T10:26:11.031Z"
 }

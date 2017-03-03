@@ -1,7 +1,7 @@
 {
   "created_at": "2017-03-01T11:08:32.177Z",
   "project_data": {
-    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: Debounce.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint button_0 = 2;\nint led_0 = 13;\nbool buttonState = true;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(led_0, OUTPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    if (button_0 == 1) {\n        delay(10);\n        if (button_0 == 1) {\n            buttonState = !buttonState;\n            if (buttonState == true) {\n                digitalWrite(led_0, HIGH);\n                Serial.println(\"on\");\n            } else {\n                digitalWrite(led_0, LOW);\n                Serial.println(\"off\");\n            }\n        }\n    }\n}",
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: StateChangeDetection.ino\n * Author: 啃萝卜\n * Create: 2017/03/03\n * Modify: 2017/03/03\n */\n\nint button_0 = 2;\nint led_0 = 13;\nbool buttonState = true;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(led_0, OUTPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    if (digitalRead(button_0) == 1) {\n        delay(10);\n        if (digitalRead(button_0) == 1) {\n            buttonState = !buttonState;\n            if (buttonState == true) {\n                digitalWrite(led_0, HIGH);\n                Serial.println(\"on\");\n            } else {\n                digitalWrite(led_0, LOW);\n                Serial.println(\"off\");\n            }\n        }\n    }\n}",
     "hardware": {
       "board": "ArduinoUNO",
       "components": [
@@ -39,10 +39,14 @@
           "name": "serial",
           "uid": "GGHiNq",
           "x": 9.7,
-          "y": 42.9
+          "y": 42.7
         }
       ],
       "connections": [
+        {
+          "sourceUid": "xFsRJr",
+          "targetUid": "q9OAeR"
+        },
         {
           "sourceUid": "PgGXMW",
           "targetUid": "Z9Y9P2"
@@ -50,10 +54,6 @@
         {
           "sourceUid": "XebA7v",
           "targetUid": "VB05cG"
-        },
-        {
-          "sourceUid": "xFsRJr",
-          "targetUid": "q9OAeR"
         }
       ]
     },
@@ -301,13 +301,13 @@
                       "children": [],
                       "content": [
                         {
-                          "id": "VARIABLE",
+                          "id": "PIN",
                           "type": "dynamic-select",
                           "value": "button_0"
                         }
                       ],
                       "enable": true,
-                      "name": "hardwareVariable"
+                      "name": "digitalRead"
                     }
                   },
                   {
@@ -344,13 +344,13 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
+                      "id": "PIN",
                       "type": "dynamic-select",
                       "value": "button_0"
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "digitalRead"
                 }
               },
               {
@@ -392,5 +392,5 @@
     }
   },
   "project_name": "StateChangeDetection",
-  "updated_at": "2017-03-01T11:19:36.346Z"
+  "updated_at": "2017-03-03T10:25:04.723Z"
 }

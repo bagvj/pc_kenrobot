@@ -1,7 +1,7 @@
 {
   "main": "main/index.js",
   "name": "kenrobot",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "homepage": "http://www.kenrobot.com",
   "description": "啃萝卜智能硬件平台",
   "author": {

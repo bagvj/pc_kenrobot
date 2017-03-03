@@ -1,7 +1,7 @@
 {
-  "created_at": "2017-03-01T11:01:04.006Z",
+  "created_at": "2017-03-01T11:08:32.177Z",
   "project_data": {
-    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint button_0 = 2;\nint led_0 = 13;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(led_0, OUTPUT);\n}\n\nvoid loop() {\n    if (button_0 == true) {\n        digitalWrite(led_0, HIGH);\n    }\n    if (button_0 == false) {\n        digitalWrite(led_0, LOW);\n    }\n}",
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: Debounce.ino\n * Author: 啃萝卜\n * Create: 2017/03/03\n * Modify: 2017/03/03\n */\n\nint button_0 = 2;\nint led_0 = 13;\nbool buttonState = true;\n\nvoid setup() {\n    pinMode(button_0, INPUT);\n    pinMode(led_0, OUTPUT);\n}\n\nvoid loop() {\n    if (digitalRead(button_0) == 1) {\n        delay(10);\n        if (digitalRead(button_0) == 1) {\n            buttonState = !buttonState;\n        }\n    }\n    if (buttonState == true) {\n        digitalWrite(led_0, HIGH);\n    } else {\n        digitalWrite(led_0, LOW);\n    }\n}",
     "hardware": {
       "board": "ArduinoUNO",
       "components": [
@@ -9,47 +9,217 @@
           "endpoints": {
             "s": {
               "type": "digital",
-              "uid": "4yCN64"
+              "uid": "PgGXMW"
             }
           },
           "name": "button",
-          "uid": "FnjcJz",
-          "x": 34,
-          "y": 14.7
+          "uid": "0V7MQX",
+          "x": 24.6,
+          "y": 6.5
         },
         {
           "endpoints": {
             "s": {
               "type": "digital",
-              "uid": "X6NUBX"
+              "uid": "XebA7v"
             }
           },
           "name": "led",
-          "uid": "byVF3v",
-          "x": 23.6,
-          "y": 23.7
+          "uid": "2PQ0sV",
+          "x": 11.1,
+          "y": 19.4
         }
       ],
       "connections": [
         {
-          "sourceUid": "4yCN64",
+          "sourceUid": "PgGXMW",
           "targetUid": "Z9Y9P2"
         },
         {
-          "sourceUid": "X6NUBX",
+          "sourceUid": "XebA7v",
           "targetUid": "VB05cG"
         }
       ]
     },
     "software": {
       "global": {
-        "children": [],
+        "children": [
+          {
+            "children": [],
+            "content": [
+              {
+                "id": "NAME",
+                "type": "var-input",
+                "value": "buttonState"
+              },
+              {
+                "blockInputId": "VALUE",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "STATE",
+                      "type": "static-select",
+                      "value": "true"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "boolean"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "declareVariable"
+          }
+        ],
         "content": [],
         "enable": true,
         "name": "group"
       },
       "loop": {
         "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "content": [
+                  {
+                    "id": "TIME",
+                    "type": "number-input",
+                    "value": "10"
+                  }
+                ],
+                "enable": true,
+                "name": "wait"
+              },
+              {
+                "children": [
+                  {
+                    "children": [],
+                    "content": [
+                      {
+                        "id": "NAME",
+                        "type": "dynamic-select",
+                        "value": "buttonState"
+                      },
+                      {
+                        "blockInputId": "VALUE",
+                        "type": "block-input",
+                        "value": {
+                          "children": [],
+                          "content": [
+                            {
+                              "blockInputId": "CONDITION",
+                              "type": "block-input",
+                              "value": {
+                                "children": [],
+                                "content": [
+                                  {
+                                    "id": "VAR",
+                                    "type": "dynamic-select",
+                                    "value": "buttonState"
+                                  }
+                                ],
+                                "enable": true,
+                                "name": "selectVariable"
+                              }
+                            }
+                          ],
+                          "enable": true,
+                          "name": "not"
+                        }
+                      }
+                    ],
+                    "enable": true,
+                    "name": "setVariable"
+                  }
+                ],
+                "content": [
+                  {
+                    "blockInputId": "ARG1",
+                    "type": "block-input",
+                    "value": {
+                      "children": [],
+                      "content": [
+                        {
+                          "id": "PIN",
+                          "type": "dynamic-select",
+                          "value": "button_0"
+                        }
+                      ],
+                      "enable": true,
+                      "name": "digitalRead"
+                    }
+                  },
+                  {
+                    "id": "OPERATOR",
+                    "type": "static-select",
+                    "value": "=="
+                  },
+                  {
+                    "blockInputId": "ARG2",
+                    "type": "block-input",
+                    "value": {
+                      "children": [],
+                      "content": [
+                        {
+                          "id": "VALUE",
+                          "type": "number-input",
+                          "value": "1"
+                        }
+                      ],
+                      "enable": true,
+                      "name": "number"
+                    }
+                  }
+                ],
+                "enable": true,
+                "name": "if"
+              }
+            ],
+            "content": [
+              {
+                "blockInputId": "ARG1",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "PIN",
+                      "type": "dynamic-select",
+                      "value": "button_0"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "digitalRead"
+                }
+              },
+              {
+                "id": "OPERATOR",
+                "type": "static-select",
+                "value": "=="
+              },
+              {
+                "blockInputId": "ARG2",
+                "type": "block-input",
+                "value": {
+                  "children": [],
+                  "content": [
+                    {
+                      "id": "VALUE",
+                      "type": "number-input",
+                      "value": "1"
+                    }
+                  ],
+                  "enable": true,
+                  "name": "number"
+                }
+              }
+            ],
+            "enable": true,
+            "name": "if"
+          },
           {
             "children": [
               {
@@ -78,13 +248,13 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
+                      "id": "VAR",
                       "type": "dynamic-select",
-                      "value": "button_0"
+                      "value": "buttonState"
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "selectVariable"
                 }
               },
               {
@@ -132,47 +302,9 @@
                 "name": "led"
               }
             ],
-            "content": [
-              {
-                "blockInputId": "ARG1",
-                "type": "block-input",
-                "value": {
-                  "children": [],
-                  "content": [
-                    {
-                      "id": "VARIABLE",
-                      "type": "dynamic-select",
-                      "value": "button_0"
-                    }
-                  ],
-                  "enable": true,
-                  "name": "hardwareVariable"
-                }
-              },
-              {
-                "id": "OPERATOR",
-                "type": "static-select",
-                "value": "=="
-              },
-              {
-                "blockInputId": "ARG2",
-                "type": "block-input",
-                "value": {
-                  "children": [],
-                  "content": [
-                    {
-                      "id": "STATE",
-                      "type": "static-select",
-                      "value": "false"
-                    }
-                  ],
-                  "enable": true,
-                  "name": "boolean"
-                }
-              }
-            ],
+            "content": [],
             "enable": true,
-            "name": "if"
+            "name": "else"
           }
         ],
         "content": [],
@@ -188,5 +320,5 @@
     }
   },
   "project_name": "Button",
-  "updated_at": "2017-03-01T11:05:35.141Z"
+  "updated_at": "2017-03-03T10:23:49.359Z"
 }

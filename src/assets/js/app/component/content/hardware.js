@@ -8,6 +8,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	var container;
 	var componentOption;
+	var topRegion;
 	var componentContextMenu;
 	var boardContextMenu;
 	var contextMenuTarget;
@@ -24,7 +25,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	var dragMouseY;
 
 	function init() {
-		region = $('.content-region .tab-hardware').on('click', '.top-region .tool-button', onToolButtonClick);
+		region = $('.content-region .tab-hardware');
+		topRegion = region.find(".top-region").on("click", ".tool-button", onToolButtonClick);
 
 		search = $('.search', region).on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);

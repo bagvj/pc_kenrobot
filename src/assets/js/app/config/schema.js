@@ -1215,6 +1215,9 @@ define(['vendor/lodash'], function(_) {
 				"id": "VARIABLE",
 				"type": "dynamic-select",
 				"options": "hardwareVariables"
+			}, {
+				"type": "text",
+				"value": "的引脚"
 			}],
 			"code": "{VARIABLE}",
 			"returnType": {
@@ -1222,7 +1225,7 @@ define(['vendor/lodash'], function(_) {
 				"id": "VARIABLE",
 				"options": "hardwareVariables"
 			},
-			"tags": ["module"],
+			"tags": ["module", "advanced"],
 			"module": "hardwareVariable",
 			"uid": "2DFZNm"
 		}, {
@@ -1984,6 +1987,9 @@ define(['vendor/lodash'], function(_) {
 				}, {
 					"label": "粉红",
 					"value": "255,0,255"
+				}, {
+					"label": "熄灭",
+					"value": "0,0,0"
 				}]
 			}],
 			"code": "{LED}.setRGBcolor({COLOR});",

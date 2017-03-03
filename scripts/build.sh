@@ -38,7 +38,8 @@ if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
-${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+# ${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 
 if [ $? -ne 0 ]; then
 	echo build fail
