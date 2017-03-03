@@ -124,23 +124,23 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	if(args.release) {
-		var result = uglifyJS.minify(glob.sync(SRC + 'main/index.js'))
-		fs.outputFile(APP + 'main/index.js', result.code)
-	} else {
+	// if(args.release) {
+	// 	var result = uglifyJS.minify(glob.sync(SRC + 'main/index.js'))
+	// 	fs.outputFile(APP + 'main/index.js', result.code)
+	// } else {
 		return gulp.src(SRC + 'main/**/*.js')
 			.pipe(gulp.dest(APP + 'main/'))
-	}
+	// }
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], cb => {
-	if(args.release) {
-		var result = uglifyJS.minify(glob.sync(SRC + 'renderer/index.js'))
-		fs.outputFile(APP + 'renderer/index.js', result.code)
-	} else {
+	// if(args.release) {
+	// 	var result = uglifyJS.minify(glob.sync(SRC + 'renderer/index.js'))
+	// 	fs.outputFile(APP + 'renderer/index.js', result.code)
+	// } else {
 		return gulp.src(SRC + 'renderer/**/*.js')
 			.pipe(gulp.dest(APP + 'renderer/'))
-	}
+	// }
 })
 
 gulp.task('pack-views', ['clean-views'], _ => {
@@ -173,7 +173,8 @@ gulp.task('build', ['clean-dist'], callback => {
 		config: {
 			extraFiles: [
       			`arduino-${platform}`,
-      			"scripts"
+      			"scripts",
+      			"examples",
     		],
 		}
 	}).then(result => {
