@@ -1,9 +1,9 @@
 /**
  * Copyright(C), 2016-2038, KenRobot.com
- * FileName: 我的项目.ino
+ * FileName: ReadAnalogVoltage.ino
  * Author: 啃萝卜
- * Create: 2017/03/01
- * Modify: 2017/03/01
+ * Create: 2017/03/03
+ * Modify: 2017/03/03
  */
 
 int pot_0 = A0;
@@ -14,6 +14,6 @@ void setup() {
 }
 
 void loop() {
-    Serial.println(pot_0);
+    Serial.println((analogRead(pot_0) * (5 / 1023)));
     delay(200);
 }

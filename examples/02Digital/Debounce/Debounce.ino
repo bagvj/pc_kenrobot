@@ -1,9 +1,9 @@
 /**
  * Copyright(C), 2016-2038, KenRobot.com
- * FileName: 我的项目.ino
+ * FileName: Debounce.ino
  * Author: 啃萝卜
- * Create: 2017/03/01
- * Modify: 2017/03/01
+ * Create: 2017/03/03
+ * Modify: 2017/03/03
  */
 
 int button_0 = 2;
@@ -16,9 +16,9 @@ void setup() {
 }
 
 void loop() {
-    if (button_0 == 1) {
+    if (digitalRead(button_0) == 1) {
         delay(10);
-        if (button_0 == 1) {
+        if (digitalRead(button_0) == 1) {
             buttonState = !buttonState;
         }
     }

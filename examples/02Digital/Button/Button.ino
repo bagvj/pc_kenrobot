@@ -1,13 +1,14 @@
 /**
  * Copyright(C), 2016-2038, KenRobot.com
- * FileName: 我的项目.ino
+ * FileName: Debounce.ino
  * Author: 啃萝卜
- * Create: 2017/03/01
- * Modify: 2017/03/01
+ * Create: 2017/03/03
+ * Modify: 2017/03/03
  */
 
 int button_0 = 2;
 int led_0 = 13;
+bool buttonState = true;
 
 void setup() {
     pinMode(button_0, INPUT);
@@ -15,10 +16,15 @@ void setup() {
 }
 
 void loop() {
-    if (button_0 == true) {
-        digitalWrite(led_0, HIGH);
+    if (digitalRead(button_0) == 1) {
+        delay(10);
+        if (digitalRead(button_0) == 1) {
+            buttonState = !buttonState;
+        }
     }
-    if (button_0 == false) {
+    if (buttonState == true) {
+        digitalWrite(led_0, HIGH);
+    } else {
         digitalWrite(led_0, LOW);
     }
 }

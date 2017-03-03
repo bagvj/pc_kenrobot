@@ -2,8 +2,8 @@
  * Copyright(C), 2016-2038, KenRobot.com
  * FileName: Calibration.ino
  * Author: 啃萝卜
- * Create: 2017/03/01
- * Modify: 2017/03/01
+ * Create: 2017/03/03
+ * Modify: 2017/03/03
  */
 
 int led_0 = 9;
@@ -17,5 +17,5 @@ void setup() {
 }
 
 void loop() {
-    analogWrite(led_0, map(, , , , ));
+    analogWrite(led_0, map(analogRead(lightSensor_0), 0, 1023, 0, 255));
 }

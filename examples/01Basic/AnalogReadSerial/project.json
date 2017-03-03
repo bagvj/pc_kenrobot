@@ -1,7 +1,7 @@
 {
-  "created_at": "2017-03-01T10:09:55.712Z",
+  "created_at": "2017-03-01T10:13:54.814Z",
   "project_data": {
-    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: 我的项目.ino\n * Author: 啃萝卜\n * Create: 2017/03/01\n * Modify: 2017/03/01\n */\n\nint pot_0 = A0;\n\nvoid setup() {\n    pinMode(pot_0, INPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    Serial.println(pot_0);\n    delay(200);\n}",
+    "code": "/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: ReadAnalogVoltage.ino\n * Author: 啃萝卜\n * Create: 2017/03/03\n * Modify: 2017/03/03\n */\n\nint pot_0 = A0;\n\nvoid setup() {\n    pinMode(pot_0, INPUT);\n    Serial.begin(9600);\n}\n\nvoid loop() {\n    Serial.println((analogRead(pot_0) * (5 / 1023)));\n    delay(200);\n}",
     "hardware": {
       "board": "ArduinoUNO",
       "components": [
@@ -9,35 +9,35 @@
           "endpoints": {
             "s": {
               "type": "analog-in",
-              "uid": "2IXRqB"
+              "uid": "X552Yy"
             }
           },
           "name": "pot",
-          "uid": "ONbsqk",
-          "x": 17.3,
-          "y": 16.2
+          "uid": "fzmCV4",
+          "x": 19.3,
+          "y": 13.3
         },
         {
           "endpoints": {
             "s": {
               "type": "serial",
-              "uid": "XWPgz3"
+              "uid": "xmMFOC"
             }
           },
           "name": "serial",
-          "uid": "suuD1U",
-          "x": 12.1,
-          "y": 41.7
+          "uid": "KDPdy3",
+          "x": 17.8,
+          "y": 45
         }
       ],
       "connections": [
         {
-          "sourceUid": "2IXRqB",
-          "targetUid": "1jcO2Y"
+          "sourceUid": "xmMFOC",
+          "targetUid": "q9OAeR"
         },
         {
-          "sourceUid": "XWPgz3",
-          "targetUid": "q9OAeR"
+          "sourceUid": "X552Yy",
+          "targetUid": "1jcO2Y"
         }
       ]
     },
@@ -60,13 +60,77 @@
                   "children": [],
                   "content": [
                     {
-                      "id": "VARIABLE",
-                      "type": "dynamic-select",
-                      "value": "pot_0"
+                      "blockInputId": "ARG1",
+                      "type": "block-input",
+                      "value": {
+                        "children": [],
+                        "content": [
+                          {
+                            "id": "PIN",
+                            "type": "dynamic-select",
+                            "value": "pot_0"
+                          }
+                        ],
+                        "enable": true,
+                        "name": "analogRead"
+                      }
+                    },
+                    {
+                      "id": "OPERATOR",
+                      "type": "static-select",
+                      "value": "*"
+                    },
+                    {
+                      "blockInputId": "ARG2",
+                      "type": "block-input",
+                      "value": {
+                        "children": [],
+                        "content": [
+                          {
+                            "blockInputId": "ARG1",
+                            "type": "block-input",
+                            "value": {
+                              "children": [],
+                              "content": [
+                                {
+                                  "id": "VALUE",
+                                  "type": "number-input",
+                                  "value": "5"
+                                }
+                              ],
+                              "enable": true,
+                              "name": "number"
+                            }
+                          },
+                          {
+                            "id": "OPERATOR",
+                            "type": "static-select",
+                            "value": "/"
+                          },
+                          {
+                            "blockInputId": "ARG2",
+                            "type": "block-input",
+                            "value": {
+                              "children": [],
+                              "content": [
+                                {
+                                  "id": "VALUE",
+                                  "type": "number-input",
+                                  "value": "1023"
+                                }
+                              ],
+                              "enable": true,
+                              "name": "number"
+                            }
+                          }
+                        ],
+                        "enable": true,
+                        "name": "basicOperations"
+                      }
                     }
                   ],
                   "enable": true,
-                  "name": "hardwareVariable"
+                  "name": "basicOperations"
                 }
               },
               {
@@ -104,5 +168,5 @@
     }
   },
   "project_name": "AnalogReadSerial",
-  "updated_at": "2017-03-01T10:11:16.824Z"
+  "updated_at": "2017-03-03T10:20:28.727Z"
 }
