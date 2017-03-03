@@ -1,1 +1,47 @@
-!function(e,r){function n(e,r,n){var o=a[r];if(o){delete a[r];var i=n?o.resolve:o.reject;i.apply(this,Array.from(arguments).slice(3))}}function o(e){s.indexOf(e)<0&&(ipcRenderer.on(e,n),s.push(e));var r=t.defer();c++,a[c]=r;var o=Array.from(arguments);return o.splice(1,0,c),ipcRenderer.send.apply(this,o),r.promise}function i(e,r){return ipcRenderer.on(e,(e,n)=>{r.apply(this,n)}),this}const{ipcRenderer:ipcRenderer}=require("electron"),t=require("q");var s=[],a={},c=0;r.postMessage=o,r.on=i}(window,window.kenrobot||(window.kenrobot={}));
+(function(global, exports) {
+	const {ipcRenderer} = require('electron')
+	const Q = require('q')
+
+	var registeredEvents = []
+	var defers = {}
+	var deferAutoId = 0
+
+	function onMessage(e, deferId, success) {
+		var deferred = defers[deferId]
+		if(!deferred) {
+			return
+		}
+
+		delete defers[deferId]
+		var callback = success ? deferred.resolve : deferred.reject
+		callback.apply(this, Array.from(arguments).slice(3))
+	}
+	
+	function postMessage(name) {
+		if(registeredEvents.indexOf(name) < 0) {
+			ipcRenderer.on(name, onMessage)
+			registeredEvents.push(name)
+		}
+
+		var deferred = Q.defer()
+		deferAutoId++
+		defers[deferAutoId] = deferred
+
+		var args = Array.from(arguments)
+		args.splice(1, 0, deferAutoId)
+		ipcRenderer.send.apply(this, args)
+
+		return deferred.promise
+	}
+
+	function on(name, callback) {
+		ipcRenderer.on(name, (e, args) => {
+			callback.apply(this, args)
+		})
+
+		return this
+	}
+
+	exports.postMessage = postMessage
+	exports.on = on
+})(window, window.kenrobot || (window.kenrobot = {}))
