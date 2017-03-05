@@ -611,7 +611,7 @@ function getScript(name, boardType) {
 }
 
 function getResourcePath() {
-	return (is.macOS() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
+	return (!is.windows() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
 }
 
 function showOpenDialog(options) {
