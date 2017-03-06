@@ -881,7 +881,7 @@ define(['vendor/lodash'], function(_) {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital", "analog-in"]
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -893,6 +893,25 @@ define(['vendor/lodash'], function(_) {
 			"name": "limitSwitch",
 			"label": "碰撞传感器",
 			"type": "limitSwitch",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
+			}],
+			"code": {
+				"var": "int {NAME} = {s};",
+				"setup": "pinMode({NAME}, INPUT);"
+			},
+			"raw": true
+		}, {
+			"uid": "Hkm7ip",
+			"name": "touchSensor",
+			"label": "触摸传感器",
+			"type": "touchSensor",
 			"category": "sensor",
 			"boards": ["Arduino"],
 			"width": 72,
@@ -1037,7 +1056,7 @@ define(['vendor/lodash'], function(_) {
 			}],
 			"code": {
 				"include": "#include <DCMotor.h>",
-				"var": "DCMotor {NAME}({a}, {b});",
+				"var": "DCMotor {NAME}({a}, {b});"
 			}
 		}, {
 			"uid": "wiWnL4",
@@ -1077,6 +1096,45 @@ define(['vendor/lodash'], function(_) {
 				"var": "Servo {NAME};",
 				"setup": "{NAME}.attach({s});"
 			}
+		}, {
+			"uid": "Uf0rkg",
+			"name": "L298P",
+			"label": "L298P驱动板",
+			"type": "L298P",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "pwm1",
+				"anchor": [0.25, 0],
+				"tags": ["analog-out"]
+			}, {
+				"name": "dir1",
+				"anchor": [0.5, 0],
+				"tags": ["digital"]
+			}, {
+				"name": "en1",
+				"anchor": [0.75, 0],
+				"tags": ["digital"]
+			}, {
+				"name": "pwm2",
+				"anchor": [0.25, 1],
+				"tags": ["analog-out"]
+			}, {
+				"name": "dir2",
+				"anchor": [0.5, 1],
+				"tags": ["digital"]
+			}, {
+				"name": "en2",
+				"anchor": [0.75, 1],
+				"tags": ["digital"]
+			}],
+			"code": {
+				"include": "'#include <Motor.h>'",
+				"var": "if(en2 !== undefined) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2}, {en2});'} else if(en1 && (dir2 || pwm2)) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2});'} else if(dir2 || pwm2) {'Motor {NAME}({pwm1}, {dir1}, {pwm2}, {dir2});'} else if(en1) {'Motor {NAME}({pwm1}, {dir1}, {en1});'} else {'Motor {NAME}({pwm1}, {dir1});'}"
+			},
+			"hidden": true
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
@@ -1203,33 +1261,6 @@ define(['vendor/lodash'], function(_) {
 			"uid": "ujAaFv"
 		}, {
 			"type": "output",
-			"name": "hardwareVariable",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "返回"
-			}, {
-				"id": "VARIABLE",
-				"type": "dynamic-select",
-				"options": "hardwareVariables"
-			}, {
-				"type": "text",
-				"value": "的引脚"
-			}],
-			"code": "{VARIABLE}",
-			"returnType": {
-				"type": "fromDynamicSelect",
-				"id": "VARIABLE",
-				"options": "hardwareVariables"
-			},
-			"tags": ["module", "advanced"],
-			"module": "hardwareVariable",
-			"uid": "2DFZNm"
-		}, {
-			"type": "output",
 			"name": "digitalRead",
 			"connectors": [{
 				"type": "connector-output",
@@ -1350,6 +1381,71 @@ define(['vendor/lodash'], function(_) {
 			"tags": ["module"],
 			"module": "default",
 			"uid": "XikIW2"
+		}, {
+			"type": "output",
+			"name": "hardwareVariable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "返回"
+			}, {
+				"id": "VARIABLE",
+				"type": "dynamic-select",
+				"options": "hardwareVariables"
+			}, {
+				"type": "text",
+				"value": "的引脚"
+			}],
+			"code": "{VARIABLE}",
+			"returnType": {
+				"type": "fromDynamicSelect",
+				"id": "VARIABLE",
+				"options": "hardwareVariables"
+			},
+			"tags": ["module", "advanced"],
+			"module": "hardwareVariable",
+			"uid": "2DFZNm"
+		}, {
+			"type": "statement",
+			"name": "pinMode",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置引脚"
+			}, {
+				"id": "PIN",
+				"type": "dynamic-select",
+				"options": "raws"
+			}, {
+				"type": "text",
+				"value": "的模式为"
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "输入",
+					"value": "INPUT"
+				}, {
+					"label": "输出",
+					"value": "OUTPUT"
+				}, {
+					"label": "上拉",
+					"value": "INPUT_PULLUP"
+				}]
+			}],
+			"code": "pinMode({PIN},{MODE});",
+			"tags": ["module", "advanced"],
+			"module": "default",
+			"uid": "Ndr6KO"
 		}, {
 			"type": "output",
 			"name": "hts221Temperature",
@@ -1817,34 +1913,6 @@ define(['vendor/lodash'], function(_) {
 			"uid": "cAzykL"
 		}, {
 			"type": "statement",
-			"name": "lcdSetAddress",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "设置液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"type": "text",
-				"value": "的地址"
-			}, {
-				"id": "ADDR",
-				"type": "number-input",
-			}],
-			"code": "{LCD}.setAddress({ADDR});",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "nayhFh"
-		}, {
-			"type": "statement",
 			"name": "lcdWritePosition",
 			"connectors": [{
 				"type": "connector-top",
@@ -1987,9 +2055,6 @@ define(['vendor/lodash'], function(_) {
 				}, {
 					"label": "粉红",
 					"value": "255,0,255"
-				}, {
-					"label": "熄灭",
-					"value": "0,0,0"
 				}]
 			}],
 			"code": "{LED}.setRGBcolor({COLOR});",
@@ -2041,6 +2106,28 @@ define(['vendor/lodash'], function(_) {
 			"uid": "hMtr51"
 		}, {
 			"type": "statement",
+			"name": "rgbLedOff",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "熄灭三色LED"
+			}, {
+				"id": "LED",
+				"type": "dynamic-select",
+				"options": "rgbs"
+			}],
+			"code": "{LED}.setRGBcolor(0, 0, 0);",
+			"tags": ["module"],
+			"module": "rgb",
+			"uid": "IFYIMn"
+		}, {
+			"type": "statement",
 			"name": "rgbLedFade",
 			"connectors": [{
 				"type": "connector-top",
@@ -2082,28 +2169,6 @@ define(['vendor/lodash'], function(_) {
 			"tags": ["module"],
 			"module": "rgb",
 			"uid": "FUFTYU"
-		}, {
-			"type": "statement",
-			"name": "rtcInit",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "更新时间"
-			}, {
-				"id": "RTC",
-				"type": "dynamic-select",
-				"options": "rtcs"
-			}],
-			"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
-			"tags": ["module"],
-			"module": "rtc",
-			"uid": "EDzCeH"
 		}, {
 			"type": "output",
 			"name": "rtcGet",
@@ -2250,6 +2315,66 @@ define(['vendor/lodash'], function(_) {
 			"uid": "fnIYDN"
 		}, {
 			"type": "statement",
+			"name": "serialSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "KBtYqi"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口发送"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "KBtYqi"
+			}, {
+				"id": "LN",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "print"
+				}]
+			}],
+			"code": "Serial.{LN}({DATA});",
+			"tags": ["module"],
+			"module": "serial",
+			"uid": "p3UznJ"
+		}, {
+			"type": "statement",
+			"name": "rtcInit",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "更新时间"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "rtcs"
+			}],
+			"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
+			"tags": ["module"],
+			"module": "rtc",
+			"uid": "EDzCeH"
+		}, {
+			"type": "statement",
 			"name": "dcMotorStop",
 			"connectors": [{
 				"type": "connector-top",
@@ -2291,89 +2416,28 @@ define(['vendor/lodash'], function(_) {
 			"uid": "riThuE"
 		}, {
 			"type": "output",
-			"name": "serialAvailable",
+			"name": "returnComponent",
 			"connectors": [{
 				"type": "connector-output",
 				"accept": "connector-input"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "返回串口可读数据长度"
+				"value": "返回"
+			}, {
+				"id": "COMPONENT",
+				"type": "dynamic-select",
+				"options": "components"
 			}],
-			"code": "Serial.available()",
+			"code": "{COMPONENT}",
 			"returnType": {
-				"type": "simple",
-				"value": "bool"
+				"type": "fromDynamicSelect",
+				"id": "COMPONENT",
+				"options": "components"
 			},
 			"tags": ["module", "advanced"],
-			"module": "serial",
-			"uid": "lBwj1v"
-		}, {
-			"type": "statement",
-			"name": "serialWrite",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "PzDXZH"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "串口输出二进制流"
-			}, {
-				"blockInputId": "DATA",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "PzDXZH"
-			}],
-			"code": "Serial.write({DATA});",
-			"tags": ["module", "advanced"],
-			"module": "serial",
-			"uid": "6yQc6n"
-		}, {
-			"type": "statement",
-			"name": "serialSend",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "KBtYqi"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "串口发送"
-			}, {
-				"blockInputId": "DATA",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "KBtYqi"
-			}, {
-				"id": "LN",
-				"type": "static-select",
-				"options": [{
-					"label": "有换行符",
-					"value": "println"
-				}, {
-					"label": "没有换行符",
-					"value": "print"
-				}]
-			}],
-			"code": "Serial.{LN}({DATA});",
-			"tags": ["module"],
-			"module": "serial",
-			"uid": "p3UznJ"
+			"module": "component",
+			"uid": "ZgUO0e"
 		}, {
 			"type": "output",
 			"name": "digitalReadAdvanced",
@@ -2521,29 +2585,275 @@ define(['vendor/lodash'], function(_) {
 			"module": "default",
 			"uid": "fJeoIf"
 		}, {
+			"type": "statement",
+			"name": "lcdSetAddress",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "的地址"
+			}, {
+				"id": "ADDR",
+				"type": "number-input"
+			}],
+			"code": "{LCD}.setAddress({ADDR});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "nayhFh"
+		}, {
 			"type": "output",
-			"name": "returnComponent",
+			"name": "serialAvailable",
 			"connectors": [{
 				"type": "connector-output",
 				"accept": "connector-input"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "返回"
-			}, {
-				"id": "COMPONENT",
-				"type": "dynamic-select",
-				"options": "components"
+				"value": "返回串口可读数据长度"
 			}],
-			"code": "{COMPONENT}",
+			"code": "Serial.available()",
 			"returnType": {
-				"type": "fromDynamicSelect",
-				"id": "COMPONENT",
-				"options": "components"
+				"type": "simple",
+				"value": "bool"
 			},
 			"tags": ["module", "advanced"],
-			"module": "component",
-			"uid": "ZgUO0e"
+			"module": "serial",
+			"uid": "lBwj1v"
+		}, {
+			"type": "statement",
+			"name": "serialWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口输出二进制流"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PzDXZH"
+			}],
+			"code": "Serial.write({DATA});",
+			"tags": ["module", "advanced"],
+			"module": "serial",
+			"uid": "6yQc6n"
+		}, {
+			"type": "statement",
+			"name": "L298PSetSpeed",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "TsTLTk"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机驱动板"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "L298Ps"
+			}, {
+				"type": "text",
+				"value": "上第"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1",
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "TsTLTk"
+			}],
+			"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
+			"tags": ["module"],
+			"module": "L298P",
+			"uid": "9bBKXv"
+		}, {
+			"type": "statement",
+			"name": "L298PSetDirection",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机驱动板"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "L298Ps"
+			}, {
+				"type": "text",
+				"value": "上第"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1",
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机方向为"
+			}, {
+				"id": "DIR",
+				"type": "static-select",
+				"options": [{
+					"label": "正",
+					"value": "true",
+				}, {
+					"label": "反",
+					"value": "false"
+				}]
+			}],
+			"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
+			"tags": ["module"],
+			"module": "L298P",
+			"uid": "KuYvM6"
+		}, {
+			"type": "statement",
+			"name": "L298PRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "uSYWse"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机驱动板"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "L298Ps"
+			}, {
+				"type": "text",
+				"value": "上第"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1",
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机转动，方向为"
+			}, {
+				"id": "DIR",
+				"type": "static-select",
+				"options": [{
+					"label": "正",
+					"value": "true",
+				}, {
+					"label": "反",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "uSYWse"
+			}],
+			"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
+			"tags": ["module"],
+			"module": "L298P",
+			"uid": "ym7Mdx"
+		}, {
+			"type": "statement",
+			"name": "L298PStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置电机驱动板"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "L298Ps"
+			}, {
+				"type": "text",
+				"value": "上第"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1",
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机停止"
+			}],
+			"code": "{MOTOR}.stop({INDEX});",
+			"tags": ["module"],
+			"module": "L298P",
+			"uid": "tziV6k"
 		}, {
 			"type": "statement",
 			"name": "buzzerAdvanced",
@@ -2789,6 +3099,73 @@ define(['vendor/lodash'], function(_) {
 			"uid": "Zfk1gV"
 		}, {
 			"type": "statement",
+			"name": "lcdWritePositionAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "LzNxml"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Wh3LVs"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "oHLs1N"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ohuavW"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"blockInputId": "LCD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "LzNxml"
+			}, {
+				"blockInputId": "ROW",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Wh3LVs"
+			}, {
+				"type": "text",
+				"value": "行"
+			}, {
+				"blockInputId": "COLUMN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "oHLs1N"
+			}, {
+				"type": "text",
+				"value": "列"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ohuavW"
+			}],
+			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "nDEGXV"
+		}, {
+			"type": "statement",
 			"name": "ledAdvanced",
 			"connectors": [{
 				"type": "connector-top",
@@ -3012,73 +3389,6 @@ define(['vendor/lodash'], function(_) {
 			"tags": ["module", "advanced"],
 			"module": "servo",
 			"uid": "wFdxeI"
-		}, {
-			"type": "statement",
-			"name": "lcdWritePositionAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "ohuavW"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "LzNxml"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "oHLs1N"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Wh3LVs"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"blockInputId": "LCD",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "LzNxml"
-			}, {
-				"blockInputId": "ROW",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Wh3LVs"
-			}, {
-				"type": "text",
-				"value": "行"
-			}, {
-				"blockInputId": "COLUMN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "oHLs1N"
-			}, {
-				"type": "text",
-				"value": "列"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "ohuavW"
-			}],
-			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "nDEGXV"
 		}, {
 			"type": "output",
 			"name": "string",
