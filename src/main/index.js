@@ -409,7 +409,7 @@ function getExamples() {
 
 function getOSInfo() {
 	return {
-		bit: is.x86() ? 32 : 64,
+		bit: isX64() ? 64 : 32,
 		platform: getSystemSuffix()
 	}
 }
@@ -426,7 +426,7 @@ function installDriver(driverPath) {
 			return
 		}
 
-		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "arduino驱动安装.exe")
+		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		var command = `start /WAIT ${exePath}`
 		execCommand(command).then(_ => {
 			deferred.resolve()
@@ -890,6 +890,10 @@ function preUpload(comName, boardType) {
 	})
 
 	return deferred.promise
+}
+
+function isX64() {
+	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
 }
 
 function getSystemSuffix() {

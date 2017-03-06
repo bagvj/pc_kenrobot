@@ -110,7 +110,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 						return;
 					}
 
-					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit), "driver-download");
+					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit == 64 ? "64" : "86"), "driver-download");
 				});
 				break;
 			case "check-update":
