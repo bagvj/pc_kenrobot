@@ -89,7 +89,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 				for(var name in pins) {
 					tempCode = tempCode.replace(new RegExp('{' + name + '}', 'g'), pins[name]);
 				}
-				varCode += tempCode;
+				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
 			if(code.setup) {
 				tempCode = code.setup.replace(nameReg, componentData.varName);
@@ -328,18 +328,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 		var filter = li.data('filter');
 		$('.filter-name', filterWrap).text(li.text());
-		$('.advanced', filterWrap).data('action', "basic");
+		$('.advanced', filterWrap).data('action', "basic").val("高级");
 
-		blockList.children().each(function(index, child) {
+		blockList.children().removeClass("active").each(function(index, child) {
 			var blockLi = $(child);
 			var filters = blockLi.data("filter");
 			if(filters.indexOf(filter) < 0 || filters.indexOf("advanced") >= 0) {
-				blockLi.removeClass('active');
 				return;
 			}
 
 			if(filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
-				blockLi.removeClass("active");
 				return;
 			}
 
@@ -366,26 +364,23 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			isAdvanced = true;
 		}
 
-		blockList.children().each(function(index, child) {
+		blockList.children().removeClass("active").each(function(index, child) {
 			var blockLi = $(child);
 			var filters = blockLi.data('filter');
 
 			if(filters.indexOf(filter) < 0) {
 				//不是同一类block，(模块、数据)
-				blockLi.removeClass('active');
 				return;
 			}
 
 			var a = filters.indexOf("advanced") >= 0;
 			if((isAdvanced && !a) || (!isAdvanced && a)) {
 				//要显示高级但block不是高级的，或者要显示基础但block是高级的
-				blockLi.removeClass("active");
 				return;
 			}
 
 			if(filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
 				//block是模块，但没有相应硬件
-				blockLi.removeClass("active");
 				return;
 			}
 

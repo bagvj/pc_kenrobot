@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html minimist run-sequence electron electron-builder getmac md5 gulp-sftp q fs-extra glob
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob extract-zip serialport
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron electron-builder getmac md5 gulp-sftp q glob
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin serialport
  */
 
 const gulp = require('gulp') //基础库
@@ -155,7 +155,7 @@ gulp.task('build', ['clean-dist'], callback => {
 	} else if(platform == "mac") {
 		targets = builder.Platform.MAC.createTarget(args.target || "dmg", builder.archFromString(args.arch || "ia32"))
 	} else {
-		targets = builder.Platform.WINDOWS.createTarget(args.target || "dir", builder.archFromString(args.arch || "ia32"))
+		targets = builder.Platform.WINDOWS.createTarget(args.target || "nsis", builder.archFromString(args.arch || "ia32"))
 	}
 
 	builder.build({

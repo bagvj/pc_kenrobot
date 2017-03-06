@@ -12,7 +12,7 @@ const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
 const glob = require('glob')
-const extract = require('extract-zip')
+const path7za = require('7zip-bin').path7za
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -419,7 +419,8 @@ function installDriver(driverPath) {
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.dirname(driverPath)
-	extract(driverPath, {dir: dir}, err => {
+	var command = `${path7za} x ${driverPath} -y -o${dir}`
+	execCommand(command, err => {
 		if(err) {
 			log.error(err)
 			deferred.reject(err)
