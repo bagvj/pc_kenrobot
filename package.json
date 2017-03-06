@@ -20,10 +20,7 @@
       "warningsAsErrors": false,
       "menuCategory": true,
       "artifactName": "${productName}.${ext}",
-      "language": "2052",
-      "webInstall": {
-        "appPackageUrl": "http://www.kenrobot.com/webinstall"
-      }
+      "language": "2052"
     },
     "linux": {
       "icon": "icon",
