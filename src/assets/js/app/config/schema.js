@@ -1112,11 +1112,11 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"name": "dir1",
 				"anchor": [0.5, 0],
-				"tags": ["digital"]
+				"tags": ["digital", "analog-in"]
 			}, {
 				"name": "en1",
 				"anchor": [0.75, 0],
-				"tags": ["digital"]
+				"tags": ["digital", "analog-in"]
 			}, {
 				"name": "pwm2",
 				"anchor": [0.25, 1],
@@ -1124,17 +1124,17 @@ define(['vendor/lodash'], function(_) {
 			}, {
 				"name": "dir2",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital", "analog-in"]
 			}, {
 				"name": "en2",
 				"anchor": [0.75, 1],
-				"tags": ["digital"]
+				"tags": ["digital", "analog-in"]
 			}],
 			"code": {
-				"include": "'#include <Motor.h>'",
-				"var": "if(en2 !== undefined) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2}, {en2});'} else if(en1 && (dir2 || pwm2)) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2});'} else if(dir2 || pwm2) {'Motor {NAME}({pwm1}, {dir1}, {pwm2}, {dir2});'} else if(en1) {'Motor {NAME}({pwm1}, {dir1}, {en1});'} else {'Motor {NAME}({pwm1}, {dir1});'}"
-			},
-			"hidden": true
+				"include": "#include <Motor.h>",
+				"var": "if('{en2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2}, {en2});'} else if('{en1}' != '' && ('{dir2}' != '' || '{pwm2}' != '')) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2});'} else if('{dir2}' != '' || '{pwm2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {pwm2}, {dir2});'} else if('{en1}' !== '') {'Motor {NAME}({pwm1}, {dir1}, {en1});'} else {'Motor {NAME}({pwm1}, {dir1});'}",
+				"eval": true
+			}
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
