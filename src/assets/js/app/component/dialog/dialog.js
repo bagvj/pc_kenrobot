@@ -1,9 +1,10 @@
-define(['./common', './port', './installDriver'], function(common, port, installDriver) {
+define(['./common', './port', './installDriver', './library'], function(common, port, installDriver, library) {
 
 	function init() {
 		common.init();
 		port.init();
 		installDriver.init();
+		library.init();
 	}
 
 	return {

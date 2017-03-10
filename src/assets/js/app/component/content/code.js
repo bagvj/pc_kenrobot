@@ -4,7 +4,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1,
 		var container = $(".code-container", region);
 		codeModel.init(container[0]);
 
-		emitor.on('app', 'start', onAppStart);
+		emitor.on("code", "startRefresh", onStartRefresh);
 	}
 
 	function getData() {
@@ -19,7 +19,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1,
 		codeModel.genCode(codeInfo);
 	}
 
-	function onAppStart() {
+	function onStartRefresh() {
 		setInterval(function() {
 			emitor.trigger("code", "refresh");
 		}, 1000);

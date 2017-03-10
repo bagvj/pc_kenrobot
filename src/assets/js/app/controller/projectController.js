@@ -9,6 +9,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			.on('project', 'save', onProjectSave)
 			.on('project', 'upload', onProjectUpload)
 			.on('code', 'refresh', onCodeRefresh)
+			.on('code', 'copy', onCodeCopy)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 	}
 
@@ -23,10 +24,40 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function onAppStart() {
-		hardware.loadSchema(schema);
-		software.loadSchema(schema);
-		
-		openProject(getDefaultProject());
+		loadPackages().then(function() {
+			hardware.loadSchema(schema);
+			software.loadSchema(schema);
+			
+			openProject(getDefaultProject());
+			emitor.trigger("code", "startRefresh");
+		});	
+	}
+
+	function loadPackages() {
+		var promise = $.Deferred();
+
+		kenrobot.postMessage("app:loadLibraries").then(function(libraries) {
+			libraries.forEach(function(library) {
+				library.boards.forEach(function(board) {
+					board.imageUrl = library.path + "/" + board.imageUrl;
+					schema.boards.push(board);
+				});
+
+				library.components.forEach(function(component) {
+					component.imageUrl = library.path + "/" + component.imageUrl;
+					schema.components.push(component);
+
+					component.blocks.forEach(function(block) {
+						schema.blocks.push(block);
+					});
+				});
+			});
+		})
+		.fin(function() {
+			promise.resolve()
+		});
+
+		return promise
 	}
 
 	function onProjectNew() {
@@ -190,6 +221,17 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		codeInfo.name = projectInfo.project_name;
 		codeInfo.author = "啃萝卜";
 		code.genCode(codeInfo);
+	}
+
+	function onCodeCopy() {
+		kenrobot.postMessage("app:copy", code.getData(), "code").then(function() {
+			util.message("复制成功");
+		}, function(err) {
+			util.message({
+				text: "复制失败",
+				type: "warning"
+			});
+		})
 	}
 
 	function onSoftwareBlockUpdate() {

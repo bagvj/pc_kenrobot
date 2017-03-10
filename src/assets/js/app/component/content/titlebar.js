@@ -89,6 +89,12 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 					util.message("打开失败");
 				});
 				break;
+			case "board-manage":
+				emitor.trigger("board-manage", "show");
+				break;
+			case "library-manage":
+				emitor.trigger("library-manage", "show");
+				break;
 			case "fullscreen":
 				kenrobot.postMessage("app:fullscreen").done(function(fullscreen) {
 					li.find('.text').text(fullscreen ? "退出全屏" : "全屏")

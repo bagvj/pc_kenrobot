@@ -279,6 +279,7 @@
 					padding-left: 20px;
 					padding-right: 8px;
 					font-size: 12px;
+					position: relative;
 
 					&:before {
 						content: '';
@@ -288,8 +289,8 @@
 						width: 5px;
 						height: 10px;
 						position: absolute;
-						left: 4px;
-						top: 9px;
+						left: 7px;
+						top: 7px;
 						display: none;
 					}
 
@@ -314,10 +315,6 @@
 						border-bottom-color: #c4d1dd;
 						top: 9px;
 					}
-				}
-
-				& > ul {
-
 				}
 			}
 		}
@@ -365,9 +362,31 @@
 					padding-left: 8px;
 					padding-right: 8px;
 					font-size: 12px;
+					position: relative;
+
+					&:before {
+						content: '';
+						border-bottom: 1px solid white;
+						border-right: 1px solid white;
+						transform: rotate(45deg);
+						width: 5px;
+						height: 10px;
+						position: absolute;
+						left: 7px;
+						top: 7px;
+						display: none;
+					}
 
 					&:hover {
 						background-color: #686868;
+					}
+
+					&.active {
+						background-color: #686868;
+
+						&:before {
+							display: block;
+						}
 					}
 				}
 			}
@@ -379,10 +398,6 @@
 						border-bottom-color: #c4d1dd;
 						top: 9px;
 					}
-				}
-
-				& > ul {
-
 				}
 			}
 		}

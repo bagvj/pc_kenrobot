@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, net, dialog, shell} = require('electron')
+const {app, BrowserWindow, ipcMain, net, dialog, shell, clipboard} = require('electron')
 const child_process = require('child_process')
 const path = require('path')
 const os = require('os')
@@ -12,7 +12,8 @@ const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
 const glob = require('glob')
-const path7za = require('7zip-bin').path7za
+const sudo = require('sudo-prompt')
+const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -21,12 +22,17 @@ var connectedPorts = {
 	autoPortId: 0,
 	ports: {}
 }
+var buildOptions = {
+	libraries: []	
+}
 
 var mainWindow
 
 init()
 
 function init() {
+	app.setName("kenrobot")
+
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
@@ -62,9 +68,6 @@ function createWindow() {
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
-	mainWindow.loadURL(`file://${__dirname}/../index.html`)
-	mainWindow.focus()
-
 	mainWindow.on('closed', _ => {
 		mainWindow = null
 	}).once('ready-to-show', () => {
@@ -75,7 +78,7 @@ function createWindow() {
 		closeAllSerialPort()
 	})
 	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
-		var savePath = path.join(app.getPath("appData"), app.getName(), 'temp', item.getFilename())
+		var savePath = path.join(app.getPath("userData"), 'temp', item.getFilename())
 		item.setSavePath(savePath)
 
 		var url = item.getURL()
@@ -102,6 +105,11 @@ function createWindow() {
 			}
 		})
 	})
+
+	unPackPkg().then(_ => {
+		mainWindow.loadURL(`file://${__dirname}/../index.html`)
+		mainWindow.focus()
+	})	
 }
 
 function listenEvent() {
@@ -162,58 +170,6 @@ function listenMessage() {
 	}).on('app:openUrl', (e, deferId, url) => {
 		var success = url && shell.openExternal(url)
 		e.sender.send('app:openUrl', deferId, success, success)
-	})
-	.on('app:netRequest', (e, deferId, options) => {
-		var request = net.request(options)
-		if(options.header) {
-			for(var key in options.header) {
-				request.setHeader(key, options.header[key])
-			}
-		}
-		request.on('response', response => {
-			var chunks = []
-			var size = 0
-			response.on('data', chunk => {
-				chunks.push(chunk)
-				size += chunk.length
-			}).on('end', _ => {
-				var data
-				switch(chunks.length) {
-					case 0:
-						data = new Buffer(0)
-						break
-					case 1:
-						data = chunks[0]
-						break
-					default:
-						data = new Buffer(size)
-						var pos = 0
-						chunks.forEach(chunk => {
-							chunk.copy(data, pos)
-							pos += chunk.len
-						})
-						break
-				}
-				data = data.toString()
-				if(options.json) {
-					var temp
-					try{
-						temp = JSON.parse(data)
-					} catch (ex) {
-						e.sender.send('app:netRequest', deferId, false, data)
-						return
-					}
-					data = temp
-				}
-				e.sender.send('app:netRequest', deferId, true, data)
-			})
-		}).on('abort', _ => {
-			log.error(err)
-			e.sender.send('app:netRequest', deferId, false, 'abort')
-		}).on('error', err => {
-			log.error(err)
-			e.sender.send('app:netRequest', deferId, false, err)
-		}).end()
 	})
 	.on('app:execCommand', (e, deferId, command, options) => {
 		execCommand(command, options).then(stdout => {
@@ -372,10 +328,90 @@ function listenMessage() {
 			e.sender.send('app:openExample', deferId, false, err)
 		})
 	})
+	.on("app:copy", (e, deferId, text, type) => {
+		clipboard.writeText(text, type)
+		e.sender.send("app:copy", deferId, true, true)
+	})
+	.on("app:loadLibraries", (e, deferId) => {
+		loadLibraries().then(libraries => {
+			e.sender.send('app:loadLibraries', deferId, true, libraries)
+		}, err => {
+			e.sender.send('app:loadLibraries', deferId, false, err)
+		})
+	})
 }
 
 function postMessage(name) {
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
+}
+
+function loadLibraries() {
+	var deferred = Q.defer()
+
+	var libraries = []
+	var libraryPath = path.join(app.getPath("documents"), app.getName(), "libraries")
+	log.debug(`loadLibraries: ${libraryPath}`)
+	
+	searchFiles(`${libraryPath}/*/library.json`).then(pathList => {
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			readJson(p).then(library => {
+				library.path = path.dirname(p)
+				libraries.push(library)
+				buildOptions.libraries.push(path.join(library.path, "src"))
+			})
+			.fin(_ => {
+				d.resolve()
+			})
+			return d.promise	
+		}))
+		.then(_ => {
+			deferred.resolve(libraries)
+		})
+	}, err => {
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function unPackPkg() {
+	var deferred = Q.defer()
+
+	var lockPath = path.join(app.getPath("userData"), "lock")
+	if(fs.existsSync(lockPath)) {
+		log.debug("skip unpack pkg")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+
+		return deferred.promise
+	}
+
+	log.debug("unpack pkg")
+	var pkgPath = path.join(getResourcePath(), "pkg")
+	searchFiles(`${pkgPath}/*.7z`).then(pathList => {
+		var hasError
+		var count = pathList.length
+		pathList.forEach(p => {
+			var dist = path.join(app.getPath("documents"), app.getName(), "libraries")
+			unzip(p, dist).then(_ => {}, err => {
+				hasError = true
+			})
+			.fin(_ => {
+				count--
+				if(count == 0) {
+					writeFile(lockPath, "").fin(_ => {
+						deferred.resolve()
+					})
+				}
+			})
+		})
+	}, err => {
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function openExample(category, name) {
@@ -386,7 +422,6 @@ function openExample(category, name) {
 	readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
-		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -400,7 +435,6 @@ function getExamples() {
 	readJson(path.join(getResourcePath(), "examples", "examples.json")).then(examples => {
 		deferred.resolve(examples)
 	}, err => {
-		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -410,8 +444,39 @@ function getExamples() {
 function getOSInfo() {
 	return {
 		bit: isX64() ? 64 : 32,
-		platform: getSystemSuffix()
+		platform: getPlatform()
 	}
+}
+
+function searchFiles(pattern) {
+	var deferred = Q.defer()
+
+	log.debug(`searchFiles: ${pattern}`)
+	glob(pattern, {}, (err, pathList) => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		return deferred.resolve(pathList)
+	})
+
+	return deferred.promise
+}
+
+function unzip(zipPath, dist) {
+	var deferred = Q.defer()
+
+	log.debug(`unzip: ${zipPath} => ${dist}`)
+	var command = `"${path7za}" x "${zipPath}" -y -o"${dist}"`
+	execCommand(command).then(_ => {
+		deferred.resolve()
+	}, err => {
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function installDriver(driverPath) {
@@ -419,22 +484,14 @@ function installDriver(driverPath) {
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.dirname(driverPath)
-	var command = `${path7za} x ${driverPath} -y -o${dir}`
-	execCommand(command, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
+	unzip(driverPath, dir).then(_ => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		var command = `start /WAIT ${exePath}`
-		execCommand(command).then(_ => {
+		execCommand(command, null, true).fin(_ => {
 			deferred.resolve()
-		}, err1 => {
-			log.error(err1)
-			deferred.reject(err1)
 		})
+	}, err => {
+		deferred.reject(err)
 	})
 
 	return deferred.promise
@@ -817,6 +874,7 @@ function buildProject(file, options) {
 
 	options = options || {}
 	options.board_type = options.board_type || "uno"
+	options.libraries = buildOptions.libraries
 
 	var scriptPath = getScript("build", options.board_type)
 	log.debug(path.resolve(scriptPath))
@@ -826,6 +884,10 @@ function buildProject(file, options) {
 	} else {
 		command = `${scriptPath} ${file} ${options.board_type}`
 	}
+	if(options.libraries.length > 0) {
+		command = `${command} "${options.libraries.join(',')}"`
+	}
+
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 	execCommand(command).then(_ => {
 		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
@@ -897,7 +959,7 @@ function isX64() {
 	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
 }
 
-function getSystemSuffix() {
+function getPlatform() {
 	if(is.windows()) {
 		return "win"
 	} else if(is.macOS()) {
@@ -928,14 +990,8 @@ function loadBoards(forceReload) {
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 	
-	var searchPath = 'arduino-' + getSystemSuffix()
-	glob(`${searchPath}/**/boards.txt`, {}, (err, pathList) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-		
+	var searchPath = 'arduino-' + getPlatform()
+	searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		var count = pathList.length
 		pathList.forEach(p => {
 			readFile(p).then(content => {
@@ -967,11 +1023,12 @@ function loadBoards(forceReload) {
 					boardNames = _boardNames
 					deferred.resolve(boardNames)
 				}
-			}, err1 => {
-				log.error(err1)
-				deferred.reject(err1)
+			}, err => {
+				deferred.reject(err)
 			})
 		})
+	}, err => {
+		deferred.reject(err)
 	})
 
 	return deferred.promise
@@ -992,27 +1049,43 @@ function matchBoardNames(ports) {
 
 		deferred.resolve(ports)
 	}, err => {
-		log.error(err)
 		deferred.reject(err)
 	})
 
 	return deferred.promise
 }
 
-function execCommand(command, options) {
+function execCommand(command, options, useSudo) {
 	var deferred = Q.defer()
 	options = options || {}
+	useSudo = useSudo || false
 
-	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}`)
-	child_process.exec(command, options, (err, stdout, stderr) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
+	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}, useSudo: ${useSudo}`)
+	if(useSudo) {
+		sudo.exec(command, {name: "kenrobot"}, (err, stdout, stderr) => {
+			if(err) {
+				log.error(err)
+				stdout && log.error(stdout)
+				stderr && log.error(stderr)
+				deferred.reject(err)
+				return
+			}
 
-		deferred.resolve(stdout)
-	})
+			deferred.resolve(stdout)
+		})
+	} else {
+		child_process.exec(command, options, (err, stdout, stderr) => {
+			if(err) {
+				log.error(err)
+				stdout && log.error(stdout)
+				stderr && log.error(stderr)
+				deferred.reject(err)
+				return
+			}
+
+			deferred.resolve(stdout)
+		})
+	}
 
 	return deferred.promise
 }

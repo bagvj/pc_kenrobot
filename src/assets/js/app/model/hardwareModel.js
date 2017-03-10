@@ -120,14 +120,11 @@ define(['vendor/jsPlumb', 'app/util/util'], function($1, util) {
 			components: {},
 		};
 
-		var prefix = "assets/image/";
 		_schema.boards.forEach(function(board) {
-			board.imageUrl = prefix + "board/" + board.name + ".png";
 			schema.boards[board.name] = board;
 		});
 
 		_schema.components.forEach(function(component) {
-			component.imageUrl = prefix + "component/" + component.name + ".png";
 			schema.components[component.name] = component;
 		});
 	}

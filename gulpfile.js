@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron electron-builder getmac md5 gulp-sftp q glob
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin serialport
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt serialport
  */
 
 const gulp = require('gulp') //基础库
@@ -165,6 +165,8 @@ gulp.task('build', ['clean-dist'], callback => {
       			`arduino-${platform}`,
       			"scripts",
       			"examples",
+      			"pkg",
+      			"!pkg/lock",
     		],
 		}
 	}).then(result => {

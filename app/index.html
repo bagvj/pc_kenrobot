@@ -62,6 +62,13 @@
 							<li>
 								<div class="placeholder">选项</div>
 								<ul>
+<!-- 									<li data-action="board-manage">
+										<span class="text">开发板管理</span>
+									</li>
+									<li data-action="library-manage">
+										<span class="text">库管理</span>
+									</li>
+									<li class="seperator"></li> -->
 									<li data-action="fullscreen">
 										<span class="text">全屏</span>
 									</li>
@@ -224,6 +231,9 @@
 									</div>
 								</div>
 								<div class="clearfix pull-right">
+									<div class="tool-button copy" data-action="copy" title="复制源码">
+										<i class="kenrobot ken-clone"></i>
+									</div>
 									<div class="tool-button save" data-action="save" title="保存项目">
 										<i class="kenrobot ken-save2"></i>
 									</div>
@@ -308,6 +318,111 @@
 					</div>
 					<div class="x-dialog-btns">
 						<button class="x-dialog-btn confirm">确定</button>
+					</div>
+				</div>
+				<div class="x-dialog library-manage-dialog">
+					<div class="x-dialog-title">库管理</div>
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-content">
+						<div class="toolbar">
+							<span class="type-label">类型</span>
+							<div class="x-select types">
+								<div class="placeholder"></div>
+								<ul>
+									<li data-value="all">全部</li>
+									<li data-value="can-update">可更新</li>
+									<li data-value="kenrobot">kenrobot</li>
+									<li data-value="arduino">arduino</li>
+									<li data-value="third-party">第三方</li>
+								</ul>
+							</div>
+							<span class="theme-label">主题</span>
+							<div class="x-select themes">
+								<div class="placeholder"></div>
+								<ul>
+									<li data-value="all">全部</li>
+									<li data-value="comunication">通信</li>
+									<li data-value="data-handle">数据处理</li>
+									<li data-value="data-storage">数据存储</li>
+									<li data-value="device-control">设备控制</li>
+									<li data-value="display">显示</li>
+									<li data-value="sensor">传感器</li>
+									<li data-value="signal input/output">信号输入/输出</li>
+									<li data-value="others">其它</li>
+								</ul>
+							</div>
+							<input class="filter" type="text" placeholder="关键词过滤..." /> 
+						</div>
+						<div class="list">
+							<ul>
+								<li>
+									<div>
+										<span class="name">Adafruit ADS1X15</span>
+										<span class="author">by Arduino</span>
+									</div>
+									<div class="des">
+										<span class="desA">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+										<span class="desB">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+									</div>
+									<div class="clearfix">
+										<span class="more">更多信息</span>
+										<input type="button" class="install" value="安装" />
+										<div class="x-select versions">
+											<div class="placeholder"></div>
+											<ul>
+												<li data-value="1.6.1">1.6.1</li>
+												<li data-value="1.6.2">1.6.2</li>
+												<li data-value="1.6.3">1.6.3</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div>
+										<span class="name">Adafruit ADS1X15</span>
+										<span class="author">by Arduino</span>
+									</div>
+									<div class="des">
+										<span class="desA">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+										<span class="desB">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+									</div>
+									<div class="clearfix">
+										<span class="more">更多信息</span>
+										<input type="button" class="install" value="安装" />
+										<div class="x-select versions">
+											<div class="placeholder"></div>
+											<ul>
+												<li data-value="1.6.1">1.6.1</li>
+												<li data-value="1.6.2">1.6.2</li>
+												<li data-value="1.6.3">1.6.3</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div>
+										<span class="name">Adafruit ADS1X15</span>
+										<span class="author">by Arduino</span>
+									</div>
+									<div class="des">
+										<span class="desA">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+										<span class="desB">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
+									</div>
+									<div class="clearfix">
+										<span class="more">更多信息</span>
+										<input type="button" class="install" value="安装" />
+										<div class="x-select versions">
+											<div class="placeholder"></div>
+											<ul>
+												<li data-value="1.6.1">1.6.1</li>
+												<li data-value="1.6.2">1.6.2</li>
+												<li data-value="1.6.3">1.6.3</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

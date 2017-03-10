@@ -23,6 +23,7 @@
     "glob": "^7.1.1",
     "minimist": "^1.2.0",
     "q": "^1.4.1",
-    "serialport": "^4.0.7"
+    "serialport": "^4.0.7",
+    "sudo-prompt": "^6.2.1"
   }
 }
