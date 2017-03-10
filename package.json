@@ -8,7 +8,11 @@
       "index.html",
       "main",
       "renderer",
-      "node_modules"
+      "node_modules",
+      "!node_modules/serialport/build/Release/obj",
+      "!node_modules/**/*.md",
+      "!node_modules/**/test",
+      "!node_modules/**/.*"
     ],
     "win": {
       "publisherName": "KenRobot"

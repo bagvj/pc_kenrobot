@@ -166,7 +166,6 @@ gulp.task('build', ['clean-dist'], callback => {
       			"scripts",
       			"examples",
       			"pkg",
-      			"!pkg/lock",
     		],
 		}
 	}).then(result => {

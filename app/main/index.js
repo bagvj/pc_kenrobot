@@ -1,7 +1,7 @@
-const {app, BrowserWindow, ipcMain, net, dialog, shell, clipboard} = require('electron')
-const child_process = require('child_process')
+const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
+
 const path = require('path')
-const os = require('os')
+const util = require('./util')
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -11,9 +11,6 @@ const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
-const glob = require('glob')
-const sudo = require('sudo-prompt')
-const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -30,6 +27,9 @@ var mainWindow
 
 init()
 
+/**
+ * 初始化
+ */
 function init() {
 	app.setName("kenrobot")
 
@@ -57,6 +57,9 @@ function init() {
 	listenMessage()
 }
 
+/**
+ * 创建窗口
+ */
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1280,
@@ -112,6 +115,9 @@ function createWindow() {
 	})	
 }
 
+/**
+ * 监听事件
+ */
 function listenEvent() {
 	app.on('ready', _ => {
 		log.debug('app ready')
@@ -140,6 +146,9 @@ function listenEvent() {
 	})
 }
 
+/**
+ * 监听消息
+ */
 function listenMessage() {
 	ipcMain.on('app:getVersion', (e, deferId) => {
 		e.sender.send('app:getVersion', deferId, true, app.getVersion())
@@ -172,28 +181,28 @@ function listenMessage() {
 		e.sender.send('app:openUrl', deferId, success, success)
 	})
 	.on('app:execCommand', (e, deferId, command, options) => {
-		execCommand(command, options).then(stdout => {
+		util.execCommand(command, options).then(stdout => {
 			e.sender.send('app:execCommand', deferId, true, stdout)
 		}, err => {
 			e.sender.send('app:execCommand', deferId, false, err)
 		})
 	})
 	.on('app:readFile', (e, deferId, file, options) => {
-		readFile(file, options).then(data => {
+		util.readFile(file, options).then(data => {
 			e.sender.send('app:readFile', deferId, true, data)
 		}, err => {
 			e.sender.send('app:readFile', deferId, false, err)
 		})
 	})
 	.on('app:writeFile', (e, deferId, file, data) => {
-		writeFile(file, data).then(_ => {
+		util.writeFile(file, data).then(_ => {
 			e.sender.send('app:writeFile', deferId, true, true)
 		}, err => {
 			e.sender.send('app:writeFile', deferId, false, err)
 		})
 	})
 	.on('app:removeFile', (e, deferId, file) => {
-		removeFile(file).then(_ => {
+		util.removeFile(file).then(_ => {
 			e.sender.send('app:removeFile', deferId, true, true)
 		}, err => {
 			e.sender.send('app:removeFile', deferId, false, err)
@@ -220,11 +229,11 @@ function listenMessage() {
 			e.sender.send('app:buildProject', deferId, false, err)
 		})
 	})
-	.on('app:getSerialPorts', (e, deferId) => {
-		getSerialPorts().then(ports => {
-			e.sender.send('app:getSerialPorts', deferId, true, ports)
+	.on('app:listSerialPort', (e, deferId) => {
+		listSerialPort().then(ports => {
+			e.sender.send('app:listSerialPort', deferId, true, ports)
 		}, err => {
-			e.sender.send('app:getSerialPorts', deferId, false, err)
+			e.sender.send('app:listSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:openSerialPort', (e, deferId, comName, options) => {
@@ -263,7 +272,7 @@ function listenMessage() {
 		})
 	})
 	.on('app:upload', (e, deferId, target, options) => {
-		getSerialPorts().then(ports => {
+		listSerialPort().then(ports => {
 			if(ports.length == 1) {
 				upload(target, ports[0].comName, options).then(_ => {
 					e.sender.send('app:upload', deferId, true, true)
@@ -314,11 +323,11 @@ function listenMessage() {
 			e.sender.send('app:installDriver', deferId, false, err)
 		})
 	})
-	.on('app:getExamples', (e, deferId) => {
-		getExamples().then(examples => {
-			e.sender.send('app:getExamples', deferId, true, examples)
+	.on('app:loadExamples', (e, deferId) => {
+		loadExamples().then(examples => {
+			e.sender.send('app:loadExamples', deferId, true, examples)
 		}, err => {
-			e.sender.send('app:getExamples', deferId, false, err)
+			e.sender.send('app:loadExamples', deferId, false, err)
 		})
 	})
 	.on("app:openExample", (e, deferId, category, name) => {
@@ -341,10 +350,55 @@ function listenMessage() {
 	})
 }
 
+/**
+ * 发送消息
+ * @param {*} name 
+ */
 function postMessage(name) {
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
 }
 
+/**
+ * 解压资源包
+ */
+function unPackPkg() {
+	var deferred = Q.defer()
+
+	var lockPath = path.join(app.getPath("userData"), "lock")
+	if(fs.existsSync(lockPath)) {
+		log.debug("skip unpack pkg")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+
+		return deferred.promise
+	}
+
+	log.debug("unpack pkg")
+	var pkgPath = path.join(getResourcePath(), "pkg")
+	util.searchFiles(`${pkgPath}/*.7z`).then(pathList => {
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			util.unzip(p, path.join(app.getPath("documents"), app.getName(), "libraries"))
+			.fin(_ => {
+				d.resolve()
+			})
+			return d.promise
+		})).then(_ => {
+			util.writeFile(lockPath, "").fin(_ => {
+				deferred.resolve()
+			})
+		})
+	}, err => {
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 加载所有库
+ */
 function loadLibraries() {
 	var deferred = Q.defer()
 
@@ -352,10 +406,10 @@ function loadLibraries() {
 	var libraryPath = path.join(app.getPath("documents"), app.getName(), "libraries")
 	log.debug(`loadLibraries: ${libraryPath}`)
 	
-	searchFiles(`${libraryPath}/*/library.json`).then(pathList => {
+	util.searchFiles(`${libraryPath}/*/library.json`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
-			readJson(p).then(library => {
+			util.readJson(p).then(library => {
 				library.path = path.dirname(p)
 				libraries.push(library)
 				buildOptions.libraries.push(path.join(library.path, "src"))
@@ -375,51 +429,17 @@ function loadLibraries() {
 	return deferred.promise
 }
 
-function unPackPkg() {
-	var deferred = Q.defer()
-
-	var lockPath = path.join(app.getPath("userData"), "lock")
-	if(fs.existsSync(lockPath)) {
-		log.debug("skip unpack pkg")
-		setTimeout(_ => {
-			deferred.resolve()
-		}, 10)
-
-		return deferred.promise
-	}
-
-	log.debug("unpack pkg")
-	var pkgPath = path.join(getResourcePath(), "pkg")
-	searchFiles(`${pkgPath}/*.7z`).then(pathList => {
-		var hasError
-		var count = pathList.length
-		pathList.forEach(p => {
-			var dist = path.join(app.getPath("documents"), app.getName(), "libraries")
-			unzip(p, dist).then(_ => {}, err => {
-				hasError = true
-			})
-			.fin(_ => {
-				count--
-				if(count == 0) {
-					writeFile(lockPath, "").fin(_ => {
-						deferred.resolve()
-					})
-				}
-			})
-		})
-	}, err => {
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
+/**
+ * 打开示例
+ * @param {*} category 分类
+ * @param {*} name 名字
+ */
 function openExample(category, name) {
 	var deferred = Q.defer()
 
 	var examplePath = path.join(getResourcePath(), "examples", category, name)
 	log.debug(`openExample: ${examplePath}`)
-	readJson(path.join(examplePath, "project.json")).then(projectInfo => {
+	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
 		deferred.reject(err)
@@ -428,11 +448,14 @@ function openExample(category, name) {
 	return deferred.promise
 }
 
-function getExamples() {
+/**
+ * 加载示例
+ */
+function loadExamples() {
 	var deferred = Q.defer()
 
-	log.debug('getExamples')
-	readJson(path.join(getResourcePath(), "examples", "examples.json")).then(examples => {
+	log.debug('loadExamples')
+	util.readJson(path.join(getResourcePath(), "examples", "examples.json")).then(examples => {
 		deferred.resolve(examples)
 	}, err => {
 		deferred.reject(err)
@@ -441,53 +464,19 @@ function getExamples() {
 	return deferred.promise
 }
 
-function getOSInfo() {
-	return {
-		bit: isX64() ? 64 : 32,
-		platform: getPlatform()
-	}
-}
-
-function searchFiles(pattern) {
-	var deferred = Q.defer()
-
-	log.debug(`searchFiles: ${pattern}`)
-	glob(pattern, {}, (err, pathList) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		return deferred.resolve(pathList)
-	})
-
-	return deferred.promise
-}
-
-function unzip(zipPath, dist) {
-	var deferred = Q.defer()
-
-	log.debug(`unzip: ${zipPath} => ${dist}`)
-	var command = `"${path7za}" x "${zipPath}" -y -o"${dist}"`
-	execCommand(command).then(_ => {
-		deferred.resolve()
-	}, err => {
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
+/**
+ * 安装驱动
+ * @param {*} driverPath 
+ */
 function installDriver(driverPath) {
 	var deferred = Q.defer()
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.dirname(driverPath)
-	unzip(driverPath, dir).then(_ => {
+	util.unzip(driverPath, dir).then(_ => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		var command = `start /WAIT ${exePath}`
-		execCommand(command, null, true).fin(_ => {
+		util.execCommand(command, null, true).fin(_ => {
 			deferred.resolve()
 		})
 	}, err => {
@@ -497,10 +486,13 @@ function installDriver(driverPath) {
 	return deferred.promise
 }
 
-function getSerialPorts() {
+/**
+ * 查询串口
+ */
+function listSerialPort() {
 	var deferred = Q.defer()
 
-	log.debug("getSerialPorts")
+	log.debug("listSerialPort")
 	SerialPort.list((err, ports) => {
 		if(err) {
 			log.error(err)
@@ -517,16 +509,18 @@ function getSerialPorts() {
 			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(ports)
 		}, err1 => {
-			if(err1) {
-				log.error(err1)
-				deferred.reject(err1)
-			}
+			deferred.reject(err1)
 		})
 	})
 
 	return deferred.promise
 }
 
+/**
+ * 打开串口
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
+ */
 function openSerialPort(comName, options) {
 	var deferred = Q.defer()
 
@@ -547,7 +541,20 @@ function openSerialPort(comName, options) {
 			return
 		}
 
-		var portId = addPort(port)
+		var portId = ++connectedPorts.autoPortId
+		connectedPorts.ports[portId] = port
+
+		port.on('error', err => {
+			postMessage("app:onSerialPortError", portId, err)
+		})
+		.on('close', _ => {
+			delete connectedPorts.ports[portId]
+			postMessage("app:onSerialPortClose", portId)
+		})
+		.on('data', data => {
+			postMessage("app:onSerialPortData", portId, data)
+		})
+
 		port.flush(_ => {
 			deferred.resolve(portId)
 		})
@@ -556,6 +563,11 @@ function openSerialPort(comName, options) {
 	return deferred.promise
 }
 
+/**
+ * 串口发送
+ * @param {*} portId 串口id
+ * @param {*} buffer 发送内容，Buffer | String
+ */
 function writeSerialPort(portId, buffer) {
 	var  deferred = Q.defer()
 
@@ -583,6 +595,10 @@ function writeSerialPort(portId, buffer) {
 	return deferred.promise
 }
 
+/**
+ * 关闭串口
+ * @param {*} portId 串口id
+ */
 function closeSerialPort(portId) {
 	var  deferred = Q.defer()
 
@@ -601,6 +617,9 @@ function closeSerialPort(portId) {
 	return deferred.promise
 }
 
+/**
+ * 关闭所有串口
+ */
 function closeAllSerialPort() {
 	for(var key in connectedPorts.ports) {
 		connectedPorts.ports[key].close()
@@ -608,6 +627,11 @@ function closeAllSerialPort() {
 	connectedPorts.ports = {}
 }
 
+/**
+ * 更新串口设置
+ * @param {*} portId 串口id
+ * @param {*} options 选项
+ */
 function updateSerialPort(portId, options) {
 	var  deferred = Q.defer()
 
@@ -626,6 +650,11 @@ function updateSerialPort(portId, options) {
 	return deferred.promise
 }
 
+/**
+ * 清空串口缓冲区
+ * @param {*} portId 串口id
+ * @param {*} options 选项
+ */
 function flushSerialPort(portId, options) {
 	var  deferred = Q.defer()
 
@@ -644,162 +673,12 @@ function flushSerialPort(portId, options) {
 	return deferred.promise
 }
 
-function addPort(port) {
-	var autoPortId = ++connectedPorts.autoPortId
-	connectedPorts.ports[autoPortId] = port
-
-	port.on('error', err => {
-		postMessage("app:onSerialPortError", autoPortId, err)
-	})
-	.on('close', _ => {
-		delete connectedPorts.ports[autoPortId]
-		postMessage("app:onSerialPortClose", autoPortId)
-	})
-	.on('data', data => {
-		postMessage("app:onSerialPortData", autoPortId, data)
-	})
-
-	return autoPortId
-}
-
-function getScript(name, boardType) {
-	var suffix = boardType == "genuino101" ? "_101" : ""
-	var resourcePath = getResourcePath()
-	return path.join(resourcePath, "scripts", `${name}${suffix}.${is.windows() ? "bat" : "sh"}`)
-}
-
-function getResourcePath() {
-	return (!is.windows() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
-}
-
-function showOpenDialog(options) {
-	var deferred = Q.defer()
-	options = options || {}
-	options.title = "打开"
-	options.defaultPath = app.getPath("documents")
-	options.buttonLabel = "打开"
-
-	log.debug(`showOpenDialog: options: ${JSON.stringify(options)}`)
-	dialog.showOpenDialog(mainWindow, options, files => {
-		if(!files) {
-			deferred.reject()
-			return
-		}
-
-		deferred.resolve(files[0])
-	})
-
-	return deferred.promise
-}
-
-function showSaveDialog(options) {
-	var deferred = Q.defer()
-	options = options || {}
-	options.title = "保存"
-	options.defaultPath = app.getPath("documents")
-	options.buttonLabel = "保存"
-
-	log.debug(`showSaveDialog: options: ${JSON.stringify(options)}`)
-	dialog.showSaveDialog(mainWindow, options, file => {
-		if(!file) {
-			deferred.reject()
-			return
-		}
-
-		deferred.resolve(file)
-	})
-
-	return deferred.promise
-}
-
-function readJson(file, options) {
-	var deferred = Q.defer()
-	options = options || {}
-
-	log.debug(`readJson:${file}, options: ${JSON.stringify(options)}`)
-	fs.readJson(file, options, (err, data) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		deferred.resolve(data)
-	})
-
-	return deferred.promise
-}
-
-function writeJson(file, data, options) {
-	var deferred = Q.defer()
-	options = options || {}
-
-	log.debug(`writeJson:${file}, options: ${JSON.stringify(options)}`)
-	fs.outputJson(file, data, options, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-function readFile(file, options) {
-	var deferred = Q.defer()
-	options = options || "utf8"
-
-	log.debug(`readFile:${file}, options: ${JSON.stringify(options)}`)
-	fs.readFile(file, options, (err, data) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		deferred.resolve(data)
-	})
-
-	return deferred.promise
-}
-
-function writeFile(file, data) {
-	var deferred = Q.defer()
-
-	log.debug(`writeFile:${file}`)
-	fs.outputFile(file, data, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-function removeFile(file) {
-	var deferred = Q.defer()
-
-	log.debug(`removeFile:${file}`)
-	fs.remove(file, data, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
+/**
+ * 保存项目
+ * @param {*} oldFile 
+ * @param {*} projectInfo 
+ * @param {*} isTemp 
+ */
 function saveProject(oldFile, projectInfo, isTemp) {
 	var deferred = Q.defer()
 	isTemp = isTemp === true
@@ -812,8 +691,8 @@ function saveProject(oldFile, projectInfo, isTemp) {
 		projectInfo.project_name = path.basename(file)
 
 		Q.all([
-			writeFile(path.join(file, path.basename(file) + ".ino"), projectInfo.project_data.code),
-			writeJson(path.join(file, "project.json"), projectInfo)
+			util.writeFile(path.join(file, path.basename(file) + ".ino"), projectInfo.project_data.code),
+			util.writeJson(path.join(file, "project.json"), projectInfo)
 		]).then(_ => {
 			deferred.resolve({
 				path: file,
@@ -831,7 +710,7 @@ function saveProject(oldFile, projectInfo, isTemp) {
 		var file = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
 		save(file)
 	} else {
-		showSaveDialog().then(file => {
+		util.showSaveDialog(mainWindow).then(file => {
 			save(file)
 		}, _ => {
 			deferred.reject()
@@ -841,11 +720,15 @@ function saveProject(oldFile, projectInfo, isTemp) {
 	return deferred.promise
 }
 
+/**
+ * 打开项目
+ * @param {*} file 
+ */
 function openProject(file) {
 	var deferred = Q.defer()
 
 	var read = file => {
-		readJson(path.join(file, "project.json")).then(projectInfo => {
+		util.readJson(path.join(file, "project.json")).then(projectInfo => {
 			deferred.resolve({
 				path: file,
 				projectInfo: projectInfo
@@ -857,7 +740,7 @@ function openProject(file) {
 	if(file) {
 		read(file)
 	} else {
-		showOpenDialog({
+		util.showOpenDialog(mainWindow, {
 			properties: ["openDirectory"]
 		}).then(file => {
 			read(file)
@@ -869,6 +752,11 @@ function openProject(file) {
 	return deferred.promise
 }
 
+/**
+ * 编译项目
+ * @param {*} file 
+ * @param {*} options 
+ */
 function buildProject(file, options) {
 	var deferred = Q.defer()
 
@@ -876,7 +764,7 @@ function buildProject(file, options) {
 	options.board_type = options.board_type || "uno"
 	options.libraries = buildOptions.libraries
 
-	var scriptPath = getScript("build", options.board_type)
+	var scriptPath = getScriptPath("build", options.board_type)
 	log.debug(path.resolve(scriptPath))
 	var command
 	if(options.board_type == "genuino101") {
@@ -889,7 +777,7 @@ function buildProject(file, options) {
 	}
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
-	execCommand(command).then(_ => {
+	util.execCommand(command).then(_ => {
 		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
 	}, err => {
 		deferred.reject(err)
@@ -898,17 +786,23 @@ function buildProject(file, options) {
 	return deferred.promise
 }
 
+/**
+ * 上传
+ * @param {*} target hex | bin
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
+ */
 function upload(target, comName, options) {
 	var deferred = Q.defer()
 
 	log.debug(`upload:${target}, ${comName}, options: ${JSON.stringify(options)}`)
 
 	preUpload(comName, options.board_type).then(_ => {
-		var scriptPath = getScript("upload", options.board_type)
+		var scriptPath = getScriptPath("upload", options.board_type)
 		log.debug(path.resolve(scriptPath))
 		var command = `${scriptPath} ${target} ${comName}`
 
-		execCommand(command).then(_ => {
+		util.execCommand(command).then(_ => {
 			deferred.resolve()
 		}, err => {
 			deferred.reject(err)
@@ -920,6 +814,9 @@ function upload(target, comName, options) {
 	return deferred.promise
 }
 
+/**
+ * 上传预处理
+ */
 function preUpload(comName, boardType) {
 	var deferred = Q.defer()
 
@@ -955,25 +852,10 @@ function preUpload(comName, boardType) {
 	return deferred.promise
 }
 
-function isX64() {
-	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
-}
-
-function getPlatform() {
-	if(is.windows()) {
-		return "win"
-	} else if(is.macOS()) {
-		return "mac"
-	} else {
-		var arch = os.arch()
-		if(arch.indexOf('arm') >= 0) {
-			return "arm"
-		} else {
-			return "linux"
-		}
-	}
-}
-
+/**
+ * 加载主板
+ * @param {*} forceReload 
+ */
 function loadBoards(forceReload) {
 	var deferred = Q.defer()
 
@@ -990,11 +872,11 @@ function loadBoards(forceReload) {
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 	
-	var searchPath = 'arduino-' + getPlatform()
-	searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
-		var count = pathList.length
-		pathList.forEach(p => {
-			readFile(p).then(content => {
+	var searchPath = 'arduino-' + util.getPlatform()
+	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			util.readFile(p).then(content => {
 				var pidList = content.match(pidReg)
 				var vidList = content.match(vidReg)
 				var nameList = content.match(nameReg)
@@ -1017,15 +899,14 @@ function loadBoards(forceReload) {
 						name: names[types[i]]
 					}
 				}
-
-				count--
-				if(count == 0) {
-					boardNames = _boardNames
-					deferred.resolve(boardNames)
-				}
-			}, err => {
-				deferred.reject(err)
 			})
+			.fin(_ => {
+				d.resolve()
+			})
+			return d.promise
+		})).then(_ => {
+			boardNames = _boardNames
+			deferred.resolve(boardNames)
 		})
 	}, err => {
 		deferred.reject(err)
@@ -1034,6 +915,10 @@ function loadBoards(forceReload) {
 	return deferred.promise
 }
 
+/**
+ * 匹配主板名
+ * @param {*} ports 
+ */
 function matchBoardNames(ports) {
 	var deferred = Q.defer()
 
@@ -1046,7 +931,6 @@ function matchBoardNames(ports) {
 				}
 			}
 		})
-
 		deferred.resolve(ports)
 	}, err => {
 		deferred.reject(err)
@@ -1055,37 +939,30 @@ function matchBoardNames(ports) {
 	return deferred.promise
 }
 
-function execCommand(command, options, useSudo) {
-	var deferred = Q.defer()
-	options = options || {}
-	useSudo = useSudo || false
+/**
+ * 获取资源路径
+ */
+function getResourcePath() {
+	return (!is.windows() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
+}
 
-	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}, useSudo: ${useSudo}`)
-	if(useSudo) {
-		sudo.exec(command, {name: "kenrobot"}, (err, stdout, stderr) => {
-			if(err) {
-				log.error(err)
-				stdout && log.error(stdout)
-				stderr && log.error(stderr)
-				deferred.reject(err)
-				return
-			}
+/**
+ * 获取脚本路径
+ * @param {*} name 
+ * @param {*} boardType 
+ */
+function getScriptPath(name, boardType) {
+	var suffix = boardType == "genuino101" ? "_101" : ""
+	var ext = is.windows() ? "bat" : "sh"
+	return path.join(getResourcePath(), "scripts", `${name}${suffix}.${ext}`)
+}
 
-			deferred.resolve(stdout)
-		})
-	} else {
-		child_process.exec(command, options, (err, stdout, stderr) => {
-			if(err) {
-				log.error(err)
-				stdout && log.error(stdout)
-				stderr && log.error(stderr)
-				deferred.reject(err)
-				return
-			}
-
-			deferred.resolve(stdout)
-		})
+/**
+ * 获取系统信息
+ */
+function getOSInfo() {
+	return {
+		bit: util.isX64() ? 64 : 32,
+		platform: util.getPlatform()
 	}
-
-	return deferred.promise
 }

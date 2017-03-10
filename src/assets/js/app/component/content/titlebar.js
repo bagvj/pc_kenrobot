@@ -14,7 +14,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 	}
 
 	function loadExamples() {
-		kenrobot.postMessage("app:getExamples").then(function(examples) {
+		kenrobot.postMessage("app:loadExamples").then(function(examples) {
 			var exampleBuiltIn = appMenu.find(".example-built-in > ul").empty();
 			examples.forEach(function(ca) {
 				var li = $('<li>').append($('<div>').addClass("placeholder").addClass("arrow").text(ca.category));

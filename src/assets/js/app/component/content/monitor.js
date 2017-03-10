@@ -115,7 +115,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/emitor', 'app/uti
 
 	function onOpenClick(e) {
 		if (!lastPortId) {
-			kenrobot.postMessage("app:getSerialPorts").then(function(ports) {
+			kenrobot.postMessage("app:listSerialPort").then(function(ports) {
 				if (ports.length == 1) {
 					openSerialport(ports[0]);
 				} else {
