@@ -1,0 +1,34 @@
+#ifndef RGBLed_H
+#define RGBLed_H
+#include "Arduino.h"
+
+class RGBLed
+{
+  public:
+    RGBLed(int redPin,int greenPin,int bluePin);
+
+    void setRGBcolor(int redValue,int greenValue,int blueValue);
+    //void setRGBcolor(int color[3]);
+
+    void setRGBWait(int newWait);
+
+    void crossFade(int redValue,int greenValue,int blueValue);
+    //void crossFade(int color[3]);
+
+    
+  private:
+    int _redPin;
+    int _greenPin;
+    int _bluePin;
+
+    int _red;
+    int _green;
+    int _blue;
+
+    int _wait; // 10ms internal delay. Increase for slower fades
+
+    int calculateStep(int prevValue, int endValue);
+    int calculateVal(int step, int val, int i);
+};
+
+#endif //RGBLed_H
