@@ -11,10 +11,10 @@ const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
+const hasha = require('hasha') //计算hash
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
-var boardNames
 var connectedPorts = {
 	autoPortId: 0,
 	ports: {}
@@ -22,6 +22,8 @@ var connectedPorts = {
 var buildOptions = {
 	libraries: []	
 }
+
+var config
 
 var mainWindow
 
@@ -81,7 +83,7 @@ function createWindow() {
 		closeAllSerialPort()
 	})
 	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
-		var savePath = path.join(app.getPath("userData"), 'temp', item.getFilename())
+		var savePath = path.join(app.getPath("appData"), app.getName(), 'temp', item.getFilename())
 		item.setSavePath(savePath)
 
 		var url = item.getURL()
@@ -124,9 +126,12 @@ function listenEvent() {
 
 		is.dev() && args.dev && debug({showDevTools: true})
 
-		createWindow()
+		loadConfig().then(data => {
+			config = data
 
-		loadBoards()
+			createWindow()
+			loadBoards()
+		})
 	})
 	.on('window-all-closed', _ => {
 		if (process.platform !== 'darwin') {
@@ -355,7 +360,46 @@ function listenMessage() {
  * @param {*} name 
  */
 function postMessage(name) {
+	log.debug(`postMessage, ${Array.from(arguments).join(", ")}`)
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
+}
+
+/**
+ * 载入配置
+ */
+function loadConfig() {
+	var deferred = Q.defer()
+
+	log.debug("loadConfig")
+	var configPath = path.join(app.getPath("appData"), app.getName(), "config.json")
+	if(!fs.existsSync(configPath)) {
+		setTimeout(_ => {
+			deferred.resolve({})
+		}, 10)
+		return deferred.promise
+	}
+
+	util.readJson(configPath).then(data => {
+		deferred.resolve(data)
+	}, err => {
+		deferred.resolve({})
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 载入配置
+ */
+function writeConfig(sync) {
+	sync = sync == true
+	var configPath = path.join(app.getPath("appData"), app.getName(), "config.json")
+	log.debug(`writeConfig, path: ${configPath}, sync: ${sync}`)
+	if(sync) {
+		fs.writeJsonSync(configPath, config)
+	} else {
+		return util.writeJson(configPath, config)
+	}
 }
 
 /**
@@ -364,8 +408,7 @@ function postMessage(name) {
 function unPackPkg() {
 	var deferred = Q.defer()
 
-	var lockPath = path.join(app.getPath("userData"), "lock")
-	if(fs.existsSync(lockPath)) {
+	if(config.version && config.version == app.getVersion()) {
 		log.debug("skip unpack pkg")
 		setTimeout(_ => {
 			deferred.resolve()
@@ -376,21 +419,36 @@ function unPackPkg() {
 
 	log.debug("unpack pkg")
 	var pkgPath = path.join(getResourcePath(), "pkg")
-	util.searchFiles(`${pkgPath}/*.7z`).then(pathList => {
-		Q.all(pathList.map(p => {
+	util.readJson(path.join(pkgPath, "packages.json")).then(packages => {
+		var oldPackages = config.packages || []
+		var list = packages.filter(p => !oldPackages.find(o => o.name == p.name && o.checksum == p.checksum))
+
+		Q.all(list.map(p => {
 			var d = Q.defer()
-			util.unzip(p, path.join(app.getPath("documents"), app.getName(), "libraries"))
+			util.unzip(path.join(pkgPath, p.name), path.join(app.getPath("documents"), app.getName(), "libraries"))
+			.then(_ => {
+				var oldPackage = oldPackages.find(o => o.name == p.name)
+				if(oldPackage) {
+					oldPackage.checksum = p.checksum
+				} else {
+					oldPackages.push(p)
+				}
+			})
 			.fin(_ => {
 				d.resolve()
 			})
 			return d.promise
 		})).then(_ => {
-			util.writeFile(lockPath, "").fin(_ => {
+			config.version = app.getVersion()
+			config.packages = oldPackages
+			writeConfig().then(_ => {
 				deferred.resolve()
+			}, err => {
+				deferred.reject()
 			})
 		})
 	}, err => {
-		deferred.reject(err)
+		deferred.reject()
 	})
 
 	return deferred.promise
@@ -602,6 +660,7 @@ function writeSerialPort(portId, buffer) {
 function closeSerialPort(portId) {
 	var  deferred = Q.defer()
 
+	log.debug(`closeSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(_ => {
@@ -621,6 +680,7 @@ function closeSerialPort(portId) {
  * 关闭所有串口
  */
 function closeAllSerialPort() {
+	log.debug(`closeAllSerialPort`)
 	for(var key in connectedPorts.ports) {
 		connectedPorts.ports[key].close()
 	}
@@ -635,6 +695,7 @@ function closeAllSerialPort() {
 function updateSerialPort(portId, options) {
 	var  deferred = Q.defer()
 
+	log.debug(`updateSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(_ => {
@@ -658,6 +719,7 @@ function updateSerialPort(portId, options) {
 function flushSerialPort(portId, options) {
 	var  deferred = Q.defer()
 
+	log.debug(`flushSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(_ => {
@@ -727,6 +789,7 @@ function saveProject(oldFile, projectInfo, isTemp) {
 function openProject(file) {
 	var deferred = Q.defer()
 
+	log.debug(`openProject ${file}`)
 	var read = file => {
 		util.readJson(path.join(file, "project.json")).then(projectInfo => {
 			deferred.resolve({
@@ -820,6 +883,7 @@ function upload(target, comName, options) {
 function preUpload(comName, boardType) {
 	var deferred = Q.defer()
 
+	log.debug("preUpload")
 	if(boardType != "genuino101") {
 		setTimeout(_ => {
 			deferred.resolve()
@@ -859,15 +923,17 @@ function preUpload(comName, boardType) {
 function loadBoards(forceReload) {
 	var deferred = Q.defer()
 
-	if(boardNames && !forceReload) {
+	if(config.boardNames && !forceReload) {
+		log.debug("skip loadBoards")
 		setTimeout(_ => {
-			deferred.resolve(boardNames)
+			deferred.resolve(config.boardNames)
 		}, 10)
 
 		return deferred.promise
 	}
 
-	var _boardNames = {}
+	log.debug("loadBoards")
+	var boardNames = {}
 	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
@@ -892,7 +958,7 @@ function loadBoards(forceReload) {
 				vidList = vidList.map(vid => vid.substring(vid.indexOf('=') + 3))
 
 				for(var i = 0; i < pidList.length; i++) {
-					_boardNames[pidList[i] + "_" + vidList[i]] = {
+					boardNames[pidList[i] + "_" + vidList[i]] = {
 						pid: pidList[i],
 						vid: vidList[i],
 						type: types[i],
@@ -905,8 +971,12 @@ function loadBoards(forceReload) {
 			})
 			return d.promise
 		})).then(_ => {
-			boardNames = _boardNames
-			deferred.resolve(boardNames)
+			config.boardNames = boardNames
+			writeConfig().then(_ => {
+				deferred.resolve(config.boardNames)
+			}, err => {
+				deferred.reject(err)
+			})
 		})
 	}, err => {
 		deferred.reject(err)
@@ -922,6 +992,7 @@ function loadBoards(forceReload) {
 function matchBoardNames(ports) {
 	var deferred = Q.defer()
 
+	log.debug("matchBoardNames")
 	loadBoards().then(names => {
 		ports.forEach(p => {
 			if(p.productId && p.vendorId) {

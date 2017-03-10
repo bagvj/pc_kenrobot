@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron electron-builder getmac md5 gulp-sftp q glob
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt serialport
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron electron-builder getmac gulp-sftp q glob hasha
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha serialport
  */
 
 const gulp = require('gulp') //基础库
@@ -24,7 +24,7 @@ const glob = require('glob')
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
 const getmac = require('getmac') //获取mac地址
-const md5 = require('md5') //
+const hasha = require('hasha') //
 
 const builder = require('electron-builder') //electron打包
 
@@ -221,7 +221,24 @@ gulp.task('e-mac', _ => {
 	}
 
 	var macs = args.mac.split(",")
-	macs.map(mac => mac.replace(/-/g, ":").trim().toUpperCase()).forEach(mac => console.log(`${mac} => ${md5(mac)}`))
+	macs.map(mac => mac.replace(/-/g, ":").trim().toUpperCase())
+		.forEach(mac => {
+			var md5 = hasha(mac, {algorithm: "md5"})
+			console.log(`${mac} => ${md5}`)
+		})
+})
+
+gulp.task('hash', callback => {
+	var pathList = glob.sync("pkg/*.7z")
+	var packages = pathList.map(p => {
+		var hash = hasha.fromFileSync(p, {algorithm: "sha256"})
+		return {
+			name: path.basename(p),
+			checksum: "sha256:" + hash,
+		}
+	})
+	fs.writeJsonSync("pkg/packages.json", packages)
+	console.dir(packages)
 })
 
 gulp.task('upload', _ => {
