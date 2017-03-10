@@ -366,6 +366,18 @@
 	}
 
 	.save {
+		margin-left: 20px;
+		color: white;
+		background-color: #888694;
+		border: 1px solid #646271;
+		
+		&:hover {
+			background-color: #646271;
+			border-color: #646271;
+		}
+	}
+
+	.check {
 		color: white;
 		background-color: #888694;
 		border: 1px solid #646271;

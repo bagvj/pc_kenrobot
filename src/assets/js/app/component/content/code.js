@@ -1,6 +1,6 @@
 define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1, emitor, codeModel) {
 	function init() {
-		var region = $('.content-region .code-region');
+		var region = $('.content-region .code-region').on('click', ".copy", onCopyClick);
 		var container = $(".code-container", region);
 		codeModel.init(container[0]);
 
@@ -23,6 +23,10 @@ define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1,
 		setInterval(function() {
 			emitor.trigger("code", "refresh");
 		}, 1000);
+	}
+
+	function onCopyClick(e) {
+		emitor.trigger("code", "copy");
 	}
 
 	return {

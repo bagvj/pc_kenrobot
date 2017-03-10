@@ -8,6 +8,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			.on('project', 'open', onProjectOpen)
 			.on('project', 'save', onProjectSave)
 			.on('project', 'upload', onProjectUpload)
+			.on('project', 'check', onProjectCheck)
 			.on('code', 'refresh', onCodeRefresh)
 			.on('code', 'copy', onCodeCopy)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
@@ -164,16 +165,44 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		});
 	}
 
-	function doProjectSave(projectInfo, saveAs) {
+	function onProjectCheck() {
+		onCodeRefresh();
+
+		var projectInfo = getCurrentProject();
+		projectInfo.project_data = getProjectData();
+		var boardType = hardware.getBoardData().type;
+
+		util.modalMessage("正在验证，请稍候");
+		doProjectSave(projectInfo, true, true).then(function(path) {
+			kenrobot.postMessage("app:buildProject", path, {board_type: boardType}).then(function() {
+				util.hideModalMessage();
+				util.message("验证成功");
+			}, function() {
+				util.hideModalMessage();
+				util.message({
+					text: "验证失败",
+					type: "error",
+				});
+			});
+		}, function() {
+			util.hideModalMessage();
+			util.message({
+				text: "保存失败",
+				type: "warning",
+			});
+		});
+	}
+
+	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, projectInfo).then(function(result) {
+		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
 			projectInfo.updated_at = result.updated_at;
-			if(saveAs) {
+			if(saveAs && !isTemp) {
 				savePath = result.path;
 				projectInfo.project_name = result.project_name;
 			}
-			promise.resolve();
+			promise.resolve(result.path);
 		}, function() {
 			promise.reject();
 		});

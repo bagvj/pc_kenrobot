@@ -215,8 +215,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			case "upload":
 				emitor.trigger("project", "upload");
 				break;
-			case "copy":
-				emitor.trigger("code", "copy");
+			case "check":
+				emitor.trigger("code", "check");
 				break;
 			case "show-code":
 				toggleCode();

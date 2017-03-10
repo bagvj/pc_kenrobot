@@ -110,12 +110,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 	function onToolButtonClick(e) {
 		var action = $(this).data('action');
 		switch(action) {
-			case "show-monitor":
-				topRegion.find(".show-monitor").toggleClass("active");
-				emitor.trigger('monitor', 'toggle');
+			case "check":
+				emitor.trigger("project", "check");
 				break;
 			case "save":
 				emitor.trigger("project", "save");
+				break;
+			case "show-monitor":
+				topRegion.find(".show-monitor").toggleClass("active");
+				emitor.trigger('monitor', 'toggle');
 				break;
 			case "switch-software":
 				emitor.trigger("app", "activeTab", "software");
