@@ -33,16 +33,16 @@ fi
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
 TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
-BUILD_IN_LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
+BUILT_IN_LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
 
 if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
 if [ ! -n "$LIBRARIES" ];then
-	echo ${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 else
-	echo ${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILD_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 fi
 
 if [ $? -ne 0 ]; then
