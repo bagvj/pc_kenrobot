@@ -11,6 +11,8 @@ set BUILD_PATH="%SKETCH_PATH%\build"
 
 rem board type
 set BOARD_TYPE=%2
+rem replace '!' to '='
+set BOARD_TYPE=%BOARD_TYPE:!==%
 
 set LIBRARIES_PATH=%3
 

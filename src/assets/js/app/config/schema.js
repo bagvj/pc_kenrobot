@@ -2776,12 +2776,13 @@ define(function() {
 		}]
 	};
 
-	var builtInLibrary = {
+	var builtInPackage = {
 		"name": "kenrobot",
 		"boards": [{
 			"label": "Arduino UNO",
 			"name": "ArduinoUNO",
 			"type": "uno",
+			"mcu": "atmega328p",
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "VB05cG",
@@ -2791,7 +2792,9 @@ define(function() {
 				"y": 0.088,
 				"name": "13",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "7kNSUd",
 				"width": 9,
@@ -2800,7 +2803,9 @@ define(function() {
 				"y": 0.088,
 				"name": "12",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "p0Yjne",
 				"width": 9,
@@ -2809,7 +2814,9 @@ define(function() {
 				"y": 0.088,
 				"name": "11",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "q6rOYR",
 				"width": 9,
@@ -2818,7 +2825,9 @@ define(function() {
 				"y": 0.088,
 				"name": "10",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "Z29m2f",
 				"width": 9,
@@ -2827,7 +2836,9 @@ define(function() {
 				"y": 0.088,
 				"name": "9",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "8aVQDp",
 				"width": 9,
@@ -2836,7 +2847,9 @@ define(function() {
 				"y": 0.088,
 				"name": "8",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "PnAa1t",
 				"width": 9,
@@ -2845,7 +2858,9 @@ define(function() {
 				"y": 0.088,
 				"name": "7",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "xKpFzi",
 				"width": 9,
@@ -2854,7 +2869,9 @@ define(function() {
 				"y": 0.088,
 				"name": "6",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "0gRT2X",
 				"width": 9,
@@ -2863,7 +2880,9 @@ define(function() {
 				"y": 0.088,
 				"name": "5",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "q1DUJD",
 				"width": 9,
@@ -2872,7 +2891,9 @@ define(function() {
 				"y": 0.088,
 				"name": "4",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "5XIyXm",
 				"width": 9,
@@ -2881,7 +2902,9 @@ define(function() {
 				"y": 0.088,
 				"name": "3",
 				"tags": ["digital", "analog-out", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "Z9Y9P2",
 				"width": 9,
@@ -2890,7 +2913,9 @@ define(function() {
 				"y": 0.088,
 				"name": "2",
 				"tags": ["digital", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -2899,7 +2924,9 @@ define(function() {
 				"y": 0.088,
 				"name": "1",
 				"tags": ["digital", "serial-rx"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -2908,7 +2935,9 @@ define(function() {
 				"y": 0.088,
 				"name": "0",
 				"tags": ["digital", "serial-tx"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "1jcO2Y",
 				"width": 9,
@@ -2917,7 +2946,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A0",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "qiTIRc",
 				"width": 9,
@@ -2926,7 +2957,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A1",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "AihHpE",
 				"width": 9,
@@ -2935,7 +2968,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A2",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "M4KhMo",
 				"width": 9,
@@ -2944,7 +2979,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A3",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "PBQRkE",
 				"width": 9,
@@ -2953,7 +2990,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A4",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "rjJtrb",
 				"width": 9,
@@ -2962,7 +3001,9 @@ define(function() {
 				"y": 0.935,
 				"name": "A5",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"width": 32,
 				"height": 62,
@@ -2971,7 +3012,9 @@ define(function() {
 				"name": "Serial",
 				"tags": ["serial"],
 				"uid": "q9OAeR",
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}],
 			"uid": "8gEwUv",
 			"imageUrl": "assets/image/boards/ArduinoUNO.png"
@@ -2979,6 +3022,7 @@ define(function() {
 			"label": "Arduino Leonardo",
 			"name": "ArduinoLeonardo",
 			"type": "leonardo",
+			"mcu": "atmega32u4",
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "B54jYH",
@@ -2988,7 +3032,9 @@ define(function() {
 				"y": 0.049,
 				"name": "13",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "nPk3wi",
 				"width": 9,
@@ -2997,7 +3043,9 @@ define(function() {
 				"y": 0.049,
 				"name": "12",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "5f8Iu5",
 				"width": 9,
@@ -3006,7 +3054,9 @@ define(function() {
 				"y": 0.049,
 				"name": "11",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "mYZ8m1",
 				"width": 9,
@@ -3015,7 +3065,9 @@ define(function() {
 				"y": 0.049,
 				"name": "10",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "R0NsXG",
 				"width": 9,
@@ -3024,7 +3076,9 @@ define(function() {
 				"y": 0.049,
 				"name": "9",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "e8Cir0",
 				"width": 9,
@@ -3033,7 +3087,9 @@ define(function() {
 				"y": 0.049,
 				"name": "8",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "c3BtK4",
 				"width": 9,
@@ -3042,7 +3098,9 @@ define(function() {
 				"y": 0.049,
 				"name": "7",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "xGtGX9",
 				"width": 9,
@@ -3051,7 +3109,9 @@ define(function() {
 				"y": 0.049,
 				"name": "6",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "q01tAI",
 				"width": 9,
@@ -3060,7 +3120,9 @@ define(function() {
 				"y": 0.049,
 				"name": "5",
 				"tags": ["digital", "analog-out"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "VkPW5i",
 				"width": 9,
@@ -3069,7 +3131,9 @@ define(function() {
 				"y": 0.049,
 				"name": "4",
 				"tags": ["digital"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "BDDbG4",
 				"width": 9,
@@ -3078,7 +3142,9 @@ define(function() {
 				"y": 0.049,
 				"name": "3",
 				"tags": ["digital", "analog-out", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "ZHqDKX",
 				"width": 9,
@@ -3087,7 +3153,9 @@ define(function() {
 				"y": 0.049,
 				"name": "2",
 				"tags": ["digital", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "HOxHq3",
 				"width": 9,
@@ -3096,7 +3164,9 @@ define(function() {
 				"y": 0.049,
 				"name": "1",
 				"tags": ["digital", "serial-rx", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "lFZMVY",
 				"width": 9,
@@ -3105,7 +3175,9 @@ define(function() {
 				"y": 0.049,
 				"name": "0",
 				"tags": ["digital", "serial-tx", "init"],
-				"overlay": [0.5, 1.5]
+				"overlay": [0.5, 1.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "vrii22",
 				"width": 9,
@@ -3114,7 +3186,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A0",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "BmWSfi",
 				"width": 9,
@@ -3123,7 +3197,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A1",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "1XiZOV",
 				"width": 9,
@@ -3132,7 +3208,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A2",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "1tGtL0",
 				"width": 9,
@@ -3141,7 +3219,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A3",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "Z9hMY9",
 				"width": 9,
@@ -3150,7 +3230,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A4",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "JYrcfH",
 				"width": 9,
@@ -3159,7 +3241,9 @@ define(function() {
 				"y": 0.953,
 				"name": "A5",
 				"tags": ["analog-in"],
-				"overlay": [0.5, -0.5]
+				"overlay": [0.5, -0.5],
+				"shape": "Rectangle",
+				"rotate": false
 			}],
 			"uid": "LBgQBg",
 			"imageUrl": "assets/image/boards/ArduinoLeonardo.png"
@@ -3176,7 +3260,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3197,7 +3284,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["analog-in"]
+				"tags": ["analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3218,7 +3308,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <DHT.h>",
@@ -3291,17 +3384,26 @@ define(function() {
 			"pins": [{
 				"name": "k",
 				"anchor": [0.25, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "k",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "sa",
 				"anchor": [0.5, 1],
 				"tags": ["init"],
-				"spec": "3"
+				"spec": "3",
+				"label": "sa",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "sb",
 				"anchor": [0.75, 1],
 				"tags": ["init"],
-				"spec": "2"
+				"spec": "2",
+				"label": "sb",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <Encoder.h>",
@@ -3416,7 +3518,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3437,7 +3542,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["analog-in"]
+				"tags": ["analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3458,7 +3566,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3479,7 +3590,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3500,7 +3614,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3521,11 +3638,17 @@ define(function() {
 			"pins": [{
 				"name": "tri",
 				"anchor": [0.333, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "tri",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "ech",
 				"anchor": [0.667, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "ech",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <SR04.h>",
@@ -3648,7 +3771,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -3739,15 +3865,24 @@ define(function() {
 			"pins": [{
 				"name": "r",
 				"anchor": [0.25, 1],
-				"tags": ["analog-out", "any"]
+				"tags": ["analog-out", "any"],
+				"label": "r",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "g",
 				"anchor": [0.5, 1],
-				"tags": ["analog-out", "any"]
+				"tags": ["analog-out", "any"],
+				"label": "g",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "b",
 				"anchor": [0.75, 1],
-				"tags": ["analog-out", "any"]
+				"tags": ["analog-out", "any"],
+				"label": "b",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <RGBLed.h>",
@@ -4000,12 +4135,18 @@ define(function() {
 				"name": "sda",
 				"anchor": [0.33, 0],
 				"tags": ["analog-in"],
-				"spec": "A4"
+				"spec": "A4",
+				"label": "sda",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "scl",
 				"anchor": [0.67, 0],
 				"tags": ["analog-in"],
-				"spec": "A5"
+				"spec": "A5",
+				"label": "scl",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <LiquidCrystal_I2C.h>",
@@ -4326,7 +4467,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"var": "int {NAME} = {s};",
@@ -4485,11 +4629,17 @@ define(function() {
 			"pins": [{
 				"name": "a",
 				"anchor": [0.333, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out"],
+				"label": "a",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "b",
 				"anchor": [0.667, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out"],
+				"label": "b",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <DCMotor.h>",
@@ -4600,7 +4750,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <Servo.h>",
@@ -4697,7 +4850,10 @@ define(function() {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"]
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <Servo.h>",
@@ -4850,27 +5006,45 @@ define(function() {
 			"pins": [{
 				"name": "pwm1",
 				"anchor": [0.25, 0],
-				"tags": ["analog-out"]
+				"tags": ["analog-out"],
+				"label": "pwm1",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "dir1",
 				"anchor": [0.5, 0],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "dir1",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "en1",
 				"anchor": [0.75, 0],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "en1",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "pwm2",
 				"anchor": [0.25, 1],
-				"tags": ["analog-out"]
+				"tags": ["analog-out"],
+				"label": "pwm2",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "dir2",
 				"anchor": [0.5, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "dir2",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "en2",
 				"anchor": [0.75, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "en2",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"include": "#include <Motor.h>",
@@ -5087,7 +5261,10 @@ define(function() {
 				"name": "s",
 				"anchor": [1, 0.5],
 				"tags": ["serial"],
-				"spec": "Serial"
+				"spec": "Serial",
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -5210,11 +5387,17 @@ define(function() {
 			"pins": [{
 				"name": "rxd",
 				"anchor": [0.33, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "rxd",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "txd",
 				"anchor": [0.67, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "txd",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -5233,157 +5416,31 @@ define(function() {
 			"pins": [{
 				"name": "rxd",
 				"anchor": [0.33, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "rxd",
+				"shape": "Dot",
+				"rotate": false
 			}, {
 				"name": "txd",
 				"anchor": [0.67, 1],
-				"tags": ["digital", "analog-in"]
+				"tags": ["digital", "analog-in"],
+				"label": "txd",
+				"shape": "Dot",
+				"rotate": false
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
 			"imageUrl": "assets/image/components/wifi.png"
-		}, {
-			"uid": "GgJIrP",
-			"name": "rtc",
-			"label": "时钟模块",
-			"type": "rtc",
-			"category": "function",
-			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
-			"pins": [{
-				"name": "sda",
-				"anchor": [0.333, 0],
-				"tags": ["analog-in"],
-				"spec": "A4"
-			}, {
-				"name": "scl",
-				"anchor": [0.667, 0],
-				"tags": ["analog-in"],
-				"spec": "A5"
-			}],
-			"code": {
-				"include": "#include <Time.h>",
-				"var": "tmElements_t {NAME};"
-			},
-			"blocks": [{
-				"type": "output",
-				"name": "rtcGet",
-				"connectors": [{
-					"type": "connector-output",
-					"accept": "connector-input"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "获取"
-				}, {
-					"id": "RTC",
-					"type": "dynamic-select",
-					"options": "rtcs"
-				}, {
-					"type": "text",
-					"value": "的"
-				}, {
-					"id": "RTC_FUNC",
-					"type": "static-select",
-					"options": [{
-						"label": "日期",
-						"value": "getDate"
-					}, {
-						"label": "小时",
-						"value": "getTime"
-					}]
-				}],
-				"code": "{RTC}.{RTC_FUNC}()",
-				"returnType": {
-					"type": "simple",
-					"value": "String"
-				},
-				"tags": ["module"],
-				"module": "rtc",
-				"uid": "U1FBGb"
-			}, {
-				"type": "output",
-				"name": "rtcGet-v2",
-				"connectors": [{
-					"type": "connector-output",
-					"accept": "connector-input"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "获取"
-				}, {
-					"id": "RTC",
-					"type": "dynamic-select",
-					"options": "rtcs"
-				}, {
-					"type": "text",
-					"value": "的"
-				}, {
-					"id": "FUNCTION",
-					"type": "static-select",
-					"options": [{
-						"label": "小时",
-						"value": "getHour"
-					}, {
-						"label": "分钟",
-						"value": "getMinute"
-					}, {
-						"label": "秒",
-						"value": "getSecond"
-					}, {
-						"label": "天",
-						"value": "getDay"
-					}, {
-						"label": "月",
-						"value": "getMonth"
-					}, {
-						"label": "年",
-						"value": "getYear"
-					}]
-				}],
-				"code": "{RTC}.{FUNCTION}()",
-				"returnType": {
-					"type": "simple",
-					"value": "int"
-				},
-				"tags": ["module"],
-				"module": "rtc",
-				"uid": "CQUeJX"
-			}, {
-				"type": "statement",
-				"name": "rtcInit",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "更新时间"
-				}, {
-					"id": "RTC",
-					"type": "dynamic-select",
-					"options": "rtcs"
-				}],
-				"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
-				"tags": ["module"],
-				"module": "rtc",
-				"uid": "EDzCeH"
-			}],
-			"imageUrl": "assets/image/components/rtc.png"
 		}]
 	};
 
-	builtInLibrary.boards.forEach(function(board) {
+	builtInPackage.boards.forEach(function(board) {
 		schema.boards.push(board);
 	});
 
-	builtInLibrary.components.forEach(function(component) {
+	builtInPackage.components.forEach(function(component) {
 		schema.components.push(component);
 
 		component.blocks.forEach(function(block) {

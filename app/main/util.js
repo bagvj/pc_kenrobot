@@ -58,6 +58,7 @@ function execCommand(command, options, useSudo) {
 				return
 			}
 
+			is.dev() && log.debug(stdout)
 			deferred.resolve(stdout)
 		})
 	} else {
@@ -70,6 +71,7 @@ function execCommand(command, options, useSudo) {
 				return
 			}
 
+			is.dev() && log.debug(stdout)
 			deferred.resolve(stdout)
 		})
 	}

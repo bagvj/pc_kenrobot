@@ -13,6 +13,8 @@ const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
 const hasha = require('hasha') //计算hash
 
+const PACKAGE = require('../package')
+
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 var connectedPorts = {
@@ -20,7 +22,7 @@ var connectedPorts = {
 	ports: {}
 }
 var buildOptions = {
-	libraries: []	
+	packages: []	
 }
 
 var config
@@ -33,8 +35,6 @@ init()
  * 初始化
  */
 function init() {
-	app.setName("kenrobot")
-
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
@@ -43,6 +43,8 @@ function init() {
 	})) {
 		app.quit()
 	}
+
+	is.dev() && app.setName(PACKAGE.name)
 
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 	if(is.dev() || args.dev) {
@@ -53,7 +55,7 @@ function init() {
 		log.transports.file.level = 'error'
 	}
 
-	log.debug(`app start, version ${app.getVersion()}`)
+	log.debug(`app start, version ${getVersion()}`)
 
 	listenEvent()
 	listenMessage()
@@ -111,7 +113,7 @@ function createWindow() {
 		})
 	})
 
-	unPackPkg().then(_ => {
+	unpackPackages().then(_ => {
 		mainWindow.loadURL(`file://${__dirname}/../index.html`)
 		mainWindow.focus()
 	})	
@@ -156,7 +158,7 @@ function listenEvent() {
  */
 function listenMessage() {
 	ipcMain.on('app:getVersion', (e, deferId) => {
-		e.sender.send('app:getVersion', deferId, true, app.getVersion())
+		e.sender.send('app:getVersion', deferId, true, getVersion())
 	})
 	.on('app:reload', (e, deferId) => {
 		mainWindow.reload()
@@ -346,11 +348,11 @@ function listenMessage() {
 		clipboard.writeText(text, type)
 		e.sender.send("app:copy", deferId, true, true)
 	})
-	.on("app:loadLibraries", (e, deferId) => {
-		loadLibraries().then(libraries => {
-			e.sender.send('app:loadLibraries', deferId, true, libraries)
+	.on("app:loadPackages", (e, deferId) => {
+		loadPackages().then(packages => {
+			e.sender.send('app:loadPackages', deferId, true, packages)
 		}, err => {
-			e.sender.send('app:loadLibraries', deferId, false, err)
+			e.sender.send('app:loadPackages', deferId, false, err)
 		})
 	})
 }
@@ -362,6 +364,10 @@ function listenMessage() {
 function postMessage(name) {
 	log.debug(`postMessage, ${Array.from(arguments).join(", ")}`)
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
+}
+
+function getVersion() {
+	return is.dev() ? PACKAGE.version : app.getVersion()
 }
 
 /**
@@ -405,27 +411,27 @@ function writeConfig(sync) {
 /**
  * 解压资源包
  */
-function unPackPkg() {
+function unpackPackages() {
 	var deferred = Q.defer()
 
-	if(config.version && config.version == app.getVersion()) {
-		log.debug("skip unpack pkg")
-		setTimeout(_ => {
-			deferred.resolve()
-		}, 10)
+	// if(config.version && config.version == getVersion()) {
+	// 	log.debug("skip unpack packages")
+	// 	setTimeout(_ => {
+	// 		deferred.resolve()
+	// 	}, 10)
 
-		return deferred.promise
-	}
+	// 	return deferred.promise
+	// }
 
-	log.debug("unpack pkg")
-	var pkgPath = path.join(getResourcePath(), "pkg")
-	util.readJson(path.join(pkgPath, "packages.json")).then(packages => {
+	log.debug("unpack packages")
+	var packagesPath = path.join(getResourcePath(), "packages")
+	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
 		var oldPackages = config.packages || []
 		var list = packages.filter(p => !oldPackages.find(o => o.name == p.name && o.checksum == p.checksum))
 
 		Q.all(list.map(p => {
 			var d = Q.defer()
-			util.unzip(path.join(pkgPath, p.name), path.join(app.getPath("documents"), app.getName(), "libraries"))
+			util.unzip(path.join(packagesPath, p.name), path.join(app.getPath("documents"), app.getName(), "packages"))
 			.then(_ => {
 				var oldPackage = oldPackages.find(o => o.name == p.name)
 				if(oldPackage) {
@@ -439,7 +445,7 @@ function unPackPkg() {
 			})
 			return d.promise
 		})).then(_ => {
-			config.version = app.getVersion()
+			config.version = getVersion()
 			config.packages = oldPackages
 			writeConfig().then(_ => {
 				deferred.resolve()
@@ -455,22 +461,22 @@ function unPackPkg() {
 }
 
 /**
- * 加载所有库
+ * 加载所有包
  */
-function loadLibraries() {
+function loadPackages() {
 	var deferred = Q.defer()
 
-	var libraries = []
-	var libraryPath = path.join(app.getPath("documents"), app.getName(), "libraries")
-	log.debug(`loadLibraries: ${libraryPath}`)
+	var packages = []
+	var packagePath = path.join(app.getPath("documents"), app.getName(), "packages")
+	log.debug(`loadPackages: ${packagePath}`)
 	
-	util.searchFiles(`${libraryPath}/*/library.json`).then(pathList => {
+	util.searchFiles(`${packagePath}/*/package.json`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
-			util.readJson(p).then(library => {
-				library.path = path.dirname(p)
-				libraries.push(library)
-				buildOptions.libraries.push(path.join(library.path, "src"))
+			util.readJson(p).then(packageConfig => {
+				packageConfig.path = path.dirname(p)
+				packages.push(packageConfig)
+				buildOptions.packages.push(path.join(packageConfig.path, "src"))
 			})
 			.fin(_ => {
 				d.resolve()
@@ -478,7 +484,7 @@ function loadLibraries() {
 			return d.promise	
 		}))
 		.then(_ => {
-			deferred.resolve(libraries)
+			deferred.resolve(packages)
 		})
 	}, err => {
 		deferred.reject(err)
@@ -825,7 +831,7 @@ function buildProject(file, options) {
 
 	options = options || {}
 	options.board_type = options.board_type || "uno"
-	options.libraries = buildOptions.libraries
+	options.packages = buildOptions.packages
 
 	var scriptPath = getScriptPath("build", options.board_type)
 	log.debug(path.resolve(scriptPath))
@@ -833,10 +839,12 @@ function buildProject(file, options) {
 	if(options.board_type == "genuino101") {
 		command = `${scriptPath} ${file}`
 	} else {
-		command = `${scriptPath} ${file} ${options.board_type}`
+		//'='不能传给bat，所以传'!'然后在bat里替换回'='
+		var seperator = is.windows() ? '!' : '='
+		command = `${scriptPath} ${file} ${options.board_type}:cpu${seperator}${options.mcu}`
 	}
-	if(options.libraries.length > 0) {
-		command = `${command} "${options.libraries.join(',')}"`
+	if(options.packages.length > 0) {
+		command = `${command} "${options.packages.join(',')}"`
 	}
 
 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)

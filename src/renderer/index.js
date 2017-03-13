@@ -1,5 +1,7 @@
 (function(global, exports) {
 	const {ipcRenderer} = require('electron')
+	const log = require('electron-log')
+	const is = require('electron-is')
 	const Q = require('q')
 
 	var registeredEvents = []
@@ -28,6 +30,8 @@
 		defers[deferAutoId] = deferred
 
 		var args = Array.from(arguments)
+		is.dev() && log.debug(args.join(", "))
+
 		args.splice(1, 0, deferAutoId)
 		ipcRenderer.send.apply(this, args)
 

@@ -40,9 +40,9 @@ if [ ! -d ${BUILD_PATH} ]; then
 fi
 
 if [ ! -n "$LIBRARIES" ];then
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 else
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
 fi
 
 if [ $? -ne 0 ]; then
