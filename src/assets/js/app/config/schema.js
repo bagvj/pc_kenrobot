@@ -2776,7 +2776,7 @@ define(function() {
 		}]
 	};
 
-	var buildInLibrary = {
+	var builtInLibrary = {
 		"name": "kenrobot",
 		"boards": [{
 			"label": "Arduino UNO",
@@ -5379,11 +5379,11 @@ define(function() {
 		}]
 	};
 
-	buildInLibrary.boards.forEach(function(board) {
+	builtInLibrary.boards.forEach(function(board) {
 		schema.boards.push(board);
 	});
 
-	buildInLibrary.components.forEach(function(component) {
+	builtInLibrary.components.forEach(function(component) {
 		schema.components.push(component);
 
 		component.blocks.forEach(function(block) {
