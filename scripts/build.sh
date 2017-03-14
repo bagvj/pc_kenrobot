@@ -1,8 +1,12 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# useage:  build.sh project_path board_type [libraries]
-# example: 1. build.sh test uno 2. build.sh /home/project/test uno ~/documents/kenrobot/libraries/kenrobot
+# useage:  build.sh project_path fqbn [libraries]
+# example: 
+#     1. build.sh test arduino:avr:uno:cpu=atmege328
+#     2. build.sh /home/project/test arduino:avr:yun ~/documents/kenrobot/libraries/kenrobot
+#     3. fqbn: arduino:avr:uno:cpu=atmege328 | arduino:avr:yun | arduino:avr:pro:cpu=16MHzatmega328
+#     4. some boards must spec mcu
 
 if [ $# -lt 2 ];then
 	echo "more arguments required"
@@ -14,7 +18,7 @@ SKETCH=$(basename ${SKETCH_PATH})
 SKETCH=${SKETCH_PATH}/${SKETCH}.ino
 BUILD_PATH=${SKETCH_PATH}/build
 
-BOARD_TYPE=$2
+FQBN=$2
 LIBRARIES=$3
 # USERPATH=`echo $HOME`
 #先这么写  后期加入参数
@@ -39,11 +43,12 @@ if [ ! -d ${BUILD_PATH} ]; then
 	mkdir ${BUILD_PATH}
 fi
 
+COMMAND="${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES}"
 if [ ! -n "$LIBRARIES" ];then
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -libraries=${LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
-else
-	${BUILDER} -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -fqbn="arduino:avr:${BOARD_TYPE}" -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}
+	COMMAND+=" -libraries=${LIBRARIES}"
 fi
+COMMAND+=" -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}"
+${COMMAND}
 
 if [ $? -ne 0 ]; then
 	echo build fail

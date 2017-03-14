@@ -37,18 +37,18 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	function loadPackages() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:loadLibraries").then(function(libraries) {
-			libraries.forEach(function(library) {
-				library.boards.forEach(function(board) {
-					board.imageUrl = library.path + "/" + board.imageUrl;
+		kenrobot.postMessage("app:loadPackages").then(function(packages) {
+			packages.forEach(function(pkg) {
+				pkg.boards && pkg.boards.forEach(function(board) {
+					board.imageUrl = pkg.path + "/" + board.imageUrl;
 					schema.boards.push(board);
 				});
 
-				library.components.forEach(function(component) {
-					component.imageUrl = library.path + "/" + component.imageUrl;
+				pkg.components && pkg.components.forEach(function(component) {
+					component.imageUrl = pkg.path + "/" + component.imageUrl;
 					schema.components.push(component);
 
-					component.blocks.forEach(function(block) {
+					component.blocks && component.blocks.forEach(function(block) {
 						schema.blocks.push(block);
 					});
 				});
@@ -117,14 +117,14 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		var saveAs = savePath == null;
-		var boardType = hardware.getBoardData().type;
+		var boardData = hardware.getBoardData();
 
 		doProjectSave(projectInfo, saveAs).then(function() {
 			util.modalMessage("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath, {board_type: boardType}).then(function(target) {
+			kenrobot.postMessage("app:buildProject", savePath, {type: boardData.type, fqbn: boardData.fqbn}).then(function(target) {
 				util.modalMessage("编译成功，正在上传请稍候");
 				setTimeout(function() {
-					kenrobot.postMessage("app:upload", target, {board_type: boardType}).then(function() {
+					kenrobot.postMessage("app:upload", target, {type: boardData.type}).then(function() {
 						util.hideModalMessage();
 						util.message({
 							text: "上传成功",
@@ -134,7 +134,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						util.hideModalMessage();
 						onProjectUploadFail(err).then(function(port) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:upload2", target, port.comName, {board_type: boardType}).then(function() {
+							kenrobot.postMessage("app:upload2", target, port.comName, {type: boardData.type}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",
@@ -170,11 +170,11 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
-		var boardType = hardware.getBoardData().type;
+		var boardData = hardware.getBoardData();
 
 		util.modalMessage("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(function(path) {
-			kenrobot.postMessage("app:buildProject", path, {board_type: boardType}).then(function() {
+			kenrobot.postMessage("app:buildProject", path, {type: boardData.type, fqbn: boardData.fqbn}).then(function() {
 				util.hideModalMessage();
 				util.message("验证成功");
 			}, function() {

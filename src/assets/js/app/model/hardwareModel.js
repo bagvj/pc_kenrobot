@@ -227,13 +227,13 @@ define(['vendor/jsPlumb', 'app/util/util'], function($1, util) {
 		boardData.pins.forEach(function(pin) {
 			var epBoard = jsPlumbInstance.addEndpoint(boardDom, {
 				anchor: [pin.x, pin.y, 0, -1, 0, 0],
-				endpoint: ['Rectangle', {
+				endpoint: [pin.shape || 'Rectangle', {
 					width: pin.rotate ? pin.height : pin.width,
 					height: pin.rotate ? pin.width : pin.height,
 				}],
 				overlays: [
 					['Label', {
-						label: 'Pin ' + pin.name,
+						label: 'Pin ' + pin.label,
 						labelStyle: {
 							color: config.labelColor,
 							font: config.font,
@@ -324,7 +324,7 @@ define(['vendor/jsPlumb', 'app/util/util'], function($1, util) {
 					pin: pin.name,
 					type: type,
 				},
-				endpoint: ['Dot', {
+				endpoint: [pin.shape || 'Dot', {
 					radius: config.endpoint.radius
 				}],
 				isSource: true,

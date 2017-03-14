@@ -165,7 +165,7 @@ gulp.task('build', ['clean-dist'], callback => {
       			`arduino-${platform}`,
       			"scripts",
       			"examples",
-      			"pkg",
+      			"packages",
     		],
 		}
 	}).then(result => {
@@ -229,7 +229,7 @@ gulp.task('e-mac', _ => {
 })
 
 gulp.task('hash', callback => {
-	var pathList = glob.sync("pkg/*.7z")
+	var pathList = glob.sync("packages/*.7z")
 	var packages = pathList.map(p => {
 		var hash = hasha.fromFileSync(p, {algorithm: "sha256"})
 		return {
@@ -237,7 +237,7 @@ gulp.task('hash', callback => {
 			checksum: "sha256:" + hash,
 		}
 	})
-	fs.writeJsonSync("pkg/packages.json", packages)
+	fs.writeJsonSync("packages/packages.json", packages)
 	console.dir(packages)
 })
 

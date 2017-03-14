@@ -1,7 +1,13 @@
 @echo off
+rem utf8
+chcp 65001
 
-rem useage:  build.bat project_path board_type [libraries]
-rem example: 1. build.bat test uno 2. build.bat c:\project\test uno c:\users\guest\documents\kenrobot\libraries\kenrobot
+rem useage:  build.bat project_path fqbn [libraries]
+rem example: 
+rem     1. build.bat test arduino:avr:uno:cpu=atmege328
+rem     2. build.bat /home/project/test arduino:avr:yun ~/documents/kenrobot/libraries/kenrobot
+rem     3. fqbn: arduino:avr:uno:cpu=atmege328 | arduino:avr:yun | arduino:avr:pro:cpu=16MHzatmega328
+rem     4. some boards must spec mcu on windows fqbn's "=" need replace with "!" because of bat not support pass "=" directly
 
 rem project path
 set SKETCH_PATH=%~f1
@@ -9,8 +15,10 @@ set SKETCH=%~n1
 set SKETCH="%SKETCH_PATH%\%SKETCH%.ino"
 set BUILD_PATH="%SKETCH_PATH%\build"
 
-rem board type
-set BOARD_TYPE=%2
+rem fqbn
+set FQBN=%2
+rem replace '!' to '='
+set FQBN=%FQBN:!==%
 
 set LIBRARIES_PATH=%3
 
@@ -29,11 +37,12 @@ if not exist %BUILD_PATH% (
 	mkdir %BUILD_PATH%
 )
 
+set COMMAND=%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%BUILT_IN_LIBRARIES_PATH%
 if defined LIBRARIES_PATH (
-	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%BUILT_IN_LIBRARIES_PATH% -libraries=%LIBRARIES_PATH% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
-) else (
-	%BUILDER% -compile -logger=machine -hardware=%HARDWARE% -tools=%TOOLS% -built-in-libraries=%BUILT_IN_LIBRARIES_PATH% -fqbn="arduino:avr:%BOARD_TYPE%" -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
+	set COMMAND=%COMMAND% -libraries=%LIBRARIES_PATH% 
 )
+set COMMAND=%COMMAND% -fqbn=%FQBN% -ide-version=10612 -build-path=%BUILD_PATH% -warnings=all -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.avr-gcc.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr" -prefs=runtime.tools.avrdude.path="%LOCAL_ARDUINO_PATH:~1,-1%\hardware\tools\avr"  %SKETCH%
+%COMMAND%
 
 if not %errorlevel% == 0 (
 	echo build fail

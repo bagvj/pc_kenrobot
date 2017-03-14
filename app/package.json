@@ -1,11 +1,11 @@
 {
   "main": "main/index.js",
-  "name": "kenrobot",
-  "version": "0.1.14",
+  "name": "Kenrobot",
+  "version": "0.1.15",
   "homepage": "http://www.kenrobot.com",
   "description": "啃萝卜智能硬件平台",
   "author": {
-    "name": "kenrobot",
+    "name": "Kenrobot",
     "email": "support@kenrobot.com"
   },
   "copyright": "©2016 KenRobot",
