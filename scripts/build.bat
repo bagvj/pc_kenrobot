@@ -1,11 +1,13 @@
 @echo off
+rem utf8
+chcp 65001
 
 rem useage:  build.bat project_path fqbn [libraries]
 rem example: 
 rem     1. build.bat test arduino:avr:uno:cpu=atmege328
 rem     2. build.bat /home/project/test arduino:avr:yun ~/documents/kenrobot/libraries/kenrobot
 rem     3. fqbn: arduino:avr:uno:cpu=atmege328 | arduino:avr:yun | arduino:avr:pro:cpu=16MHzatmega328
-rem     4. 有些主板需要指定mcu，windows下fqbn中的'='要用'!'来替换，因为bat不直接支持传'='
+rem     4. some boards must spec mcu on windows fqbn's "=" need replace with "!" because of bat not support pass "=" directly
 
 rem project path
 set SKETCH_PATH=%~f1

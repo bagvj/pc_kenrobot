@@ -414,14 +414,14 @@ function writeConfig(sync) {
 function unpackPackages() {
 	var deferred = Q.defer()
 
-	// if(config.version && config.version == getVersion()) {
-	// 	log.debug("skip unpack packages")
-	// 	setTimeout(_ => {
-	// 		deferred.resolve()
-	// 	}, 10)
+	if(config.version && config.version == getVersion()) {
+		log.debug("skip unpack packages")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
 
-	// 	return deferred.promise
-	// }
+		return deferred.promise
+	}
 
 	log.debug("unpack packages")
 	var packagesPath = path.join(getResourcePath(), "packages")
@@ -838,21 +838,15 @@ function openProject(file) {
 function buildProject(file, options) {
 	var deferred = Q.defer()
 
-	var scriptPath = getScriptPath("build", options.type)
-	log.debug(path.resolve(scriptPath))
-	var command
-	if(options.type == "genuino101") {
-		command = `${scriptPath} ${file}`
-	} else {
+	preBuild(file, options).then(_ => {
+		var scriptPath = getScriptPath("build", options.type)
 		//'='不能直接传给bat，所以传'!'然后在bat里替换回'='
 		var fqbn = is.windows() ? options.fqbn.replace(/=/g, '!') : options.fqbn
-		command = `${scriptPath} ${file} ${fqbn}`
-	}
-	if(buildOptions.packagePath.length > 0) {
-		command = `${command} "${buildOptions.packagePath.join(',')}"`
-	}
-
-	preBuild(file, options).then(_ => {
+		var command = `${scriptPath} ${file} ${fqbn}`
+		if(buildOptions.packagePath.length > 0) {
+			command = `${command} "${buildOptions.packagePath.join(',')}"`
+		}
+		
 		log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
 		util.execCommand(command).then(_ => {
 			deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.type == "genuino101" ? "bin" : "hex"}`))

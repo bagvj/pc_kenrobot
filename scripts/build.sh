@@ -6,7 +6,7 @@
 #     1. build.sh test arduino:avr:uno:cpu=atmege328
 #     2. build.sh /home/project/test arduino:avr:yun ~/documents/kenrobot/libraries/kenrobot
 #     3. fqbn: arduino:avr:uno:cpu=atmege328 | arduino:avr:yun | arduino:avr:pro:cpu=16MHzatmega328
-#     4. 有些主板需要指定mcu
+#     4. some boards must spec mcu
 
 if [ $# -lt 2 ];then
 	echo "more arguments required"
