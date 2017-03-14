@@ -2782,7 +2782,7 @@ define(function() {
 			"label": "Arduino UNO",
 			"name": "ArduinoUNO",
 			"type": "uno",
-			"mcu": "atmega328p",
+			"fqbn": "arduino:avr:uno:cpu=atmega328p",
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "VB05cG",
@@ -3022,7 +3022,7 @@ define(function() {
 			"label": "Arduino Leonardo",
 			"name": "ArduinoLeonardo",
 			"type": "leonardo",
-			"mcu": "atmega32u4",
+			"fqbn": "arduino:avr:leonardo:cpu=atmega32u4",
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "B54jYH",

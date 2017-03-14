@@ -22,7 +22,7 @@ var connectedPorts = {
 	ports: {}
 }
 var buildOptions = {
-	packages: []	
+	packagePath: []	
 }
 
 var config
@@ -450,10 +450,12 @@ function unpackPackages() {
 			writeConfig().then(_ => {
 				deferred.resolve()
 			}, err => {
+				log.error(err)
 				deferred.reject()
 			})
 		})
 	}, err => {
+		log.error(err)
 		deferred.reject()
 	})
 
@@ -476,7 +478,7 @@ function loadPackages() {
 			util.readJson(p).then(packageConfig => {
 				packageConfig.path = path.dirname(p)
 				packages.push(packageConfig)
-				buildOptions.packages.push(path.join(packageConfig.path, "src"))
+				buildOptions.packagePath.push(path.join(packageConfig.path, "src"))
 			})
 			.fin(_ => {
 				d.resolve()
@@ -487,6 +489,7 @@ function loadPackages() {
 			deferred.resolve(packages)
 		})
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -506,6 +509,7 @@ function openExample(category, name) {
 	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -522,6 +526,7 @@ function loadExamples() {
 	util.readJson(path.join(getResourcePath(), "examples", "examples.json")).then(examples => {
 		deferred.resolve(examples)
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -544,6 +549,7 @@ function installDriver(driverPath) {
 			deferred.resolve()
 		})
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -573,6 +579,7 @@ function listSerialPort() {
 			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(ports)
 		}, err1 => {
+			log.error(err1)
 			deferred.reject(err1)
 		})
 	})
@@ -803,6 +810,7 @@ function openProject(file) {
 				projectInfo: projectInfo
 			})
 		}, err => {
+			log.error(err)
 			deferred.reject(err)
 		})
 	}
@@ -814,6 +822,7 @@ function openProject(file) {
 		}).then(file => {
 			read(file)
 		}, err => {
+			log.error(err)
 			deferred.reject(err)
 		})
 	}
@@ -829,29 +838,57 @@ function openProject(file) {
 function buildProject(file, options) {
 	var deferred = Q.defer()
 
-	options = options || {}
-	options.board_type = options.board_type || "uno"
-	options.packages = buildOptions.packages
-
-	var scriptPath = getScriptPath("build", options.board_type)
+	var scriptPath = getScriptPath("build", options.type)
 	log.debug(path.resolve(scriptPath))
 	var command
-	if(options.board_type == "genuino101") {
+	if(options.type == "genuino101") {
 		command = `${scriptPath} ${file}`
 	} else {
-		//'='不能传给bat，所以传'!'然后在bat里替换回'='
-		var seperator = is.windows() ? '!' : '='
-		command = `${scriptPath} ${file} ${options.board_type}:cpu${seperator}${options.mcu}`
+		//'='不能直接传给bat，所以传'!'然后在bat里替换回'='
+		var fqbn = is.windows() ? options.fqbn.replace(/=/g, '!') : options.fqbn
+		command = `${scriptPath} ${file} ${fqbn}`
 	}
-	if(options.packages.length > 0) {
-		command = `${command} "${options.packages.join(',')}"`
+	if(buildOptions.packagePath.length > 0) {
+		command = `${command} "${buildOptions.packagePath.join(',')}"`
 	}
 
-	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
-	util.execCommand(command).then(_ => {
-		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.board_type == "genuino101" ? "bin" : "hex"}`))
+	preBuild(file, options).then(_ => {
+		log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
+		util.execCommand(command).then(_ => {
+			deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.type == "genuino101" ? "bin" : "hex"}`))
+		}, err => {
+			log.error(err)
+			deferred.reject(err)
+		})
+	})
+	
+	return deferred.promise
+}
+
+function preBuild(file, options) {
+	var deferred = Q.defer()
+
+	log.debug('pre build')
+
+	var optionPath = path.join(file, 'build', 'build.options.json')
+	if(!fs.existsSync(optionPath)) {
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+		return deferred.promise
+	}
+
+	util.readJson(optionPath).then(op => {
+		if(options.fqbn == op.fqbn) {
+			deferred.resolve()
+			return
+		}
+
+		util.removeFile(path.join(file, 'build')).fin(_ => {
+			deferred.resolve()
+		})
 	}, err => {
-		deferred.reject(err)
+		deferred.resolve()
 	})
 
 	return deferred.promise
@@ -868,17 +905,19 @@ function upload(target, comName, options) {
 
 	log.debug(`upload:${target}, ${comName}, options: ${JSON.stringify(options)}`)
 
-	preUpload(comName, options.board_type).then(_ => {
-		var scriptPath = getScriptPath("upload", options.board_type)
+	preUpload(comName, options).then(_ => {
+		var scriptPath = getScriptPath("upload", options.type)
 		log.debug(path.resolve(scriptPath))
 		var command = `${scriptPath} ${target} ${comName}`
 
 		util.execCommand(command).then(_ => {
 			deferred.resolve()
 		}, err => {
+			log.error(err)
 			deferred.reject(err)
 		})
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 	
@@ -888,11 +927,11 @@ function upload(target, comName, options) {
 /**
  * 上传预处理
  */
-function preUpload(comName, boardType) {
+function preUpload(comName, options) {
 	var deferred = Q.defer()
 
-	log.debug("preUpload")
-	if(boardType != "genuino101") {
+	log.debug("pre upload")
+	if(options.type != "genuino101") {
 		setTimeout(_ => {
 			deferred.resolve()
 		}, 10)
@@ -983,10 +1022,12 @@ function loadBoards(forceReload) {
 			writeConfig().then(_ => {
 				deferred.resolve(config.boardNames)
 			}, err => {
+				log.error(err)
 				deferred.reject(err)
 			})
 		})
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -1004,7 +1045,7 @@ function matchBoardNames(ports) {
 	loadBoards().then(names => {
 		ports.forEach(p => {
 			if(p.productId && p.vendorId) {
-				var board = boardNames[p.productId + "_" + p.vendorId]
+				var board = config.boardNames[p.productId + "_" + p.vendorId]
 				if(board) {
 					p.boardName = board.name
 				}
@@ -1012,6 +1053,7 @@ function matchBoardNames(ports) {
 		})
 		deferred.resolve(ports)
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
@@ -1028,10 +1070,10 @@ function getResourcePath() {
 /**
  * 获取脚本路径
  * @param {*} name 
- * @param {*} boardType 
+ * @param {*} type 
  */
-function getScriptPath(name, boardType) {
-	var suffix = boardType == "genuino101" ? "_101" : ""
+function getScriptPath(name, type) {
+	var suffix = type == "genuino101" ? "_101" : ""
 	var ext = is.windows() ? "bat" : "sh"
 	return path.join(getResourcePath(), "scripts", `${name}${suffix}.${ext}`)
 }

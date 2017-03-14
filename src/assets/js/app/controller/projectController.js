@@ -121,10 +121,10 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 
 		doProjectSave(projectInfo, saveAs).then(function() {
 			util.modalMessage("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath, {board_type: boardData.type, mcu: boardData.mcu}).then(function(target) {
+			kenrobot.postMessage("app:buildProject", savePath, {type: boardData.type, fqbn: boardData.fqbn}).then(function(target) {
 				util.modalMessage("编译成功，正在上传请稍候");
 				setTimeout(function() {
-					kenrobot.postMessage("app:upload", target, {board_type: boardData.type}).then(function() {
+					kenrobot.postMessage("app:upload", target, {type: boardData.type}).then(function() {
 						util.hideModalMessage();
 						util.message({
 							text: "上传成功",
@@ -134,7 +134,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 						util.hideModalMessage();
 						onProjectUploadFail(err).then(function(port) {
 							util.modalMessage("正在上传请稍候");
-							kenrobot.postMessage("app:upload2", target, port.comName, {board_type: boardType}).then(function() {
+							kenrobot.postMessage("app:upload2", target, port.comName, {type: boardData.type}).then(function() {
 								util.hideModalMessage();
 								util.message({
 									text: "上传成功",
@@ -174,7 +174,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 
 		util.modalMessage("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(function(path) {
-			kenrobot.postMessage("app:buildProject", path, {board_type: boardData.type, mcu: boardData.mcu}).then(function() {
+			kenrobot.postMessage("app:buildProject", path, {type: boardData.type, fqbn: boardData.fqbn}).then(function() {
 				util.hideModalMessage();
 				util.message("验证成功");
 			}, function() {

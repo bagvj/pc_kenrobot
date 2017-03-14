@@ -132,7 +132,7 @@ function removeFile(file) {
 	var deferred = Q.defer()
 
 	log.debug(`removeFile:${file}`)
-	fs.remove(file, data, err => {
+	fs.remove(file, err => {
 		if(err) {
 			log.error(err)
 			deferred.reject(err)
@@ -226,6 +226,7 @@ function unzip(zipPath, dist) {
 	execCommand(command).then(_ => {
 		deferred.resolve()
 	}, err => {
+		log.error(err)
 		deferred.reject(err)
 	})
 
