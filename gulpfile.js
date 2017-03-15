@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder getmac gulp-sftp q glob hasha
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha serialport
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha bufferhelper iconv-lite serialport
  */
 
 const gulp = require('gulp') //基础库
@@ -95,7 +95,7 @@ gulp.task('pack-assets-js', ['clean-assets-js'], _ => {
 		return gulp.src(ASSETS_SRC + 'js/index.js')
 			.pipe(requirejsOptimize({
 				useStrict: true,
-				optimize: args.min == 'false' ? "none" : "uglify",
+				optimize: "uglify",
 			}))
 			.pipe(gulp.dest(ASSETS_DIST + 'js/'))
 	} else {

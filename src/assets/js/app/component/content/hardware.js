@@ -45,7 +45,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 		emitor.on('app', 'start', onAppStart)
 			.on('app', 'contextMenu', onContextMenu)
 			.on('app', 'activeTab', onActiveTab)
-			.on('hardware', 'resize', onResize);
+			.on('hardware', 'resize', onResize)
+			.on('ui', 'lock', onUILock)
+			.on('progress', 'check', onCheckProgress);
 	}
 
 	function loadSchema(schema) {
@@ -105,6 +107,22 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	function onAppStart() {
 
+	}
+
+	function onUILock(type, value) {
+		if(type == "build") {
+			topRegion.find(".check").attr("disabled", value);
+		}
+	}
+
+	function onCheckProgress(value) {
+		if(value < 0) {
+			return
+		}
+
+		topRegion.find(".check .x-progress").css({
+			transform: "translateX(-" + (100 - value) + "%)"
+		});
 	}
 
 	function onToolButtonClick(e) {

@@ -37,7 +37,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			.on('app', 'contextMenu', onContextMenu)
 			.on('app', 'resize', onAppResize)
 			.on('app', 'activeTab', onActiveTab)
-			.on('monitor', 'close', onMonitorClose);
+			.on('monitor', 'close', onMonitorClose)
+			.on("ui", "lock", onUILock)
+			.on('progress', "check", onCheckProgress)
+			.on("progress", "upload", onUploadProgress);
 	}
 
 	function loadSchema(schema) {
@@ -195,6 +198,44 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	function onAppStart() {
 
+	}
+
+	function onUILock(type, value) {
+		if(type == "build") {
+			if(value) {
+				topRegion.find(".check").attr("disabled", true);
+				topRegion.find(".upload").attr("disabled", true);
+			} else {
+				topRegion.find(".check").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+				topRegion.find(".upload").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+			}
+		}
+	}
+
+	function onCheckProgress(value) {
+		if(value < 0) {
+			return;
+		}
+
+		topRegion.find(".check .x-progress").show().css({
+			transform: "translateX(-" + (100 - value) + "%)"
+		});
+	}
+
+	function onUploadProgress(value, type) {
+		if(value < 0) {
+			return;
+		}
+
+		if(type == "build") {
+			value = 80 * value / 100;
+		} else {
+			value = value / 100 + 80;
+		}
+
+		topRegion.find(".upload .x-progress").show().css({
+			transform: "translateX(-" + (100 - value) + "%)"
+		});
 	}
 
 	function onAppResize(e) {

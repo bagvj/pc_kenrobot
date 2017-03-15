@@ -62,13 +62,6 @@
 							<li>
 								<div class="placeholder">选项</div>
 								<ul>
-<!-- 									<li data-action="board-manage">
-										<span class="text">开发板管理</span>
-									</li>
-									<li data-action="library-manage">
-										<span class="text">库管理</span>
-									</li>
-									<li class="seperator"></li> -->
 									<li data-action="fullscreen">
 										<span class="text">全屏</span>
 									</li>
@@ -171,6 +164,7 @@
 							</div>
 							<div class="clearfix pull-right">
 								<div class="tool-button check" data-action="check" title="验证代码">
+									<div class="x-progress"></div>
 									<i class="kenrobot ken-check"></i>
 								</div>
 								<div class="tool-button save" data-action="save" title="保存项目">
@@ -231,11 +225,13 @@
 							<div class="top-region">
 								<div class="clearfix pull-left">
 									<div class="tool-button upload" data-action="upload" title="上传">
+										<div class="x-progress"></div>
 										<i class="kenrobot ken-upload2"></i><span>上传</span>
 									</div>
 								</div>
 								<div class="clearfix pull-right">
 									<div class="tool-button check" data-action="check" title="验证代码">
+										<div class="x-progress"></div>
 										<i class="kenrobot ken-check"></i>
 									</div>
 									<div class="tool-button save" data-action="save" title="保存项目">
@@ -427,6 +423,16 @@
 								</li>
 							</ul>
 						</div>
+					</div>
+				</div>
+				<div class="x-dialog error-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-title">错误提示日志</div>
+					<div class="x-dialog-content">
+						<div class="output can-select"></div>
+					</div>
+					<div class="x-dialog-btns clearfix">
+						<input class="copy" type="button" value="复制日志" />
 					</div>
 				</div>
 			</div>
