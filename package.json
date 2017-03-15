@@ -71,7 +71,7 @@
     "gulp-requirejs-optimize": "^1.2.0",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-sftp": "^0.1.5",
-    "gulp-uglify": "^2.0.1",
+    "gulp-uglify": "^2.1.0",
     "hasha": "^2.2.0",
     "minimist": "^1.2.0",
     "q": "^1.4.1",

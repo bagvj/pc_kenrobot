@@ -1,6 +1,6 @@
 @echo off
 rem utf8
-chcp 65001
+chcp 65001>nul
 
 rem useage:  build.bat project_path fqbn [libraries]
 rem example: 

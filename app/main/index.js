@@ -194,6 +194,15 @@ function listenMessage() {
 			e.sender.send('app:execCommand', deferId, false, err)
 		})
 	})
+	.on('app:spawnCommand', (e, deferId, command, args, options) => {
+		util.spawnCommand(command, args, options).then(stdout => {
+			e.sender.send('app:spawnCommand', deferId, true, stdout)
+		}, stderr => {
+			e.sender.send('app:spawnCommand', deferId, false, stderr)
+		}, progress => {
+			e.sender.send('app:spawnCommand', deferId, "notify", progress)
+		})
+	})
 	.on('app:readFile', (e, deferId, file, options) => {
 		util.readFile(file, options).then(data => {
 			e.sender.send('app:readFile', deferId, true, data)
@@ -234,6 +243,39 @@ function listenMessage() {
 			e.sender.send('app:buildProject', deferId, true, target)
 		}, err => {
 			e.sender.send('app:buildProject', deferId, false, err)
+		}, progress => {
+			e.sender.send('app:buildProject', deferId, "notify", progress)
+		})
+	})
+	.on('app:upload', (e, deferId, target, options) => {
+		listSerialPort().then(ports => {
+			if(ports.length == 1) {
+				upload(target, ports[0].comName, options).then(_ => {
+					e.sender.send('app:upload', deferId, true, true)
+				}, err => {
+					e.sender.send('app:upload', deferId, false, err)
+				}, progress => {
+					e.sender.send('app:upload', deferId, "notify", progress)
+				})
+			} else {
+				e.sender.send('app:upload', deferId, false, {
+					status: "SELECT_PORT",
+					ports: ports,
+				})
+			}
+		}, _ => {
+			e.sender.send('app:upload', deferId, false, {
+				status: "NOT_FOUND_PORT"
+			})
+		})
+	})
+	.on('app:upload2', (e, deferId, target, comName, options) => {
+		upload(target, comName, options).then(_ => {
+			e.sender.send('app:upload2', deferId, true, true)
+		}, err => {
+			e.sender.send('app:upload2', deferId, false, err)
+		}, progress => {
+			e.sender.send('app:upload2', deferId, "notify", progress)
 		})
 	})
 	.on('app:listSerialPort', (e, deferId) => {
@@ -276,33 +318,6 @@ function listenMessage() {
 			e.sender.send('app:flushSerialPort', deferId, true, true)
 		}, err => {
 			e.sender.send('app:flushSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:upload', (e, deferId, target, options) => {
-		listSerialPort().then(ports => {
-			if(ports.length == 1) {
-				upload(target, ports[0].comName, options).then(_ => {
-					e.sender.send('app:upload', deferId, true, true)
-				}, err => {
-					e.sender.send('app:upload', deferId, false, err)
-				})
-			} else {
-				e.sender.send('app:upload', deferId, false, {
-					status: "SELECT_PORT",
-					ports: ports,
-				})
-			}
-		}, _ => {
-			e.sender.send('app:upload', deferId, false, {
-				status: "NOT_FOUND_PORT"
-			})
-		})
-	})
-	.on('app:upload2', (e, deferId, target, comName, options) => {
-		upload(target, comName, options).then(_ => {
-			e.sender.send('app:upload2', deferId, true, true)
-		}, err => {
-			e.sender.send('app:upload2', deferId, false, err)
 		})
 	})
 	.on('app:errorReport', (e, deferId, error) => {
@@ -842,17 +857,17 @@ function buildProject(file, options) {
 		var scriptPath = getScriptPath("build", options.type)
 		//'='不能直接传给bat，所以传'!'然后在bat里替换回'='
 		var fqbn = is.windows() ? options.fqbn.replace(/=/g, '!') : options.fqbn
-		var command = `${scriptPath} ${file} ${fqbn}`
-		if(buildOptions.packagePath.length > 0) {
-			command = `${command} "${buildOptions.packagePath.join(',')}"`
-		}
+		var args = [file, fqbn]
+		buildOptions.packagePath.length > 0 && args.push(buildOptions.packagePath.join(','))
 		
 		log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
-		util.execCommand(command).then(_ => {
+		util.spawnCommand(scriptPath, args, {shell: true}).then(_ => {
 			deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.type == "genuino101" ? "bin" : "hex"}`))
 		}, err => {
 			log.error(err)
 			deferred.reject(err)
+		}, progress => {
+			deferred.notify(progress)
 		})
 	})
 	
@@ -902,13 +917,13 @@ function upload(target, comName, options) {
 	preUpload(comName, options).then(_ => {
 		var scriptPath = getScriptPath("upload", options.type)
 		log.debug(path.resolve(scriptPath))
-		var command = `${scriptPath} ${target} ${comName}`
-
-		util.execCommand(command).then(_ => {
+		util.spawnCommand(scriptPath, [target, comName], {shell: true}).then(_ => {
 			deferred.resolve()
 		}, err => {
 			log.error(err)
 			deferred.reject(err)
+		}, progress => {
+			deferred.notify(progress)
 		})
 	}, err => {
 		log.error(err)

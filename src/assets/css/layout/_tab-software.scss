@@ -370,6 +370,10 @@ $focus-color: #f1cb33;
 				font-size: 16px;
 			}
 
+			&[disabled] {
+				pointer-events: none;
+			}
+
 			&.simple {
 				width: 40px;
 				
@@ -391,6 +395,8 @@ $focus-color: #f1cb33;
 			color: #20A0FF;
 			background-color: #EAF6FF;
 			border-color: #A6D9FF;
+			overflow: hidden;
+			position: relative;
 
 			&:hover {
 				background-color: #20A0FF;
@@ -402,6 +408,18 @@ $focus-color: #f1cb33;
 				float: left;
 				margin-left: 17px;
 				margin-right: 8px;
+			}
+
+			.x-progress {
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				background-color: rgba(60, 245, 31, 0.8);
+				top: 0;
+				left: 0;
+				transform: translateX(-100%);
+				transition: 0.2s transform;
+				pointer-events: none;
 			}
 		}
 
@@ -457,10 +475,24 @@ $focus-color: #f1cb33;
 			color: white;
 			background-color: #888694;
 			border: 1px solid #646271;
+			position: relative;
+			overflow: hidden;
 			
 			&:hover {
 				background-color: #646271;
 				border-color: #646271;
+			}
+
+			.x-progress {
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				background-color: rgba(60, 245, 31, 0.8);
+				top: 0;
+				left: 0;
+				transform: translateX(-100%);
+				transition: 0.2s transform;
+				pointer-events: none;
 			}
 		}
 
