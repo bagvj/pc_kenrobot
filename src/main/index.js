@@ -853,6 +853,24 @@ function openProject(file) {
 function buildProject(file, options) {
 	var deferred = Q.defer()
 
+	// preBuild(file, options).then(_ => {
+	// 	var scriptPath = getScriptPath("build", options.type)
+	// 	//'='不能直接传给bat，所以传'!'然后在bat里替换回'='
+	// 	var fqbn = is.windows() ? options.fqbn.replace(/=/g, '!') : options.fqbn
+	// 	var command = `${scriptPath} ${file} ${fqbn}`
+	// 	if(buildOptions.packagePath.length > 0) {
+	// 		command = `${command} "${buildOptions.packagePath.join(',')}"`
+	// 	}
+		
+	// 	log.debug(`buildProject:${file}, options: ${JSON.stringify(options)}`)
+	// 	util.execCommand(command).then(_ => {
+	// 		deferred.resolve(path.join(file, "build", path.basename(file) + `.ino.${options.type == "genuino101" ? "bin" : "hex"}`))
+	// 	}, err => {
+	// 		log.error(err)
+	// 		deferred.reject(err)
+	// 	})
+	// })
+
 	preBuild(file, options).then(_ => {
 		var scriptPath = getScriptPath("build", options.type)
 		//'='不能直接传给bat，所以传'!'然后在bat里替换回'='
@@ -913,6 +931,22 @@ function upload(target, comName, options) {
 	var deferred = Q.defer()
 
 	log.debug(`upload:${target}, ${comName}, options: ${JSON.stringify(options)}`)
+
+	// preUpload(comName, options).then(_ => {
+	// 	var scriptPath = getScriptPath("upload", options.type)
+	// 	log.debug(path.resolve(scriptPath))
+	// 	var command = `${scriptPath} ${target} ${comName}`
+
+	// 	util.execCommand(command).then(_ => {
+	// 		deferred.resolve()
+	// 	}, err => {
+	// 		log.error(err)
+	// 		deferred.reject(err)
+	// 	})
+	// }, err => {
+	// 	log.error(err)
+	// 	deferred.reject(err)
+	// })
 
 	preUpload(comName, options).then(_ => {
 		var scriptPath = getScriptPath("upload", options.type)
