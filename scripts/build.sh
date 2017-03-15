@@ -44,7 +44,7 @@ if [ ! -d ${BUILD_PATH} ]; then
 fi
 
 COMMAND="${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES}"
-if [ ! -n "$LIBRARIES" ];then
+if [ -n "$LIBRARIES" ];then
 	COMMAND+=" -libraries=${LIBRARIES}"
 fi
 COMMAND+=" -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}"
