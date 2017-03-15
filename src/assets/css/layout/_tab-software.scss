@@ -410,11 +410,17 @@ $focus-color: #f1cb33;
 				margin-right: 8px;
 			}
 
+			&[disabled] {
+				background-color: #f1f1f1;
+				border-color: #666;
+				color: #333;
+			}
+
 			.x-progress {
 				height: 100%;
 				width: 100%;
 				position: absolute;
-				background-color: rgba(60, 245, 31, 0.8);
+				background-color: rgba(151, 228, 67, 0.8);
 				top: 0;
 				left: 0;
 				transform: translateX(-100%);
@@ -483,11 +489,17 @@ $focus-color: #f1cb33;
 				border-color: #646271;
 			}
 
+			&[disabled] {
+				background-color: #f1f1f1;
+				border-color: #666;
+				color: #333;
+			}
+
 			.x-progress {
 				height: 100%;
 				width: 100%;
 				position: absolute;
-				background-color: rgba(60, 245, 31, 0.8);
+				background-color: rgba(151, 228, 67, 0.8);
 				top: 0;
 				left: 0;
 				transform: translateX(-100%);
