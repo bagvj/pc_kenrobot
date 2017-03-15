@@ -30,6 +30,7 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 			selector: dialogWin,
 			onClosed: onClosed,
 			onConfirm: onConfirm,
+			onCancel: onCancel,
 		});
 	}
 
@@ -47,6 +48,10 @@ define(['vendor/jquery', 'app/util/util', 'app/util/emitor'], function($1, util,
 			}
 		});
 		callback(port);
+	}
+
+	function onCancel() {
+		callback();
 	}
 
 	function reset() {

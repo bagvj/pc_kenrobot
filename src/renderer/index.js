@@ -8,14 +8,19 @@
 	var defers = {}
 	var deferAutoId = 0
 
-	function onMessage(e, deferId, success) {
+	function onMessage(e, deferId, type) {
 		var deferred = defers[deferId]
 		if(!deferred) {
 			return
 		}
 
-		delete defers[deferId]
-		var callback = success ? deferred.resolve : deferred.reject
+		var callback
+		if(type == "notify") {
+			callback = deferred.notify
+		} else {
+			delete defers[deferId]
+			callback = type ? deferred.resolve : deferred.reject
+		}
 		callback.apply(this, Array.from(arguments).slice(3))
 	}
 	

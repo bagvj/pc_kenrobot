@@ -9,6 +9,8 @@ const Q = require('q')
 const fs = require('fs-extra')
 const glob = require('glob')
 const sudo = require('sudo-prompt')
+const iconv = require('iconv-lite')
+const BufferHelper = require('bufferhelper')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 
 /**
@@ -50,11 +52,13 @@ function execCommand(command, options, useSudo) {
 	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}, useSudo: ${useSudo}`)
 	if(useSudo) {
 		sudo.exec(command, {name: "kenrobot"}, (err, stdout, stderr) => {
+			stdout = is.windows() ? iconv.decode(stdout, 'gbk') : stdout
+			stderr = is.windows() ? iconv.decode(stderr, 'gbk') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
 				stderr && log.error(stderr)
-				deferred.reject(err)
+				deferred.reject(stderr || stdout || err)
 				return
 			}
 
@@ -63,11 +67,13 @@ function execCommand(command, options, useSudo) {
 		})
 	} else {
 		child_process.exec(command, options, (err, stdout, stderr) => {
+			stdout = is.windows() ? iconv.decode(stdout, 'gbk') : stdout
+			stderr = is.windows() ? iconv.decode(stderr, 'gbk') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
 				stderr && log.error(stderr)
-				deferred.reject(err)
+				deferred.reject(stderr || stdout || err)
 				return
 			}
 
@@ -75,6 +81,38 @@ function execCommand(command, options, useSudo) {
 			deferred.resolve(stdout)
 		})
 	}
+
+	return deferred.promise
+}
+
+function spawnCommand(command, args, options) {
+	var deferred = Q.defer()
+	var child = child_process.spawn(command, args, options)
+	var stdoutBuffer = new BufferHelper()
+	var stderrBuffer = new BufferHelper()
+	child.stdout.on('data', data => {
+		stdoutBuffer.concat(data)
+		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
+		is.dev() && log.debug(str)
+		deferred.notify({
+			type: "stdout",
+			data: str,
+		})
+	})
+	child.stderr.on('data', data => {
+		stderrBuffer.concat(data)
+		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
+		is.dev() && log.debug(str)
+		deferred.notify({
+			type: "stderr",
+			data: str,
+		})
+	})
+	child.on('close', code => {
+		var buffer = code == 0 ? stdoutBuffer : stderrBuffer
+		var output = is.windows() ? iconv.decode(buffer.toBuffer(), 'gbk') : buffer.toString()
+		code == 0 ? deferred.resolve(output) : deferred.reject(output)
+	})
 
 	return deferred.promise
 }
@@ -287,6 +325,7 @@ module.exports.isX64 = isX64
 module.exports.getPlatform = getPlatform
 
 module.exports.execCommand = execCommand
+module.exports.spawnCommand = spawnCommand
 
 module.exports.readFile = readFile
 module.exports.writeFile = writeFile

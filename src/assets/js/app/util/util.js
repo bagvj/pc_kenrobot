@@ -123,6 +123,7 @@ define(['vendor/jquery'], function() {
 		var onClose = args.onClose;
 		var onClosed = args.onClosed;
 		var onShow = args.onShow;
+		var afterShow = args.afterShow;
 
 		var content = args.content;
 		content && $('.x-dialog-content', dialogWin).html(content);
@@ -154,6 +155,7 @@ define(['vendor/jquery'], function() {
 		onShow && onShow();
 		dialogWin.show().addClass("dialog-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
 			dialogWin.addClass("dialog-in").removeClass("dialog-fadeIn");
+			afterShow && afterShow();
 		});
 		dialogWin.dequeue("fadeIn");
 

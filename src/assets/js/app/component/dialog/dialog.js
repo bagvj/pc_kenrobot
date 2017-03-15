@@ -1,10 +1,11 @@
-define(['./common', './port', './installDriver', './library'], function(common, port, installDriver, library) {
+define(['./common', './port', './installDriver', './library', './error'], function(common, port, installDriver, library, error) {
 
 	function init() {
 		common.init();
 		port.init();
 		installDriver.init();
 		library.init();
+		error.init();
 	}
 
 	return {
