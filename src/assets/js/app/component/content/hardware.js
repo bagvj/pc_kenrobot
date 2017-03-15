@@ -111,7 +111,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 
 	function onUILock(type, value) {
 		if(type == "build") {
-			topRegion.find(".check").attr("disabled", value);
+			var check = topRegion.find(".check").attr("disabled", value);
+			!value && check.find(".x-progress").hide();
 		}
 	}
 
@@ -120,7 +121,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 			return
 		}
 
-		topRegion.find(".check .x-progress").css({
+		topRegion.find(".check .x-progress").show().css({
 			transform: "translateX(-" + (100 - value) + "%)"
 		});
 	}
