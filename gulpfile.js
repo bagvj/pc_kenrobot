@@ -72,6 +72,11 @@ gulp.task('clean-renderer', _ => {
 		.pipe(clean())
 })
 
+gulp.task('clean-scratch', _ => {
+	return gulp.src(APP + 'scratch', {read: false})
+		.pipe(clean())
+})
+
 gulp.task('clean-views', _ => {
 	return gulp.src(ASSETS_DIST + '*.html', {read: false})
 		.pipe(clean())
@@ -143,7 +148,24 @@ gulp.task('pack-config', ['clean-config'], _ => {
 		.pipe(gulp.dest(APP))
 })
 
-gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-assets'])
+gulp.task('pack-scratch', ['clean-scratch'], callback => {
+	gulp.src([SRC + 'scratch/**/*'])
+		.pipe(gulp.dest(APP + 'scratch/'))
+		.on('end', _ => {
+			var indexPath = path.join(APP, 'scratch', 'index.html')
+			var content = fs.readFileSync(indexPath, "utf8")
+			var tag = "<body>"
+			var contents = content.split(tag)
+			contents.splice(1, 0, tag, '<script type="text/javascript" src="../renderer/index.js"></script><script>(function(a) {delete a.require;delete a.exports;delete a.module;})(window);</script>')
+			fs.writeFileSync(indexPath, contents.join(""))
+			callback()
+		})
+		.on('error', err => {
+			callback(err)
+		})
+})
+
+gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
 gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"

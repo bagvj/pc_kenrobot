@@ -109,6 +109,12 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 			case "setting":
 				util.message("敬请期待");
 				break;
+			case "switch":
+				kenrobot.postMessage("app:switchUI", li.data("type")).then(function(type) {
+					li.data("type", type);
+					li.find(".text").text("切换" + type);
+				});
+				break;
 			case "download-arduino-driver":
 				kenrobot.postMessage("app:getOSInfo").then(function(info) {
 					if (info.platform != "win") {

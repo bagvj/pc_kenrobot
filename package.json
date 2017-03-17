@@ -8,6 +8,7 @@
       "index.html",
       "main",
       "renderer",
+      "scratch",
       "node_modules",
       "!node_modules/serialport/build/Release/obj",
       "!node_modules/**/*.md",

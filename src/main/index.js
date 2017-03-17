@@ -370,6 +370,13 @@ function listenMessage() {
 			e.sender.send('app:loadPackages', deferId, false, err)
 		})
 	})
+	.on("app:switchUI", (e, deferId, type) => {
+		switchUI(type).then(otherType => {
+			e.sender.send('app:switchUI', deferId, true, otherType)
+		}, err => {
+			e.sender.send('app:switchUI', deferId, false, err)
+		})
+	})
 }
 
 /**
@@ -1099,6 +1106,23 @@ function matchBoardNames(ports) {
 		log.error(err)
 		deferred.reject(err)
 	})
+
+	return deferred.promise
+}
+
+function switchUI(type) {
+	var deferred = Q.defer()
+	mainWindow.once('ready-to-show', _ => {
+		deferred.resolve()
+	})
+
+	if(type == "scratch") {
+		mainWindow.loadURL(`file://${__dirname}/../scratch/index.html`)
+		mainWindow.focus()
+	} else {
+		mainWindow.loadURL(`file://${__dirname}/../index.html`)
+		mainWindow.focus()
+	}
 
 	return deferred.promise
 }
