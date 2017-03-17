@@ -1079,7 +1079,7 @@ function matchBoardNames(ports) {
 function switchUI(type) {
 	var deferred = Q.defer()
 	mainWindow.once('ready-to-show', _ => {
-		deferred.resolve(type == "scratch" ? "kenrobot" : "scratch")
+		deferred.resolve()
 	})
 
 	if(type == "scratch") {
