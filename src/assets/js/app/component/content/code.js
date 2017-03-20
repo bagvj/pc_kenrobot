@@ -1,10 +1,13 @@
 define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1, emitor, codeModel) {
+	var refreshTimerId;
+
 	function init() {
 		var region = $('.content-region .code-region').on('click', ".copy", onCopyClick);
 		var container = $(".code-container", region);
 		codeModel.init(container[0]);
 
-		emitor.on("code", "startRefresh", onStartRefresh);
+		emitor.on("code", "start-refresh", onStartRefresh)
+			.on('code', 'stop-refresh', onStopRefresh);
 	}
 
 	function getData() {
@@ -20,9 +23,14 @@ define(['vendor/jquery', 'app/util/emitor', 'app/model/codeModel'], function($1,
 	}
 
 	function onStartRefresh() {
-		setInterval(function() {
+		onStopRefresh();
+		refreshTimerId = setInterval(function() {
 			emitor.trigger("code", "refresh");
 		}, 1000);
+	}
+
+	function onStopRefresh() {
+		refreshTimerId && clearInterval(refreshTimerId);
 	}
 
 	function onCopyClick(e) {

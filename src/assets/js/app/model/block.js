@@ -30,10 +30,11 @@ define(['app/util/util'], function(util) {
 	var reservedWords = 'setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger, constants,floating,point,void,bool,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts';
 	reservedWords = reservedWords.split(',');
 
-	function Block(blockData) {
+	function Block(blockData, reverse) {
 		this.data = blockData;
 		this.uid = util.uuid(6);
 		this.connectable = false;
+		this.reverse = reverse;
 		this.enable = true;
 		this.connectors = [];
 		this.ioConnectors = [];
@@ -217,6 +218,7 @@ define(['app/util/util'], function(util) {
 	}
 
 	function createBlockElement(block, elementData) {
+		elementData.id && (elementData.uid = util.uuid(6));
 		var elementDom;
 		switch (elementData.type) {
 			case "static-select":
@@ -225,7 +227,7 @@ define(['app/util/util'], function(util) {
 				var selectDom = document.createElement("select");
 				elementDom.appendChild(selectDom);
 
-				selectDom.dataset.contentId = elementData.id;
+				selectDom.dataset.contentId = elementData.uid;
 				elementData.options.forEach(function(optionData) {
 					var optionDom = document.createElement("option");
 					optionDom.value = optionData.value;
@@ -244,7 +246,7 @@ define(['app/util/util'], function(util) {
 				var selectDom = document.createElement("select");
 				elementDom.appendChild(selectDom);
 
-				selectDom.dataset.contentId = elementData.id;
+				selectDom.dataset.contentId = elementData.uid;
 				selectDom.dataset.options = elementData.options;
 				var options = blockVars[elementData.options];
 				options && updateSelectDom(selectDom, options);
@@ -326,20 +328,20 @@ define(['app/util/util'], function(util) {
 		inputDom.type = "text";
 		inputDom.value = elementData.value || "";
 		inputDom.placeholder = elementData.placeholder || "";
-		inputDom.dataset.contentId = elementData.id;
+		inputDom.dataset.contentId = elementData.uid;
 
 		return inputDom;
 	}
 
 	function createTextareaElement(elementData) {
 		var textareaDom = document.createElement("textarea");
-		textareaDom.name = elementData.id;
+		textareaDom.name = elementData.uid;
 		textareaDom.spellcheck = false;
 		textareaDom.cols = 40;
 		textareaDom.rows = 1;
 		textareaDom.value = elementData.value || "";
 		textareaDom.placeholder = elementData.placeholder || "";
-		textareaDom.dataset.contentId = elementData.id;
+		textareaDom.dataset.contentId = elementData.uid;
 		textareaDom.dataset.contentType = elementData.type;
 
 		return textareaDom;
@@ -810,29 +812,29 @@ define(['app/util/util'], function(util) {
 			case "statement-input":
 			case "group":
 				var tempBlock;
-				var childConnector = connectors[block.connectors[2]].connectedTo;
-				while (childConnector) {
-					tempBlock = getBlockByConnector(childConnector);
-					childConnector = connectors[tempBlock.connectors[1]].connectedTo;
+				var childConnector = connectors[block.connectors[2]];
+				while (childConnector && childConnector.connectedTo) {
+					tempBlock = getBlockByConnector(childConnector.connectedTo);
+					childConnector = connectors[tempBlock.connectors[1]];
 					removeBlock(tempBlock);
 				}
 			case "statement":
-				var topConnector = connectors[block.connectors[0]].connectedTo;
-				var bottomConnector = connectors[block.connectors[1]].connectedTo;
+				var topConnector = connectors[block.connectors[0]];
+				var bottomConnector = connectors[block.connectors[1]];
 
-				if (topConnector && bottomConnector) {
-					connectors[topConnector].connectedTo = bottomConnector;
-					connectors[bottomConnector].connectedTo = topConnector;
-					redraw && redrawTree(getBlockByConnector(topConnector));
-				} else if (topConnector) {
-					connectors[topConnector].connectedTo = null;
-					var previousBlock = blocks[connectors[topConnector].blockUid];
+				if (topConnector && topConnector.connectedTo && bottomConnector && bottomConnector.connectedTo) {
+					connectors[topConnector.connectedTo].connectedTo = bottomConnector.connectedTo;
+					connectors[bottomConnector.connectedTo].connectedTo = topConnector.connectedTo;
+					redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
+				} else if (topConnector && topConnector.connectedTo) {
+					connectors[topConnector.connectedTo].connectedTo = null;
+					var previousBlock = blocks[connectors[topConnector.connectedTo].blockUid];
 					if (previousBlock.data.type === 'group') {
 						previousBlock.dom.parentNode.parentNode.classList.remove('with-content');
 					}
-					redraw && redrawTree(getBlockByConnector(topConnector));
-				} else if (bottomConnector) {
-					connectors[bottomConnector].connectedTo = null;
+					redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
+				} else if (bottomConnector && bottomConnector.connectedTo) {
+					connectors[bottomConnector.connectedTo].connectedTo = null;
 				}
 
 				var tempConnector;
@@ -844,8 +846,11 @@ define(['app/util/util'], function(util) {
 				});
 				break;
 			case "output":
-				var outputConnector = ioConnectors[block.ioConnectors[0]].connectedTo;
-				outputConnector && (ioConnectors[outputConnector].connectedTo = null);
+				var outputConnector = ioConnectors[block.ioConnectors[0]];
+				if(outputConnector && outputConnector.connectedTo) {
+					var ioConnector = ioConnectors[outputConnector.connectedTo];
+					ioConnector && (ioConnector.connectedTo = null);
+				}
 				break;
 		}
 
@@ -895,19 +900,19 @@ define(['app/util/util'], function(util) {
 		var elementTags = [];
 		var childrenTags = [];
 		block.data.content.forEach(function(elementData) {
-			elementData.id && elementTags.push(elementData.id);
+			elementData.uid && elementTags.push(elementData);
 			elementData.blockInputId && childrenTags.push(elementData.blockInputId);
 		});
 
 		elementTags.forEach(function(elem) {
 			var element;
 			[].forEach.call(block.contentDom.childNodes, function(childDom) {
-				if (childDom.dataset.contentId && childDom.dataset.contentId == elem) {
+				if (childDom.dataset.contentId && childDom.dataset.contentId == elem.uid) {
 					element = childDom;
 					return true;
 				}
 			});
-			!element && (element = block.contentDom.querySelector('[data-content-id="' + elem + '"]'));
+			!element && (element = block.contentDom.querySelector('[data-content-id="' + elem.uid + '"]'));
 			value = element.value || '';
 
 			if (element.dataset.contentType == 'string-input') {
@@ -918,8 +923,8 @@ define(['app/util/util'], function(util) {
 				value = validComment(value);
 			}
 			var valueWithoutAsterisk = value.replace(' *', '');
-			code = code.replace(new RegExp('{' + elem + '}.withoutAsterisk', 'g'), valueWithoutAsterisk);
-			code = code.replace(new RegExp('{' + elem + '}', 'g'), value);
+			code = code.replace(new RegExp('{' + elem.id + '}.withoutAsterisk', 'g'), valueWithoutAsterisk);
+			code = code.replace(new RegExp('{' + elem.id + '}', 'g'), value);
 		});
 
 		var blockInputConnectors = getBlockInputConnectors(block);
@@ -1012,7 +1017,7 @@ define(['app/util/util'], function(util) {
 				case 'code-input':
 				case 'comment-input':
 				case 'char-input':
-					tempDom = block.dom.querySelector('[data-content-id="' + elementData.id + '"]');
+					tempDom = block.dom.querySelector('[data-content-id="' + elementData.uid + '"]');
 					if (tempDom && tempDom.value) {
 						structure.content.push({
 							id: elementData.id,
@@ -1034,7 +1039,7 @@ define(['app/util/util'], function(util) {
 					}
 					break;
 				case 'dynamic-select':
-					tempDom = block.contentDom.querySelector('select[data-content-id="' + elementData.id + '"][data-options="' + elementData.options + '"]');
+					tempDom = block.contentDom.querySelector('select[data-content-id="' + elementData.uid + '"][data-options="' + elementData.options + '"]');
 					if (tempDom) {
 						structure.content.push({
 							id: elementData.id,
@@ -1044,7 +1049,7 @@ define(['app/util/util'], function(util) {
 					}
 					break;
 				case 'static-select':
-					tempDom = block.contentDom.querySelector('select[data-content-id="' + elementData.id + '"]');
+					tempDom = block.contentDom.querySelector('select[data-content-id="' + elementData.uid + '"]');
 					if (tempDom && tempDom.value) {
 						structure.content.push({
 							id: elementData.id,
@@ -1620,9 +1625,9 @@ define(['app/util/util'], function(util) {
 		return blocks[uid];
 	}
 
-	function createBlock(name) {
+	function createBlock(name, reverse) {
 		var blockData = clone(schema[name]);
-		return new Block(blockData);
+		return new Block(blockData, reverse);
 	}
 
 	function buildBlock(structure) {

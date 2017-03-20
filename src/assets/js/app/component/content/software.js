@@ -126,7 +126,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/util/util', 'app/util/
 				return;
 			}
 
-			var block = softwareModel.createBlock(blockData.name);
+			var block = softwareModel.createBlock(blockData.name, true);
 			var li = $('<li>').data("filter", blockData.tags.concat());
 			blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
 			blockList.append(li.append(block.dom));
