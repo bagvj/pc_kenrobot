@@ -16,6 +16,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 	function openProject(projectInfo) {
+		emitor.trigger("code", "stop-refresh");
+
 		currentProject && (currentProject.project_data = getProjectData());
 		currentProject = projectInfo;
 
@@ -23,6 +25,8 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 		hardware.setData(projectData.hardware);
 		software.setData(projectData.software);
 		code.setData(projectData.code);
+
+		emitor.trigger("code", "start-refresh");
 	}
 
 	function onAppStart() {
@@ -31,7 +35,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 			software.loadSchema(schema);
 			
 			openProject(getDefaultProject());
-			emitor.trigger("code", "startRefresh");
+			emitor.trigger("code", "start-refresh");
 		});	
 	}
 

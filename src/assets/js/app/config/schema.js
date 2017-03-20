@@ -2325,7 +2325,7 @@ define(function() {
 				"acceptType": "all",
 				"name": "gEDZ41"
 			}],
-			"code": "{ARG1} {OPERATOR} {ARG2}",
+			"code": "({ARG1}) {OPERATOR} ({ARG2})",
 			"returnType": {
 				"type": "simple",
 				"value": "bool"
@@ -2417,7 +2417,7 @@ define(function() {
 				"name": "GN92uZ"
 			}, {
 				"type": "text",
-				"value": "从0-1024映射到[0-"
+				"value": "从0-1023映射到[0-"
 			}, {
 				"blockInputId": "MAXVAL",
 				"type": "block-input",

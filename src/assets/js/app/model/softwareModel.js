@@ -64,8 +64,8 @@ define(['app/util/util', 'app/util/emitor', './block'], function(util, emitor, b
 		return block.getBlock(uid);
 	}
 
-	function createBlock(name) {
-		return block.createBlock(name);
+	function createBlock(name, reverse) {
+		return block.createBlock(name, reverse);
 	}
 
 	function getGroupBlock(name) {
