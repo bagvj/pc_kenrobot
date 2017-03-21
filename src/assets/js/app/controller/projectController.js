@@ -159,7 +159,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 										emitor.trigger("ui", "lock", "build", false);
 										showErrorConfirm("上传失败", err1);
 									}, function(progress1) {
-										emitor.trigger("progress", "upload", matchUploadProgress(progress1.data), "upload");
+										emitor.trigger("progress", "upload", matchUploadProgress(progress1.data, boardData.type), "upload");
 									});
 								}
 							});
@@ -179,7 +179,7 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 							showErrorConfirm("上传失败", err);
 						}
 					}, function(progress) {
-						emitor.trigger("progress", "upload", matchUploadProgress(progress.data), "upload");
+						emitor.trigger("progress", "upload", matchUploadProgress(progress.data, boardData.type), "upload");
 					});
 				}, 2000);
 			}, function(err) {
@@ -236,41 +236,57 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 	}
 
 
-	function matchUploadProgress(output) {
-		var state = uploadProgressHelper.state;
+	function matchUploadProgress(output, type) {
 		var reg;
-		if(!state) {
-			reg = /Writing \|/g;
-			if(reg.test(output)) {
-				uploadProgressHelper.state = "writing";
-				return 20;
-			}
-			return 0;
-		} else if(state == "writing") {
-			reg = / \| 100\% \d+\.\d+/g;
-			if(reg.test(output)) {
-				uploadProgressHelper.state = "checking";
-				return 60;
+		if(type == "genuino101") {
+			reg = /Download	\[[= ]+\][ ]+(\d+)\%/g;
+			if(!reg.test(output)) {
+				return 0;
 			}
 
-			reg = /#/g;
-			uploadProgressHelper.writeCount = uploadProgressHelper.writeCount || 0;
-			while(reg.exec(output)) {
-				uploadProgressHelper.writeCount++;
-			}
-			return 20 + parseInt(40 * uploadProgressHelper.writeCount / 50);
+			var temp;
+			var match = reg.exec(output);
+			do {
+				temp = match;
+				match = reg.exec(output);
+			} while(match)
+			
+			return parseInt(temp[1]);
 		} else {
-			reg = / \| 100\% \d+\.\d+/g;
-			if(reg.test(output)) {
-				return 100;
-			}
+			var state = uploadProgressHelper.state;
+			if(!state) {
+				reg = /Writing \|/g;
+				if(reg.test(output)) {
+					uploadProgressHelper.state = "writing";
+					return 20;
+				}
+				return 0;
+			} else if(state == "writing") {
+				reg = / \| 100\% \d+\.\d+/g;
+				if(reg.test(output)) {
+					uploadProgressHelper.state = "checking";
+					return 60;
+				}
 
-			reg = /#/g;
-			uploadProgressHelper.checkCount = uploadProgressHelper.checkCount || 0;
-			while(reg.exec(output)) {
-				uploadProgressHelper.checkCount++;
+				reg = /#/g;
+				uploadProgressHelper.writeCount = uploadProgressHelper.writeCount || 0;
+				while(reg.exec(output)) {
+					uploadProgressHelper.writeCount++;
+				}
+				return 20 + parseInt(40 * uploadProgressHelper.writeCount / 50);
+			} else {
+				reg = / \| 100\% \d+\.\d+/g;
+				if(reg.test(output)) {
+					return 100;
+				}
+
+				reg = /#/g;
+				uploadProgressHelper.checkCount = uploadProgressHelper.checkCount || 0;
+				while(reg.exec(output)) {
+					uploadProgressHelper.checkCount++;
+				}
+				return 60 + parseInt(40 * uploadProgressHelper.checkCount / 50);
 			}
-			return 60 + parseInt(40 * uploadProgressHelper.checkCount / 50);
 		}
 	}
 
