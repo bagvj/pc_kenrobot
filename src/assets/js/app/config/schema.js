@@ -5272,7 +5272,321 @@ define(['vendor/lodash'], function($1) {
 				"module": "dcMotor",
 				"uid": "vBhAoh"
 			}],
-			"imageUrl": "assets/image/components/dcMotor.png"
+			"imageUrl": "assets/image/components/dcMotor.png",
+			"hidden": false,
+		}, {
+			"uid": "tPcLPe",
+			"name": "clzMotor",
+			"label": "电机",
+			"type": "clzMotor",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "in",
+				"anchor": [0.333, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "in",
+				"shape": "Dot",
+				"rotate": false
+			}, {
+				"name": "pwm",
+				"anchor": [0.667, 1],
+				"tags": ["analog-out"],
+				"label": "pwm",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <Clz_Motor.h>",
+				"var": "Clz_Motor {NAME}({in}, {pwm});"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "clzMotorSetSpeed",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"id": "SPEED",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.setSpeed({SPEED});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "p1oJFX"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetDirection",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"id": "DIRECTION",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.setDirection({DIRECTION});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "fb9pwA"
+			}, {
+				"type": "statement",
+				"name": "clzMotorRun",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "转动，方向为"
+				}, {
+					"id": "DIRECTION",
+					"type": "number-input"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"id": "SPEED",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "k0aDNh"
+			}, {
+				"type": "statement",
+				"name": "clzMotorStop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "停止转动"
+				}],
+				"code": "{MOTOR}.stop();",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "eZeDbQ"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetDirectionAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "lMFO2z"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "qh7wyQ"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "lMFO2z"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"blockInputId": "DIRECTION",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "qh7wyQ"
+				}],
+				"code": "{MOTOR}.setDirection({DIRECTION});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "LRaEno"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetSpeedAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "AOJnAc"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "xOdIZH"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "AOJnAc"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "xOdIZH"
+				}],
+				"code": "{MOTOR}.setSpeed({SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "j7ITD1"
+			}, {
+				"type": "statement",
+				"name": "clzMotorRunAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "9zUKv5"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "p95lCa"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "4pMqMR"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "9zUKv5"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"blockInputId": "DIRECTION",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "p95lCa"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "4pMqMR"
+				}],
+				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "lFxqma"
+			}, {
+				"type": "statement",
+				"name": "clzMotorStopAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Yz8WgI"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Yz8WgI"
+				}, {
+					"type": "text",
+					"value": "停止转动"
+				}],
+				"code": "{MOTOR}.stop();",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "rp690r"
+			}],
+			"imageUrl": "assets/image/components/clzMotor.png",
+			"hidden": true,
 		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
