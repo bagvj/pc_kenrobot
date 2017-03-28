@@ -48,8 +48,6 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor',
 				ext: info.ext,
 			};
 
-			data.version = "0.2.0";
-
 			$.ajax({
 				type: "GET",
 				url: config.url.checkUpdate + "&" + $.param(data),
@@ -57,35 +55,35 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor',
 			}).then(function(result) {
 				if(result.status == 0) {
 					util.confirm({
-						title: "¼ì²é¸üĞÂ",
-						text: "·¢ÏÖĞÂ°æ±¾" + result.data.version + "£¬ÊÇ·ñÏÂÔØ£¿",
+						title: "æ£€æŸ¥æ›´æ–°",
+						text: "å‘ç°æ–°ç‰ˆæœ¬" + result.data.version + "ï¼Œæ˜¯å¦ä¸‹è½½ï¼Ÿ",
 						onConfirm: function() {
 							kenrobot.postMessage("app:download", result.data.download_url, "update-download").then(function(path) {
-								util.message("¿ªÊ¼ÏÂÔØ");
+								util.message("å¼€å§‹ä¸‹è½½");
 							});
 						}
 					});
 				} else {
-					util.message("ÒÑ¾­ÊÇ×îĞÂ°æ±¾ÁË");
+					util.message("å·²ç»æ˜¯æœ€æ–°ç‰ˆæœ¬äº†");
 				}
 			}, function(err) {
-				util.message("¼ì²é¸üĞÂÊ§°Ü");
+				util.message("æ£€æŸ¥æ›´æ–°å¤±è´¥");
 			});
 		});
 		
 		// kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(function(result) {
 		// 	if(result.status == 0) {
 		// 		util.confirm({
-		// 			title: "¼ì²é¸üĞÂ",
-		// 			text: "·¢ÏÖĞÂ°æ±¾" + result.data.version + "£¬ÊÇ·ñÏÂÔØ£¿",
+		// 			title: "æ£€æŸ¥æ›´æ–°",
+		// 			text: "å‘ç°æ–°ç‰ˆæœ¬" + result.data.version + "ï¼Œæ˜¯å¦ä¸‹è½½ï¼Ÿ",
 		// 			onConfirm: function() {
 		// 				kenrobot.postMessage("app:download", result.data.download_url, "update-download").then(function(path) {
-		// 					util.message("¿ªÊ¼ÏÂÔØ");
+		// 					util.message("å¼€å§‹ä¸‹è½½");
 		// 				});
 		// 			}
 		// 		});
 		// 	} else {
-		// 		util.message("ÒÑ¾­ÊÇ×îĞÂ°æ±¾ÁË");
+		// 		util.message("å·²ç»æ˜¯æœ€æ–°ç‰ˆæœ¬äº†");
 		// 	}
 		// });
 	}
@@ -94,13 +92,13 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor',
 		switch(action) {
 			case "driver-download":
 				util.confirm({
-					text: "Çı¶¯ÏÂÔØ³É¹¦£¬ÊÇ·ñ°²×°?",
+					text: "é©±åŠ¨ä¸‹è½½æˆåŠŸï¼Œæ˜¯å¦å®‰è£…?",
 					onConfirm: function() {
 						kenrobot.postMessage("app:installDriver", path).then(function() {
-							util.message("Çı¶¯°²×°³É¹¦");
+							util.message("é©±åŠ¨å®‰è£…æˆåŠŸ");
 						}, function(err) {
 							util.message({
-								text: "Çı¶¯°²×°Ê§°Ü",
+								text: "é©±åŠ¨å®‰è£…å¤±è´¥",
 								type: "error"
 							});
 						});
@@ -109,13 +107,13 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/util/util', 'app/util/emitor',
 				break;
 			case "update-download":
 				util.confirm({
-					text: "ÏÂÔØ³É¹¦£¬ÊÇ·ñ°²×°ĞÂ°æ±¾?",
+					text: "ä¸‹è½½æˆåŠŸï¼Œæ˜¯å¦å®‰è£…æ–°ç‰ˆæœ¬?",
 					onConfirm: function() {
 						kenrobot.postMessage("app:execFile", path).then(function() {
-							util.message("°²×°³É¹¦");
+							util.message("å®‰è£…æˆåŠŸ");
 						}, function(err) {
 							util.message({
-								text: "°²×°Ê§°Ü",
+								text: "å®‰è£…å¤±è´¥",
 								type: "error"
 							});
 						});

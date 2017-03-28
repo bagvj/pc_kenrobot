@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder getmac gulp-sftp q glob hasha nconf
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q glob hasha nconf
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha bufferhelper iconv-lite serialport
  */
 
@@ -24,7 +24,6 @@ const nconf = require('nconf')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
-const getmac = require('getmac') //获取mac地址
 const hasha = require('hasha') //
 
 const builder = require('electron-builder') //electron打包
@@ -205,6 +204,14 @@ gulp.task('build', ['clean-dist'], callback => {
 		targets = builder.Platform.WINDOWS.createTarget(target, builder.archFromString(arch))
 	}
 
+	nconf.file('./app/package.json')
+	nconf.set('buildInfo', {
+		branch: branch,
+		feature: feature,
+		ext: ext,
+	})
+	nconf.save()
+	
 	builder.build({
 		targets: targets,
 		config: {
@@ -222,16 +229,10 @@ gulp.task('build', ['clean-dist'], callback => {
 		var file = path.join(path.dirname(output), name)
 
 		fs.move(output, file, err => {
-			console.log(file)
-
-			nconf.file('./app/package.json')
-			nconf.set('buildInfo', {
-				branch: branch,
-				feature: feature,
-				ext: ext,
-			})
+			nconf.clear('buildInfo')
 			nconf.save()
-
+			
+			console.log(file)
 			if(!args.upload) {
 				callback()
 				return
@@ -255,31 +256,6 @@ gulp.task('build-pack', ['pack', 'build'])
 
 // 默认任务
 gulp.task('default', ['pack'])
-
-gulp.task('mac', _ => {
-	getmac.getMac((err, mac) => {
-		if(err) {
-			console.log(err)
-			return
-		}
-
-		console.log(mac)
-	})
-})
-
-gulp.task('e-mac', _ => {
-	if(!args.mac) {
-		console.log('please spec mac use "--mac"')
-		return
-	}
-
-	var macs = args.mac.split(",")
-	macs.map(mac => mac.replace(/-/g, ":").trim().toUpperCase())
-		.forEach(mac => {
-			var md5 = hasha(mac, {algorithm: "md5"})
-			console.log(`${mac} => ${md5}`)
-		})
-})
 
 gulp.task('hash', callback => {
 	var pathList = glob.sync("packages/*.7z")
