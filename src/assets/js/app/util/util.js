@@ -59,7 +59,7 @@ define(['vendor/jquery'], function() {
 			"confirm": "提示",
 			"warning": "提示",
 		},
-		template: '<div class="x-confirm {type}"><i class="x-confirm-close kenrobot ken-close"></i><div class="x-confirm-title">{title}</div><div class="x-confirm-content">{text}</div><div class="x-confirm-btns"><input class="confirm" type="button" value="{confirmLabel}" /><input class="cancel" type="button" value="{cancelLabel}" /></div></div>',
+		template: '<div class="x-confirm {type}"><i class="x-confirm-close kenrobot ken-close"></i><div class="x-confirm-title">{title}</div><div class="x-confirm-content">{text}</div><div class="x-confirm-btns clearfix"><input class="confirm" type="button" value="{confirmLabel}" /><input class="cancel" type="button" value="{cancelLabel}" /></div></div>',
 		cancelLabel: "取消",
 		confirmLabel: "确认",
 	}
@@ -130,8 +130,8 @@ define(['vendor/jquery'], function() {
 
 		var dialogLayer = $('.dialog-layer').addClass("active");
 		var doClose = function(callback) {
-			dialogWin.removeClass("dialog-in").addClass("dialog-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
-				dialogWin.hide().removeClass("dialog-fadeOut");
+			dialogWin.removeClass("x-in").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
+				dialogWin.hide().removeClass("x-fadeOut");
 				dialogLayer.removeClass("active");
 				onClose && onClose();
 				callback && callback();
@@ -153,8 +153,8 @@ define(['vendor/jquery'], function() {
 		});
 
 		onShow && onShow();
-		dialogWin.show().addClass("dialog-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
-			dialogWin.addClass("dialog-in").removeClass("dialog-fadeIn");
+		dialogWin.show().addClass("x-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
+			dialogWin.addClass("x-in").removeClass("x-fadeIn");
 			afterShow && afterShow();
 		});
 		dialogWin.dequeue("fadeIn");
@@ -225,49 +225,6 @@ define(['vendor/jquery'], function() {
 		return format;
 	}
 
-	function showDialog(args) {
-		args = typeof args == "string" ? {
-			selector: args
-		} : args;
-
-		var dialogWin = $(args.selector);
-		var beforeClose = args.beforeClose;
-		var onClose = args.onClose;
-		var afterClose = args.afterClose;
-
-		if (!dialogWin || !dialogWin.hasClass("a-dialog")) {
-			return;
-		}
-
-		var dialogLayer = $('.dialog-layer').addClass("active");
-
-		dialogWin.clearQueue("fadeIn").clearQueue("fadeOut");
-		$('.dialog-close', dialogWin).off('click').on('click', function() {
-			if(beforeClose && beforeClose() === false) {
-				return;
-			}
-
-			dialogWin.removeClass("dialog-in").addClass("dialog-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
-				onClose && onClose();
-				dialogLayer.removeClass("active");
-				dialogWin.hide().removeClass("dialog-fadeOut");
-				afterClose && afterClose();
-			}).dequeue("fadeOut");
-		});
-
-		dialogWin.show().addClass("dialog-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
-			dialogWin.addClass("dialog-in").removeClass("dialog-fadeIn");
-		}).dequeue("fadeIn");
-	}
-
-	function hideModalMessage() {
-		$('.modal-message-layer').removeClass("active").find(".x-modal-message").removeClass("active").find(".content").empty();
-	}
-
-	function modalMessage(text) {
-		$('.modal-message-layer').addClass("active").find(".x-modal-message").addClass("active").find(".content").text(text);
-	}
-
 	function uuid(len, radix) {
 		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 		var uuid = [], i;
@@ -303,8 +260,6 @@ define(['vendor/jquery'], function() {
 		dialog: dialog,
 		toggleActive: toggleActive,
 		formatDate: formatDate,
-		modalMessage: modalMessage,
-		hideModalMessage: hideModalMessage,
 		uuid: uuid,
 	}
 });

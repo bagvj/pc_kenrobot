@@ -6,7 +6,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
 
-		emitor.on('download', 'success', onDownloadSuccess).on('app', 'start', onAppStart);
+		emitor.on('app', 'start', onAppStart);
 	}
 
 	function onAppStart() {
@@ -41,26 +41,6 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 
 	function inactiveAppMenu(e) {
 		appMenu.removeClass("active");
-	}
-
-	function onDownloadSuccess(path, action) {
-		if (action != "driver-download") {
-			return;
-		}
-
-		util.confirm({
-			text: "驱动下载成功，是否安装?",
-			onConfirm: function() {
-				kenrobot.postMessage("app:installDriver", path).then(function() {
-					util.message("驱动安装成功");
-				}, function(err) {
-					util.message({
-						text: "驱动安装失败",
-						type: "error"
-					});
-				});
-			}
-		});
 	}
 
 	function onAppMenuClick(e) {
@@ -116,7 +96,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				});
 				break;
 			case "download-arduino-driver":
-				kenrobot.postMessage("app:getOSInfo").then(function(info) {
+				kenrobot.postMessage("app:getAppInfo").then(function(info) {
 					if (info.platform != "win") {
 						util.message("您的系统是" + info.platform + ", 不需要安装驱动");
 						return;
@@ -126,8 +106,7 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				});
 				break;
 			case "check-update":
-				kenrobot.postMessage("app:checkUpdate");
-				util.message("敬请期待");
+				emitor.trigger("app", "check-update");
 				break;
 			case "visit-kenrobot":
 				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
@@ -139,7 +118,9 @@ define(['vendor/jquery', 'app/util/emitor', 'app/util/util', 'app/config/config'
 				kenrobot.postMessage("app:openUrl", config.url.support);
 				break;
 			case "about-kenrobot":
-				kenrobot.postMessage("app:openUrl", config.url.about);
+				kenrobot.postMessage("app:getAppInfo").then(function(info) {
+					emitor.trigger("about", "show", {version: info.version});
+				})
 				break;
 		}
 		inactiveAppMenu();

@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder getmac gulp-sftp q glob hasha
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder getmac gulp-sftp q glob hasha nconf
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha bufferhelper iconv-lite serialport
  */
 
@@ -20,6 +20,7 @@ const Q = require('q')
 const fs = require('fs-extra')
 const uglifyJS = require('uglify-js')
 const glob = require('glob')
+const nconf = require('nconf')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -167,17 +168,41 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
+/**
+ * 用法: gulp build-pack --release --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
+ * 示例: gulp build-pack --release --branch=beta
+ *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
+ *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --feature=with-101
+ */
 gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
+	var branch = args.branch || "release"
+	var feature = args.feature || ""
+	var arch
+	var target
+	var ext
+
 	var targets
 	if(platform == "linux") {
-		targets = builder.Platform.LINUX.createTarget(args.target || "AppImage", builder.archFromString(args.arch || "ia32"))
+		arch = args.arch || "ia32"
+		target = args.target || "AppImage"
+		ext = target
+		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if(platform == "arm") {
-		targets = builder.Platform.LINUX.createTarget(args.target || "dir", builder.Arch.armv7l)
+		arch = builder.Arch.armv7l.toString()
+		target = args.target || "dir"
+		ext = target
+		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if(platform == "mac") {
-		targets = builder.Platform.MAC.createTarget(args.target || "dmg", builder.archFromString(args.arch || "ia32"))
+		arch = args.arch || "ia32"
+		target = args.target || "dmg"
+		ext = target
+		targets = builder.Platform.MAC.createTarget(target, builder.archFromString(arch))
 	} else {
-		targets = builder.Platform.WINDOWS.createTarget(args.target || "nsis", builder.archFromString(args.arch || "ia32"))
+		arch = args.arch || "ia32"
+		target = args.target || "nsis"
+		ext = "exe"
+		targets = builder.Platform.WINDOWS.createTarget(target, builder.archFromString(arch))
 	}
 
 	builder.build({
@@ -192,14 +217,20 @@ gulp.task('build', ['clean-dist'], callback => {
 		}
 	}).then(result => {
 		var output = result[0]
-		var branch = args.branch || "release"
-		var feature = args.feature || ""
 		var packageConfig = require('./app/package')
-		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${path.extname(output)}`
+		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}-${arch}${path.extname(output)}`
 		var file = path.join(path.dirname(output), name)
 
 		fs.move(output, file, err => {
 			console.log(file)
+
+			nconf.file('./app/package.json')
+			nconf.set('buildInfo', {
+				branch: branch,
+				feature: feature,
+				ext: ext,
+			})
+			nconf.save()
 
 			if(!args.upload) {
 				callback()

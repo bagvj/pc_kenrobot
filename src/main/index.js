@@ -13,8 +13,6 @@ const minimist = require('minimist') //命令行参数解析
 const SerialPort = require('serialport') //串口
 const hasha = require('hasha') //计算hash
 
-const PACKAGE = require('../package')
-
 var args = minimist(process.argv.slice(1)) //命令行参数
 
 var connectedPorts = {
@@ -44,8 +42,6 @@ function init() {
 		app.quit()
 	}
 
-	is.dev() && app.setName(PACKAGE.name)
-
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 	if(is.dev() || args.dev) {
 		//非debug模式，禁用控制台输出
@@ -55,7 +51,7 @@ function init() {
 		log.transports.file.level = 'error'
 	}
 
-	log.debug(`app start, version ${getVersion()}`)
+	log.debug(`app start, version ${util.getVersion()}`)
 
 	listenEvent()
 	listenMessage()
@@ -157,10 +153,7 @@ function listenEvent() {
  * 监听消息
  */
 function listenMessage() {
-	ipcMain.on('app:getVersion', (e, deferId) => {
-		e.sender.send('app:getVersion', deferId, true, getVersion())
-	})
-	.on('app:reload', (e, deferId) => {
+	ipcMain.on('app:reload', (e, deferId) => {
 		mainWindow.reload()
 		e.sender.send('app:reload', deferId, true, true)
 	})
@@ -186,6 +179,13 @@ function listenMessage() {
 	}).on('app:openUrl', (e, deferId, url) => {
 		var success = url && shell.openExternal(url)
 		e.sender.send('app:openUrl', deferId, success, success)
+	})
+	.on('app:execFile', (e, deferId, exePath) => {
+		util.execFile(exePath).then(stdout => {
+			e.sender.send("app:execFile", deferId, true, stdout)
+		}, err => {
+			e.sender.send("app:execFile", deferId, false, err)
+		})
 	})
 	.on('app:execCommand', (e, deferId, command, options) => {
 		util.execCommand(command, options).then(stdout => {
@@ -330,8 +330,8 @@ function listenMessage() {
 		log.log(level || "debug", text)
 		e.sender.send('app:log', deferId, true, true)
 	})
-	.on('app:getOSInfo', (e, deferId) => {
-		e.sender.send('app:getOSInfo', deferId, true, getOSInfo())
+	.on('app:getAppInfo', (e, deferId) => {
+		e.sender.send('app:getAppInfo', deferId, true, util.getAppInfo())
 	})
 	.on('app:download', (e, deferId, url, action) => {
 		log.debug(`download ${url}, action ${action}`)
@@ -377,6 +377,32 @@ function listenMessage() {
 			e.sender.send('app:switchUI', deferId, false, err)
 		})
 	})
+	.on("app:checkUpdate", (e, deferId, checkUrl) => {
+		checkUpdate(checkUrl).then(updateInfo => {
+			e.sender.send("app:checkUpdate", deferId, true, updateInfo)
+		}, err => {
+			e.sender.send("app:checkUpdate", deferId, false, err)
+		})
+	})
+	.on("app:request", (e, deferId, options) => {
+		util.request(options).then(result => {
+			e.sender.send("app:request", deferId, true, result)
+		}, err => {
+			e.sender.send("app:request", deferId, false, err)
+		})
+	})
+
+	is.dev() && ipcMain.on("app:debug", onDebug)
+}
+
+function onDebug(e, deferId, type) {
+	var args = ["app:debug"].concat(Array.from(arguments).slice(2))
+	switch(type) {
+		case "emitor":
+		default:
+			postMessage.apply(this, args)
+			break;
+	}
 }
 
 /**
@@ -388,8 +414,25 @@ function postMessage(name) {
 	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
 }
 
-function getVersion() {
-	return is.dev() ? PACKAGE.version : app.getVersion()
+function checkUpdate(checkUrl) {
+	var deferred = Q.defer()
+
+	var info = util.getAppInfo()
+	var url = `${checkUrl}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&features=${info.feature}&ext=${info.ext}`
+	log.debug(`checkUpdate: ${url}`)
+
+	util.request({
+		method: "GET",
+		url: url,
+		json: true,
+	}).then(result => {
+		deferred.resolve(result)
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 /**
@@ -436,7 +479,7 @@ function writeConfig(sync) {
 function unpackPackages() {
 	var deferred = Q.defer()
 
-	if(config.version && config.version == getVersion()) {
+	if(config.version && config.version == util.getVersion()) {
 		log.debug("skip unpack packages")
 		setTimeout(_ => {
 			deferred.resolve()
@@ -467,7 +510,7 @@ function unpackPackages() {
 			})
 			return d.promise
 		})).then(_ => {
-			config.version = getVersion()
+			config.version = util.getVersion()
 			config.packages = oldPackages
 			writeConfig().then(_ => {
 				deferred.resolve()
@@ -566,8 +609,7 @@ function installDriver(driverPath) {
 	var dir = path.dirname(driverPath)
 	util.unzip(driverPath, dir).then(_ => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
-		var command = `start /WAIT ${exePath}`
-		util.execCommand(command, null, true).fin(_ => {
+		util.execFile(exePath).then(_ => {
 			deferred.resolve()
 		})
 	}, err => {
@@ -1109,14 +1151,4 @@ function getScriptPath(name, type) {
 	var suffix = type == "genuino101" ? "_101" : ""
 	var ext = is.windows() ? "bat" : "sh"
 	return path.join(getResourcePath(), "scripts", `${name}${suffix}.${ext}`)
-}
-
-/**
- * 获取系统信息
- */
-function getOSInfo() {
-	return {
-		bit: util.isX64() ? 64 : 32,
-		platform: util.getPlatform()
-	}
 }

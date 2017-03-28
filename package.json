@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^15.1.1",
+    "electron-builder": "^16.3.0",
     "fs-extra": "^2.0.0",
     "getmac": "^1.2.1",
     "glob": "^7.1.1",
@@ -75,6 +75,7 @@
     "gulp-uglify": "^2.1.0",
     "hasha": "^2.2.0",
     "minimist": "^1.2.0",
+    "nconf": "^0.8.4",
     "q": "^1.4.1",
     "run-sequence": "^1.2.2"
   }

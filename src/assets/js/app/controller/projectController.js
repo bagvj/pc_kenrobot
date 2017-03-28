@@ -170,7 +170,12 @@ define(['vendor/jquery', 'app/config/config', 'app/util/util', 'app/util/emitor'
 								content: '未检测到有Arduino开发板或其他串口设备插入。<span class="link" data-type="link" data-close-dialog="true">驱动问题</span>？解决后请关闭窗口，然后重试',
 								onLink: function(type) {
 									setTimeout(function() {
-										emitor.trigger("installDriver", "show");
+										util.confirm({
+											type: "info",
+											title: "驱动问题",
+											text: '如果你遇到了Arduino驱动问题，请点击<br />菜单"帮助"->"Arduino驱动下载"',
+											confirmLabel: "我知道了",
+										});
 									}, 400);
 								}
 							});

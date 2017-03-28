@@ -165,6 +165,14 @@
     right: 0;
     padding: 30px;
 
+    &.info {
+        .x-confirm-btns {
+            .cancel {
+                display: none;
+            }
+        }
+    }
+
     .x-confirm-close {
         position: absolute;
         top: 10px;
@@ -241,7 +249,7 @@
     }
 }
 
-@include keyframes('dialog-fadeIn') {
+@include keyframes('x-dialog-fadeIn') {
     from {
         opacity: 0;
         transform: translateY(-400px);
@@ -252,7 +260,7 @@
     }
 }
 
-@include keyframes('dialog-fadeOut') {
+@include keyframes('x-dialog-fadeOut') {
     from {
         opacity: 1;
         transform: translateY(0);
@@ -279,16 +287,16 @@
         display: block;
     }
 
-    &.dialog-in {
+    &.x-in {
         transform: translateY(0);
     }
 
-    &.dialog-fadeIn {
-        @include animation('dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+    &.x-fadeIn {
+        @include animation('x-dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
     }
 
-    &.dialog-fadeOut {
-        @include animation('dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+    &.x-fadeOut {
+        @include animation('x-dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
     }
 
     .x-dialog-title {
@@ -313,9 +321,6 @@
     
     .x-dialog-content {
         height: 110px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background-color: white;
     }
 
@@ -406,144 +411,6 @@
     &.active {
         & > ul {
             display: block;
-        }
-    }
-}
-
-@include keyframes("x-modal-message-circle-1") {
-    0% {
-        z-index: 32;
-        transform: translateX(40px);
-    }
-    50% {
-        transform: translateX(-40px);
-    }
-    100% {
-        transform: translateX(40px);
-    }
-}
-
-@include keyframes("x-modal-message-circle-3") {
-    0% {
-        transform: translateX(-40px);
-    }
-    50% {
-        transform: translateX(40px);
-    }
-    100% {
-        z-index: 32;
-        transform: translateX(-40px);
-    }
-}
-
-.x-modal-message {
-    display: none;
-    height: 68px;
-    margin-top: auto;
-    margin-bottom: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-
-    &.active {
-        display: block;
-    }
-
-    .loading {
-        height: 20px;
-        text-align: center;
-
-        .circle {
-            display: inline-block;
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-
-            &.circle-1 {
-                background-color: #20a0ff;
-                @include animation('x-modal-message-circle-1' 1.5s infinite linear);
-            }
-
-            &.circle-2 {
-                background-color: #fdd83a;
-                z-index: 31;
-            }
-
-            &.circle-3 {
-                background-color: #f96060;
-                @include animation('x-modal-message-circle-3' 1.5s infinite linear);
-            }
-        }
-    }
-
-    .content {
-        margin-top: 24px;
-        font-size: 18px;
-        color: #a4aebd;
-        letter-spacing: 10px;
-        text-align: center;
-        line-height: 24px;
-    }
-}
-
-@include keyframes('a-dialog-fadeIn') {
-    from {
-        opacity: 0;
-        transform: translateY(-400px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@include keyframes('a-dialog-fadeOut') {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(-300px);
-    }
-}
-
-.a-dialog {
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    display: none;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
-
-    &.active {
-        display: block;
-    }
-
-    &.dialog-fadeIn {
-        @include animation('a-dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
-    }
-
-    &.dialog-fadeOut {
-        @include animation('a-dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
-    }
-
-    .dialog-close {
-        color: #515151;
-        font-size: 26px;
-        right: 10px;
-        top: 0;
-        position: absolute;
-        cursor: pointer;
-        transition: color 0.2s;
-
-        &:hover {
-            color: #ff6666;
         }
     }
 }
