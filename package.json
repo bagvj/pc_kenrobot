@@ -57,14 +57,14 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^15.1.1",
-    "fs-extra": "^2.0.0",
+    "electron-builder": "^16.4.2",
+    "fs-extra": "^2.1.2",
     "getmac": "^1.2.1",
     "glob": "^7.1.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-clean": "^0.3.2",
-    "gulp-clean-css": "^3.0.3",
+    "gulp-clean-css": "^3.0.4",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-minify-html": "^1.0.6",
@@ -72,10 +72,11 @@
     "gulp-requirejs-optimize": "^1.2.0",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-sftp": "^0.1.5",
-    "gulp-uglify": "^2.1.0",
+    "gulp-uglify": "^2.1.2",
     "hasha": "^2.2.0",
     "minimist": "^1.2.0",
-    "q": "^1.4.1",
+    "nconf": "^0.8.4",
+    "q": "^1.5.0",
     "run-sequence": "^1.2.2"
   }
 }

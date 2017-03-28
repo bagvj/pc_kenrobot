@@ -8,6 +8,7 @@ define(function() {
 				arduinoDriver: "http://ide.kenrobot.com/download/arduino-driver-x{BIT}.7z",
 				support: "http://www.arduino.cn/forum-101-1.html",
 				about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",
+				checkUpdate: "http://www.kenrobot.com/?app=public&mod=Download&act=checkupdate"
 			}
 		},
 		//调试模式

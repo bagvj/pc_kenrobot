@@ -1,4 +1,4 @@
-define(function() {
+define(['vendor/lodash'], function($1) {
 	var schema = {
 		"boards": [],
 		"components": [],
@@ -2794,7 +2794,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "13"
 			}, {
 				"uid": "7kNSUd",
 				"width": 9,
@@ -2805,7 +2806,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "12"
 			}, {
 				"uid": "p0Yjne",
 				"width": 9,
@@ -2816,7 +2818,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "11"
 			}, {
 				"uid": "q6rOYR",
 				"width": 9,
@@ -2827,7 +2830,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "10"
 			}, {
 				"uid": "Z29m2f",
 				"width": 9,
@@ -2838,7 +2842,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "9"
 			}, {
 				"uid": "8aVQDp",
 				"width": 9,
@@ -2849,7 +2854,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "8"
 			}, {
 				"uid": "PnAa1t",
 				"width": 9,
@@ -2860,7 +2866,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "7"
 			}, {
 				"uid": "xKpFzi",
 				"width": 9,
@@ -2871,7 +2878,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "6"
 			}, {
 				"uid": "0gRT2X",
 				"width": 9,
@@ -2882,7 +2890,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "5"
 			}, {
 				"uid": "q1DUJD",
 				"width": 9,
@@ -2893,7 +2902,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "4"
 			}, {
 				"uid": "5XIyXm",
 				"width": 9,
@@ -2904,7 +2914,8 @@ define(function() {
 				"tags": ["digital", "analog-out", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "3"
 			}, {
 				"uid": "Z9Y9P2",
 				"width": 9,
@@ -2915,7 +2926,8 @@ define(function() {
 				"tags": ["digital", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "2"
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -2926,7 +2938,8 @@ define(function() {
 				"tags": ["digital", "serial-rx"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "1"
 			}, {
 				"uid": "Zpi42g",
 				"width": 9,
@@ -2937,7 +2950,8 @@ define(function() {
 				"tags": ["digital", "serial-tx"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "0"
 			}, {
 				"uid": "1jcO2Y",
 				"width": 9,
@@ -2948,7 +2962,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A0"
 			}, {
 				"uid": "qiTIRc",
 				"width": 9,
@@ -2959,7 +2974,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A1"
 			}, {
 				"uid": "AihHpE",
 				"width": 9,
@@ -2970,7 +2986,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A2"
 			}, {
 				"uid": "M4KhMo",
 				"width": 9,
@@ -2981,7 +2998,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A3"
 			}, {
 				"uid": "PBQRkE",
 				"width": 9,
@@ -2992,7 +3010,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A4"
 			}, {
 				"uid": "rjJtrb",
 				"width": 9,
@@ -3003,7 +3022,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A5"
 			}, {
 				"width": 32,
 				"height": 62,
@@ -3014,7 +3034,8 @@ define(function() {
 				"uid": "q9OAeR",
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "Serial"
 			}],
 			"uid": "8gEwUv",
 			"imageUrl": "assets/image/boards/ArduinoUNO.png"
@@ -3034,7 +3055,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "13"
 			}, {
 				"uid": "nPk3wi",
 				"width": 9,
@@ -3045,7 +3067,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "12"
 			}, {
 				"uid": "5f8Iu5",
 				"width": 9,
@@ -3056,7 +3079,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "11"
 			}, {
 				"uid": "mYZ8m1",
 				"width": 9,
@@ -3067,7 +3091,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "10"
 			}, {
 				"uid": "R0NsXG",
 				"width": 9,
@@ -3078,7 +3103,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "9"
 			}, {
 				"uid": "e8Cir0",
 				"width": 9,
@@ -3089,7 +3115,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "8"
 			}, {
 				"uid": "c3BtK4",
 				"width": 9,
@@ -3100,7 +3127,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "7"
 			}, {
 				"uid": "xGtGX9",
 				"width": 9,
@@ -3111,7 +3139,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "6"
 			}, {
 				"uid": "q01tAI",
 				"width": 9,
@@ -3122,7 +3151,8 @@ define(function() {
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "5"
 			}, {
 				"uid": "VkPW5i",
 				"width": 9,
@@ -3133,7 +3163,8 @@ define(function() {
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "4"
 			}, {
 				"uid": "BDDbG4",
 				"width": 9,
@@ -3144,7 +3175,8 @@ define(function() {
 				"tags": ["digital", "analog-out", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "3"
 			}, {
 				"uid": "ZHqDKX",
 				"width": 9,
@@ -3155,7 +3187,8 @@ define(function() {
 				"tags": ["digital", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "2"
 			}, {
 				"uid": "HOxHq3",
 				"width": 9,
@@ -3166,7 +3199,8 @@ define(function() {
 				"tags": ["digital", "serial-rx", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "1"
 			}, {
 				"uid": "lFZMVY",
 				"width": 9,
@@ -3177,7 +3211,8 @@ define(function() {
 				"tags": ["digital", "serial-tx", "init"],
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "0"
 			}, {
 				"uid": "vrii22",
 				"width": 9,
@@ -3188,7 +3223,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A0"
 			}, {
 				"uid": "BmWSfi",
 				"width": 9,
@@ -3199,7 +3235,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A1"
 			}, {
 				"uid": "1XiZOV",
 				"width": 9,
@@ -3210,7 +3247,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A2"
 			}, {
 				"uid": "1tGtL0",
 				"width": 9,
@@ -3221,7 +3259,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A3"
 			}, {
 				"uid": "Z9hMY9",
 				"width": 9,
@@ -3232,7 +3271,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A4"
 			}, {
 				"uid": "JYrcfH",
 				"width": 9,
@@ -3243,7 +3283,8 @@ define(function() {
 				"tags": ["analog-in"],
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
-				"rotate": false
+				"rotate": false,
+				"label": "A5"
 			}],
 			"uid": "LBgQBg",
 			"imageUrl": "assets/image/boards/ArduinoLeonardo.png"
@@ -3270,7 +3311,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.123,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "12",
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
@@ -3282,11 +3323,11 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.179,
-				"y": 0.270,
-				"name": "11",
+				"y": 0.27,
+				"name": "D11",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
-				"label": "D11",
+				"label": "11",
 				"shape": "Rectangle",
 				"rotate": false
 			}, {
@@ -3294,7 +3335,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.235,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "10",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
@@ -3306,7 +3347,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.291,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "9",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
@@ -3318,7 +3359,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.347,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "8",
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
@@ -3330,7 +3371,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.403,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "7",
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
@@ -3342,7 +3383,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.459,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "6",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
@@ -3354,7 +3395,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.515,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "5",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, 1.5],
@@ -3366,7 +3407,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.573,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "4",
 				"tags": ["digital"],
 				"overlay": [0.5, 1.5],
@@ -3377,8 +3418,8 @@ define(function() {
 				"uid": "rk36KI",
 				"width": 9,
 				"height": 12,
-				"x": 0.630,
-				"y": 0.270,
+				"x": 0.63,
+				"y": 0.27,
 				"name": "3",
 				"tags": ["digital", "analog-out", "init"],
 				"overlay": [0.5, 1.5],
@@ -3390,7 +3431,7 @@ define(function() {
 				"width": 9,
 				"height": 12,
 				"x": 0.686,
-				"y": 0.270,
+				"y": 0.27,
 				"name": "2",
 				"tags": ["digital", "init"],
 				"overlay": [0.5, 1.5],
@@ -3401,8 +3442,8 @@ define(function() {
 				"uid": "7E0kTK",
 				"width": 9,
 				"height": 12,
-				"x": 0.910,
-				"y": 0.270,
+				"x": 0.85,
+				"y": 0.27,
 				"name": "1",
 				"tags": ["digital", "serial-rx"],
 				"overlay": [0.5, 1.5],
@@ -3413,8 +3454,8 @@ define(function() {
 				"uid": "Fb2du0",
 				"width": 9,
 				"height": 12,
-				"x": 0.970,
-				"y": 0.270,
+				"x": 0.91,
+				"y": 0.27,
 				"name": "0",
 				"tags": ["digital", "serial-tx"],
 				"overlay": [0.5, 1.5],
@@ -3497,7 +3538,7 @@ define(function() {
 				"uid": "qZsHbG",
 				"width": 9,
 				"height": 12,
-				"x": 0.630,
+				"x": 0.63,
 				"y": 0.723,
 				"name": "A6",
 				"tags": ["analog-in"],
@@ -3520,6 +3561,268 @@ define(function() {
 			}],
 			"uid": "DqkZ3k",
 			"imageUrl": "assets/image/boards/ArduinoNano.png"
+		}, {
+			"label": "Arduino/Genuino 101",
+			"name": "Arduino101",
+			"type": "genuino101",
+			"fqbn": "Intel:arc32:arduino_101",
+			"tags": ["Arduino"],
+			"pins": [{
+				"uid": "4KSv7l",
+				"width": 9,
+				"height": 12,
+				"x": 0.475,
+				"y": 0.07,
+				"name": "13",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "13",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "dNbH9e",
+				"width": 9,
+				"height": 12,
+				"x": 0.506,
+				"y": 0.07,
+				"name": "12",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "12",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "jYjBXk",
+				"width": 9,
+				"height": 12,
+				"x": 0.537,
+				"y": 0.07,
+				"name": "11",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "11",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "Q7rNbn",
+				"width": 9,
+				"height": 12,
+				"x": 0.568,
+				"y": 0.07,
+				"name": "10",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "10",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "ZWdX8a",
+				"width": 9,
+				"height": 12,
+				"x": 0.599,
+				"y": 0.07,
+				"name": "9",
+				"tags": ["digital", "analog-out", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "9",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "6ujNmZ",
+				"width": 9,
+				"height": 12,
+				"x": 0.63,
+				"y": 0.07,
+				"name": "8",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "8",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "uZgWrY",
+				"width": 9,
+				"height": 12,
+				"x": 0.697,
+				"y": 0.07,
+				"name": "7",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "7",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "6fx4LE",
+				"width": 9,
+				"height": 12,
+				"x": 0.728,
+				"y": 0.07,
+				"name": "6",
+				"tags": ["digital", "analog-out", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "6",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "6CpW3l",
+				"width": 9,
+				"height": 12,
+				"x": 0.759,
+				"y": 0.07,
+				"name": "5",
+				"tags": ["digital", "analog-out", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "5",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "GmUHNr",
+				"width": 9,
+				"height": 12,
+				"x": 0.79,
+				"y": 0.07,
+				"name": "4",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "4",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "k0H5GM",
+				"width": 9,
+				"height": 12,
+				"x": 0.832,
+				"y": 0.07,
+				"name": "3",
+				"tags": ["digital", "analog-out", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "3",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "Ixnbf8",
+				"width": 9,
+				"height": 12,
+				"x": 0.864,
+				"y": 0.07,
+				"name": "2",
+				"tags": ["digital", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "2",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "PteBrp",
+				"width": 9,
+				"height": 12,
+				"x": 0.894,
+				"y": 0.07,
+				"name": "1",
+				"tags": ["digital", "serial-rx", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "1",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "T4IYSf",
+				"width": 9,
+				"height": 12,
+				"x": 0.925,
+				"y": 0.07,
+				"name": "0",
+				"tags": ["digital", "serial-tx", "init", "any"],
+				"overlay": [0.5, 1.5],
+				"label": "0",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "NwwKuu",
+				"width": 9,
+				"height": 12,
+				"x": 0.77,
+				"y": 0.935,
+				"name": "A0",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A0",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "xDgAlg",
+				"width": 9,
+				"height": 12,
+				"x": 0.804,
+				"y": 0.935,
+				"name": "A1",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A1",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "Qy6B2J",
+				"width": 9,
+				"height": 12,
+				"x": 0.838,
+				"y": 0.935,
+				"name": "A2",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A2",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "C3th8k",
+				"width": 9,
+				"height": 12,
+				"x": 0.872,
+				"y": 0.935,
+				"name": "A3",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A3",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "9gAnIa",
+				"width": 9,
+				"height": 12,
+				"x": 0.906,
+				"y": 0.935,
+				"name": "A4",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A4",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "zNiM0h",
+				"width": 9,
+				"height": 12,
+				"x": 0.94,
+				"y": 0.935,
+				"name": "A5",
+				"tags": ["analog-in", "init", "any"],
+				"overlay": [0.5, -0.5],
+				"label": "A5",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"width": 32,
+				"height": 60,
+				"x": 0.04,
+				"y": 0.296,
+				"name": "Serial",
+				"tags": ["serial"],
+				"uid": "Ma1a8g",
+				"overlay": [0.5, 1.5],
+				"label": "Serial",
+				"shape": "Rectangle",
+				"rotate": false
+			}],
+			"uid": "o8qZHI",
+			"imageUrl": "assets/image/boards/Arduino101.png",
+			"hidden": true
 		}],
 		"components": [{
 			"uid": "VUrwFj",
@@ -5010,7 +5313,321 @@ define(function() {
 				"module": "dcMotor",
 				"uid": "vBhAoh"
 			}],
-			"imageUrl": "assets/image/components/dcMotor.png"
+			"imageUrl": "assets/image/components/dcMotor.png",
+			"hidden": false
+		}, {
+			"uid": "tPcLPe",
+			"name": "clzMotor",
+			"label": "电机",
+			"type": "clzMotor",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "in",
+				"anchor": [0.333, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "in",
+				"shape": "Dot",
+				"rotate": false
+			}, {
+				"name": "pwm",
+				"anchor": [0.667, 1],
+				"tags": ["analog-out"],
+				"label": "pwm",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <Clz_Motor.h>",
+				"var": "Clz_Motor {NAME}({in}, {pwm});"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "clzMotorSetSpeed",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"id": "SPEED",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.setSpeed({SPEED});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "p1oJFX"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetDirection",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"id": "DIRECTION",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.setDirection({DIRECTION});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "fb9pwA"
+			}, {
+				"type": "statement",
+				"name": "clzMotorRun",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "转动，方向为"
+				}, {
+					"id": "DIRECTION",
+					"type": "number-input"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"id": "SPEED",
+					"type": "number-input"
+				}],
+				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "k0aDNh"
+			}, {
+				"type": "statement",
+				"name": "clzMotorStop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "clzMotors"
+				}, {
+					"type": "text",
+					"value": "停止转动"
+				}],
+				"code": "{MOTOR}.stop();",
+				"tags": ["module"],
+				"module": "clzMotor",
+				"uid": "eZeDbQ"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetDirectionAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "lMFO2z"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "qh7wyQ"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "lMFO2z"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"blockInputId": "DIRECTION",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "qh7wyQ"
+				}],
+				"code": "{MOTOR}.setDirection({DIRECTION});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "LRaEno"
+			}, {
+				"type": "statement",
+				"name": "clzMotorSetSpeedAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "AOJnAc"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "xOdIZH"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "AOJnAc"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "xOdIZH"
+				}],
+				"code": "{MOTOR}.setSpeed({SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "j7ITD1"
+			}, {
+				"type": "statement",
+				"name": "clzMotorRunAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "9zUKv5"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "p95lCa"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "4pMqMR"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "9zUKv5"
+				}, {
+					"type": "text",
+					"value": "方向为"
+				}, {
+					"blockInputId": "DIRECTION",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "p95lCa"
+				}, {
+					"type": "text",
+					"value": "速度为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "4pMqMR"
+				}],
+				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "lFxqma"
+			}, {
+				"type": "statement",
+				"name": "clzMotorStopAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Yz8WgI"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "电机"
+				}, {
+					"blockInputId": "MOTOR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Yz8WgI"
+				}, {
+					"type": "text",
+					"value": "停止转动"
+				}],
+				"code": "{MOTOR}.stop();",
+				"tags": ["module", "advanced"],
+				"module": "clzMotor",
+				"uid": "rp690r"
+			}],
+			"imageUrl": "assets/image/components/clzMotor.png",
+			"hidden": true
 		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
@@ -5371,7 +5988,8 @@ define(function() {
 				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
 				"tags": ["module"],
 				"module": "L298P",
-				"uid": "9bBKXv"
+				"uid": "9bBKXv",
+				"hidden": false
 			}, {
 				"type": "statement",
 				"name": "L298PSetDirection",
@@ -5520,7 +6138,8 @@ define(function() {
 				"module": "L298P",
 				"uid": "tziV6k"
 			}],
-			"imageUrl": "assets/image/components/L298P.png"
+			"imageUrl": "assets/image/components/L298P.png",
+			"hidden": true
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
@@ -5709,15 +6328,27 @@ define(function() {
 		}]
 	};
 
+	_.pullAll(schema.boards, _.filter(schema.boards, function(board) {
+		return board.hidden;
+	}));
+
+	_.pullAll(schema.components, _.filter(schema.components, function(component) {
+		return component.hidden;
+	}));
+
+	_.pullAll(schema.blocks, _.filter(schema.blocks, function(block) {
+		return block.hidden;
+	}));
+
 	builtInPackage.boards.forEach(function(board) {
-		schema.boards.push(board);
+		!board.hidden && schema.boards.push(board);
 	});
 
 	builtInPackage.components.forEach(function(component) {
-		schema.components.push(component);
+		!component.hidden && schema.components.push(component);
 
-		component.blocks.forEach(function(block) {
-			schema.blocks.push(block);
+		!component.hidden && component.blocks.forEach(function(block) {
+			!block.hidden && schema.blocks.push(block);
 		});
 	});
 

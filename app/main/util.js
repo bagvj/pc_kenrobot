@@ -1,7 +1,8 @@
 const os = require('os')
 const child_process = require('child_process')
+const path = require('path')
 
-const {app, dialog} = require('electron')
+const {app, dialog, net} = require('electron')
 const log = require('electron-log')
 const is = require('electron-is')
 
@@ -12,6 +13,10 @@ const sudo = require('sudo-prompt')
 const iconv = require('iconv-lite')
 const BufferHelper = require('bufferhelper')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
+
+const PACKAGE = require('../package')
+
+is.dev() && app.setName(PACKAGE.name)
 
 /**
  * 判断当前系统是否为64位
@@ -39,6 +44,58 @@ function getPlatform() {
 }
 
 /**
+ * 获取版本
+ */
+function getVersion() {
+	return is.dev() ? PACKAGE.version : app.getVersion()
+}
+
+/**
+ * 获取系统信息
+ */
+function getAppInfo() {
+	var info = {
+		bit: isX64() ? 64 : 32,
+		arch: process.arch,
+		platform: getPlatform(),
+		version: getVersion(),
+	}
+
+	if(is.dev()) {
+		info.ext = path.extname(app.getPath("exe")).replace('.', '')
+		info.branch = "beta"
+		info.feature = ""
+	} else {
+		info.ext = PACKAGE.buildInfo.ext
+		info.branch = PACKAGE.buildInfo.branch
+		info.feature = PACKAGE.buildInfo.feature
+	}
+
+	return info
+}
+
+/**
+ * 执行可执行文件
+ * @param {*} driverPath 
+ */
+function execFile(exePath) {
+	var deferred = Q.defer()
+
+	log.debug(`execFile: ${exePath}`)
+	var command
+	if(is.windows()) {
+		command = `start /WAIT ${exePath}`
+	} else {
+		command = `${exePath}`
+	}
+	execCommand(command, null, true).fin(_ => {
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
+/**
  * 执行命令
  * @param {*} command 命令
  * @param {*} options 选项
@@ -52,8 +109,8 @@ function execCommand(command, options, useSudo) {
 	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}, useSudo: ${useSudo}`)
 	if(useSudo) {
 		sudo.exec(command, {name: "kenrobot"}, (err, stdout, stderr) => {
-			stdout = is.windows() ? iconv.decode(stdout, 'gbk') : stdout
-			stderr = is.windows() ? iconv.decode(stderr, 'gbk') : stderr
+			stdout = is.windows() ? iconv.decode(stdout || "", 'gbk') : stdout
+			stderr = is.windows() ? iconv.decode(stderr || "", 'gbk') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
@@ -67,8 +124,8 @@ function execCommand(command, options, useSudo) {
 		})
 	} else {
 		child_process.exec(command, options, (err, stdout, stderr) => {
-			stdout = is.windows() ? iconv.decode(stdout, 'gbk') : stdout
-			stderr = is.windows() ? iconv.decode(stderr, 'gbk') : stderr
+			stdout = is.windows() ? iconv.decode(stdout || "", 'gbk') : stdout
+			stderr = is.windows() ? iconv.decode(stderr || "", 'gbk') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
@@ -85,6 +142,12 @@ function execCommand(command, options, useSudo) {
 	return deferred.promise
 }
 
+/**
+ * 异步执行命令
+ * @param {*} command 命令
+ * @param {*} args 参数
+ * @param {*} options 选项
+ */
 function spawnCommand(command, args, options) {
 	var deferred = Q.defer()
 	var child = child_process.spawn(command, args, options)
@@ -321,9 +384,52 @@ function showSaveDialog(win, options) {
 	return deferred.promise
 }
 
+function request(options) {
+	log.debug(`request: [${options.method}] ${options.url}`)
+	var deferred = Q.defer()
+
+	var request = net.request(options)
+
+	if(options.header) {
+		for(var key in options.header) {
+			request.setHeader(key, options.header[key])
+		}
+	}
+
+	request.on('response', response => {
+		var buffer = new BufferHelper()
+		response.on('data', chunk => {
+			buffer.concat(chunk)
+		}).on('end', _ => {
+			var data = buffer.toString()
+			if(options.json) {
+				try{
+					data = JSON.parse(data)
+				} catch (ex) {
+					log.error(ex)
+					deferred.reject(ex)
+					return
+				}
+			}
+			deferred.resolve(data)
+		})
+	}).on('abort', _ => {
+		log.error('abort')
+		deferred.reject()
+	}).on('error', err => {
+		log.error(err)
+		deferred.reject(err)
+	}).end()
+
+	return deferred.promise
+}
+
 module.exports.isX64 = isX64
 module.exports.getPlatform = getPlatform
+module.exports.getVersion = getVersion
+module.exports.getAppInfo = getAppInfo
 
+module.exports.execFile = execFile
 module.exports.execCommand = execCommand
 module.exports.spawnCommand = spawnCommand
 
@@ -338,3 +444,5 @@ module.exports.unzip = unzip
 
 module.exports.showOpenDialog = showOpenDialog
 module.exports.showSaveDialog = showSaveDialog
+
+module.exports.request = request

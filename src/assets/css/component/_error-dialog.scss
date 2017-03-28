@@ -21,7 +21,6 @@
         font-size: 18px;
         color: #ccc;
         cursor: pointer;
-        display: block;
         user-select: none;
 
         &:hover {
@@ -77,13 +76,5 @@
             background-color: #0078cf;
             border-color: #0078cf;
         }
-    }
-
-    &.x-fadeIn {
-        @include animation('error-dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
-    }
-
-    &.x-fadeOut {
-        @include animation('error-dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
     }
 }
