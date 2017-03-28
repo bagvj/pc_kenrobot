@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q glob hasha nconf
+ * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha bufferhelper iconv-lite serialport
  */
 
@@ -19,7 +19,8 @@ const sftp = require('gulp-sftp') //
 const Q = require('q')
 const fs = require('fs-extra')
 const uglifyJS = require('uglify-js')
-const glob = require('glob')
+const globby = require('globby')
+const isutf8 = require('isutf8')
 const nconf = require('nconf')
 
 const minimist = require('minimist') //命令行参数解析
@@ -257,8 +258,28 @@ gulp.task('build-pack', ['pack', 'build'])
 // 默认任务
 gulp.task('default', ['pack'])
 
+gulp.task('check', callback => {
+	globby(["./src/**/*.js", "./src/**/*.json", "./src/**/*.html", "./src/**/*.scss"]).then(files => {
+		var result = []
+		files.forEach(file => {
+			if(!isutf8(fs.readFileSync(file))) {
+				result.push(file)
+			}
+		})
+		if(result.length > 0) {
+			console.log('these files not encoding by utf8')
+			console.log(result.join("\n"))
+		} else {
+			console.log('all files encoding by utf8')
+		}
+		callback()
+	}, err => {
+		callback(err)
+	})
+})
+
 gulp.task('hash', callback => {
-	var pathList = glob.sync("packages/*.7z")
+	var pathList = globby.sync("packages/*.7z")
 	var packages = pathList.map(p => {
 		var hash = hasha.fromFileSync(p, {algorithm: "sha256"})
 		return {
