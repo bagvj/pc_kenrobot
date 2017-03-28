@@ -57,9 +57,8 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^16.4.2",
+    "electron-builder": "^16.5.1",
     "fs-extra": "^2.1.2",
-    "getmac": "^1.2.1",
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
