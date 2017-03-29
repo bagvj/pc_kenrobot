@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+@import "../../vendor/_bootstrap.scss";
+@import "../../vendor/_kenrobot.scss";
+@import "../../vendor/_pace.scss";
+
+@import "../common/base/_reset.scss";
+@import "../common/helper/_helper.scss";
+@import "../common/component/x-widget.scss";
+
+@import "../common/dialog/_common-dialog.scss";
+@import "../common/dialog/_about-dialog.scss";
+
+@import "layout/_layout.scss";
+@import "view/_titlebar-region.scss";
+@import "view/_monitor.scss";

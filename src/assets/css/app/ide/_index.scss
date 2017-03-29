@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@import "../../vendor/_bootstrap.scss";
+@import "../../vendor/_perfect-scrollbar.scss";
+@import "../../vendor/_kenrobot.scss";
+
+@import "../common/base/_reset.scss";
+@import "../common/helper/_helper.scss";
+@import "../common/component/x-widget.scss";
+
+@import "layout/_layout.scss";
+@import "layout/_content-region.scss";
