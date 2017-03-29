@@ -10,64 +10,17 @@
 	<body>
 		<div class="main no-select">
 			<div class="content-region">
+				<div class="code-region">
+					<div id="code-container" class="code-container"></div>
+				</div>
+				<div class="toolbar-region">
+					<span class="check" data-action="check" title="验证代码"><i class="kenrobot ken-check"></i></span>
+					<span class="upload" data-action="upload" title="上传"><i class="kenrobot ken-upload"></i></span>
+					<span class="copy" data-action="copy" title="复制代码"><i class="kenrobot ken-clone"></i></span>
+				</div>
 			</div>
 		</div>
 		<div class="no-select layers">
-			<div class="layer float-layer">
-				<div class="x-float monitor">
-					<div class="titlebar">
-						<span>串口监视器</span>
-						<span class="suffix"></span>
-						<i class="kenrobot ken-close close-btn"></i>
-					</div>
-					<div class="toolbar">
-						<input class="command" type="text" />
-						<input class="send" type="button" value="发送" />
-						<input class="switch" type="button" value="切换视图" />
-					</div>
-					<div class="wrap">
-						<div class="tab tab-monitor active">
-							<textarea class="output" contenteditable="true" readonly="true" spellcheck="false"></textarea>
-						</div>
-						<div class="tab tab-plotter">
-							
-						</div>
-					</div>
-					<div class="bottombar">
-						<div class="left-widgets">
-							<input class="x-checkbox auto-scroll" type="checkbox" id="auto-scroll" />
-							<label for="auto-scroll">自动滚屏</label>
-							<input class="clear" type="button" value="清屏" />
-						</div>
-						<div class="right-widgets">
-							<input class="open" type="button" value="打开串口" />
-							<div class="x-select newlines">
-								<div class="placeholder"></div>
-								<ul>
-									<li data-value="raw">没有结束符</li>
-									<li data-value="NL">换行符</li>
-									<li data-value="CR">回车</li>
-									<li data-value="NLCR">NL和CR</li>
-								</ul>
-							</div>
-							<div class="x-select baud-rates">
-								<div class="placeholder"></div>
-								<ul>
-									<li data-value="300">300 波特率</li>
-									<li data-value="1200">1200 波特率</li>
-									<li data-value="2400">2400 波特率</li>
-									<li data-value="4800">4800 波特率</li>
-									<li data-value="9600">9600 波特率</li>
-									<li data-value="19200">19200 波特率</li>
-									<li data-value="38400">38400 波特率</li>
-									<li data-value="57600">57600 波特率</li>
-									<li data-value="115200">115200 波特率</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

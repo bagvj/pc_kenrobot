@@ -1,0 +1,18 @@
+.code-region {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: #1e1e1e;
+
+	.code-container {
+		height: 100%;
+		font-size: 16px;
+		line-height: 20px;
+
+		.ace_cursor {
+			color: white;
+		}
+	}
+}

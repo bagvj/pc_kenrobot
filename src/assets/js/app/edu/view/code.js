@@ -7,7 +7,8 @@ define(['vendor/jquery', 'app/common/util/emitor', '../model/codeModel'], functi
 		codeModel.init(container[0]);
 
 		emitor.on("code", "start-refresh", onStartRefresh)
-			.on('code', 'stop-refresh', onStopRefresh);
+			.on('code', 'stop-refresh', onStopRefresh)
+			.on('app', 'will-leave', onAppWillLeave);
 	}
 
 	function getData() {
@@ -31,6 +32,10 @@ define(['vendor/jquery', 'app/common/util/emitor', '../model/codeModel'], functi
 
 	function onStopRefresh() {
 		refreshTimerId && clearInterval(refreshTimerId);
+	}
+
+	function onAppWillLeave() {
+		onStopRefresh();
 	}
 
 	function onCopyClick(e) {

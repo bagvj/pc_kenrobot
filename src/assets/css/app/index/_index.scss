@@ -8,8 +8,11 @@
 @import "../common/helper/_helper.scss";
 @import "../common/component/x-widget.scss";
 
-@import "../common/dialog/_common-dialog.scss";
-@import "../common/dialog/_about-dialog.scss";
+@import "./dialog/_common-dialog.scss";
+@import "./dialog/_about-dialog.scss";
+@import "./dialog/_error-dialog.scss";
+@import "./dialog/_library-dialog.scss";
+@import "./dialog/_port-dialog.scss";
 
 @import "layout/_layout.scss";
 @import "view/_titlebar-region.scss";

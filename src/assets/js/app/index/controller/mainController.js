@@ -59,6 +59,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onSwitch(type) {
 		kenrobot.reset();
 		
+		kenrobot.trigger("app", "will-leave");
 		var url = nav[type];
 		iframe.src = url;
 		pace.restart();

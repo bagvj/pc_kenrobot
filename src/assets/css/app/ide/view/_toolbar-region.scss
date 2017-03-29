@@ -1,0 +1,35 @@
+.toolbar-region {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	& > span {
+		float: left;
+		margin-right: 15px;
+		width: 40px;
+		height: 40px;
+		border-radius: 5px;
+		color: white;
+		cursor: pointer;
+		line-height: 40px;
+		background-color: #20A0FF;
+		border-color: #298cd5;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&:hover {
+			background-color: #0078cf;
+			border-color: #0078cf;
+		}
+
+		& > i {
+			display: block;
+			font-size: 24px;
+			margin-left: auto;
+			margin-right: auto;
+			width: 24px;
+		}
+	}
+}
