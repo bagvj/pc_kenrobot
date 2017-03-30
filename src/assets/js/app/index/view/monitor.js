@@ -19,7 +19,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 		newlines = monitorRegion.find(".newlines").on('click', '.placeholder', onShowNewlinesSelect).on('click', 'ul > li', onNewlinesSelectClick);
 		baudRates = monitorRegion.find(".baud-rates").on('click', '.placeholder', onShowBaudRatesSelect).on('click', 'ul > li', onBaudRatesSelectClick);
 
-		kenrobot.on("serialport", "data", onSerialPortData).on("serialport", "error", onSerialPortError).on("serialport", "close", onSerialPortClose);
+		kenrobot.on("serialport", "data", onSerialPortData, {canReset: false}).on("serialport", "error", onSerialPortError, {canReset: false}).on("serialport", "close", onSerialPortClose, {canReset: false});
 
 		newlines.find('> ul > li[data-value="raw"]').click();
 		baudRates.find('> ul > li[data-value="9600"]').click();

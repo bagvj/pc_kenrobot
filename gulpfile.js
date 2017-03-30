@@ -182,10 +182,9 @@ gulp.task('build', ['clean-dist'], callback => {
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if(platform == "mac") {
-		arch = builder.Arch.x64.toString()
 		target = args.target || "dmg"
 		ext = target
-		targets = builder.Platform.MAC.createTarget(target, builder.archFromString(arch))
+		targets = builder.Platform.MAC.createTarget(target)
 	} else {
 		arch = args.arch || "ia32"
 		target = args.target || "nsis"
@@ -214,7 +213,7 @@ gulp.task('build', ['clean-dist'], callback => {
 	}).then(result => {
 		var output = result[0]
 		var packageConfig = require('./app/package')
-		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${platfrom == "mac" ? "" : ("-" + arch)}${path.extname(output)}`
+		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
 		var file = path.join(path.dirname(output), name)
 
 		fs.move(output, file, err => {
