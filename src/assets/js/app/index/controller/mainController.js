@@ -23,7 +23,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	}
 
 	function onAppStart() {
-		onSwitch("ide");
+		onSwitch("edu");
 
 		//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 		setTimeout(function() {
