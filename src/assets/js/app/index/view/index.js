@@ -1,4 +1,4 @@
-define(['./titlebar', './monitor', './dialog/about', './dialog/common', './dialog/error', './dialog/library', './dialog/port'], function(titlebar, monitor, about, common, error, library, port) {
+define(['./titlebar', './monitor', './dialog/about', './dialog/common', './dialog/error', './dialog/library', './dialog/port', './dialog/no-arduino'], function(titlebar, monitor, about, common, error, library, port, noArduino) {
 
 	function init() {
 		titlebar.init();
@@ -9,6 +9,7 @@ define(['./titlebar', './monitor', './dialog/about', './dialog/common', './dialo
 		error.init();
 		library.init();
 		port.init();
+		noArduino.init();
 	}
 
 	return {

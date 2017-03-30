@@ -4,7 +4,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 
 	function init() {
 		iframe = window.frames["content-frame"];
-		emitor.on('app', 'check-update', onCheckUpdate).on('app', 'switch', onSwitch);
+		emitor.on('app', 'check-update', onCheckUpdate).on('app', 'switch', onSwitch).on("app", "start", onAppStart);
 
 		kenrobot.listenMessage("app:onDownloadSuccess", onDownloadSuccess)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
@@ -22,7 +22,18 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		});
 	}
 
-	function onCheckUpdate() {
+	function onAppStart() {
+		onSwitch("ide");
+
+		//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+		setTimeout(function() {
+			onCheckUpdate(false);
+		}, 3000);
+	}
+
+	function onCheckUpdate(manual) {
+		manual = manual !== false;
+
 		kenrobot.postMessage("app:getAppInfo").then(function(info) {
 			var data = {
 				version: info.version,
@@ -48,10 +59,10 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 						}
 					});
 				} else {
-					util.message("已经是最新版本了");
+					manual && util.message("已经是最新版本了");
 				}
 			}, function(err) {
-				util.message("检查更新失败");
+				manual && util.message("检查更新失败");
 			});
 		});
 	}
@@ -63,6 +74,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		var url = nav[type];
 		iframe.src = url;
 		pace.restart();
+
+		emitor.trigger("app", "after-switch", type);
 	}
 
 	function onDownloadSuccess(path, action) {

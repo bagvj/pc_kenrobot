@@ -80,9 +80,40 @@
 					padding-right: 15px;
 					width: 180px;
 
+					&.check {
+						padding-left: 20px;
+
+						&:before {
+							content: '';
+							border-bottom: 1px solid #666;
+							border-right: 1px solid #666;
+							transform: rotate(45deg);
+							width: 5px;
+							height: 10px;
+							position: absolute;
+							left: 7px;
+							top: 9px;
+							transform: all 0.2s;
+							display: none;
+						}
+
+						&.active {
+							&:before {
+								display: block;
+							}
+						}
+					}
+
 					&:hover {
 						color: white;
 						background: #6a6d73;
+
+						&.check {
+							&:before {
+								border-bottom-color: white;
+								border-right-color: white;
+							}
+						}
 
 						.shortcut {
 							color: white;

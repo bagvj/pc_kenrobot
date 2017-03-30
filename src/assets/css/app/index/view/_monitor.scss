@@ -359,7 +359,7 @@
 					height: 24px;
 					line-height: 24px;
 					transition: background-color 0.2s;
-					padding-left: 8px;
+					padding-left: 20px;
 					padding-right: 8px;
 					font-size: 12px;
 					position: relative;
@@ -377,16 +377,16 @@
 						display: none;
 					}
 
-					&:hover {
-						background-color: #686868;
-					}
-
 					&.active {
 						background-color: #686868;
 
 						&:before {
 							display: block;
 						}
+					}
+
+					&:hover {
+						background-color: #686868;
 					}
 				}
 			}

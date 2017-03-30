@@ -1,7 +1,6 @@
-define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, config, util, emitor, schema, hardware, software, code) {
+define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, config, util, emitor, progress, schema, hardware, software, code) {
 	var currentProject;
 	var savePath;
-	var uploadProgressHelper;
 
 	function init() {
 		emitor.on('app', 'start', onAppStart)
@@ -132,7 +131,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 			kenrobot.postMessage("app:buildProject", savePath, {type: boardData.type, fqbn: boardData.fqbn}).then(function(target) {
 				util.message("编译成功，正在上传");
 				setTimeout(function() {
-					uploadProgressHelper = {};
+					var uploadProgressHelper = {};
 					kenrobot.postMessage("app:upload", target, {type: boardData.type}).then(function() {
 						emitor.trigger("ui", "lock", "build", false);
 						util.message({
@@ -160,40 +159,27 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 									}, function(err1) {
 										emitor.trigger("ui", "lock", "build", false);
 										showErrorConfirm("上传失败", err1);
-									}, function(progress1) {
-										emitor.trigger("progress", "upload", matchUploadProgress(progress1.data, boardData.type), "upload");
+									}, function(progressData) {
+										emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progressData.data, boardData.type), "upload");
 									});
 								}
 							});
 						} else if(err.status == "NOT_FOUND_PORT") {
 							emitor.trigger("ui", "lock", "build", false);
-							kenrobot.trigger('common', 'show', {
-								type: 'warn warn-info',
-								content: '未检测到有Arduino开发板或其他串口设备插入。<span class="link" data-type="link" data-close-dialog="true">驱动问题</span>？解决后请关闭窗口，然后重试',
-								onLink: function(type) {
-									setTimeout(function() {
-										util.confirm({
-											type: "info",
-											title: "驱动问题",
-											text: '如果你遇到了Arduino驱动问题，请点击<br />菜单"帮助"->"Arduino驱动下载"',
-											confirmLabel: "我知道了",
-										});
-									}, 400);
-								}
-							});
+							kenrobot.trigger("no-arduino", "show");
 						} else {
 							emitor.trigger("ui", "lock", "build", false);
 							showErrorConfirm("上传失败", err);
 						}
-					}, function(progress) {
-						emitor.trigger("progress", "upload", matchUploadProgress(progress.data, boardData.type), "upload");
+					}, function(progressData) {
+						emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progress.data, boardData.type), "upload");
 					});
 				}, 2000);
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
 				showErrorConfirm("编译失败", err);
-			}, function(progress) {
-				emitor.trigger("progress", "upload", matchBuildProgress(progress.data), "build");
+			}, function(progressData) {
+				emitor.trigger("progress", "upload", progress.matchBuildProgress(progress.data), "build");
 			});
 		}, function() {
 			util.message({
@@ -220,7 +206,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 				emitor.trigger("ui", "lock", "build", false);
 				showErrorConfirm("验证失败", err);
 			}, function(progress) {
-				emitor.trigger("progress", "check", matchBuildProgress(progress.data))
+				emitor.trigger("progress", "check", progress.matchBuildProgress(progress.data))
 			});
 		}, function() {
 			util.message({
@@ -228,73 +214,6 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 				type: "warning",
 			});
 		});
-	}
-
-	function matchBuildProgress(output) {
-		var reg = /===info \|\|\| Progress \{\d+\} \|\|\| \[(\d+\.\d+)\]/g;
-		var result;
-		var temp;
-		do {
-			result = temp;
-			temp = reg.exec(output);
-		} while(temp);
-
-		return result ? parseInt(result[1]) : -1;
-	}
-
-
-	function matchUploadProgress(output, type) {
-		var reg;
-		if(type == "genuino101") {
-			reg = /Download	\[[= ]+\][ ]+(\d+)\%/g;
-			if(!reg.test(output)) {
-				return 0;
-			}
-
-			var temp;
-			var match = reg.exec(output);
-			do {
-				temp = match;
-				match = reg.exec(output);
-			} while(match)
-			
-			return parseInt(temp[1]);
-		} else {
-			var state = uploadProgressHelper.state;
-			if(!state) {
-				reg = /Writing \|/g;
-				if(reg.test(output)) {
-					uploadProgressHelper.state = "writing";
-					return 20;
-				}
-				return 0;
-			} else if(state == "writing") {
-				reg = / \| 100\% \d+\.\d+/g;
-				if(reg.test(output)) {
-					uploadProgressHelper.state = "checking";
-					return 60;
-				}
-
-				reg = /#/g;
-				uploadProgressHelper.writeCount = uploadProgressHelper.writeCount || 0;
-				while(reg.exec(output)) {
-					uploadProgressHelper.writeCount++;
-				}
-				return 20 + parseInt(40 * uploadProgressHelper.writeCount / 50);
-			} else {
-				reg = / \| 100\% \d+\.\d+/g;
-				if(reg.test(output)) {
-					return 100;
-				}
-
-				reg = /#/g;
-				uploadProgressHelper.checkCount = uploadProgressHelper.checkCount || 0;
-				while(reg.exec(output)) {
-					uploadProgressHelper.checkCount++;
-				}
-				return 60 + parseInt(40 * uploadProgressHelper.checkCount / 50);
-			}
-		}
 	}
 
 	function showErrorConfirm(message, err) {

@@ -149,6 +149,8 @@
 			delete delayTimers[key]
 		}
 		delayTimers = {}
+
+		return this
 	}
 
 	exports.postMessage = postMessage

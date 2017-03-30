@@ -5,11 +5,15 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		emitor.on('app', 'start', onAppStart);
-		kenrobot.on('app', 'shortcut', onShortcut);
+		kenrobot.on('app', 'shortcut', onShortcut).on('app', 'will-leave', onAppWillLeave);
 	}
 
 	function onAppStart() {
 		registerShortcut();
+	}
+
+	function onAppWillLeave() {
+		emitor.trigger("app", "will-leave");
 	}
 
 	function onShortcut(name) {

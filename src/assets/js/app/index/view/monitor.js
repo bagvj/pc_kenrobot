@@ -24,12 +24,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 		newlines.find('> ul > li[data-value="raw"]').click();
 		baudRates.find('> ul > li[data-value="9600"]').click();
 
-		kenrobot.on('monitor', 'toggle', onToggle, {canReset: false});
+		kenrobot.on('monitor', 'toggle', onToggle, {canReset: false}).on('app', 'will-leave', onAppWillLeave, {canReset: false});
 	}
 
 	function onCloseClick(e) {
+		if(!monitorRegion.hasClass("active")) {
+			return;
+		}
+
 		onToggle(false);
 		kenrobot.trigger('monitor', 'close');
+	}
+
+	function onAppWillLeave() {
+		onCloseClick();
 	}
 
 	function onToggle(visible) {
@@ -158,7 +166,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 		}
 
 		kenrobot.postMessage("app:writeSerialPort", lastPortId, command).then(function(){
-			console.log("send to " + lastPortId + ": " + command);
+			// console.log("send to " + lastPortId + ": " + command);
 		}, function(err) {
 			util.message({
 				text: "发送失败",
@@ -196,6 +204,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 		var baudRate = li.data("value");
 		baudRates.removeClass("active").find(".placeholder").html(li.html());
 		baudRates.data("value", baudRate);
+		util.toggleActive(li);
 	}
 
 	return {

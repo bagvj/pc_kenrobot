@@ -6,11 +6,16 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
 		
-		emitor.on('app', 'start', onAppStart);
+		emitor.on('app', 'start', onAppStart).on('app', 'after-switch', onAppAfterSwitch);
 	}
 
 	function onAppStart() {
 		loadExamples();
+	}
+
+	function onAppAfterSwitch(type) {
+		var li = appMenu.find(".switches > li").filter('[data-type="' + type + '"]');
+		util.toggleActive(li);
 	}
 
 	function activeAppMenu(e) {
@@ -63,6 +68,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 				util.message("敬请期待");
 				break;
 			case "switch":
+				util.toggleActive(li);
 				emitor.trigger("app", "switch", li.data("type"));
 				break;
 			case "download-arduino-driver":

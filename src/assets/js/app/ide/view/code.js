@@ -5,8 +5,6 @@ define(['vendor/jquery', 'app/common/util/emitor', '../model/codeModel'], functi
 		var region = $('.code-region');
 		var container = $(".code-container", region);
 		codeModel.init(container[0]);
-
-		codeModel.genCode();
 	}
 
 	function getData() {
