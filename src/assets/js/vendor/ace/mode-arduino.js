@@ -64,7 +64,7 @@ var arduinoHighlightRules = function() {
 		"delay|delayMicroseconds|min|max|constrain|map|pow|exp|" + 
 		"ldexp|signbit|square|trunc|degrees|hypot|radians|randomSeed|" +
 		"random|lowByte|highByte|bitRead|bitWrite|bitSet|bitClear|" + 
-		"attachInterrupt|detachInterrupt|interrupts|noInterrupts"
+		"attachInterrupt|detachInterrupt|interrupts|noInterrupts|Serial"
 	);
 	//arduino的存储类型
 	var arduinoStorageTypes = "word|bit";
