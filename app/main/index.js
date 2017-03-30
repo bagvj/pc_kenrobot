@@ -62,10 +62,10 @@ function init() {
  */
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 1280,
-		height: 800,
-		minWidth: 1280,
-		minHeight: 800,
+		width: 1200,
+		height: 720,
+		minWidth: 1200,
+		minHeight: 720,
 		frame: false,
 		show: false
 	})
@@ -370,13 +370,6 @@ function listenMessage() {
 			e.sender.send('app:loadPackages', deferId, false, err)
 		})
 	})
-	.on("app:switchUI", (e, deferId, type) => {
-		switchUI(type).then(otherType => {
-			e.sender.send('app:switchUI', deferId, true, otherType)
-		}, err => {
-			e.sender.send('app:switchUI', deferId, false, err)
-		})
-	})
 	.on("app:checkUpdate", (e, deferId, checkUrl) => {
 		checkUpdate(checkUrl).then(updateInfo => {
 			e.sender.send("app:checkUpdate", deferId, true, updateInfo)
@@ -391,18 +384,6 @@ function listenMessage() {
 			e.sender.send("app:request", deferId, false, err)
 		})
 	})
-
-	is.dev() && ipcMain.on("app:debug", onDebug)
-}
-
-function onDebug(e, deferId, type) {
-	var args = ["app:debug"].concat(Array.from(arguments).slice(2))
-	switch(type) {
-		case "emitor":
-		default:
-			postMessage.apply(this, args)
-			break;
-	}
 }
 
 /**
@@ -1148,23 +1129,6 @@ function matchBoardNames(ports) {
 		log.error(err)
 		deferred.reject(err)
 	})
-
-	return deferred.promise
-}
-
-function switchUI(type) {
-	var deferred = Q.defer()
-	mainWindow.once('ready-to-show', _ => {
-		deferred.resolve()
-	})
-
-	if(type == "scratch") {
-		mainWindow.loadURL(`file://${__dirname}/../scratch/index.html`)
-		mainWindow.focus()
-	} else {
-		mainWindow.loadURL(`file://${__dirname}/../index.html`)
-		mainWindow.focus()
-	}
 
 	return deferred.promise
 }

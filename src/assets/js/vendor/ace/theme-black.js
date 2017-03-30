@@ -115,8 +115,8 @@ exports.cssText = "\
   color: #22709e;\
   letter-spacing: 2px;\
 }\
-.ace-black .ace_content {\
-  padding-left: 15px;\
+.ace-black .ace_rightAlignedText {\
+  display: none;\
 }\
 ";
 

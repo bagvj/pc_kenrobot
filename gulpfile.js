@@ -98,7 +98,7 @@ gulp.task('pack-assets-js', ['clean-assets-js'], _ => {
 		gulp.src([ASSETS_SRC + 'js/require.js'])
 			.pipe(gulp.dest(ASSETS_DIST + 'js/'))
 			
-		return gulp.src(ASSETS_SRC + 'js/index.js')
+		return gulp.src([ASSETS_SRC + 'js/*.js', '!' + ASSETS_SRC + 'js/require.js'])
 			.pipe(requirejsOptimize({
 				useStrict: true,
 				optimize: "uglify",
@@ -150,20 +150,8 @@ gulp.task('pack-config', ['clean-config'], _ => {
 })
 
 gulp.task('pack-scratch', ['clean-scratch'], callback => {
-	gulp.src([SRC + 'scratch/**/*'])
+	return gulp.src([SRC + 'scratch/**/*'])
 		.pipe(gulp.dest(APP + 'scratch/'))
-		.on('end', _ => {
-			var indexPath = path.join(APP, 'scratch', 'index.html')
-			var content = fs.readFileSync(indexPath, "utf8")
-			var tag = "<body>"
-			var contents = content.split(tag)
-			contents.splice(1, 0, tag, '<script type="text/javascript" src="../renderer/index.js"></script><script>(function(a) {delete a.require;delete a.exports;delete a.module;})(window);</script>')
-			fs.writeFileSync(indexPath, contents.join(""))
-			callback()
-		})
-		.on('error', err => {
-			callback(err)
-		})
 })
 
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])

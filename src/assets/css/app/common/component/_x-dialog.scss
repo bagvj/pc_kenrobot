@@ -1,0 +1,97 @@
+@include keyframes('x-dialog-fadeIn') {
+    from {
+        opacity: 0;
+        transform: translateY(-400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@include keyframes('x-dialog-fadeOut') {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-300px);
+    }
+}
+
+.x-dialog {
+    width: 400px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    display: none;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    color: #515151;
+
+    &.active {
+        display: block;
+    }
+
+    &.x-in {
+        transform: translateY(0);
+    }
+
+    &.x-fadeIn {
+        @include animation('x-dialog-fadeIn' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+    }
+
+    &.x-fadeOut {
+        @include animation('x-dialog-fadeOut' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+    }
+
+    .x-dialog-title {
+        font-size: 16px;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+    }
+
+    .x-dialog-close {
+        font-size: 20px;
+        right: 10px;
+        top: 3px;
+        z-index: 10;
+        position: absolute;
+        cursor: pointer;
+
+        &:hover {
+            color: #ff6666;
+        }
+    }
+    
+    .x-dialog-content {
+        height: 110px;
+        background-color: white;
+    }
+
+    .x-dialog-btns {
+        margin-bottom: 20px;
+        white-space: nowrap;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+
+        .x-dialog-btn {
+            width: 100px;
+            height: 30px;
+            display: inline-block;
+
+            &.confirm {
+                background-color: #4bc1ec;
+            }
+
+            &.cancel {
+                background-color: #ea9c68;
+            }
+        }
+    }
+}

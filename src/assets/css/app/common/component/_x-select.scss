@@ -1,0 +1,30 @@
+.x-select {
+    position: relative;
+
+    .placeholder {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        height: 100%;
+        border: 1px solid #c4d1dd;
+    }
+
+    & > ul {
+        display: none;
+        z-index: 100;
+        top: 100%;
+        width: 100%;
+        position: absolute;
+
+        li {
+            display: block;
+            cursor: pointer;
+        }
+    }
+
+    &.active {
+        & > ul {
+            display: block;
+        }
+    }
+}
