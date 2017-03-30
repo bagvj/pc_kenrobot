@@ -5,7 +5,7 @@
     "compression": "maximum",
     "files": [
       "assets",
-      "index.html",
+      "*.html",
       "main",
       "renderer",
       "scratch",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "electron": "^1.4.15",
-    "electron-builder": "^16.5.1",
+    "electron-builder": "^16.6.0",
     "fs-extra": "^2.1.2",
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
