@@ -470,29 +470,37 @@ define(['app/common/util/util'], function(util) {
 	}
 
 	function onBlockMouseUp(e) {
+		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
+
 		document.removeEventListener("mousemove", onBlockMouseMove);
 		document.removeEventListener("touchmove", onBlockMouseMove);
 		document.removeEventListener("mouseup", onBlockMouseUp);
 		document.removeEventListener("touchend", onBlockMouseUp);
 
-		var block = dragBlock;
-		var dropConnectorDom = container.querySelector(".connector.active") || dragContainer.querySelector(".connector.active");
-		if (dropConnectorDom) {
-			switch (block.data.type) {
-				case "statement":
-				case "statement-input":
-					statementDragEnd(block, dropConnectorDom);
-					break;
-				case "output":
-					outputDragEnd(block, dropConnectorDom);
-					break;
-			}
-			setBlockEnable(block, isInGroup(dropConnectorDom));
-		} else {
-			setBlockEnable(block, false);
-		}
-		setBlockDragging(block, false);
+		var rect = container.getBoundingClientRect();
 
+		var block = dragBlock;
+		if(touch.pageX < rect.left) {
+			removeBlock(block, true);
+		} else {
+			var dropConnectorDom = container.querySelector(".connector.active") || dragContainer.querySelector(".connector.active");
+			if (dropConnectorDom) {
+				switch (block.data.type) {
+					case "statement":
+					case "statement-input":
+						statementDragEnd(block, dropConnectorDom);
+						break;
+					case "output":
+						outputDragEnd(block, dropConnectorDom);
+						break;
+				}
+				setBlockEnable(block, isInGroup(dropConnectorDom));
+			} else {
+				setBlockEnable(block, false);
+			}
+			setBlockDragging(block, false);
+		}
+		
 		activeConnectors = [];
 		activeIOConnectors = [];
 		dragBlock = null;

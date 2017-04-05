@@ -678,3 +678,11 @@ $focus-color: #f1cb33;
 		}
 	}
 }
+
+.block-drag-layer {
+	.block {
+		&.fake {
+			pointer-events: none;
+		}
+	}
+}

@@ -1,4 +1,4 @@
-define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace/theme-default', 'vendor/ace/theme-black', 'vendor/ace/mode-arduino', 'vendor/ace/snippets/text', 'vendor/ace/snippets/arduino', 'vendor/ace/ext-language_tools'], function(util, emitor, beautify) {
+define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace/theme-default', 'vendor/ace/theme-black', 'vendor/ace/theme-white', 'vendor/ace/mode-arduino', 'vendor/ace/snippets/text', 'vendor/ace/snippets/arduino', 'vendor/ace/ext-language_tools'], function(util, emitor, beautify) {
 	var editor;
 	var codeTemplate = '/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: {{name}}.ino\n * Author: {{author}}\n * Create: {{created_at}}\n * Modify: {{updated_at}}\n */\nINCLUDE_CODE{{global}}\nvoid setup()\n{\n    {{setup}}\n}\n\nvoid loop()\n{\n    {{loop}}\n}';
 	
@@ -11,7 +11,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 		});
 		editor.setShowPrintMargin(false);
 		editor.$blockScrolling = Infinity;
-		editor.setTheme("ace/theme/black");
+		editor.setTheme("ace/theme/white");
 		editor.session.setMode("ace/mode/arduino");
 
 		editor.commands.addCommands([{
@@ -84,7 +84,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 	}
 
 	function setData(data) {
-		data ? editor.setValue(data, -1) : genCode();
+		data ? editor.setValue(data, 1) : genCode();
 	}
 
 	function genCode(codeInfo) {
@@ -99,7 +99,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 			.replace(/\{\{loop\}\}/, codeInfo.loop || "    ");
 
 		code = beautify.js_beautify(code).replace(/INCLUDE_CODE/, codeInfo.include ? "\n" + codeInfo.include + "\n" : "");
-		editor.setValue(code, -1);
+		editor.setValue(code, 1);
 	}
 
 	return {

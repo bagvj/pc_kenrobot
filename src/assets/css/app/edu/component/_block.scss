@@ -68,11 +68,11 @@ $disabled-deep-color: #dadada;
 			align-items: center;
 			padding-left: 14px;
 			border-radius: 5px;
-			position: absolute;
+			position: relative;
 		}
 
 		.statement-extension {
-			padding-top: 40px;
+			position: relative;
 
 			.statement-extension-content {
 				margin-bottom: 40px;

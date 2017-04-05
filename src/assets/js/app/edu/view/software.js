@@ -132,6 +132,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
 			blockList.append(li.append(block.dom));
 		});
+
+		blockList.find("> li > .block").hover(onBlockHoverOver, onBlockHoverOut);
 	}
 
 	function updateBlocks(hardwareData) {
@@ -199,6 +201,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function onAppStart() {
 
+	}
+
+	function onBlockHoverOver(e) {
+		var sourceBlock = $(this);
+		var offset = sourceBlock.offset();
+		var pos = dragContainer.offset();
+		sourceBlock.clone().addClass("fake").css({
+			top: offset.top - pos.top - 2,
+			left: offset.left - pos.left - 2,
+		}).appendTo(dragContainer);
+	}
+
+	function onBlockHoverOut(e) {
+		dragContainer.find(".block.fake").remove();
 	}
 
 	function onUILock(type, value) {
