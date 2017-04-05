@@ -4948,7 +4948,7 @@ define(['vendor/lodash'], function($1) {
 					"blockInputId": "LCD",
 					"type": "block-input",
 					"acceptType": "all",
-					"name": "o04q1D"
+					"name": "EAB78q"
 				}, {
 					"type": "text",
 					"value": "上显示"
@@ -4956,7 +4956,7 @@ define(['vendor/lodash'], function($1) {
 					"blockInputId": "TEXT",
 					"type": "block-input",
 					"acceptType": "all",
-					"name": "EAB78q"
+					"name": "o04q1D"
 				}],
 				"code": "{LCD}.print({TEXT});",
 				"tags": ["module", "advanced"],

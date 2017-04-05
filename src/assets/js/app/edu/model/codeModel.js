@@ -85,7 +85,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 	}
 
 	function setData(data) {
-		data ? editor.setValue(data, -1) : genCode();
+		data ? editor.setValue(data, 1) : genCode();
 	}
 
 	function genCode(codeInfo) {
@@ -100,7 +100,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 			.replace(/\{\{loop\}\}/, codeInfo.loop || "    ");
 
 		code = beautify.js_beautify(code).replace(/INCLUDE_CODE/, codeInfo.include ? "\n" + codeInfo.include + "\n" : "");
-		editor.setValue(code, -1);
+		editor.setValue(code, 1);
 	}
 
 	return {
