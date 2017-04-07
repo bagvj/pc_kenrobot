@@ -77,7 +77,6 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 						util.message("您的系统是" + info.platform + ", 不需要安装驱动");
 						return;
 					}
-
 					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit == 64 ? "64" : "86"), "driver-download");
 				});
 				break;

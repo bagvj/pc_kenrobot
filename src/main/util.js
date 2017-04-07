@@ -2,7 +2,7 @@ const os = require('os')
 const child_process = require('child_process')
 const path = require('path')
 
-const {app, dialog, net} = require('electron')
+const {app, dialog, net, BrowserWindow} = require('electron')
 const log = require('electron-log')
 const is = require('electron-is')
 
@@ -72,6 +72,23 @@ function getAppInfo() {
 	}
 
 	return info
+}
+
+/**
+ * 获取appData目录
+ */
+function getAppDataPath() {
+	return path.join(app.getPath("appData"), app.getName());
+}
+
+/**
+ * 发送消息
+ * @param {*} name 
+ */
+function postMessage(name, ...args) {
+	log.debug(`postMessage: ${name}, ${args.join(", ")}`)
+	var wins = BrowserWindow.getAllWindows()
+	wins && wins.length && wins[0].webContents.send(name, args)
 }
 
 /**
@@ -428,6 +445,8 @@ module.exports.isX64 = isX64
 module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
+module.exports.getAppDataPath = getAppDataPath
+module.exports.postMessage = postMessage
 
 module.exports.execFile = execFile
 module.exports.execCommand = execCommand

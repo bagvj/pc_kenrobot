@@ -8,7 +8,7 @@
 	var defers = {}
 	var deferAutoId = 0
 
-	function onMessage(e, deferId, type) {
+	function onMessage(e, deferId, type, ...args) {
 		var deferred = defers[deferId]
 		if(!deferred) {
 			return
@@ -21,10 +21,10 @@
 			delete defers[deferId]
 			callback = type ? deferred.resolve : deferred.reject
 		}
-		callback.apply(this, Array.from(arguments).slice(3))
+		callback.apply(this, args)
 	}
 	
-	function postMessage(name) {
+	function postMessage(name, ...args) {
 		if(registeredEvents.indexOf(name) < 0) {
 			ipcRenderer.on(name, onMessage)
 			registeredEvents.push(name)
@@ -34,11 +34,9 @@
 		deferAutoId++
 		defers[deferAutoId] = deferred
 
-		var args = Array.from(arguments)
-		is.dev() && log.debug(args.join(", "))
+		is.dev() && log.debug(`postMessage: ${name}, ${args.join(", ")}`)
 
-		args.splice(1, 0, deferAutoId)
-		ipcRenderer.send.apply(this, args)
+		ipcRenderer.send.apply(this, [name, deferAutoId].concat(args))
 
 		return deferred.promise
 	}
@@ -95,7 +93,7 @@
 		return this
 	}
 
-	function trigger(target, type) {
+	function trigger(target, type, ...args) {
 		var name = getEventName(target, type)
 		var hanlders = hanlderMap[name]
 		if(!hanlders) {
@@ -106,7 +104,6 @@
 			return b.options.priority - a.options.priority
 		})
 
-		var args = Array.from(arguments).slice(2)
 		for(var i = 0; i < hanlders.length; i++) {
 			var handler = hanlders[i]
 			handler.callback.apply(this, args)
@@ -115,15 +112,14 @@
 		return this
 	}
 
-	function delayTrigger(time, target, type) {
-		var args = Array.from(arguments).splice(1)
+	function delayTrigger(time, target, type, ...args) {
 		var self = this
 		var name = getEventName(target, type)
 		var timerId = delayTimers[name]
 		timerId && clearTimeout(timerId)
 		timerId = setTimeout(function() {
 			delete delayTimers[name]
-			trigger.apply(self, args)
+			trigger.apply(self, [target, type].concat(args))
 		}, time)
 		delayTimers[name] = timerId
 
