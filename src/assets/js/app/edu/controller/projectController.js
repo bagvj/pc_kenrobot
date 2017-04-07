@@ -172,14 +172,14 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 							kenrobot.trigger("build", "error", "上传失败", err);
 						}
 					}, function(progressData) {
-						emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progress.data, boardData.type), "upload");
+						emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progressData.data, boardData.type), "upload");
 					});
 				}, 2000);
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
 				kenrobot.trigger("build", "error", "编译失败", err);
 			}, function(progressData) {
-				emitor.trigger("progress", "upload", progress.matchBuildProgress(progress.data), "build");
+				emitor.trigger("progress", "upload", progress.matchBuildProgress(progressData.data), "build");
 			});
 		}, function() {
 			util.message({
@@ -205,8 +205,8 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
 				kenrobot.trigger("build", "error", "验证失败", err);
-			}, function(progress) {
-				emitor.trigger("progress", "check", progress.matchBuildProgress(progress.data))
+			}, function(progressData) {
+				emitor.trigger("progress", "check", progress.matchBuildProgress(progressData.data))
 			});
 		}, function() {
 			util.message({
