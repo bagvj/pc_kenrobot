@@ -1,27 +1,24 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-concat gulp-rename gulp-clean gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-uglify gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha bufferhelper iconv-lite serialport
  */
 
 const gulp = require('gulp') //基础库
 const gulpif = require('gulp-if') //条件执行
-const concat = require('gulp-concat') //合并文件
-const rename = require('gulp-rename') //重命名
-const clean = require('gulp-clean') //清空文件夹
 const sass = require('gulp-ruby-sass') //css预编译
 const cleanCSS = require('gulp-clean-css') //css压缩
 const autoprefixer = require('gulp-autoprefixer') //自动前缀
 const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
-const uglify = require('gulp-uglify') //js压缩
 const minifyHtml = require("gulp-minify-html") //html压缩
 const sftp = require('gulp-sftp') //
 const Q = require('q')
 const fs = require('fs-extra')
-const uglifyJS = require('uglify-js')
 const globby = require('globby')
 const isutf8 = require('isutf8')
 const nconf = require('nconf')
+const del = require('del')
+const babel = require('gulp-babel')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -37,6 +34,7 @@ var args = minimist(process.argv.slice(2)) //命令行参数
 
 const SRC = './src/'
 const DIST = './dist/'
+const TEMP = '.temp/'
 
 const APP = './app/'
 
@@ -44,61 +42,74 @@ const ASSETS_SRC = SRC + 'assets/'
 const ASSETS_DIST = APP + 'assets/'
 
 gulp.task('clean-assets-js', _ => {
-	return gulp.src(ASSETS_DIST + 'js', {read: false})
-		.pipe(clean())
+	return del(ASSETS_DIST + 'js')
 })
 
 gulp.task('clean-assets-css', _ => {
-	return gulp.src(ASSETS_DIST + 'css', {read: false})
-		.pipe(clean())
+	return del(ASSETS_DIST + 'css')
 })
 
 gulp.task('clean-assets-image', _ => {
-	return gulp.src(ASSETS_DIST + 'image', {read: false})
-		.pipe(clean())
+	return del(ASSETS_DIST + 'image')
 })
 
 gulp.task('clean-assets-font', _ => {
-	return gulp.src(ASSETS_DIST + 'font', {read: false})
-		.pipe(clean())
+	return del(ASSETS_DIST + 'font')
 })
 
 gulp.task('clean-main', _ => {
-	return gulp.src(APP + 'main', {read: false})
-		.pipe(clean())
+	return del(APP + 'main')
 })
 
 gulp.task('clean-renderer', _ => {
-	return gulp.src(APP + 'renderer', {read: false})
-		.pipe(clean())
+	return del(APP + 'renderer')
 })
 
 gulp.task('clean-scratch', _ => {
-	return gulp.src(APP + 'scratch', {read: false})
-		.pipe(clean())
+	return del(APP + 'scratch')
 })
 
 gulp.task('clean-views', _ => {
-	return gulp.src(ASSETS_DIST + '*.html', {read: false})
-		.pipe(clean())
-})
-
-gulp.task('clean-config', _ => {
-	return gulp.src(ASSETS_DIST + '*.yml', {read: false})
-		.pipe(clean())
+	return del(ASSETS_DIST + '*.html')
 })
 
 gulp.task('clean-dist', _ => {
-	return gulp.src(DIST, {read: false})
-		.pipe(clean())
+	return del(DIST)
 })
 
-gulp.task('pack-assets-js', ['clean-assets-js'], _ => {
+gulp.task('clean-assets-temp-js', _ => {
+	return del(TEMP + 'js')
+})
+
+gulp.task('transform-assets-js', ['clean-assets-temp-js'], callback => {
+	if(!args.force && !args.release) {
+		callback()
+		return
+	}
+
+	return gulp.src([ASSETS_SRC + 'js/**/*.js', '!' + ASSETS_SRC + 'js/require.js', '!' + ASSETS_SRC + 'js/vendor/**/*'])
+		.pipe(babel({
+			presets: ['es2015']
+		}))
+		.pipe(gulp.dest(TEMP + 'js'))
+})
+
+gulp.task('copy-assets-vendor-js', ['clean-assets-temp-js'], callback => {
+	if(!args.force && !args.release) {
+		callback()
+		return
+	}
+
+	return gulp.src([ASSETS_SRC + 'js/vendor/**/*'])
+		.pipe(gulp.dest(TEMP + 'js/vendor/'))
+})
+
+gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-assets-vendor-js'], _ => {
 	if(args.release) {
 		gulp.src([ASSETS_SRC + 'js/require.js'])
 			.pipe(gulp.dest(ASSETS_DIST + 'js/'))
-			
-		return gulp.src([ASSETS_SRC + 'js/*.js', '!' + ASSETS_SRC + 'js/require.js'])
+	
+		return gulp.src(TEMP + 'js/*.js')
 			.pipe(requirejsOptimize({
 				useStrict: true,
 				optimize: "uglify",
@@ -141,11 +152,7 @@ gulp.task('pack-renderer', ['clean-renderer'], cb => {
 
 gulp.task('pack-views', ['clean-views'], _ => {
 	return gulp.src(SRC + 'views/**.html')
-		.pipe(gulp.dest(APP))
-})
-
-gulp.task('pack-config', ['clean-config'], _ => {
-	return gulp.src([SRC + '/app-update.yml'])
+		.pipe(gulpif(args.release, minifyHtml()))
 		.pipe(gulp.dest(APP))
 })
 
@@ -245,6 +252,7 @@ gulp.task('build-pack', ['pack', 'build'])
 // 默认任务
 gulp.task('default', ['pack'])
 
+//检查文件编码是否为utf8
 gulp.task('check', callback => {
 	globby(["./src/**/*.js", "./src/**/*.json", "./src/**/*.html", "./src/**/*.scss"]).then(files => {
 		var result = []

@@ -9,7 +9,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		kenrobot.listenMessage("app:onDownloadSuccess", onDownloadSuccess)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
-			.listenMessage("app:onSerialPortClose", onSerialPortClose);
+			.listenMessage("app:onSerialPortClose", onSerialPortClose)
+			.on('build', 'error', onBuildError, {canReset: false});
 
 		pace.start({
 			elements: {
@@ -123,6 +124,17 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 
 	function onSerialPortClose(portId) {
 		kenrobot.trigger("serialport", "close", portId);
+	}
+
+	function onBuildError(message, err) {
+		util.confirm({
+			text: message,
+			cancelLabel: "确定",
+			confirmLabel: "查看日志",
+			onConfirm: function() {
+				kenrobot.delayTrigger(500, "error", "show", {output: [message, err]});
+			}
+		});
 	}
 
 	return {

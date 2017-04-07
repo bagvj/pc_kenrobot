@@ -113,7 +113,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 										});
 									}, function(err1) {
 										emitor.trigger("ui", "lock", "build", false);
-										showErrorConfirm("上传失败", err1);
+										kenrobot.trigger("build", "error", "上传失败", err1);
 									}, function(progressData) {
 										emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progressData.data, boardData.type), "upload");
 									});
@@ -124,7 +124,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 							kenrobot.trigger("no-arduino", "show");
 						} else {
 							emitor.trigger("ui", "lock", "build", false);
-							showErrorConfirm("上传失败", err);
+							kenrobot.trigger("build", "error", "上传失败", err);
 						}
 					}, function(progressData) {
 						emitor.trigger("progress", "upload", progress.matchUploadProgress(uploadProgressHelper, progressData.data, boardData.type), "upload");
@@ -132,7 +132,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				}, 2000);
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
-				showErrorConfirm("编译失败", err);
+				kenrobot.trigger("build", "error", "编译失败", err);
 			}, function(progressData) {
 				emitor.trigger("progress", "upload", progress.matchBuildProgress(progressData.data), "build");
 			});
@@ -157,7 +157,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				util.message("验证成功");
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
-				showErrorConfirm("验证失败", err);
+				kenrobot.trigger("build", "error", "验证失败", err);
 			}, function(progressData) {
 				emitor.trigger("progress", "check", progress.matchBuildProgress(progressData.data))
 			});
@@ -166,17 +166,6 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				text: "保存失败",
 				type: "warning",
 			});
-		});
-	}
-
-	function showErrorConfirm(message, err) {
-		util.confirm({
-			text: message,
-			cancelLabel: "确定",
-			confirmLabel: "查看日志",
-			onConfirm: function() {
-				kenrobot.delayTrigger(500, "error", "show", {output: [message, err]});
-			}
 		});
 	}
 

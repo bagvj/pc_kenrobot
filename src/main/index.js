@@ -72,6 +72,7 @@ function createWindow() {
 	args.fullscreen && mainWindow.setFullScreen(true)
 
 	mainWindow.on('closed', _ => {
+		log.debug('mainWindow closed')
 		mainWindow = null
 	}).once('ready-to-show', () => {
 		mainWindow.show()
@@ -81,7 +82,7 @@ function createWindow() {
 		closeAllSerialPort()
 	})
 	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
-		var savePath = path.join(app.getPath("appData"), app.getName(), 'temp', item.getFilename())
+		var savePath = path.join(util.getAppDataPath(), 'temp', item.getFilename())
 		item.setSavePath(savePath)
 
 		var url = item.getURL()
@@ -102,7 +103,7 @@ function createWindow() {
 		item.once('done', (evt, state) => {
 			if(state == "completed") {
 				log.debug(`download success: ${url}, at ${savePath}`)
-				postMessage("app:onDownloadSuccess", savePath, action)
+				util.postMessage("app:onDownloadSuccess", savePath, action)
 			} else {
 				log.debug(`download fail: ${url}`)
 			}
@@ -327,7 +328,8 @@ function listenMessage() {
 		e.sender.send('app:errorReport', deferId, true, true)
 	})
 	.on('app:log', (e, deferId, text, level) => {
-		log.log(level || "debug", text)
+		var method = log[level] || log.debug
+		method.bind(log).call(text)
 		e.sender.send('app:log', deferId, true, true)
 	})
 	.on('app:getAppInfo', (e, deferId) => {
@@ -384,17 +386,15 @@ function listenMessage() {
 			e.sender.send("app:request", deferId, false, err)
 		})
 	})
+	.on("app:runFirmataScript", (e, deferId, code) => {
+
+	})
 }
 
 /**
- * 发送消息
- * @param {*} name 
+ * 检查更新
+ * @param {*} checkUrl 
  */
-function postMessage(name) {
-	log.debug(`postMessage, ${Array.from(arguments).join(", ")}`)
-	mainWindow && mainWindow.webContents.send(name, Array.from(arguments).slice(1))
-}
-
 function checkUpdate(checkUrl) {
 	var deferred = Q.defer()
 
@@ -423,7 +423,7 @@ function loadConfig() {
 	var deferred = Q.defer()
 
 	log.debug("loadConfig")
-	var configPath = path.join(app.getPath("appData"), app.getName(), "config.json")
+	var configPath = path.join(util.getAppDataPath(), "config.json")
 	if(!fs.existsSync(configPath)) {
 		setTimeout(_ => {
 			deferred.resolve({})
@@ -445,7 +445,7 @@ function loadConfig() {
  */
 function writeConfig(sync) {
 	sync = sync == true
-	var configPath = path.join(app.getPath("appData"), app.getName(), "config.json")
+	var configPath = path.join(util.getAppDataPath(), "config.json")
 	log.debug(`writeConfig, path: ${configPath}, sync: ${sync}`)
 	if(sync) {
 		fs.writeJsonSync(configPath, config)
@@ -661,14 +661,14 @@ function openSerialPort(comName, options) {
 		connectedPorts.ports[portId] = port
 
 		port.on('error', err => {
-			postMessage("app:onSerialPortError", portId, err)
+			util.postMessage("app:onSerialPortError", portId, err)
 		})
 		.on('close', _ => {
 			delete connectedPorts.ports[portId]
-			postMessage("app:onSerialPortClose", portId)
+			util.postMessage("app:onSerialPortClose", portId)
 		})
 		.on('data', data => {
-			postMessage("app:onSerialPortData", portId, data)
+			util.postMessage("app:onSerialPortData", portId, data)
 		})
 
 		port.flush(_ => {
