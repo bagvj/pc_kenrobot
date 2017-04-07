@@ -386,8 +386,9 @@ function listenMessage() {
 			e.sender.send("app:request", deferId, false, err)
 		})
 	})
-	.on("app:runFirmataScript", (e, deferId, code) => {
-
+	.on("app:showItemInFolder", (e, deferId, file) => {
+		shell.showItemInFolder(path.normalize(file))
+		e.sender.send("app:showItemInFolder", deferId, true, result)
 	})
 }
 
