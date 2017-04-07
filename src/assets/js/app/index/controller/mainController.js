@@ -79,7 +79,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		emitor.trigger("app", "after-switch", type);
 	}
 
-	function onDownloadSuccess(path, action) {
+	function onDownloadSuccess(path, action) {		
 		switch(action) {
 			case "driver-download":
 				util.confirm({
@@ -97,16 +97,27 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 				});
 				break;
 			case "update-download":
-				util.confirm({
-					text: "下载成功，是否安装新版本?",
-					onConfirm: function() {
-						kenrobot.postMessage("app:execFile", path).then(function() {
-							util.message("安装成功");
-						}, function(err) {
-							util.message({
-								text: "安装失败",
-								type: "error"
-							});
+				kenrobot.postMessage("app:getAppInfo").then(function(info) {
+					if(info.platform == "win") {
+						util.confirm({
+							text: "下载成功，是否安装新版本?",
+							onConfirm: function() {
+								kenrobot.postMessage("app:execFile", path).then(function() {
+									util.message("安装成功");
+								}, function(err) {
+									util.message({
+										text: "安装失败",
+										type: "error"
+									});
+								});
+							}
+						});
+					} else {
+						util.confirm({
+							text: "下载成功，是否打开文件所在位置?",
+							onConfirm: function() {
+								kenrobot.postMessage("app:showItemInFolder", path);
+							}
 						});
 					}
 				});
