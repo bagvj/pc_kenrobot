@@ -9,8 +9,8 @@
 2. 检查更新功能上线
 
 ### v0.3.2
-### bugs
+#### bugs
 1. 修复一些bug
 
-### features
+#### features
 1. 更换开发版主题
