@@ -34,7 +34,7 @@ var arduinoOptions = {
 			mcu: "atmega328p",
 			baudrate: "115200",
 			programer: "arduino",
-			command: '"ARDUINO_PATH/hardware/tools/avr/bin/avrdude.exe" -C "ARDUINO_PATH/hardware/tools/avr/etc/avrdude.conf" -v -p ARDUINO_MCU -c ARDUINO_PROGRAMMER -b ARDUINO_BURNRATE -P ARDUINO_COMPORT -U "flash:w:TARGET_PATH:i"'
+			command: '"ARDUINO_PATH/hardware/tools/avr/bin/avrdude" -C "ARDUINO_PATH/hardware/tools/avr/etc/avrdude.conf" -v -p ARDUINO_MCU -c ARDUINO_PROGRAMMER -b ARDUINO_BURNRATE -P ARDUINO_COMPORT -U "flash:w:TARGET_PATH:i"'
 		},
 	},
 	librariesPath: [],
@@ -1020,7 +1020,8 @@ function preUpload(projectPath, comName, options) {
 	log.debug("pre upload")
 	options = Object.assign({}, arduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
-	var command = options.command.replace(/ARDUINO_PATH/g, getArduinoPath())
+	var command = is.windows() ? options.command : options.command.replace(/"/g, "")
+	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
 		.replace("ARDUINO_MCU", options.mcu)
 		.replace("ARDUINO_BURNRATE", options.baudrate)
 		.replace("ARDUINO_PROGRAMMER", options.programer)
