@@ -1,28 +1,21 @@
 #!/bin/bash
 #export PATH=/usr/bin:$PATH
 
-# useage:  build.sh project_path fqbn [libraries]
-# example: 
-#     1. build.sh test arduino:avr:uno:cpu=atmege328
-#     2. build.sh /home/project/test arduino:avr:yun ~/documents/kenrobot/libraries/kenrobot
-#     3. fqbn: arduino:avr:uno:cpu=atmege328 | arduino:avr:yun | arduino:avr:pro:cpu=16MHzatmega328
-#     4. some boards must spec mcu
+# useage: build.sh project_path
+# notice: you can't call this script manual, unless you ensure [project_path]/config/build.txt exist which generated automatic
 
-if [ $# -lt 2 ];then
-	echo "more arguments required"
-    exit 1
+# project path
+PROJECT_PATH=$1
+PROJECT_NAME=$(basename ${PROJECT_PATH})
+ARDUINO_FILE=${PROJECT_PATH}/${PROJECT_NAME}.ino
+BUILD_PATH=${PROJECT_PATH}/build
+
+if [ ! -d ${BUILD_PATH} ]; then
+	mkdir ${BUILD_PATH}
 fi
 
-SKETCH_PATH=$1
-SKETCH=$(basename ${SKETCH_PATH})
-SKETCH=${SKETCH_PATH}/${SKETCH}.ino
-BUILD_PATH=${SKETCH_PATH}/build
-
-FQBN=$2
-LIBRARIES=$3
-# USERPATH=`echo $HOME`
-#先这么写  后期加入参数
-# SKETCHBOOKFOLDER=${USERPATH}/Documents/Arduino
+# read build args
+ARGS=`head -1 ${PROJECT_PATH}/config/build.txt`
 
 DIR=$(dirname "$0")
 if [[ `arch` == arm* ]];then
@@ -33,26 +26,17 @@ else
 	LOCAL_ARDUINO_PATH=${DIR}/../arduino-linux
 fi
 
-# LIBRARIES=${SKETCHBOOKFOLDER}/libraries
 BUILDER=${LOCAL_ARDUINO_PATH}/arduino-builder
 HARDWARE=${LOCAL_ARDUINO_PATH}/hardware,${LOCAL_ARDUINO_PATH}/packages
 TOOLS=${LOCAL_ARDUINO_PATH}/tools-builder,${LOCAL_ARDUINO_PATH}/hardware/tools/avr,${LOCAL_ARDUINO_PATH}/packages
 BUILT_IN_LIBRARIES=${LOCAL_ARDUINO_PATH}/libraries
 
-if [ ! -d ${BUILD_PATH} ]; then
-	mkdir ${BUILD_PATH}
-fi
-
-COMMAND="${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES}"
-if [ -n "$LIBRARIES" ];then
-	COMMAND+=" -libraries=${LIBRARIES}"
-fi
-COMMAND+=" -fqbn=${FQBN} -ide-version=10612 -build-path=${BUILD_PATH} -warnings=all ${SKETCH}"
+COMMAND="${BUILDER} -compile -logger=machine -hardware=${HARDWARE} -tools=${TOOLS} -built-in-libraries=${BUILT_IN_LIBRARIES} -fqbn=${FQBN} -ide-version=10612 -warnings=all -prefs=build.warn_data_percentage=75 ${ARGS} -build-path=${BUILD_PATH} ${ARDUINO_FILE}"
 ${COMMAND}
 
 if [ $? -ne 0 ]; then
 	echo build fail
-    exit 2
+    exit 1
 fi
 
 echo build success

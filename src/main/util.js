@@ -82,6 +82,14 @@ function getAppDataPath() {
 }
 
 /**
+ * 获取资源路径
+ */
+function getResourcePath() {
+	return (!is.windows() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
+}
+
+
+/**
  * 发送消息
  * @param {*} name 
  */
@@ -446,6 +454,7 @@ module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
+module.exports.getResourcePath = getResourcePath
 module.exports.postMessage = postMessage
 
 module.exports.execFile = execFile

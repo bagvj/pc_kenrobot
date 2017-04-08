@@ -128,11 +128,11 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 		doProjectSave(projectInfo, saveAs).then(function() {
 			emitor.trigger("ui", "lock", "build", true);
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath, {type: boardData.type, fqbn: boardData.fqbn}).then(function(target) {
+			kenrobot.postMessage("app:buildProject", savePath, boardData.build).then(function() {
 				util.message("编译成功，正在上传");
 				setTimeout(function() {
 					var uploadProgressHelper = {};
-					kenrobot.postMessage("app:upload", target, {type: boardData.type}).then(function() {
+					kenrobot.postMessage("app:upload", savePath, boardData.upload).then(function() {
 						emitor.trigger("ui", "lock", "build", false);
 						util.message({
 							text: "上传成功",
@@ -150,7 +150,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 									}
 									util.message("正在上传");
 									uploadProgressHelper = {};
-									kenrobot.postMessage("app:upload2", target, port.comName, {type: boardData.type}).then(function() {
+									kenrobot.postMessage("app:upload2", savePath, port.comName, boardData.upload).then(function() {
 										emitor.trigger("ui", "lock", "build", false);
 										util.message({
 											text: "上传成功",
@@ -199,7 +199,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 		util.message("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(function(path) {
 			emitor.trigger("ui", "lock", "build", true);
-			kenrobot.postMessage("app:buildProject", path, {type: boardData.type, fqbn: boardData.fqbn}).then(function() {
+			kenrobot.postMessage("app:buildProject", path, boardData.build).then(function() {
 				emitor.trigger("ui", "lock", "build", false);
 				util.message("验证成功");
 			}, function(err) {
