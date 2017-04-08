@@ -213,6 +213,7 @@ gulp.task('build', ['clean-dist'], callback => {
 			extraFiles: [
       			`arduino-${platform}`,
       			"scripts",
+      			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
       			"examples",
       			"packages",
     		],

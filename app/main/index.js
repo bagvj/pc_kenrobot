@@ -25,8 +25,8 @@ var arduinoOptions = {
 		build: {
 			fqbn: "arduino:avr:uno:cpu=atmega328p",
 			prefs: {
-				"runtime.tools.avr-gcc.path": "ARDUINO_PATH/hardware/tools/avr",
-				"runtime.tools.avrdude.path": "ARDUINO_PATH/hardware/tools/avr"
+				"runtime.tools.avr-gcc.path": '"ARDUINO_PATH/hardware/tools/avr"',
+				"runtime.tools.avrdude.path": '"ARDUINO_PATH/hardware/tools/avr"'
 			}
 		},
 		upload: {
@@ -945,7 +945,9 @@ function preBuild(projectPath, options) {
 	content.push(`-fqbn=${options.fqbn}`)
 	var arduinoPath = getArduinoPath()
 	Object.keys(options.prefs).forEach(key => {
-		var value = options.prefs[key].replace(/ARDUINO_PATH/g, arduinoPath)
+		var value = options.prefs[key]
+		value = is.windows() ? value : value.replace(/"/g, "")
+		value = value.replace(/ARDUINO_PATH/g, arduinoPath)
 		content.push(`-prefs=${key}=${value}`)
 	})
 
