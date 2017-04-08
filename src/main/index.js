@@ -405,7 +405,7 @@ function listenMessage() {
 	})
 	.on("app:showItemInFolder", (e, deferId, filePath) => {
 		shell.showItemInFolder(path.normalize(filePath))
-		e.sender.send("app:showItemInFolder", deferId, true, result)
+		e.sender.send("app:showItemInFolder", deferId, true, true)
 	})
 }
 
