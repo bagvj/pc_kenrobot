@@ -913,7 +913,8 @@ function buildProject(projectPath, options) {
 
 	preBuild(projectPath, options).then(_ => {
 		log.debug(`buildProject: ${projectPath}`)
-		util.spawnCommand(getScriptPath("build"), [projectPath], {shell: true}).then(_ => {
+		var scriptPath = getScriptPath("build")
+		util.spawnCommand(`"${scriptPath}"`, [`"${projectPath}"`], {shell: true}).then(_ => {
 			deferred.resolve()
 		}, err => {
 			log.error(err)
@@ -997,7 +998,7 @@ function upload(projectPath, comName, options) {
 	preUpload(projectPath, comName, options).then(_ => {
 		log.debug(`upload: ${projectPath}, ${comName}`)
 		var scriptPath = getScriptPath("upload")
-		util.spawnCommand(scriptPath, [projectPath], {shell: true}).then(_ => {
+		util.spawnCommand(`"${scriptPath}"`, [`"${projectPath}"`], {shell: true}).then(_ => {
 			deferred.resolve()
 		}, err => {
 			log.error(err)
