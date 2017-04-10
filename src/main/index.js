@@ -27,7 +27,8 @@ var arduinoOptions = {
 			prefs: {
 				"runtime.tools.avr-gcc.path": '"ARDUINO_PATH/hardware/tools/avr"',
 				"runtime.tools.avrdude.path": '"ARDUINO_PATH/hardware/tools/avr"'
-			}
+			},
+			command: '"ARDUINO_PATH/arduino-builder" -compile -logger=machine -hardware="ARDUINO_PATH/hardware" -hardware="ARDUINO_PATH/packages" -tools="ARDUINO_PATH/tools-builder" -tools="ARDUINO_PATH/hardware/tools/avr" -tools="ARDUINO_PATH/packages" -built-in-libraries="ARDUINO_PATH/libraries" -ide-version=10612 -warnings=all -prefs=build.warn_data_percentage=75 BUILD_SPECS -build-path="PROJECT_BUILD_PATH" "PROJECT_ARDUINO_FILE"'
 		},
 		upload: {
 			target_type: "hex",
@@ -911,10 +912,10 @@ function openProject(projectPath) {
 function buildProject(projectPath, options) {
 	var deferred = Q.defer()
 
-	preBuild(projectPath, options).then(_ => {
-		log.debug(`buildProject: ${projectPath}`)
-		var scriptPath = getScriptPath("build")
-		util.spawnCommand(`"${scriptPath}"`, [`"${projectPath}"`], {shell: true}).then(_ => {
+	preBuild(projectPath, options).then(commandPath => {
+		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
+		var scriptPath = getScriptPath("call")
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(_ => {
 			deferred.resolve()
 		}, err => {
 			log.error(err)
@@ -935,48 +936,57 @@ function preBuild(projectPath, options) {
 
 	log.debug('pre-build')
 
-	var content = []
+	var buildSpecs = []
 	options = Object.assign({}, arduinoOptions.default.build, options)
 
 	var packagesPath = getPackagesPath()
 	if(fs.existsSync(packagesPath)) {
-		content.push(`-hardware=${packagesPath}`)
+		buildSpecs.push(`-hardware=${packagesPath}`)
 	}
 	
-	content.push(`-fqbn=${options.fqbn}`)
+	buildSpecs.push(`-fqbn=${options.fqbn}`)
 	var arduinoPath = getArduinoPath()
 	Object.keys(options.prefs).forEach(key => {
-		var value = options.prefs[key]
-		value = is.windows() ? value : value.replace(/"/g, "")
+		var value = util.handleQuotes(options.prefs[key])
 		value = value.replace(/ARDUINO_PATH/g, arduinoPath)
-		content.push(`-prefs=${key}=${value}`)
+		buildSpecs.push(`-prefs=${key}=${value}`)
 	})
 
 	arduinoOptions.librariesPath.forEach(libraryPath => {
-		content.push(`-libraries=${libraryPath}`)
+		buildSpecs.push(`-libraries=${libraryPath}`)
 	})
 
-	util.writeFile(path.join(projectPath, 'config', 'build.txt'), content.join(' ')).then(_ => {
+	var projectBuildPath = path.join(projectPath, 'build')
+	fs.ensureDirSync(projectBuildPath)
+	var commandPath = path.join(getCommandDir(), 'command.txt')
+	var command = util.handleQuotes(options.command)
+	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+		.replace("BUILD_SPECS", buildSpecs.join(' '))
+		.replace("PROJECT_BUILD_PATH", projectBuildPath)
+		.replace("PROJECT_ARDUINO_FILE", path.join(projectPath, `${path.basename(projectPath)}.ino`))
+
+	util.writeFile(commandPath, command).then(_ => {
 		var optionPath = path.join(projectPath, 'build', 'build.options.json')
 		if(!fs.existsSync(optionPath)) {
 			setTimeout(_ => {
-				deferred.resolve()
+				deferred.resolve(commandPath)
 			}, 10)
 			return deferred.promise
 		}
 
 		util.readJson(optionPath).then(opt => {
 			if(options.fqbn == opt.fqbn) {
-				deferred.resolve()
+				deferred.resolve(commandPath)
 				return
 			}
 
 			util.removeFile(path.join(projectPath, 'build')).fin(_ => {
-				deferred.resolve()
+				fs.ensureDirSync(path.join(projectPath, 'build'))
+				deferred.resolve(commandPath)
 			})
 		}, err => {
 			log.error(err)
-			deferred.resolve()
+			deferred.resolve(commandPath)
 		})
 	}, err => {
 		log.error(err)
@@ -995,10 +1005,10 @@ function preBuild(projectPath, options) {
 function upload(projectPath, comName, options) {
 	var deferred = Q.defer()
 
-	preUpload(projectPath, comName, options).then(_ => {
-		log.debug(`upload: ${projectPath}, ${comName}`)
-		var scriptPath = getScriptPath("upload")
-		util.spawnCommand(`"${scriptPath}"`, [`"${projectPath}"`], {shell: true}).then(_ => {
+	preUpload(projectPath, comName, options).then(commandPath => {
+		log.debug(`upload: ${projectPath}, ${comName}, command path: ${commandPath}`)
+		var scriptPath = getScriptPath("call")
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(_ => {
 			deferred.resolve()
 		}, err => {
 			log.error(err)
@@ -1023,7 +1033,9 @@ function preUpload(projectPath, comName, options) {
 	log.debug("pre upload")
 	options = Object.assign({}, arduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
-	var command = is.windows() ? options.command : options.command.replace(/"/g, "")
+
+	var commandPath = path.join(getCommandDir(), 'command.txt')
+	var command = util.handleQuotes(options.command)
 	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
 		.replace("ARDUINO_MCU", options.mcu)
 		.replace("ARDUINO_BURNRATE", options.baudrate)
@@ -1031,7 +1043,7 @@ function preUpload(projectPath, comName, options) {
 		.replace("ARDUINO_COMPORT", comName)
 		.replace("TARGET_PATH", targetPath)
 
-	util.writeFile(path.join(projectPath, 'config', 'upload.txt'), command).then(_ => {
+	util.writeFile(commandPath, command).then(_ => {
 		var serialPort = new SerialPort(comName, {
 			baudRate: 1200
 		})
@@ -1043,7 +1055,7 @@ function preUpload(projectPath, comName, options) {
 			})
 			setTimeout(_ => {
 				serialPort.close(_ => {
-					deferred.resolve()
+					deferred.resolve(commandPath)
 				})
 			}, 650)
 		}).on('error', err => {
@@ -1165,6 +1177,13 @@ function matchBoardNames(ports) {
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
 	return path.resolve(path.join(util.getResourcePath(), "scripts", `${name}.${ext}`))
+}
+
+/**
+ * 获取command目录路径
+ */
+function getCommandDir() {
+	return fs.mkdtempSync(path.join(app.getPath("temp"), `${app.getName()}-`))
 }
 
 /**

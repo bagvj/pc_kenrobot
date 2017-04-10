@@ -100,6 +100,14 @@ function postMessage(name, ...args) {
 }
 
 /**
+ * 处理引号
+ * @param {*} p 
+ */
+function handleQuotes(p) {
+	return is.windows() ? p : p.replace(/"/g, "")
+}
+
+/**
  * 执行可执行文件
  * @param {*} driverPath 
  */
@@ -456,6 +464,7 @@ module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
 module.exports.getResourcePath = getResourcePath
 module.exports.postMessage = postMessage
+module.exports.handleQuotes = handleQuotes
 
 module.exports.execFile = execFile
 module.exports.execCommand = execCommand
