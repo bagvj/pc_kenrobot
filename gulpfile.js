@@ -215,7 +215,8 @@ gulp.task('build', ['clean-dist'], callback => {
       			"scripts",
       			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
       			"examples",
-      			"packages",
+      			"packages/packages.json",
+      			`packages/*${platform}.7z`,
     		],
 		}
 	}).then(result => {

@@ -10,10 +10,11 @@ COMMAND_PATH=$1
 # read command
 COMMAND=`head -1 ${COMMAND_PATH}`
 ${COMMAND}
+CODE=$?
 
-if [ $? -ne 0 ]; then
+if [ ${CODE} -ne 0 ]; then
 	echo fail
-    exit $?
+    exit ${CODE}
 fi
 
 echo success

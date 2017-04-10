@@ -351,18 +351,42 @@ function searchFiles(pattern) {
  * 解压文件
  * @param {*} zipPath 压缩文件路径
  * @param {*} dist 解压缩目录
+ * @param {*} spawn 是否用spawn, 默认为false
  */
-function unzip(zipPath, dist) {
+function unzip(zipPath, dist, spawn) {
 	var deferred = Q.defer()
+	var reg = /([\d]+%) \d+ - .*\r?/g
 
 	log.debug(`unzip: ${zipPath} => ${dist}`)
-	var command = `"${path7za}" x "${zipPath}" -y -o"${dist}"`
-	execCommand(command).then(_ => {
-		deferred.resolve()
-	}, err => {
-		log.error(err)
-		deferred.reject(err)
-	})
+	if(spawn) {
+		spawnCommand(`"${path7za}"`, ["x", `"${zipPath}"`, "-bsp1", "-y", `-o"${dist}"`], {shell: true}).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			log.error(err)
+			deferred.reject(err)
+		}, progess => {
+			reg.lastIndex = 0
+			if(!reg.test(progess.data)) {
+				return
+			}
+
+			var match
+			var temp = reg.exec(progess.data)
+			do {
+				match = temp
+				temp = reg.exec(progess.data)
+			} while(temp)
+			
+			deferred.notify(match[1])
+		})
+	} else {
+		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(_ => {
+			deferred.resolve()
+		}, err => {
+			log.error(err)
+			deferred.reject(err)
+		})
+	}
 
 	return deferred.promise
 }

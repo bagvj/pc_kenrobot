@@ -9,6 +9,7 @@ rem command path
 set COMMAND_PATH=%~f1
 
 rem read command
+rem set /p COMMAND=< %COMMAND_PATH%
 set COMMAND=
 for /f "tokens=*" %%i in (%COMMAND_PATH%) do (
 	set COMMAND=%%i
@@ -17,8 +18,9 @@ for /f "tokens=*" %%i in (%COMMAND_PATH%) do (
 
 :begin
 %COMMAND%
+set CODE=%errorlevel%
 
-if not %errorlevel% == 0 (
+if not %CODE% == 0 (
 	echo fail
     goto end
 )
@@ -26,4 +28,4 @@ if not %errorlevel% == 0 (
 echo success
 
 :end
-exit /b %errorlevel
+exit /b %CODE%

@@ -128,10 +128,8 @@ function createWindow() {
 		})
 	})
 
-	unpackPackages().then(_ => {
-		mainWindow.loadURL(`file://${__dirname}/../index.html`)
-		mainWindow.focus()
-	})	
+	mainWindow.loadURL(`file://${__dirname}/../index.html`)
+	mainWindow.focus()
 }
 
 /**
@@ -383,6 +381,15 @@ function listenMessage() {
 		clipboard.writeText(text, type)
 		e.sender.send("app:copy", deferId, true, true)
 	})
+	.on('app:unpackPackages', (e, deferId) => {
+		unpackPackages().then(_ => {
+			e.sender.send('app:unpackPackages', deferId, true, true)
+		}, err => {
+			e.sender.send('app:unpackPackages', deferId, false, err)
+		}, progress => {
+			e.sender.send('app:unpackPackages', deferId, "notify", progress)
+		})
+	})
 	.on("app:loadPackages", (e, deferId) => {
 		loadPackages().then(packages => {
 			e.sender.send('app:loadPackages', deferId, true, packages)
@@ -494,31 +501,38 @@ function unpackPackages() {
 		var oldPackages = config.packages || []
 		var list = packages.filter(p => !oldPackages.find(o => o.name == p.name && o.checksum == p.checksum))
 
-		Q.all(list.map(p => {
-			var d = Q.defer()
-			util.unzip(path.join(packagesPath, p.name), getPackagesPath())
+		var doUnzip = _ => {
+			if(list.length == 0) {
+				deferred.resolve()
+				return
+			}
+
+			var total = list.length
+			var p = list.pop()
+			util.unzip(path.join(packagesPath, p.name), getPackagesPath(), true)
 			.then(_ => {
-				var oldPackage = oldPackages.find(o => o.name == p.name)
-				if(oldPackage) {
-					oldPackage.checksum = p.checksum
-				} else {
-					oldPackages.push(p)
-				}
+				// var oldPackage = oldPackages.find(o => o.name == p.name)
+				// if(oldPackage) {
+				// 	oldPackage.checksum = p.checksum
+				// } else {
+				// 	oldPackages.push(p)
+				// }
+			}, err => {
+
+			}, progress => {
+				deferred.notify({
+					progress: progress,
+					name: p.name,
+					count: total - list.length,
+					total: total,
+				})
 			})
 			.fin(_ => {
-				d.resolve()
+				doUnzip()
 			})
-			return d.promise
-		})).then(_ => {
-			config.version = util.getVersion()
-			config.packages = oldPackages
-			writeConfig().then(_ => {
-				deferred.resolve()
-			}, err => {
-				log.error(err)
-				deferred.reject()
-			})
-		})
+		}
+
+		doUnzip()
 	}, err => {
 		log.error(err)
 		deferred.reject()
