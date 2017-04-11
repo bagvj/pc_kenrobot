@@ -164,10 +164,10 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
 /**
- * 用法: gulp build-pack --release --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
+ * 用法: gulp build-pack --release --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
  * 示例: gulp build-pack --release --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --feature=with-101
+ *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
  */
 gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var platform = args.platform || "win"

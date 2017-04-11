@@ -503,7 +503,14 @@ function unpackPackages() {
 
 		var doUnzip = _ => {
 			if(list.length == 0) {
-				deferred.resolve()
+				config.version = getVersion()
+				config.packages = oldPackages
+				writeConfig().then(_ => {
+					deferred.resolve()
+				}, err => {
+					log.error(err)
+					deferred.reject()
+				})
 				return
 			}
 
