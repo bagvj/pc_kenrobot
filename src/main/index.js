@@ -503,7 +503,7 @@ function unpackPackages() {
 
 		var doUnzip = _ => {
 			if(list.length == 0) {
-				config.version = getVersion()
+				config.version = util.getVersion()
 				config.packages = oldPackages
 				writeConfig().then(_ => {
 					deferred.resolve()

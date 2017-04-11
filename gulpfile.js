@@ -207,17 +207,20 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	})
 	nconf.save()
 	
+	var packageNames = args.packages ? args.packages.split(',') : []
+	var extraFiles = [
+		`arduino-${platform}`,
+		"scripts",
+		`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
+		"examples",
+		"packages/packages.json",
+	]
+	packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
+
 	builder.build({
 		targets: targets,
 		config: {
-			extraFiles: [
-      			`arduino-${platform}`,
-      			"scripts",
-      			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
-      			"examples",
-      			"packages/packages.json",
-      			`packages/*${platform}.7z`,
-    		],
+			extraFiles: extraFiles,
 		}
 	}).then(result => {
 		var output = result[0]
