@@ -505,12 +505,16 @@ function unpackPackages() {
 			if(list.length == 0) {
 				config.version = util.getVersion()
 				config.packages = oldPackages
-				writeConfig().then(_ => {
+				if(is.dev()) {
 					deferred.resolve()
-				}, err => {
-					log.error(err)
-					deferred.reject()
-				})
+				} else {
+					writeConfig().then(_ => {
+						deferred.resolve()
+					}, err => {
+						log.error(err)
+						deferred.reject()
+					})
+				}
 				return
 			}
 
