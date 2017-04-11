@@ -509,20 +509,20 @@ function unpackPackages() {
 
 			var total = list.length
 			var p = list.pop()
-			util.unzip(path.join(packagesPath, p.name), getPackagesPath(), true)
-			.then(_ => {
-				// var oldPackage = oldPackages.find(o => o.name == p.name)
-				// if(oldPackage) {
-				// 	oldPackage.checksum = p.checksum
-				// } else {
-				// 	oldPackages.push(p)
-				// }
+			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
+				var oldPackage = oldPackages.find(o => o.name == p.name)
+				if(oldPackage) {
+					oldPackage.checksum = p.checksum
+				} else {
+					oldPackages.push(p)
+				}
 			}, err => {
 
 			}, progress => {
 				deferred.notify({
 					progress: progress,
 					name: p.name,
+					version: p.version,
 					count: total - list.length,
 					total: total,
 				})

@@ -169,7 +169,7 @@ gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', '
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --feature=with-101
  */
-gulp.task('build', ['clean-dist'], callback => {
+gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var platform = args.platform || "win"
 	var branch = args.branch || "release"
 	var feature = args.feature || ""
@@ -275,17 +275,32 @@ gulp.task('check', callback => {
 	})
 })
 
-gulp.task('hash', callback => {
-	var pathList = globby.sync("packages/*.7z")
-	var packages = pathList.map(p => {
-		var hash = hasha.fromFileSync(p, {algorithm: "sha256"})
-		return {
-			name: path.basename(p),
-			checksum: "sha256:" + hash,
+gulp.task('packages', callback => {
+	var packageNames = args.packages ? args.packages.split(',') : []
+
+	var reg = /([^-]+)-v(\d\.\d+\.\d+)-([^\.]+)\.7z/g
+	var packages = []
+
+	var platform = args.platform || "win"
+	globby.sync(`packages/*${platform}.7z`).forEach(p => {
+		var name = path.basename(p)
+		reg.lastIndex = 0
+		var match = reg.exec(name)
+		if(!packageNames.includes(match[1])) {
+			return
 		}
+
+		packages.push({
+			name: match[1],
+			version: match[2],
+			platform: match[3],
+			archiveName: name,
+			checksum: "sha256:" + hasha.fromFileSync(p, {algorithm: "sha256"}),
+		})
 	})
 	fs.writeJsonSync("packages/packages.json", packages)
-	console.dir(packages)
+
+	callback()
 })
 
 gulp.task('upload', _ => {
