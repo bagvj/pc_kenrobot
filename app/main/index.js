@@ -3,6 +3,7 @@ const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 const path = require('path')
 const os = require('os')
 const util = require('./util')
+const serialPort = require('./serialPort') //串口
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -11,15 +12,10 @@ const log = require('electron-log')
 const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
-const SerialPort = require('serialport') //串口
 const hasha = require('hasha') //计算hash
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
-var connectedPorts = {
-	autoPortId: 0,
-	ports: {}
-}
 var arduinoOptions = {
 	"default": {
 		build: {
@@ -97,7 +93,7 @@ function createWindow() {
 	})
 
 	mainWindow.webContents.on('devtools-reload-page', _ => {
-		closeAllSerialPort()
+		serialPort.closeAllSerialPort()
 	})
 	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
 		var savePath = path.join(util.getAppDataPath(), 'temp', item.getFilename())
@@ -159,7 +155,7 @@ function listenEvent() {
 		}
 	})
 	.on('will-quit', _ => {
-		closeAllSerialPort()
+		serialPort.closeAllSerialPort()
 	})
 	.on('quit', _ => {
 		log.debug('app quit')
@@ -310,28 +306,28 @@ function listenMessage() {
 		})
 	})
 	.on('app:writeSerialPort', (e, deferId, portId, buffer) => {
-		writeSerialPort(portId, buffer).then(_ => {
+		serialPort.writeSerialPort(portId, buffer).then(_ => {
 			e.sender.send('app:writeSerialPort', deferId, true, true)
 		}, err => {
 			e.sender.send('app:writeSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:closeSerialPort', (e, deferId, portId) => {
-		closeSerialPort(portId).then(_ => {
+		serialPort.closeSerialPort(portId).then(_ => {
 			e.sender.send('app:closeSerialPort', deferId, true, true)
 		}, err => {
 			e.sender.send('app:closeSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:updateSerialPort', (e, deferId, portId, options) => {
-		updateSerialPort(portId, options).then(_ => {
+		serialPort.updateSerialPort(portId, options).then(_ => {
 			e.sender.send('app:updateSerialPort', deferId, true, true)
 		}, err => {
 			e.sender.send('app:updateSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:flushSerialPort', (e, deferId, portId) => {
-		flushSerialPort(portId).then(_ => {
+		serialPort.flushSerialPort(portId).then(_ => {
 			e.sender.send('app:flushSerialPort', deferId, true, true)
 		}, err => {
 			e.sender.send('app:flushSerialPort', deferId, false, err)
@@ -656,18 +652,39 @@ function installDriver(driverPath) {
 }
 
 /**
+ * 打开串口
+ * @param {*} comName 端口路径
+ * @param {*} options 
+ */
+function openSerialPort(comName, options) {
+	return serialPort.openSerialPort(comName, options, {
+		onError: onSerialPortError,
+		onData: onSerialPortData,
+		onClose: onSerialPortClose,
+	})
+}
+
+
+function onSerialPortError(portId, err) {
+	util.postMessage("app:onSerialPortError", portId, err)
+}
+
+function onSerialPortData(portId, data) {
+	util.postMessage("app:onSerialPortData", portId, data)
+}
+
+function onSerialPortClose(portId) {
+	util.postMessage("app:onSerialPortClose", portId)
+}
+
+/**
  * 查询串口
  */
 function listSerialPort() {
 	var deferred = Q.defer()
 
-	log.debug("listSerialPort")
-	SerialPort.list((err, ports) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
+	serialPort.listSerialPort().then(ports => {
+		ports = filterArduinoPorts(ports)
 
 		if(ports.length == 0) {
 			deferred.reject()
@@ -677,174 +694,25 @@ function listSerialPort() {
 		matchBoardNames(ports).then(_ => {
 			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(ports)
-		}, err1 => {
-			log.error(err1)
-			deferred.reject(err1)
-		})
-	})
-
-	return deferred.promise
-}
-
-/**
- * 打开串口
- * @param {*} comName 串口路径
- * @param {*} options 选项
- */
-function openSerialPort(comName, options) {
-	var deferred = Q.defer()
-
-	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
-	options.autoOpen = false
-	if(options.parser == "raw") {
-		options.parser = SerialPort.parsers.raw
-	} else {
-		var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
-		options.parser = SerialPort.parsers.readline(newline)
-	}
-
-	var port = new SerialPort(comName, options)
-	port.open(err => {
-		if(err) {
+		}, err => {
 			log.error(err)
 			deferred.reject(err)
-			return
-		}
-
-		var portId = ++connectedPorts.autoPortId
-		connectedPorts.ports[portId] = port
-
-		port.on('error', err => {
-			util.postMessage("app:onSerialPortError", portId, err)
 		})
-		.on('close', _ => {
-			delete connectedPorts.ports[portId]
-			util.postMessage("app:onSerialPortClose", portId)
-		})
-		.on('data', data => {
-			util.postMessage("app:onSerialPortData", portId, data)
-		})
-
-		port.flush(_ => {
-			deferred.resolve(portId)
-		})
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
 	})
 
 	return deferred.promise
 }
 
 /**
- * 串口发送
- * @param {*} portId 串口id
- * @param {*} buffer 发送内容，Buffer | String
+ * 筛选arduino串口
+ * @param {*} ports 串口列表
  */
-function writeSerialPort(portId, buffer) {
-	var  deferred = Q.defer()
-
-	log.debug(`writeSerialPort: ${portId}, ${buffer}`)
-	var port = connectedPorts.ports[portId]
-	if(!port) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-		return deferred.promise
-	}
-
-	port.write(buffer, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		port.drain(_ => {
-			deferred.resolve()
-		})
-	})
-
-	return deferred.promise
-}
-
-/**
- * 关闭串口
- * @param {*} portId 串口id
- */
-function closeSerialPort(portId) {
-	var  deferred = Q.defer()
-
-	log.debug(`closeSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
-	if(!port) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-		return deferred.promise
-	}
-
-	port.close(_ => {
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-/**
- * 关闭所有串口
- */
-function closeAllSerialPort() {
-	log.debug(`closeAllSerialPort`)
-	for(var key in connectedPorts.ports) {
-		connectedPorts.ports[key].close()
-	}
-	connectedPorts.ports = {}
-}
-
-/**
- * 更新串口设置
- * @param {*} portId 串口id
- * @param {*} options 选项
- */
-function updateSerialPort(portId, options) {
-	var  deferred = Q.defer()
-
-	log.debug(`updateSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
-	if(!port) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-		return deferred.promise
-	}
-
-	port.update(options, _ => {
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-/**
- * 清空串口缓冲区
- * @param {*} portId 串口id
- * @param {*} options 选项
- */
-function flushSerialPort(portId, options) {
-	var  deferred = Q.defer()
-
-	log.debug(`flushSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
-	if(!port) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-		return deferred.promise
-	}
-
-	port.flush(_ => {
-		deferred.resolve()
-	})
-
-	return deferred.promise
+function filterArduinoPorts(ports) {
+	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
+	return ports.filter(p => reg.test(p.comName))
 }
 
 /**
@@ -983,7 +851,7 @@ function preBuild(projectPath, options) {
 
 	var projectBuildPath = path.join(projectPath, 'build')
 	fs.ensureDirSync(projectBuildPath)
-	var commandPath = path.join(getCommandDir(), 'command.txt')
+	var commandPath = getCommandPath("build")
 	var command = util.handleQuotes(options.command)
 	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
 		.replace("BUILD_SPECS", buildSpecs.join(' '))
@@ -1059,7 +927,7 @@ function preUpload(projectPath, comName, options) {
 	options = Object.assign({}, arduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
-	var commandPath = path.join(getCommandDir(), 'command.txt')
+	var commandPath = getCommandPath("upload")
 	var command = util.handleQuotes(options.command)
 	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
 		.replace("ARDUINO_MCU", options.mcu)
@@ -1069,25 +937,10 @@ function preUpload(projectPath, comName, options) {
 		.replace("TARGET_PATH", targetPath)
 
 	util.writeFile(commandPath, command).then(_ => {
-		var serialPort = new SerialPort(comName, {
-			baudRate: 1200
-		})
-
-		serialPort.on('open', _ => {
-			serialPort.set({
-				rts: true,
-				dtr: false,
-			})
-			setTimeout(_ => {
-				serialPort.close(_ => {
-					deferred.resolve(commandPath)
-				})
-			}, 650)
-		}).on('error', err => {
-			log.error(err)
-			serialPort.close(_ => {
-				deferred.reject(err)
-			})
+		serialPort.resetSerialPort(comName).then(_ => {
+			deferred.resolve(commandPath)
+		}, err => {
+			deferred.reject(err)
 		})
 	}, err => {
 		log.error(err)
@@ -1205,10 +1058,10 @@ function getScriptPath(name) {
 }
 
 /**
- * 获取command目录路径
+ * 获取command路径
  */
-function getCommandDir() {
-	return fs.mkdtempSync(path.join(app.getPath("temp"), `${app.getName()}-`))
+function getCommandPath(name) {
+	return path.resolve(path.join(util.getAppDataPath(), "temp", `${name}.txt`))
 }
 
 /**
