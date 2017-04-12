@@ -21,15 +21,31 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			restartOnPushState: false,
 			restartOnRequestAfter: false,
 		});
+		pace.stop();
 	}
 
 	function onAppStart() {
-		onSwitch("edu");
+		kenrobot.postMessage("app:unpackPackages").then(_ => {
 
-		//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-		setTimeout(function() {
-			onCheckUpdate(false);
-		}, 3000);
+		}, err => {
+			util.message({
+				text: "解压出错",
+				type: "error"
+			});
+		}, progressData => {
+			kenrobot.trigger("unpack", "show", progressData);
+		}).fin(_ => {
+			kenrobot.trigger("unpack", "hide");
+
+			setTimeout(_ => {
+				onSwitch("edu");
+
+				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+				setTimeout(function() {
+					onCheckUpdate(false);
+				}, 3000);
+			}, 1000);
+		});
 	}
 
 	function onCheckUpdate(manual) {

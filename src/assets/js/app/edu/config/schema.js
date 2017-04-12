@@ -2782,7 +2782,12 @@ define(['vendor/lodash'], function($1) {
 			"label": "Arduino UNO",
 			"name": "ArduinoUNO",
 			"type": "uno",
-			"fqbn": "arduino:avr:uno:cpu=atmega328p",
+			"build": {
+				"fqbn": "arduino:avr:uno:cpu=atmega328p"
+			},
+			"upload": {
+				"mcu": "atmega328p"
+			},
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "VB05cG",
@@ -3043,7 +3048,12 @@ define(['vendor/lodash'], function($1) {
 			"label": "Arduino Leonardo",
 			"name": "ArduinoLeonardo",
 			"type": "leonardo",
-			"fqbn": "arduino:avr:leonardo:cpu=atmega32u4",
+			"build": {
+				"fqbn": "arduino:avr:leonardo:cpu=atmega32u4"
+			},
+			"upload": {
+				"mcu": "atmega32u4"
+			},
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "B54jYH",
@@ -3292,7 +3302,12 @@ define(['vendor/lodash'], function($1) {
 			"label": "Arduino Nano",
 			"name": "ArduinoNano",
 			"type": "nano",
-			"fqbn": "arduino:avr:nano:cpu=atmega328",
+			"build": {
+				"fqbn": "arduino:avr:nano:cpu=atmega328"
+			},
+			"upload": {
+				"mcu": "atmega328"
+			},
 			"tags": ["Arduino"],
 			"pins": [{
 				"uid": "vSLvD4",
@@ -3561,268 +3576,6 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"uid": "DqkZ3k",
 			"imageUrl": "assets/image/boards/ArduinoNano.png"
-		}, {
-			"label": "Arduino/Genuino 101",
-			"name": "Arduino101",
-			"type": "genuino101",
-			"fqbn": "Intel:arc32:arduino_101",
-			"tags": ["Arduino"],
-			"pins": [{
-				"uid": "4KSv7l",
-				"width": 9,
-				"height": 12,
-				"x": 0.475,
-				"y": 0.07,
-				"name": "13",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "13",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "dNbH9e",
-				"width": 9,
-				"height": 12,
-				"x": 0.506,
-				"y": 0.07,
-				"name": "12",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "12",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "jYjBXk",
-				"width": 9,
-				"height": 12,
-				"x": 0.537,
-				"y": 0.07,
-				"name": "11",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "11",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "Q7rNbn",
-				"width": 9,
-				"height": 12,
-				"x": 0.568,
-				"y": 0.07,
-				"name": "10",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "10",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "ZWdX8a",
-				"width": 9,
-				"height": 12,
-				"x": 0.599,
-				"y": 0.07,
-				"name": "9",
-				"tags": ["digital", "analog-out", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "9",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "6ujNmZ",
-				"width": 9,
-				"height": 12,
-				"x": 0.63,
-				"y": 0.07,
-				"name": "8",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "8",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "uZgWrY",
-				"width": 9,
-				"height": 12,
-				"x": 0.697,
-				"y": 0.07,
-				"name": "7",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "7",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "6fx4LE",
-				"width": 9,
-				"height": 12,
-				"x": 0.728,
-				"y": 0.07,
-				"name": "6",
-				"tags": ["digital", "analog-out", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "6",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "6CpW3l",
-				"width": 9,
-				"height": 12,
-				"x": 0.759,
-				"y": 0.07,
-				"name": "5",
-				"tags": ["digital", "analog-out", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "5",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "GmUHNr",
-				"width": 9,
-				"height": 12,
-				"x": 0.79,
-				"y": 0.07,
-				"name": "4",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "4",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "k0H5GM",
-				"width": 9,
-				"height": 12,
-				"x": 0.832,
-				"y": 0.07,
-				"name": "3",
-				"tags": ["digital", "analog-out", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "3",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "Ixnbf8",
-				"width": 9,
-				"height": 12,
-				"x": 0.864,
-				"y": 0.07,
-				"name": "2",
-				"tags": ["digital", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "2",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "PteBrp",
-				"width": 9,
-				"height": 12,
-				"x": 0.894,
-				"y": 0.07,
-				"name": "1",
-				"tags": ["digital", "serial-rx", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "1",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "T4IYSf",
-				"width": 9,
-				"height": 12,
-				"x": 0.925,
-				"y": 0.07,
-				"name": "0",
-				"tags": ["digital", "serial-tx", "init", "any"],
-				"overlay": [0.5, 1.5],
-				"label": "0",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "NwwKuu",
-				"width": 9,
-				"height": 12,
-				"x": 0.77,
-				"y": 0.935,
-				"name": "A0",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A0",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "xDgAlg",
-				"width": 9,
-				"height": 12,
-				"x": 0.804,
-				"y": 0.935,
-				"name": "A1",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A1",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "Qy6B2J",
-				"width": 9,
-				"height": 12,
-				"x": 0.838,
-				"y": 0.935,
-				"name": "A2",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A2",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "C3th8k",
-				"width": 9,
-				"height": 12,
-				"x": 0.872,
-				"y": 0.935,
-				"name": "A3",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A3",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "9gAnIa",
-				"width": 9,
-				"height": 12,
-				"x": 0.906,
-				"y": 0.935,
-				"name": "A4",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A4",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"uid": "zNiM0h",
-				"width": 9,
-				"height": 12,
-				"x": 0.94,
-				"y": 0.935,
-				"name": "A5",
-				"tags": ["analog-in", "init", "any"],
-				"overlay": [0.5, -0.5],
-				"label": "A5",
-				"shape": "Rectangle",
-				"rotate": false
-			}, {
-				"width": 32,
-				"height": 60,
-				"x": 0.04,
-				"y": 0.296,
-				"name": "Serial",
-				"tags": ["serial"],
-				"uid": "Ma1a8g",
-				"overlay": [0.5, 1.5],
-				"label": "Serial",
-				"shape": "Rectangle",
-				"rotate": false
-			}],
-			"uid": "o8qZHI",
-			"imageUrl": "assets/image/boards/Arduino101.png",
-			"hidden": true
 		}],
 		"components": [{
 			"uid": "VUrwFj",
@@ -5313,321 +5066,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "dcMotor",
 				"uid": "vBhAoh"
 			}],
-			"imageUrl": "assets/image/components/dcMotor.png",
-			"hidden": false
-		}, {
-			"uid": "tPcLPe",
-			"name": "clzMotor",
-			"label": "电机",
-			"type": "clzMotor",
-			"category": "action",
-			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
-			"pins": [{
-				"name": "in",
-				"anchor": [0.333, 1],
-				"tags": ["digital", "analog-in"],
-				"label": "in",
-				"shape": "Dot",
-				"rotate": false
-			}, {
-				"name": "pwm",
-				"anchor": [0.667, 1],
-				"tags": ["analog-out"],
-				"label": "pwm",
-				"shape": "Dot",
-				"rotate": false
-			}],
-			"code": {
-				"include": "#include <Clz_Motor.h>",
-				"var": "Clz_Motor {NAME}({in}, {pwm});"
-			},
-			"blocks": [{
-				"type": "statement",
-				"name": "clzMotorSetSpeed",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "设置电机"
-				}, {
-					"id": "MOTOR",
-					"type": "dynamic-select",
-					"options": "clzMotors"
-				}, {
-					"type": "text",
-					"value": "速度为"
-				}, {
-					"id": "SPEED",
-					"type": "number-input"
-				}],
-				"code": "{MOTOR}.setSpeed({SPEED});",
-				"tags": ["module"],
-				"module": "clzMotor",
-				"uid": "p1oJFX"
-			}, {
-				"type": "statement",
-				"name": "clzMotorSetDirection",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "设置电机"
-				}, {
-					"id": "MOTOR",
-					"type": "dynamic-select",
-					"options": "clzMotors"
-				}, {
-					"type": "text",
-					"value": "方向为"
-				}, {
-					"id": "DIRECTION",
-					"type": "number-input"
-				}],
-				"code": "{MOTOR}.setDirection({DIRECTION});",
-				"tags": ["module"],
-				"module": "clzMotor",
-				"uid": "fb9pwA"
-			}, {
-				"type": "statement",
-				"name": "clzMotorRun",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "电机"
-				}, {
-					"id": "MOTOR",
-					"type": "dynamic-select",
-					"options": "clzMotors"
-				}, {
-					"type": "text",
-					"value": "转动，方向为"
-				}, {
-					"id": "DIRECTION",
-					"type": "number-input"
-				}, {
-					"type": "text",
-					"value": "速度为"
-				}, {
-					"id": "SPEED",
-					"type": "number-input"
-				}],
-				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
-				"tags": ["module"],
-				"module": "clzMotor",
-				"uid": "k0aDNh"
-			}, {
-				"type": "statement",
-				"name": "clzMotorStop",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "电机"
-				}, {
-					"id": "MOTOR",
-					"type": "dynamic-select",
-					"options": "clzMotors"
-				}, {
-					"type": "text",
-					"value": "停止转动"
-				}],
-				"code": "{MOTOR}.stop();",
-				"tags": ["module"],
-				"module": "clzMotor",
-				"uid": "eZeDbQ"
-			}, {
-				"type": "statement",
-				"name": "clzMotorSetDirectionAdvanced",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "lMFO2z"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "qh7wyQ"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "设置电机"
-				}, {
-					"blockInputId": "MOTOR",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "lMFO2z"
-				}, {
-					"type": "text",
-					"value": "方向为"
-				}, {
-					"blockInputId": "DIRECTION",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "qh7wyQ"
-				}],
-				"code": "{MOTOR}.setDirection({DIRECTION});",
-				"tags": ["module", "advanced"],
-				"module": "clzMotor",
-				"uid": "LRaEno"
-			}, {
-				"type": "statement",
-				"name": "clzMotorSetSpeedAdvanced",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "AOJnAc"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "xOdIZH"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "设置电机"
-				}, {
-					"blockInputId": "MOTOR",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "AOJnAc"
-				}, {
-					"type": "text",
-					"value": "速度为"
-				}, {
-					"blockInputId": "SPEED",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "xOdIZH"
-				}],
-				"code": "{MOTOR}.setSpeed({SPEED});",
-				"tags": ["module", "advanced"],
-				"module": "clzMotor",
-				"uid": "j7ITD1"
-			}, {
-				"type": "statement",
-				"name": "clzMotorRunAdvanced",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "9zUKv5"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "p95lCa"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "4pMqMR"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "设置电机"
-				}, {
-					"blockInputId": "MOTOR",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "9zUKv5"
-				}, {
-					"type": "text",
-					"value": "方向为"
-				}, {
-					"blockInputId": "DIRECTION",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "p95lCa"
-				}, {
-					"type": "text",
-					"value": "速度为"
-				}, {
-					"blockInputId": "SPEED",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "4pMqMR"
-				}],
-				"code": "{MOTOR}.run({DIRECTION}, {SPEED});",
-				"tags": ["module", "advanced"],
-				"module": "clzMotor",
-				"uid": "lFxqma"
-			}, {
-				"type": "statement",
-				"name": "clzMotorStopAdvanced",
-				"connectors": [{
-					"type": "connector-top",
-					"accept": "connector-bottom"
-				}, {
-					"type": "connector-bottom",
-					"accept": "connector-top"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "Yz8WgI"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "电机"
-				}, {
-					"blockInputId": "MOTOR",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "Yz8WgI"
-				}, {
-					"type": "text",
-					"value": "停止转动"
-				}],
-				"code": "{MOTOR}.stop();",
-				"tags": ["module", "advanced"],
-				"module": "clzMotor",
-				"uid": "rp690r"
-			}],
-			"imageUrl": "assets/image/components/clzMotor.png",
-			"hidden": true
+			"imageUrl": "assets/image/components/dcMotor.png"
 		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
@@ -5988,8 +5427,7 @@ define(['vendor/lodash'], function($1) {
 				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
 				"tags": ["module"],
 				"module": "L298P",
-				"uid": "9bBKXv",
-				"hidden": false
+				"uid": "9bBKXv"
 			}, {
 				"type": "statement",
 				"name": "L298PSetDirection",
@@ -6138,8 +5576,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "L298P",
 				"uid": "tziV6k"
 			}],
-			"imageUrl": "assets/image/components/L298P.png",
-			"hidden": true
+			"imageUrl": "assets/image/components/L298P.png"
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
