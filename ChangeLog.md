@@ -19,3 +19,16 @@
 #### features
 
 - 更换开发版主题
+
+### v0.3.3
+
+#### fix bugs
+
+- 修复Linux上传失败的bug
+- 修复scratch版部分资源加载失败的bug
+
+#### features
+
+- 新版本下载后，Mac和Linux下现在会打开文件所在位置
+- 重新设计编译和上传脚本，以便后续版本支持更多主板
+- 优化scratch版
