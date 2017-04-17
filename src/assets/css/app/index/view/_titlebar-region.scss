@@ -78,7 +78,8 @@
 					line-height: 30px;
 					padding-left: 15px;
 					padding-right: 15px;
-					width: 180px;
+					min-width: 180px;
+					width: 100%;
 
 					&.check {
 						padding-left: 20px;

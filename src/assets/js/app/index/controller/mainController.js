@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/nav'], function($1, pace, util, emitor, config, nav) {
+define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/nav', '../config/menu'], function($1, pace, util, emitor, config, nav, menu) {
 	var mainWrap;
 	var iframe;
 
@@ -6,11 +6,13 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		iframe = window.frames["content-frame"];
 		emitor.on('app', 'check-update', onCheckUpdate).on('app', 'switch', onSwitch).on("app", "start", onAppStart);
 
-		kenrobot.listenMessage("app:onDownloadSuccess", onDownloadSuccess)
+		kenrobot.listenMessage("app:fullscreenChange", onFullscreenChange)
+			.listenMessage("app:onDownloadSuccess", onDownloadSuccess)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
-			.on('build', 'error', onBuildError, {canReset: false});
+			.on('build', 'error', onBuildError, {canReset: false})
+			.on('app-menu', 'do-action', onMenuAction, {canReset: false});
 
 		pace.start({
 			elements: {
@@ -25,6 +27,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	}
 
 	function onAppStart() {
+		kenrobot.trigger("app-menu", "load", menu, "index");
+
 		kenrobot.postMessage("app:unpackPackages").then(_ => {
 
 		}, err => {
@@ -38,7 +42,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			kenrobot.trigger("unpack", "hide");
 
 			setTimeout(_ => {
-				onSwitch("edu");
+				onSwitch("ide");
 
 				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 				setTimeout(function() {
@@ -46,6 +50,52 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 				}, 3000);
 			}, 1000);
 		});
+	}
+
+	function onMenuAction(action, extra) {
+		switch(action) {
+			case "fullscreen":
+				kenrobot.postMessage("app:fullscreen");
+				break;
+			case "language":
+				util.message("敬请期待");
+				break;
+			case "theme":
+				util.message("敬请期待");
+				break;
+			case "setting":
+				util.message("敬请期待");
+				break;
+			case "switch":
+				onSwitch(extra.type);
+				break;
+			case "download-arduino-driver":
+				kenrobot.postMessage("app:getAppInfo").then(function(info) {
+					if (info.platform != "win") {
+						util.message("您的系统是" + info.platform + ", 不需要安装驱动");
+						return;
+					}
+					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit == 64 ? "64" : "86"), "driver-download");
+				});
+				break;
+			case "check-update":
+				onCheckUpdate();
+				break;
+			case "visit-kenrobot":
+				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
+				break;
+			case "visit-arduino":
+				kenrobot.postMessage("app:openUrl", config.url.arduino);
+				break;
+			case "suggestion":
+				kenrobot.postMessage("app:openUrl", config.url.support);
+				break;
+			case "about-kenrobot":
+				kenrobot.postMessage("app:getAppInfo").then(function(info) {
+					kenrobot.trigger("about", "show", {version: info.version, url: config.url.kenrobot});
+				});
+				break;
+		}
 	}
 
 	function onCheckUpdate(manual) {
@@ -91,8 +141,10 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		var url = nav[type];
 		iframe.src = url;
 		pace.restart();
+	}
 
-		emitor.trigger("app", "after-switch", type);
+	function onFullscreenChange(fullscreen) {
+		emitor.trigger("app", "fullscreenChange", fullscreen);
 	}
 
 	function onDownloadSuccess(path, action) {		

@@ -4,18 +4,10 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 
 	function init() {
 		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
-		appMenu = $('.app-menu', region).on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
+		appMenu = $('.app-menu', region);
 		
-		emitor.on('app', 'start', onAppStart).on('app', 'after-switch', onAppAfterSwitch);
-	}
-
-	function onAppStart() {
-		loadExamples();
-	}
-
-	function onAppAfterSwitch(type) {
-		var li = appMenu.find(".switches > li").filter('[data-type="' + type + '"]');
-		util.toggleActive(li);
+		emitor.on("app", "fullscreenChange", onFullscreenChange);
+		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false});
 	}
 
 	function activeAppMenu(e) {
@@ -35,91 +27,75 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			return;
 		}
 
-		switch (action) {
-			case "new-project":
-			case "open-project":
-			case "save-project":
-			case "save-as-project":
-			case "toggle-comment":
-			case "copy":
-				kenrobot.trigger("app", "shortcut", action);
-				break;
-			case "open-example":
-				var category = li.data("category");
-				var name = li.data("name");
-				kenrobot.postMessage("app:openExample", category, name).then(function(projectInfo) {
-					kenrobot.trigger("project", "open", projectInfo);
-				}, function() {
-					util.message("打开失败");
-				});
-				break;
-			case "fullscreen":
-				kenrobot.postMessage("app:fullscreen").done(function(fullscreen) {
-					li.find('.text').text(fullscreen ? "退出全屏" : "全屏")
-				});
-				break;
-			case "language":
-				util.message("敬请期待");
-				break;
-			case "theme":
-				util.message("敬请期待");
-				break;
-			case "setting":
-				util.message("敬请期待");
-				break;
-			case "switch":
-				util.toggleActive(li);
-				emitor.trigger("app", "switch", li.data("type"));
-				break;
-			case "download-arduino-driver":
-				kenrobot.postMessage("app:getAppInfo").then(function(info) {
-					if (info.platform != "win") {
-						util.message("您的系统是" + info.platform + ", 不需要安装驱动");
-						return;
-					}
-					kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", info.bit == 64 ? "64" : "86"), "driver-download");
-				});
-				break;
-			case "check-update":
-				emitor.trigger("app", "check-update");
-				break;
-			case "visit-kenrobot":
-				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
-				break;
-			case "visit-arduino":
-				kenrobot.postMessage("app:openUrl", config.url.arduino);
-				break;
-			case "suggestion":
-				kenrobot.postMessage("app:openUrl", config.url.support);
-				break;
-			case "about-kenrobot":
-				kenrobot.postMessage("app:getAppInfo").then(function(info) {
-					kenrobot.trigger("about", "show", {version: info.version, url: config.url.kenrobot});
-				})
-				break;
-		}
+		kenrobot.trigger("app-menu", "do-action", action, li.data("extra"), li);
+
 		inactiveAppMenu();
 	}
 
-	function loadExamples() {
-		kenrobot.postMessage("app:loadExamples").then(function(examples) {
-			var exampleBuiltIn = appMenu.find(".example-built-in > ul").empty();
-			examples.forEach(function(ca) {
-				var li = $('<li>').append($('<div>').addClass("placeholder").addClass("arrow").text(ca.category));
-				var ul = $('<ul>').appendTo(li);
-				ca.list.forEach(function(example) {
-					$('<li>').data('action', 'open-example').data("category", ca.category).data("name", example.name).append($('<span>').addClass("text").text(example.name)).appendTo(ul);
-				});
-				li.appendTo(exampleBuiltIn);
-			});
+	function onAppMenuLoad(menu, type) {
+		appMenu.empty().append(genMenu(menu));
+		appMenu.off('click', "> ul > li > .placeholder", activeAppMenu)
+			.on('click', "> ul > li > .placeholder", activeAppMenu)
+			.off('mouseleave', inactiveAppMenu)
+			.on('mouseleave', inactiveAppMenu)
+			.off('click', 'li', onAppMenuClick)
+			.on('click', 'li', onAppMenuClick);
 
-			appMenu.off('click').off('mouseleave').on('click', "> ul > li > .placeholder", activeAppMenu).on('mouseleave', inactiveAppMenu).on('click', 'li', onAppMenuClick);
-		}, function(err) {
-			util.message({
-				text: "加载案例失败",
-				type: "error",
-			});
+		var li = appMenu.find(".switches > li").filter((index, item) => $(item).data("extra").type  == type)
+		li.length && util.toggleActive(li);
+	}
+ 
+	function genMenu(menu) {
+		var menuItems = menu.map(menuItem => {
+			if(menuItem == "_") {
+				return $(`<li class="seperator"></li>`);
+			} else if(menuItem.text) {
+				var li = $(`<li data-action="${menuItem.action}"><span class="text">${menuItem.text}</span></li>`);
+
+				if(menuItem.id) {
+					li.data("id", menuItem.id);
+				}
+
+				if(menuItem.extra) {
+					li.data('extra', menuItem.extra);
+				}
+
+				if(menuItem.cls) {
+					li.addClass(menuItem.cls);
+				}
+
+				if(menuItem.shortcut) {
+					var shortcut = menuItem.shortcut;
+					li.append($(`<span class="shortcut">${shortcut.text}</span>`));
+				}
+
+				return li;
+			} else if(menuItem.placeholder) {
+				var li = $(`<li><div class="placeholder${menuItem.arrow ? " arrow" : ""}">${menuItem.placeholder}</div></li>`);
+
+				if(menuItem.id) {
+					li.data("id", menuItem.id);
+				}
+
+				if(menuItem.menu) {
+					var subMenu = genMenu(menuItem.menu);
+					if(menuItem.menuCls) {
+						subMenu.addClass(menuItem.menuCls);
+					}
+					if(menuItem.menuWidth) {
+						subMenu.css("width", menuItem.menuWidth);
+					}
+					li.append(subMenu);
+				}
+
+				return li;
+			} else {
+				console.log("error config", menuItem);
+				return "";
+			}
 		});
+
+		return $('<ul>').append(menuItems);
 	}
 
 	function onWindowBtnClick(e) {
@@ -135,6 +111,11 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 				kenrobot.postMessage("app:quit");
 				break;
 		}
+	}
+
+	function onFullscreenChange(fullscreen) {
+		var li = Array.from(appMenu.find("li")).find(li => $(li).data("id") == "fullscreen");
+		$(li).find(".text").text(fullscreen ? "退出全屏" : "全屏");
 	}
 
 	return {

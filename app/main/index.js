@@ -90,6 +90,10 @@ function createWindow() {
 		mainWindow = null
 	}).once('ready-to-show', () => {
 		mainWindow.show()
+	}).on('enter-full-screen', _ => {
+		util.postMessage("app:fullscreenChange", true)
+	}).on('leave-full-screen', _ => {
+		util.postMessage("app:fullscreenChange", false)
 	})
 
 	mainWindow.webContents.on('devtools-reload-page', _ => {
@@ -230,6 +234,13 @@ function listenMessage() {
 			e.sender.send('app:writeFile', deferId, false, err)
 		})
 	})
+	.on('app:moveFile', (e, deferId, src, dst, options) => {
+		util.moveFile(src, dst, options).then(_ => {
+			e.sender.send('app:moveFile', deferId, true, true)
+		}, err => {
+			e.sender.send('app:moveFile', deferId, false, err)
+		})
+	})
 	.on('app:removeFile', (e, deferId, filePath) => {
 		util.removeFile(filePath).then(_ => {
 			e.sender.send('app:removeFile', deferId, true, true)
@@ -244,8 +255,8 @@ function listenMessage() {
 			e.sender.send('app:saveProject', deferId, false, err)
 		})
 	})
-	.on('app:openProject', (e, deferId, projectPath) => {
-		openProject(projectPath).then(data => {
+	.on('app:openProject', (e, deferId, projectPath, type) => {
+		openProject(projectPath, type).then(data => {
 			e.sender.send('app:openProject', deferId, true, data)
 		}, err => {
 			e.sender.send('app:openProject', deferId, false, err)
@@ -766,26 +777,53 @@ function saveProject(oldProjectPath, projectInfo, isTemp) {
  * 打开项目
  * @param {*} projectPath 项目路径 
  */
-function openProject(projectPath) {
+function openProject(projectPath, type) {
 	var deferred = Q.defer()
 
 	log.debug(`openProject ${projectPath}`)
 	var read = projectPath => {
-		util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
-			deferred.resolve({
-				path: projectPath,
-				projectInfo: projectInfo
+		if(type == "project") {
+			util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
+				deferred.resolve({
+					path: projectPath,
+					projectInfo: projectInfo
+				})
+			}, err => {
+				log.error(err)
+				deferred.reject(err)
 			})
-		}, err => {
-			log.error(err)
-			deferred.reject(err)
-		})
+		} else {
+			var dirname = path.dirname(projectPath)
+			var basename = path.basename(projectPath, path.extname(projectPath))
+			if(path.basename(dirname) != basename) {
+				setTimeout(_ => {
+					deferred.reject({
+						path: projectPath,
+						newPath: path.join(dirname, basename, `${basename}.ino`),
+						status: "DIR_INVALID",
+					})
+				}, 10)
+				return
+			}
+			util.readFile(projectPath).then(code => {
+				deferred.resolve({
+					path: dirname,
+					code: code,
+				})
+			}, err => {
+				log.error(err)
+				deferred.reject(err)
+			})
+		}
 	}
 	if(projectPath) {
 		read(projectPath)
 	} else {
+		var filters = type == "project" ? null : [{name: "ino", extensions: ["ino"]}]
+		var properties = type == "project" ? ["openDirectory"] : ["openFile"]
 		util.showOpenDialog(mainWindow, {
-			properties: ["openDirectory"]
+			properties: properties,
+			filters: filters,
 		}).then(projectPath => {
 			read(projectPath)
 		}, err => {

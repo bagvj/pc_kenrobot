@@ -1,6 +1,7 @@
 define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../view/code'], function($1, util, emitor, progress, code) {
 	var currentProject;
 	var savePath;
+	var boardData = {};
 
 	function init() {
 		emitor.on('app', 'start', onAppStart)
@@ -9,17 +10,29 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			.on('project', 'save', onProjectSave)
 			.on('project', 'upload', onProjectUpload)
 			.on('project', 'check', onProjectCheck)
-			.on('code', 'copy', onCodeCopy);
+			.on('code', 'copy', onCodeCopy)
+			.on('board', 'change', onBoardChange);
 
 		kenrobot.on("project", "open", onProjectOpen);
 	}
 
 	function openProject(projectInfo) {
-		currentProject && (currentProject.project_data = getProjectData());
+		if(projectInfo === undefined) {
+			projectInfo = getDefaultProject();
+		} else if(typeof projectInfo == "string") {
+			var source = projectInfo;
+			projectInfo = getDefaultProject();
+			projectInfo.project_data.code = source
+		}
 		currentProject = projectInfo;
 
 		var projectData = projectInfo.project_data;
 		code.setData(projectData.code);
+	}
+
+	function onBoardChange(_boardData) {
+		boardData = _boardData;
+		util.message("开发板设置成功");
 	}
 
 	function onAppStart() {
@@ -40,18 +53,43 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				type: "success"
 			});
 		} else {
-			kenrobot.postMessage("app:openProject").then(function(result) {
+			kenrobot.postMessage("app:openProject", null, "ino").then(function(result) {
 				savePath = result.path;
-				openProject(result.projectInfo);
+				openProject(result.code);
 				util.message({
 					text: "打开成功",
 					type: "success"
 				});
 			}, function(err) {
-				util.message({
-					text: "打开失败",
-					type: "error",
-				});
+				if(err.status && err.status == "DIR_INVALID") {
+					util.confirm({
+						text: `ino文件必须放在文件夹内，是否创建并移动?`,
+						onConfirm: _ => {
+							kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(_ => {
+								kenrobot.postMessage("app:openProject", err.newPath, "ino").then(res => {
+									savePath = res.path;
+									openProject(res.code);
+									util.message({
+										text: "打开成功",
+										type: "success"
+									});
+								}, err1 => {
+									util.message({
+										text: "打开失败",
+										type: "error",
+									});
+								})
+							}, err1 => {
+
+							})
+						}
+					})
+				} else {
+					util.message({
+						text: "打开失败",
+						type: "error",
+					});
+				}
 			});
 		}
 	}
@@ -82,11 +120,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		doProjectSave(projectInfo, saveAs).then(function() {
 			emitor.trigger("ui", "lock", "build", true);
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath).then(function() {
+			kenrobot.postMessage("app:buildProject", savePath, boardData.build).then(function() {
 				util.message("编译成功，正在上传");
 				setTimeout(function() {
 					var uploadProgressHelper = {};
-					kenrobot.postMessage("app:upload", savePath).then(function() {
+					kenrobot.postMessage("app:upload", savePath, boardData.upload).then(function() {
 						emitor.trigger("ui", "lock", "build", false);
 						util.message({
 							text: "上传成功",
@@ -104,7 +142,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 									}
 									util.message("正在上传");
 									uploadProgressHelper = {}
-									kenrobot.postMessage("app:upload2", savePath, port.comName).then(function() {
+									kenrobot.postMessage("app:upload2", savePath, port.comName, boardData.upload).then(function() {
 										emitor.trigger("ui", "lock", "build", false);
 										util.message({
 											text: "上传成功",
@@ -150,7 +188,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		util.message("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(function(path) {
 			emitor.trigger("ui", "lock", "build", true);
-			kenrobot.postMessage("app:buildProject", path).then(function() {
+			kenrobot.postMessage("app:buildProject", path, boardData.build).then(function() {
 				emitor.trigger("ui", "lock", "build", false);
 				util.message("验证成功");
 			}, function(err) {
@@ -216,27 +254,6 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			updated_at: now,
 		};
 	}
-
-	function convertProject(projectInfo) {
-		if (typeof projectInfo.project_data == "string") {
-			try {
-				projectInfo.project_data = JSON.parse(projectInfo.project_data);
-			} catch (ex) {
-				projectInfo.project_data = {};
-			}
-		}
-
-		if (typeof projectInfo.created_at == "string") {
-			projectInfo.created_at = new Date(projectInfo.created_at);
-		}
-
-		if (typeof projectInfo.updated_at == "string") {
-			projectInfo.updated_at = new Date(projectInfo.updated_at);
-		}
-
-		return projectInfo;
-	}
-
 	return {
 		init: init,
 	}

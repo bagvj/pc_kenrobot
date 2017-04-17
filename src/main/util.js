@@ -258,6 +258,24 @@ function writeFile(file, data) {
 	return deferred.promise
 }
 
+function moveFile(src, dst, options) {
+	var deferred = Q.defer()
+	options = options || {overwrite: true}
+
+	log.debug(`moveFile:${src} -> ${dst}`)
+	fs.move(src, dst, options, err => {
+		if(err) {
+			log.error(err)
+			deferred.reject(err)
+			return
+		}
+
+		deferred.resolve()
+	})
+
+	return deferred.promise
+}
+
 /**
  * 删除文件
  * @param {*} file 路径
@@ -496,6 +514,7 @@ module.exports.spawnCommand = spawnCommand
 
 module.exports.readFile = readFile
 module.exports.writeFile = writeFile
+module.exports.moveFile = moveFile
 module.exports.removeFile = removeFile
 module.exports.readJson = readJson
 module.exports.writeJson = writeJson
