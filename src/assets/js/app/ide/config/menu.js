@@ -67,6 +67,12 @@ define(function() {
 		id: "options",
 		placeholder: "选项",
 		menu: [{
+			id: "boards",
+			placeholder: "开发板",
+			arrow: true,
+			menuCls: "boards",
+			menuWidth: 300,
+		}, "_", {
 			id: "fullscreen",
 			text: "全屏",
 			action: "fullscreen",
@@ -79,12 +85,6 @@ define(function() {
 		}, "_", {
 			text: "设置",
 			action: "setting",
-		}, "_", {
-			id: "boards",
-			placeholder: "开发板",
-			arrow: true,
-			menuCls: "boards",
-			menuWidth: 300,
 		}, "_", {
 			placeholder: "切换",
 			arrow: true,

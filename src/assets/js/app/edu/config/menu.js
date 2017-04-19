@@ -67,6 +67,9 @@ define(function() {
 		id: "options",
 		placeholder: "选项",
 		menu: [{
+			text: "开发板管理",
+			action: "show-board-dialog",
+		}, "_", {
 			id: "fullscreen",
 			text: "全屏",
 			action: "fullscreen",

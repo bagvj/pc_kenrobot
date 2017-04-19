@@ -2,6 +2,8 @@ const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 
 const path = require('path')
 const os = require('os')
+const querystring = require('querystring')
+
 const util = require('./util')
 const serialPort = require('./serialPort') //串口
 
@@ -91,42 +93,15 @@ function createWindow() {
 	}).once('ready-to-show', () => {
 		mainWindow.show()
 	}).on('enter-full-screen', _ => {
-		util.postMessage("app:fullscreenChange", true)
+		util.postMessage("app:onFullscreenChange", true)
 	}).on('leave-full-screen', _ => {
-		util.postMessage("app:fullscreenChange", false)
+		util.postMessage("app:onFullscreenChange", false)
 	})
 
 	mainWindow.webContents.on('devtools-reload-page', _ => {
 		serialPort.closeAllSerialPort()
 	})
-	mainWindow.webContents.session.on('will-download', (e, item, webContent) => {
-		var savePath = path.join(util.getAppDataPath(), 'temp', item.getFilename())
-		item.setSavePath(savePath)
-
-		var url = item.getURL()
-		var pos = url.lastIndexOf("#")
-		var action = url.substring(pos + 1)
-		url = url.substring(0, pos)
-
-		item.on('updated', (evt, state) => {
-			if(state == "interrupted") {
-				log.debug(`download interrupted: ${url}`)
-			} else if(state === 'progressing') {
-				if(item.isPaused()) {
-					log.debug(`download paused: ${url}`)
-				}
-			}
-		})
-
-		item.once('done', (evt, state) => {
-			if(state == "completed") {
-				log.debug(`download success: ${url}, at ${savePath}`)
-				util.postMessage("app:onDownloadSuccess", savePath, action)
-			} else {
-				log.debug(`download fail: ${url}`)
-			}
-		})
-	})
+	mainWindow.webContents.session.on('will-download', onDownload)
 
 	mainWindow.loadURL(`file://${__dirname}/../index.html`)
 	mainWindow.focus()
@@ -160,6 +135,7 @@ function listenEvent() {
 	})
 	.on('will-quit', _ => {
 		serialPort.closeAllSerialPort()
+		util.removeFile(path.join(util.getAppDataPath(), "temp"), true);
 	})
 	.on('quit', _ => {
 		log.debug('app quit')
@@ -228,22 +204,22 @@ function listenMessage() {
 		})
 	})
 	.on('app:writeFile', (e, deferId, filePath, data) => {
-		util.writeFile(filePath, data).then(_ => {
-			e.sender.send('app:writeFile', deferId, true, true)
+		util.writeFile(filePath, data).then(result => {
+			e.sender.send('app:writeFile', deferId, true, result)
 		}, err => {
 			e.sender.send('app:writeFile', deferId, false, err)
 		})
 	})
 	.on('app:moveFile', (e, deferId, src, dst, options) => {
-		util.moveFile(src, dst, options).then(_ => {
-			e.sender.send('app:moveFile', deferId, true, true)
+		util.moveFile(src, dst, options).then(result => {
+			e.sender.send('app:moveFile', deferId, true, result)
 		}, err => {
 			e.sender.send('app:moveFile', deferId, false, err)
 		})
 	})
 	.on('app:removeFile', (e, deferId, filePath) => {
-		util.removeFile(filePath).then(_ => {
-			e.sender.send('app:removeFile', deferId, true, true)
+		util.removeFile(filePath).then(result => {
+			e.sender.send('app:removeFile', deferId, true, result)
 		}, err => {
 			e.sender.send('app:removeFile', deferId, false, err)
 		})
@@ -263,8 +239,8 @@ function listenMessage() {
 		})	
 	})
 	.on('app:buildProject', (e, deferId, projectPath, options) => {
-		buildProject(projectPath, options).then(_ => {
-			e.sender.send('app:buildProject', deferId, true, true)
+		buildProject(projectPath, options).then(result => {
+			e.sender.send('app:buildProject', deferId, true, result)
 		}, err => {
 			e.sender.send('app:buildProject', deferId, false, err)
 		}, progress => {
@@ -274,8 +250,8 @@ function listenMessage() {
 	.on('app:upload', (e, deferId, projectPath, options) => {
 		listSerialPort().then(ports => {
 			if(ports.length == 1) {
-				upload(projectPath, ports[0].comName, options).then(_ => {
-					e.sender.send('app:upload', deferId, true, true)
+				upload(projectPath, ports[0].comName, options).then(result => {
+					e.sender.send('app:upload', deferId, true, result)
 				}, err => {
 					e.sender.send('app:upload', deferId, false, err)
 				}, progress => {
@@ -294,8 +270,8 @@ function listenMessage() {
 		})
 	})
 	.on('app:upload2', (e, deferId, projectPath, comName, options) => {
-		upload(projectPath, comName, options).then(_ => {
-			e.sender.send('app:upload2', deferId, true, true)
+		upload(projectPath, comName, options).then(result => {
+			e.sender.send('app:upload2', deferId, true, result)
 		}, err => {
 			e.sender.send('app:upload2', deferId, false, err)
 		}, progress => {
@@ -317,29 +293,29 @@ function listenMessage() {
 		})
 	})
 	.on('app:writeSerialPort', (e, deferId, portId, buffer) => {
-		serialPort.writeSerialPort(portId, buffer).then(_ => {
-			e.sender.send('app:writeSerialPort', deferId, true, true)
+		serialPort.writeSerialPort(portId, buffer).then(result => {
+			e.sender.send('app:writeSerialPort', deferId, true, result)
 		}, err => {
 			e.sender.send('app:writeSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:closeSerialPort', (e, deferId, portId) => {
-		serialPort.closeSerialPort(portId).then(_ => {
-			e.sender.send('app:closeSerialPort', deferId, true, true)
+		serialPort.closeSerialPort(portId).then(result => {
+			e.sender.send('app:closeSerialPort', deferId, true, result)
 		}, err => {
 			e.sender.send('app:closeSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:updateSerialPort', (e, deferId, portId, options) => {
-		serialPort.updateSerialPort(portId, options).then(_ => {
-			e.sender.send('app:updateSerialPort', deferId, true, true)
+		serialPort.updateSerialPort(portId, options).then(result => {
+			e.sender.send('app:updateSerialPort', deferId, true, result)
 		}, err => {
 			e.sender.send('app:updateSerialPort', deferId, false, err)
 		})
 	})
 	.on('app:flushSerialPort', (e, deferId, portId) => {
-		serialPort.flushSerialPort(portId).then(_ => {
-			e.sender.send('app:flushSerialPort', deferId, true, true)
+		serialPort.flushSerialPort(portId).then(result => {
+			e.sender.send('app:flushSerialPort', deferId, true, result)
 		}, err => {
 			e.sender.send('app:flushSerialPort', deferId, false, err)
 		})
@@ -358,14 +334,18 @@ function listenMessage() {
 	.on('app:getAppInfo', (e, deferId) => {
 		e.sender.send('app:getAppInfo', deferId, true, util.getAppInfo())
 	})
-	.on('app:download', (e, deferId, url, action) => {
-		log.debug(`download ${url}, action ${action}`)
-		mainWindow.webContents.downloadURL(`${url}#${action}`)
-		e.sender.send('app:download', deferId, true, true)
+	.on('app:download', (e, deferId, url, options) => {
+		download(url, options).then(result => {
+			e.sender.send('app:download', deferId, true, result)
+		}, err => {
+			e.sender.send('app:download', deferId, false, err)
+		}, progress => {
+			e.sender.send('app:download', deferId, "notify", progress)
+		})
 	})
 	.on('app:installDriver', (e, deferId, driverPath) => {
-		installDriver(driverPath).then(_ => {
-			e.sender.send('app:installDriver', deferId, true, true)
+		installDriver(driverPath).then(result => {
+			e.sender.send('app:installDriver', deferId, true, result)
 		}, err => {
 			e.sender.send('app:installDriver', deferId, false, err)
 		})
@@ -388,13 +368,22 @@ function listenMessage() {
 		clipboard.writeText(text, type)
 		e.sender.send("app:copy", deferId, true, true)
 	})
-	.on('app:unpackPackages', (e, deferId) => {
-		unpackPackages().then(_ => {
-			e.sender.send('app:unpackPackages', deferId, true, true)
+	.on('app:unzipPackages', (e, deferId) => {
+		unzipPackages().then(result => {
+			e.sender.send('app:unzipPackages', deferId, true, result)
 		}, err => {
-			e.sender.send('app:unpackPackages', deferId, false, err)
+			e.sender.send('app:unzipPackages', deferId, false, err)
 		}, progress => {
-			e.sender.send('app:unpackPackages', deferId, "notify", progress)
+			e.sender.send('app:unzipPackages', deferId, "notify", progress)
+		})
+	})
+	.on('app:unzipPackage', (e, deferId, packagePath) => {
+		unzipPackage(packagePath).then(result => {
+			e.sender.send('app:unzipPackage', deferId, true, result)
+		}, err => {
+			e.sender.send('app:unzipPackage', deferId, false, err)
+		}, progress => {
+			e.sender.send('app:unzipPackage', deferId, "notify", progress)
 		})
 	})
 	.on("app:loadPackages", (e, deferId) => {
@@ -402,6 +391,13 @@ function listenMessage() {
 			e.sender.send('app:loadPackages', deferId, true, packages)
 		}, err => {
 			e.sender.send('app:loadPackages', deferId, false, err)
+		})
+	})
+	.on("app:deletePackage", (e, deferId, name) => {
+		deletePackage(name).then(result => {
+			e.sender.send("app:deletePackage", deferId, true, result)
+		}, err => {
+			e.sender.send("app:deletePackage", deferId, false, err)
 		})
 	})
 	.on("app:checkUpdate", (e, deferId, checkUrl) => {
@@ -490,11 +486,11 @@ function writeConfig(sync) {
 /**
  * 解压资源包
  */
-function unpackPackages() {
+function unzipPackages() {
 	var deferred = Q.defer()
 
 	if(config.version && config.version == util.getVersion()) {
-		log.debug("skip unpack packages")
+		log.debug("skip unzip packages")
 		setTimeout(_ => {
 			deferred.resolve()
 		}, 10)
@@ -502,7 +498,7 @@ function unpackPackages() {
 		return deferred.promise
 	}
 
-	log.debug("unpack packages")
+	log.debug("unzip packages")
 	var packagesPath = path.join(util.getResourcePath(), "packages")
 	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
 		var oldPackages = config.packages || []
@@ -560,6 +556,24 @@ function unpackPackages() {
 }
 
 /**
+ * 解压单个资源包
+ */
+function unzipPackage(packagePath) {
+	var deferred = Q.defer()
+
+	util.unzip(packagePath, getPackagesPath(), true).then(_ => {
+		deferred.resolve()
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
+	}, progress => {
+		deferred.notify(progress)
+	})
+
+	return deferred.promise
+}
+
+/**
  * 加载所有包
  */
 function loadPackages() {
@@ -583,9 +597,13 @@ function loadPackages() {
 						board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
 					}
 				})
-				packages.push(packageConfig)
+				
 				var packageSrcPath = path.join(packageConfig.path, "src")
-				fs.existsSync(packageSrcPath) && arduinoOptions.librariesPath.push(packageSrcPath)
+				if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
+					arduinoOptions.librariesPath.push(packageSrcPath)
+				}
+
+				packages.push(packageConfig)
 			})
 			.fin(_ => {
 				d.resolve()
@@ -595,6 +613,20 @@ function loadPackages() {
 		.then(_ => {
 			deferred.resolve(packages)
 		})
+	}, err => {
+		log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function deletePackage(name) {
+	var deferred = Q.defer()
+
+	log.debug(`deletePackage: ${name}`)
+	util.removeFile(path.join(getPackagesPath(), name)).then(_ => {
+		deferred.resolve()
 	}, err => {
 		log.error(err)
 		deferred.reject(err)
@@ -640,6 +672,90 @@ function loadExamples() {
 	return deferred.promise
 }
 
+function onDownload(e, item, webContent) {
+	var url = item.getURL()
+	var pos = url.lastIndexOf("#")
+	var query = querystring.parse(url.substring(pos + 1))
+	url = url.substring(0, pos)
+
+	var deferId = query.deferId
+	var savePath = path.join(util.getAppDataPath(), 'download', item.getFilename())
+	if(query.checksum && fs.existsSync(savePath)) {
+		pos = query.checksum.indexOf(":")
+		var algorithm = query.checksum.substring(0, pos)
+		var hash = query.checksum.substring(pos + 1)
+		if(hash == hasha.fromFileSync(savePath, {algorithm: algorithm})) {
+			item.cancel()
+			log.debug(`download cancel, ${url} has cache`)
+			util.callDefer(deferId, true, {
+				path: savePath,
+			})
+			return
+		}
+	}
+
+	item.setSavePath(savePath)
+
+	var totalSize = item.getTotalBytes()
+	item.on('updated', (evt, state) => {
+		if(state == "interrupted") {
+			log.debug(`download interrupted: ${url}`)
+			util.callDefer(deferId, false, {
+				path: savePath,
+			})
+		} else if(state === 'progressing') {
+			if(item.isPaused()) {
+				log.debug(`download paused: ${url}`)
+				util.callDefer(deferId, false, {
+					path: savePath,
+				})
+			} else {
+				util.callDefer(deferId, "notify", {
+					path: savePath,
+					totalSize: totalSize,
+					size: item.getReceivedBytes(),
+				})
+			}
+		}
+	})
+
+	item.once('done', (evt, state) => {
+		if(state == "completed") {
+			log.debug(`download success: ${url}, at ${savePath}`)
+			util.callDefer(deferId, true, {
+				path: savePath,
+			})
+		} else {
+			log.debug(`download fail: ${url}`)
+			util.callDefer(deferId, false, {
+				path: savePath,
+			})
+		}
+	})
+}
+
+function download(url, options) {
+	var deferred = Q.defer()
+
+	var {deferId, promise} = util.getDefer()
+	options.deferId = deferId
+
+	var query = querystring.stringify(options)
+	log.debug(`download ${url}, options: ${query}`)
+
+	promise.then(result => {
+		deferred.resolve(result)
+	}, err => {
+		deferred.reject(err)
+	}, progress => {
+		deferred.notify(progress)
+	})
+
+	mainWindow.webContents.downloadURL(`${url}#${query}`)
+
+	return deferred.promise
+}
+
 /**
  * 安装驱动
  * @param {*} driverPath 
@@ -648,7 +764,7 @@ function installDriver(driverPath) {
 	var deferred = Q.defer()
 
 	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.dirname(driverPath)
+	var dir = path.join(util.getAppDataPath(), "temp")
 	util.unzip(driverPath, dir).then(_ => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(_ => {

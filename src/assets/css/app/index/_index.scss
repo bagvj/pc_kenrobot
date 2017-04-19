@@ -3,6 +3,7 @@
 @import "../../vendor/_bootstrap.scss";
 @import "../../vendor/_kenrobot.scss";
 @import "../../vendor/_pace.scss";
+@import "../../vendor/_perfect-scrollbar.scss";
 
 @import "../common/base/_reset.scss";
 @import "../common/helper/_helper.scss";
@@ -11,7 +12,7 @@
 @import "./dialog/_common-dialog.scss";
 @import "./dialog/_about-dialog.scss";
 @import "./dialog/_error-dialog.scss";
-@import "./dialog/_library-dialog.scss";
+@import "./dialog/_board-dialog.scss";
 @import "./dialog/_port-dialog.scss";
 @import "./dialog/_unpack-dialog.scss";
 

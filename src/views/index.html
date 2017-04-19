@@ -47,7 +47,8 @@
 			</div>
 		</div>
 		<div class="no-select layers">
-			<div class="layer modal dialog-layer">
+			<div class="layer dialog-layer">
+				<div class="x-dialog-mask"></div>
 				<div class="x-dialog common-dialog">
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-header"></div>
@@ -67,8 +68,8 @@
 						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
 					</div>
 				</div>
-				<div class="x-dialog library-dialog">
-					<div class="x-dialog-title">库管理</div>
+				<div class="x-dialog board-dialog">
+					<div class="x-dialog-title">开发板管理</div>
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-content">
 						<div class="toolbar">
@@ -83,48 +84,10 @@
 									<li data-value="third-party">第三方</li>
 								</ul>
 							</div>
-							<span class="theme-label">主题</span>
-							<div class="x-select themes">
-								<div class="placeholder"></div>
-								<ul>
-									<li data-value="all">全部</li>
-									<li data-value="comunication">通信</li>
-									<li data-value="data-handle">数据处理</li>
-									<li data-value="data-storage">数据存储</li>
-									<li data-value="device-control">设备控制</li>
-									<li data-value="display">显示</li>
-									<li data-value="sensor">传感器</li>
-									<li data-value="signal input/output">信号输入/输出</li>
-									<li data-value="others">其它</li>
-								</ul>
-							</div>
 							<input class="filter" type="text" placeholder="关键词过滤..." /> 
 						</div>
 						<div class="list">
-							<ul>
-								<li>
-									<div>
-										<span class="name">Adafruit ADS1X15</span>
-										<span class="author">by Arduino</span>
-									</div>
-									<div class="des">
-										<span class="desA">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
-										<span class="desB">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
-									</div>
-									<div class="clearfix">
-										<span class="more">更多信息</span>
-										<input type="button" class="install" value="安装" />
-										<div class="x-select versions">
-											<div class="placeholder"></div>
-											<ul>
-												<li data-value="1.6.1">1.6.1</li>
-												<li data-value="1.6.2">1.6.2</li>
-												<li data-value="1.6.3">1.6.3</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-							</ul>
+							<ul></ul>
 						</div>
 					</div>
 				</div>

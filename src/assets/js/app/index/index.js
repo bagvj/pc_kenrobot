@@ -3,11 +3,15 @@ define(['app/common/util/emitor', 'app/common/util/report', 'app/common/config/c
 	function init() {
 		window.kenrobot = window.kenrobot || {};
 		
-		report.init(config.debug);
-		controller.init();
-		view.init();
+		kenrobot.postMessage("app:getAppInfo").then(info => {
+			kenrobot.appInfo = info;
 
-		emitor.trigger('app', 'start');
+			report.init(config.debug);
+			controller.init();
+			view.init();
+
+			emitor.trigger('app', 'start');
+		});
 	}
 
 	return {

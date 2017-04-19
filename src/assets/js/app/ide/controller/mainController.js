@@ -49,6 +49,10 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 					},
 				};
 			});
+			boardMenu.unshift({
+				text: "开发板管理",
+				action: "show-board-dialog",
+			}, "_");
 			promise.resolve(boardMenu);
 		});
 

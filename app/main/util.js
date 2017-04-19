@@ -18,6 +18,9 @@ const PACKAGE = require('../package')
 
 is.dev() && app.setName(PACKAGE.name)
 
+const defers = {}
+var deferAutoId = 0
+
 /**
  * 判断当前系统是否为64位
  */
@@ -105,6 +108,33 @@ function postMessage(name, ...args) {
  */
 function handleQuotes(p) {
 	return is.windows() ? p : p.replace(/"/g, "")
+}
+
+function getDefer() {
+	var deferred = Q.defer()
+	var deferId = deferAutoId++
+	defers[deferId] = deferred
+
+	return {
+		deferId: deferId,
+		promise: deferred.promise
+	}
+}
+
+function callDefer(deferId, type, ...args) {
+	var deferred = defers[deferId]
+	if(!deferred) {
+		return
+	}
+
+	var callback
+	if(type == "notify") {
+		callback = deferred.notify
+	} else {
+		delete defers[deferId]
+		callback = type ? deferred.resolve : deferred.reject
+	}
+	callback.apply(this, args)
 }
 
 /**
@@ -280,21 +310,26 @@ function moveFile(src, dst, options) {
  * 删除文件
  * @param {*} file 路径
  */
-function removeFile(file) {
-	var deferred = Q.defer()
+function removeFile(file, sync) {
+	if(sync) {
+		log.debug(`removeFile:${file}`)
+		fs.removeSync(file)
+	} else {
+		var deferred = Q.defer()
 
-	log.debug(`removeFile:${file}`)
-	fs.remove(file, err => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
+		log.debug(`removeFile:${file}`)
+		fs.remove(file, err => {
+			if(err) {
+				log.error(err)
+				deferred.reject(err)
+				return
+			}
 
-		deferred.resolve()
-	})
+			deferred.resolve()
+		})
 
-	return deferred.promise
+		return deferred.promise
+	}
 }
 
 /**
@@ -506,6 +541,8 @@ module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
 module.exports.getResourcePath = getResourcePath
 module.exports.postMessage = postMessage
+module.exports.getDefer = getDefer
+module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
 
 module.exports.execFile = execFile
