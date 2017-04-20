@@ -20,7 +20,28 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 				win: "Ctrl-S",
 				mac: "Command-S"
 			},
-			exec: function() {}
+			exec: _ => emitor.trigger("project", "save"),
+		}, {
+			name: "saveAsProject",
+			bindKey: {
+				win: "Ctrl-Shift-S",
+				mac: "Command-Shift-S"
+			},
+			exec: _ => emitor.trigger('project', 'save', true),
+		}, {
+			name: "openProject",
+			bindKey: {
+				win: "Ctrl-O",
+				mac: "Command-O"
+			},
+			exec: _ => emitor.trigger("project", "open"),
+		}, {
+			name: "newProject",
+			bindKey: {
+				win: "Ctrl-N",
+				mac: "Command-N"
+			},
+			exec: _ => emitor.trigger("project", "new"),
 		}, {
 			name: "formatCode",
 			bindKey: {

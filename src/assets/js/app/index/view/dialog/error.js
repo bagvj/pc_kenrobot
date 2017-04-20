@@ -12,14 +12,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	function onShow(args) {
 		args = args || {};
 
-		var text
+		var text;
 		switch($.type(args.output)) {
 			case "error":
-				text = args.output.stack;
+				text = args.output.stack || args.output.message;
 				break;
 			case "array":
 				text = args.output.map(function(o) {
-					return $.type(o) == "error" ? o.stack || toString(o) : o;
+					return $.type(o) == "error" ? (o.stack || o.message || toString(o)) : o;
 				}).join("\n");
 				break;
 			case "string":

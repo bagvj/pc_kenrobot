@@ -157,8 +157,22 @@ gulp.task('pack-views', ['clean-views'], _ => {
 })
 
 gulp.task('pack-scratch', ['clean-scratch'], callback => {
-	return gulp.src([SRC + 'scratch/**/*'])
+	// return gulp.src([SRC + 'scratch/**/*'])
+	// 	.pipe(gulp.dest(APP + 'scratch/'))
+	gulp.src([SRC + 'scratch/**/*'])
 		.pipe(gulp.dest(APP + 'scratch/'))
+		.on('end', _ => {
+			var indexPath = path.join(APP, 'scratch', 'index.html')
+			var content = fs.readFileSync(indexPath, "utf8")
+			var tag = "<body>"
+			var contents = content.split(tag)
+			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch"></script>')
+			fs.writeFileSync(indexPath, contents.join(""))
+			callback()
+		})
+		.on('error', err => {
+			callback(err)
+		})
 })
 
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])

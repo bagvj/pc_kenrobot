@@ -281,26 +281,6 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 		};
 	}
 
-	function convertProject(projectInfo) {
-		if (typeof projectInfo.project_data == "string") {
-			try {
-				projectInfo.project_data = JSON.parse(projectInfo.project_data);
-			} catch (ex) {
-				projectInfo.project_data = {};
-			}
-		}
-
-		if (typeof projectInfo.created_at == "string") {
-			projectInfo.created_at = new Date(projectInfo.created_at);
-		}
-
-		if (typeof projectInfo.updated_at == "string") {
-			projectInfo.updated_at = new Date(projectInfo.updated_at);
-		}
-
-		return projectInfo;
-	}
-
 	return {
 		init: init,
 	}

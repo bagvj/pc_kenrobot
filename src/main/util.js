@@ -18,6 +18,9 @@ const PACKAGE = require('../package')
 
 is.dev() && app.setName(PACKAGE.name)
 
+const defers = {}
+var deferAutoId = 0
+
 /**
  * 判断当前系统是否为64位
  */
@@ -105,6 +108,33 @@ function postMessage(name, ...args) {
  */
 function handleQuotes(p) {
 	return is.windows() ? p : p.replace(/"/g, "")
+}
+
+function getDefer() {
+	var deferred = Q.defer()
+	var deferId = deferAutoId++
+	defers[deferId] = deferred
+
+	return {
+		deferId: deferId,
+		promise: deferred.promise
+	}
+}
+
+function callDefer(deferId, type, ...args) {
+	var deferred = defers[deferId]
+	if(!deferred) {
+		return
+	}
+
+	var callback
+	if(type == "notify") {
+		callback = deferred.notify
+	} else {
+		delete defers[deferId]
+		callback = type ? deferred.resolve : deferred.reject
+	}
+	callback.apply(this, args)
 }
 
 /**
@@ -258,15 +288,12 @@ function writeFile(file, data) {
 	return deferred.promise
 }
 
-/**
- * 删除文件
- * @param {*} file 路径
- */
-function removeFile(file) {
+function moveFile(src, dst, options) {
 	var deferred = Q.defer()
+	options = options || {overwrite: true}
 
-	log.debug(`removeFile:${file}`)
-	fs.remove(file, err => {
+	log.debug(`moveFile:${src} -> ${dst}`)
+	fs.move(src, dst, options, err => {
 		if(err) {
 			log.error(err)
 			deferred.reject(err)
@@ -277,6 +304,32 @@ function removeFile(file) {
 	})
 
 	return deferred.promise
+}
+
+/**
+ * 删除文件
+ * @param {*} file 路径
+ */
+function removeFile(file, sync) {
+	if(sync) {
+		log.debug(`removeFile:${file}`)
+		fs.removeSync(file)
+	} else {
+		var deferred = Q.defer()
+
+		log.debug(`removeFile:${file}`)
+		fs.remove(file, err => {
+			if(err) {
+				log.error(err)
+				deferred.reject(err)
+				return
+			}
+
+			deferred.resolve()
+		})
+
+		return deferred.promise
+	}
 }
 
 /**
@@ -355,7 +408,7 @@ function searchFiles(pattern) {
  */
 function unzip(zipPath, dist, spawn) {
 	var deferred = Q.defer()
-	var reg = /([\d]+%) \d+ - .*\r?/g
+	var reg = /([\d]+)% \d+ - .*\r?/g
 
 	log.debug(`unzip: ${zipPath} => ${dist}`)
 	if(spawn) {
@@ -377,7 +430,7 @@ function unzip(zipPath, dist, spawn) {
 				temp = reg.exec(progess.data)
 			} while(temp)
 			
-			deferred.notify(match[1])
+			deferred.notify(parseInt(match[1]))
 		})
 	} else {
 		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(_ => {
@@ -488,6 +541,8 @@ module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
 module.exports.getResourcePath = getResourcePath
 module.exports.postMessage = postMessage
+module.exports.getDefer = getDefer
+module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
 
 module.exports.execFile = execFile
@@ -496,6 +551,7 @@ module.exports.spawnCommand = spawnCommand
 
 module.exports.readFile = readFile
 module.exports.writeFile = writeFile
+module.exports.moveFile = moveFile
 module.exports.removeFile = removeFile
 module.exports.readJson = readJson
 module.exports.writeJson = writeJson

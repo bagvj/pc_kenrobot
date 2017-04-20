@@ -82,9 +82,10 @@ define(['vendor/jquery'], function() {
 
 		var doClose = function(callback) {
 			confirmDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
-				confirmDiv.hide().removeClass("x-fadeOut");
-				dialogLayer.removeClass("active");
+				confirmDiv.hide().removeClass("active").removeClass("x-fadeOut");
+				dialogLayer.find("> .active").length == 0 && dialogLayer.removeClass("active");
 				callback && callback();
+				mask(confirmDiv, false);
 				confirmDiv.remove();
 			});
 			confirmDiv.dequeue("fadeOut");
@@ -98,6 +99,7 @@ define(['vendor/jquery'], function() {
 			doClose(onConfirm);
 		});
 
+		mask(confirmDiv, true);
 		confirmDiv.addClass("active").addClass("x-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
 			confirmDiv.removeClass("x-fadeIn");
 		});
@@ -130,12 +132,13 @@ define(['vendor/jquery'], function() {
 
 		var dialogLayer = $('.dialog-layer', top.document).addClass("active");
 		var doClose = function(callback) {
-			dialogWin.removeClass("x-in").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
-				dialogWin.hide().removeClass("x-fadeOut");
-				dialogLayer.removeClass("active");
+			dialogWin.addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
+				dialogWin.hide().removeClass("active").removeClass("x-fadeOut");
+				dialogLayer.find("> .active").length == 0 && dialogLayer.removeClass("active");
 				onClose && onClose();
 				callback && callback();
 				onClosed && onClosed();
+				mask(dialogWin, false);
 			});
 			dialogWin.dequeue("fadeOut");
 		}
@@ -152,14 +155,45 @@ define(['vendor/jquery'], function() {
 			}
 		});
 
+		mask(dialogWin, true);
 		onShow && onShow();
 		dialogWin.show().addClass("x-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
-			dialogWin.addClass("x-in").removeClass("x-fadeIn");
+			dialogWin.addClass("active").removeClass("x-fadeIn");
 			afterShow && afterShow();
 		});
 		dialogWin.dequeue("fadeIn");
 
 		return dialogWin;
+	}
+
+	var maskConfig = {
+		stack: [],
+		index: -1,
+	}
+
+	function mask(dialog, show) {
+		var dialogLayer = $(".dialog-layer");
+		var dialogMask = dialogLayer.find("> .x-dialog-mask");
+
+		var stack = maskConfig.stack;
+		var index = maskConfig.index;
+		if(show) {
+			dialogMask.css("z-index", index + 1);
+			dialog.css("z-index", index + 2);
+			stack.push(dialog);
+			maskConfig.index = index + 2;
+		} else {
+			stack.splice(stack.indexOf(dialog), 1);
+			if(parseInt(dialog.css("z-index")) == index) {
+				if(stack.length > 0) {
+					var topDialog = stack[stack.length - 1];
+					maskConfig.index = parseInt(topDialog.css("z-index"));
+					dialogMask.css("z-index", maskConfig.index - 1);
+				} else {
+					maskConfig.index = -1;
+				}
+			}
+		}
 	}
 
 	function toggleActive(target, collapseMode, cls) {
@@ -254,6 +288,18 @@ define(['vendor/jquery'], function() {
 		return uuid.join('');
 	}
 
+	function throttle(fn, delay) {
+		var timerId;
+		return _ => {
+			timerId && clearTimeout(timerId);
+			timerId = setTimeout(_ => {
+				fn();
+				clearTimeout(timerId);
+				timerId = null;
+			}, delay);
+		}
+	}
+
 	return {
 		message: message,
 		confirm: confirm,
@@ -261,5 +307,6 @@ define(['vendor/jquery'], function() {
 		toggleActive: toggleActive,
 		formatDate: formatDate,
 		uuid: uuid,
+		throttle: throttle,
 	}
 });

@@ -49,8 +49,18 @@ html, body {
 	}
 
 	.dialog-layer {
+		height: 100%;
 		z-index: 20;
 		display: none;
+
+		.x-dialog-mask {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: rgba(32, 36, 40, 0.3);
+		}
 
 		&.active {
 			display: block;

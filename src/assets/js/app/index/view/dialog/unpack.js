@@ -14,7 +14,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 		
 		dialogWin.find(".name").text(`${args.name} ${args.version}`);
 		dialogWin.find(".count").text(`${args.count}/${args.total}`);
-		dialogWin.find(".x-progress").text(args.progress);
+		dialogWin.find(".x-progress").text(`${args.progress}%`);
 
 		if(!show) {
 			show = true;

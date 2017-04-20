@@ -15,109 +15,7 @@
 				<div class="logo"></div>
 				<div class="left-widgets">
 					<div class="app-menu">
-						<ul>
-							<li>
-								<div class="placeholder">文件</div>
-								<ul>
-									<li data-action="new-project">
-										<span class="text">新建项目</span><span class="shortcut">Ctrl+N</span>
-									</li>
-									<li class="seperator"></li>
-									<li data-action="open-project">
-										<span class="text">打开项目</span><span class="shortcut">Ctrl+O</span>
-									</li>
-									<li data-action="save-project">
-										<span class="text">保存项目</span><span class="shortcut">Ctrl+S</span>
-									</li>
-									<li data-action="save-as-project">
-										<span class="text">另存为</span><span class="shortcut">Ctrl+Shift+S</span>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="placeholder">编辑</div>
-								<ul>
-									<li data-action="toggle-comment">
-										<span class="text">注释/取消注释</span><span class="shortcut">Ctrl+/</span>
-									</li>
-									<li class="seperator"></li>
-									<li data-action="copy">
-										<span class="text">复制</span><span class="shortcut">Ctrl+C</span>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="placeholder">案例</div>
-								<ul>
-									<li class="example-built-in">
-										<div class="placeholder arrow">内置示例</div>
-										<ul></ul>
-									</li>
-									<li class="seperator"></li>
-									<li class="example-third-party">
-										<div class="placeholder arrow">第三方示例</div>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="placeholder">选项</div>
-								<ul>
-									<li data-action="fullscreen">
-										<span class="text">全屏</span>
-									</li>
-									<li data-action="language">
-										<span class="text">语言</span>
-									</li>
-									<li data-action="theme">
-										<span class="text">主题</span>
-									</li>
-									<li class="seperator"></li>
-									<li data-action="setting">
-										<span class="text">设置</span>
-									</li>
-									<li class="seperator"></li>
-									<li>
-										<div class="placeholder arrow">切换</div>
-										<ul class="switches">
-											<li class="check" data-action="switch" data-type="edu">
-												<span>教育版</span>
-											</li>
-											<li class="check" data-action="switch" data-type="ide">
-												<span>开发版</span>
-											</li>
-											<li class="check" data-action="switch" data-type="scratch">
-												<span>Scratch版</span>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="placeholder">帮助</div>
-								<ul>
-									<li data-action="download-arduino-driver">
-										<span class="text">Arduino驱动下载</span>
-									</li>
-									<li class="seperator"></li>
-									<li data-action="check-update">
-										<span class="text">检查更新</span>
-									</li>
-									<li data-action="visit-kenrobot">
-										<span class="text">啃萝卜官网</span>
-									</li>
-									<li data-action="visit-arduino">
-										<span class="text">Arduino论坛</span>
-									</li>
-									<li class="seperator"></li>
-									<li data-action="suggestion">
-										<span class="text">建议反馈</span>
-									</li>
-									<li data-action="about-kenrobot">
-										<span class="text">关于啃萝卜</span>
-									</li>
-								</ul>
-							</li>
-						</ul>
+						<ul></ul>
 					</div>
 				</div>
 				<div class="right-widgets">
@@ -149,7 +47,8 @@
 			</div>
 		</div>
 		<div class="no-select layers">
-			<div class="layer modal dialog-layer">
+			<div class="layer dialog-layer">
+				<div class="x-dialog-mask"></div>
 				<div class="x-dialog common-dialog">
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-header"></div>
@@ -169,8 +68,8 @@
 						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
 					</div>
 				</div>
-				<div class="x-dialog library-dialog">
-					<div class="x-dialog-title">库管理</div>
+				<div class="x-dialog board-dialog">
+					<div class="x-dialog-title">开发板管理</div>
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-content">
 						<div class="toolbar">
@@ -180,53 +79,16 @@
 								<ul>
 									<li data-value="all">全部</li>
 									<li data-value="can-update">可更新</li>
+									<li data-value="installed">已安装</li>
 									<li data-value="kenrobot">kenrobot</li>
 									<li data-value="arduino">arduino</li>
 									<li data-value="third-party">第三方</li>
 								</ul>
 							</div>
-							<span class="theme-label">主题</span>
-							<div class="x-select themes">
-								<div class="placeholder"></div>
-								<ul>
-									<li data-value="all">全部</li>
-									<li data-value="comunication">通信</li>
-									<li data-value="data-handle">数据处理</li>
-									<li data-value="data-storage">数据存储</li>
-									<li data-value="device-control">设备控制</li>
-									<li data-value="display">显示</li>
-									<li data-value="sensor">传感器</li>
-									<li data-value="signal input/output">信号输入/输出</li>
-									<li data-value="others">其它</li>
-								</ul>
-							</div>
 							<input class="filter" type="text" placeholder="关键词过滤..." /> 
 						</div>
 						<div class="list">
-							<ul>
-								<li>
-									<div>
-										<span class="name">Adafruit ADS1X15</span>
-										<span class="author">by Arduino</span>
-									</div>
-									<div class="des">
-										<span class="desA">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
-										<span class="desB">Driver for TI’s ADS1015:12-bit Differential or Single-Ended ADC with PGA and Comparator</span>
-									</div>
-									<div class="clearfix">
-										<span class="more">更多信息</span>
-										<input type="button" class="install" value="安装" />
-										<div class="x-select versions">
-											<div class="placeholder"></div>
-											<ul>
-												<li data-value="1.6.1">1.6.1</li>
-												<li data-value="1.6.2">1.6.2</li>
-												<li data-value="1.6.3">1.6.3</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-							</ul>
+							<ul></ul>
 						</div>
 					</div>
 				</div>
