@@ -43,13 +43,13 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			kenrobot.trigger("unpack", "hide");
 
 			setTimeout(_ => {
-				onSwitch("ide");
+				onSwitch("edu");
 
 				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 				setTimeout(function() {
 					onCheckUpdate(false);
 				}, 3000);
-			}, 1000);
+			}, 400);
 		});
 	}
 
@@ -136,15 +136,16 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			dataType: "json",
 		}).then(function(result) {
 			if(result.status == 0) {
+				var versionInfo = result.data;
 				util.confirm({
 					title: "检查更新",
-					text: "发现新版本" + result.data.version + "，是否下载？",
+					text: "发现新版本" + versionInfo.version + "，是否下载？",
 					onConfirm: function() {
 						util.message("开始下载");
-						kenrobot.postMessage("app:download", result.data.download_url, {checksum: result.data.checksum}).then(result => {
+						kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
 							if(info.platform == "win") {
 								util.confirm({
-									text: "下载成功，是否安装新版本?",
+									text: `下载成功，是否安装新版本${versionInfo.version}?`,
 									onConfirm: () => {
 										kenrobot.postMessage("app:execFile", result.path).then(() => {
 											util.message("安装成功");

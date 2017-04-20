@@ -408,7 +408,7 @@ function searchFiles(pattern) {
  */
 function unzip(zipPath, dist, spawn) {
 	var deferred = Q.defer()
-	var reg = /([\d]+%) \d+ - .*\r?/g
+	var reg = /([\d]+)% \d+ - .*\r?/g
 
 	log.debug(`unzip: ${zipPath} => ${dist}`)
 	if(spawn) {
@@ -430,7 +430,7 @@ function unzip(zipPath, dist, spawn) {
 				temp = reg.exec(progess.data)
 			} while(temp)
 			
-			deferred.notify(match[1])
+			deferred.notify(parseInt(match[1]))
 		})
 	} else {
 		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(_ => {

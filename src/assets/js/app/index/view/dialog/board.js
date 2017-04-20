@@ -4,6 +4,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	var filter;
 	var boardList;
 	var doKeyFilter;
+	var closeLock;
 
 	var packages;
 	var installedPackages;
@@ -35,6 +36,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			selector: dialogWin,
 			onShow: onDialogShow,
 			onClosed: onDialogClosed,
+			onClosing: onDialogClosing,
 		});
 	}
 
@@ -48,8 +50,20 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		reset();
 	}
 
-	function reset() {
+	function onDialogClosing() {
+		if(closeLock > 0) {
+			util.message({
+				text: "现在还不能关闭，请等待操作完成",
+				type: "warning",
+			});
+			return false;
+		}
 
+		return true;
+	}
+
+	function reset() {
+		closeLock = 0;
 	}
 
 	function getInstalledPackages() {
@@ -105,20 +119,23 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		boardList.empty();
 		_.forEach(_.groupBy(packages, "name"), group => {
 			var li = $(`<li class="item">
-				<div class="title">
-					<span class="name"></span>by
-					<span class="author"></span>
-				</div>
-				<div class="des">这个包包含的开发板：<span class="boards"></span></div>
-				<div class="toolbar">
-					<span class="more">更多信息</span>
-					<span class="placeholder"></span>
-					<div class="x-select versions">
-						<div class="placeholder"></div>
-						<ul></ul>
+				<div class="x-progress"></div>
+				<div class="wrap">
+					<div class="title">
+						<span class="name"></span>by
+						<span class="author"></span>
 					</div>
-					<input type="button" class="install" value="安装" />
-					<input type="button" class="delete" value="删除" />
+					<div class="des">这个包包含的开发板：<span class="boards"></span></div>
+					<div class="toolbar">
+						<span class="more">更多信息</span>
+						<span class="placeholder"></span>
+						<div class="x-select versions">
+							<div class="placeholder"></div>
+							<ul></ul>
+						</div>
+						<input type="button" class="install" value="安装" />
+						<input type="button" class="delete" value="删除" />
+					</div>
 				</div>
 			</li>`);
 			var versions = group.map(p => {
@@ -126,6 +143,9 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			});
 			li.find(".versions > ul").append(versions);
 			boardList.append(li);
+
+			versions = group.map(p => p.version).sort(versionCompare);
+			group.forEach(p => {p.versions = versions});
 		});
 
 		boardList.off("click", "> li", onBoardClick).on("click", "> li", onBoardClick)
@@ -197,8 +217,10 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 
 		var prefix = `包${p.name}，版本${p.version}`;
 		kenrobot.postMessage("app:download", p.url, {checksum: p.checksum}).then(result => {
+			item.find(".x-progress").removeClass("active").css("transform", "");
 			installBtn.val("安装中");
 			kenrobot.postMessage("app:unzipPackage", result.path).then(() => {
+				item.find(".x-progress").removeClass("active").css("transform", "");
 				_.pull(installedPackages, _.find(installedPackages, pack => pack.name == p.name));
 				installedPackages.push({
 					name: p.name,
@@ -208,10 +230,17 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					item.find(".versions > ul > li:eq(0)").trigger("click");
 				}, 10);
 				util.message(`${prefix}安装成功`);
+				closeLock--;
 			}, err => {
+				item.find(".x-progress").removeClass("active").css("transform", "");
 				util.message(`${prefix}安装失败`);
+				closeLock--;
+			}, progress => {
+				var percent = progress;
+				item.find(".x-progress").addClass("active").css("transform", `translateX(${percent - 100}%)`);
 			})
 		}, err => {
+			item.find(".x-progress").removeClass("active").css("transform", "");
 			item.find(".versions").attr("disabled", false);
 			item.find(".delete").attr("disabled", false);
 			installBtn.attr("disabled", false).val(oldText);
@@ -220,7 +249,14 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				text: `${prefix}下载失败`,
 				type: "error",
 			});
+			closeLock--;
+		}, progress => {
+			var totalSize = progress.totalSize || 100 * 1024 * 1024;
+			var percent = parseInt(100 * progress.size / totalSize);
+			percent = percent > 100 ? 100 : percent; 
+			item.find(".x-progress").addClass("active").css("transform", `translateX(${percent - 100}%)`);
 		});
+		closeLock++;
 
 		return false;
 	}
@@ -271,7 +307,17 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				doFilter(p => true);
 				break;
 			case "can-update":
-			
+				doFilter(p => {
+					var installedPackage = installedPackages.find(pack => pack.name == p.name);
+					if(!installedPackage) {
+						return false;
+					}
+
+					return p.versions.find(version => versionCompare(version, installedPackage.version) > 0) != null;
+				});
+				break;
+			case "installed":
+				doFilter(p => installedPackage.find(pack => pack.name == p.name) != null);
 				break;
 			case "kenrobot":
 				doFilter(p => p.category == "kenrobot");
