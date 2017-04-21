@@ -895,6 +895,7 @@ function saveProject(oldProjectPath, projectInfo, isTemp) {
  */
 function openProject(projectPath, type) {
 	var deferred = Q.defer()
+	type = type || "project"
 
 	log.debug(`openProject ${projectPath}`)
 	var read = projectPath => {
