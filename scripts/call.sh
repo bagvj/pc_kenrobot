@@ -8,7 +8,7 @@
 COMMAND_PATH=$1
 
 # read command
-COMMAND=`head -1 ${COMMAND_PATH}`
+COMMAND=`head -1 "${COMMAND_PATH}"`
 ${COMMAND}
 CODE=$?
 
