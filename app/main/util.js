@@ -62,6 +62,7 @@ function getAppInfo() {
 		arch: process.arch,
 		platform: getPlatform(),
 		version: getVersion(),
+		name: app.getName(),
 	}
 
 	if(is.dev()) {
