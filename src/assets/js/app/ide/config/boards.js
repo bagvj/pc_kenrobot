@@ -31,11 +31,13 @@ define(function() {
 		}
 	}, {
 		"label": "Arduino/Genuino Mega or Mega 2560",
-		"name": "mega",
+		"name": "ArduinoMega2560",
+		"type": "mega",
 		"build": {
 			"fqbn": "arduino:avr:mega:cpu=atmega2560"
 		},
 		"upload": {
+			"programer": "wiring",
 			"mcu": "atmega2560"
 		}
 	}];
