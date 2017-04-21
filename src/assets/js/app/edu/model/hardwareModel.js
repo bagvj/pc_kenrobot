@@ -223,14 +223,18 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 		}
 
 		boardDom.classList.add(boardData.name);
-		boardDom.style.backgroundImage = "url(" + boardData.imageUrl + ")";
+		boardDom.style.backgroundImage = `url(${boardData.imageUrl})`;
+		boardDom.style.width = `${boardData.width}px`;
+		boardDom.style.height = `${boardData.height}px`;
 		boardData.pins.forEach(function(pin) {
+			var shape = pin.shape || "Rectangle";
+			var sizeOptions = shape == "Dot" ? {radius: pin.radius} : {
+				width: pin.rotate ? pin.height : pin.width,
+				height: pin.rotate ? pin.width : pin.height
+			}
 			var epBoard = jsPlumbInstance.addEndpoint(boardDom, {
 				anchor: [pin.x, pin.y, 0, -1, 0, 0],
-				endpoint: [pin.shape || 'Rectangle', {
-					width: pin.rotate ? pin.height : pin.width,
-					height: pin.rotate ? pin.width : pin.height,
-				}],
+				endpoint: [shape, sizeOptions],
 				overlays: [
 					['Label', {
 						label: 'Pin ' + pin.label,

@@ -229,7 +229,8 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				setTimeout(() => {
 					item.find(".versions > ul > li:eq(0)").trigger("click");
 				}, 10);
-				util.message(`${prefix}安装成功`);
+				var info = kenrobot.appInfo;
+				util.message(`${prefix}安装成功<br />建议重新运行${info.name}`);
 				closeLock--;
 			}, err => {
 				item.find(".x-progress").removeClass("active").css("transform", "");
@@ -270,7 +271,8 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			onConfirm: () => {
 				kenrobot.postMessage("app:deletePackage", p.name).then(() => {
 					_.pull(installedPackages, _.find(installedPackages, pack => pack.name == p.name));
-					util.message("删除成功");
+					var info = kenrobot.appInfo;
+					util.message(`删除成功<br />建议重新运行${info.name}`);
 					setTimeout(() => {
 						item.find(".versions > ul > li:eq(0)").trigger("click");
 					}, 10);

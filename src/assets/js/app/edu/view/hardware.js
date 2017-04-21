@@ -13,7 +13,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	var boardContextMenu;
 	var contextMenuTarget;
 	var componentTemplate = '<li data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" /></div><div class="name">{{label}}</div></li>'
-	var boardTemplate = '<li data-value="{{name}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
+	var boardTemplate = '<li data-value="{{name}}" title="{{label}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
 
 	var mouseDownComponentDom;
 	var dragContainer;
@@ -439,7 +439,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		var ul = boardList.find("> ul").empty();
 		boards.forEach(function(board) {
 			var li = boardTemplate.replace(/\{\{name\}\}/g, board.name)
-				.replace(/\{\{label\}\}/, board.label)
+				.replace(/\{\{label\}\}/g, board.label)
 				.replace(/\{\{src\}\}/, board.imageUrl);
 			ul.append(li);
 		});
