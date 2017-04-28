@@ -1,8 +1,9 @@
 define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], function($1, config, emitor) {
 	var userInfo;
+	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
 
 	function getUserId() {
-		return userInfo ? userInfo.uid : 0;
+		return userInfo ? userInfo.user_id : 0;
 	}
 
 	function getUserInfo() {
@@ -10,7 +11,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 	}
 
 	function getUserName() {
-		return userInfo ? userInfo.username : "";
+		return userInfo ? userInfo.base_name : "";
 	}
 
 	function loadToken() {
@@ -44,12 +45,17 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 	function login(username, password, autoLogin) {
 		var promise = $.Deferred();
 
+		var data = {};
+		if(emailReg.test(username)) {
+			data.email = username;
+		} else {
+			data.username = username;
+		}
+		data.password = password;
+
 		kenrobot.postMessage("app:request", config.url.login, {
 			method: "POST",
-			data: {
-				username: username,
-				password: password,
-			},
+			data: data,
 		}).then(result => {
 			if(result.status == 0) {
 				userInfo = result.data;
@@ -100,8 +106,8 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 	function weixinQrcode() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:request", config.url.loginQrcode).then(_ => {
-			promise.resolve();
+		kenrobot.postMessage("app:request", config.url.loginQrcode).then(result => {
+			promise.resolve(result);
 		}, err => {
 			promise.reject(err);
 		});
@@ -130,6 +136,23 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		return promise;
 	}
 
+	function resetPassword(email) {
+		var promise = $.Deferred();
+
+		kenrobot.postMessage("app:request", config.url.findPassword, {
+			method: "POST",
+			data: {
+				email: email,
+			},
+		}).then(result => {
+			promise.resolve(result);
+		}, err => {
+			promise.reject(err);
+		});
+
+		return promise;
+	}
+
 	return {
 		getUserId: getUserId,
 		getUserInfo: getUserInfo,
@@ -142,5 +165,6 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		weixinLogin: weixinLogin,
 		weixinQrcode: weixinQrcode,
 		register: register,
+		resetPassword: resetPassword,
 	};
 });

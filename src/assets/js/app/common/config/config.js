@@ -10,11 +10,11 @@ define(function() {
 				about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",
 				checkUpdate: "http://www.kenrobot.com/?app=api&mod=Download&act=checkupdate",
 				packages: "http://www.kenrobot.com/packages/packages.json",
-				findPassword: "http://www.kenrobot.com/index.php?app=public&mod=Passport&act=findPassword",
 				login: "http://userver.kenrobot.com/sso/login",
 				logout: "http://userver.kenrobot.com/sso/logout",
 				loginQrcode: "http://userver.kenrobot.com/api/wechat/scanlogin/token",
 				register: "http://userver.kenrobot.com/api/user/register",
+				findPassword: "http://userver.kenrobot.com/password/email",
 			},
 			arduinoDriver: {
 				checksum: {

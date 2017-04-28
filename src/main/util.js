@@ -520,6 +520,7 @@ function request(url, options, json) {
 		options.body = JSON.stringify(options.data)
 		var headers = options.headers || (options.headers = {})
 		headers['Content-Type'] = 'application/json'
+		headers['Accept'] = 'application/json'
 		delete options.data
 	}
 

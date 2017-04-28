@@ -2,14 +2,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	var dialogWin;
 	var tabs;
 
-	var qrcode;
-	var qrcodeKey;
-	var qrcodeTimeout = 5 * 60 * 1000;
-	var qrcodeTimeoutTimer;
+	var resetPasswordDelay = 60;
 
-	var loginCheckTimer;
-	var loginCallback;
-	var scanTimerId;
+	var qrcodeDelay = 5 * 60 * 1000;
+	var qrcodeTimer;
+	var qrcodeLoginTimer;
 
 	function init() {
 		dialogWin = $('.login-dialog');
@@ -17,12 +14,6 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		tabs = dialogWin.find(".tab")
 			.on("click", ".switch-login", onSwitchLoginClick)
 			.on("keyup", ".x-field input", onTabEnter);
-
-		tabs.filter(".tab-login")
-			.on("click", ".switch-register", onSwitchRegisterClick)
-			.on("click", ".login-btn", onLoginClick)
-			.on("click", ".find-password", onFindPasswordClick)
-			.on("click", ".other-ways ul > li", onOtherWaysClick);
 
 		tabs.find(".x-field > input").on("focus", function(e) {
 			$(this).attr("placeholder", "");
@@ -33,31 +24,20 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			item.data("placeholder", item.attr("placeholder"));
 		});
 
-		// //登录、注册切换
-		// $('.tab-login .switch-register', dialogWin).on('click', onSwitchDialogMode);
+		tabs.filter(".tab-login")
+			.on("click", ".switch-register", onSwitchRegisterClick)
+			.on("click", ".login-btn", onLoginClick)
+			.on("click", ".find-password", onFindPasswordClick)
+			.on("click", ".other-ways ul > li", onOtherWaysClick);
 
-		// //登录切换
-		// switches = $('.tab-login .switch li', dialogWin).on('click', onSwitchLoginType);
-		// loginTabs = $('.tab-login .tabs', dialogWin);
+		tabs.filter(".tab-find-password")
+			.on("click", ".send-btn", onSendClick);
 
-		// //登录
-		// $('.tab-account .login', dialogWin).on('click', onLoginClick);
+		tabs.filter(".tab-register")
+			.on("click", ".register-btn", onRegisterClick);
 
-		// //回车
-		// $('.tab-account .username, .tab-account .password', dialogWin).on('keyup', onLoginEnter);
-
-		// $('.tab-account .find-password', dialogWin).on('click', onFindPasswordClick);
-
-		// qrcode = $('.tab-quick .qrcode', dialogWin);
-		// qrcodeKey = $('.tab-quick .qrcode-key', dialogWin);
-
-		// //二维码过期，刷新
-		// $('.tab-quick .refresh', dialogWin).on('click', onRefreshQrcodeClick);
-
-		// //注册
-		// $('.tab-register .register', dialogWin).on('click', onRegisterClick);
-
-		// refreshWeixinQrcode();
+		tabs.filter(".tab-register-success")
+			.on("click", ".ok-btn", onRegisterOKClick);
 
 		emitor.on('login', 'show', onShow);
 	}
@@ -65,13 +45,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	function onShow(args) {
 		args = args || {};
 
-		// loginCallback = args.callback;
-
-		// switchDialogMode(args.mode || "login");
-		// switchLoginType(args.type || "quick");
-
-		// refreshWeixinQrcode();
-		// setTimeout(onQrcodeTimeout, qrcodeTimeout);
+		refreshWeixinQrcode();
 
 		switchTab("login", false, false);
 
@@ -82,23 +56,24 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	}
 
 	function onAfterClose() {
-		// loginCallback = null;
-		// clearTimeout(onQrcodeTimeout);
-		// qrcodeTimeoutTimer = null;
+		setWeixinLoginCheck(false);
 
-		// setWeixinLoginCheck(false);
+		clearTimeout(qrcodeTimer);
+		qrcodeTimer = null;
 	}
 
 	function switchTab(name, direction, animate) {
+		reset(name);
+
 		var currentTab = tabs.filter(".active");
 		var tab = tabs.filter(`.tab-${name}`);
-		if(animate === false || currentTab.length == 0) {
+		if (animate === false || currentTab.length == 0) {
 			tabs.removeClass("active left-fadeIn right-fadeIn left-fadeOut right-fadeOut");
 			tab.addClass("active");
 			return;
 		}
 
-		if(direction) {
+		if (direction) {
 			//left
 			tab.removeClass("right-fadeIn left-fadeOut right-fadeOut").addClass("left-fadeIn").addClass("active");
 			currentTab.removeClass("active left-fadeIn right-fadeIn right-fadeOut").addClass("left-fadeOut");
@@ -107,9 +82,13 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			tab.removeClass("left-fadeIn left-fadeOut right-fadeOut").addClass("right-fadeIn").addClass("active");
 			currentTab.removeClass("active left-fadeIn left-fadeOut right-fadeIn").addClass("right-fadeOut");
 		}
+	}
 
+	function reset(name) {
+		var tab = tabs.filter(`.tab-${name}`);
 		tab.find(".x-field input").val("");
-		switch(name) {
+		setWeixinLoginCheck(false);
+		switch (name) {
 			case "login":
 				tab.find(".username input").focus();
 				break;
@@ -123,7 +102,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				tab.find(".email input").focus();
 				break;
 			case "weixin":
-
+				setWeixinLoginCheck(true);
 				break;
 		}
 	}
@@ -141,7 +120,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	}
 
 	function onTabEnter(e) {
-		if(e.keyCode != 13) {
+		if (e.keyCode != 13) {
 			return;
 		}
 
@@ -151,44 +130,45 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 
 	function onLoginClick(e) {
 		var tab = tabs.filter(".tab-login");
-		var $username = tab.find(".username input");
-		var $password = tab.find(".password input");
-		var username = $.trim($username.val());
-		var password = $.trim($password.val());
+		var username = $.trim(tab.find(".username input").val());
+		var password = $.trim(tab.find(".password input").val());
 
-		if(username == "" || password == "") {
+		if (username == "" || password == "") {
 			return;
 		}
 
 		var autoLogin = tab.find('.auto-login').is(":checked");
 		userModel.login(username, password, autoLogin).then(result => {
-			if(result.status == 0) {
+			if (result.status == 0) {
 				dialogWin.find(".x-dialog-close").trigger("click");
-				
+
 				util.message("登录成功");
 				emitor.trigger("user", "update");
 			} else {
 				showError(tab, result.message);
 			}
 		}, err => {
-			util.message("登录失败");
-		})
+			util.message({
+				text: "登录失败",
+				type: "error",
+			});
+		});
 	}
 
 	function onOtherWaysClick(e) {
 		var action = $(this).data("action");
-		switch(action) {
+		switch (action) {
 			case "weixin":
 				switchTab("weixin");
 				break;
 			case "qq":
-
+				util.message("敬请期待");
 				break;
 			case "weibo":
-
+				util.message("敬请期待");
 				break;
 			case "github":
-
+				util.message("敬请期待");
 				break;
 		}
 	}
@@ -199,217 +179,127 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		});
 	}
 
-	// function switchDialogMode(mode) {
-	// 	dialogMode = mode;
+	function onSendClick(e) {
+		var tab = tabs.filter(".tab-find-password");
+		var email = $.trim(tab.find(".email input").val());
+		if (email == "") {
+			return;
+		}
 
-	// 	$('.title .mode', dialogWin).text(dialogMode == "login" ? "登录" : "注册");
+		userModel.resetPassword(email).then(result => {
+			if (result.status == 0) {
+				var count = resetPasswordDelay;
+				var sendBtn = tab.find(".send-btn").attr("disabled", true).val(`重新发送(${count})`);
+				var timerId;
+				timerId = setInterval(_ => {
+					count--;
+					if (count == 0) {
+						sendBtn.attr("disabled", false).val("发送");
+						clearTimeout(timerId);
+						return;
+					}
+					sendBtn.val(`重新发送(${count})`);
+				}, 1000);
+				util.message("邮件已发送");
+			} else {
+				showError(tab, result.message);
+			}
+		}, err => {
+			util.message({
+				type: "error",
+				text: "重置失败",
+			});
+		})
+	}
 
-	// 	var tab = $('.tab-' + dialogMode, dialogWin);
+	function onRegisterClick(e) {
+		var tab = tabs.filter(".tab-register");
+		var email = $.trim(tab.find(".email input").val());
+		var username = $.trim(tab.find(".username input").val());
+		var password = $.trim(tab.find(".password input").val());
+		var confirmPassword = $.trim(tab.find(".confirm-password input").val());
 
-	// 	tab.siblings(".active").removeClass("x-fadeIn").removeClass("active").addClass("x-fadeOut");
-	// 	tab.removeClass("x-fadeOut").addClass("active").addClass("x-fadeIn");
+		if (email == "" || username == "" || password == "" || confirmPassword == "") {
+			return;
+		}
 
-	// 	var titleHeight = $('.title', dialogWin).height();
-	// 	var height = tab.height();
-	// 	tab.parent().height(height);
-	// 	dialogWin.height(height + titleHeight);
+		if (password != confirmPassword) {
+			showError(tab, "两次密码不一致");
+			return;
+		}
 
-	// 	setWeixinLoginCheck(dialogMode == "login" && loginType == "quick");
-	// 	$('.reset-field', dialogWin).val('');
-	// }
+		userModel.register({
+			email: email,
+			username: username,
+			password: password,
+		}).then(result => {
+			if (result.status == 0) {
+				switchTab("register-success")
+			} else {
+				showError(tab, result.message);
+			}
+		}, err => {
+			util.message({
+				text: "注册失败",
+				type: "error",
+			});
+		});
+	}
 
-	// function switchLoginType(type) {
-	// 	loginType = type;
+	function onRegisterOKClick(e) {
+		switchTab("login");
+	}
 
-	// 	switches.filter('[data-action="' + loginType + '"]').addClass("active").siblings().removeClass("active");
+	function onWeixinLogin(result) {
+		if (result.status == 0) {
+			//登录成功
+			setWeixinLoginCheck(false);
+			dialogWin.find(".x-dialog-close").trigger("click");
+			util.message("登录成功");
+			emitor.trigger("user", "update");
+		} else if (result.status == -3) {
+			refreshWeixinQrcode();
+		} else {
+			//登录失败
+		}
+	}
 
-	// 	var tab = $('.tab-login .tab-' + loginType, dialogWin);
+	function setWeixinLoginCheck(value) {
+		clearInterval(qrcodeLoginTimer);
+		qrcodeLoginTimer = null;
 
-	// 	tab.siblings(".active").removeClass("x-fadeIn").removeClass("active").addClass("x-fadeOut");
-	// 	tab.removeClass("x-fadeOut").addClass("active").addClass("x-fadeIn");
+		if (!value) {
+			return;
+		}
 
-	// 	var index = tab.index();
-	// 	var x = index == 0 ? "0" : (0 - index * tab.width()) + "px";
-	// 	loginTabs.css("transform", "translateX(" + x + ")");
+		var qrcode = tabs.filter(".tab-weixin").find(".qrcode");
+		qrcodeLoginTimer = setInterval(function() {
+			userModel.weixinLogin(qrcode.data("key")).then(onWeixinLogin);
+		}, 3000);
+	}
 
-	// 	if(loginType == "account") {
-	// 		$('.tab-login .username', dialogWin).focus();
-	// 	}
+	function onQrcodeTimeout() {
+		setWeixinLoginCheck(false);
+		clearTimeout(qrcodeTimer);
+		qrcodeTimer = null;
 
-	// 	setWeixinLoginCheck(dialogMode == "login" && loginType == "quick");
-	// 	$('.reset-field', dialogWin).val('');
-	// }
+		var tab = tabs.filter(".tab-weixin");
+		tab.find(".qrcode").addClass("timeout");
+	}
 
-	// function onSwitchDialogMode(e) {
-	// 	var mode = $(this).data("action");
-	// 	switchDialogMode(mode);
-	// }
+	function refreshWeixinQrcode() {
+		userModel.weixinQrcode().then(result => {
+			if (result.status != 0) {
+				return;
+			}
 
-	// function onSwitchLoginType(e) {
-	// 	var li = $(this);
-	// 	if(li.hasClass("active")) {
-	// 		return;
-	// 	}
-		
-	// 	var type = li.data("action");
-	// 	switchLoginType(type);
-	// }
+			var tab = tabs.filter(".tab-weixin");
+			tab.find(".qrcode").removeClass("timeout").data("key", result.data.login_key).attr("src", result.data.qrcodeurl);
 
-	// function onRefreshQrcodeClick(e) {
-	// 	refreshWeixinQrcode();
-	// }
-
-	// function onLoginClick() {
-	// 	var $username = $('.tab-account .username', dialogWin);
-	// 	var $password = $('.tab-account .password', dialogWin);
-	// 	var username = $.trim($username.val());
-	// 	var password = $.trim($password.val());
-
-	// 	if(username == "") {
-	// 		showError($username, "请输入帐号");
-	// 		return;
-	// 	}
-
-	// 	if(password == "") {
-	// 		showError($password, "请输入密码");
-	// 		return;
-	// 	}
-
-	// 	var autoLogin = $('.tab-account .auto-login', dialogWin).is(":checked");
-	// 	// userModel.login(username, password, remember).done(onAccountLogin);
-	// }
-
-	// function onLoginEnter(e) {
-	// 	e.keyCode == 13 && onLoginClick();
-	// }
-
-	// function setWeixinLoginCheck(value) {
-	// 	clearInterval(loginCheckTimer);
-	// 	loginCheckTimer = null;
-
-	// 	if (!value) {
-	// 		return;
-	// 	}
-
-	// 	loginCheckTimer = setInterval(function() {
-	// 		// userModel.weixinLogin(qrcodeKey.val()).done(onWeixinLogin);
-	// 	}, 3000);
-	// }
-
-	// function onAccountLogin(result) {
-	// 	if (result.status == 0) {
-	// 		//登录成功
-	// 		closeDialog();
-	// 		emitor.trigger("user", "login");
-	// 		doLoginCallback();
-	// 	} else if (result.status == 1) {
-
-	// 	} else {
-	// 		showError($(".tab-account .password"), result.message);
-	// 	}
-	// }
-
-	// function onWeixinLogin(result) {
-	// 	if (result.status == 0) {
-	// 		//登录成功
-	// 		setWeixinLoginCheck(false);
-	// 		closeDialog();
-	// 		emitor.trigger("user", "login");
-	// 		doLoginCallback();
-	// 	} else if (result.status == 1) {
-	// 		//已经登录
-	// 		setWeixinLoginCheck(false);
-	// 	} else if(result.status == -3) {
-	// 		refreshWeixinQrcode();
-	// 	} else {
-	// 		//登录失败
-	// 	}
-	// }
-
-	// function onQrcodeTimeout() {
-	// 	setWeixinLoginCheck(false);
-	// 	qrcode.addClass("timeout");
-	// 	qrcodeTimeoutTimer = null;
-	// }
-
-	// function closeDialog() {
-	// 	$('.x-dialog-close', dialogWin).click();
-	// }
-
-	// function onRegisterClick(e) {
-	// 	var $email = $('.tab-register .email', dialogWin);
-	// 	var $username = $('.tab-register .username', dialogWin);
-	// 	var $password = $('.tab-register .password', dialogWin);
-	// 	var $confirmPassword = $('.tab-register .confirm-password', dialogWin);
-
-	// 	var email = $.trim($email.val());
-	// 	var username = $.trim($username.val());
-	// 	var password = $.trim($password.val());
-	// 	var confirmPassword = $.trim($confirmPassword.val());
-
-	// 	if(email == "") {
-	// 		showError($email, "请输入邮箱");
-	// 		return;
-	// 	}
-
-	// 	if(username == "") {
-	// 		showError($username, "请输入帐号");
-	// 		return;
-	// 	}
-
-	// 	if(password == "") {
-	// 		showError($password, "请输入密码");
-	// 		return;
-	// 	}
-
-	// 	if(confirmPassword == "") {
-	// 		showError($confirmPassword, "请再次输入密码");
-	// 		return;
-	// 	}
-
-	// 	if(password != confirmPassword) {
-	// 		showError($confirmPassword, "请确认密码");
-	// 		return;
-	// 	}
-
-	// 	// userModel.register({
-	// 	// 	email: email,
-	// 	// 	username: username,
-	// 	// 	password: password,
-	// 	// }).done(onRegisterSuccess);
-	// }
-
-	// function onRegisterSuccess(result) {
-	// 	if(result.status == 0) {
-	// 		closeDialog();
-	// 		emitor.trigger("user", "login");
-	// 	} else {
-	// 		showError($(".tab-register .username"), result.message);
-	// 	}
-	// }
-
-	// function refreshWeixinQrcode() {
-	// 	// userModel.weixinQrcode(true).done(function(result){
-	// 	// 	if (result.status != 0) {
-	// 	// 		return;
-	// 	// 	}
-
-	// 	// 	qrcodeKey.val(result.data.login_key);
-	// 	// 	qrcode.attr('src', result.data.qrcodeurl);
-
-	// 	// 	qrcode.removeClass("timeout");
-	// 	// 	clearTimeout(onQrcodeTimeout);
-	// 	// 	qrcodeTimeoutTimer = setTimeout(onQrcodeTimeout, qrcodeTimeout);
-	// 	// });
-	// }
-
-	// function doLoginCallback() {
-	// 	loginCallback && loginCallback();
-	// }
-
-	// function onFindPasswordClick(e) {
-	// 	kenrobot.postMessage("app:openUrl", config.url.findPassword);
-	// }
+			clearTimeout(qrcodeTimer);
+			qrcodeTimer = setTimeout(onQrcodeTimeout, qrcodeDelay);
+		});
+	}
 
 	return {
 		init: init,

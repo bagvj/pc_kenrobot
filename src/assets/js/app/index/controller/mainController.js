@@ -61,7 +61,9 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	}
 
 	function onUserLogout() {
-		userModel.logout().always(_ => {
+		userModel.logout().then(_ => {
+			util.message("退出成功");
+		}).always(_ => {
 			emitor.trigger("user", "update");
 		});
 	}

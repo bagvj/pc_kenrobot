@@ -102,7 +102,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 	}
 
 	function onLoginClick(e) {
-		var wrap = $(this);
+		var wrap = $(this).parent();
 		if(wrap.hasClass("login")) {
 			return;
 		}
@@ -147,7 +147,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		var loginWrap = region.find(".login-region .wrap");
 		if(userInfo) {
 			loginWrap.addClass("login");
-			loginWrap.find(".name").text(userInfo.username);
+			loginWrap.find(".name").text(userInfo.base_name);
 			var photo = loginWrap.find(".photo");
 			photo.attr("src", userInfo.base_avatar || photo.data("defaultAvatar"));
 		} else {
