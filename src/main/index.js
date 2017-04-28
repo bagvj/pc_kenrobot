@@ -3,6 +3,7 @@ const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 const path = require('path')
 const os = require('os')
 const querystring = require('querystring')
+const crypto = require('crypto')
 
 const util = require('./util')
 const serialPort = require('./serialPort') //串口
@@ -407,8 +408,8 @@ function listenMessage() {
 			e.sender.send("app:checkUpdate", deferId, false, err)
 		})
 	})
-	.on("app:request", (e, deferId, options) => {
-		util.request(options).then(result => {
+	.on("app:request", (e, deferId, url, options, json) => {
+		util.request(url, options, json).then(result => {
 			e.sender.send("app:request", deferId, true, result)
 		}, err => {
 			e.sender.send("app:request", deferId, false, err)
@@ -417,6 +418,24 @@ function listenMessage() {
 	.on("app:showItemInFolder", (e, deferId, filePath) => {
 		shell.showItemInFolder(path.normalize(filePath))
 		e.sender.send("app:showItemInFolder", deferId, true, true)
+	})
+	.on("app:saveToken", (e, deferId, token) => {
+		saveToken(token).then(key => {
+			e.sender.send("app:saveToken", deferId, true, key)
+		}, err => {
+			e.sender.send("app:saveToken", deferId, false, err)
+		})
+	})
+	.on("app:getToken", (e, deferId, key) => {
+		getToken(key).then(token => {
+			e.sender.send("app:getToken", deferId, true, token)
+		}, err => {
+			e.sender.send("app:getToken", deferId, false, err)
+		})
+	})
+	.on("app:removeToken", (e, deferId) => {
+		util.removeFile(path.join(util.getAppDataPath(), "token"), true)
+		e.sender.send("app:removeToken", deferId, true, true)
 	})
 }
 
@@ -431,11 +450,7 @@ function checkUpdate(checkUrl) {
 	var url = `${checkUrl}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&features=${info.feature}&ext=${info.ext}`
 	log.debug(`checkUpdate: ${url}`)
 
-	util.request({
-		method: "GET",
-		url: url,
-		json: true,
-	}).then(result => {
+	util.request(url).then(result => {
 		deferred.resolve(result)
 	}, err => {
 		log.error(err)
@@ -1196,6 +1211,38 @@ function matchBoardNames(ports) {
 		deferred.resolve(ports)
 	}, err => {
 		log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function saveToken(token) {
+	var deferred = Q.defer()
+
+	var key = crypto.randomBytes(128)
+	util.writeFile(path.join(util.getAppDataPath(), "token"), util.encrypt(JSON.stringify(token), key)).then(_ => {
+		deferred.resolve(key.toString("hex"))
+	}, err => {
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+
+function getToken(key) {
+	var deferred = Q.defer()
+
+	util.readFile(path.join(util.getAppDataPath(), "token")).then(content => {
+		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
+		try {
+			var token = JSON.parse(plainText)
+			deferred.resolve(token)
+		} catch (ex) {
+			deferred.reject()
+		}
+	}, err => {
 		deferred.reject(err)
 	})
 

@@ -100,11 +100,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			return promise;
 		}
 
-		$.ajax({
-			type: "GET",
-			url: config.url.packages,
-			dataType: "json",
-		}).then(_packages => {
+		kenrobot.postMessage("app:request", config.url.packages).then(_packages => {
 			var info = kenrobot.appInfo;
 			packages = _packages.filter(p => p.platform == info.platform);
 			promise.resolve();

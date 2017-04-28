@@ -1,8 +1,9 @@
 const os = require('os')
 const child_process = require('child_process')
 const path = require('path')
+const crypto = require('crypto')
 
-const {app, dialog, net, BrowserWindow} = require('electron')
+const {app, dialog, BrowserWindow} = require('electron')
 const log = require('electron-log')
 const is = require('electron-is')
 
@@ -11,8 +12,8 @@ const fs = require('fs-extra')
 const glob = require('glob')
 const sudo = require('sudo-prompt')
 const iconv = require('iconv-lite')
-const BufferHelper = require('bufferhelper')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
+const fetch = require('node-fetch')
 
 const PACKAGE = require('../package')
 
@@ -103,14 +104,6 @@ function postMessage(name, ...args) {
 	wins && wins.length && wins[0].webContents.send(name, args)
 }
 
-/**
- * 处理引号
- * @param {*} p 
- */
-function handleQuotes(p) {
-	return is.windows() ? p : p.replace(/"/g, "")
-}
-
 function getDefer() {
 	var deferred = Q.defer()
 	var deferId = deferAutoId++
@@ -136,6 +129,34 @@ function callDefer(deferId, type, ...args) {
 		callback = type ? deferred.resolve : deferred.reject
 	}
 	callback.apply(this, args)
+}
+
+/**
+ * 处理引号
+ * @param {*} p 
+ */
+function handleQuotes(p) {
+	return is.windows() ? p : p.replace(/"/g, "")
+}
+
+function encrypt(plainText, key, algorithm) {
+	algorithm = algorithm || "aes-128-cbc"
+	var cipher = crypto.createCipher(algorithm, key)
+	var cryptedText = cipher.update(plainText, 'utf8', 'binary')
+	cryptedText += cipher.final('binary')
+	cryptedText = new Buffer(cryptedText, 'binary').toString('base64')
+
+	return cryptedText
+}
+
+function decrypt(cryptedText, key, algorithm) {
+	algorithm = algorithm || "aes-128-cbc"
+	cryptedText = new Buffer(cryptedText, 'base64').toString('binary')
+	var decipher = crypto.createDecipher(algorithm, key)
+	var plainText = decipher.update(cryptedText, 'binary', 'utf8')
+	plainText += decipher.final('utf8')
+
+	return plainText
 }
 
 /**
@@ -215,10 +236,7 @@ function execCommand(command, options, useSudo) {
 function spawnCommand(command, args, options) {
 	var deferred = Q.defer()
 	var child = child_process.spawn(command, args, options)
-	var stdoutBuffer = new BufferHelper()
-	var stderrBuffer = new BufferHelper()
 	child.stdout.on('data', data => {
-		stdoutBuffer.concat(data)
 		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
 		is.dev() && log.debug(str)
 		deferred.notify({
@@ -227,7 +245,6 @@ function spawnCommand(command, args, options) {
 		})
 	})
 	child.stderr.on('data', data => {
-		stderrBuffer.concat(data)
 		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
 		is.dev() && log.debug(str)
 		deferred.notify({
@@ -236,9 +253,7 @@ function spawnCommand(command, args, options) {
 		})
 	})
 	child.on('close', code => {
-		var buffer = code == 0 ? stdoutBuffer : stderrBuffer
-		var output = is.windows() ? iconv.decode(buffer.toBuffer(), 'gbk') : buffer.toString()
-		code == 0 ? deferred.resolve(output) : deferred.reject(output)
+		code == 0 ? deferred.resolve() : deferred.reject()
 	})
 
 	return deferred.promise
@@ -495,42 +510,34 @@ function showSaveDialog(win, options) {
 	return deferred.promise
 }
 
-function request(options) {
-	log.debug(`request: [${options.method}] ${options.url}`)
+function request(url, options, json) {
 	var deferred = Q.defer()
 
-	var request = net.request(options)
-
-	if(options.header) {
-		for(var key in options.header) {
-			request.setHeader(key, options.header[key])
-		}
+	options = options || {}
+	json = json !== false
+	options.method = options.method || "GET"
+	if(json && options.data) {
+		options.body = JSON.stringify(options.data)
+		var headers = options.headers || (options.headers = {})
+		headers['Content-Type'] = 'application/json'
+		delete options.data
 	}
 
-	request.on('response', response => {
-		var buffer = new BufferHelper()
-		response.on('data', chunk => {
-			buffer.concat(chunk)
-		}).on('end', _ => {
-			var data = buffer.toString()
-			if(options.json) {
-				try{
-					data = JSON.parse(data)
-				} catch (ex) {
-					log.error(ex)
-					deferred.reject(ex)
-					return
-				}
-			}
-			deferred.resolve(data)
-		})
-	}).on('abort', _ => {
-		log.error('abort')
-		deferred.reject()
-	}).on('error', err => {
+	log.debug(`request: ${url}, options: ${JSON.stringify(options)}`)
+	fetch(url, options).then(res => {
+		if(res.status >= 200 && res.status < 300) {
+			return json ? res.json() : res.text()
+		} else {
+			var error = new Error(res.statusText)
+			error.status = res.status
+			throw error
+		}
+	}).then(result => {
+		deferred.resolve(result)
+	}).catch(err => {
 		log.error(err)
 		deferred.reject(err)
-	}).end()
+	})
 
 	return deferred.promise
 }
@@ -545,6 +552,8 @@ module.exports.postMessage = postMessage
 module.exports.getDefer = getDefer
 module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
+module.exports.encrypt = encrypt
+module.exports.decrypt = decrypt
 
 module.exports.execFile = execFile
 module.exports.execCommand = execCommand

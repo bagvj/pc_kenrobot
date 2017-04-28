@@ -1,12 +1,17 @@
-define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/nav', '../config/menu'], function($1, pace, util, emitor, config, nav, menu) {
+define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/nav', '../config/menu', '../model/userModel'], function($1, pace, util, emitor, config, nav, menu, userModel) {
 	var mainWrap;
 	var iframe;
 
 	function init() {
+		kenrobot.getUserInfo = userModel.getUserInfo;
+
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		iframe = window.frames["content-frame"];
-		emitor.on('app', 'check-update', onCheckUpdate).on('app', 'switch', onSwitch).on("app", "start", onAppStart);
+		emitor.on('app', 'check-update', onCheckUpdate)
+			.on('app', 'switch', onSwitch)
+			.on("app", "start", onAppStart)
+			.on("user", "logout", onUserLogout);
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
@@ -30,9 +35,11 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
-		kenrobot.postMessage("app:unzipPackages").then(_ => {
+		userModel.loadToken().always(_ => {
+			emitor.trigger("user", "update");
+		});
 
-		}, err => {
+		kenrobot.postMessage("app:unzipPackages").then(_ => true, err => {
 			util.message({
 				text: "解压出错",
 				type: "error"
@@ -50,6 +57,12 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 					onCheckUpdate(false);
 				}, 3000);
 			}, 400);
+		});
+	}
+
+	function onUserLogout() {
+		userModel.logout().always(_ => {
+			emitor.trigger("user", "update");
 		});
 	}
 
@@ -121,58 +134,47 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onCheckUpdate(manual) {
 		manual = manual !== false;
 
-		var info = kenrobot.appInfo;
-		var data = {
-			version: info.version,
-			platform: info.platform,
-			arch: info.arch,
-			features: info.feature,
-			ext: info.ext,
-		};
-
-		$.ajax({
-			type: "GET",
-			url: config.url.checkUpdate + "&" + $.param(data),
-			dataType: "json",
-		}).then(function(result) {
-			if(result.status == 0) {
-				var versionInfo = result.data;
-				util.confirm({
-					title: "检查更新",
-					text: "发现新版本" + versionInfo.version + "，是否下载？",
-					onConfirm: function() {
-						util.message("开始下载");
-						kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
-							if(info.platform == "win") {
-								util.confirm({
-									text: `下载成功，是否安装新版本${versionInfo.version}?`,
-									onConfirm: () => {
-										kenrobot.postMessage("app:execFile", result.path).then(() => {
-											util.message("安装成功");
-										}, err => {
-											util.message({
-												text: "安装失败",
-												type: "error"
-											});
-										});
-									}
-								});
-							} else {
-								util.confirm({
-									text: "下载成功，是否打开文件所在位置?",
-									onConfirm: () => {
-										kenrobot.postMessage("app:showItemInFolder", result.path);
-									},
-								});
-							}
-						}, err => {
-							util.message("新版本下载失败");
-						});
-					}
-				});
-			} else {
+		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(function(result) {
+			if(result.status != 0) {
 				manual && util.message("已经是最新版本了");
+				return;
 			}
+
+			var versionInfo = result.data;
+			util.confirm({
+				title: "检查更新",
+				text: "发现新版本" + versionInfo.version + "，是否下载？",
+				onConfirm: function() {
+					util.message("开始下载");
+					kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
+						var info = kenrobot.appInfo;
+						if(info.platform == "win") {
+							util.confirm({
+								text: `下载成功，是否安装新版本${versionInfo.version}?`,
+								onConfirm: () => {
+									kenrobot.postMessage("app:execFile", result.path).then(() => {
+										util.message("安装成功");
+									}, err => {
+										util.message({
+											text: "安装失败",
+											type: "error"
+										});
+									});
+								}
+							});
+						} else {
+							util.confirm({
+								text: "下载成功，是否打开文件所在位置?",
+								onConfirm: () => {
+									kenrobot.postMessage("app:showItemInFolder", result.path);
+								},
+							});
+						}
+					}, err => {
+						util.message("新版本下载失败");
+					});
+				}
+			});
 		}, function(err) {
 			manual && util.message("检查更新失败");
 		});
