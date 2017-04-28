@@ -3,10 +3,13 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 	var appMenu;
 
 	function init() {
-		region = $('.titlebar-region').on('click', '.window-btns li', onWindowBtnClick);
+		region = $('.titlebar-region')
+			.on('click', '.login-region .placeholder', onLoginClick)
+			.on('click', '.login-region .login-menu > ul > li', onLoginMenuClick)
+			.on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region);
 		
-		emitor.on("app", "fullscreenChange", onFullscreenChange);
+		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate);
 		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false});
 	}
 
@@ -98,6 +101,27 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		return $('<ul>').append(menuItems);
 	}
 
+	function onLoginClick(e) {
+		var wrap = $(this).parent();
+		if(wrap.hasClass("login")) {
+			return;
+		}
+
+		emitor.trigger("login", "show");
+	}
+
+	function onLoginMenuClick(e) {
+		var action = $(this).data("action");
+		switch(action) {
+			case "setting":
+				util.message("敬请期待");
+				break;
+			case "logout":
+				emitor.trigger("user", "logout");
+				break;
+		}
+	}
+
 	function onWindowBtnClick(e) {
 		var action = $(this).data("action");
 		switch (action) {
@@ -116,6 +140,22 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 	function onFullscreenChange(fullscreen) {
 		var li = Array.from(appMenu.find("li")).find(li => $(li).data("id") == "fullscreen");
 		$(li).find(".text").text(fullscreen ? "退出全屏" : "全屏");
+	}
+
+	function onUserUpdate() {
+		var userInfo = kenrobot.getUserInfo();
+		var loginWrap = region.find(".login-region .wrap");
+		if(userInfo) {
+			loginWrap.addClass("login");
+			loginWrap.find(".name").text(userInfo.base_name);
+			var photo = loginWrap.find(".photo");
+			photo.attr("src", userInfo.base_avatar || photo.data("defaultAvatar"));
+		} else {
+			loginWrap.removeClass("login");
+			loginWrap.find(".name").text("未登录");
+			var photo = loginWrap.find(".photo");
+			photo.attr("src", photo.data("defaultAvatar"));
+		}
 	}
 
 	return {

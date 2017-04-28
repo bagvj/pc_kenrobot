@@ -20,17 +20,16 @@
 				</div>
 				<div class="right-widgets">
 					<div class="login-region">
-						<div class="placeholder">
-							<div class="photo no-user">
-								<img src="assets/image/default-user.png" />
+						<div class="wrap">
+							<div class="placeholder">
+								<img class="photo" data-default-avatar="assets/image/default-user.png" /><span class="name">未登录</span>
 							</div>
-							<div class="name">未登录</div>
-						</div>
-						<div class="login-menu">
-							<ul>
-								<li data-action="setting"><span>设置</span></li>
-								<li data-action="logout"><span>退出</span></li>
-							</ul>
+							<div class="login-menu">
+								<ul>
+									<li data-action="setting"><span>个人设置</span></li>
+									<li data-action="logout"><span>退出登录</span></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -49,6 +48,114 @@
 		<div class="no-select layers">
 			<div class="layer dialog-layer">
 				<div class="x-dialog-mask"></div>
+				<div class="x-dialog login-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-content">
+						<div class="tab tab-login">
+							<div class="logo"></div>
+							<div class="error-message"></div>
+							<div class="fields">
+								<div class="x-field username">
+									<i class="kenrobot ken-logo"></i>
+									<input type="text" class="username" placeholder="请输入用户名或邮箱" />
+									<span class="error"></span>
+								</div>
+								<div class="x-field password">
+									<i class="kenrobot ken-password"></i>
+									<input type="password" class="password" placeholder="请输入密码" />
+									<span class="error"></span>
+									<span class="find-password">重置密码</span>
+								</div>
+							</div>
+							<div>
+								<input type="checkbox" class="auto-login" id="auto-login" checked="true" /><label for="auto-login">自动登录</label>
+							</div>
+							<div class="btns">
+								<input type="button" class="x-btn switch-register" value="注册" />
+								<input type="button" class="x-btn login-btn x-submit" value="登录" />
+							</div>
+							<div class="other-ways">
+								<div class="title">其它登录方式</div>
+								<ul>
+									<li data-action="weixin"><i class="kenrobot ken-weixin"></i><span>微信</span></li>
+									<li data-action="qq"><i class="kenrobot ken-QQ"></i><span>QQ</span></li>
+									<li data-action="weibo"><i class="kenrobot ken-weibo"></i><span>微博</span></li>
+									<li data-action="github"><i class="kenrobot ken-github"></i><span>Github</span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="tab tab-register">
+							<div class="logo"></div>
+							<div class="error-message"></div>
+							<div class="fields">
+								<div class="x-field email">
+									<i class="kenrobot ken-email"></i>
+									<input type="text" class="email" placeholder="请输入邮箱" />
+									<span class="error"></span>
+								</div>
+								<div class="x-field username">
+									<i class="kenrobot ken-logo"></i>
+									<input type="text" class="username" placeholder="请输入用户名" />
+									<span class="error"></span>
+								</div>
+								<div class="x-field password">
+									<i class="kenrobot ken-password"></i>
+									<input type="password" class="password" placeholder="请输入密码" />
+									<span class="error"></span>
+								</div>
+								<div class="x-field confirm-password">
+									<i class="kenrobot ken-password"></i>
+									<input type="password" class="confirm-password" placeholder="请确认密码" />
+									<span class="error"></span>
+								</div>
+							</div>
+							<div class="btns">
+								<input type="button" class="x-btn register-btn x-submit" value="注册" />
+							</div>
+							<div class="back-wrap">
+								<span class="switch-login">返回登录</span>
+							</div>
+						</div>
+						<div class="tab tab-register-success">
+							<div class="logo"></div>
+							<div class="tips">恭喜您注册成功，<br />欢迎加入啃萝卜大家庭~</div>
+							<div class="btns">
+								<input type="button" class="x-btn ok-btn" value="我知道了" />
+							</div>
+							<div class="back-wrap">
+								<span class="switch-login">返回登录</span>
+							</div>
+						</div>
+						<div class="tab tab-find-password">
+							<div class="logo"></div>
+							<div class="tips">请输入您注册时使用的邮箱<br />我们会将密码重置邮件发送至该邮箱</div>
+							<div class="error-message">请输入您注册时使用的邮箱</div>
+							<div class="fields">
+								<div class="x-field email">
+									<i class="kenrobot ken-email"></i>
+									<input type="text" class="email" placeholder="请输入邮箱" />
+									<span class="error"></span>
+								</div>
+							</div>
+							<div class="btns">
+								<input type="button" class="x-btn send-btn x-submit" value="发送" />
+							</div>
+							<div class="back-wrap">
+								<span class="switch-login">返回登录</span>
+							</div>
+						</div>
+						<div class="tab tab-weixin">
+							<div class="title">微信登录</div>
+							<div class="qrcode-wrap">
+								<img class="qrcode" />
+							</div>
+							<div class="tips">请使用微信扫描二维码登录<br />“啃萝卜”</div>
+							<div class="back-wrap">
+								<span class="switch-login">返回登录</span>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="x-dialog common-dialog">
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-header"></div>

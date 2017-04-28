@@ -25,6 +25,7 @@
     "hasha": "^2.2.0",
     "iconv-lite": "^0.4.15",
     "minimist": "^1.2.0",
+    "node-fetch": "^1.6.3",
     "q": "^1.5.0",
     "serialport": "^4.0.7",
     "sudo-prompt": "^7.0.0"
