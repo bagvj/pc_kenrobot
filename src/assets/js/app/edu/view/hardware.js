@@ -78,6 +78,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function getBlockData() {
 		var data = {};
+		data.board = getBoardData();
+		
 		var hardwareData = getData();
 		data.components = hardwareData.components.map(function(componentData) {
 			return hardwareModel.getComponentData(componentData.uid);

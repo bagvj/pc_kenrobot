@@ -178,7 +178,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 
 			var endpoints = {};
 			jsPlumbInstance.getEndpoints(componentDom).forEach(function(endpoint) {
-				endpoints[endpoint.getParameter('pin')] = {
+				endpoints[endpoint.getParameter('pin').name] = {
 					uid: endpoint.getUuid(),
 					type: endpoint.scope
 				};
@@ -246,7 +246,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 					}]
 				],
 				parameters: {
-					pin: pin.name
+					pin: pin
 				},
 				cssClass: 'board-endpoint pin-' + pin.name,
 				isTarget: true,
@@ -325,7 +325,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 				anchor: pin.anchor,
 				uuid: endpoints[pin.name].uid,
 				parameters: {
-					pin: pin.name,
+					pin: pin,
 					type: type,
 				},
 				endpoint: [pin.shape || 'Dot', {
@@ -510,7 +510,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 				var componentData = components[componentUid];
 				var sourcePin = connection.sourceEndpoint.getParameter('pin');
 				var targetPin = connection.targetEndpoint.getParameter('pin');
-				componentData.pins[sourcePin] = targetPin;
+				componentData.pins[sourcePin.name] = targetPin;
 			}
 		});
 
@@ -524,7 +524,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 				var componentUid = connection.source.dataset.uid;
 				var componentData = components[componentUid];
 				var sourcePin = connection.sourceEndpoint.getParameter('pin');
-				delete componentData.pins[sourcePin];
+				delete componentData.pins[sourcePin.name];
 			}
 		});
 

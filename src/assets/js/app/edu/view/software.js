@@ -64,7 +64,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		globalBlock.setConnectable(true);
 		setupBlock.setConnectable(true);
 		loopBlock.setConnectable(true);
-		
+
 		$('.block-global', region).removeClass("active").addClass(globalBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(globalBlock.dom);
 		$('.block-setup', region).removeClass("active").addClass(setupBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(setupBlock.dom);
 		$('.block-loop', region).addClass("active").addClass(loopBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(loopBlock.dom);
@@ -84,22 +84,51 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			return a.name.localeCompare(b.name);
 		}).forEach(function(componentData) {
 			code = componentData.code;
-			if(code.include) {
+			if (code.include) {
 				includeCode = includeCode.concat(code.include.split('\n'));
 			}
-			if(code.var) {
+
+			var pin;
+			var pins = componentData.pins;
+			var rxd = pins.rxd;
+			var txd = pins.txd;
+			var isSoftwareSerial;
+			var multiSerial;
+			var serialName;
+			if (rxd && txd) {
+				if (rxd.tags.includes("serial-rx") && txd.tags.includes("serial-tx") && (!rxd.extra || !txd.extra || rxd.extra.serial == txd.extra.serial)) {
+					//硬串
+					var rxdPins = hardwareData.board.pins.filter(p => p.tags.includes("serial-tx"));
+					if (rxdPins.length > 1) {
+						multiSerial = true;
+						serialName = rxd.extra.serial;
+					}
+				} else {
+					//软串
+					isSoftwareSerial = true;
+					includeCode.push("#include <SoftwareSerial.h>");
+					varCode += `SoftwareSerial ${componentData.varName}(${rxd.value || ""}, ${txd.value || ""});`;
+				}
+			}
+
+			if (code.var) {
 				tempCode = code.var.replace(nameReg, componentData.varName);
-				var pins = componentData.pins;
-				for(var name in pins) {
-					tempCode = tempCode.replace(new RegExp('{' + name + '}', 'g'), pins[name]);
+				for (var name in pins) {
+					pin = pins[name];
+					tempCode = tempCode.replace(new RegExp(`${name}`, 'g'), pin && pin.value || "");
 				}
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
-			if(code.setup) {
+			if (code.setup) {
 				tempCode = code.setup.replace(nameReg, componentData.varName);
-				var pins = componentData.pins;
-				for(var name in pins) {
-					tempCode = tempCode.replace(new RegExp('{' + name + '}', 'g'), pins[name]);
+				for (var name in pins) {
+					pin = pins[name];
+					tempCode = tempCode.replace(new RegExp(`${name}`, 'g'), pin && pin.value || "");
+				}
+				if (isSoftwareSerial) {
+					tempCode = tempCode.replace("Serial", componentData.varName);
+				} else if (multiSerial) {
+					tempCode = tempCode.replace("Serial", serialName);
 				}
 				setupCode += tempCode;
 			}
@@ -123,7 +152,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	function createBlocks(blocks) {
 		blockList.empty();
 		blocks.forEach(function(blockData) {
-			if(blockData.type == "group") {
+			if (blockData.type == "group") {
 				return;
 			}
 
@@ -153,7 +182,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			});
 		});
 
-		if(hardwareData.components.length > 0) {
+		if (hardwareData.components.length > 0) {
 			var hardwareVariable = {
 				name: "hardwareVariable",
 				group: [],
@@ -162,9 +191,37 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				name: "raw",
 				group: [],
 			};
+			var serial = {
+				name: "serial",
+				group: [],
+			};
 
 			hardwareData.components.forEach(function(componentData) {
-				if(componentData.type == "serial") {
+				if (componentData.type == "serial") {
+					var pins = componentData.pins;
+					var rxd = pins.rxd;
+					var txd = pins.txd;
+					var s = pins.s;
+					if (rxd && txd) {
+						if (rxd.tags.includes("serial-rx") && txd.tags.includes("serial-tx") && (!rxd.extra || !txd.extra || rxd.extra.serial == txd.extra.serial)) {
+							//硬串
+							serial.group.push({
+								id: componentData.uid,
+								name: rxd.extra && rxd.extra.serial || "Serial",
+							});
+						} else {
+							//软串
+							serial.group.push({
+								id: componentData.uid,
+								name: componentData.varName,
+							});
+						}
+					} else if(s && s.tags.includes("serial")) {
+						serial.group.push({
+							id: componentData.uid,
+							name: "Serial",
+						});
+					}
 					return;
 				}
 
@@ -174,7 +231,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				});
 
 				var componentConfig = hardwareModel.getComponentConfig(componentData.name);
-				if(componentConfig.raw) {
+				if (componentConfig.raw) {
 					raw.group.push({
 						id: componentData.uid,
 						name: componentData.varName,
@@ -182,18 +239,19 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				}
 			});
 
-			if(hardwareVariable.group.length > 0) {
+			if (hardwareVariable.group.length > 0) {
 				modules.push(hardwareVariable.name);
 				groups[hardwareVariable.name + "s"] = hardwareVariable.group;
 			}
-			if(raw.group.length > 0) {
+			if (raw.group.length > 0) {
 				modules.push(raw.name);
 				groups[raw.name + "s"] = raw.group;
 			}
+			groups[serial.name + "s"] = serial.group;
 		}
 
 		softwareModel.updateDynamicBlocks(groups);
-		
+
 		var li = filterList.find("li.active");
 		li.length == 0 && (li = filterList.find("li:eq(0)"));
 		li.click();
@@ -218,8 +276,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function onUILock(type, value) {
-		if(type == "build") {
-			if(value) {
+		if (type == "build") {
+			if (value) {
 				topRegion.find(".check").attr("disabled", true);
 				topRegion.find(".upload").attr("disabled", true);
 			} else {
@@ -230,7 +288,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function onCheckProgress(value) {
-		if(value < 0) {
+		if (value < 0) {
 			return;
 		}
 
@@ -240,11 +298,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function onUploadProgress(value, type) {
-		if(value < 0) {
+		if (value < 0) {
 			return;
 		}
 
-		if(type == "build") {
+		if (type == "build") {
 			value = 80 * value / 100;
 		} else {
 			value = value / 100 + 80;
@@ -260,7 +318,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function toggleToolButton(value) {
-		if(value) {
+		if (value) {
 			topRegion.find(".tool-button").addClass("simple");
 		} else {
 			topRegion.find(".tool-button").removeClass("simple");
@@ -269,7 +327,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function onToolButtonClick(e) {
 		var action = $(this).data('action');
-		switch(action) {
+		switch (action) {
 			case "upload":
 				emitor.trigger("project", "upload");
 				break;
@@ -293,7 +351,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function toggleCode() {
-		if(codeRegion.hasClass("active")) {
+		if (codeRegion.hasClass("active")) {
 			codeRegion.removeClass("slide-in").addClass("slide-out").delay(200, "slide-out").queue("slide-out", function() {
 				codeRegion.removeClass("active").removeClass("slide-out");
 			});
@@ -310,7 +368,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function onActiveTab(name) {
-		if(name == "software") {
+		if (name == "software") {
 			dragContainer.addClass("active");
 			emitor.trigger("software", "update-block").trigger("code", "refresh");
 
@@ -319,7 +377,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		}
 	}
 
-	function onContextMenu(e) {		
+	function onContextMenu(e) {
 		var target = $(e.target).closest(".block");
 		if (target.length && (target.parents(container.selector).length || target.parents(dragContainer.selector).length) && !target.hasClass("block-group")) {
 			contextMenuTarget = target;
@@ -327,7 +385,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			var block = softwareModel.getBlock(blockDom.dataset.uid);
 
 			block.isEnable() ? blockContextMenu.addClass("comment") : blockContextMenu.removeClass("comment");
-			(!block.isEnable() && !block.isFree()) ? blockContextMenu.addClass("uncomment") : blockContextMenu.removeClass("uncomment");
+			(!block.isEnable() && !block.isFree()) ? blockContextMenu.addClass("uncomment"): blockContextMenu.removeClass("uncomment");
 
 			var height = blockContextMenu.height();
 			var offset = blockContextMenu.parent().offset();
@@ -345,7 +403,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function onBlockContextMenu(e) {
-		if(!contextMenuTarget) {
+		if (!contextMenuTarget) {
 			return;
 		}
 
@@ -354,11 +412,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 		var li = $(this);
 		var action = li.data('action');
-		switch(action) {
+		switch (action) {
 			case "copy":
 				var offset = 20;
 				var copyBlock = block.copy();
-				if(block.isFree()) {	
+				if (block.isFree()) {
 					var blockOffset = block.getOffset();
 					copyBlock.setOffset(blockOffset.left + offset, blockOffset.top - offset);
 				} else {
@@ -394,11 +452,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		blockList.children().removeClass("active").each(function(index, child) {
 			var blockLi = $(child);
 			var filters = blockLi.data("filter");
-			if(filters.indexOf(filter) < 0 || filters.indexOf("advanced") >= 0) {
+			if (filters.indexOf(filter) < 0 || filters.indexOf("advanced") >= 0) {
 				return;
 			}
 
-			if(filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
 				return;
 			}
 
@@ -429,18 +487,18 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			var blockLi = $(child);
 			var filters = blockLi.data('filter');
 
-			if(filters.indexOf(filter) < 0) {
+			if (filters.indexOf(filter) < 0) {
 				//不是同一类block，(模块、数据)
 				return;
 			}
 
 			var a = filters.indexOf("advanced") >= 0;
-			if((isAdvanced && !a) || (!isAdvanced && a)) {
+			if ((isAdvanced && !a) || (!isAdvanced && a)) {
 				//要显示高级但block不是高级的，或者要显示基础但block是高级的
 				return;
 			}
 
-			if(filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
 				//block是模块，但没有相应硬件
 				return;
 			}

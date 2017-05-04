@@ -240,7 +240,7 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"content": [{
 				"type": "text",
-				"value": "电机"
+				"value": "小功率电机"
 			}, {
 				"id": "MOTOR",
 				"type": "dynamic-select",
@@ -268,7 +268,7 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"content": [{
 				"type": "text",
-				"value": "电机"
+				"value": "小功率电机"
 			}, {
 				"id": "MOTOR",
 				"type": "dynamic-select",
@@ -468,7 +468,7 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"content": [{
 				"type": "text",
-				"value": "电机"
+				"value": "小功率电机"
 			}, {
 				"id": "MOTOR",
 				"type": "dynamic-select",
@@ -2790,6 +2790,19 @@ define(['vendor/lodash'], function($1) {
 			},
 			"tags": ["Arduino"],
 			"pins": [{
+				"uid": "PL8qqZ",
+				"width": 10,
+				"height": 10,
+				"x": 0.438,
+				"y": 0.05,
+				"name": "GND-1",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
 				"uid": "VB05cG",
 				"width": 10,
 				"height": 10,
@@ -2800,7 +2813,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "13"
+				"label": "13",
+				"value": "13"
 			}, {
 				"uid": "7kNSUd",
 				"width": 10,
@@ -2812,7 +2826,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "12"
+				"label": "12",
+				"value": "12"
 			}, {
 				"uid": "p0Yjne",
 				"width": 10,
@@ -2824,7 +2839,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "11"
+				"label": "11",
+				"value": "11"
 			}, {
 				"uid": "q6rOYR",
 				"width": 10,
@@ -2836,7 +2852,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "10"
+				"label": "10",
+				"value": "10"
 			}, {
 				"uid": "Z29m2f",
 				"width": 10,
@@ -2848,7 +2865,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "9"
+				"label": "9",
+				"value": "9"
 			}, {
 				"uid": "8aVQDp",
 				"width": 10,
@@ -2860,7 +2878,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "8"
+				"label": "8",
+				"value": "8"
 			}, {
 				"uid": "PnAa1t",
 				"width": 10,
@@ -2872,7 +2891,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "7"
+				"label": "7",
+				"value": "7"
 			}, {
 				"uid": "xKpFzi",
 				"width": 10,
@@ -2884,7 +2904,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "6"
+				"label": "6",
+				"value": "6"
 			}, {
 				"uid": "0gRT2X",
 				"width": 10,
@@ -2896,7 +2917,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "5"
+				"label": "5",
+				"value": "5"
 			}, {
 				"uid": "q1DUJD",
 				"width": 10,
@@ -2908,7 +2930,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "4"
+				"label": "4",
+				"value": "4"
 			}, {
 				"uid": "5XIyXm",
 				"width": 10,
@@ -2920,7 +2943,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "3"
+				"label": "3",
+				"value": "3"
 			}, {
 				"uid": "Z9Y9P2",
 				"width": 10,
@@ -2932,7 +2956,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "2"
+				"label": "2",
+				"value": "2"
 			}, {
 				"uid": "Zpi42g",
 				"width": 10,
@@ -2944,7 +2969,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "1"
+				"label": "1",
+				"value": "1"
 			}, {
 				"uid": "Zpi42g",
 				"width": 10,
@@ -2956,7 +2982,60 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "0"
+				"label": "0",
+				"value": "0"
+			}, {
+				"uid": "cYwRBD",
+				"width": 10,
+				"height": 10,
+				"x": 0.557,
+				"y": 0.95,
+				"name": "VCC-1",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-3.3V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "KbZble",
+				"width": 10,
+				"height": 10,
+				"x": 0.59,
+				"y": 0.95,
+				"name": "VCC-2",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-5V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "U0Z2S0",
+				"width": 10,
+				"height": 10,
+				"x": 0.626,
+				"y": 0.95,
+				"name": "GND-2",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "3IrLxh",
+				"width": 10,
+				"height": 10,
+				"x": 0.659,
+				"y": 0.95,
+				"name": "GND-3",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "1jcO2Y",
 				"width": 10,
@@ -2968,7 +3047,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A0"
+				"label": "A0",
+				"value": "A0"
 			}, {
 				"uid": "qiTIRc",
 				"width": 10,
@@ -2980,7 +3060,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A1"
+				"label": "A1",
+				"value": "A1"
 			}, {
 				"uid": "AihHpE",
 				"width": 10,
@@ -2992,7 +3073,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A2"
+				"label": "A2",
+				"value": "A2"
 			}, {
 				"uid": "M4KhMo",
 				"width": 10,
@@ -3004,7 +3086,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A3"
+				"label": "A3",
+				"value": "A3"
 			}, {
 				"uid": "PBQRkE",
 				"width": 10,
@@ -3016,7 +3099,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A4"
+				"label": "A4",
+				"value": "A4"
 			}, {
 				"uid": "rjJtrb",
 				"width": 10,
@@ -3028,7 +3112,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A5"
+				"label": "A5",
+				"value": "A5"
 			}, {
 				"width": 32,
 				"height": 60,
@@ -3040,7 +3125,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "Serial"
+				"label": "Serial",
+				"value": "Serial"
 			}],
 			"uid": "8gEwUv",
 			"imageUrl": "assets/image/boards/ArduinoUNO.svg",
@@ -3058,6 +3144,19 @@ define(['vendor/lodash'], function($1) {
 			},
 			"tags": ["Arduino"],
 			"pins": [{
+				"uid": "evYegD",
+				"width": 10,
+				"height": 10,
+				"x": 0.402,
+				"y": 0.049,
+				"name": "GND-1",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
 				"uid": "B54jYH",
 				"width": 10,
 				"height": 10,
@@ -3068,7 +3167,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "13"
+				"label": "13",
+				"value": "13"
 			}, {
 				"uid": "nPk3wi",
 				"width": 10,
@@ -3080,7 +3180,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "12"
+				"label": "12",
+				"value": "12"
 			}, {
 				"uid": "5f8Iu5",
 				"width": 10,
@@ -3092,7 +3193,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "11"
+				"label": "11",
+				"value": "11"
 			}, {
 				"uid": "mYZ8m1",
 				"width": 10,
@@ -3104,7 +3206,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "10"
+				"label": "10",
+				"value": "10"
 			}, {
 				"uid": "R0NsXG",
 				"width": 10,
@@ -3116,7 +3219,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "9"
+				"label": "9",
+				"value": "9"
 			}, {
 				"uid": "e8Cir0",
 				"width": 10,
@@ -3128,7 +3232,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "8"
+				"label": "8",
+				"value": "8"
 			}, {
 				"uid": "c3BtK4",
 				"width": 10,
@@ -3140,7 +3245,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "7"
+				"label": "7",
+				"value": "7"
 			}, {
 				"uid": "xGtGX9",
 				"width": 10,
@@ -3152,7 +3258,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "6"
+				"label": "6",
+				"value": "6"
 			}, {
 				"uid": "q01tAI",
 				"width": 10,
@@ -3164,7 +3271,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "5"
+				"label": "5",
+				"value": "5"
 			}, {
 				"uid": "VkPW5i",
 				"width": 10,
@@ -3176,7 +3284,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "4"
+				"label": "4",
+				"value": "4"
 			}, {
 				"uid": "BDDbG4",
 				"width": 10,
@@ -3188,7 +3297,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "3"
+				"label": "3",
+				"value": "3"
 			}, {
 				"uid": "ZHqDKX",
 				"width": 10,
@@ -3200,7 +3310,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "2"
+				"label": "2",
+				"value": "2"
 			}, {
 				"uid": "HOxHq3",
 				"width": 10,
@@ -3212,7 +3323,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "1"
+				"label": "1",
+				"value": "1"
 			}, {
 				"uid": "lFZMVY",
 				"width": 10,
@@ -3224,7 +3336,60 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "0"
+				"label": "0",
+				"value": "0"
+			}, {
+				"uid": "hbHzLy",
+				"width": 10,
+				"height": 10,
+				"x": 0.528,
+				"y": 0.951,
+				"name": "VCC-1",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-3.3V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "wayAih",
+				"width": 10,
+				"height": 10,
+				"x": 0.566,
+				"y": 0.951,
+				"name": "VCC-2",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-5V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "afiVbe",
+				"width": 10,
+				"height": 10,
+				"x": 0.601,
+				"y": 0.951,
+				"name": "GND-2",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "Zc2T51",
+				"width": 10,
+				"height": 10,
+				"x": 0.638,
+				"y": 0.951,
+				"name": "GND-3",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "vrii22",
 				"width": 10,
@@ -3236,7 +3401,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A0"
+				"label": "A0",
+				"value": "A0"
 			}, {
 				"uid": "BmWSfi",
 				"width": 10,
@@ -3248,7 +3414,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A1"
+				"label": "A1",
+				"value": "A1"
 			}, {
 				"uid": "1XiZOV",
 				"width": 10,
@@ -3260,7 +3427,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A2"
+				"label": "A2",
+				"value": "A2"
 			}, {
 				"uid": "1tGtL0",
 				"width": 10,
@@ -3272,7 +3440,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A3"
+				"label": "A3",
+				"value": "A3"
 			}, {
 				"uid": "Z9hMY9",
 				"width": 10,
@@ -3284,7 +3453,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A4"
+				"label": "A4",
+				"value": "A4"
 			}, {
 				"uid": "JYrcfH",
 				"width": 10,
@@ -3296,7 +3466,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A5"
+				"label": "A5",
+				"value": "A5"
 			}, {
 				"width": 32,
 				"height": 36,
@@ -3308,7 +3479,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "Serial"
+				"label": "Serial",
+				"value": "Serial"
 			}],
 			"uid": "LBgQBg",
 			"imageUrl": "assets/image/boards/ArduinoLeonardo.svg",
@@ -3334,7 +3506,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D12",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "12"
 			}, {
 				"uid": "LdyiLN",
 				"x": 0.18,
@@ -3344,7 +3517,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "11",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "D11"
 			}, {
 				"uid": "tBijHq",
 				"x": 0.235,
@@ -3354,7 +3528,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D10",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "10"
 			}, {
 				"uid": "P2wXjz",
 				"x": 0.294,
@@ -3364,7 +3539,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D9",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "9"
 			}, {
 				"uid": "dnChSr",
 				"x": 0.349,
@@ -3374,7 +3550,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D8",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "8"
 			}, {
 				"uid": "C9nfQW",
 				"x": 0.404,
@@ -3384,7 +3561,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D7",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "7"
 			}, {
 				"uid": "ogwXSx",
 				"x": 0.463,
@@ -3394,7 +3572,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D6",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "6"
 			}, {
 				"uid": "zu6pty",
 				"x": 0.518,
@@ -3404,7 +3583,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D5",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "5"
 			}, {
 				"uid": "M9woPq",
 				"x": 0.576,
@@ -3414,7 +3594,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D4",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "4"
 			}, {
 				"uid": "rk36KI",
 				"x": 0.631,
@@ -3424,7 +3605,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D3",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "3"
 			}, {
 				"uid": "LXk68E",
 				"x": 0.686,
@@ -3434,7 +3616,19 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D2",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "2"
+			}, {
+				"uid": "bTY8Vo",
+				"x": 0.741,
+				"y": 0.069,
+				"name": "GND-1",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Dot",
+				"radius": 5
 			}, {
 				"uid": "7E0kTK",
 				"x": 0.855,
@@ -3444,7 +3638,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "RX0",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "1"
 			}, {
 				"uid": "Fb2du0",
 				"x": 0.914,
@@ -3454,7 +3649,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "TX1",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "0"
 			}, {
 				"uid": "vSLvD4",
 				"x": 0.122,
@@ -3464,7 +3660,19 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"label": "D13",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "13"
+			}, {
+				"uid": "JBQaT8",
+				"x": 0.18,
+				"y": 0.922,
+				"name": "VCC-1",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-3.3V",
+				"shape": "Dot",
+				"radius": 5
 			}, {
 				"uid": "aRtN0J",
 				"x": 0.29,
@@ -3474,7 +3682,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A0",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A0"
 			}, {
 				"uid": "pEcC8b",
 				"x": 0.353,
@@ -3484,7 +3693,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A1",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A1"
 			}, {
 				"uid": "sWzXSN",
 				"x": 0.404,
@@ -3494,7 +3704,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A2",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A2"
 			}, {
 				"uid": "kSujwm",
 				"x": 0.463,
@@ -3504,7 +3715,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A3",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A3"
 			}, {
 				"uid": "KErlDM",
 				"x": 0.518,
@@ -3514,7 +3726,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A4",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A4"
 			}, {
 				"uid": "Xuwemj",
 				"x": 0.576,
@@ -3524,7 +3737,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A5",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A5"
 			}, {
 				"uid": "qZsHbG",
 				"x": 0.631,
@@ -3534,7 +3748,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A6",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A6"
 			}, {
 				"uid": "Tbge4E",
 				"x": 0.686,
@@ -3544,7 +3759,30 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -0.5],
 				"label": "A7",
 				"shape": "Dot",
-				"radius": 4
+				"radius": 4,
+				"value": "A7"
+			}, {
+				"uid": "Jt8S64",
+				"x": 0.745,
+				"y": 0.922,
+				"name": "VCC-2",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-5V",
+				"shape": "Dot",
+				"radius": 5
+			}, {
+				"uid": "8YKHsA",
+				"x": 0.855,
+				"y": 0.922,
+				"name": "GND-2",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Dot",
+				"radius": 5
 			}, {
 				"width": 26,
 				"height": 43,
@@ -3556,7 +3794,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "Serial"
+				"label": "Serial",
+				"value": "Serial"
 			}],
 			"uid": "DqkZ3k",
 			"imageUrl": "assets/image/boards/ArduinoNano.svg",
@@ -3575,6 +3814,19 @@ define(['vendor/lodash'], function($1) {
 			},
 			"tags": ["Arduino"],
 			"pins": [{
+				"uid": "OT8b5M",
+				"width": 10,
+				"height": 10,
+				"x": 0.303,
+				"y": 0.049,
+				"name": "GND-1",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
 				"uid": "zltfL6",
 				"width": 10,
 				"height": 10,
@@ -3585,7 +3837,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "13"
+				"label": "13",
+				"value": "13"
 			}, {
 				"uid": "PX77cb",
 				"width": 10,
@@ -3597,7 +3850,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "12"
+				"label": "12",
+				"value": "12"
 			}, {
 				"uid": "ES49ZK",
 				"width": 10,
@@ -3609,7 +3863,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "11"
+				"label": "11",
+				"value": "11"
 			}, {
 				"uid": "umtmQa",
 				"width": 10,
@@ -3621,7 +3876,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "10"
+				"label": "10",
+				"value": "10"
 			}, {
 				"uid": "IHZZgD",
 				"width": 10,
@@ -3633,7 +3889,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "9"
+				"label": "9",
+				"value": "9"
 			}, {
 				"uid": "BHgAPb",
 				"width": 10,
@@ -3645,7 +3902,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "8"
+				"label": "8",
+				"value": "8"
 			}, {
 				"uid": "ToNIou",
 				"width": 10,
@@ -3657,7 +3915,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "7"
+				"label": "7",
+				"value": "7"
 			}, {
 				"uid": "FP6QOQ",
 				"width": 10,
@@ -3669,7 +3928,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "6"
+				"label": "6",
+				"value": "6"
 			}, {
 				"uid": "vwXyic",
 				"width": 10,
@@ -3681,7 +3941,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "5"
+				"label": "5",
+				"value": "5"
 			}, {
 				"uid": "A7SHeA",
 				"width": 10,
@@ -3693,7 +3954,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "4"
+				"label": "4",
+				"value": "4"
 			}, {
 				"uid": "B5E0GW",
 				"width": 10,
@@ -3705,7 +3967,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "3"
+				"label": "3",
+				"value": "3"
 			}, {
 				"uid": "LueaF8",
 				"width": 10,
@@ -3717,7 +3980,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "2"
+				"label": "2",
+				"value": "2"
 			}, {
 				"uid": "PdMfXy",
 				"width": 10,
@@ -3729,7 +3993,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "1"
+				"label": "1",
+				"value": "1",
+				"extra": {
+					"serial": "Serial"
+				}
 			}, {
 				"uid": "qUfzo2",
 				"width": 10,
@@ -3741,7 +4009,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "0"
+				"label": "0",
+				"value": "0",
+				"extra": {
+					"serial": "Serial"
+				}
 			}, {
 				"uid": "UjYyq3",
 				"width": 10,
@@ -3753,7 +4025,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "14"
+				"label": "14",
+				"value": "14",
+				"extra": {
+					"serial": "Serial3"
+				}
 			}, {
 				"uid": "mCt2UL",
 				"width": 10,
@@ -3765,7 +4041,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "15"
+				"label": "15",
+				"value": "15",
+				"extra": {
+					"serial": "Serial3"
+				}
 			}, {
 				"uid": "cygRtE",
 				"width": 10,
@@ -3777,7 +4057,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "16"
+				"label": "16",
+				"value": "16",
+				"extra": {
+					"serial": "Serial2"
+				}
 			}, {
 				"uid": "qhvGEN",
 				"width": 10,
@@ -3789,7 +4073,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "17"
+				"label": "17",
+				"value": "17",
+				"extra": {
+					"serial": "Serial2"
+				}
 			}, {
 				"uid": "CGqTJF",
 				"width": 10,
@@ -3801,7 +4089,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "18"
+				"label": "18",
+				"value": "18",
+				"extra": {
+					"serial": "Serial1"
+				}
 			}, {
 				"uid": "8UAejv",
 				"width": 10,
@@ -3813,7 +4105,11 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "19"
+				"label": "19",
+				"value": "19",
+				"extra": {
+					"serial": "Serial1"
+				}
 			}, {
 				"uid": "YXsiaw",
 				"width": 10,
@@ -3825,7 +4121,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "20"
+				"label": "20",
+				"value": "20"
 			}, {
 				"uid": "yu32To",
 				"width": 10,
@@ -3837,7 +4134,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "21"
+				"label": "21",
+				"value": "21"
 			}, {
 				"uid": "mFTtpe",
 				"width": 10,
@@ -3849,7 +4147,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "22"
+				"label": "22",
+				"value": "22"
 			}, {
 				"uid": "gSX6YX",
 				"width": 10,
@@ -3861,7 +4160,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "23"
+				"label": "23",
+				"value": "23"
 			}, {
 				"uid": "QMwijS",
 				"width": 10,
@@ -3873,7 +4173,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "24"
+				"label": "24",
+				"value": "24"
 			}, {
 				"uid": "ZoJjQS",
 				"width": 10,
@@ -3885,7 +4186,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "25"
+				"label": "25",
+				"value": "25"
 			}, {
 				"uid": "eKaHpk",
 				"width": 10,
@@ -3897,7 +4199,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "26"
+				"label": "26",
+				"value": "26"
 			}, {
 				"uid": "shanZf",
 				"width": 10,
@@ -3909,7 +4212,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "27"
+				"label": "27",
+				"value": "27"
 			}, {
 				"uid": "odld69",
 				"width": 10,
@@ -3921,7 +4225,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "28"
+				"label": "28",
+				"value": "28"
 			}, {
 				"uid": "s9vJIS",
 				"width": 10,
@@ -3933,7 +4238,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "29"
+				"label": "29",
+				"value": "29"
 			}, {
 				"uid": "PuBuJU",
 				"width": 10,
@@ -3945,7 +4251,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "30"
+				"label": "30",
+				"value": "30"
 			}, {
 				"uid": "d7MQ1w",
 				"width": 10,
@@ -3957,7 +4264,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "31"
+				"label": "31",
+				"value": "31"
 			}, {
 				"uid": "0w6OgK",
 				"width": 10,
@@ -3969,7 +4277,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "32"
+				"label": "32",
+				"value": "32"
 			}, {
 				"uid": "gl90dx",
 				"width": 10,
@@ -3981,7 +4290,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "33"
+				"label": "33",
+				"value": "33"
 			}, {
 				"uid": "aHX91w",
 				"width": 10,
@@ -3993,7 +4303,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "34"
+				"label": "34",
+				"value": "34"
 			}, {
 				"uid": "1z3eHr",
 				"width": 10,
@@ -4005,7 +4316,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "35"
+				"label": "35",
+				"value": "35"
 			}, {
 				"uid": "eT0GsW",
 				"width": 10,
@@ -4017,7 +4329,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "36"
+				"label": "36",
+				"value": "36"
 			}, {
 				"uid": "KQFBIy",
 				"width": 10,
@@ -4029,7 +4342,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "37"
+				"label": "37",
+				"value": "37"
 			}, {
 				"uid": "1Wz6tZ",
 				"width": 10,
@@ -4041,7 +4355,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "38"
+				"label": "38",
+				"value": "38"
 			}, {
 				"uid": "rQ2tVy",
 				"width": 10,
@@ -4053,7 +4368,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "39"
+				"label": "39",
+				"value": "39"
 			}, {
 				"uid": "KE8oDx",
 				"width": 10,
@@ -4065,7 +4381,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "40"
+				"label": "40",
+				"value": "40"
 			}, {
 				"uid": "nnYL5m",
 				"width": 10,
@@ -4077,7 +4394,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "41"
+				"label": "41",
+				"value": "41"
 			}, {
 				"uid": "W21u0m",
 				"width": 10,
@@ -4089,7 +4407,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "42"
+				"label": "42",
+				"value": "42"
 			}, {
 				"uid": "MnmkBw",
 				"width": 10,
@@ -4101,7 +4420,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "43"
+				"label": "43",
+				"value": "43"
 			}, {
 				"uid": "Gkt7pT",
 				"width": 10,
@@ -4113,7 +4433,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "44"
+				"label": "44",
+				"value": "44"
 			}, {
 				"uid": "xCg0YZ",
 				"width": 10,
@@ -4125,7 +4446,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "45"
+				"label": "45",
+				"value": "45"
 			}, {
 				"uid": "YUI4wV",
 				"width": 10,
@@ -4137,7 +4459,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "46"
+				"label": "46",
+				"value": "46"
 			}, {
 				"uid": "7WppFV",
 				"width": 10,
@@ -4149,7 +4472,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "47"
+				"label": "47",
+				"value": "47"
 			}, {
 				"uid": "UNkxht",
 				"width": 10,
@@ -4161,7 +4485,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "48"
+				"label": "48",
+				"value": "48"
 			}, {
 				"uid": "ofoBEn",
 				"width": 10,
@@ -4173,7 +4498,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "49"
+				"label": "49",
+				"value": "49"
 			}, {
 				"uid": "u8PJKT",
 				"width": 10,
@@ -4185,7 +4511,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "50"
+				"label": "50",
+				"value": "50"
 			}, {
 				"uid": "4TWFGZ",
 				"width": 10,
@@ -4197,7 +4524,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "51"
+				"label": "51",
+				"value": "51"
 			}, {
 				"uid": "1WtoEH",
 				"width": 10,
@@ -4209,7 +4537,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "52"
+				"label": "52",
+				"value": "52"
 			}, {
 				"uid": "GgBIYS",
 				"width": 10,
@@ -4221,7 +4550,60 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "53"
+				"label": "53",
+				"value": "53"
+			}, {
+				"uid": "Sol4gS",
+				"width": 10,
+				"height": 10,
+				"x": 0.388,
+				"y": 0.951,
+				"name": "VCC-1",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-3.3V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "s1AZZw",
+				"width": 10,
+				"height": 10,
+				"x": 0.41,
+				"y": 0.951,
+				"name": "VCC-2",
+				"value": "\"VCC\"",
+				"tags": ["VCC"],
+				"overlay": [0.5, 1.5],
+				"label": "VCC-5V",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "ps5J8U",
+				"width": 10,
+				"height": 10,
+				"x": 0.433,
+				"y": 0.951,
+				"name": "GND-2",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
+			}, {
+				"uid": "v1T5qy",
+				"width": 10,
+				"height": 10,
+				"x": 0.457,
+				"y": 0.951,
+				"name": "GND-3",
+				"value": "\"GND\"",
+				"tags": ["GND"],
+				"overlay": [0.5, 1.5],
+				"label": "GND",
+				"shape": "Rectangle",
+				"rotate": false
 			}, {
 				"uid": "1vaRff",
 				"width": 10,
@@ -4233,7 +4615,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A0"
+				"label": "A0",
+				"value": "A0"
 			}, {
 				"uid": "azBHjw",
 				"width": 10,
@@ -4245,7 +4628,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A1"
+				"label": "A1",
+				"value": "A1"
 			}, {
 				"uid": "Xn8uau",
 				"width": 10,
@@ -4257,7 +4641,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A2"
+				"label": "A2",
+				"value": "A2"
 			}, {
 				"uid": "JPLu5C",
 				"width": 10,
@@ -4269,7 +4654,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A3"
+				"label": "A3",
+				"value": "A3"
 			}, {
 				"uid": "oaNas1",
 				"width": 10,
@@ -4281,7 +4667,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A4"
+				"label": "A4",
+				"value": "A4"
 			}, {
 				"uid": "RjJ6v7",
 				"width": 10,
@@ -4293,7 +4680,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A5"
+				"label": "A5",
+				"value": "A5"
 			}, {
 				"uid": "JlxRXD",
 				"width": 10,
@@ -4305,7 +4693,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A6"
+				"label": "A6",
+				"value": "A6"
 			}, {
 				"uid": "RazoQH",
 				"width": 10,
@@ -4317,7 +4706,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A7"
+				"label": "A7",
+				"value": "A7"
 			}, {
 				"uid": "7O5jzl",
 				"width": 10,
@@ -4329,7 +4719,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A8"
+				"label": "A8",
+				"value": "A8"
 			}, {
 				"uid": "3R0czm",
 				"width": 10,
@@ -4341,7 +4732,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A9"
+				"label": "A9",
+				"value": "A9"
 			}, {
 				"uid": "yxqIg4",
 				"width": 10,
@@ -4353,7 +4745,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A10"
+				"label": "A10",
+				"value": "A10"
 			}, {
 				"uid": "NUdu5m",
 				"width": 10,
@@ -4365,7 +4758,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A11"
+				"label": "A11",
+				"value": "A11"
 			}, {
 				"uid": "vlpUPQ",
 				"width": 10,
@@ -4377,7 +4771,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A12"
+				"label": "A12",
+				"value": "A12"
 			}, {
 				"uid": "MYgibP",
 				"width": 10,
@@ -4389,7 +4784,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A13"
+				"label": "A13",
+				"value": "A13"
 			}, {
 				"uid": "jhn41S",
 				"width": 10,
@@ -4401,7 +4797,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A14"
+				"label": "A14",
+				"value": "A14"
 			}, {
 				"uid": "xl0bCE",
 				"width": 10,
@@ -4413,7 +4810,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "A15"
+				"label": "A15",
+				"value": "A15"
 			}, {
 				"width": 34,
 				"height": 62,
@@ -4425,7 +4823,8 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, 1.5],
 				"shape": "Rectangle",
 				"rotate": false,
-				"label": "Serial"
+				"label": "Serial",
+				"value": "Serial"
 			}],
 			"uid": "b6Y98i",
 			"imageUrl": "assets/image/boards/ArduinoMega2560.svg",
@@ -5804,7 +6203,7 @@ define(['vendor/lodash'], function($1) {
 		}, {
 			"uid": "gqwDEu",
 			"name": "dcMotor",
-			"label": "电机",
+			"label": "小功率电机",
 			"type": "dcMotor",
 			"category": "action",
 			"boards": ["Arduino"],
@@ -5841,7 +6240,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机"
+					"value": "设置小功率电机"
 				}, {
 					"id": "DC",
 					"type": "dynamic-select",
@@ -5869,7 +6268,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "停止电机"
+					"value": "停止小功率电机"
 				}, {
 					"id": "DC",
 					"type": "dynamic-select",
@@ -5901,7 +6300,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机"
+					"value": "设置小功率电机"
 				}, {
 					"blockInputId": "DC",
 					"type": "block-input",
@@ -6204,7 +6603,7 @@ define(['vendor/lodash'], function($1) {
 			}, {
 				"name": "en1",
 				"anchor": [0.75, 0],
-				"tags": ["digital", "analog-in"],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
 				"label": "en1",
 				"shape": "Dot",
 				"rotate": false
@@ -6225,7 +6624,7 @@ define(['vendor/lodash'], function($1) {
 			}, {
 				"name": "en2",
 				"anchor": [0.75, 1],
-				"tags": ["digital", "analog-in"],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
 				"label": "en2",
 				"shape": "Dot",
 				"rotate": false
@@ -6470,7 +6869,14 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "串口发送"
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "发送"
 				}, {
 					"blockInputId": "DATA",
 					"type": "block-input",
@@ -6487,7 +6893,7 @@ define(['vendor/lodash'], function($1) {
 						"value": "print"
 					}]
 				}],
-				"code": "Serial.{LN}({DATA});",
+				"code": "{SERIAL}.{LN}({DATA});",
 				"tags": ["module"],
 				"module": "serial",
 				"uid": "p3UznJ"
@@ -6500,9 +6906,16 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "接收串口数据"
+					"value": "接收串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "的数据"
 				}],
-				"code": "Serial.read()",
+				"code": "{SERIAL}.read()",
 				"returnType": {
 					"type": "simple",
 					"value": "char"
@@ -6519,9 +6932,16 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "返回串口可读数据长度"
+					"value": "返回串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "可读数据长度"
 				}],
-				"code": "Serial.available()",
+				"code": "{SERIAL}.available()",
 				"returnType": {
 					"type": "simple",
 					"value": "bool"
@@ -6546,18 +6966,54 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "串口输出二进制流"
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "输出二进制流"
 				}, {
 					"blockInputId": "DATA",
 					"type": "block-input",
 					"acceptType": "all",
 					"name": "PzDXZH"
 				}],
-				"code": "Serial.write({DATA});",
+				"code": "{SERIAL}.write({DATA});",
 				"tags": ["module", "advanced"],
 				"module": "serial",
 				"uid": "6yQc6n"
 			}],
+			"imageUrl": "assets/image/components/serial.png"
+		}, {
+			"uid": "AyR8kQ",
+			"name": "serial2",
+			"label": "串口模块2",
+			"type": "serial",
+			"category": "function",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "rxd",
+				"anchor": [0.333, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "rxd",
+				"shape": "Dot",
+				"rotate": false
+			}, {
+				"name": "txd",
+				"anchor": [0.667, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "txd",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"setup": "Serial.begin(9600);"
+			},
+			"blocks": [],
 			"imageUrl": "assets/image/components/serial.png"
 		}, {
 			"uid": "4erQi6",
