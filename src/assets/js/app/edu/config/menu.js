@@ -82,32 +82,6 @@ define(function() {
 		}, "_", {
 			text: "设置",
 			action: "setting",
-		}, "_", {
-			placeholder: "切换",
-			arrow: true,
-			menuCls: "switches",
-			menu: [{
-				text: "教育版",
-				action: "switch",
-				cls: "check",
-				extra: {
-					type: "edu"
-				},
-			}, {
-				text: "开发版",
-				action: "switch",
-				cls: "check",
-				extra: {
-					type: "ide"
-				},
-			}, {
-				text: "scratch版",
-				action: "switch",
-				cls: "check",
-				extra: {
-					type: "scratch"
-				},
-			}]
 		}]
 	}, {
 		id: "help",
@@ -130,6 +104,31 @@ define(function() {
 		}, {
 			text: "关于啃萝卜",
 			action: "about-kenrobot",
+		}]
+	}, {
+		id: "version",
+		placeholder: "版本",
+		menu: [{
+			text: "教育版",
+			action: "switch",
+			cls: "check",
+			extra: {
+				type: "edu"
+			},
+		}, {
+			text: "开发版",
+			action: "switch",
+			cls: "check",
+			extra: {
+				type: "ide"
+			},
+		}, {
+			text: "scratch版",
+			action: "switch",
+			cls: "check",
+			extra: {
+				type: "scratch"
+			},
 		}]
 	}];
 

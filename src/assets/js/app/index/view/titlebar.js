@@ -44,8 +44,12 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			.off('click', 'li', onAppMenuClick)
 			.on('click', 'li', onAppMenuClick);
 
-		var li = appMenu.find(".switches > li").filter((index, item) => $(item).data("extra").type  == type)
-		li.length && util.toggleActive(li);
+		var versions = appMenu.find("ul > li").filter((index, item) => $(item).data("id")  == "version");
+		var version = versions.find("li").filter((index, item) => $(item).data("extra").type == type);
+		if(version.length > 0) {
+			versions.find("> .placeholder").text(version.find(".text").text());
+			util.toggleActive(version);
+		}
 	}
  
 	function genMenu(menu) {
