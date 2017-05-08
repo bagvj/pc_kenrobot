@@ -1239,7 +1239,16 @@ function saveToken(token) {
 function getToken(key) {
 	var deferred = Q.defer()
 
-	util.readFile(path.join(util.getAppDataPath(), "token")).then(content => {
+	var tokenPath = path.join(util.getAppDataPath(), "token")
+	if(!fs.existsSync(tokenPath)) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+
+		return deferred.promise
+	}
+	
+	util.readFile(tokenPath).then(content => {
 		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
 		try {
 			var token = JSON.parse(plainText)

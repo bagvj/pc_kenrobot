@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del gulp-asar
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport
  */
 
@@ -23,7 +23,7 @@ const babel = require('gulp-babel')
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
 const hasha = require('hasha') //
-const asar = require('gulp-asar')
+const asar = require('asar')
 
 const builder = require('electron-builder') //electron打包
 
@@ -158,8 +158,6 @@ gulp.task('pack-views', ['clean-views'], _ => {
 })
 
 gulp.task('pack-scratch', ['clean-scratch'], callback => {
-	// return gulp.src([SRC + 'scratch/**/*'])
-	// 	.pipe(gulp.dest(APP + 'scratch/'))
 	gulp.src([SRC + 'scratch/**/*'])
 		.pipe(gulp.dest(APP + 'scratch/'))
 		.on('end', _ => {
@@ -179,7 +177,7 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
 /**
- * 用法: gulp build-pack --release --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
+ * 用法: gulp build-pack --release --standalone --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
  * 示例: gulp build-pack --release --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
@@ -222,49 +220,138 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	})
 	nconf.save()
 	
-	var packageNames = args.packages ? args.packages.split(',') : []
-	var extraFiles = [
-		`arduino-${platform}`,
-		"scripts",
-		`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
-		"examples",
-		"packages/packages.json",
-	]
-	packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
+	if(args.standalone) {
+		var extraFiles = [
+			`./arduino-${platform}/**/*`,
+			"./scripts/**/*",
+			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
+			"./examples/**/*",
+			"./packages/packages.json",
+		]
+		
+		var packageNames = args.packages ? args.packages.split(',') : []
+		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
 
-	builder.build({
-		targets: targets,
-		config: {
-			extraFiles: extraFiles,
+		var dist = path.join(DIST, `${platform}-${arch}-dir`)
+		var taskA = _ => {
+			var defer = Q.defer()
+			gulp.src(extraFiles, {base: "."})
+			.pipe(gulp.dest(dist))
+			.on('end', _ => {
+				defer.resolve()
+			})
+			.on('error', err => {
+				defer.reject(err)
+			})
+
+			return defer.promise
 		}
-	}).then(result => {
-		var output = result[0]
-		var packageConfig = require('./app/package')
-		var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
-		var file = path.join(path.dirname(output), name)
+		
+		var distApp = path.join(dist, 'resources', 'app')
 
-		fs.move(output, file, err => {
+		var taskB = _ => {
+			var defer = Q.defer()
+
+			gulp.src([
+				APP + '**/*',
+				"!" + APP + "node_modules/serialport/build/Release/obj",
+				"!" + APP + "node_modules/serialport/build/Release/obj/**/*",
+				"!" + APP + "node_modules/**/test",
+				"!" + APP + "node_modules/**/test/**/*",
+				"!" + APP + "node_modules/**/tests",
+				"!" + APP + "node_modules/**/tests/**/*",
+				"!" + APP + "node_modules/**/example",
+				"!" + APP + "node_modules/**/example/**/*",
+				"!" + APP + "node_modules/**/examples",
+				"!" + APP + "node_modules/**/examples/**/*",
+				"!" + APP + "node_modules/**/docs",
+				"!" + APP + "node_modules/**/docs/**/*",
+				"!" + APP + "node_modules/**/doc",
+				"!" + APP + "node_modules/**/doc/**/*",
+				"!" + APP + "node_modules/**/*.md",
+				"!" + APP + "node_modules/**/*.d.ts",
+				"!" + APP + "node_modules/**/*appveyor.yml*",
+				"!" + APP + "node_modules/**/.*",
+			]).pipe(gulp.dest(distApp))
+			.on('end', _ => {
+				defer.resolve()
+			})
+			.on('error', err => {
+				defer.reject(err)
+			})
+
+			return defer.promise
+		}
+		
+		var taskC = _ => {
+			var defer = Q.defer()
+
 			nconf.clear('buildInfo')
 			nconf.save()
-			
-			console.log(file)
-			if(!args.upload) {
-				callback()
-				return
-			}
 
-			var options = args.remotePath ? {remotePath: args.remotePath} : {}
-			upload(file, options).then(_ => {
-				callback()
-			}, err1 => {
-				console.error(err1)
-				callback(err1)
+			asar.createPackageWithOptions(distApp, path.join(path.dirname(distApp), "app.asar"), {
+				unpackDir: `node_modules/7zip-bin-${platform}`,
+			}, _ => {
+				fs.removeSync(distApp)
+				defer.resolve()
 			})
-		})		
-	}, err => {
-		console.error(err)
-		callback(err)
-	})
+
+			return defer.promise
+		}
+
+		taskA().then(taskB).then(taskC).catch(err => {
+			console.log(err)
+			callback(err)
+		}).done(_ => {
+			console.log("done")
+			callback()
+		})
+	} else {
+		var extraFiles = [
+			`arduino-${platform}`,
+			"scripts",
+			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
+			"examples",
+			"packages/packages.json",
+		]
+		
+		var packageNames = args.packages ? args.packages.split(',') : []
+		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
+
+		builder.build({
+			targets: targets,
+			config: {
+				extraFiles: extraFiles,
+			}
+		}).then(result => {
+			var output = result[0]
+			var packageConfig = require('./app/package')
+			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
+			var file = path.join(path.dirname(output), name)
+
+			fs.move(output, file, err => {
+				nconf.clear('buildInfo')
+				nconf.save()
+				
+				console.log(file)
+				if(!args.upload) {
+					callback()
+					return
+				}
+
+				var options = args.remotePath ? {remotePath: args.remotePath} : {}
+				upload(file, options).then(_ => {
+					callback()
+				}, err1 => {
+					console.error(err1)
+					callback(err1)
+				})
+			})		
+		}, err => {
+			console.error(err)
+			callback(err)
+		})
+	}
 })
 
 gulp.task('build-pack', ['pack', 'build'])
@@ -346,23 +433,3 @@ function upload(files, options) {
 
 	return defer.promise
 }
-
-gulp.task('asar', _ => {
-	// return gulp.src([
-	// 	APP + 'assets/**/*',
-	// 	APP + '*.html',
-	// 	APP + 'main/**/*',
-	// 	APP + 'renderer/**/*',
-	// 	APP + 'scratch/**/*',
-	// 	APP + 'node_modules/**/*',
-	// 	"!" + APP + "node_modules/serialport/build/Release/obj",
-	// 	"!" + APP + "node_modules/**/*.md",
-	// 	"!" + APP + "node_modules/**/test",
-	// 	"!" + APP + "node_modules/**/.*"
-	// ], {base: APP})
-	// .pipe(asar('app.asar'))
-	// .pipe(gulp.dest(DIST))
-	return gulp.src(APP + 'assets/**/*', {base: APP})
-		.pipe(asar('app.asar'))
-		.pipe(gulp.dest(DIST))
-})
