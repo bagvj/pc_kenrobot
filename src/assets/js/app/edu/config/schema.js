@@ -6989,7 +6989,7 @@ define(['vendor/lodash'], function($1) {
 		}, {
 			"uid": "AyR8kQ",
 			"name": "serial2",
-			"label": "串口模块2",
+			"label": "软串口",
 			"type": "serial",
 			"category": "function",
 			"boards": ["Arduino"],

@@ -136,48 +136,14 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onCheckUpdate(manual) {
 		manual = manual !== false;
 
-		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(function(result) {
+		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(result => {
 			if(result.status != 0) {
 				manual && util.message("已经是最新版本了");
 				return;
 			}
 
-			var versionInfo = result.data;
-			util.confirm({
-				title: "检查更新",
-				text: "发现新版本" + versionInfo.version + "，是否下载？",
-				onConfirm: function() {
-					util.message("开始下载");
-					kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
-						var info = kenrobot.appInfo;
-						if(info.platform == "win") {
-							util.confirm({
-								text: `下载成功，是否安装新版本${versionInfo.version}?`,
-								onConfirm: () => {
-									kenrobot.postMessage("app:execFile", result.path).then(() => {
-										util.message("安装成功");
-									}, err => {
-										util.message({
-											text: "安装失败",
-											type: "error"
-										});
-									});
-								}
-							});
-						} else {
-							util.confirm({
-								text: "下载成功，是否打开文件所在位置?",
-								onConfirm: () => {
-									kenrobot.postMessage("app:showItemInFolder", result.path);
-								},
-							});
-						}
-					}, err => {
-						util.message("新版本下载失败");
-					});
-				}
-			});
-		}, function(err) {
+			kenrobot.trigger("update", "show", result.data);
+		}, err => {
 			manual && util.message("检查更新失败");
 		});
 	}

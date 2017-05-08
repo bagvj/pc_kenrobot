@@ -50,6 +50,11 @@ init()
  * 初始化
  */
 function init() {
+	process.on('uncaughtException', err => {
+		var stack = err.stack || (err.name + ': ' + err.message)
+		log.error(stack)
+	})
+
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
@@ -60,7 +65,7 @@ function init() {
 	}
 
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	if(is.dev() || args.dev) {
+	if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
 	} else {
@@ -115,7 +120,7 @@ function listenEvent() {
 	app.on('ready', _ => {
 		log.debug('app ready')
 
-		is.dev() && args.dev && debug({showDevTools: true})
+		is.dev() && args.devTool && debug({showDevTools: true})
 
 		loadConfig().then(data => {
 			config = data
@@ -1234,7 +1239,16 @@ function saveToken(token) {
 function getToken(key) {
 	var deferred = Q.defer()
 
-	util.readFile(path.join(util.getAppDataPath(), "token")).then(content => {
+	var tokenPath = path.join(util.getAppDataPath(), "token")
+	if(!fs.existsSync(tokenPath)) {
+		setTimeout(_ => {
+			deferred.reject()
+		}, 10)
+
+		return deferred.promise
+	}
+	
+	util.readFile(tokenPath).then(content => {
 		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
 		try {
 			var token = JSON.parse(plainText)

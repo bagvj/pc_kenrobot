@@ -11,8 +11,15 @@
       "scratch",
       "node_modules",
       "!node_modules/serialport/build/Release/obj",
-      "!node_modules/**/*.md",
       "!node_modules/**/test",
+      "!node_modules/**/tests",
+      "!node_modules/**/example",
+      "!node_modules/**/examples",
+      "!node_modules/**/doc",
+      "!node_modules/**/docs",
+      "!node_modules/**/*.md",
+      "!node_modules/**/*.d.ts",
+      "!node_modules/**/*appveyor.yml*",
       "!node_modules/**/.*"
     ],
     "win": {
@@ -56,6 +63,7 @@
     }
   },
   "devDependencies": {
+    "asar": "^0.13.0",
     "babel-preset-es2015": "^6.24.1",
     "del": "^2.2.2",
     "electron": "^1.4.15",
