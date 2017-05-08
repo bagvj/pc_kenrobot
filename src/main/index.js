@@ -50,6 +50,11 @@ init()
  * 初始化
  */
 function init() {
+	process.on('uncaughtException', err => {
+		var stack = err.stack || (err.name + ': ' + err.message)
+		log.error(stack)
+	})
+
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
