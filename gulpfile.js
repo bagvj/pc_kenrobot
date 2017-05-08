@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del gulp-asar
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport
  */
 
@@ -23,6 +23,7 @@ const babel = require('gulp-babel')
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
 const hasha = require('hasha') //
+const asar = require('gulp-asar')
 
 const builder = require('electron-builder') //electron打包
 
@@ -345,3 +346,23 @@ function upload(files, options) {
 
 	return defer.promise
 }
+
+gulp.task('asar', _ => {
+	// return gulp.src([
+	// 	APP + 'assets/**/*',
+	// 	APP + '*.html',
+	// 	APP + 'main/**/*',
+	// 	APP + 'renderer/**/*',
+	// 	APP + 'scratch/**/*',
+	// 	APP + 'node_modules/**/*',
+	// 	"!" + APP + "node_modules/serialport/build/Release/obj",
+	// 	"!" + APP + "node_modules/**/*.md",
+	// 	"!" + APP + "node_modules/**/test",
+	// 	"!" + APP + "node_modules/**/.*"
+	// ], {base: APP})
+	// .pipe(asar('app.asar'))
+	// .pipe(gulp.dest(DIST))
+	return gulp.src(APP + 'assets/**/*', {base: APP})
+		.pipe(asar('app.asar'))
+		.pipe(gulp.dest(DIST))
+})

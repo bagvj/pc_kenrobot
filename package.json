@@ -63,6 +63,7 @@
     "fs-extra": "^2.1.2",
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
+    "gulp-asar": "^1.0.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.0.4",
