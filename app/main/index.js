@@ -65,7 +65,7 @@ function init() {
 	}
 
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	if(is.dev() || args.dev) {
+	if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
 	} else {
@@ -120,7 +120,7 @@ function listenEvent() {
 	app.on('ready', _ => {
 		log.debug('app ready')
 
-		is.dev() && args.dev && debug({showDevTools: true})
+		is.dev() && args.devTool && debug({showDevTools: true})
 
 		loadConfig().then(data => {
 			config = data
