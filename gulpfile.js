@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin 
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport
  */
 
@@ -24,6 +24,7 @@ const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
 const hasha = require('hasha') //
 const asar = require('asar')
+const path7za = require('7zip-bin').path7za
 
 const builder = require('electron-builder') //electron打包
 
@@ -177,8 +178,9 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
 /**
- * 用法: gulp build-pack --release --standalone --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
+ * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
  * 示例: gulp build-pack --release --branch=beta
+ *       gulp build-pack --release --standalone --platform=arm --compress
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
  */
@@ -299,7 +301,35 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			return defer.promise
 		}
 
-		taskA().then(taskB).then(taskC).catch(err => {
+		var taskD = _ => {
+			var defer = Q.defer()
+
+			if(!args.compress) {
+				setTimeout(_ => {
+					defer.resolve()
+				}, 10)
+
+				return defer.promise
+			}
+
+			var packageConfig = require('./app/package')
+			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}`
+			var command = `cd "${path.resolve(path.dirname(dist))}" && "${path7za}" a ${name}.7z ${path.basename(dist)}/*`
+			child_process.exec(command, (err, stdout, stderr) => {
+				if(err) {
+					console.log(err)
+					defer.reject(err)
+					return
+				}
+
+				console.log(stdout)
+				defer.resolve()
+			})
+
+			return defer.promise
+		}
+
+		taskA().then(taskB).then(taskC).then(taskD).catch(err => {
 			console.log(err)
 			callback(err)
 		}).done(_ => {
