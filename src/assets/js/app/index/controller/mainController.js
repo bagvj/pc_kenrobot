@@ -11,14 +11,15 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
 			.on("app", "start", onAppStart)
-			.on("user", "logout", onUserLogout);
+			
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
 			.on('build', 'error', onBuildError, {canReset: false})
-			.on('app-menu', 'do-action', onMenuAction, {canReset: false});
+			.on('app-menu', 'do-action', onMenuAction, {canReset: false})
+			.on("user", "logout", onUserLogout, {canReset: false});;
 
 		pace.start({
 			elements: {

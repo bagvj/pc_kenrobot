@@ -1,7 +1,7 @@
 define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], function($1, util, emitor) {
 
 	function init() {
-		kenrobot.on("no-arduino", "show", onShow);
+		kenrobot.on("no-arduino", "show", onShow, {canReset: false});
 	}
 
 	function onShow() {

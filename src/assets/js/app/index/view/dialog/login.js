@@ -39,7 +39,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		tabs.filter(".tab-register-success")
 			.on("click", ".ok-btn", onRegisterOKClick);
 
-		emitor.on('login', 'show', onShow);
+		kenrobot.on('login', 'show', onShow, {canReset: false});
 	}
 
 	function onShow(args) {

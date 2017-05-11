@@ -111,7 +111,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			return;
 		}
 
-		emitor.trigger("login", "show");
+		kenrobot.trigger("login", "show");
 	}
 
 	function onLoginMenuClick(e) {
@@ -121,7 +121,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 				util.message("敬请期待");
 				break;
 			case "logout":
-				emitor.trigger("user", "logout");
+				kenrobot.trigger("user", "logout");
 				break;
 		}
 	}
