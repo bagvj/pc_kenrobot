@@ -74,3 +74,7 @@
 
 - 修复代码生成的bug
 - 修复找不到Arduino设备时不弹出提示的bug
+
+#### features
+
+- scratch版增加“打开”、“保存”项目功能
