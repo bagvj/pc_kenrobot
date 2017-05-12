@@ -115,7 +115,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				tempCode = code.var.replace(nameReg, componentData.varName);
 				for (var name in pins) {
 					pin = pins[name];
-					tempCode = tempCode.replace(new RegExp(`${name}`, 'g'), pin && pin.value || "");
+					tempCode = tempCode.replace(new RegExp(`{${name}}`, 'g'), pin && pin.value || pin.name || "");
 				}
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
@@ -123,7 +123,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				tempCode = code.setup.replace(nameReg, componentData.varName);
 				for (var name in pins) {
 					pin = pins[name];
-					tempCode = tempCode.replace(new RegExp(`${name}`, 'g'), pin && pin.value || "");
+					tempCode = tempCode.replace(new RegExp(`{${name}}`, 'g'), pin && pin.value || pin.name || "");
 				}
 				if (isSoftwareSerial) {
 					tempCode = tempCode.replace("Serial", componentData.varName);

@@ -431,7 +431,7 @@ function unzip(zipPath, dist, spawn) {
 		spawnCommand(`"${path7za}"`, ["x", `"${zipPath}"`, "-bsp1", "-y", `-o"${dist}"`], {shell: true}).then(result => {
 			deferred.resolve(result)
 		}, err => {
-			log.error(err)
+			err && log.error(err)
 			deferred.reject(err)
 		}, progess => {
 			reg.lastIndex = 0
@@ -452,7 +452,7 @@ function unzip(zipPath, dist, spawn) {
 		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(_ => {
 			deferred.resolve()
 		}, err => {
-			log.error(err)
+			err && log.error(err)
 			deferred.reject(err)
 		})
 	}
@@ -536,7 +536,7 @@ function request(url, options, json) {
 	}).then(result => {
 		deferred.resolve(result)
 	}).catch(err => {
-		log.error(err)
+		err && log.error(err)
 		deferred.reject(err)
 	})
 
