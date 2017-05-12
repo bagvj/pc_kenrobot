@@ -126,6 +126,8 @@
 		return this
 	}
 
+	var view = {}
+
 	function reset() {
 		for(var key in hanlderMap) {
 			var hanlders = hanlderMap[key]
@@ -146,6 +148,10 @@
 		}
 		delayTimers = {}
 
+		Object.keys(view).forEach(key => {
+			delete view[key]
+		})
+
 		return this
 	}
 
@@ -159,4 +165,5 @@
 	exports.delayTrigger = delayTrigger
 
 	exports.reset = reset
+	exports.view = view
 })(window, window.kenrobot || (window.kenrobot = {}))

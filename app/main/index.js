@@ -230,6 +230,20 @@ function listenMessage() {
 			e.sender.send('app:removeFile', deferId, false, err)
 		})
 	})
+	.on('app:showOpenDialog', (e, deferId, options) => {
+		util.showOpenDialog(mainWindow, options).then(result => {
+			e.sender.send('app:showOpenDialog', deferId, true, result)
+		}, err => {
+			e.sender.send('app:showOpenDialog', deferId, false, err)
+		})
+	})
+	.on('app:showSaveDialog', (e, deferId, options) => {
+		util.showSaveDialog(mainWindow, options).then(result => {
+			e.sender.send('app:showSaveDialog', deferId, true, result)
+		}, err => {
+			e.sender.send('app:showSaveDialog', deferId, false, err)
+		})
+	})
 	.on('app:saveProject', (e, deferId, projectPath, projectInfo, isTemp) => {
 		saveProject(projectPath, projectInfo, isTemp).then(result => {
 			e.sender.send('app:saveProject', deferId, true, result)

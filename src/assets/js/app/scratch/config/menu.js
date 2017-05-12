@@ -2,6 +2,35 @@ define(function() {
 	var menu = [{
 		id: "file",
 		placeholder: "文件",
+		menu: [{
+			text: "新建项目",
+			action: "new-project",
+			shortcut: {
+				key: ["ctrl+n", "command+n"],
+				text: "Ctrl+N",
+			}
+		}, "_", {
+			text: "打开项目",
+			action: "open-project",
+			shortcut: {
+				key: ["ctrl+o", "command+o"],
+				text: "Ctrl+O",
+			}
+		}, {
+			text: "保存项目",
+			action: "save-project",
+			shortcut: {
+				key: ["ctrl+s", "command+s"],
+				text: "Ctrl+S",
+			}
+		}, {
+			text: "另存为",
+			action: "save-as-project",
+			shortcut: {
+				key: ["ctrl+shift+s", "command+shift+s"],
+				text: "Ctrl+Shift+S",
+			}
+		}]
 	}, {
 		id: "edit",
 		placeholder: "编辑",
