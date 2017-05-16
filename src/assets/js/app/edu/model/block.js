@@ -1268,7 +1268,7 @@ define(['app/common/util/util'], function(util) {
 					for(var key in ioConnectors) {
 						c = ioConnectors[key];
 						if (c.blockUid == block.uid && c.data.name == elementData.name) {
-							conector = c;
+							connector = c;
 							return true;
 						}
 					}
