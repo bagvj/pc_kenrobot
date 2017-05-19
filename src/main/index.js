@@ -524,7 +524,8 @@ function unzipPackage(packagePath) {
 				return
 			}
 
-			util.execCommand(scripts[0]).then(_ => {
+			var scriptPath = scripts[0]
+			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(_ => {
 				deferred.resolve()
 			}, err => {
 				err && log.error(err)
