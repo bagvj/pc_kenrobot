@@ -388,15 +388,6 @@ function listenMessage() {
 		clipboard.writeText(text, type)
 		e.sender.send("app:copy", deferId, true, true)
 	})
-	.on('app:unzipPackages', (e, deferId) => {
-		unzipPackages().then(result => {
-			e.sender.send('app:unzipPackages', deferId, true, result)
-		}, err => {
-			e.sender.send('app:unzipPackages', deferId, false, err)
-		}, progress => {
-			e.sender.send('app:unzipPackages', deferId, "notify", progress)
-		})
-	})
 	.on('app:unzipPackage', (e, deferId, packagePath) => {
 		unzipPackage(packagePath).then(result => {
 			e.sender.send('app:unzipPackage', deferId, true, result)
@@ -518,85 +509,32 @@ function writeConfig(sync) {
 }
 
 /**
- * 解压资源包
- */
-function unzipPackages() {
-	var deferred = Q.defer()
-
-	if(config.version && config.version == util.getVersion()) {
-		log.debug("skip unzip packages")
-		setTimeout(_ => {
-			deferred.resolve()
-		}, 10)
-
-		return deferred.promise
-	}
-
-	log.debug("unzip packages")
-	var packagesPath = path.join(util.getResourcePath(), "packages")
-	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
-		var oldPackages = config.packages || []
-		var list = packages.filter(p => !oldPackages.find(o => o.name == p.name && o.checksum == p.checksum))
-
-		var doUnzip = _ => {
-			if(list.length == 0) {
-				config.version = util.getVersion()
-				config.packages = oldPackages
-				if(is.dev()) {
-					deferred.resolve()
-				} else {
-					writeConfig().then(_ => {
-						deferred.resolve()
-					}, err => {
-						err && log.error(err)
-						deferred.reject()
-					})
-				}
-				return
-			}
-
-			var total = list.length
-			var p = list.pop()
-			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
-				var oldPackage = oldPackages.find(o => o.name == p.name)
-				if(oldPackage) {
-					oldPackage.checksum = p.checksum
-				} else {
-					oldPackages.push(p)
-				}
-			}, err => {
-
-			}, progress => {
-				deferred.notify({
-					progress: progress,
-					name: p.name,
-					version: p.version,
-					count: total - list.length,
-					total: total,
-				})
-			})
-			.fin(_ => {
-				doUnzip()
-			})
-		}
-
-		doUnzip()
-	}, err => {
-		err && log.error(err)
-		deferred.reject()
-	})
-
-	return deferred.promise
-}
-
-/**
  * 解压单个资源包
  */
 function unzipPackage(packagePath) {
 	var deferred = Q.defer()
 
 	util.unzip(packagePath, getPackagesPath(), true).then(_ => {
-		deferred.resolve()
+		var name = path.basename(packagePath)
+		name = name.substring(0, name.indexOf("-"))
+		var ext = is.windows() ? "bat" : "sh"
+		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {			
+			if(scripts.length == 0) {
+				deferred.resolve()
+				return
+			}
+
+			var scriptPath = scripts[0]
+			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(_ => {
+				deferred.resolve()
+			}, err => {
+				err && log.error(err)
+				deferred.reject(err)
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)

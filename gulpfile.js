@@ -178,13 +178,13 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
 
 /**
- * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --packages=XXX,YYY --feature=FEATURE
+ * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
  * 示例: gulp build-pack --release --branch=beta
  *       gulp build-pack --release --standalone --platform=arm --compress
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
+ *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --feature=with-101
  */
-gulp.task('build', ['packages', 'clean-dist'], callback => {
+gulp.task('build', ['clean-dist'], callback => {
 	var platform = args.platform || "win"
 	var branch = args.branch || "release"
 	var feature = args.feature || ""
@@ -228,11 +228,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"./scripts/**/*",
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
-			"./packages/packages.json",
 		]
-		
-		var packageNames = args.packages ? args.packages.split(',') : []
-		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = _ => {
@@ -342,11 +338,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"scripts",
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
-			"packages/packages.json",
 		]
-		
-		var packageNames = args.packages ? args.packages.split(',') : []
-		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		builder.build({
 			targets: targets,
@@ -408,34 +400,6 @@ gulp.task('check', callback => {
 	}, err => {
 		callback(err)
 	})
-})
-
-gulp.task('packages', callback => {
-	var packageNames = args.packages ? args.packages.split(',') : []
-
-	var reg = /([^-]+)-v(\d\.\d+\.\d+)-([^\.]+)\.7z/g
-	var packages = []
-
-	var platform = args.platform || "win"
-	globby.sync(`packages/*${platform}.7z`).forEach(p => {
-		var name = path.basename(p)
-		reg.lastIndex = 0
-		var match = reg.exec(name)
-		if(!packageNames.includes(match[1])) {
-			return
-		}
-
-		packages.push({
-			name: match[1],
-			version: match[2],
-			platform: match[3],
-			archiveName: name,
-			checksum: "sha256:" + hasha.fromFileSync(p, {algorithm: "sha256"}),
-		})
-	})
-	fs.writeJsonSync("packages/packages.json", packages)
-
-	callback()
 })
 
 gulp.task('upload', _ => {
