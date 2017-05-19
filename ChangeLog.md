@@ -78,3 +78,14 @@
 #### features
 
 - scratch版增加“打开”、“保存”项目功能
+
+### v0.3.8
+
+#### fix bugs
+
+- 修复教育版不能定义变量的bug
+- 修复安装开发板包时没有安装驱动的bug
+
+#### features
+
+- 优化scratch版
