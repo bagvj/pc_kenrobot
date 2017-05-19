@@ -40,25 +40,14 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			emitor.trigger("user", "update");
 		});
 
-		kenrobot.postMessage("app:unzipPackages").then(_ => true, err => {
-			util.message({
-				text: "解压出错",
-				type: "error"
-			});
-		}, progressData => {
-			kenrobot.trigger("unpack", "show", progressData);
-		}).fin(_ => {
-			kenrobot.trigger("unpack", "hide");
+		setTimeout(_ => {
+			onSwitch("edu");
 
-			setTimeout(_ => {
-				onSwitch("edu");
-
-				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-				setTimeout(function() {
-					onCheckUpdate(false);
-				}, 3000);
-			}, 400);
-		});
+			//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+			setTimeout(function() {
+				onCheckUpdate(false);
+			}, 3000);
+		}, 400);
 	}
 
 	function onUserLogout() {
