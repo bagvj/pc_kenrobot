@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
+const {app, BrowserWindow, ipcMain, shell, clipboard, webContents} = require('electron')
 
 const path = require('path')
 const os = require('os')
@@ -16,6 +16,8 @@ const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
+const express = require('express')
+const httpPort = 8778
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -55,6 +57,10 @@ function init() {
 		log.error(stack)
 	})
 
+	initLog()
+	initFlashPlugin()
+	initServer()
+
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
@@ -64,19 +70,40 @@ function init() {
 		app.quit()
 	}
 
+	listenEvent()
+	listenMessage()
+
+	log.debug(`app start, version ${util.getVersion()}`)
+}
+
+function initLog() {
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 	if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
 	} else {
-		log.transports.console = false
-		log.transports.file.level = 'error'
+		// log.transports.console = false
+		// log.transports.file.level = 'error'
+		log.transports.file.level = 'debug'
 	}
+}
 
-	log.debug(`app start, version ${util.getVersion()}`)
+function initFlashPlugin() {
+	var version = '23.0.0.207'
+	var plugin = is.windows() ? "pepflashplayer.dll" : (is.macOS() ? "PepperFlashPlayer.plugin" : "libpepflashplayer.so")
+	plugin = path.join(getPluginPath("FlashPlayer"), plugin)
+	
+	log.debug(`initFlashPlugin: ${plugin}, version: ${version}`)
 
-	listenEvent()
-	listenMessage()
+	app.commandLine.appendSwitch('ppapi-flash-path', plugin)
+	app.commandLine.appendSwitch('ppapi-flash-version', version)
+}
+
+function initServer() {
+	var httpRoot = path.join(__dirname, "..")
+	var http = express()
+	http.use('/', express.static(path.join(httpRoot, "public")))
+	http.listen(httpPort)
 }
 
 /**
@@ -89,7 +116,11 @@ function createWindow() {
 		minWidth: 1200,
 		minHeight: 720,
 		frame: false,
-		show: false
+		show: false,
+		webPreferences: {
+			plugins: true,
+			webSecurity: false,
+		}
 	})
 	args.fullscreen && mainWindow.setFullScreen(true)
 
@@ -109,7 +140,7 @@ function createWindow() {
 	})
 	mainWindow.webContents.session.on('will-download', onDownload)
 
-	mainWindow.loadURL(`file://${__dirname}/../index.html`)
+	mainWindow.loadURL(`http://localhost:${httpPort}`)
 	mainWindow.focus()
 }
 
@@ -141,7 +172,7 @@ function listenEvent() {
 	})
 	.on('will-quit', _ => {
 		serialPort.closeAllSerialPort()
-		util.removeFile(path.join(util.getAppDataPath(), "temp"), true);
+		util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
 	})
 	.on('quit', _ => {
 		log.debug('app quit')
@@ -161,6 +192,9 @@ function listenMessage() {
 		e.sender.send('app:min', deferId, true, true)
 	})
 	.on('app:max', (e, deferId) => {
+		var a = webContents.getAllWebContents()
+		console.dir(a)
+		console.log(a.length)
 		if(mainWindow.isFullScreen()) {
 			mainWindow.setFullScreen(false)
 		} else {
@@ -1226,26 +1260,33 @@ function getToken(key) {
  */
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
-	return path.resolve(path.join(util.getResourcePath(), "scripts", `${name}.${ext}`))
+	return path.join(util.getResourcePath(), "scripts", `${name}.${ext}`)
 }
 
 /**
  * 获取command路径
  */
 function getCommandPath(name) {
-	return path.resolve(path.join(util.getAppDataPath(), "temp", `${name}.txt`))
+	return path.join(util.getAppDataPath(), "temp", `${name}.txt`)
 }
 
 /**
  * 获取arduino路径
  */
 function getArduinoPath() {
-	return path.resolve(path.join(util.getResourcePath(), `arduino-${util.getPlatform()}`))
+	return path.join(util.getResourcePath(), `arduino-${util.getPlatform()}`)
 }
 
 /**
  * 获取解压后的packages路径
  */
 function getPackagesPath() {
-	return path.resolve(path.join(app.getPath("documents"), app.getName(), "packages"))
+	return path.join(app.getPath("documents"), app.getName(), "packages")
+}
+
+/**
+ * 获取插件目录
+ */
+function getPluginPath(name) {
+	return path.join(util.getResourcePath(), "plugins", name, util.getPlatform())
 }

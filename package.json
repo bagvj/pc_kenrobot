@@ -4,11 +4,8 @@
     "appId": "com.kenrobot.KenRobot",
     "compression": "maximum",
     "files": [
-      "assets",
-      "*.html",
       "main",
-      "renderer",
-      "scratch",
+      "public",
       "node_modules",
       "!node_modules/serialport/build/Release/obj",
       "!node_modules/**/test",

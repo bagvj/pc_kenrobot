@@ -1,0 +1,92 @@
+.login-region {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	width: 42px;
+	height: 42px;
+	z-index: 16;
+	
+	.photo {
+		cursor: pointer;
+		display: block;
+		width: 42px;
+		height: 42px;
+		background-color: transparent;
+
+		& > img {
+			border-radius: 50%;
+			width: 42px;
+			height: 42px;
+		}
+
+		&.no-user {
+			cursor: default;
+		}
+	}
+
+	&:hover {
+		.login-menu {
+			display: block;
+		}
+	}
+
+	.login-menu {
+		position: relative;
+		top: 0;
+		left: -29px;
+		width: 100px;
+		z-index: 11;
+		padding-top: 10px;
+		display: none;
+	}
+
+	.tab {
+		width: 100px;
+		display: none;
+
+		& > ul {
+			float: left;
+			width: 100px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			background-color: white;
+			box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+
+			& > li {
+				height: 30px;
+				cursor: pointer;
+				float: left;
+				width: 100px;
+
+				& > a {
+					font-size: 12px;
+					color: #718ac0;
+					letter-spacing: 4px;
+					display: block;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+				}
+
+				& > span {
+					font-size: 12px;
+					color: #718ac0;
+					letter-spacing: 4px;
+					display: block;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+				}
+
+				&:hover {
+					background-color: #f7f9f9;
+				}
+			}
+		}
+
+		&.active {
+			display: block;
+		}
+	}
+}

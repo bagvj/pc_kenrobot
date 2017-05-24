@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>scratch2</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+
+		html, body {
+			height: 100%;
+		}
+
+		.player {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="player">
+		<object width="100%" height="100%">
+			<embed name="mblock" src="./11.6/Scratch.swf" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="100%" height="100%"></embed>
+			<param name="movie" value="./11.6/Scratch.swf"/>
+			<param name="bgcolor" value="#ffffff"/>
+			<param name="height" value="100%"/>
+			<param name="width" value="100%"/>
+			<param name="quality" value="high"/>
+			<param name="menu" value="false"/>
+			<param name="allowscriptaccess" value="always"/>
+		</object>
+	</div>
+	<script type="text/javascript">
+		var whenReady = (function() {
+			var funcs = [];
+			var ready = false;
+
+			function handler(e) {
+				if(ready || e.type === 'onreadystatechange' && document.readyState !== 'complete') {
+					return;
+				}
+
+				for(var i=0; i<funcs.length; i++) {
+					funcs[i].call(document);
+				}
+
+				ready = true;
+				funcs = null;
+			}
+
+			if(document.addEventListener) {
+				document.addEventListener('DOMContentLoaded', handler, false);
+				document.addEventListener('readystatechange', handler, false);
+				window.addEventListener('load', handler, false);
+			}else if(document.attachEvent) {
+				document.attachEvent('onreadystatechange', handler);
+				window.attachEvent('onload', handler);
+			}
+
+			return function whenReady(fn) {
+				ready ? fn.call(document) : funcs.push(fn)
+			}
+		})();
+
+		var exportForAs = function(global) {
+			function JSeditorReady() {
+				return true;
+			}
+
+			function JSthrowError(err) {
+				console.error(err);
+			}
+
+			function JSshowWarning(warning) {
+				console.warn(warning);
+			}
+
+			function JSprojectLoaded() {
+				console.log("do JSprojectLoaded");
+			}
+
+			global.JSeditorReady = JSeditorReady;
+			global.JSthrowError = JSthrowError;
+			global.JSshowWarning = JSshowWarning;
+			global.JSprojectLoaded = JSprojectLoaded;
+		}
+
+		whenReady(function() {
+			exportForAs(window);
+		});
+	</script>
+</body>
+</html>
