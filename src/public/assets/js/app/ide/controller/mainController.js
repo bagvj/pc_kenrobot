@@ -1,6 +1,4 @@
 define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/boards', '../config/menu'], function($1, Mousetrap, util, emitor, config, boards, menu) {
-	var mainWrap;
-
 	function init() {
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 

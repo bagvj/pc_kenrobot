@@ -1,6 +1,7 @@
-define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/nav', '../config/menu', '../model/userModel'], function($1, pace, util, emitor, config, nav, menu, userModel) {
-	var mainWrap;
+define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu', '../model/userModel'], function($1, pace, util, emitor, config, menu, userModel) {
+
 	var iframe;
+	var baseUrl;
 
 	function init() {
 		kenrobot.getUserInfo = userModel.getUserInfo;
@@ -40,14 +41,18 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			emitor.trigger("user", "update");
 		});
 
-		setTimeout(_ => {
-			onSwitch("edu");
+		kenrobot.postMessage("app:getBaseUrl").then(url => {
+			baseUrl = url;
 
-			//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-			setTimeout(function() {
-				onCheckUpdate(false);
-			}, 3000);
-		}, 400);
+			setTimeout(_ => {
+				onSwitch("edu");
+
+				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+				setTimeout(function() {
+					onCheckUpdate(false);
+				}, 3000);
+			}, 400);
+		});
 	}
 
 	function onUserLogout() {
@@ -142,8 +147,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		kenrobot.reset();
 		
 		kenrobot.trigger("app", "will-leave");
-		var url = nav[type];
-		iframe.src = url;
+		iframe.src = `${baseUrl}/${type}`;
 		pace.restart();
 	}
 

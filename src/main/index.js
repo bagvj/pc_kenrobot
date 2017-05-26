@@ -18,6 +18,7 @@ const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const express = require('express')
 const httpPort = 8778
+const baseUrl = `http://localhost:${httpPort}`
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -139,7 +140,7 @@ function createWindow() {
 	})
 	mainWindow.webContents.session.on('will-download', onDownload)
 
-	mainWindow.loadURL(`http://localhost:${httpPort}`)
+	mainWindow.loadURL(baseUrl)
 	mainWindow.focus()
 }
 
@@ -476,6 +477,9 @@ function listenMessage() {
 	.on("app:removeToken", (e, deferId) => {
 		util.removeFile(path.join(util.getAppDataPath(), "token"), true)
 		e.sender.send("app:removeToken", deferId, true, true)
+	})
+	.on("app:getBaseUrl", (e, deferId) => {
+		e.sender.send("app:getBaseUrl", deferId, true, baseUrl)
 	})
 }
 
