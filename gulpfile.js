@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin 
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport express
  */
 
 const gulp = require('gulp') //基础库
@@ -40,8 +40,8 @@ const TEMP = '.temp/'
 
 const APP = './app/'
 
-const ASSETS_SRC = SRC + 'assets/'
-const ASSETS_DIST = APP + 'assets/'
+const ASSETS_SRC = SRC + 'public/assets/'
+const ASSETS_DIST = APP + 'public/assets/'
 
 gulp.task('clean-assets-js', _ => {
 	return del(ASSETS_DIST + 'js')
@@ -63,16 +63,25 @@ gulp.task('clean-main', _ => {
 	return del(APP + 'main')
 })
 
-gulp.task('clean-renderer', _ => {
-	return del(APP + 'renderer')
+gulp.task('clean-public', _ => {
+	return del(APP + 'public')
 })
 
-gulp.task('clean-scratch', _ => {
-	return del(APP + 'scratch')
+gulp.task('clean-scratch2', _ => {
+	return del(APP + 'public/scratch2')
 })
 
-gulp.task('clean-views', _ => {
-	return del(ASSETS_DIST + '*.html')
+gulp.task('clean-scratch3', _ => {
+	return del(APP + 'public/scratch3')
+})
+
+gulp.task('clean-other', _ => {
+	return del([
+		APP + 'public/**/*',
+		'!' + APP + "public/assets",
+		'!' + APP + "public/scratch2",
+		'!' + APP + "public/scratch3",
+	])
 })
 
 gulp.task('clean-dist', _ => {
@@ -142,31 +151,15 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
-gulp.task('pack-main', ['clean-main'], _ => {
-	return gulp.src(SRC + 'main/**/*.js')
-		.pipe(gulp.dest(APP + 'main/'))
-})
-
-gulp.task('pack-renderer', ['clean-renderer'], cb => {
-	return gulp.src(SRC + 'renderer/**/*.js')
-			.pipe(gulp.dest(APP + 'renderer/'))
-})
-
-gulp.task('pack-views', ['clean-views'], _ => {
-	return gulp.src(SRC + 'views/**.html')
-		.pipe(gulpif(args.release, minifyHtml()))
-		.pipe(gulp.dest(APP))
-})
-
-gulp.task('pack-scratch', ['clean-scratch'], callback => {
-	gulp.src([SRC + 'scratch/**/*'])
-		.pipe(gulp.dest(APP + 'scratch/'))
+gulp.task('pack-scratch2', ['clean-scratch2'], callback => {
+	gulp.src([SRC + 'public/scratch2/**/*'])
+		.pipe(gulp.dest(APP + 'public/scratch2/'))
 		.on('end', _ => {
-			var indexPath = path.join(APP, 'scratch', 'index.html')
+			var indexPath = path.join(APP, 'public', 'scratch2', 'index.html')
 			var content = fs.readFileSync(indexPath, "utf8")
 			var tag = "<body>"
 			var contents = content.split(tag)
-			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch"></script>')
+			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch2"></script>')
 			fs.writeFileSync(indexPath, contents.join(""))
 			callback()
 		})
@@ -175,7 +168,42 @@ gulp.task('pack-scratch', ['clean-scratch'], callback => {
 		})
 })
 
-gulp.task('pack', ['pack-views', 'pack-main', 'pack-renderer', 'pack-scratch', 'pack-assets'])
+gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
+	gulp.src([SRC + 'public/scratch3/**/*'])
+		.pipe(gulp.dest(APP + 'public/scratch3/'))
+		.on('end', _ => {
+			var indexPath = path.join(APP, 'public', 'scratch3', 'index.html')
+			var content = fs.readFileSync(indexPath, "utf8")
+			var tag = "<body>"
+			var contents = content.split(tag)
+			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch3"></script>')
+			fs.writeFileSync(indexPath, contents.join(""))
+			callback()
+		})
+		.on('error', err => {
+			callback(err)
+		})
+})
+
+gulp.task('pack-other', ['clean-other'], _ => {
+	return gulp.src([
+			SRC + 'public/**/*',
+			'!' + SRC + "public/assets",
+			'!' + SRC + "public/scratch2",
+			'!' + SRC + "public/scratch3",
+		]).pipe(gulp.dest(APP + 'public/'))
+})
+
+gulp.task('pack-main', ['clean-main'], _ => {
+	return gulp.src(SRC + 'main/**/*.js')
+		.pipe(gulp.dest(APP + 'main/'))
+})
+
+gulp.task('pack-public', ['clean-public'], callback => {
+	runSequence(['pack-assets', 'pack-scratch2', 'pack-scratch3', 'pack-other'], callback)
+})
+
+gulp.task('pack', ['pack-main', 'pack-public'])
 
 /**
  * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
@@ -228,6 +256,7 @@ gulp.task('build', ['clean-dist'], callback => {
 			"./scripts/**/*",
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
+			`plugins/FlashPlayer/${platform}/**/*`,
 		]
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
@@ -338,6 +367,7 @@ gulp.task('build', ['clean-dist'], callback => {
 			"scripts",
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
+			`plugins/FlashPlayer/${platform}`,
 		]
 
 		builder.build({
@@ -376,7 +406,9 @@ gulp.task('build', ['clean-dist'], callback => {
 	}
 })
 
-gulp.task('build-pack', ['pack', 'build'])
+gulp.task('build-pack', callback => {
+	runSequence('pack', 'build', callback)
+})
 
 // 默认任务
 gulp.task('default', ['pack'])

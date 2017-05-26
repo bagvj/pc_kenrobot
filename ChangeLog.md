@@ -89,3 +89,10 @@
 #### features
 
 - 优化scratch版
+
+### v0.4.0
+
+#### features
+
+- scratch 2上线，原“scratch版”已重命名为“scratch 3”
+

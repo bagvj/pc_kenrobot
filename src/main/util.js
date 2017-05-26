@@ -26,7 +26,7 @@ var deferAutoId = 0
  * 判断当前系统是否为64位
  */
 function isX64() {
-	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
+	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432')
 }
 
 /**
@@ -83,16 +83,15 @@ function getAppInfo() {
  * 获取appData目录
  */
 function getAppDataPath() {
-	return path.join(app.getPath("appData"), app.getName());
+	return path.join(app.getPath("appData"), app.getName())
 }
 
 /**
  * 获取资源路径
  */
 function getResourcePath() {
-	return (!is.windows() && !is.dev()) ? path.join(app.getAppPath(), "..", "..") : "."
+	return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
 }
-
 
 /**
  * 发送消息
