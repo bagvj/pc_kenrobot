@@ -550,5 +550,16 @@
     "when %m.booleanSensor": "当 %m.booleanSensor",
     "of": "的",
     "sensor %m.booleanSensor?": "传感器 %m.booleanSensor?",
-    "not %b": "%b 不成立"
+    "not %b": "%b 不成立",
+    "Edit Block Colors": "编辑块颜色",
+    "Category:": "分类:",
+    "Apply": "应用",
+    "Load": "载入",
+    "Hue": "色相",
+    "Sat.": "饱和度",
+    "Bri.": "明度",
+    "Parameter": "参数",
+    "List": "列表",
+    "Extension": "扩展",
+    "block color test": "块颜色测试"
 }
