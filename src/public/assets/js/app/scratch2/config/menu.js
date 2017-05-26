@@ -34,6 +34,19 @@ define(function() {
 	}, {
 		id: "edit",
 		placeholder: "编辑",
+		menu: [{
+			text: "撤消删除",
+			action: "undelete",
+		}, "_", {
+			text: "小舞台布局模式",
+			action: "toggle-samll-stage",
+		}, {
+			text: "加速模式",
+			action: "toggle-turbo-mode",
+		}, "_", {
+			text: "编辑块颜色",
+			action: "edit-block-colors",
+		}]
 	}, {
 		id: "example",
 		placeholder: "案例",

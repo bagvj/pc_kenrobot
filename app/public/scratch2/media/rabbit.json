@@ -1,5 +1,5 @@
 {
-	"objName": "M-Panda",
+	"objName": "K-Rabbit",
 	"sounds": [{
 			"soundName": "eat",
 			"soundID": -1,
@@ -9,17 +9,17 @@
 			"format": ""
 		}],
 	"costumes": [{
-			"costumeName": "Panda-a",
+			"costumeName": "Rabbit-1",
 			"baseLayerID": -1,
-			"baseLayerMD5": "panda_a.svg",
-			"rotationCenterX": 0,
-			"rotationCenterY": 0
+			"baseLayerMD5": "rabbit_1.png",
+			"rotationCenterX": 72,
+			"rotationCenterY": 72
 		},{
-			"costumeName": "Panda-b",
+			"costumeName": "Rabbit-2",
 			"baseLayerID": -1,
-			"baseLayerMD5": "panda_b.svg",
-			"rotationCenterX": 0,
-			"rotationCenterY": 0
+			"baseLayerMD5": "rabbit_2.png",
+			"rotationCenterX": 72,
+			"rotationCenterY": 72
 		}],
 	"currentCostumeIndex": 0,
 	"scratchX": 0,

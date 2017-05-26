@@ -82,9 +82,8 @@ function initLog() {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
 	} else {
-		// log.transports.console = false
-		// log.transports.file.level = 'error'
-		log.transports.file.level = 'debug'
+		log.transports.console = false
+		log.transports.file.level = 'error'
 	}
 }
 
@@ -192,9 +191,6 @@ function listenMessage() {
 		e.sender.send('app:min', deferId, true, true)
 	})
 	.on('app:max', (e, deferId) => {
-		var a = webContents.getAllWebContents()
-		console.dir(a)
-		console.log(a.length)
 		if(mainWindow.isFullScreen()) {
 			mainWindow.setFullScreen(false)
 		} else {

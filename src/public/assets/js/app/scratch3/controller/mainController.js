@@ -1,5 +1,5 @@
 define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, util, emitor, config, menu) {
-	var mainWrap;
+
 	var projectPath;
 
 	function init() {
@@ -12,11 +12,16 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		kenrobot.trigger("app-menu", "load", menu, "scratch3");
 
 		
-		setTimeout(_ => {
-			var defaultProject = kenrobot.view.getProject();
-			kenrobot.view.newProject = () => {
-				kenrobot.view.loadProject(defaultProject);
-			};
+		var timerId;
+		timerId = setInterval(_ => {
+			if(kenrobot.view && kenrobot.view.getProject) {
+				var defaultProject = kenrobot.view.getProject();
+				kenrobot.view.newProject = () => {
+					kenrobot.view.loadProject(defaultProject);
+				};
+				
+				clearInterval(timerId);
+			}
 		}, 3000);
 	}
 

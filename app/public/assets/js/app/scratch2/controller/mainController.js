@@ -1,9 +1,12 @@
 define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, util, emitor, config, menu) {
-	var mainWrap;
+	var scratch;
 	var projectPath;
 
 	function init() {
+		scratch = document.getElementById("ken-scratch");
 		emitor.on('app', 'start', onAppStart);
+
+		kenrobot.view.saveProject = saveProject;
 
 		kenrobot.on('app-menu', 'do-action', onMenuAction);
 	}
@@ -15,16 +18,18 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	function onMenuAction(action, extra, li) {
 		switch (action) {
 			case "new-project":
-				kenrobot.view.newProject();
+				scratch.newProject();
 				break;
 			case "open-project":
 				kenrobot.postMessage("app:showOpenDialog", {
-					filters: [{name: "json", extensions: ["json"]}],
+					filters: [{name: "sb2", extensions: ["sb2"]}],
 					properties: ["openFile"],
 				}).then(path => {
 					kenrobot.postMessage("app:readFile", path).then(content => {
 						projectPath = path;
-						kenrobot.view.loadProject(content);
+
+						scratch.loadProject(content);
+						setProjectName(projectPath);
 						util.message("打开成功");
 					}, err => {
 						util.message({
@@ -40,39 +45,47 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				});
 				break;
 			case "save-project":
-				if(projectPath) {
-					saveProject(projectPath);
-				} else {
-					kenrobot.postMessage("app:showSaveDialog", {
-						filters: [{name: "json", extensions: ["json"]}],
-					}).then(path => {
-						saveProject(path);
-					}, err => {
-						util.message({
-							text: "保存失败",
-							type: "error",
-						});
-					});
-				}
+				scratch.exportProject();
 				break;
 			case "save-as-project":
-				kenrobot.postMessage("app:showSaveDialog", {
-					filters: [{name: "json", extensions: ["json"]}],
-				}).then(path => {
-					saveProject(path);
-				}, err => {
-					util.message({
-						text: "保存失败",
-						type: "error",
-					});
-				});
+				scratch.exportProject(true);
+				break;
+			case "undelete":
+				scratch.undelete();
+				break;
+			case "toggle-samll-stage":
+				scratch.toggleSmallStage();
+				break;
+			case "toggle-turbo-mode":
+				scratch.toggleTurboMode();
+				break;
+			case "edit-block-colors":
+				scratch.editBlockColors();
 				break;
 		}
 	}
 
-	function saveProject(path) {
-		kenrobot.postMessage("app:writeFile", path, kenrobot.view.getProject()).then(_ => {
+	function saveProject(projectData, saveAs) {
+		if(saveAs || !projectPath) {
+			kenrobot.postMessage("app:showSaveDialog", {
+				filters: [{name: "sb2", extensions: ["sb2"]}],
+			}).then(path => {
+				doSaveProject(path, projectData, saveAs);
+			}, err => {
+				util.message({
+					text: "保存失败",
+					type: "error",
+				});
+			});
+		} else {
+			doSaveProject(projectPath, projectData, saveAs);
+		}
+	}
+
+	function doSaveProject(path, projectData, saveAs) {
+		kenrobot.postMessage("app:writeFile", path, projectData).then(_ => {
 			projectPath = path;
+			saveAs && setProjectName(projectPath);
 			util.message("保存成功");
 		}, err => {
 			util.message({
@@ -80,6 +93,13 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				type: "error",
 			});
 		});
+	}
+
+	function setProjectName(projectPath) {
+		var names = projectPath.split(/\/|\\/);
+		var name = names[names.length - 1];
+		name = name.substring(0, name.indexOf("."));
+		scratch.setProjectName(name);
 	}
 
 	return {
