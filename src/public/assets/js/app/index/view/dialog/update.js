@@ -40,17 +40,19 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
 				versionPath = result.path;
 
-				var info = kenrobot.appInfo;
-				if(info.platform == "win") {
-					downloadBtn.val("安装").attr("disabled", false);
-					messageTxt.text(`下载成功，是否安装新版本${versionInfo.version}?`);
-					action = "install";
-				} else {
-					downloadBtn.val("打开").attr("disabled", false);
-					messageTxt.text(`下载成功，是否打开文件所在位置?`);
-					action = "open";
-				}
-				canClose = true;
+				kenrobot.postMessage("app:removeOldVersions", versionInfo.version).fin(_ => {
+					var info = kenrobot.appInfo;
+					if(info.platform == "win") {
+						downloadBtn.val("安装").attr("disabled", false);
+						messageTxt.text(`下载成功，是否安装新版本${versionInfo.version}?`);
+						action = "install";
+					} else {
+						downloadBtn.val("打开").attr("disabled", false);
+						messageTxt.text(`下载成功，是否打开文件所在位置?`);
+						action = "open";
+					}
+					canClose = true;
+				});
 			}, err => {
 				downloadBtn.attr("disabled", false);
 				messageTxt.text(`新版本${versionInfo.version}下载失败`);

@@ -449,6 +449,13 @@ function listenMessage() {
 			e.sender.send("app:checkUpdate", deferId, false, err)
 		})
 	})
+	.on("app:removeOldVersions", (e, deferId, newVersion) => {
+		removeOldVersions(newVersion).then(result => {
+			e.sender.send("app:removeOldVersions", deferId, true, result)
+		}, err => {
+			e.sender.send("app:removeOldVersions", deferId, false, err)
+		})
+	})
 	.on("app:request", (e, deferId, url, options, json) => {
 		util.request(url, options, json).then(result => {
 			e.sender.send("app:request", deferId, true, result)
@@ -496,6 +503,42 @@ function checkUpdate(checkUrl) {
 
 	util.request(url).then(result => {
 		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 删除旧版本
+ */
+function removeOldVersions(newVersion) {
+	var deferred = Q.defer()
+
+	// if(is.dev()) {
+	// 	setTimeout(_ => {
+	// 		deferred.resolve()
+	// 	}, 10)
+	// 	return deferred.promise
+	// }
+
+	var info = util.getAppInfo()
+	var downloadPath = path.join(util.getAppDataPath(), "download")
+	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
+		var versionReg = /\d+\.\d+\.\d+/
+		files.map(f => path.basename(f)).filter(name => {
+			var match = name.match(versionReg)
+			if(!match) {
+				return false
+			}
+
+			return util.versionCompare(match[0], newVersion) < 0
+		}).forEach(name => {
+			util.removeFile(path.join(downloadPath, name), true)
+		})
+		deferred.resolve()
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -797,7 +840,6 @@ function openSerialPort(comName, options) {
 		onClose: onSerialPortClose,
 	})
 }
-
 
 function onSerialPortError(portId, err) {
 	util.postMessage("app:onSerialPortError", portId, err)
