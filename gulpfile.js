@@ -78,9 +78,9 @@ gulp.task('clean-scratch3', _ => {
 gulp.task('clean-other', _ => {
 	return del([
 		APP + 'public/**/*',
-		'!' + APP + "public/assets",
-		'!' + APP + "public/scratch2",
-		'!' + APP + "public/scratch3",
+		'!' + APP + "public/assets/**/*",
+		'!' + APP + "public/scratch2/**/*",
+		'!' + APP + "public/scratch3/**/*",
 	])
 })
 
