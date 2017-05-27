@@ -45,13 +45,14 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 
 		kenrobot.postMessage("app:loadPackages").then(function(packages) {
 			packages.forEach(function(pkg) {
+				var protocol = pkg.path.startsWith("/") ? "file://" : "file:///";
 				pkg.boards && pkg.boards.forEach(function(board) {
-					board.imageUrl = pkg.path + "/" + board.imageUrl;
+					board.imageUrl = `${protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
 				});
 
 				pkg.components && pkg.components.forEach(function(component) {
-					component.imageUrl = pkg.path + "/" + component.imageUrl;
+					component.imageUrl = `${protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
 					component.blocks && component.blocks.forEach(function(block) {

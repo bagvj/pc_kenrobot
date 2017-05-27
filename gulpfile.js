@@ -188,9 +188,9 @@ gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
 gulp.task('pack-other', ['clean-other'], _ => {
 	return gulp.src([
 			SRC + 'public/**/*',
-			'!' + SRC + "public/assets",
-			'!' + SRC + "public/scratch2",
-			'!' + SRC + "public/scratch3",
+			'!' + SRC + "public/assets/**/*",
+			'!' + SRC + "public/scratch2/**/*",
+			'!' + SRC + "public/scratch3/**/*",
 		]).pipe(gulp.dest(APP + 'public/'))
 })
 

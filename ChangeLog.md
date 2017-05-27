@@ -98,3 +98,12 @@
 
 - scratch 2上线，原“scratch版”已重命名为“scratch 3”
 
+### v0.4.1
+
+#### fix bugs
+
+- 修复mac下加载开发板包资源错误的bug
+
+#### features
+
+- 升级版本后，自动删除旧版安装包

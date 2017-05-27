@@ -71,7 +71,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
-    "gulp-clean-css": "^3.3.1",
+    "gulp-clean-css": "^3.4.0",
     "gulp-if": "^2.0.2",
     "gulp-minify-html": "^1.0.6",
     "gulp-requirejs-optimize": "^1.2.0",
