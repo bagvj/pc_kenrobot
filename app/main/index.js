@@ -1055,6 +1055,7 @@ function preBuild(projectPath, options) {
 
 	var projectBuildPath = path.join(projectPath, 'build')
 	fs.ensureDirSync(projectBuildPath)
+	util.removeFile(path.join(projectBuildPath, "sketch", "build"), true)
 	var commandPath = getCommandPath("build")
 	var command = util.handleQuotes(options.command)
 	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
