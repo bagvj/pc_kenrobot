@@ -30,7 +30,7 @@ var arduinoOptions = {
 				"runtime.tools.avr-gcc.path": '"ARDUINO_PATH/hardware/tools/avr"',
 				"runtime.tools.avrdude.path": '"ARDUINO_PATH/hardware/tools/avr"'
 			},
-			command: '"ARDUINO_PATH/arduino-builder" -compile -logger=machine -hardware="ARDUINO_PATH/hardware" -hardware="ARDUINO_PATH/packages" -tools="ARDUINO_PATH/tools-builder" -tools="ARDUINO_PATH/hardware/tools/avr" -tools="ARDUINO_PATH/packages" -built-in-libraries="ARDUINO_PATH/libraries" -ide-version=10612 -warnings=all -prefs=build.warn_data_percentage=75 BUILD_SPECS -build-path="PROJECT_BUILD_PATH" "PROJECT_ARDUINO_FILE"'
+			command: '"ARDUINO_PATH/arduino-builder" -compile -logger=machine -hardware="ARDUINO_PATH/hardware" -hardware="ARDUINO_PATH/packages" -tools="ARDUINO_PATH/tools-builder" -tools="ARDUINO_PATH/hardware/tools/avr" -tools="ARDUINO_PATH/packages" -built-in-libraries="ARDUINO_PATH/libraries" -ide-version=10612 -warnings=none -prefs=build.warn_data_percentage=75 BUILD_SPECS -build-path="PROJECT_BUILD_PATH" "PROJECT_ARDUINO_FILE"'
 		},
 		upload: {
 			target_type: "hex",
@@ -1050,7 +1050,7 @@ function preBuild(projectPath, options) {
 	})
 
 	arduinoOptions.librariesPath.forEach(libraryPath => {
-		buildSpecs.push(`-libraries=${libraryPath}`)
+		buildSpecs.push(`-libraries="${libraryPath}"`)
 	})
 
 	var projectBuildPath = path.join(projectPath, 'build')
