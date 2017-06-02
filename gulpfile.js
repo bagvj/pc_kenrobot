@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin 
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch serialport express
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch express serialport
  */
 
 const gulp = require('gulp') //基础库
@@ -78,9 +78,9 @@ gulp.task('clean-scratch3', _ => {
 gulp.task('clean-other', _ => {
 	return del([
 		APP + 'public/**/*',
-		'!' + APP + "public/assets",
-		'!' + APP + "public/scratch2",
-		'!' + APP + "public/scratch3",
+		'!' + APP + "public/assets/**/*",
+		'!' + APP + "public/scratch2/**/*",
+		'!' + APP + "public/scratch3/**/*",
 	])
 })
 
@@ -188,9 +188,9 @@ gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
 gulp.task('pack-other', ['clean-other'], _ => {
 	return gulp.src([
 			SRC + 'public/**/*',
-			'!' + SRC + "public/assets",
-			'!' + SRC + "public/scratch2",
-			'!' + SRC + "public/scratch3",
+			'!' + SRC + "public/assets/**/*",
+			'!' + SRC + "public/scratch2/**/*",
+			'!' + SRC + "public/scratch3/**/*",
 		]).pipe(gulp.dest(APP + 'public/'))
 })
 

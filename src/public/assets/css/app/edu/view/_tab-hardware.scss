@@ -247,6 +247,31 @@
 					&:hover {
 						background-color: #f2f2f2;
 					}
+
+					&.seperator {
+						height: 1px;
+						padding: 0;
+						background-color: #EDF1F4;
+						pointer-events: none;
+					}
+
+					&.board-manager {
+						color: #75828e;
+						line-height: 24px;
+
+						& > i {
+							font-size: 24px;
+							height: 24px;
+							width: 42px;
+							display: inline-block;
+							text-align: center;
+							float: left;
+						}
+
+						& > span {
+							margin-left: 8px;
+						}
+					}
 				}
 			}
 

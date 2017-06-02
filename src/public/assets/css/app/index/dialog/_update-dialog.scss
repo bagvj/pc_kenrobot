@@ -68,6 +68,16 @@
             &:hover {
                 background-color: #0088ff;
             }
+
+            &[disabled] {
+                color: #666;
+                background-color: #ccc;
+                border-color: #ddd;
+
+                &:hover {
+                    background-color: #ccc;
+                }
+            }
         }
     }
     

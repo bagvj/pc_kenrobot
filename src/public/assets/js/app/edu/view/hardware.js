@@ -445,6 +445,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				.replace(/\{\{src\}\}/, board.imageUrl);
 			ul.append(li);
 		});
+		var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';
+		ul.append(defaultLi);
 		ul.find("> li").eq(0).click();
 	}
 
@@ -456,6 +458,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	function onBoardSelectClick(e) {
 		var li = $(this);
 		var name = li.data("value");
+		if(name == "board-manager") {
+			boardList.removeClass("active");
+			kenrobot.trigger("board", "show");
+			return;
+		}
+
 		boardList.removeClass("active").find(".placeholder").html(li.html());
 		boardList.data("value", name);
 

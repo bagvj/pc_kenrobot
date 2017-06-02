@@ -93,6 +93,31 @@ function getResourcePath() {
 	return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
 }
 
+function versionCompare(versionA, versionB) {
+	var reg = /(\d+)\.(\d+)\.(\d+)/
+	var matchA = reg.exec(versionA)
+	var matchB = reg.exec(versionB)
+
+	var versionsA = [
+		parseInt(matchA[1]),
+		parseInt(matchA[2]),
+		parseInt(matchA[3]),
+	]
+	var versionsB = [
+		parseInt(matchB[1]),
+		parseInt(matchB[2]),
+		parseInt(matchB[3]),
+	]
+
+	for(var i = 0; i <= 2; i++) {
+		if(versionsA[i] != versionsB[i]) {
+			return versionsA[i] > versionsB[i] ? 1 : -1
+		}
+	}
+
+	return 0
+}
+
 /**
  * 发送消息
  * @param {*} name 
@@ -548,6 +573,7 @@ module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
 module.exports.getResourcePath = getResourcePath
+module.exports.versionCompare = versionCompare
 module.exports.postMessage = postMessage
 module.exports.getDefer = getDefer
 module.exports.callDefer = callDefer
