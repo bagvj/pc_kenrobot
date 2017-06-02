@@ -15,7 +15,7 @@
     "url": "http://www.kenrobot.com"
   },
   "dependencies": {
-    "7zip-bin": "^2.0.4",
+    "7zip-bin": "^2.1.0",
     "electron-debug": "^1.1.0",
     "electron-is": "^2.4.0",
     "electron-log": "^2.2.6",
