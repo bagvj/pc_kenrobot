@@ -183,6 +183,16 @@ function decrypt(cryptedText, key, algorithm) {
 	return plainText
 }
 
+function resolvePromise(result, deferred) {
+	deferred = deferred || Q.defer()
+
+	setTimeout(_ => {
+		deferred.resolve(result)
+	}, 10)
+
+	return deferred.promise
+}
+
 /**
  * 执行可执行文件
  * @param {*} driverPath 
@@ -580,6 +590,7 @@ module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
 module.exports.encrypt = encrypt
 module.exports.decrypt = decrypt
+module.exports.resolvePromise = resolvePromise
 
 module.exports.execFile = execFile
 module.exports.execCommand = execCommand
