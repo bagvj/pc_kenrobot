@@ -1,6 +1,6 @@
 define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], function($1, config, emitor) {
 	var userInfo;
-	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
 	function getUserId() {
 		return userInfo ? userInfo.user_id : 0;
