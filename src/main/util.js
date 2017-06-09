@@ -15,7 +15,7 @@ const iconv = require('iconv-lite')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
-const PACKAGE = require('../package')
+const PACKAGE = require("../package")
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6

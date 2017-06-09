@@ -1,6 +1,6 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin 
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.4.15 electron-builder gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch express serialport
  */
 
@@ -19,6 +19,10 @@ const isutf8 = require('isutf8')
 const nconf = require('nconf')
 const del = require('del')
 const babel = require('gulp-babel')
+const browserify = require('browserify')
+const source = require('vinyl-source-stream')
+const uglify = require('gulp-uglify')
+const buffer = require('vinyl-buffer')
 
 const minimist = require('minimist') //命令行参数解析
 const runSequence = require('run-sequence') //顺序执行
@@ -63,6 +67,10 @@ gulp.task('clean-main', _ => {
 	return del(APP + 'main')
 })
 
+gulp.task('clean-renderer', _ => {
+	return del(APP + 'public/renderer.js')
+})
+
 gulp.task('clean-public', _ => {
 	return del(APP + 'public')
 })
@@ -78,6 +86,7 @@ gulp.task('clean-scratch3', _ => {
 gulp.task('clean-other', _ => {
 	return del([
 		APP + 'public/**/*',
+		'!' + APP + "public/renderer.js",
 		'!' + APP + "public/assets/**/*",
 		'!' + APP + "public/scratch2/**/*",
 		'!' + APP + "public/scratch3/**/*",
@@ -188,6 +197,7 @@ gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
 gulp.task('pack-other', ['clean-other'], _ => {
 	return gulp.src([
 			SRC + 'public/**/*',
+			'!' + SRC + "public/renderer.js",
 			'!' + SRC + "public/assets/**/*",
 			'!' + SRC + "public/scratch2/**/*",
 			'!' + SRC + "public/scratch3/**/*",
@@ -195,12 +205,46 @@ gulp.task('pack-other', ['clean-other'], _ => {
 })
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	return gulp.src(SRC + 'main/**/*.js')
-		.pipe(gulp.dest(APP + 'main/'))
+	if(args.release) {
+		return browserify(SRC + 'main/index.js', {
+				ignoreMissing: true,
+				commondir: false,
+				bundleExternal: false,
+				builtins: false,
+				browserField: false,
+				noParse: ["../package"],
+				detectGlobals: false,
+			})
+			.bundle()
+			.pipe(source('index.js'))
+			.pipe(buffer())
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+			.pipe(uglify())
+			.pipe(gulp.dest(APP + 'main/'))
+	} else {
+		return gulp.src(SRC + 'main/**/*.js')
+			.pipe(gulp.dest(APP + 'main/'))
+	}
+})
+
+gulp.task('pack-renderer', ['clean-renderer'], _ => {
+	if(args.release) {
+		return gulp.src(SRC + 'public/renderer.js')
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+			.pipe(uglify())
+			.pipe(gulp.dest(APP + 'public/'))
+	} else {
+		return gulp.src(SRC + 'public/renderer.js')
+			.pipe(gulp.dest(APP + 'public/'))
+	}
 })
 
 gulp.task('pack-public', ['clean-public'], callback => {
-	runSequence(['pack-assets', 'pack-scratch2', 'pack-scratch3', 'pack-other'], callback)
+	runSequence(['pack-renderer', 'pack-assets', 'pack-scratch2', 'pack-scratch3', 'pack-other'], callback)
 })
 
 gulp.task('pack', ['pack-main', 'pack-public'])
