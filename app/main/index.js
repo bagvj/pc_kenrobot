@@ -6,7 +6,9 @@ const querystring = require('querystring')
 const crypto = require('crypto')
 
 const util = require('./util')
+const token = require('./token')
 const serialPort = require('./serialPort') //串口
+const sync = require('./sync') //同步
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -17,6 +19,7 @@ const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const express = require('express')
+
 const httpPort = 8778
 const baseUrl = `http://localhost:${httpPort}`
 
@@ -47,8 +50,6 @@ var config
 
 var mainWindow
 
-let self = this
-
 init()
 
 /**
@@ -77,6 +78,8 @@ function init() {
 	listenMessages()
 
 	log.debug(`app start, version ${util.getVersion()}`)
+
+	installReport()
 }
 
 function initLog() {
@@ -150,24 +153,10 @@ function createWindow() {
  * 监听事件
  */
 function listenEvents() {
-	app.on('ready', _ => {
-		log.debug('app ready')
-
-		is.dev() && args.devTool && debug({showDevTools: true})
-
-		loadConfig().then(data => {
-			config = data
-
-			createWindow()
-			loadBoards()
-		})
-	})
+	app.on('ready', onAppReady)
 	.on('window-all-closed', _ => process.platform !== 'darwin' && app.quit())
 	.on('activate', _ => mainWindow === null && createWindow())
-	.on('will-quit', _ => {
-		serialPort.closeAllSerialPort()
-		util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
-	})
+	.on('will-quit', onAppWillQuit)
 	.on('quit', _ => log.debug('app quit'))
 }
 
@@ -215,9 +204,16 @@ function listenMessages() {
 	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	
-	listenMessage("saveToken", token => saveToken(token))
-	listenMessage("getToken", key => getToken(key))
-	listenMessage("removeToken", _ => util.removeFile(path.join(util.getAppDataPath(), "token"), true))
+	listenMessage("setToken", value => token.set(value))
+	listenMessage("saveToken", value => token.save(value))
+	listenMessage("loadToken", key => token.load(key))
+	listenMessage("removeToken", _ => token.remove())
+
+	listenMessage("syncSetBaseUrl", url => sync.setBaseUrl(url))
+	listenMessage("syncList", _ => sync.list())
+	listenMessage("syncUpload", filePath => sync.upload(filePath))
+	listenMessage("syncDelete", filePath => sync.remove(filePath))
+	listenMessage("syncDownload", (filePath, dest) => sync.download(filePath, dest))
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
@@ -250,6 +246,65 @@ function listenMessage(name, callback) {
 		}, progress => {
 			e.sender.send(eventName, deferId, "notify", progress)
 		})
+	})
+}
+
+function onAppReady() {
+	log.debug('app ready')
+
+	is.dev() && args.devTool && debug({showDevTools: true})
+
+	loadConfig().then(data => {
+		config = data
+
+		createWindow()
+		loadBoards()
+		// checkIfFirstRun()
+	})
+}
+
+function onAppWillQuit() {
+	serialPort.closeAllSerialPort()
+	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+}
+
+function checkIfFirstRun() {
+	if(is.dev() || config.version == util.getVersion()) {
+		return
+	}
+
+	config.version = util.getVersion()
+	writeConfig()
+}
+
+function installReport() {
+	if(is.dev() || !config.installReportFail) {
+		return
+	}
+
+	var appInfo = util.getAppInfo()
+	var installInfo = {
+		version: appInfo.version,
+		platform: appInfo.platform,
+		bit: appInfo.bit,
+		ext: appInfo.ext,
+		branch: appInfo.branch,
+		feature: appInfo.feature,
+		installTime: parseInt(new Date().getTime() / 1000),
+	}
+	var url = "http://userver.kenrobot.com/statistics/installations"
+	util.request(url, {
+		method: "post",
+		data: {
+			data: JSON.stringify(installInfo)
+		}
+	}).then(_ => {
+		delete config.installReportFail
+	}, err => {
+		err && log.error(err)
+		config.installReportFail = true
+	}).fin(_ => {
+		writeConfig()
 	})
 }
 
@@ -1035,49 +1090,6 @@ function matchBoardNames(ports) {
 			}
 		})
 		deferred.resolve(ports)
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-function saveToken(token) {
-	var deferred = Q.defer()
-
-	var key = crypto.randomBytes(128)
-	util.writeFile(path.join(util.getAppDataPath(), "token"), util.encrypt(JSON.stringify(token), key)).then(_ => {
-		deferred.resolve(key.toString("hex"))
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-
-function getToken(key) {
-	var deferred = Q.defer()
-
-	var tokenPath = path.join(util.getAppDataPath(), "token")
-	if(!fs.existsSync(tokenPath)) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-
-		return deferred.promise
-	}
-	
-	util.readFile(tokenPath).then(content => {
-		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
-		try {
-			var token = JSON.parse(plainText)
-			deferred.resolve(token)
-		} catch (ex) {
-			deferred.reject()
-		}
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)

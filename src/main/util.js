@@ -17,6 +17,13 @@ const fetch = require('node-fetch')
 
 const PACKAGE = require('../package')
 
+const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
+uHt34Sac1Arm6F2QUzsdUEUmvGyLIOIGcdb+F6pTdx4ftY+wZi7Aomp4k3vNqXmX
+T0mE0vpQlCmsPUcMHXuUi93XTGPxLXIv9NXxCJZXSYI0JeyuhT9/ithrYlbMlyNc
+wKB/BwSpp+Py2MTT2wIDAQAB
+-----END PUBLIC KEY-----`
+
 is.dev() && app.setName(PACKAGE.name)
 
 const defers = {}
@@ -58,6 +65,7 @@ function getVersion() {
  * 获取系统信息
  */
 function getAppInfo() {
+	log.debug("aaaa")
 	var info = {
 		bit: isX64() ? 64 : 32,
 		arch: process.arch,
@@ -183,11 +191,34 @@ function decrypt(cryptedText, key, algorithm) {
 	return plainText
 }
 
+function rsa_encrypt(plain, key) {
+	key = key || PUBLIC_KEY
+    var buffer = new Buffer(plain)
+    var encrypted = crypto.publicEncrypt(key, buffer)
+    return encrypted.toString("base64")
+}
+
+function rsa_decrypt(encrypted, key) {
+    var buffer = new Buffer(encrypted, "base64")
+    var decrypted = crypto.privateDecrypt(key, buffer)
+    return decrypted.toString("utf8")
+}
+
 function resolvePromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
 	setTimeout(_ => {
 		deferred.resolve(result)
+	}, 10)
+
+	return deferred.promise
+}
+
+function rejectPromise(result, deferred) {
+	deferred = deferred || Q.defer()
+
+	setTimeout(_ => {
+		deferred.reject(result)
 	}, 10)
 
 	return deferred.promise
@@ -494,6 +525,20 @@ function unzip(zipPath, dist, spawn) {
 	return deferred.promise
 }
 
+function zip(src, dist, type) {
+	var deferred = Q.defer()
+
+	type = type || "zip"
+	execCommand(`"${path7zah}" a -t${type} -r ${dist} ${src}`).then(_ => {
+		deferred.resolve()
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
 /**
  * 显示打开文件对话框
  * @param {*} win 父窗口
@@ -558,10 +603,10 @@ function request(url, options, json) {
 		delete options.data
 	}
 
-	log.debug(`request: ${url}, options: ${JSON.stringify(options)}`)
+	// log.debug(`request: ${url}, options: ${JSON.stringify(options)}`)
 	fetch(url, options).then(res => {
-		if(res.status >= 200 && res.status < 300) {
-			return json ? res.json() : res.text()
+		if(res.ok) {
+			return json ? res.json() : res
 		} else {
 			var error = new Error(res.statusText)
 			error.status = res.status
@@ -588,9 +633,14 @@ module.exports.postMessage = postMessage
 module.exports.getDefer = getDefer
 module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
+
 module.exports.encrypt = encrypt
 module.exports.decrypt = decrypt
+module.exports.rsa_encrypt = rsa_encrypt
+module.exports.rsa_decrypt = rsa_decrypt
+
 module.exports.resolvePromise = resolvePromise
+module.exports.rejectPromise = rejectPromise
 
 module.exports.execFile = execFile
 module.exports.execCommand = execCommand
@@ -604,6 +654,7 @@ module.exports.readJson = readJson
 module.exports.writeJson = writeJson
 
 module.exports.searchFiles = searchFiles
+module.exports.zip = zip
 module.exports.unzip = unzip
 
 module.exports.showOpenDialog = showOpenDialog
