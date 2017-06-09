@@ -1,0 +1,187 @@
+.project-dialog {
+	width: 640px;
+	height: 380px;
+	background-color: white;
+	color: white;
+	border-radius: 5px 5px 0 0;
+
+	.x-dialog-title {
+		border-radius: 5px 5px 0 0;
+		background-color: #617cff;
+		height: 40px;
+		line-height: 40px;
+		padding-left: 20px;
+		text-align: left;
+		font-size: 14px;
+	}
+
+	.x-dialog-close {
+		top: 5px;
+	}
+
+	.x-dialog-content {
+		color: #666;
+		font-size: 12px;
+
+		.toolbar {
+			height: 40px;
+			border-bottom: 1px solid #ddd;
+			padding: 8px 20px;
+			display: flex;
+
+			.x-checkbox {
+				& + label {
+					top: 5px;
+				}
+			}
+
+			.title {
+				line-height: 24px;
+				padding-right: 20px;
+				flex: 1;
+			}
+
+			.x-btn {
+				color: white;
+				border-radius: 3px;
+				height: 24px;
+				line-height: 24px;
+				background-color: #617cff;
+				padding-left: 12px;
+				padding-right: 12px;
+				transition: background-color 0.2s;
+
+				&:hover {
+					background-color: #8196ff;
+				}
+			}
+
+			.new-project {
+				margin-right: 12px;
+			}
+
+			.delete-project {
+
+			}
+		}
+
+		.list {
+			height: 300px;
+			position: relative;
+
+			li {
+				height: 30px;
+				line-height: 30px;
+				border-top: 1px solid transparent;
+				border-bottom: 1px solid transparent;
+				padding-left: 20px;
+				display: flex;
+
+				&:hover {
+					border-top-color: #ddd;
+					border-bottom-color: #ddd;
+				}
+
+				&:first-of-type {
+					border-top-color: transparent;
+				}
+
+				&:last-of-type {
+					border-bottom-color: transparent;
+				}
+
+				.x-checkbox {
+					& + label {
+						top: 8px;
+					}
+				}
+
+				.title-wrap {
+					width: 226px;
+					margin-right: 40px;
+				}
+
+				.title {
+					max-width: 226px;
+					display: inline-block;
+					cursor: pointer;
+					transition: color 0.2s;
+
+					&:hover {
+						color: #0088ff;
+					}
+				}
+
+				.type {
+					width: 60px;
+					margin-right: 40px;
+				}
+
+				.modify-time {
+					width: 105px;
+					margin-right: 40px;
+				}
+
+				.actions {
+					width: 55px;
+					margin-right: 20px;
+					padding-left: 5px;
+
+					i {
+						cursor: pointer;
+						transition: color 0.2s;
+
+						&:hover {
+							color: #0088ff;
+						}
+					}
+				}
+			}
+		}
+
+		.x-checkbox {
+			display: none;
+
+			& + label {
+				font-weight: normal;
+				margin-bottom: 0;
+				position: relative;
+				margin-right: 20px;
+				width: 14px;
+				height: 14px;
+				cursor: pointer;
+
+				&:before {
+					content: '';
+					width: 14px;
+					height: 14px;
+					border-radius: 3px;
+					border: 1px solid #ccc;
+					position: absolute;
+					display: block;
+					top: 0;
+					left: 0;
+				}
+
+				&:after {
+					content: '';
+					border-bottom: 1px solid #0088ff;
+					border-right: 1px solid #0088ff;
+					transform: rotate(45deg);
+					width: 5px;
+					height: 10px;
+					position: absolute;
+					left: 4px;
+					top: 0;
+					display: none;
+				}
+			}
+
+			&:checked + label {
+				&:after {
+					display: block;
+				}
+			}
+		}
+	}
+}

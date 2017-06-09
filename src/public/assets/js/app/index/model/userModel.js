@@ -1,6 +1,6 @@
 define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], function($1, config, emitor) {
 	var userInfo;
-	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
 	function getUserId() {
 		return userInfo ? userInfo.user_id : 0;
@@ -26,8 +26,9 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 			return promise;
 		}
 
-		kenrobot.postMessage("app:getToken", key).then(token => {
+		kenrobot.postMessage("app:loadToken", key).then(token => {
 			userInfo = token;
+			kenrobot.postMessage("app:setToken", userInfo);
 			promise.resolve();
 		}, err => {
 			promise.reject();
@@ -60,8 +61,8 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 			if(result.status == 0) {
 				userInfo = result.data;
 				autoLogin && saveToken();
+				kenrobot.postMessage("app:setToken", userInfo);
 			}
-
 			promise.resolve(result);
 		}, err => {
 			promise.reject(err);
@@ -85,7 +86,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		return promise;
 	}
 
-	function weixinLogin(key) {
+	function weixinLogin(key, autoLogin) {
 		var promise = $.Deferred();
 		kenrobot.postMessage("app:request", config.url.login, {
 			method: "POST",
@@ -96,6 +97,8 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		}).then(function(result) {
 			if(result.status == 0 || result.status == 1) {
 				userInfo = result.data;
+				autoLogin && saveToken();
+				kenrobot.postMessage("app:setToken", userInfo);
 			}
 			promise.resolve(result);
 		});

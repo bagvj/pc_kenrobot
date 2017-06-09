@@ -15,6 +15,7 @@ define(function() {
 				loginQrcode: "http://userver.kenrobot.com/api/wechat/scanlogin/token",
 				register: "http://userver.kenrobot.com/api/user/register",
 				findPassword: "http://userver.kenrobot.com/password/email",
+				projectSync: "http://server0.kenrobot.com/api/project/sync"
 			},
 			arduinoDriver: {
 				checksum: {

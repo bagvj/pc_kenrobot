@@ -37,6 +37,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
+		kenrobot.postMessage("app:syncSetBaseUrl", config.url.projectSync);
+		
 		userModel.loadToken().always(_ => {
 			emitor.trigger("user", "update");
 		});

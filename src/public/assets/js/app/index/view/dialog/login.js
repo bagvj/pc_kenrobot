@@ -273,8 +273,9 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		}
 
 		var qrcode = tabs.filter(".tab-weixin").find(".qrcode");
+		var autoLogin = tabs.filter(".tab-login").find('.auto-login');
 		qrcodeLoginTimer = setInterval(function() {
-			userModel.weixinLogin(qrcode.data("key")).then(onWeixinLogin);
+			userModel.weixinLogin(qrcode.data("key"), autoLogin.is(":checked")).then(onWeixinLogin);
 		}, 3000);
 	}
 

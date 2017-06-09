@@ -6,7 +6,9 @@ const querystring = require('querystring')
 const crypto = require('crypto')
 
 const util = require('./util')
+const token = require('./token')
 const serialPort = require('./serialPort') //串口
+const sync = require('./sync') //同步
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -17,6 +19,7 @@ const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const express = require('express')
+
 const httpPort = 8778
 const baseUrl = `http://localhost:${httpPort}`
 
@@ -71,10 +74,12 @@ function init() {
 		app.quit()
 	}
 
-	listenEvent()
-	listenMessage()
+	listenEvents()
+	listenMessages()
 
 	log.debug(`app start, version ${util.getVersion()}`)
+
+	installReport()
 }
 
 function initLog() {
@@ -147,346 +152,159 @@ function createWindow() {
 /**
  * 监听事件
  */
-function listenEvent() {
-	app.on('ready', _ => {
-		log.debug('app ready')
-
-		is.dev() && args.devTool && debug({showDevTools: true})
-
-		loadConfig().then(data => {
-			config = data
-
-			createWindow()
-			loadBoards()
-		})
-	})
-	.on('window-all-closed', _ => {
-		if (process.platform !== 'darwin') {
-			app.quit()
-		}
-	})
-	.on('activate', _ => {
-		if (mainWindow === null) {
-			createWindow()
-		}
-	})
-	.on('will-quit', _ => {
-		serialPort.closeAllSerialPort()
-		util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
-	})
-	.on('quit', _ => {
-		log.debug('app quit')
-	})
+function listenEvents() {
+	app.on('ready', onAppReady)
+	.on('window-all-closed', _ => process.platform !== 'darwin' && app.quit())
+	.on('activate', _ => mainWindow === null && createWindow())
+	.on('will-quit', onAppWillQuit)
+	.on('quit', _ => log.debug('app quit'))
 }
 
 /**
  * 监听消息
  */
-function listenMessage() {
-	ipcMain.on('app:reload', (e, deferId) => {
-		mainWindow.reload()
-		e.sender.send('app:reload', deferId, true, true)
-	})
-	.on('app:min', (e, deferId) => {
-		mainWindow.minimize()
-		e.sender.send('app:min', deferId, true, true)
-	})
-	.on('app:max', (e, deferId) => {
+function listenMessages() {
+	listenMessage("getAppInfo", _ => util.resolvePromise(util.getAppInfo()))
+	listenMessage("getBaseUrl", _ => util.resolvePromise(baseUrl))
+
+	listenMessage("execFile", exePath => util.execFile(exePath))
+	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
+	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
+	listenMessage("readFile", (filePath, options) => util.readFile(filePath, options))
+	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
+	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
+	listenMessage("removeFile", filePath => util.removeFile(filePath))
+	listenMessage("showOpenDialog", options => util.showOpenDialog(mainWindow, options))
+	listenMessage("showSaveDialog", options => util.showSaveDialog(mainWindow, options))
+	listenMessage("request", (url, options, json) => util.request(url, options, json))
+	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
+	listenMessage("openUrl", url => url && shell.openExternal(url))
+
+	listenMessage("listSerialPort", _ => listSerialPort())
+	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
+	listenMessage("writeSerialPort", (portId, buffer) => serialPort.writeSerialPort(portId, buffer))
+	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
+	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
+	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
+	
+	listenMessage("saveProject", (projectPath, projectInfo, isTemp) => saveProject(projectPath, projectInfo, isTemp))
+	listenMessage("openProject", (projectPath, type) => openProject(projectPath, type))
+	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
+	listenMessage("upload", (projectPath, options) => beforeUpload(projectPath, options))
+	listenMessage("upload2", (projectPath, comName, options) => upload(projectPath, comName, options))
+	
+	listenMessage("download", (url, options) => download(url, options))
+	listenMessage("installDriver", driverPath => installDriver(driverPath))
+	listenMessage("loadExamples", _ => loadExamples())
+	listenMessage("openExample", (category, name) => openExample(category, name))
+	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
+	listenMessage("loadPackages", _ => loadPackages())
+	listenMessage("deletePackage", name => deletePackage(name))
+
+	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
+	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
+	
+	listenMessage("setToken", value => token.set(value))
+	listenMessage("saveToken", value => token.save(value))
+	listenMessage("loadToken", key => token.load(key))
+	listenMessage("removeToken", _ => token.remove())
+
+	listenMessage("syncSetBaseUrl", url => sync.setBaseUrl(url))
+	listenMessage("syncList", _ => sync.list())
+	listenMessage("syncUpload", filePath => sync.upload(filePath))
+	listenMessage("syncDelete", filePath => sync.remove(filePath))
+	listenMessage("syncDownload", (filePath, dest) => sync.download(filePath, dest))
+
+	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
+	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
+	listenMessage("quit", _ => app.quit())
+	listenMessage("reload", _ => mainWindow.reload())
+	listenMessage("fullscreen", _ => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
+	listenMessage("min", _ => mainWindow.minimize())
+	listenMessage("max", _ => {
 		if(mainWindow.isFullScreen()) {
 			mainWindow.setFullScreen(false)
 		} else {
 			mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
 		}
-		e.sender.send('app:max', deferId, true, true)
 	})
-	.on('app:fullscreen', (e, deferId) => {
-		var fullscreen = !mainWindow.isFullScreen()
-		mainWindow.setFullScreen(fullscreen)
-		e.sender.send('app:fullscreen', deferId, true, fullscreen)
-	})
-	.on('app:quit', (e, deferId) => {
-		app.quit()
-	}).on('app:openUrl', (e, deferId, url) => {
-		var success = url && shell.openExternal(url)
-		e.sender.send('app:openUrl', deferId, success, success)
-	})
-	.on('app:execFile', (e, deferId, exePath) => {
-		util.execFile(exePath).then(stdout => {
-			e.sender.send("app:execFile", deferId, true, stdout)
-		}, err => {
-			e.sender.send("app:execFile", deferId, false, err)
-		})
-	})
-	.on('app:execCommand', (e, deferId, command, options) => {
-		util.execCommand(command, options).then(stdout => {
-			e.sender.send('app:execCommand', deferId, true, stdout)
-		}, err => {
-			e.sender.send('app:execCommand', deferId, false, err)
-		})
-	})
-	.on('app:spawnCommand', (e, deferId, command, args, options) => {
-		util.spawnCommand(command, args, options).then(stdout => {
-			e.sender.send('app:spawnCommand', deferId, true, stdout)
-		}, stderr => {
-			e.sender.send('app:spawnCommand', deferId, false, stderr)
-		}, progress => {
-			e.sender.send('app:spawnCommand', deferId, "notify", progress)
-		})
-	})
-	.on('app:readFile', (e, deferId, filePath, options) => {
-		util.readFile(filePath, options).then(data => {
-			e.sender.send('app:readFile', deferId, true, data)
-		}, err => {
-			e.sender.send('app:readFile', deferId, false, err)
-		})
-	})
-	.on('app:writeFile', (e, deferId, filePath, data) => {
-		util.writeFile(filePath, data).then(result => {
-			e.sender.send('app:writeFile', deferId, true, result)
-		}, err => {
-			e.sender.send('app:writeFile', deferId, false, err)
-		})
-	})
-	.on('app:moveFile', (e, deferId, src, dst, options) => {
-		util.moveFile(src, dst, options).then(result => {
-			e.sender.send('app:moveFile', deferId, true, result)
-		}, err => {
-			e.sender.send('app:moveFile', deferId, false, err)
-		})
-	})
-	.on('app:removeFile', (e, deferId, filePath) => {
-		util.removeFile(filePath).then(result => {
-			e.sender.send('app:removeFile', deferId, true, result)
-		}, err => {
-			e.sender.send('app:removeFile', deferId, false, err)
-		})
-	})
-	.on('app:showOpenDialog', (e, deferId, options) => {
-		util.showOpenDialog(mainWindow, options).then(result => {
-			e.sender.send('app:showOpenDialog', deferId, true, result)
-		}, err => {
-			e.sender.send('app:showOpenDialog', deferId, false, err)
-		})
-	})
-	.on('app:showSaveDialog', (e, deferId, options) => {
-		util.showSaveDialog(mainWindow, options).then(result => {
-			e.sender.send('app:showSaveDialog', deferId, true, result)
-		}, err => {
-			e.sender.send('app:showSaveDialog', deferId, false, err)
-		})
-	})
-	.on('app:saveProject', (e, deferId, projectPath, projectInfo, isTemp) => {
-		saveProject(projectPath, projectInfo, isTemp).then(result => {
-			e.sender.send('app:saveProject', deferId, true, result)
-		}, err => {
-			e.sender.send('app:saveProject', deferId, false, err)
-		})
-	})
-	.on('app:openProject', (e, deferId, projectPath, type) => {
-		openProject(projectPath, type).then(data => {
-			e.sender.send('app:openProject', deferId, true, data)
-		}, err => {
-			e.sender.send('app:openProject', deferId, false, err)
-		})	
-	})
-	.on('app:buildProject', (e, deferId, projectPath, options) => {
-		buildProject(projectPath, options).then(result => {
-			e.sender.send('app:buildProject', deferId, true, result)
-		}, err => {
-			e.sender.send('app:buildProject', deferId, false, err)
-		}, progress => {
-			e.sender.send('app:buildProject', deferId, "notify", progress)
-		})
-	})
-	.on('app:upload', (e, deferId, projectPath, options) => {
-		listSerialPort().then(ports => {
-			if(ports.length == 1) {
-				upload(projectPath, ports[0].comName, options).then(result => {
-					e.sender.send('app:upload', deferId, true, result)
-				}, err => {
-					e.sender.send('app:upload', deferId, false, err)
-				}, progress => {
-					e.sender.send('app:upload', deferId, "notify", progress)
-				})
-			} else {
-				e.sender.send('app:upload', deferId, false, {
-					status: "SELECT_PORT",
-					ports: ports,
-				})
-			}
-		}, _ => {
-			e.sender.send('app:upload', deferId, false, {
-				status: "NOT_FOUND_PORT"
-			})
-		})
-	})
-	.on('app:upload2', (e, deferId, projectPath, comName, options) => {
-		upload(projectPath, comName, options).then(result => {
-			e.sender.send('app:upload2', deferId, true, result)
-		}, err => {
-			e.sender.send('app:upload2', deferId, false, err)
-		}, progress => {
-			e.sender.send('app:upload2', deferId, "notify", progress)
-		})
-	})
-	.on('app:listSerialPort', (e, deferId) => {
-		listSerialPort().then(ports => {
-			e.sender.send('app:listSerialPort', deferId, true, ports)
-		}, err => {
-			e.sender.send('app:listSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:openSerialPort', (e, deferId, comName, options) => {
-		openSerialPort(comName, options).then(portId => {
-			e.sender.send('app:openSerialPort', deferId, true, portId)
-		}, err => {
-			e.sender.send('app:openSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:writeSerialPort', (e, deferId, portId, buffer) => {
-		serialPort.writeSerialPort(portId, buffer).then(result => {
-			e.sender.send('app:writeSerialPort', deferId, true, result)
-		}, err => {
-			e.sender.send('app:writeSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:closeSerialPort', (e, deferId, portId) => {
-		serialPort.closeSerialPort(portId).then(result => {
-			e.sender.send('app:closeSerialPort', deferId, true, result)
-		}, err => {
-			e.sender.send('app:closeSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:updateSerialPort', (e, deferId, portId, options) => {
-		serialPort.updateSerialPort(portId, options).then(result => {
-			e.sender.send('app:updateSerialPort', deferId, true, result)
-		}, err => {
-			e.sender.send('app:updateSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:flushSerialPort', (e, deferId, portId) => {
-		serialPort.flushSerialPort(portId).then(result => {
-			e.sender.send('app:flushSerialPort', deferId, true, result)
-		}, err => {
-			e.sender.send('app:flushSerialPort', deferId, false, err)
-		})
-	})
-	.on('app:errorReport', (e, deferId, error) => {
+	listenMessage("errorReport", err => {
 		log.error(`------ error message ------`)
-		log.error(`${error.message}(${error.src} at line ${error.line}:${error.col})`)
-		log.error(`${error.stack}`)
-		e.sender.send('app:errorReport', deferId, true, true)
+		log.error(`${err.message}(${err.src} at line ${err.line}:${err.col})`)
+		log.error(`${err.stack}`)
 	})
-	.on('app:log', (e, deferId, text, level) => {
-		var method = log[level] || log.debug
-		method.bind(log).call(text)
-		e.sender.send('app:log', deferId, true, true)
-	})
-	.on('app:getAppInfo', (e, deferId) => {
-		e.sender.send('app:getAppInfo', deferId, true, util.getAppInfo())
-	})
-	.on('app:download', (e, deferId, url, options) => {
-		download(url, options).then(result => {
-			e.sender.send('app:download', deferId, true, result)
+}
+
+function listenMessage(name, callback) {
+	var eventName = `app:${name}`
+	ipcMain.on(eventName, (e, deferId, ...args) => {
+		var promise = callback.apply(this, args) || util.resolvePromise()
+		promise.then(result => {
+			e.sender.send(eventName, deferId, true, result)
 		}, err => {
-			e.sender.send('app:download', deferId, false, err)
+			e.sender.send(eventName, deferId, false, err)
 		}, progress => {
-			e.sender.send('app:download', deferId, "notify", progress)
+			e.sender.send(eventName, deferId, "notify", progress)
 		})
 	})
-	.on('app:installDriver', (e, deferId, driverPath) => {
-		installDriver(driverPath).then(result => {
-			e.sender.send('app:installDriver', deferId, true, result)
-		}, err => {
-			e.sender.send('app:installDriver', deferId, false, err)
-		})
+}
+
+function onAppReady() {
+	log.debug('app ready')
+
+	is.dev() && args.devTool && debug({showDevTools: true})
+
+	loadConfig().then(data => {
+		config = data
+
+		createWindow()
+		loadBoards()
+		// checkIfFirstRun()
 	})
-	.on('app:loadExamples', (e, deferId) => {
-		loadExamples().then(examples => {
-			e.sender.send('app:loadExamples', deferId, true, examples)
-		}, err => {
-			e.sender.send('app:loadExamples', deferId, false, err)
-		})
-	})
-	.on("app:openExample", (e, deferId, category, name) => {
-		openExample(category, name).then(projectInfo => {
-			e.sender.send('app:openExample', deferId, true, projectInfo)
-		}, err => {
-			e.sender.send('app:openExample', deferId, false, err)
-		})
-	})
-	.on("app:copy", (e, deferId, text, type) => {
-		clipboard.writeText(text, type)
-		e.sender.send("app:copy", deferId, true, true)
-	})
-	.on('app:unzipPackage', (e, deferId, packagePath) => {
-		unzipPackage(packagePath).then(result => {
-			e.sender.send('app:unzipPackage', deferId, true, result)
-		}, err => {
-			e.sender.send('app:unzipPackage', deferId, false, err)
-		}, progress => {
-			e.sender.send('app:unzipPackage', deferId, "notify", progress)
-		})
-	})
-	.on("app:loadPackages", (e, deferId) => {
-		loadPackages().then(packages => {
-			e.sender.send('app:loadPackages', deferId, true, packages)
-		}, err => {
-			e.sender.send('app:loadPackages', deferId, false, err)
-		})
-	})
-	.on("app:deletePackage", (e, deferId, name) => {
-		deletePackage(name).then(result => {
-			e.sender.send("app:deletePackage", deferId, true, result)
-		}, err => {
-			e.sender.send("app:deletePackage", deferId, false, err)
-		})
-	})
-	.on("app:checkUpdate", (e, deferId, checkUrl) => {
-		checkUpdate(checkUrl).then(updateInfo => {
-			e.sender.send("app:checkUpdate", deferId, true, updateInfo)
-		}, err => {
-			e.sender.send("app:checkUpdate", deferId, false, err)
-		})
-	})
-	.on("app:removeOldVersions", (e, deferId, newVersion) => {
-		removeOldVersions(newVersion).then(result => {
-			e.sender.send("app:removeOldVersions", deferId, true, result)
-		}, err => {
-			e.sender.send("app:removeOldVersions", deferId, false, err)
-		})
-	})
-	.on("app:request", (e, deferId, url, options, json) => {
-		util.request(url, options, json).then(result => {
-			e.sender.send("app:request", deferId, true, result)
-		}, err => {
-			e.sender.send("app:request", deferId, false, err)
-		})
-	})
-	.on("app:showItemInFolder", (e, deferId, filePath) => {
-		shell.showItemInFolder(path.normalize(filePath))
-		e.sender.send("app:showItemInFolder", deferId, true, true)
-	})
-	.on("app:saveToken", (e, deferId, token) => {
-		saveToken(token).then(key => {
-			e.sender.send("app:saveToken", deferId, true, key)
-		}, err => {
-			e.sender.send("app:saveToken", deferId, false, err)
-		})
-	})
-	.on("app:getToken", (e, deferId, key) => {
-		getToken(key).then(token => {
-			e.sender.send("app:getToken", deferId, true, token)
-		}, err => {
-			e.sender.send("app:getToken", deferId, false, err)
-		})
-	})
-	.on("app:removeToken", (e, deferId) => {
-		util.removeFile(path.join(util.getAppDataPath(), "token"), true)
-		e.sender.send("app:removeToken", deferId, true, true)
-	})
-	.on("app:getBaseUrl", (e, deferId) => {
-		e.sender.send("app:getBaseUrl", deferId, true, baseUrl)
+}
+
+function onAppWillQuit() {
+	serialPort.closeAllSerialPort()
+	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+}
+
+function checkIfFirstRun() {
+	if(is.dev() || config.version == util.getVersion()) {
+		return
+	}
+
+	config.version = util.getVersion()
+	writeConfig()
+}
+
+function installReport() {
+	if(is.dev() || !config.installReportFail) {
+		return
+	}
+
+	var appInfo = util.getAppInfo()
+	var installInfo = {
+		version: appInfo.version,
+		platform: appInfo.platform,
+		bit: appInfo.bit,
+		ext: appInfo.ext,
+		branch: appInfo.branch,
+		feature: appInfo.feature,
+		installTime: parseInt(new Date().getTime() / 1000),
+	}
+	var url = "http://userver.kenrobot.com/statistics/installations"
+	util.request(url, {
+		method: "post",
+		data: {
+			data: JSON.stringify(installInfo)
+		}
+	}).then(_ => {
+		delete config.installReportFail
+	}, err => {
+		err && log.error(err)
+		config.installReportFail = true
+	}).fin(_ => {
+		writeConfig()
 	})
 }
 
@@ -517,12 +335,12 @@ function checkUpdate(checkUrl) {
 function removeOldVersions(newVersion) {
 	var deferred = Q.defer()
 
-	// if(is.dev()) {
-	// 	setTimeout(_ => {
-	// 		deferred.resolve()
-	// 	}, 10)
-	// 	return deferred.promise
-	// }
+	if(is.dev()) {
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+		return deferred.promise
+	}
 
 	var info = util.getAppInfo()
 	var downloadPath = path.join(util.getAppDataPath(), "download")
@@ -1094,6 +912,33 @@ function preBuild(projectPath, options) {
 	return deferred.promise
 }
 
+function beforeUpload(projectPath, options) {
+	var deferred = Q.defer()
+
+	listSerialPort().then(ports => {
+		if(ports.length == 1) {
+			upload(projectPath, ports[0].comName, options).then(result => {
+				deferred.resolve(result)
+			}, err => {
+				deferred.reject(err)
+			}, progress => {
+				deferred.notify(progress)
+			})
+		} else {
+			deferred.reject({
+				status: "SELECT_PORT",
+				ports: ports,
+			})
+		}
+	}, _ => {
+		deferred.reject({
+			status: "NOT_FOUND_PORT"
+		})
+	})
+
+	return deferred.promise
+}
+
 /**
  * 上传
  * @param {*} projectPath 项目路径
@@ -1245,49 +1090,6 @@ function matchBoardNames(ports) {
 			}
 		})
 		deferred.resolve(ports)
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-function saveToken(token) {
-	var deferred = Q.defer()
-
-	var key = crypto.randomBytes(128)
-	util.writeFile(path.join(util.getAppDataPath(), "token"), util.encrypt(JSON.stringify(token), key)).then(_ => {
-		deferred.resolve(key.toString("hex"))
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-
-function getToken(key) {
-	var deferred = Q.defer()
-
-	var tokenPath = path.join(util.getAppDataPath(), "token")
-	if(!fs.existsSync(tokenPath)) {
-		setTimeout(_ => {
-			deferred.reject()
-		}, 10)
-
-		return deferred.promise
-	}
-	
-	util.readFile(tokenPath).then(content => {
-		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
-		try {
-			var token = JSON.parse(plainText)
-			deferred.resolve(token)
-		} catch (ex) {
-			deferred.reject()
-		}
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
