@@ -117,3 +117,7 @@
 #### fix bugs
 
 - 修复少数情况下第一次登录会失败的bug
+
+#### features
+
+- [scratch 3] 继续优化
