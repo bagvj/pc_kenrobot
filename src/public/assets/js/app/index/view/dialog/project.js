@@ -27,39 +27,29 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function update() {
-		var data = [{
-			name: "Blink",
-			type: "edu",
-			modify_time: 1496906096,
-		}, {
-			name: "Fade",
-			type: "ide",
-			modify_time: 1496106096,
-		}, {
-			name: "String",
-			type: "scratch2",
-			modify_time: 1496006096,
-		}, {
-			name: "Blink",
-			type: "scratch3",
-			modify_time: 1492906096,
-		}];
-
 		projectList.empty();
-		data.forEach(projectData => {
-			var uid = util.uuid(6);
-			var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd hh:mm");
-			var li = $(`<li>
-				<input class="x-checkbox" type="checkbox" id="project-${uid}" /><label for="project-${uid}"></label>
-				<span class="title-wrap"><span class="title ellipsis">${projectData.name}</span></span>
-				<span class="type">${formatProjectType(projectData.type)}</span>
-				<span class="modify-time">${time}</span>
-				<span class="actions"><i class="delete kenrobot ken-clear"></i></span>
-			</li>`);
-			projectList.append(li);
-		});
-
 		projectList.parent().perfectScrollbar("update");
+
+		kenrobot.postMessage("app:syncList").then(result => {
+			if(result.status != 0) {
+				util.message(result.message);
+				return;
+			}
+
+			result.data.forEach(projectData => {
+				var uid = util.uuid(6);
+				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd hh:mm");
+				var li = $(`<li>
+					<input class="x-checkbox" type="checkbox" id="project-${uid}" /><label for="project-${uid}"></label>
+					<span class="title-wrap"><span class="title ellipsis">${projectData.name}</span></span>
+					<span class="type">${formatProjectType(projectData.type)}</span>
+					<span class="modify-time">${time}</span>
+					<span class="actions"><i class="delete kenrobot ken-clear"></i></span>
+				</li>`);
+				projectList.append(li);
+			});
+			projectList.parent().perfectScrollbar("update");
+		});
 	}
 
 	function onNewProject() {
