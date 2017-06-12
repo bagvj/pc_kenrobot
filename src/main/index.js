@@ -211,9 +211,9 @@ function listenMessages() {
 
 	listenMessage("syncSetBaseUrl", url => sync.setBaseUrl(url))
 	listenMessage("syncList", _ => sync.list())
-	listenMessage("syncUpload", filePath => sync.upload(filePath))
-	listenMessage("syncDelete", filePath => sync.remove(filePath))
-	listenMessage("syncDownload", (filePath, dest) => sync.download(filePath, dest))
+	listenMessage("syncUpload", (name, type) => sync.upload(name, type))
+	listenMessage("syncDelete", (name, type) => sync.remove(name, type))
+	listenMessage("syncDownload", (name, type) => sync.download(name, type))
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
@@ -396,11 +396,7 @@ function writeConfig(sync) {
 	sync = sync == true
 	var configPath = path.join(util.getAppDataPath(), "config.json")
 	log.debug(`writeConfig, path: ${configPath}, sync: ${sync}`)
-	if(sync) {
-		fs.writeJsonSync(configPath, config)
-	} else {
-		return util.writeJson(configPath, config)
-	}
+	return util.writeJson(configPath, config, sync)
 }
 
 /**
