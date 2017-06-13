@@ -49,7 +49,7 @@
 				background-color: #617cff;
 				padding-left: 12px;
 				padding-right: 12px;
-				transition: background-color 0.2s;
+				transition: all 0.3s;
 
 				&:hover {
 					background-color: #8196ff;
@@ -57,11 +57,25 @@
 			}
 
 			.new-project {
-				margin-right: 12px;
+				margin-right: 0;
+				transform: translateX(48px);
 			}
 
 			.delete-project {
+				opacity: 0;
+				pointer-events: none;
+			}
 
+			&.delete-mode {
+				.new-project {
+					margin-right: 12px;
+					transform: translateX(0);
+				}
+
+				.delete-project {
+					opacity: 1;
+					pointer-events: auto;
+				}
 			}
 		}
 
@@ -80,15 +94,16 @@
 				&:hover {
 					border-top-color: #ddd;
 					border-bottom-color: #ddd;
+
+					.actions {
+						pointer-events: auto;
+						opacity: 1;
+					}
 				}
 
 				&:first-of-type {
 					border-top-color: transparent;
 				}
-
-				// &:last-of-type {
-				// 	border-bottom-color: transparent;
-				// }
 
 				.x-checkbox {
 					& + label {
@@ -126,10 +141,14 @@
 					width: 55px;
 					margin-right: 20px;
 					padding-left: 5px;
+					pointer-events: none;
+					opacity: 0;
 
 					i {
 						cursor: pointer;
 						transition: color 0.2s;
+						font-size: 20px;
+						color: #999;
 
 						&:hover {
 							color: #0088ff;
