@@ -7,6 +7,8 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	}
 
 	function onAppStart() {
+		registerShortcut();
+		
 		$.when(loadBoards(), loadExamples()).then((boardMenu, exampleMenu) => {
 			var optionsMenuItem = menu.find(menuItem => menuItem.id && menuItem.id == "options");
 			var boardMenuItem = optionsMenuItem.menu.find(menuItem => menuItem.id && menuItem.id == "boards");
@@ -91,16 +93,16 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 
 	function onMenuAction(action, extra, li) {
 		switch (action) {
-			case "new":
+			case "new-project":
 				emitor.trigger('project', 'new');
 				break;
-			case "open":
+			case "open-project":
 				emitor.trigger('project', 'open');
 				break;
-			case "save":
+			case "save-project":
 				emitor.trigger('project', 'save');
 				break;
-			case "save-as":
+			case "save-as-project":
 				emitor.trigger('project', 'save', true);
 				break;
 			case "toggle-comment":
@@ -144,6 +146,47 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 
 	function hideMenu() {
 		$('.x-select, .x-context-menu').removeClass("active");
+	}
+
+	function onShortcut(name) {
+		switch(name) {
+			case "new-project":
+				onMenuAction("new-project");
+				break;
+			case "open-project":
+				onMenuAction("open-project");
+				break;
+			case "save-project":
+				onMenuAction("save-project");
+				break;
+			case "save-as-project":
+				onMenuAction("save-as-project");
+				break;
+		}
+	}
+
+	function registerShortcut() {
+		var shortcuts = [{
+			key: ["ctrl+n", "command+n"],
+			name: "new-project"
+		}, {
+			key: ["ctrl+o", "command+o"],
+			name: "open-project"
+		}, {
+			key: ["ctrl+s", "command+s"],
+			name: "save-project"
+		}, {
+			key: ["ctrl+shift+s", "command+shift+s"],
+			name: "save-as-project"
+		}];
+
+		shortcuts.forEach(function(shortcut){
+			Mousetrap.bind(shortcut.key, function() {
+				onShortcut(shortcut.name);
+
+				return false;
+			});
+		});
 	}
 
 	return {

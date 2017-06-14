@@ -53,7 +53,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				type: "success"
 			});
 		} else {
-			kenrobot.postMessage("app:openProject", null, "ino").then(function(result) {
+			kenrobot.postMessage("app:projectOpen", null, "ino").then(function(result) {
 				savePath = result.path;
 				openProject(result.code);
 				util.message({
@@ -66,7 +66,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 						text: `ino文件必须放在文件夹内，是否创建并移动?`,
 						onConfirm: _ => {
 							kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(_ => {
-								kenrobot.postMessage("app:openProject", err.newPath, "ino").then(res => {
+								kenrobot.postMessage("app:projectOpen", err.newPath, "ino").then(res => {
 									savePath = res.path;
 									openProject(res.code);
 									util.message({
@@ -208,7 +208,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
+		kenrobot.postMessage("app:projectSave", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
 			projectInfo.updated_at = result.updated_at;
 			if(saveAs && !isTemp) {
 				savePath = result.path;

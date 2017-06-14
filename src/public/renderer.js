@@ -5,7 +5,6 @@
 	module.paths.push(isDev ? path.resolve('app', 'node_modules') : path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'))
 	
 	const {ipcRenderer} = require('electron')
-	const log = require('electron-log')
 	const is = require('electron-is')
 	const Q = require('q')
 
@@ -38,8 +37,6 @@
 		var deferred = Q.defer()
 		deferAutoId++
 		defers[deferAutoId] = deferred
-
-		is.dev() && log.debug(`postMessage: ${name}, ${args.join(", ")}`)
 
 		ipcRenderer.send.apply(this, [name, deferAutoId].concat(args))
 

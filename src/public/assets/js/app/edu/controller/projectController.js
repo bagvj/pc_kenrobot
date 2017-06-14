@@ -82,7 +82,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 				type: "success"
 			});
 		} else {
-			kenrobot.postMessage("app:openProject").then(function(result) {
+			kenrobot.postMessage("app:projectOpen").then(function(result) {
 				savePath = result.path;
 				openProject(result.projectInfo);
 				util.message({
@@ -220,7 +220,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:saveProject", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
+		kenrobot.postMessage("app:projectSave", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
 			projectInfo.updated_at = result.updated_at;
 			if(saveAs && !isTemp) {
 				savePath = result.path;

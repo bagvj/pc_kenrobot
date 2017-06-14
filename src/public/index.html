@@ -27,7 +27,10 @@
 							<div class="login-menu">
 								<ul>
 									<li data-action="setting"><span>个人设置</span></li>
-									<li data-action="project"><span>项目管理</span></li>
+									<li class="seperator"></li>
+									<li data-action="project-manager"><span>项目管理</span></li>
+									<li data-action="project-sync"><span>项目同步</span></li>
+									<li class="seperator"></li>
 									<li data-action="logout"><span>退出登录</span></li>
 								</ul>
 							</div>
@@ -171,6 +174,16 @@
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-header"></div>
 					<div class="x-dialog-content"></div>
+					<div class="x-dialog-btns">
+						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
+					</div>
+				</div>
+				<div class="x-dialog prompt-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-title"></div>
+					<div class="x-dialog-content">
+						<input class="input" type="text" /> 
+					</div>
 					<div class="x-dialog-btns">
 						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
 					</div>

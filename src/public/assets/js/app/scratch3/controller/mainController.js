@@ -9,9 +9,10 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	}
 
 	function onAppStart() {
+		registerShortcut();
+		
 		kenrobot.trigger("app-menu", "load", menu, "scratch3");
 
-		
 		var timerId;
 		timerId = setInterval(_ => {
 			if(kenrobot.view && kenrobot.view.getProject) {
@@ -91,6 +92,47 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			util.message({
 				text: "保存失败",
 				type: "error",
+			});
+		});
+	}
+
+	function onShortcut(name) {
+		switch(name) {
+			case "new-project":
+				onMenuAction("new-project");
+				break;
+			case "open-project":
+				onMenuAction("open-project");
+				break;
+			case "save-project":
+				onMenuAction("save-project");
+				break;
+			case "save-as-project":
+				onMenuAction("save-as-project");
+				break;
+		}
+	}
+
+	function registerShortcut() {
+		var shortcuts = [{
+			key: ["ctrl+n", "command+n"],
+			name: "new-project"
+		}, {
+			key: ["ctrl+o", "command+o"],
+			name: "open-project"
+		}, {
+			key: ["ctrl+s", "command+s"],
+			name: "save-project"
+		}, {
+			key: ["ctrl+shift+s", "command+shift+s"],
+			name: "save-as-project"
+		}];
+
+		shortcuts.forEach(function(shortcut){
+			Mousetrap.bind(shortcut.key, function() {
+				onShortcut(shortcut.name);
+
+				return false;
 			});
 		});
 	}

@@ -37,7 +37,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
-		kenrobot.postMessage("app:syncSetBaseUrl", config.url.projectSync);
+		kenrobot.postMessage("app:projectSyncUrl", config.url.projectSync);
 		
 		userModel.loadToken().always(_ => {
 			emitor.trigger("user", "update");
@@ -47,11 +47,14 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			baseUrl = url;
 
 			setTimeout(_ => {
-				onSwitch("edu");
+				onSwitch("scratch2");
 
 				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-				setTimeout(function() {
+				setTimeout(_ => {
 					onCheckUpdate(false);
+
+					//项目同步
+					kenrobot.postMessage("app:projectSync");
 				}, 3000);
 			}, 400);
 		});
@@ -94,9 +97,9 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 					util.confirm({
 						text: "驱动下载成功，是否安装?",
 						onConfirm: () => {
-							kenrobot.postMessage("app:installDriver", result.path).then(function() {
+							kenrobot.postMessage("app:installDriver", result.path).then(_ => {
 								util.message("驱动安装成功");
-							}, function(err) {
+							}, err => {
 								util.message({
 									text: "驱动安装失败",
 									type: "error"
@@ -151,6 +154,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		kenrobot.trigger("app", "will-leave");
 		iframe.src = `${baseUrl}/${type}`;
 		pace.restart();
+
+		kenrobot.viewType = type;
 	}
 
 	function onFullscreenChange(fullscreen) {

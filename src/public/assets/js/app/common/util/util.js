@@ -144,13 +144,13 @@ define(['vendor/jquery'], function() {
 		}
 
 		$('.x-dialog-btns .confirm', dialogWin).off('click').on('click', function() {
-			if (!onClosing || onClosing() != false) {
+			if (!onClosing || onClosing("confirm") != false) {
 				doClose(onConfirm);
 			}
 		});
 
 		$('.x-dialog-close,.x-dialog-btns .cancel', dialogWin).off('click').on('click', function() {
-			if (!onClosing || onClosing() != false) {
+			if (!onClosing || onClosing("cancel") != false) {
 				doClose(onCancel);
 			}
 		});

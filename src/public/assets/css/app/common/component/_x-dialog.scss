@@ -59,9 +59,10 @@
         z-index: 10;
         position: absolute;
         cursor: pointer;
+        color: #ccc;
 
         &:hover {
-            color: #ff6666;
+            color: #999;
         }
     }
 

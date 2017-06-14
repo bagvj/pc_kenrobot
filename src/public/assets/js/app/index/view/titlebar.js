@@ -120,8 +120,15 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			case "setting":
 				util.message("敬请期待");
 				break;
-			case "project":
+			case "project-manager":
 				kenrobot.trigger("project", "show");
+				break;
+			case "project-sync":
+				kenrobot.postMessage("app:projectSync").then(_ => {
+					util.message("项目同步成功");
+				}, err => {
+					util.message("项目同步失败");
+				});
 				break;
 			case "logout":
 				kenrobot.trigger("user", "logout");

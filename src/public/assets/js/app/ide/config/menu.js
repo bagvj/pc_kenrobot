@@ -4,28 +4,28 @@ define(function() {
 		placeholder: "文件",
 		menu: [{
 			text: "新建",
-			action: "new",
+			action: "new-project",
 			shortcut: {
 				key: ["ctrl+n", "command+n"],
 				text: "Ctrl+N",
 			}
 		}, "_", {
 			text: "打开",
-			action: "open",
+			action: "open-project",
 			shortcut: {
 				key: ["ctrl+o", "command+o"],
 				text: "Ctrl+O",
 			}
 		}, {
 			text: "保存",
-			action: "save",
+			action: "save-project",
 			shortcut: {
 				key: ["ctrl+s", "command+s"],
 				text: "Ctrl+S",
 			}
 		}, {
 			text: "另存为",
-			action: "save-as",
+			action: "save-as-project",
 			shortcut: {
 				key: ["ctrl+shift+s", "command+shift+s"],
 				text: "Ctrl+Shift+S",

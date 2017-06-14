@@ -22,7 +22,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function onShow(args) {
-		setTimeout(() => update(), 200);
+		setTimeout(() => update(), 500);
 		util.dialog({
 			selector: dialogWin,
 			onClosed: onClosed,
@@ -35,14 +35,10 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function update() {
-		kenrobot.postMessage("app:syncList").then(result => {
-			if(result.status != 0) {
-				util.message(result.message);
-				return;
-			}
-
-			var data = _.sortBy(result.data, ["modify_time"]);
-			data.reverse().forEach(projectData => {
+		var viewType = kenrobot.viewType
+		kenrobot.postMessage("app:projectList", viewType).then(list => {
+			list = _.sortBy(list, ["modify_time"]);
+			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
 				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd hh:mm");
 				var li = $(`<li>
@@ -62,6 +58,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				.off("click", "li .actions > i", onActionClick).on("click", "li .actions > i", onActionClick);
 
 			projectList.parent().perfectScrollbar("update");
+		}, err => {
+			util.message({
+				text: "获取项目同步列表失败",
+				type: "error",
+			});
 		});
 	}
 
@@ -95,7 +96,12 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var name = li.data("name");
 		var type = li.data("type");
 
-		console.log("project action", action, name, type);
+		if(action == "delete") {
+			util.confirm({
+				text: `确定要删除项目“${name}”吗？`,
+				onConfirm: () => deleteProject(name, type),
+			});
+		}
 
 		return false;
 	}
@@ -111,11 +117,57 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function onNewProject(e) {
-
+		dialogWin.find(".x-dialog-close").trigger("click");
+		setTimeout(() => {
+			kenrobot.trigger("app-menu", "do-action", "new-project");
+		}, 400);
 	}
 
 	function onDeleteProject(e) {
-		
+		var checks = projectList.find("li .x-checkbox:checked");
+		var items = Array.from(checks).map(item => {
+			return {
+				name: $(item).data("name"),
+				type: $(item).data("type"),
+			};
+		});
+
+		var doDelete = function() {
+			if(items.length == 0) {
+				return;
+			}
+
+			var item = items.shift();
+			deleteProject(item.name, item.type);
+			setTimeout(() => doDelete(), 1000);
+		}
+
+		util.confirm({
+			text: `确定要删除这些项目吗？`,
+			onConfirm: () => doDelete(),
+		});
+	}
+
+	function deleteProject(name, type) {
+		kenrobot.postMessage("app:projectDelete", name, type).then(() => {
+			onDeleteProjectSuccess(name, type);
+			util.message(`删除项目“${name}”成功`);
+		}, err => {
+			util.message(`删除项目“${name}”失败`);
+		});
+	}
+
+	function onDeleteProjectSuccess(name, type) {
+		var deletedLi = projectList.find("li").filter((index, item) => {
+			var li = $(item);
+			return li.data("name") == name && li.data("type") == type;
+		});
+
+		deletedLi.remove();
+	}
+
+	function onNewProjectSuccess(projectData) {
+
 	}
 
 	function formatProjectType(type) {

@@ -12,10 +12,12 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	}
 
 	function onAppStart() {
+		registerShortcut();
+
 		kenrobot.trigger("app-menu", "load", menu, "scratch2");
 	}
 
-	function onMenuAction(action, extra, li) {
+	function onMenuAction(action) {
 		switch (action) {
 			case "new-project":
 				scratch.newProject();
@@ -100,6 +102,47 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		var name = names[names.length - 1];
 		name = name.substring(0, name.indexOf("."));
 		scratch.setProjectName(name);
+	}
+
+	function onShortcut(name) {
+		switch(name) {
+			case "new-project":
+				onMenuAction("new-project");
+				break;
+			case "open-project":
+				onMenuAction("open-project");
+				break;
+			case "save-project":
+				onMenuAction("save-project");
+				break;
+			case "save-as-project":
+				onMenuAction("save-as-project");
+				break;
+		}
+	}
+
+	function registerShortcut() {
+		var shortcuts = [{
+			key: ["ctrl+n", "command+n"],
+			name: "new-project"
+		}, {
+			key: ["ctrl+o", "command+o"],
+			name: "open-project"
+		}, {
+			key: ["ctrl+s", "command+s"],
+			name: "save-project"
+		}, {
+			key: ["ctrl+shift+s", "command+shift+s"],
+			name: "save-as-project"
+		}];
+
+		shortcuts.forEach(function(shortcut){
+			Mousetrap.bind(shortcut.key, function() {
+				onShortcut(shortcut.name);
+
+				return false;
+			});
+		});
 	}
 
 	return {

@@ -370,7 +370,6 @@ function readFile(file, options, sync) {
 		var deferred = Q.defer()
 		options = options || "utf8"
 
-		log.debug(`readFile:${file}, options: ${JSON.stringify(options)}`)
 		fs.readFile(file, options, (err, data) => {
 			if(err) {
 				log.error(err)
@@ -396,7 +395,6 @@ function writeFile(file, data, sync) {
 	} else {
 		var deferred = Q.defer()
 
-		log.debug(`writeFile:${file}`)
 		fs.outputFile(file, data, err => {
 			if(err) {
 				log.error(err)
@@ -415,7 +413,6 @@ function moveFile(src, dst, options) {
 	var deferred = Q.defer()
 	options = options || {overwrite: true}
 
-	log.debug(`moveFile:${src} -> ${dst}`)
 	fs.move(src, dst, options, err => {
 		if(err) {
 			log.error(err)
@@ -435,12 +432,10 @@ function moveFile(src, dst, options) {
  */
 function removeFile(file, sync) {
 	if(sync) {
-		log.debug(`removeFile:${file}`)
 		fs.removeSync(file)
 	} else {
 		var deferred = Q.defer()
 
-		log.debug(`removeFile:${file}`)
 		fs.remove(file, err => {
 			if(err) {
 				log.error(err)
@@ -464,7 +459,6 @@ function readJson(file, options) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	log.debug(`readJson:${file}, options: ${JSON.stringify(options)}`)
 	fs.readJson(file, options, (err, data) => {
 		if(err) {
 			log.error(err)
@@ -492,7 +486,6 @@ function writeJson(file, data, options, sync) {
 		var deferred = Q.defer()
 		options = options || {}
 
-		log.debug(`writeJson:${file}, options: ${JSON.stringify(options)}`)
 		fs.outputJson(file, data, options, err => {
 			if(err) {
 				log.error(err)
@@ -594,6 +587,9 @@ function zip(dir, files, dist, type) {
  */
 function showOpenDialog(win, options) {
 	var deferred = Q.defer()
+
+	win = win || BrowserWindow.getAllWindows()[0]
+	
 	options = options || {}
 	options.title = "打开"
 	options.defaultPath = app.getPath("documents")
@@ -619,6 +615,9 @@ function showOpenDialog(win, options) {
  */
 function showSaveDialog(win, options) {
 	var deferred = Q.defer()
+
+	win = win || BrowserWindow.getAllWindows()[0]
+
 	options = options || {}
 	options.title = "保存"
 	options.defaultPath = app.getPath("documents")
