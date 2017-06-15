@@ -52,46 +52,51 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				text: "打开成功",
 				type: "success"
 			});
-		} else {
-			kenrobot.postMessage("app:projectOpen", null, "ino").then(function(result) {
-				savePath = result.path;
-				openProject(result.code);
-				util.message({
-					text: "打开成功",
-					type: "success"
-				});
-			}, function(err) {
-				if(err.status && err.status == "DIR_INVALID") {
-					util.confirm({
-						text: `ino文件必须放在文件夹内，是否创建并移动?`,
-						onConfirm: _ => {
-							kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(_ => {
-								kenrobot.postMessage("app:projectOpen", err.newPath, "ino").then(res => {
-									savePath = res.path;
-									openProject(res.code);
-									util.message({
-										text: "打开成功",
-										type: "success"
-									});
-								}, err1 => {
-									util.message({
-										text: "打开失败",
-										type: "error",
-									});
-								})
-							}, err1 => {
+			return
+		}
 
-							})
-						}
-					})
-				} else {
-					util.message({
-						text: "打开失败",
-						type: "error",
+		kenrobot.postMessage("app:projectOpen", null, "ino").then(function(result) {
+			savePath = result.path;
+			openProject(result.code);
+			util.message({
+				text: "打开成功",
+				type: "success"
+			});
+		}, err => {
+			if(!err || err.status != "DIR_INVALID") {
+				util.message({
+					text: "打开失败",
+					type: "error",
+				});
+				return
+			}
+			
+			util.confirm({
+				text: `ino文件必须放在文件夹内，是否创建并移动?`,
+				onConfirm: _ => {
+					kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(_ => {
+						kenrobot.postMessage("app:projectOpen", err.newPath, "ino").then(res => {
+							savePath = res.path;
+							openProject(res.code);
+							util.message({
+								text: "打开成功",
+								type: "success"
+							});
+						}, _ => {
+							util.message({
+								text: "打开失败",
+								type: "error",
+							});
+						});
+					}, _ => {
+						util.message({
+							text: "打开失败",
+							type: "error",
+						});
 					});
 				}
 			});
-		}
+		});
 	}
 
 	function onProjectSave(saveAs) {

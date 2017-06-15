@@ -136,8 +136,8 @@ function listenMessages() {
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
-	listenMessage("showOpenDialog", options => util.showOpenDialog(mainWindow, options))
-	listenMessage("showSaveDialog", options => util.showSaveDialog(mainWindow, options))
+	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
+	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
 	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
 	listenMessage("openUrl", url => url && shell.openExternal(url))
@@ -171,6 +171,10 @@ function listenMessages() {
 
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
 	listenMessage("projectOpen", (projectPath, type) => project.open(projectPath, type))
+
+	listenMessage("projectNewSave", (name, type, data) => project.newSave(name, type, data))
+	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
+	listenMessage("projectNewOpen", type => project.newOpen(type))
 	
 	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", _ => project.sync())
@@ -392,9 +396,8 @@ function loadConfig() {
  * 载入配置
  */
 function writeConfig(sync) {
-	sync = sync == true
 	var configPath = path.join(util.getAppDataPath(), "config.json")
-	return util.writeJson(configPath, config, sync)
+	return util.writeJson(configPath, config, null, sync)
 }
 
 /**
@@ -504,7 +507,7 @@ function deletePackage(name) {
 function openExample(category, name) {
 	var deferred = Q.defer()
 
-	var examplePath = path.join(util.getResourcePath(), "examples", category, name)
+	var examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
 	log.debug(`openExample: ${examplePath}`)
 	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
@@ -523,7 +526,7 @@ function loadExamples() {
 	var deferred = Q.defer()
 
 	log.debug('loadExamples')
-	util.readJson(path.join(util.getResourcePath(), "examples", "examples.json")).then(examples => {
+	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(examples => {
 		deferred.resolve(examples)
 	}, err => {
 		err && log.error(err)
@@ -989,7 +992,7 @@ function matchBoardNames(ports) {
  */
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
-	return path.join(util.getResourcePath(), "scripts", `${name}.${ext}`)
+	return path.join(util.getAppResourcePath(), "scripts", `${name}.${ext}`)
 }
 
 /**
@@ -1003,7 +1006,7 @@ function getCommandPath(name) {
  * 获取arduino路径
  */
 function getArduinoPath() {
-	return path.join(util.getResourcePath(), `arduino-${util.getPlatform()}`)
+	return path.join(util.getAppResourcePath(), `arduino-${util.getPlatform()}`)
 }
 
 /**
@@ -1017,5 +1020,5 @@ function getPackagesPath() {
  * 获取插件目录
  */
 function getPluginPath(name) {
-	return path.join(util.getResourcePath(), "plugins", name, util.getPlatform())
+	return path.join(util.getAppResourcePath(), "plugins", name, util.getPlatform())
 }

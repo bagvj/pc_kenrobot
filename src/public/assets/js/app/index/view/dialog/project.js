@@ -40,7 +40,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			list = _.sortBy(list, ["modify_time"]);
 			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
-				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd hh:mm");
+				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd HH:mm");
 				var li = $(`<li>
 					<input class="x-checkbox" type="checkbox" id="project-${uid}" /><label class="x-checkbox-label" for="project-${uid}"></label>
 					<span class="title-wrap"><span class="title ellipsis" title="${projectData.name}">${projectData.name}</span></span>
@@ -126,9 +126,10 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onDeleteProject(e) {
 		var checks = projectList.find("li .x-checkbox:checked");
 		var items = Array.from(checks).map(item => {
+			var li = $(item).parents("li")
 			return {
-				name: $(item).data("name"),
-				type: $(item).data("type"),
+				name: li.data("name"),
+				type: li.data("type"),
 			};
 		});
 

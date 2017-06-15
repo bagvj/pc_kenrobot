@@ -9,6 +9,7 @@ const util = require('./util')
 const Token = require('./token')
 
 var syncUrl
+var throttleSync = util.throttle(sync, 3000)
 
 function setSyncUrl(url) {
 	log.debug(`project setSyncUrl: ${url}`)
@@ -26,7 +27,7 @@ function list(type) {
 	}
 
 	var id = token.user_id
-	var stamp = parseInt(new Date().getTime() / 1000)
+	var stamp = util.stamp()
 	var sign = util.rsa_encrypt(`Kenrobot-${id}-${stamp}`)
 
 	var url = `${syncUrl}/list`
@@ -63,7 +64,7 @@ function upload(name, type) {
 	}
 
 	var id = token.user_id
-	var stamp = parseInt(new Date().getTime() / 1000)
+	var stamp = util.stamp()
 	var sign = util.rsa_encrypt(`Kenrobot-${id}-${stamp}`)
 
 	zip(getProjectsDir(id), name, type).then(zipPath => {
@@ -114,7 +115,7 @@ function download(name, type) {
 	}
 
 	var id = token.user_id
-	var stamp = parseInt(new Date().getTime() / 1000)
+	var stamp = util.stamp()
 	var sign = util.rsa_encrypt(`Kenrobot-${id}-${stamp}`)
 
 	var data = {
@@ -173,7 +174,7 @@ function remove(name, type) {
 	}
 
 	var id = token.user_id
-	var stamp = parseInt(new Date().getTime() / 1000)
+	var stamp = util.stamp()
 	var sign = util.rsa_encrypt(`Kenrobot-${id}-${stamp}`)
 
 	var url = `${syncUrl}/delete`
@@ -220,6 +221,7 @@ function sync() {
 	]).then(result => {
 		var [remoteList, localList] = result
 		doSync(remoteList, localList).then(_ => {
+			log.debug(`project sync success`)
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -239,17 +241,18 @@ function zip(projectsDir, name, type) {
 	var deferred = Q.defer()
 
 	var zip = new JSZip()
+	var relativePath = getProjectRelativePath(name, type)
 	switch(type) {
 		case "edu":
 		case "ide":
-			zip.file(`${name}/${name}.ino`, util.readFile(path.join(projectsDir, `${name}/${name}.ino`), {encoding: null}, true))
-			zip.file(`${name}/project.json`, util.readFile(path.join(projectsDir, `${name}/project.json`), {encoding: null}, true))
+			zip.file(`${relativePath}/${name}.ino`, util.readFile(path.join(projectsDir, `${relativePath}/${name}.ino`), {}, true))
+			zip.file(`${relativePath}/project.json`, util.readFile(path.join(projectsDir, `${relativePath}/project.json`), {}, true))
 			break
 		case "scratch2":
-			zip.file(`${name}.sb2`, util.readFile(path.join(projectsDir, `${name}.sb2`), {encoding: null}, true))
+			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true))
 			break
 		case "scratch3":
-			zip.file(`${name}.json`, util.readFile(path.join(projectsDir, `${name}.json`), {encoding: null}, true))
+			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true))
 			break
 	}
 
@@ -271,7 +274,7 @@ function zip(projectsDir, name, type) {
 function unzip(zipPath, projectsDir, name, type) {
 	var deferred = Q.defer()
 
-	util.readFile(zipPath, {encoding: null}).then(data => {
+	util.readFile(zipPath, {}).then(data => {
 		var zip = new JSZip()
 		zip.loadAsync(data).then(_ => {
 			var count = 0
@@ -281,8 +284,8 @@ function unzip(zipPath, projectsDir, name, type) {
 				}
 
 				count++
-				file.async("string").then(content => {
-					util.writeFile(path.join(projectsDir, relativePath), content, true)
+				file.async("nodebuffer").then(content => {
+					util.writeFile(path.join(projectsDir, relativePath), content, {}, true)
 					count--
 					if(count == 0) {
 						deferred.resolve()
@@ -523,7 +526,7 @@ function getLocalListPath(id) {
 }
 
 function getProjectsDir(id) {
-	return path.join(util.getDocumentPath(), "projects", getUserSpec(id))
+	return path.join(util.getAppDocumentPath(), "projects", getUserSpec(id))
 }
 
 function getProjectRelativePath(name, type) {
@@ -550,6 +553,187 @@ function getUserSpec(id, type) {
 	return md5.substring(type * 8, (type + 1) * 8)
 }
 
+function newSave(name, type, data) {
+	var deferred = Q.defer()
+
+	log.debug(`project save: ${name}, ${type}`)
+	var token = Token.get()
+	if(!token) {
+		return util.rejectPromise(null, deferred)
+	}
+
+	var projectsDir = getProjectsDir(token.user_id)
+	newDoSave(path.join(projectsDir, getProjectRelativePath(name, type)), name, type, data).then(_ => {
+		updateLocalItem(name, type, util.stamp()).then(_ => {
+			throttleSync()
+			deferred.resolve()
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function newSaveAs(name, type, data) {
+	var deferred = Q.defer()
+
+	log.debug(`project save as: ${name}, ${type}`)
+	var options = {}
+	options.defaultPath = path.join(util.getAppPath("documents"), getProjectRelativePath(name, type))
+	if(type == "scratch2") {
+		options.filters = [{name: "sb2", extensions: ["sb2"]}]
+	} else if(type == "scratch3") {
+		options.filters = [{name: "json", extensions: ["json"]}]
+	}
+
+	util.showSaveDialog(options).then(savePath => {
+		newDoSave(savePath, name, type, data).then(_ => {
+			deferred.resolve(savePath)
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+	
+	return deferred.promise
+}
+
+function newDoSave(savePath, name, type, data) {
+	log.debug(`project do save: ${name} ${type} -> ${savePath}`)
+	if(type == "edu") {
+		return Q.all([
+			util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
+			util.writeJson(path.join(savePath, 'project.json'), data),
+		])
+	} else if(type == "ide") {
+		return Q.all([
+			util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
+			util.writeJson(path.join(savePath, 'project.json'), data),
+		])
+	} else if(type == "scratch2") {
+		return util.writeFile(savePath, new Buffer(data, "base64"))
+	} else if(type == "scratch3") {
+		return util.writeFile(savePath, data)
+	} else {
+		return util.rejectPromise()
+	}
+}
+
+function newOpen(type) {
+	var deferred = Q.defer()
+
+	log.debug(`project open: ${type}`)
+
+	var options = {}
+
+	var token = Token.get()
+	if(token) {
+		options.defaultPath = getProjectsDir(token.user_id)
+	} else {
+		options.defaultPath = util.getAppPath("documents")
+	}
+
+	if(type == "edu") {
+		options.properties = ["openDirectory"]
+	} else if(type == "ide") {
+		options.properties =  ["openFile"]
+		options.filters = [{name: "ino", extensions: ["ino"]}]
+	} else if(type == "scratch2") {
+		options.properties =  ["openFile"]
+		options.filters = [{name: "sb2", extensions: ["sb2"]}]
+	} else if(type == "scratch3") {
+		options.properties =  ["openFile"]
+		options.filters = [{name: "json", extensions: ["json"]}]
+	}
+
+	util.showOpenDialog(options).then(openPath => {
+		newDoOpen(openPath, type).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function newDoOpen(openPath, type) {
+	var deferred = Q.defer()
+
+	if(type == "edu") {
+		util.readJson(path.join(openPath, "project.json")).then(data => {
+			deferred.resolve({
+				name: path.basename(openPath),
+				type: type,
+				path: openPath,
+				data: data
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	} else if(type == "ide") {
+		var dirname = path.dirname(openPath)
+		var basename = path.basename(openPath, path.extname(openPath))
+		if(path.basename(dirname) != basename) {
+			return util.rejectPromise({
+				path: openPath,
+				newPath: path.join(dirname, basename, `${basename}.ino`),
+				status: "DIR_INVALID",
+			}, deferred)
+		}
+		util.readFile(openPath).then(data => {
+			deferred.resolve({
+				name: basename,
+				type: type,
+				path: dirname,
+				data: data,
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	} else if(type == "scratch2") {
+		util.readFile(openPath, "base64").then(data => {
+			deferred.resolve({
+				name: path.basename(openPath, path.extname(openPath)),
+				type: type,
+				path: openPath,
+				data: data
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	} else if(type == "scratch3") {
+		util.readJson(openPath).then(data => {
+			deferred.resolve({
+				name: path.basename(openPath, path.extname(openPath)),
+				type: type,
+				path: openPath,
+				data: data
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}
+
+	return deferred.promise
+}
+
 /**
  * 保存项目
  * @param {*} oldProjectPath 
@@ -562,7 +746,7 @@ function save(oldProjectPath, projectInfo, isTemp) {
 
 	log.debug(`saveProject: isTemp:${isTemp}`)
 
-	var save = projectPath => {
+	var doSave = projectPath => {
 		var updated_at = new Date()
 		projectInfo.updated_at = updated_at
 		projectInfo.project_name = path.basename(projectPath)
@@ -582,13 +766,13 @@ function save(oldProjectPath, projectInfo, isTemp) {
 	}
 
 	if(oldProjectPath) {
-		save(oldProjectPath)
+		doSave(oldProjectPath)
 	} else if(isTemp) {
 		var projectPath = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
-		save(projectPath)
+		doSave(projectPath)
 	} else {
 		util.showSaveDialog().then(projectPath => {
-			save(projectPath)
+			doSave(projectPath)
 		}, _ => {
 			deferred.reject()
 		})
@@ -670,3 +854,7 @@ module.exports.download = download
 
 module.exports.open = open
 module.exports.save = save
+
+module.exports.newSave = newSave
+module.exports.newSaveAs = newSaveAs
+module.exports.newOpen = newOpen

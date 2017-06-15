@@ -97,12 +97,16 @@ function getAppDataPath() {
 /**
  * 获取资源路径
  */
-function getResourcePath() {
+function getAppResourcePath() {
 	return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
 }
 
-function getDocumentPath() {
+function getAppDocumentPath() {
 	return path.join(app.getPath("documents"), app.getName())
+}
+
+function getAppPath(name) {
+	return app.getPath(name)
 }
 
 function versionCompare(versionA, versionB) {
@@ -202,6 +206,22 @@ function uuid(len, radix) {
 	}
 
 	return result.join('')
+}
+
+function stamp() {
+	return parseInt(new Date().getTime() / 1000)
+}
+
+function throttle(fn, delay) {
+	var timerId
+	return _ => {
+		timerId && clearTimeout(timerId)
+		timerId = setTimeout(_ => {
+			fn()
+			clearTimeout(timerId)
+			timerId = null;
+		}, delay)
+	}
 }
 
 function encrypt(plainText, key, algorithm) {
@@ -363,7 +383,6 @@ function spawnCommand(command, args, options) {
  * @param {*} options 选项 
  */
 function readFile(file, options, sync) {
-	sync = options === true ? true : (options === false ? false : sync)
 	if(sync) {
 		return fs.readFileSync(file, options)
 	} else {
@@ -389,13 +408,13 @@ function readFile(file, options, sync) {
  * @param {*} file 路径
  * @param {*} data 数据
  */
-function writeFile(file, data, sync) {
+function writeFile(file, data, options, sync) {
 	if(sync) {
-		fs.outputFileSync(file, data)
+		fs.outputFileSync(file, data, options)
 	} else {
 		var deferred = Q.defer()
 
-		fs.outputFile(file, data, err => {
+		fs.outputFile(file, data, options, err => {
 			if(err) {
 				log.error(err)
 				deferred.reject(err)
@@ -479,7 +498,6 @@ function readJson(file, options) {
  * @param {*} options 选项 
  */
 function writeJson(file, data, options, sync) {
-	sync = options === true ? true : (options === false ? false : sync)
 	if(sync) {
 		fs.outputJsonSync(file, data, options)
 	} else {
@@ -582,20 +600,18 @@ function zip(dir, files, dist, type) {
 
 /**
  * 显示打开文件对话框
- * @param {*} win 父窗口
  * @param {*} options 选项
  */
-function showOpenDialog(win, options) {
+function showOpenDialog(options, win) {
 	var deferred = Q.defer()
 
-	win = win || BrowserWindow.getAllWindows()[0]
-	
 	options = options || {}
 	options.title = "打开"
-	options.defaultPath = app.getPath("documents")
+	options.defaultPath = options.defaultPath || app.getPath("documents")
 	options.buttonLabel = "打开"
 
-	log.debug(`showOpenDialog: options: ${JSON.stringify(options)}`)
+	win = win || BrowserWindow.getAllWindows()[0]
+
 	dialog.showOpenDialog(win, options, files => {
 		if(!files) {
 			deferred.reject()
@@ -613,17 +629,16 @@ function showOpenDialog(win, options) {
  * @param {*} win 父窗口
  * @param {*} options 选项
  */
-function showSaveDialog(win, options) {
+function showSaveDialog(options, win) {
 	var deferred = Q.defer()
-
-	win = win || BrowserWindow.getAllWindows()[0]
 
 	options = options || {}
 	options.title = "保存"
-	options.defaultPath = app.getPath("documents")
+	options.defaultPath = options.defaultPath || app.getPath("documents")
 	options.buttonLabel = "保存"
 
-	log.debug(`showSaveDialog: options: ${JSON.stringify(options)}`)
+	win = win || BrowserWindow.getAllWindows()[0]
+
 	dialog.showSaveDialog(win, options, file => {
 		if(!file) {
 			deferred.reject()
@@ -674,14 +689,19 @@ module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
 module.exports.getAppDataPath = getAppDataPath
-module.exports.getResourcePath = getResourcePath
-module.exports.getDocumentPath = getDocumentPath
+module.exports.getAppResourcePath = getAppResourcePath
+module.exports.getAppDocumentPath = getAppDocumentPath
+module.exports.getAppPath = getAppPath
+
 module.exports.versionCompare = versionCompare
 module.exports.postMessage = postMessage
+
 module.exports.getDefer = getDefer
 module.exports.callDefer = callDefer
 module.exports.handleQuotes = handleQuotes
 module.exports.uuid = uuid
+module.exports.stamp = stamp
+module.exports.throttle = throttle
 
 module.exports.encrypt = encrypt
 module.exports.decrypt = decrypt
