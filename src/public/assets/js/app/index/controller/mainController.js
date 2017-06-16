@@ -78,6 +78,10 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	}
 
 	function onProjectSync() {
+		if(kenrobot.viewType != "scratch2" && kenrobot.viewType != "scratch3") {
+			return;
+		}
+
 		if(inSync || !kenrobot.getUserInfo()) {
 			return;
 		}
