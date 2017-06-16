@@ -32,6 +32,8 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onClosed() {
 		projectList.empty();
 		projectList.parent().perfectScrollbar("update");
+		
+		toolbar.find(".x-checkbox").prop("checked", false);
 	}
 
 	function update() {
