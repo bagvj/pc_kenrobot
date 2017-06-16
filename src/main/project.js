@@ -8,8 +8,6 @@ const JSZip = require('jszip')
 const util = require('./util')
 const Token = require('./token')
 
-var localListCache
-
 var syncUrl
 var throttleSync = util.throttle(sync, 3000)
 
@@ -251,31 +249,42 @@ function zip(projectsDir, name, type) {
 	switch(type) {
 		case "edu":
 		case "ide":
-			zip.file(`${relativePath}/${name}.ino`, util.readFile(path.join(projectsDir, `${relativePath}/${name}.ino`), {}, true), {base64: true})
-			zip.file(`${relativePath}/project.json`, util.readFile(path.join(projectsDir, `${relativePath}/project.json`), {}, true), {base64: true})
+			zip.file(`${relativePath}/${name}.ino`, fs.createReadStream(path.join(projectsDir, `${relativePath}/${name}.ino`)))
+			zip.file(`${relativePath}/project.json`, fs.createReadStream(path.join(projectsDir, `${relativePath}/project.json`)))
 			break
 		case "scratch2":
-			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true), {base64: true})
+			zip.file(relativePath, fs.createReadStream(path.join(projectsDir, relativePath)))
 			break
 		case "scratch3":
-			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true), {base64: true})
+			zip.file(relativePath, fs.createReadStream(path.join(projectsDir, relativePath)))
 			break
 	}
 
 	var zipPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.zip`)
 	fs.ensureDirSync(path.dirname(zipPath))
+	// zip.generateAsync({type:"base64"}).then(content => {
+	// 	fs.outputFile(zipPath, content, err => {
+	// 		if(err) {
+	// 			err && log.error(err)
+	// 			deferred.reject(err)
+	// 			return
+	// 		}
+
+	// 		deferred.resolve(zipPath)
+	// 	})
+	// })
 	zip.generateNodeStream({
-			streamFiles: true,
-			type: "nodebuffer",
-		})
-		.pipe(fs.createWriteStream(zipPath))
-		.on('finish', _ => {
-			deferred.resolve(zipPath)
-		})
-		.on('error', err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
+		streamFiles: true,
+		type: "nodebuffer",
+	})
+	.pipe(fs.createWriteStream(zipPath))
+	.on('finish', _ => {
+		deferred.resolve(zipPath)
+	})
+	.on('error', err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
 
 	return deferred.promise
 }
@@ -283,32 +292,42 @@ function zip(projectsDir, name, type) {
 function unzip(zipPath, projectsDir, name, type) {
 	var deferred = Q.defer()
 
-	util.readFile(zipPath, {}).then(data => {
-		var zip = new JSZip()
-		zip.loadAsync(data).then(_ => {
-			var count = 0
-			zip.forEach((relativePath, file) => {
-				if(file.dir) {
-					return
-				}
+	// fs.readFile(zipPath, (err, data) => {
+	// 	if(err) {
+	// 		err && log.error(err)
+	// 		deferred.reject(err)
+	// 		return
+	// 	}
 
-				count++
-				file.async("nodebuffer").then(content => {
-					util.writeFile(path.join(projectsDir, relativePath), content, {}, true)
-					count--
-					if(count == 0) {
-						deferred.resolve()
-					}
-				}, err => {
-					err && log.error(err)
-					deferred.reject(err)
-				})
-			})
-		}, err => {
-			log.error(`unzip fail: ${name} ${type}`)
-			err && log.error(err)
-			deferred.reject(err)
-		})
+	// 	var zip = new JSZip()
+	// 	zip.loadAsync(data).then(_ => {
+	// 		var count = 0
+	// 		zip.forEach((relativePath, file) => {
+	// 			if(file.dir) {
+	// 				return
+	// 			}
+
+	// 			count++
+	// 			file.async("nodebuffer").then(content => {
+	// 				fs.outputFileSync(path.join(projectsDir, relativePath), content)
+	// 				count--
+	// 				if(count == 0) {
+	// 					deferred.resolve()
+	// 				}
+	// 			}, err => {
+	// 				err && log.error(err)
+	// 				deferred.reject(err)
+	// 			})
+	// 		})
+	// 	}, err => {
+	// 		log.error(`unzip fail: ${name} ${type}`)
+	// 		err && log.error(err)
+	// 		deferred.reject(err)
+	// 	})
+	// })
+	util.unzip(zipPath, projectsDir).then(_ => {
+		log.error(`unzip success: ${name} ${type}`)
+		deferred.resolve()
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -508,26 +527,12 @@ function getLocalList() {
 		return util.rejectPromise(null, deferred)
 	}
 
-	if(localListCache) {
-		return util.resolvePromise(localListCache, deferred)
-	}
-
 	var listPath = getLocalListPath(token.user_id)
-
 	if(!fs.existsSync(listPath)) {
-		localListCache = []
-		return util.resolvePromise(localListCache, deferred)
+		return util.resolvePromise([], deferred)
 	}
 
-	util.readJson(listPath).then(result => {
-		localListCache = result
-		deferred.resolve(localListCache)
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
+	return util.readJson(listPath)
 }
 
 function saveLocalList(localList) {
