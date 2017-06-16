@@ -89,6 +89,7 @@ function upload(name, type) {
 
 			var item = result.data
 			updateLocalItem(item.name, item.type, item.modify_time).then(_ => {
+				log.debug(`project upload success: ${name} ${type}`)
 				deferred.resolve(item)
 			}, err => {
 				err && log.error(err)
@@ -144,6 +145,7 @@ function download(name, type) {
 		res.body.on("end", _ => {
 			unzip(zipPath, getProjectsDir(id, type), name, type).then(_ => {
 				updateLocalItem(name, type, modify_time).then(_ => {
+					log.debug(`project download success: ${name} ${type}`)
 					deferred.resolve()
 				}, err => {
 					err && log.error(err)
@@ -199,6 +201,7 @@ function remove(name, type) {
 			util.removeFile(path.join(getProjectsDir(id, type), getProjectRelativePath(name, type))),
 			removeLocalItem(name),
 		]).then(_ => {
+			log.debug(`project remove success: ${name} ${type}`)
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -248,20 +251,23 @@ function zip(projectsDir, name, type) {
 	switch(type) {
 		case "edu":
 		case "ide":
-			zip.file(`${relativePath}/${name}.ino`, util.readFile(path.join(projectsDir, `${relativePath}/${name}.ino`), {}, true))
-			zip.file(`${relativePath}/project.json`, util.readFile(path.join(projectsDir, `${relativePath}/project.json`), {}, true))
+			zip.file(`${relativePath}/${name}.ino`, util.readFile(path.join(projectsDir, `${relativePath}/${name}.ino`), {}, true), {base64: true})
+			zip.file(`${relativePath}/project.json`, util.readFile(path.join(projectsDir, `${relativePath}/project.json`), {}, true), {base64: true})
 			break
 		case "scratch2":
-			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true))
+			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true), {base64: true})
 			break
 		case "scratch3":
-			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true))
+			zip.file(relativePath, util.readFile(path.join(projectsDir, relativePath), {}, true), {base64: true})
 			break
 	}
 
 	var zipPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.zip`)
 	fs.ensureDirSync(path.dirname(zipPath))
-	zip.generateNodeStream({streamFiles:true})
+	zip.generateNodeStream({
+			streamFiles: true,
+			type: "nodebuffer",
+		})
 		.pipe(fs.createWriteStream(zipPath))
 		.on('finish', _ => {
 			deferred.resolve(zipPath)
@@ -299,6 +305,7 @@ function unzip(zipPath, projectsDir, name, type) {
 				})
 			})
 		}, err => {
+			log.error(`unzip fail: ${name} ${type}`)
 			err && log.error(err)
 			deferred.reject(err)
 		})
