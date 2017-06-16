@@ -78,8 +78,6 @@ function init() {
 	listenMessages()
 
 	log.debug(`app start, version ${util.getVersion()}`)
-
-	installReport()
 }
 
 function initLog() {
@@ -228,6 +226,7 @@ function onAppReady() {
 		createWindow()
 		loadBoards()
 		checkIfFirstRun()
+		installReport()
 	})
 }
 
@@ -277,11 +276,12 @@ function checkIfFirstRun() {
 	}
 
 	config.version = util.getVersion()
-	writeConfig()
+	config.reportInstall = false
+	writeConfig(true)
 }
 
 function installReport() {
-	if(is.dev() || !config.installReportFail) {
+	if(is.dev() || config.reportInstall) {
 		return
 	}
 
@@ -293,7 +293,7 @@ function installReport() {
 		ext: appInfo.ext,
 		branch: appInfo.branch,
 		feature: appInfo.feature,
-		installTime: parseInt(new Date().getTime() / 1000),
+		installTime: util.stamp(),
 	}
 	var url = "http://userver.kenrobot.com/statistics/installations"
 	util.request(url, {
@@ -302,12 +302,10 @@ function installReport() {
 			data: JSON.stringify(installInfo)
 		}
 	}).then(_ => {
-		delete config.installReportFail
+		config.reportInstall = true
+		writeConfig()
 	}, err => {
 		err && log.error(err)
-		config.installReportFail = true
-	}).fin(_ => {
-		writeConfig()
 	})
 }
 
