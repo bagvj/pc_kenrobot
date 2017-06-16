@@ -387,7 +387,7 @@ function readFile(file, options, sync) {
 		return fs.readFileSync(file, options)
 	} else {
 		var deferred = Q.defer()
-		// options = options || "utf8"
+		options = options || "utf8"
 
 		fs.readFile(file, options, (err, data) => {
 			if(err) {
