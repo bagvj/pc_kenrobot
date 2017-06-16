@@ -124,11 +124,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 				kenrobot.trigger("project", "show");
 				break;
 			case "project-sync":
-				kenrobot.postMessage("app:projectSync").then(_ => {
-					util.message("项目同步成功");
-				}, err => {
-					util.message("项目同步失败");
-				});
+				kenrobot.trigger("project", "sync");
 				break;
 			case "logout":
 				kenrobot.trigger("user", "logout");

@@ -1,7 +1,6 @@
 define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, util, emitor, config, menu) {
 	var scratch;
-	var projectPath;
-	var projectName;
+	var projectExtra = {};
 
 	function init() {
 		scratch = document.getElementById("ken-scratch");
@@ -9,7 +8,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 
 		kenrobot.view.saveProject = saveProject;
 
-		kenrobot.on('app-menu', 'do-action', onMenuAction);
+		kenrobot.on('app-menu', 'do-action', onMenuAction).on("project", "open-by", onProjectOpenBy);
 	}
 
 	function onAppStart() {
@@ -21,7 +20,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	function onMenuAction(action) {
 		switch (action) {
 			case "new-project":
-				projectName = null;
+				projectExtra = {};
 				scratch.newProject();
 				break;
 			case "open-project":
@@ -48,11 +47,25 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		}
 	}
 
-	function onOpenProject() {
-		kenrobot.postMessage("app:projectNewOpen", "scratch2").then(result => {
+	function onProjectOpenBy(name, type) {
+		if(type != "scratch2") {
+			return
+		}
+
+		onOpenProject(name);
+	}
+
+	function onOpenProject(name) {
+		kenrobot.postMessage("app:projectNewOpen", "scratch2", name).then(result => {
+			projectExtra = result.extra;
 			scratch.loadProject(result.data);
-			setProjectName(result.name);
-			util.message("打开成功");
+			scratch.setProjectName(projectExtra.name);
+
+			if(kenrobot.getUserInfo()) {
+				util.message("打开成功");
+			} else {
+				util.message("打开成功");
+			}
 		}, err => {
 			util.message({
 				text: "打开失败",
@@ -62,51 +75,54 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	}
 
 	function onSaveProject(saveAs) {
-		if(projectName) {
-			scratch.exportProject(saveAs);
-		} else {
-			kenrobot.trigger("prompt", "show", {
-				title: "项目保存",
-				placeholder: "项目名字",
-				callback: name => {
-					if(!name) {
-						util.message("保存失败");
-						return
-					}
+		var doSave = _ => {
+			if(projectExtra.path) {
+				scratch.exportProject(saveAs);
+			} else {
+				kenrobot.trigger("prompt", "show", {
+					title: "项目保存",
+					placeholder: "项目名字",
+					callback: name => {
+						if(!name) {
+							util.message("保存失败");
+							return
+						}
 
-					setProjectName(name);
-					scratch.exportProject(saveAs);
-				}
-			});
+						projectExtra.name = name;
+						scratch.setProjectName(projectExtra.name);
+						scratch.exportProject(saveAs);
+					}
+				});
+			}
+		}
+
+		if(kenrobot.getUserInfo() || saveAs || projectExtra.hasShowSave) {
+			doSave();
+		} else {
+			projectExtra.hasShowSave = true;
+			kenrobot.trigger("save", "show", doSave);
 		}
 	}
 
 	function saveProject(projectData, saveAs) {
-		var message = saveAs ? "app:projectNewSaveAs" : "app:projectNewSave";
-		kenrobot.postMessage(message, projectName, "scratch2", projectData).then(savePath => {
-			saveAs && setProjectName(savePath);
+		var promise
+		if(saveAs) {
+			promise = kenrobot.postMessage("app:projectNewSaveAs", projectExtra.name, "scratch2", projectData)
+		} else {
+			promise = kenrobot.postMessage("app:projectNewSave", projectExtra.name, "scratch2", projectData, projectExtra.path)
+		}
+
+		promise.then(result => {
+			projectExtra = $.extend(projectExtra, result);
+			scratch.setProjectName(projectExtra.name);
+
 			util.message("保存成功");
 		}, err => {
-			if(err && err.status == "PROMPT_LOGIN") {
-				// kenrobot.trigger("")
-				return
-			}
-
 			util.message({
 				text: "保存失败",
 				type: "error",
 			});
 		});
-	}
-
-	function setProjectName(savePath) {
-		var names = savePath.split(/\/|\\/);
-		var name = names[names.length - 1];
-		var index = name.indexOf(".");
-		name = index >= 0 ? name.substring(0, index) : name;
-
-		projectName = name;
-		scratch.setProjectName(name);
 	}
 
 	function onShortcut(name) {

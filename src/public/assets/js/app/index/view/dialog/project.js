@@ -85,7 +85,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var name = li.data("name");
 		var type = li.data("type");
 
-		console.log("open project", name, type);
+		setTimeout(_ => {
+			kenrobot.trigger("project", "open-by", name, type);
+		}, 500);
+		
+		dialogWin.find(".x-dialog-close").trigger("click");
 
 		return false;
 	}
@@ -165,10 +169,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		});
 
 		deletedLi.remove();
-	}
-
-	function onNewProjectSuccess(projectData) {
-
 	}
 
 	function formatProjectType(type) {

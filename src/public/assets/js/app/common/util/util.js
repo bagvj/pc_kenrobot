@@ -9,7 +9,7 @@ define(['vendor/jquery'], function() {
 			"info": "消息",
 		},
 		max: 4,
-		stayDuration: 3000,
+		stayDuration: 2000,
 	}
 
 	function message(args) {
@@ -36,7 +36,7 @@ define(['vendor/jquery'], function() {
 		}
 
 		messageDiv.css("top", 140 * messages.length - 60).addClass("x-fadeIn").delay(messageConfig.stayDuration, "stay").queue("stay", function() {
-			messageDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(500, "fadeOut").queue("fadeOut", function() {
+			messageDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
 				onMessageHide(messageDiv);
 			});
 			messageDiv.dequeue("fadeOut");
@@ -80,18 +80,22 @@ define(['vendor/jquery'], function() {
 		var dialogLayer = $('.dialog-layer', top.document).addClass("active");
 		var confirmDiv = $(html).appendTo(dialogLayer);
 
-		var doClose = function(callback) {
+		var doClose = function(callback, cancel) {
 			confirmDiv.removeClass("x-fadeIn").addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
 				confirmDiv.hide().removeClass("active").removeClass("x-fadeOut");
 				dialogLayer.find("> .active").length == 0 && dialogLayer.removeClass("active");
-				callback && callback();
+				callback && callback(cancel);
 				mask(confirmDiv, false);
 				confirmDiv.remove();
 			});
 			confirmDiv.dequeue("fadeOut");
 		};
 
-		$('.x-confirm-close,.x-confirm-btns .cancel', confirmDiv).on('click', function() {
+		$('.x-confirm-close').on('click', function() {
+			doClose(onCancel, true);
+		});
+
+		$('.x-confirm-btns .cancel', confirmDiv).on('click', function() {
 			doClose(onCancel);
 		});
 
@@ -131,12 +135,12 @@ define(['vendor/jquery'], function() {
 		content && $('.x-dialog-content', dialogWin).html(content);
 
 		var dialogLayer = $('.dialog-layer', top.document).addClass("active");
-		var doClose = function(callback) {
+		var doClose = function(callback, cancel) {
 			dialogWin.addClass("x-fadeOut").delay(300, "fadeOut").queue("fadeOut", function() {
 				dialogWin.hide().removeClass("active").removeClass("x-fadeOut");
 				dialogLayer.find("> .active").length == 0 && dialogLayer.removeClass("active");
 				onClose && onClose();
-				callback && callback();
+				callback && callback(cancel);
 				onClosed && onClosed();
 				mask(dialogWin, false);
 			});
@@ -149,9 +153,15 @@ define(['vendor/jquery'], function() {
 			}
 		});
 
-		$('.x-dialog-close,.x-dialog-btns .cancel', dialogWin).off('click').on('click', function() {
+		$('.x-dialog-btns .cancel', dialogWin).off('click').on('click', function() {
 			if (!onClosing || onClosing("cancel") != false) {
 				doClose(onCancel);
+			}
+		});
+
+		$('.x-dialog-close', dialogWin).off('click').on('click', function() {
+			if (!onClosing || onClosing("cancel") != false) {
+				doClose(onCancel, true);
 			}
 		});
 

@@ -172,9 +172,9 @@ function listenMessages() {
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
 	listenMessage("projectOpen", (projectPath, type) => project.open(projectPath, type))
 
-	listenMessage("projectNewSave", (name, type, data) => project.newSave(name, type, data))
+	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
 	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
-	listenMessage("projectNewOpen", type => project.newOpen(type))
+	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
 	
 	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", _ => project.sync())
