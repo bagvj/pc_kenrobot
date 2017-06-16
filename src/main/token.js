@@ -47,7 +47,7 @@ function load(key) {
 		return deferred.promise
 	}
 	
-	util.readFile(tokenPath).then(content => {
+	util.readFile(tokenPath, "utf8").then(content => {
 		try {
 			var plainText = util.decrypt(content, Buffer.from(key, "hex"))
 			deferred.resolve(JSON.parse(plainText))
