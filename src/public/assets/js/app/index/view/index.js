@@ -1,4 +1,4 @@
-define(['./titlebar', './monitor', './dialog/update', './dialog/login', './dialog/about', './dialog/common', './dialog/error', './dialog/board', './dialog/project', './dialog/port', './dialog/no-arduino'], function(titlebar, monitor, update, login, about, common, error, board, project, port, noArduino) {
+define(['./titlebar', './monitor', './dialog/update', './dialog/login', './dialog/about', './dialog/common', './dialog/prompt', './dialog/save', './dialog/saveAs', './dialog/error', './dialog/board', './dialog/project', './dialog/port', './dialog/no-arduino'], function(titlebar, monitor, update, login, about, common, prompt, save, saveAs, error, board, project, port, noArduino) {
 
 	function init() {
 		titlebar.init();
@@ -8,6 +8,9 @@ define(['./titlebar', './monitor', './dialog/update', './dialog/login', './dialo
 		login.init();
 		about.init();
 		common.init();
+		prompt.init();
+		save.init();
+		saveAs.init();
 		error.init();
 		board.init();
 		project.init();

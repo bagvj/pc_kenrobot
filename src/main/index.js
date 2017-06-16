@@ -8,7 +8,7 @@ const crypto = require('crypto')
 const util = require('./util')
 const token = require('./token')
 const serialPort = require('./serialPort') //串口
-const sync = require('./sync') //同步
+const project = require('./project') //同步
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -78,8 +78,6 @@ function init() {
 	listenMessages()
 
 	log.debug(`app start, version ${util.getVersion()}`)
-
-	installReport()
 }
 
 function initLog() {
@@ -98,7 +96,7 @@ function initFlashPlugin() {
 	var plugin = is.windows() ? "pepflashplayer.dll" : (is.macOS() ? "PepperFlashPlayer.plugin" : "libpepflashplayer.so")
 	plugin = path.join(getPluginPath("FlashPlayer"), plugin)
 	
-	log.debug(`initFlashPlugin: ${plugin}, version: ${version}`)
+	log.debug(`initFlashPlugin: version: ${version}`)
 
 	app.commandLine.appendSwitch('ppapi-flash-path', plugin)
 	app.commandLine.appendSwitch('ppapi-flash-version', version)
@@ -109,44 +107,6 @@ function initServer() {
 	var http = express()
 	http.use('/', express.static(path.join(httpRoot, "public")))
 	http.listen(httpPort)
-}
-
-/**
- * 创建窗口
- */
-function createWindow() {
-	mainWindow = new BrowserWindow({
-		width: 1200,
-		height: 720,
-		minWidth: 1200,
-		minHeight: 720,
-		frame: false,
-		show: false,
-		webPreferences: {
-			plugins: true,
-			webSecurity: false,
-		}
-	})
-	args.fullscreen && mainWindow.setFullScreen(true)
-
-	mainWindow.on('closed', _ => {
-		log.debug('mainWindow closed')
-		mainWindow = null
-	}).once('ready-to-show', () => {
-		mainWindow.show()
-	}).on('enter-full-screen', _ => {
-		util.postMessage("app:onFullscreenChange", true)
-	}).on('leave-full-screen', _ => {
-		util.postMessage("app:onFullscreenChange", false)
-	})
-
-	mainWindow.webContents.on('devtools-reload-page', _ => {
-		serialPort.closeAllSerialPort()
-	})
-	mainWindow.webContents.session.on('will-download', onDownload)
-
-	mainWindow.loadURL(baseUrl)
-	mainWindow.focus()
 }
 
 /**
@@ -174,8 +134,8 @@ function listenMessages() {
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
-	listenMessage("showOpenDialog", options => util.showOpenDialog(mainWindow, options))
-	listenMessage("showSaveDialog", options => util.showSaveDialog(mainWindow, options))
+	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
+	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
 	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
 	listenMessage("openUrl", url => url && shell.openExternal(url))
@@ -187,8 +147,6 @@ function listenMessages() {
 	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
 	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
 	
-	listenMessage("saveProject", (projectPath, projectInfo, isTemp) => saveProject(projectPath, projectInfo, isTemp))
-	listenMessage("openProject", (projectPath, type) => openProject(projectPath, type))
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
 	listenMessage("upload", (projectPath, options) => beforeUpload(projectPath, options))
 	listenMessage("upload2", (projectPath, comName, options) => upload(projectPath, comName, options))
@@ -209,11 +167,19 @@ function listenMessages() {
 	listenMessage("loadToken", key => token.load(key))
 	listenMessage("removeToken", _ => token.remove())
 
-	listenMessage("syncSetBaseUrl", url => sync.setBaseUrl(url))
-	listenMessage("syncList", _ => sync.list())
-	listenMessage("syncUpload", filePath => sync.upload(filePath))
-	listenMessage("syncDelete", filePath => sync.remove(filePath))
-	listenMessage("syncDownload", (filePath, dest) => sync.download(filePath, dest))
+	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
+	listenMessage("projectOpen", (projectPath, type) => project.open(projectPath, type))
+
+	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
+	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
+	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
+	
+	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
+	listenMessage("projectSync", _ => project.sync())
+	listenMessage("projectList", type => project.list(type))
+	listenMessage("projectUpload", (name, type) => project.upload(name, type))
+	listenMessage("projectDelete", (name, type) => project.remove(name, type))
+	listenMessage("projectDownload", (name, type) => project.download(name, type))
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
@@ -259,8 +225,44 @@ function onAppReady() {
 
 		createWindow()
 		loadBoards()
-		// checkIfFirstRun()
+		checkIfFirstRun()
+		installReport()
 	})
+}
+
+/**
+ * 创建窗口
+ */
+function createWindow() {
+	mainWindow = new BrowserWindow({
+		width: 1200,
+		height: 720,
+		minWidth: 1200,
+		minHeight: 720,
+		frame: false,
+		show: false,
+		webPreferences: {
+			plugins: true,
+			webSecurity: false,
+		}
+	})
+	
+	if(args.fullscreen) {
+		mainWindow.setFullScreen(true)
+	} else if(args.maximize) {
+		mainWindow.maximize()
+	}
+
+	mainWindow.on('closed', _ => (mainWindow = null))
+		.once('ready-to-show', _ => mainWindow.show())
+		.on('enter-full-screen', _ => util.postMessage("app:onFullscreenChange", true))
+		.on('leave-full-screen', _ => util.postMessage("app:onFullscreenChange", false))
+
+	mainWindow.webContents.on('devtools-reload-page', _ => serialPort.closeAllSerialPort())
+	mainWindow.webContents.session.on('will-download', onDownload)
+
+	mainWindow.loadURL(baseUrl)
+	mainWindow.focus()
 }
 
 function onAppWillQuit() {
@@ -274,11 +276,12 @@ function checkIfFirstRun() {
 	}
 
 	config.version = util.getVersion()
-	writeConfig()
+	config.reportInstall = false
+	writeConfig(true)
 }
 
 function installReport() {
-	if(is.dev() || !config.installReportFail) {
+	if(is.dev() || config.reportInstall) {
 		return
 	}
 
@@ -290,7 +293,7 @@ function installReport() {
 		ext: appInfo.ext,
 		branch: appInfo.branch,
 		feature: appInfo.feature,
-		installTime: parseInt(new Date().getTime() / 1000),
+		installTime: util.stamp(),
 	}
 	var url = "http://userver.kenrobot.com/statistics/installations"
 	util.request(url, {
@@ -299,12 +302,10 @@ function installReport() {
 			data: JSON.stringify(installInfo)
 		}
 	}).then(_ => {
-		delete config.installReportFail
+		config.reportInstall = true
+		writeConfig()
 	}, err => {
 		err && log.error(err)
-		config.installReportFail = true
-	}).fin(_ => {
-		writeConfig()
 	})
 }
 
@@ -393,14 +394,8 @@ function loadConfig() {
  * 载入配置
  */
 function writeConfig(sync) {
-	sync = sync == true
 	var configPath = path.join(util.getAppDataPath(), "config.json")
-	log.debug(`writeConfig, path: ${configPath}, sync: ${sync}`)
-	if(sync) {
-		fs.writeJsonSync(configPath, config)
-	} else {
-		return util.writeJson(configPath, config)
-	}
+	return util.writeJson(configPath, config, null, sync)
 }
 
 /**
@@ -510,7 +505,7 @@ function deletePackage(name) {
 function openExample(category, name) {
 	var deferred = Q.defer()
 
-	var examplePath = path.join(util.getResourcePath(), "examples", category, name)
+	var examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
 	log.debug(`openExample: ${examplePath}`)
 	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
@@ -529,7 +524,7 @@ function loadExamples() {
 	var deferred = Q.defer()
 
 	log.debug('loadExamples')
-	util.readJson(path.join(util.getResourcePath(), "examples", "examples.json")).then(examples => {
+	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(examples => {
 		deferred.resolve(examples)
 	}, err => {
 		err && log.error(err)
@@ -707,116 +702,6 @@ function listSerialPort() {
 function filterArduinoPorts(ports) {
 	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
 	return ports.filter(p => reg.test(p.comName))
-}
-
-/**
- * 保存项目
- * @param {*} oldProjectPath 
- * @param {*} projectInfo 
- * @param {*} isTemp 
- */
-function saveProject(oldProjectPath, projectInfo, isTemp) {
-	var deferred = Q.defer()
-	isTemp = isTemp === true
-
-	log.debug(`saveProject: isTemp:${isTemp}`)
-
-	var save = projectPath => {
-		var updated_at = new Date()
-		projectInfo.updated_at = updated_at
-		projectInfo.project_name = path.basename(projectPath)
-
-		Q.all([
-			util.writeFile(path.join(projectPath, path.basename(projectPath) + ".ino"), projectInfo.project_data.code),
-			util.writeJson(path.join(projectPath, "project.json"), projectInfo)
-		]).then(_ => {
-			deferred.resolve({
-				path: projectPath,
-				updated_at: projectInfo.updated_at,
-				project_name: projectInfo.project_name
-			})
-		}, _ => {
-			deferred.reject()
-		})
-	}
-
-	if(oldProjectPath) {
-		save(oldProjectPath)
-	} else if(isTemp) {
-		var projectPath = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
-		save(projectPath)
-	} else {
-		util.showSaveDialog(mainWindow).then(projectPath => {
-			save(projectPath)
-		}, _ => {
-			deferred.reject()
-		})
-	}
-	
-	return deferred.promise
-}
-
-/**
- * 打开项目
- * @param {*} projectPath 项目路径 
- */
-function openProject(projectPath, type) {
-	var deferred = Q.defer()
-	type = type || "project"
-
-	log.debug(`openProject ${projectPath}`)
-	var read = projectPath => {
-		if(type == "project") {
-			util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
-				deferred.resolve({
-					path: projectPath,
-					projectInfo: projectInfo
-				})
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		} else {
-			var dirname = path.dirname(projectPath)
-			var basename = path.basename(projectPath, path.extname(projectPath))
-			if(path.basename(dirname) != basename) {
-				setTimeout(_ => {
-					deferred.reject({
-						path: projectPath,
-						newPath: path.join(dirname, basename, `${basename}.ino`),
-						status: "DIR_INVALID",
-					})
-				}, 10)
-				return
-			}
-			util.readFile(projectPath).then(code => {
-				deferred.resolve({
-					path: dirname,
-					code: code,
-				})
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		}
-	}
-	if(projectPath) {
-		read(projectPath)
-	} else {
-		var filters = type == "project" ? null : [{name: "ino", extensions: ["ino"]}]
-		var properties = type == "project" ? ["openDirectory"] : ["openFile"]
-		util.showOpenDialog(mainWindow, {
-			properties: properties,
-			filters: filters,
-		}).then(projectPath => {
-			read(projectPath)
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
-	}
-
-	return deferred.promise
 }
 
 /**
@@ -1105,7 +990,7 @@ function matchBoardNames(ports) {
  */
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
-	return path.join(util.getResourcePath(), "scripts", `${name}.${ext}`)
+	return path.join(util.getAppResourcePath(), "scripts", `${name}.${ext}`)
 }
 
 /**
@@ -1119,7 +1004,7 @@ function getCommandPath(name) {
  * 获取arduino路径
  */
 function getArduinoPath() {
-	return path.join(util.getResourcePath(), `arduino-${util.getPlatform()}`)
+	return path.join(util.getAppResourcePath(), `arduino-${util.getPlatform()}`)
 }
 
 /**
@@ -1133,5 +1018,5 @@ function getPackagesPath() {
  * 获取插件目录
  */
 function getPluginPath(name) {
-	return path.join(util.getResourcePath(), "plugins", name, util.getPlatform())
+	return path.join(util.getAppResourcePath(), "plugins", name, util.getPlatform())
 }

@@ -27,7 +27,10 @@
 							<div class="login-menu">
 								<ul>
 									<li data-action="setting"><span>个人设置</span></li>
-									<!-- <li data-action="project"><span>项目管理</span></li> -->
+									<li class="seperator"></li>
+									<li data-action="project-manager"><span>项目管理</span></li>
+									<li data-action="project-sync"><span>项目同步</span></li>
+									<li class="seperator"></li>
 									<li data-action="logout"><span>退出登录</span></li>
 								</ul>
 							</div>
@@ -175,6 +178,32 @@
 						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
 					</div>
 				</div>
+				<div class="x-dialog prompt-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-title"></div>
+					<div class="x-dialog-content">
+						<input class="input" type="text" /> 
+					</div>
+					<div class="x-dialog-btns">
+						<input class="x-dialog-btn cancel" type="button" value="取消" /><input class="x-dialog-btn confirm" type="button" value="确定" />
+					</div>
+				</div>
+				<div class="x-dialog save-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-title">保存提示</div>
+					<div class="x-dialog-content">您当前处于离线状态，项目无法同步到云端，请选择您要保存的方式。</div>
+					<div class="x-dialog-btns">
+						<input class="x-dialog-btn cancel" type="button" value="继续，保存到本地" /><input class="x-dialog-btn confirm" type="button" value="登录，保存到云端" />
+					</div>
+				</div>
+				<div class="x-dialog save-as-dialog">
+					<i class="kenrobot ken-close x-dialog-close"></i>
+					<div class="x-dialog-title">另存为提示</div>
+					<div class="x-dialog-content">当前项目为本地项目，要另存为网络项目吗？</div>
+					<div class="x-dialog-btns">
+						<input class="x-dialog-btn cancel" type="button" value="不了，谢谢" /><input class="x-dialog-btn confirm" type="button" value="好的" />
+					</div>
+				</div>
 				<div class="x-dialog port-dialog">
 					<div class="x-dialog-title"><i class="kenrobot ken-setting"></i>端口选择</div>
 					<div class="port-label">端口:</div>
@@ -215,8 +244,8 @@
 					<i class="kenrobot ken-close x-dialog-close"></i>
 					<div class="x-dialog-content">
 						<div class="toolbar">
-							<input class="x-checkbox" type="checkbox" id="project-select-all" /><label for="project-select-all"></label>
-							<span class="title ellipsis">项目管理</span>
+							<input class="x-checkbox" type="checkbox" id="project-select-all" /><label class="x-checkbox-label" for="project-select-all" title="全选"></label>
+							<span class="title">项目管理</span>
 							<input class="x-btn new-project" type="button" value="新建项目" />
 							<input class="x-btn delete-project" type="button" value="删除" />
 						</div>

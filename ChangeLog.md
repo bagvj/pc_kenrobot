@@ -121,3 +121,10 @@
 #### features
 
 - [scratch 3] 继续优化
+
+### v0.4.3
+
+#### features
+
+- 增加项目管理和同步功能，目前仅限于[scratch 2]和[scratch 3]
+- [scratch 3] 继续优化

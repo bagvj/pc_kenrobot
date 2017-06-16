@@ -1,0 +1,86 @@
+.prompt-dialog {
+	width: 360px;
+	height: 200px;
+	background-color: white;
+	color: white;
+	padding: 30px;
+
+	.x-dialog-title {
+		margin-top: 8px;
+	    font-size: 18px;
+	    line-height: 18px;
+	    color: #666;
+	    height: 18px;
+	    text-align: left;
+	}
+
+	.x-dialog-content {
+		margin-top: 15px;
+		margin-bottom: 32px;
+		position: relative;
+
+		.input {
+			color: #666;
+			font-size: 14px;
+			display: block;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			padding: 5px 12px;
+			transition: border-color 0.2s;
+
+			@include placeholder {
+				color: #999;
+			}
+
+			&:hover {
+				border-color: #33a0ff;
+			}
+		}
+	}
+
+	.x-dialog-btns {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 0;
+
+		.x-dialog-btn {
+			transition: all 0.2s;
+
+		    &.cancel {
+		        background-color: transparent;
+		        border: 1px solid #ccc;
+		        border-radius: 3px;
+		        width: 80px;
+		        height: 30px;
+		        color: #666;
+		        font-size: 14px;
+		        line-height: 30px;
+
+		        &:hover {
+		        	border-color: #0088ff;
+		        	color: white;
+		            background-color: #0088ff;
+		        }
+		    }
+
+		    &.confirm {
+		        margin-left: 18px;
+		        background-color: #20a0ff;
+		        border: 1px solid #0088ff;
+		        border-radius: 3px;
+		        width: 80px;
+		        height: 30px;
+		        font-size: 14px;
+		        color: white;
+		        line-height: 30px;
+
+		        &:hover {
+		            background-color: #0088ff;
+		        }
+		    }
+		}
+	}
+}

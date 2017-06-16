@@ -48,8 +48,8 @@ function load(key) {
 	}
 	
 	util.readFile(tokenPath).then(content => {
-		var plainText = util.decrypt(content, Buffer.from(key, "hex"))
 		try {
+			var plainText = util.decrypt(content, Buffer.from(key, "hex"))
 			deferred.resolve(JSON.parse(plainText))
 		} catch (ex) {
 			deferred.reject()

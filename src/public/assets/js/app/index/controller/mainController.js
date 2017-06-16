@@ -2,6 +2,7 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 
 	var iframe;
 	var baseUrl;
+	var inSync;
 
 	function init() {
 		kenrobot.getUserInfo = userModel.getUserInfo;
@@ -9,10 +10,11 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		iframe = window.frames["content-frame"];
+
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
 			.on("app", "start", onAppStart)
-			
+			.on("user", "update", onUserUpdate);	
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
@@ -20,7 +22,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
 			.on('build', 'error', onBuildError, {canReset: false})
 			.on('app-menu', 'do-action', onMenuAction, {canReset: false})
-			.on("user", "logout", onUserLogout, {canReset: false});;
+			.on("user", "logout", onUserLogout, {canReset: false})
+			.on("project", "sync", onProjectSync, {canReset: false});
 
 		pace.start({
 			elements: {
@@ -37,8 +40,9 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
-		kenrobot.postMessage("app:syncSetBaseUrl", config.url.projectSync);
+		kenrobot.postMessage("app:projectSyncUrl", config.url.projectSync);
 		
+		inSync = true;
 		userModel.loadToken().always(_ => {
 			emitor.trigger("user", "update");
 		});
@@ -50,8 +54,12 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 				onSwitch("edu");
 
 				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-				setTimeout(function() {
+				setTimeout(_ => {
 					onCheckUpdate(false);
+
+					inSync = false;
+					//项目同步
+					onProjectSync();
 				}, 3000);
 			}, 400);
 		});
@@ -62,6 +70,33 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 			util.message("退出成功");
 		}).always(_ => {
 			emitor.trigger("user", "update");
+		});
+	}
+
+	function onUserUpdate() {
+		kenrobot.getUserInfo() && setTimeout(_ => onProjectSync(), 2000);
+	}
+
+	function onProjectSync() {
+		if(kenrobot.viewType != "scratch2" && kenrobot.viewType != "scratch3") {
+			return;
+		}
+
+		if(inSync || !kenrobot.getUserInfo()) {
+			return;
+		}
+
+		inSync = true;
+		util.message("项目开始同步");
+		kenrobot.postMessage("app:projectSync").then(_ => {
+			inSync = false;
+			util.message("项目同步成功");
+		}, err => {
+			inSync = false;
+			util.message({
+				text: "项目同步失败",
+				type: "error",
+			});
 		});
 	}
 
@@ -94,9 +129,9 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 					util.confirm({
 						text: "驱动下载成功，是否安装?",
 						onConfirm: () => {
-							kenrobot.postMessage("app:installDriver", result.path).then(function() {
+							kenrobot.postMessage("app:installDriver", result.path).then(_ => {
 								util.message("驱动安装成功");
-							}, function(err) {
+							}, err => {
 								util.message({
 									text: "驱动安装失败",
 									type: "error"
@@ -151,6 +186,8 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		kenrobot.trigger("app", "will-leave");
 		iframe.src = `${baseUrl}/${type}`;
 		pace.restart();
+
+		kenrobot.viewType = type;
 	}
 
 	function onFullscreenChange(fullscreen) {
