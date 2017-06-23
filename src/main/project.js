@@ -75,7 +75,7 @@ function upload(name, type) {
 				id: id,
 				stamp: stamp,
 				sign: sign,
-				name: name,
+				name: encodeURI(name),
 				type: type,
 			},
 			body: fs.createReadStream(zipPath)
