@@ -166,7 +166,7 @@ gulp.task('pack-scratch2', ['clean-scratch2'], callback => {
 		.on('end', _ => {
 			var indexPath = path.join(APP, 'public', 'scratch2', 'index.html')
 			var content = fs.readFileSync(indexPath, "utf8")
-			var tag = "<body>"
+			var tag = "</head>"
 			var contents = content.split(tag)
 			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch2"></script>')
 			fs.writeFileSync(indexPath, contents.join(""))
@@ -178,12 +178,12 @@ gulp.task('pack-scratch2', ['clean-scratch2'], callback => {
 })
 
 gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
-	gulp.src([SRC + 'public/scratch3/**/*'])
+	gulp.src([SRC + 'public/scratch3/**/*', "!" + SRC + "public/scratch3/**/*.js.map"])
 		.pipe(gulp.dest(APP + 'public/scratch3/'))
 		.on('end', _ => {
 			var indexPath = path.join(APP, 'public', 'scratch3', 'index.html')
 			var content = fs.readFileSync(indexPath, "utf8")
-			var tag = "<body>"
+			var tag = "</head>"
 			var contents = content.split(tag)
 			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch3"></script>')
 			fs.writeFileSync(indexPath, contents.join(""))

@@ -901,7 +901,7 @@
      */
     Mousetrap.prototype.bind = function(keys, callback, action) {
         var self = this;
-        keys = keys instanceof Array ? keys : [keys];
+        keys = [].concat(keys);
         self._bindMultiple.call(self, keys, callback, action);
         return self;
     };
