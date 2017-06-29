@@ -3,7 +3,7 @@ define(['app/common/util/emitor', '../config/menu'], function(emitor, menu) {
 	function init() {
 		emitor.on('app', 'start', onAppStart);
 
-		kenrobot.on('app-menu', 'do-action', onMenuAction).on("project", "open-by", onProjectOpenBy);
+		kenrobot.on('app-menu', 'do-action', onMenuAction);
 	}
 
 	function onAppStart() {
@@ -12,14 +12,6 @@ define(['app/common/util/emitor', '../config/menu'], function(emitor, menu) {
 
 	function onMenuAction(action) {
 		kenrobot.trigger("app", "command", action);
-	}
-
-	function onProjectOpenBy(name, type) {
-		if(type != "scratch2") {
-			return
-		}
-
-		kenrobot.trigger("app", "command", "open-project", name);
 	}
 
 	return {

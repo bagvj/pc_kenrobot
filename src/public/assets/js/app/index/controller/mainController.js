@@ -15,8 +15,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
-			.on("app", "start", onAppStart)
-			.on("user", "update", onUserUpdate);	
+			.on("app", "start", onAppStart);	
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
@@ -27,6 +26,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.on('build', 'error', onBuildError, {canReset: false})
 			.on('app-menu', 'do-action', onMenuAction, {canReset: false})
 			.on("user", "logout", onUserLogout, {canReset: false})
+			.on("user", "update", onUserUpdate, {canReset: false})
 			.on("project", "sync", onProjectSync, {canReset: false});
 
 		pace.start({
