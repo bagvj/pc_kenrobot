@@ -140,3 +140,4 @@
 #### features
 
 - [scratch 2]和[scratch 3]网页版项目同步上线
+- [scratch 3] 继续优化
