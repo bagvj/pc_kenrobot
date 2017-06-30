@@ -1,6 +1,8 @@
-define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu', '../model/userModel'], function($1, pace, util, emitor, config, menu, userModel) {
+define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu', '../model/userModel'], function($1, pace, Mousetrap, util, emitor, config, menu, userModel) {
 
 	var iframe;
+	var mousetrap;
+
 	var baseUrl;
 	var inSync;
 
@@ -13,16 +15,18 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
-			.on("app", "start", onAppStart)
-			.on("user", "update", onUserUpdate);	
+			.on("app", "start", onAppStart);	
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
+			.on("util", "message", onUtilMessage, {canReset: false})
+			.on("shortcut", "register", onShortcutRegister, {canReset: false})
 			.on('build', 'error', onBuildError, {canReset: false})
 			.on('app-menu', 'do-action', onMenuAction, {canReset: false})
 			.on("user", "logout", onUserLogout, {canReset: false})
+			.on("user", "update", onUserUpdate, {canReset: false})
 			.on("project", "sync", onProjectSync, {canReset: false});
 
 		pace.start({
@@ -62,6 +66,20 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 					onProjectSync();
 				}, 3000);
 			}, 400);
+		});
+	}
+
+	function onUtilMessage() {
+		util.message.apply(this, arguments);
+	}
+
+	function onShortcutRegister(shortcuts) {
+		mousetrap && shortcuts.forEach(function(shortcut){
+			mousetrap.bind(shortcut.key, function() {
+				shortcut.callback && shortcut.callback();
+
+				return false;
+			});
 		});
 	}
 
@@ -185,6 +203,9 @@ define(['vendor/jquery', 'vendor/pace', 'app/common/util/util', 'app/common/util
 		
 		kenrobot.trigger("app", "will-leave");
 		iframe.src = `${baseUrl}/${type}`;
+		iframe.addEventListener("load", _ => {
+			mousetrap = Mousetrap(iframe.contentDocument);
+		}, false);
 		pace.restart();
 
 		kenrobot.viewType = type;

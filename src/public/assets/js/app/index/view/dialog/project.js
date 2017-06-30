@@ -39,7 +39,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function update() {
 		var viewType = kenrobot.viewType
 		kenrobot.postMessage("app:projectList", viewType).then(list => {
-			list = _.sortBy(list, ["modify_time"]);
+			list = _.sortBy(list, ["type", "modify_time"]);
 			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
 				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd HH:mm");

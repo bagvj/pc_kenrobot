@@ -168,4 +168,5 @@
 
 	exports.reset = reset
 	exports.view = view
+	exports.isPC = true
 })(window, window.kenrobot || (window.kenrobot = {}))
