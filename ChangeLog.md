@@ -134,3 +134,9 @@
 #### fix bugs
 
 - 修复中文项目名同步失败的bug
+
+### v0.4.5
+
+#### features
+
+- [scratch 2]和[scratch 3]网页版项目同步上线
