@@ -262,17 +262,6 @@ function zip(projectsDir, name, type) {
 
 	var zipPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.zip`)
 	fs.ensureDirSync(path.dirname(zipPath))
-	// zip.generateAsync({type:"base64"}).then(content => {
-	// 	fs.outputFile(zipPath, content, err => {
-	// 		if(err) {
-	// 			err && log.error(err)
-	// 			deferred.reject(err)
-	// 			return
-	// 		}
-
-	// 		deferred.resolve(zipPath)
-	// 	})
-	// })
 	zip.generateNodeStream({
 		streamFiles: true,
 		type: "nodebuffer",
@@ -292,39 +281,6 @@ function zip(projectsDir, name, type) {
 function unzip(zipPath, projectsDir, name, type) {
 	var deferred = Q.defer()
 
-	// fs.readFile(zipPath, (err, data) => {
-	// 	if(err) {
-	// 		err && log.error(err)
-	// 		deferred.reject(err)
-	// 		return
-	// 	}
-
-	// 	var zip = new JSZip()
-	// 	zip.loadAsync(data).then(_ => {
-	// 		var count = 0
-	// 		zip.forEach((relativePath, file) => {
-	// 			if(file.dir) {
-	// 				return
-	// 			}
-
-	// 			count++
-	// 			file.async("nodebuffer").then(content => {
-	// 				fs.outputFileSync(path.join(projectsDir, relativePath), content)
-	// 				count--
-	// 				if(count == 0) {
-	// 					deferred.resolve()
-	// 				}
-	// 			}, err => {
-	// 				err && log.error(err)
-	// 				deferred.reject(err)
-	// 			})
-	// 		})
-	// 	}, err => {
-	// 		log.error(`unzip fail: ${name} ${type}`)
-	// 		err && log.error(err)
-	// 		deferred.reject(err)
-	// 	})
-	// })
 	util.unzip(zipPath, projectsDir).then(_ => {
 		log.error(`unzip success: ${name} ${type}`)
 		deferred.resolve()
@@ -800,17 +756,6 @@ function newDoOpen(openPath, type) {
 	} else {
 		util.rejectPromise(null, deferred)
 	}
-
-	return deferred.promise
-}
-
-function checkProjectTag(projectPath, type) {
-	var deferred = Q.defer()
-
-	// var token = Token.get()
-	// if(!token) {
-	// 	return util.resolvePromise("local", )
-	// }
 
 	return deferred.promise
 }
