@@ -24,7 +24,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		kenrobot.postMessage("app:loadSetting").then(setting => {
 			var specSetting = setting[kenrobot.viewType];
 			for(var name in specSetting) {
-				emitor.trigger("setting", "change", name, specSetting[value]);
+				emitor.trigger("setting", "change", name, specSetting[name]);
 			}
 		});
 	}
