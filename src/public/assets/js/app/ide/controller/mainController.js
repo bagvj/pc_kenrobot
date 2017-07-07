@@ -3,7 +3,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		emitor.on('app', 'start', onAppStart);
-		kenrobot.on('app', 'will-leave', onAppWillLeave).on('app-menu', 'do-action', onMenuAction);
+		kenrobot.on('app', 'will-leave', onAppWillLeave).on('app-menu', 'do-action', onMenuAction).on("setting", "change", onSettingChange);
 	}
 
 	function onAppStart() {
@@ -20,10 +20,25 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			
 			kenrobot.trigger("app-menu", "load", menu, "ide");
 		});
+
+		kenrobot.postMessage("app:loadSetting").then(setting => {
+			var specSetting = setting[kenrobot.viewType];
+			for(var name in specSetting) {
+				emitor.trigger("setting", "change", name, specSetting[value]);
+			}
+		});
 	}
 
 	function onAppWillLeave() {
 		emitor.trigger("app", "will-leave");
+	}
+
+	function onSettingChange(type, name, value) {
+		if(type != kenrobot.viewType) {
+			return
+		}
+
+		emitor.trigger("setting", "change", name, value);
 	}
 
 	function loadBoards() {

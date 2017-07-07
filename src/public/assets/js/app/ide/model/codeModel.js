@@ -98,6 +98,16 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 			},
 			exec: function() {},
 		}]);
+
+		emitor.on("setting", "change", onSettingChange);
+	}
+
+	function onSettingChange(name, value) {
+		switch(name) {
+			case "tab-size":
+				editor.getSession().setTabSize(value);
+				break;
+		}
 	}
 
 	function getData() {

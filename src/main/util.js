@@ -354,9 +354,12 @@ function execCommand(command, options, useSudo) {
 function spawnCommand(command, args, options) {
 	var deferred = Q.defer()
 	var child = child_process.spawn(command, args, options)
+	var stdout = ''
+	var stderr = ''
 	child.stdout.on('data', data => {
 		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
 		is.dev() && log.debug(str)
+		stdout += str
 		deferred.notify({
 			type: "stdout",
 			data: str,
@@ -365,13 +368,14 @@ function spawnCommand(command, args, options) {
 	child.stderr.on('data', data => {
 		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
 		is.dev() && log.debug(str)
+		stderr += str
 		deferred.notify({
 			type: "stderr",
 			data: str,
 		})
 	})
 	child.on('close', code => {
-		code == 0 ? deferred.resolve() : deferred.reject()
+		code == 0 ? deferred.resolve(stdout) : deferred.reject(stderr)
 	})
 
 	return deferred.promise
