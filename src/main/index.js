@@ -127,6 +127,9 @@ function listenMessages() {
 	listenMessage("getAppInfo", _ => util.resolvePromise(util.getAppInfo()))
 	listenMessage("getBaseUrl", _ => util.resolvePromise(baseUrl))
 
+	listenMessage("loadSetting", _ => loadSetting())
+	listenMessage("saveSetting", setting => saveSetting(setting))
+
 	listenMessage("execFile", exePath => util.execFile(exePath))
 	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
 	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
@@ -396,6 +399,15 @@ function loadConfig() {
 function writeConfig(sync) {
 	var configPath = path.join(util.getAppDataPath(), "config.json")
 	return util.writeJson(configPath, config, null, sync)
+}
+
+function loadSetting() {
+	return util.resolvePromise(config.setting || {})
+}
+
+function saveSetting(setting) {
+	config.setting = setting
+	return writeConfig()
 }
 
 /**

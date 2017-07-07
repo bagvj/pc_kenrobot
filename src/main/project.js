@@ -794,7 +794,7 @@ function save(oldProjectPath, projectInfo, isTemp) {
 	if(oldProjectPath) {
 		doSave(oldProjectPath)
 	} else if(isTemp) {
-		var projectPath = path.join(app.getPath("temp"), "build", "sketch" + new Date().getTime())
+		var projectPath = path.join(util.getAppPath("temp"), "build", "sketch" + new Date().getTime())
 		doSave(projectPath)
 	} else {
 		util.showSaveDialog().then(projectPath => {

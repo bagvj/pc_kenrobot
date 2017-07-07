@@ -48,8 +48,13 @@ function openSerialPort(comName, options, callbacks) {
 	if(options.parser == "raw") {
 		options.parser = SerialPort.parsers.raw
 	} else {
-		var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
-		options.parser = SerialPort.parsers.readline(newline)
+		var type = Object.prototype.toString.call(options.parser)
+		if(type == "[object String]") {
+			var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
+			options.parser = SerialPort.parsers.readline(newline)
+		} else if(type == "[object Array]") {
+			options.parser = SerialPort.parsers.byteDelimiter(options.parser)
+		}
 	}
 
 	var port = new SerialPort(comName, options)

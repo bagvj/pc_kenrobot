@@ -16,6 +16,15 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			
 			kenrobot.trigger("app-menu", "load", menu, "edu");
 		});
+
+		kenrobot.postMessage("app:loadSetting").then(setting => {
+			var specSetting = setting[kenrobot.viewType];
+			for(var name in specSetting) {
+				emitor.trigger("setting", "change", name, specSetting[name]);
+			}
+		}, err => {
+			
+		});
 	}
 
 	function onAppWillLeave() {

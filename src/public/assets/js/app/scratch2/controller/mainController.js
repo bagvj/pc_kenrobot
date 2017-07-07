@@ -8,6 +8,13 @@ define(['app/common/util/emitor', '../config/menu'], function(emitor, menu) {
 
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "scratch2");
+
+		kenrobot.postMessage("app:loadSetting").then(setting => {
+			var specSetting = setting[kenrobot.viewType];
+			for(var name in specSetting) {
+				emitor.trigger("setting", "change", name, specSetting[name]);
+			}
+		});
 	}
 
 	function onMenuAction(action) {

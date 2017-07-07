@@ -11,7 +11,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
-		iframe = window.frames["content-frame"];
+		iframe = document.getElementById("content-frame");
 
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
