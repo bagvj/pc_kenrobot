@@ -830,21 +830,32 @@ define(['app/common/util/util'], function(util) {
 				var topConnector = connectors[block.connectors[0]];
 				var bottomConnector = connectors[block.connectors[1]];
 
-				if (topConnector && topConnector.connectedTo && bottomConnector && bottomConnector.connectedTo) {
-					connectors[topConnector.connectedTo].connectedTo = bottomConnector.connectedTo;
-					connectors[bottomConnector.connectedTo].connectedTo = topConnector.connectedTo;
-					redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
-				} else if (topConnector && topConnector.connectedTo) {
-					connectors[topConnector.connectedTo].connectedTo = null;
-					var previousBlock = blocks[connectors[topConnector.connectedTo].blockUid];
-					if (previousBlock.data.type === 'group') {
-						previousBlock.dom.parentNode.parentNode.classList.remove('with-content');
+				if(block.isFree()) {
+					if(topConnector && topConnector.connectedTo) {
+						connectors[topConnector.connectedTo].connectedTo = null;
 					}
-					redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
-				} else if (bottomConnector && bottomConnector.connectedTo) {
-					connectors[bottomConnector.connectedTo].connectedTo = null;
-				}
 
+					while(bottomConnector && bottomConnector.connectedTo) {
+						tempBlock = getBlockByConnector(bottomConnector.connectedTo);
+						bottomConnector = connectors[tempBlock.connectors[1]];
+						removeBlock(tempBlock);
+					}
+				} else {
+					if (topConnector && topConnector.connectedTo && bottomConnector && bottomConnector.connectedTo) {
+						connectors[topConnector.connectedTo].connectedTo = bottomConnector.connectedTo;
+						connectors[bottomConnector.connectedTo].connectedTo = topConnector.connectedTo;
+						redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
+					} else if (topConnector && topConnector.connectedTo) {
+						connectors[topConnector.connectedTo].connectedTo = null;
+						var previousBlock = blocks[connectors[topConnector.connectedTo].blockUid];
+						if (previousBlock.data.type === 'group') {
+							previousBlock.dom.parentNode.parentNode.classList.remove('with-content');
+						}
+						redraw && redrawTree(getBlockByConnector(topConnector.connectedTo));
+					} else if (bottomConnector && bottomConnector.connectedTo) {
+						connectors[bottomConnector.connectedTo].connectedTo = null;
+					}
+				}
 				var tempConnector;
 				block.ioConnectors.forEach(function(connectorUid) {
 					tempConnector = ioConnectors[connectorUid];

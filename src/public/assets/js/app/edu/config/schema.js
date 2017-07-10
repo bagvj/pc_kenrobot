@@ -4962,8 +4962,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "encoder",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "k",
 				"anchor": [0.25, 1],
@@ -5101,7 +5101,7 @@ define(['vendor/lodash'], function($1) {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["digital"],
+				"tags": ["digital", "analog-in"],
 				"label": "s",
 				"shape": "Dot",
 				"rotate": false
@@ -5216,8 +5216,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "ultrasound",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "tri",
 				"anchor": [0.333, 1],
@@ -5443,8 +5443,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "rgb",
 			"category": "action",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "r",
 				"anchor": [0.25, 1],
@@ -5712,8 +5712,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "lcd",
 			"category": "action",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "sda",
 				"anchor": [0.33, 0],
@@ -5799,6 +5799,41 @@ define(['vendor/lodash'], function($1) {
 				"uid": "cAzykL"
 			}, {
 				"type": "statement",
+				"name": "lcdWrite2",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "pptQtL"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "在液晶"
+				}, {
+					"id": "LCD",
+					"type": "dynamic-select",
+					"options": "lcds"
+				}, {
+					"type": "text",
+					"value": "上显示"
+				}, {
+					"blockInputId": "TEXT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "pptQtL"
+				}],
+				"code": "{LCD}.print({TEXT});",
+				"tags": ["module"],
+				"module": "lcd",
+				"uid": "0YbNn7"
+			}, {
+				"type": "statement",
 				"name": "lcdWritePosition",
 				"connectors": [{
 					"type": "connector-top",
@@ -5840,6 +5875,67 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module"],
 				"module": "lcd",
 				"uid": "YpzjBM"
+			}, {
+				"type": "statement",
+				"name": "lcdWritePosition2",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "KgCJ7q"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "CSZpue"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Hsbc7o"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "在液晶"
+				}, {
+					"id": "LCD",
+					"type": "dynamic-select",
+					"options": "lcds"
+				}, {
+					"blockInputId": "ROW",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "KgCJ7q"
+				}, {
+					"type": "text",
+					"value": "行"
+				}, {
+					"blockInputId": "COLUMN",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "CSZpue"
+				}, {
+					"type": "text",
+					"value": "列"
+				}, {
+					"type": "text",
+					"value": "上显示"
+				}, {
+					"blockInputId": "TEXT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Hsbc7o"
+				}],
+				"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
+				"tags": ["module"],
+				"module": "lcd",
+				"uid": "bnATsX"
 			}, {
 				"type": "statement",
 				"name": "lcdClear",
@@ -6584,8 +6680,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "L298P",
 			"category": "action",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 120,
+			"height": 120,
 			"pins": [{
 				"name": "pwm1",
 				"anchor": [0.25, 0],
@@ -7022,8 +7118,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "serial",
 			"category": "function",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "rxd",
 				"anchor": [0.33, 1],
@@ -7051,8 +7147,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "serial",
 			"category": "function",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "rxd",
 				"anchor": [0.33, 1],
