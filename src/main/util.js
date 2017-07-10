@@ -38,6 +38,13 @@ function isX64() {
 }
 
 /**
+ * 判断当前系统是否为64位
+ */
+function isAppX64() {
+	return is.dev() ? isX64() : PACKAGE.buildInfo.bit == 64
+}
+
+/**
  * 获取平台名字
  */
 function getPlatform() {
@@ -689,6 +696,7 @@ function request(url, options, json) {
 }
 
 module.exports.isX64 = isX64
+module.exports.isAppX64 = isAppX64
 module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
