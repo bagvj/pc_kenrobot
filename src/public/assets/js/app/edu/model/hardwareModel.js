@@ -6,7 +6,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 		labelColor: 'white',
 		font: '14px Microsoft YaHei',
 		endpoint: {
-			radius: 4,
+			radius: 6,
 			color: "#f69c4d",
 		}
 	};

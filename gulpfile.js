@@ -291,6 +291,7 @@ gulp.task('build', ['clean-dist'], callback => {
 		branch: branch,
 		feature: feature,
 		ext: ext,
+		bit: arch == "ia32" ? 32 : 64,
 	})
 	nconf.save()
 	
@@ -300,7 +301,8 @@ gulp.task('build', ['clean-dist'], callback => {
 			"./scripts/**/*",
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
-			`plugins/FlashPlayer/${platform}/**/*`,
+			`./plugins/FlashPlayer/${platform}/**/*`,
+			`!./plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`
 		]
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
@@ -412,6 +414,7 @@ gulp.task('build', ['clean-dist'], callback => {
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
 			`plugins/FlashPlayer/${platform}`,
+			`!plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`
 		]
 
 		builder.build({
