@@ -118,7 +118,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		var action = $(this).data("action");
 		switch(action) {
 			case "setting":
-				kenrobot.trigger("setting", "show");
+				util.message("敬请期待");
 				break;
 			case "project-manager":
 				if(kenrobot.viewType == "scratch2" || kenrobot.viewType == "scratch3") {

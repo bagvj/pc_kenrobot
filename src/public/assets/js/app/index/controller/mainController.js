@@ -130,7 +130,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				util.message("敬请期待");
 				break;
 			case "setting":
-				util.message("敬请期待");
+				kenrobot.trigger("setting", "show");
 				break;
 			case "switch":
 				onSwitch(extra.type);
