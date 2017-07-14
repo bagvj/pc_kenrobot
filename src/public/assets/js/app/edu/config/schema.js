@@ -1835,6 +1835,26 @@ define(['vendor/lodash'], function($1) {
 			"uid": "0ByIUU"
 		}, {
 			"type": "statement-input",
+			"name": "forever",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "永远循环"
+			}],
+			"code": "for(;;) {{STATEMENTS}}",
+			"tags": ["logic"],
+			"uid": "EXxo6w"
+		}, {
+			"type": "statement-input",
 			"name": "while",
 			"connectors": [{
 				"type": "connector-top",
