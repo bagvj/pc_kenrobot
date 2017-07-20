@@ -145,7 +145,7 @@ function listenMessages() {
 
 	listenMessage("listSerialPort", _ => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
-	listenMessage("writeSerialPort", (portId, buffer) => serialPort.writeSerialPort(portId, buffer))
+	listenMessage("writeSerialPort", (portId, content) => serialPort.writeSerialPort(portId, content))
 	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
 	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
 	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))

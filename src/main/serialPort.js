@@ -90,12 +90,12 @@ function openSerialPort(comName, options, callbacks) {
 /**
  * 串口发送
  * @param {*} portId 串口id
- * @param {*} buffer 发送内容，Buffer | String
+ * @param {*} content 发送内容，Buffer | String
  */
-function writeSerialPort(portId, buffer) {
+function writeSerialPort(portId, content) {
 	var  deferred = Q.defer()
 
-	log.debug(`writeSerialPort: ${portId}, ${buffer}`)
+	log.debug(`writeSerialPort: ${portId}, ${content}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(_ => {
@@ -104,7 +104,7 @@ function writeSerialPort(portId, buffer) {
 		return deferred.promise
 	}
 
-	port.write(buffer, err => {
+	port.write(Buffer.from(content), err => {
 		if(err) {
 			log.error(err)
 			deferred.reject(err)
