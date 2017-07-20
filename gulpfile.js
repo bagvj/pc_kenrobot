@@ -302,7 +302,8 @@ gulp.task('build', ['clean-dist'], callback => {
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
 			`./plugins/FlashPlayer/${platform}/**/*`,
-			`!./plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`
+			`!./plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
+			"./firmwares/**/*",
 		]
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
@@ -414,7 +415,8 @@ gulp.task('build', ['clean-dist'], callback => {
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
 			`plugins/FlashPlayer/${platform}`,
-			`!plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`
+			`!plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
+			"firmwares",
 		]
 
 		builder.build({
