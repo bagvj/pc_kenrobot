@@ -104,13 +104,17 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	}
 
 	function onSerialPortError(portId, err) {
-		util.message({
+		lastPortId && util.message({
 			text: "串口错误",
 			type: "error",
 		});
 	}
 
 	function onSerialPortClose(portId) {
+		if(!lastPortId) {
+			return;
+		}
+
 		lastPortId = null;
 		monitorRegion.find(".titlebar .suffix").text("");
 		monitorRegion.find(".open").val("打开串口");

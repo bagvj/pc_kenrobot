@@ -66,6 +66,16 @@ define(function() {
 		}, "_", {
 			text: "设置",
 			action: "setting",
+		}, "_", {
+			text: "上传ArduBits固件",
+			action: "upload-firmware",
+			extra: {
+				name: "ardubits.hex",
+				options: {
+					mcu: "atmega328p",
+					baudrate: 57600,
+				}
+			},
 		}]
 	}, {
 		id: "help",

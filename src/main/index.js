@@ -59,6 +59,7 @@ function init() {
 	process.on('uncaughtException', err => {
 		var stack = err.stack || (err.name + ': ' + err.message)
 		log.error(stack)
+		app.quit()
 	})
 
 	initLog()
@@ -145,14 +146,16 @@ function listenMessages() {
 
 	listenMessage("listSerialPort", _ => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
-	listenMessage("writeSerialPort", (portId, buffer) => serialPort.writeSerialPort(portId, buffer))
+	listenMessage("writeSerialPort", (portId, content) => serialPort.writeSerialPort(portId, content))
 	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
 	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
 	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
 	
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
-	listenMessage("upload", (projectPath, options) => beforeUpload(projectPath, options))
-	listenMessage("upload2", (projectPath, comName, options) => upload(projectPath, comName, options))
+	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
+	listenMessage("upload2", (projectPath, comName, options) => upload2(projectPath, comName, options))
+	listenMessage("uploadFirmware", (name, options) => uploadFirmware(getFirmwarePath(name), options))
+	listenMessage("uploadFirmware2", (name, comName, options) => uploadFirmware2(getFirmwarePath(name), comName, options))
 	
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
@@ -809,12 +812,42 @@ function preBuild(projectPath, options) {
 	return deferred.promise
 }
 
-function beforeUpload(projectPath, options) {
+/**
+ * 上传
+ * @param {*} projectPath 项目路径
+ * @param {*} options 选项
+ */
+function upload(projectPath, options) {
+	options = Object.assign({}, arduinoOptions.default.upload, options)
+	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+
+	return uploadFirmware(targetPath, options)
+}
+
+/**
+ * 上传
+ * @param {*} projectPath 项目路径
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
+ */
+function upload2(projectPath, comName, options) {
+	options = Object.assign({}, arduinoOptions.default.upload, options)
+	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+
+	return uploadFirmware2(targetPath, comName, options)
+}
+
+/**
+ * 上传固件
+ * @param {*} targetPath 固件路径
+ * @param {*} options 选项
+ */
+function uploadFirmware(targetPath, options) {
 	var deferred = Q.defer()
 
 	listSerialPort().then(ports => {
 		if(ports.length == 1) {
-			upload(projectPath, ports[0].comName, options).then(result => {
+			uploadFirmware2(targetPath, ports[0].comName, options).then(result => {
 				deferred.resolve(result)
 			}, err => {
 				deferred.reject(err)
@@ -837,16 +870,16 @@ function beforeUpload(projectPath, options) {
 }
 
 /**
- * 上传
- * @param {*} projectPath 项目路径
+ * 上传固件
+ * @param {*} targetPath 固件路径
  * @param {*} comName 串口路径
  * @param {*} options 选项
  */
-function upload(projectPath, comName, options) {
+function uploadFirmware2(targetPath, comName, options) {
 	var deferred = Q.defer()
 
-	preUpload(projectPath, comName, options).then(commandPath => {
-		log.debug(`upload: ${projectPath}, ${comName}, command path: ${commandPath}`)
+	preUploadFirmware(targetPath, comName, options).then(commandPath => {
+		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
 		var scriptPath = getScriptPath("call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(_ => {
 			deferred.resolve()
@@ -866,13 +899,15 @@ function upload(projectPath, comName, options) {
 
 /**
  * 上传预处理
+ * @param {*} targetPath 固件路径
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
  */
-function preUpload(projectPath, comName, options) {
+function preUploadFirmware(targetPath, comName, options) {
 	var deferred = Q.defer()
 
-	log.debug("pre upload")
+	log.debug("pre upload firmware")
 	options = Object.assign({}, arduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	var commandPath = getCommandPath("upload")
 	var command = util.handleQuotes(options.command)
@@ -1031,4 +1066,11 @@ function getPackagesPath() {
  */
 function getPluginPath(name) {
 	return path.join(util.getAppResourcePath(), "plugins", name, util.getPlatform())
+}
+
+/**
+ * 获取固件目录
+ */
+function getFirmwarePath(name) {
+	return path.join(util.getAppResourcePath(), "firmwares", name)
 }
