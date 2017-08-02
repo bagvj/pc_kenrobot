@@ -715,7 +715,7 @@ function listSerialPort() {
  * @param {*} ports 串口列表
  */
 function filterArduinoPorts(ports) {
-	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
+	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
 	return ports.filter(p => reg.test(p.comName))
 }
 
