@@ -309,7 +309,7 @@ function checkUpdate(checkUrl) {
 	var deferred = Q.defer()
 
 	var info = util.getAppInfo()
-	var url = `${checkUrl}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&features=${info.feature}&ext=${info.ext}`
+	var url = `${checkUrl}&name=${info.name}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&features=${info.feature}&ext=${info.ext}`
 	log.debug(`checkUpdate: ${url}`)
 
 	util.request(url).then(result => {
