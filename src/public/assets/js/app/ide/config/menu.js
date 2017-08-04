@@ -125,20 +125,6 @@ define(function() {
 			extra: {
 				type: "ide"
 			},
-		}, {
-			text: "scratch 2",
-			action: "switch",
-			cls: "check",
-			extra: {
-				type: "scratch2"
-			},
-		}, {
-			text: "scratch 3",
-			action: "switch",
-			cls: "check",
-			extra: {
-				type: "scratch3"
-			},
 		}]
 	}];
 

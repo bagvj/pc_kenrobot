@@ -63,7 +63,6 @@ function init() {
 	})
 
 	initLog()
-	initFlashPlugin()
 	initServer()
 
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
@@ -90,17 +89,6 @@ function initLog() {
 		log.transports.console = false
 		log.transports.file.level = 'error'
 	}
-}
-
-function initFlashPlugin() {
-	var version = '26.0.0.131'
-	var plugin = is.windows() ? `pepflashplayer${util.isAppX64() ? "64" : "32"}.dll` : (is.macOS() ? "PepperFlashPlayer.plugin" : "libpepflashplayer.so")
-	plugin = path.join(getPluginPath("FlashPlayer"), plugin)
-	
-	log.debug(`initFlashPlugin: ${plugin} version: ${version}`)
-
-	app.commandLine.appendSwitch('ppapi-flash-path', plugin)
-	app.commandLine.appendSwitch('ppapi-flash-version', version)
 }
 
 function initServer() {
@@ -154,8 +142,6 @@ function listenMessages() {
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
 	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
 	listenMessage("upload2", (projectPath, comName, options) => upload2(projectPath, comName, options))
-	listenMessage("uploadFirmware", (name, options) => uploadFirmware(getFirmwarePath(name), options))
-	listenMessage("uploadFirmware2", (name, comName, options) => uploadFirmware2(getFirmwarePath(name), comName, options))
 	
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
@@ -715,7 +701,7 @@ function listSerialPort() {
  * @param {*} ports 串口列表
  */
 function filterArduinoPorts(ports) {
-	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
+	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
 	return ports.filter(p => reg.test(p.comName))
 }
 
@@ -1059,18 +1045,4 @@ function getArduinoPath() {
  */
 function getPackagesPath() {
 	return path.join(app.getPath("documents"), app.getName(), "packages")
-}
-
-/**
- * 获取插件目录
- */
-function getPluginPath(name) {
-	return path.join(util.getAppResourcePath(), "plugins", name, util.getPlatform())
-}
-
-/**
- * 获取固件目录
- */
-function getFirmwarePath(name) {
-	return path.join(util.getAppResourcePath(), "firmwares", name)
 }

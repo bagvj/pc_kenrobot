@@ -856,7 +856,7 @@ function open(projectPath, type) {
 	} else {
 		var filters = type == "project" ? null : [{name: "ino", extensions: ["ino"]}]
 		var properties = type == "project" ? ["openDirectory"] : ["openFile"]
-		util.showOpenDialog(null, {
+		util.showOpenDialog({
 			properties: properties,
 			filters: filters,
 		}).then(projectPath => {

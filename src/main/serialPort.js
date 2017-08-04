@@ -45,17 +45,7 @@ function openSerialPort(comName, options, callbacks) {
 
 	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
 	options.autoOpen = false
-	if(options.parser == "raw") {
-		options.parser = SerialPort.parsers.raw
-	} else {
-		var type = Object.prototype.toString.call(options.parser)
-		if(type == "[object String]") {
-			var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
-			options.parser = SerialPort.parsers.readline(newline)
-		} else if(type == "[object Array]") {
-			options.parser = SerialPort.parsers.byteDelimiter(options.parser)
-		}
-	}
+	
 
 	var port = new SerialPort(comName, options)
 	port.open(err => {
@@ -71,11 +61,24 @@ function openSerialPort(comName, options, callbacks) {
 		port.on('error', err => {
 			callbacks && callbacks.onError && callbacks.onError(portId, err)
 		})
-		.on('close', _ => {
+		port.on('close', _ => {
 			delete connectedPorts.ports[portId]
 			callbacks && callbacks.onClose && callbacks.onClose(portId)
 		})
-		.on('data', data => {
+
+		var parser
+		if(options.parser != "raw") {
+			var type = Object.prototype.toString.call(options.parser)
+			if(type == "[object String]") {
+				var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
+				parser = port.pipe(SerialPort.parsers.Readline({delimiter: newline}))
+			} else if(type == "[object Array]") {
+				parser = port.pipe(new SerialPort.parsers.Delimiter({delimiter: Buffer.from(options.parser)}))
+			}
+		}
+
+		var target = parser || port
+		target.on('data', data => {
 			callbacks && callbacks.onData && callbacks.onData(portId, data)
 		})
 

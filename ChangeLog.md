@@ -171,3 +171,10 @@
 
 - [scratch 2] 加入Ardubits支持，用户可以先通过“选项”->“上传Ardubits固件”上传固件
 - [scratch 3] 继续优化
+
+### v0.5.0
+
+#### features
+
+- [scratch 2]和[scratch 3] 分离出去，以后会单独更新
+- 底层优化
