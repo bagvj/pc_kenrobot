@@ -75,21 +75,11 @@ gulp.task('clean-public', _ => {
 	return del(APP + 'public')
 })
 
-gulp.task('clean-scratch2', _ => {
-	return del(APP + 'public/scratch2')
-})
-
-gulp.task('clean-scratch3', _ => {
-	return del(APP + 'public/scratch3')
-})
-
 gulp.task('clean-other', _ => {
 	return del([
 		APP + 'public/**/*',
 		'!' + APP + "public/renderer.js",
 		'!' + APP + "public/assets/**/*",
-		'!' + APP + "public/scratch2/**/*",
-		'!' + APP + "public/scratch3/**/*",
 	])
 })
 
@@ -160,47 +150,11 @@ gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
 
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
-gulp.task('pack-scratch2', ['clean-scratch2'], callback => {
-	gulp.src([SRC + 'public/scratch2/**/*'])
-		.pipe(gulp.dest(APP + 'public/scratch2/'))
-		.on('end', _ => {
-			var indexPath = path.join(APP, 'public', 'scratch2', 'index.html')
-			var content = fs.readFileSync(indexPath, "utf8")
-			var tag = "</head>"
-			var contents = content.split(tag)
-			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch2"></script>')
-			fs.writeFileSync(indexPath, contents.join(""))
-			callback()
-		})
-		.on('error', err => {
-			callback(err)
-		})
-})
-
-gulp.task('pack-scratch3', ['clean-scratch3'], callback => {
-	gulp.src([SRC + 'public/scratch3/**/*', "!" + SRC + "public/scratch3/**/*.js.map"])
-		.pipe(gulp.dest(APP + 'public/scratch3/'))
-		.on('end', _ => {
-			var indexPath = path.join(APP, 'public', 'scratch3', 'index.html')
-			var content = fs.readFileSync(indexPath, "utf8")
-			var tag = "</head>"
-			var contents = content.split(tag)
-			contents.splice(1, 0, tag, '<script type="text/javascript" src="../assets/js/require.js" data-main="../assets/js/scratch3"></script>')
-			fs.writeFileSync(indexPath, contents.join(""))
-			callback()
-		})
-		.on('error', err => {
-			callback(err)
-		})
-})
-
 gulp.task('pack-other', ['clean-other'], _ => {
 	return gulp.src([
 			SRC + 'public/**/*',
 			'!' + SRC + "public/renderer.js",
 			'!' + SRC + "public/assets/**/*",
-			'!' + SRC + "public/scratch2/**/*",
-			'!' + SRC + "public/scratch3/**/*",
 		]).pipe(gulp.dest(APP + 'public/'))
 })
 
@@ -244,7 +198,7 @@ gulp.task('pack-renderer', ['clean-renderer'], _ => {
 })
 
 gulp.task('pack-public', ['clean-public'], callback => {
-	runSequence(['pack-renderer', 'pack-assets', 'pack-scratch2', 'pack-scratch3', 'pack-other'], callback)
+	runSequence(['pack-renderer', 'pack-assets', 'pack-other'], callback)
 })
 
 gulp.task('pack', ['pack-main', 'pack-public'])
