@@ -4995,7 +4995,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sa",
 				"anchor": [0.5, 1],
 				"tags": ["init"],
-				"spec": "3",
+				"spec": ["name", "3"],
 				"label": "sa",
 				"shape": "Dot",
 				"rotate": false
@@ -5003,7 +5003,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sb",
 				"anchor": [0.75, 1],
 				"tags": ["init"],
-				"spec": "2",
+				"spec": ["name", "2"],
 				"label": "sb",
 				"shape": "Dot",
 				"rotate": false
@@ -5738,7 +5738,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sda",
 				"anchor": [0.33, 0],
 				"tags": ["analog-in", "sda"],
-				"spec": "A4",
+				"spec": ["tag", "sda"],
 				"label": "sda",
 				"shape": "Dot",
 				"rotate": false
@@ -5746,7 +5746,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "scl",
 				"anchor": [0.67, 0],
 				"tags": ["analog-in", "scl"],
-				"spec": "A5",
+				"spec": ["tag", "scl"],
 				"label": "scl",
 				"shape": "Dot",
 				"rotate": false
@@ -6960,7 +6960,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "s",
 				"anchor": [1, 0.5],
 				"tags": ["serial"],
-				"spec": "Serial",
+				"spec": ["tag", "serial"],
 				"label": "s",
 				"shape": "Dot",
 				"rotate": false
