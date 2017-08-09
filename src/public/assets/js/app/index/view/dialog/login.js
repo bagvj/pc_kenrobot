@@ -143,7 +143,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				dialogWin.find(".x-dialog-close").trigger("click");
 
 				util.message("登录成功");
-				kenrobot.trigger("user", "update");
+				emitor.trigger("user", "update");
 			} else {
 				showError(tab, result.message);
 			}
@@ -256,7 +256,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			setWeixinLoginCheck(false);
 			dialogWin.find(".x-dialog-close").trigger("click");
 			util.message("登录成功");
-			kenrobot.trigger("user", "update");
+			emitor.trigger("user", "update");
 		} else if (result.status == -3) {
 			refreshWeixinQrcode();
 		} else {
