@@ -351,11 +351,26 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 			epComponent.unbind('click');
 			epComponent.bind('click', onComponentEndpointClick);
 
-			if(!pin.spec) {
+			var spec = pin.spec
+			if(!spec || spec.length < 2) {
 				return;
 			}
 
-			var epBoardDom = container.querySelector(".board-endpoint.pin-" + pin.spec);
+			var epBoardDom;
+			if(spec[0] == "name") {
+				//name
+				epBoardDom = container.querySelector(".board-endpoint.pin-" + spec[1]);
+			} else {
+				//tag
+				[].forEach.call(container.querySelectorAll(".board-endpoint"), function(endpointDom) {
+					var endpoint = endpointDom._jsPlumb;
+					var tags = endpoint.scope.split(" ");
+					if(tags.indexOf(spec[1]) >= 0) {
+						epBoardDom = endpointDom;
+						return true;
+					}
+				});
+			}
 			if(!epBoardDom) {
 				return;
 			}

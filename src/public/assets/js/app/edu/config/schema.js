@@ -62,7 +62,7 @@ define(['vendor/lodash'], function($1) {
 			"code": "digitalRead({PIN})",
 			"returnType": {
 				"type": "simple",
-				"value": "float"
+				"value": "int"
 			},
 			"tags": ["module"],
 			"module": "default",
@@ -88,7 +88,7 @@ define(['vendor/lodash'], function($1) {
 			"code": "analogRead({PIN})",
 			"returnType": {
 				"type": "simple",
-				"value": "float"
+				"value": "int"
 			},
 			"tags": ["module"],
 			"module": "default",
@@ -332,7 +332,7 @@ define(['vendor/lodash'], function($1) {
 			"code": "digitalRead({PIN})",
 			"returnType": {
 				"type": "simple",
-				"value": "float"
+				"value": "int"
 			},
 			"tags": ["module", "advanced"],
 			"module": "default",
@@ -364,7 +364,7 @@ define(['vendor/lodash'], function($1) {
 			"code": "analogRead({PIN})",
 			"returnType": {
 				"type": "simple",
-				"value": "float"
+				"value": "int"
 			},
 			"tags": ["module", "advanced"],
 			"module": "default",
@@ -4995,7 +4995,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sa",
 				"anchor": [0.5, 1],
 				"tags": ["init"],
-				"spec": "3",
+				"spec": ["name", "3"],
 				"label": "sa",
 				"shape": "Dot",
 				"rotate": false
@@ -5003,7 +5003,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sb",
 				"anchor": [0.75, 1],
 				"tags": ["init"],
-				"spec": "2",
+				"spec": ["name", "2"],
 				"label": "sb",
 				"shape": "Dot",
 				"rotate": false
@@ -5278,7 +5278,7 @@ define(['vendor/lodash'], function($1) {
 				"code": "{SENSOR}.Distance()",
 				"returnType": {
 					"type": "simple",
-					"value": "long"
+					"value": "float"
 				},
 				"tags": ["module"],
 				"module": "ultrasound",
@@ -5304,9 +5304,9 @@ define(['vendor/lodash'], function($1) {
 				"code": "{SENSOR}.DistanceAvg()",
 				"returnType": {
 					"type": "simple",
-					"value": "long"
+					"value": "float"
 				},
-				"tags": ["module"],
+				"tags": ["module", "advanced"],
 				"module": "ultrasound",
 				"uid": "KZOY8K"
 			}, {
@@ -5331,7 +5331,7 @@ define(['vendor/lodash'], function($1) {
 					"value": "Ping"
 				}],
 				"code": "{SENSOR}.Ping();",
-				"tags": ["module"],
+				"tags": ["module", "advanced"],
 				"module": "ultrasound",
 				"uid": "8mCcky"
 			}, {
@@ -5355,13 +5355,79 @@ define(['vendor/lodash'], function($1) {
 				"code": "{SENSOR}.getDistance()",
 				"returnType": {
 					"type": "simple",
-					"value": "long"
+					"value": "float"
 				},
-				"tags": ["module"],
+				"tags": ["module", "advanced"],
 				"module": "ultrasound",
 				"uid": "KsZVo2"
 			}],
 			"imageUrl": "../assets/image/components/ultrasound.png"
+		}, {
+			"uid": "Upqst6",
+			"name": "lm35",
+			"label": "LM35温度传感器",
+			"type": "lm35",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <LM35.h>",
+				"var": "LM35 {NAME}({s});"
+			},
+			"raw": true,
+			"blocks": [{
+				"type": "output",
+				"name": "lm35Read",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "温度传感器"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "lm35s"
+				}, {
+					"type": "text",
+					"value": "读取"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "摄氏",
+						"value": "cel"
+					}, {
+						"label": "华氏",
+						"value": "fah"
+					}, {
+						"label": "开尔文",
+						"value": "kel"
+					}]
+				}, {
+					"type": "text",
+					"value": "温度"
+				}],
+				"code": "{SENSOR}.{OP}()",
+				"returnType": {
+					"type": "simple",
+					"value": "float"
+				},
+				"tags": ["module"],
+				"module": "lm35",
+				"uid": "6IcaG6"
+			}],
+			"imageUrl": "../assets/image/components/lm35.svg"
 		}, {
 			"uid": "E2ZSBW",
 			"name": "led",
@@ -5738,7 +5804,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "sda",
 				"anchor": [0.33, 0],
 				"tags": ["analog-in", "sda"],
-				"spec": "A4",
+				"spec": ["tag", "sda"],
 				"label": "sda",
 				"shape": "Dot",
 				"rotate": false
@@ -5746,7 +5812,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "scl",
 				"anchor": [0.67, 0],
 				"tags": ["analog-in", "scl"],
-				"spec": "A5",
+				"spec": ["tag", "scl"],
 				"label": "scl",
 				"shape": "Dot",
 				"rotate": false
@@ -6235,6 +6301,57 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module"],
 				"module": "buzzer",
 				"uid": "VzCbs8"
+			}, {
+				"type": "statement",
+				"name": "buzzerTone",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "6EeYYf"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Hahl8q"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "蜂鸣器"
+				}, {
+					"id": "BUZZER",
+					"type": "dynamic-select",
+					"options": "buzzers"
+				}, {
+					"type": "text",
+					"value": "发出频率"
+				}, {
+					"blockInputId": "NOTE",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "6EeYYf"
+				}, {
+					"type": "text",
+					"value": "持续"
+				}, {
+					"blockInputId": "SECONDS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Hahl8q"
+				}, {
+					"type": "text",
+					"value": "毫秒"
+				}],
+				"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
+				"tags": ["module"],
+				"module": "buzzer",
+				"uid": "wWi5EW"
 			}, {
 				"type": "statement",
 				"name": "buzzerClose",
@@ -6767,14 +6884,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机驱动板"
+					"value": "设置电机驱动板模块"
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
 					"options": "L298Ps"
-				}, {
-					"type": "text",
-					"value": "上第"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -6787,7 +6901,7 @@ define(['vendor/lodash'], function($1) {
 					}]
 				}, {
 					"type": "text",
-					"value": "号电机速度为"
+					"value": "号电机转速为"
 				}, {
 					"blockInputId": "SPEED",
 					"type": "block-input",
@@ -6810,14 +6924,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机驱动板"
+					"value": "设置电机驱动板模块"
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
 					"options": "L298Ps"
-				}, {
-					"type": "text",
-					"value": "上第"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -6843,7 +6954,7 @@ define(['vendor/lodash'], function($1) {
 					}]
 				}],
 				"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
-				"tags": ["module"],
+				"tags": ["module", "advanced"],
 				"module": "L298P",
 				"uid": "KuYvM6"
 			}, {
@@ -6863,14 +6974,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机驱动板"
+					"value": "设置电机驱动板模块"
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
 					"options": "L298Ps"
-				}, {
-					"type": "text",
-					"value": "上第"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -6896,7 +7004,7 @@ define(['vendor/lodash'], function($1) {
 					}]
 				}, {
 					"type": "text",
-					"value": "速度为"
+					"value": "转速为"
 				}, {
 					"blockInputId": "SPEED",
 					"type": "block-input",
@@ -6904,7 +7012,7 @@ define(['vendor/lodash'], function($1) {
 					"name": "uSYWse"
 				}],
 				"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
-				"tags": ["module"],
+				"tags": ["module", "advanced"],
 				"module": "L298P",
 				"uid": "ym7Mdx"
 			}, {
@@ -6919,14 +7027,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置电机驱动板"
+					"value": "设置电机驱动板模块"
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
 					"options": "L298Ps"
-				}, {
-					"type": "text",
-					"value": "上第"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -6948,6 +7053,283 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"imageUrl": "../assets/image/components/L298P.png"
 		}, {
+			"uid": "Ps9VEj",
+			"name": "car",
+			"label": "小车",
+			"type": "car",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 90,
+			"pins": [{
+				"name": "leftPin",
+				"anchor": [0.333, 1],
+				"tags": ["analog-out"],
+				"label": "leftPin",
+				"shape": "Dot",
+				"rotate": false
+			}, {
+				"name": "rightPin",
+				"anchor": [0.667, 1],
+				"tags": ["analog-out"],
+				"label": "rightPin",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <curieBot.h>",
+				"var": "Servo_Motor {NAME}({leftPin}, {rightPin});"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "carRun",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "hAmvWG"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"type": "text",
+					"value": "运行，速度为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "hAmvWG"
+				}],
+				"code": "{CAR}.run({SPEED});",
+				"tags": ["module"],
+				"module": "car",
+				"uid": "lURiJV"
+			}, {
+				"type": "statement",
+				"name": "carTurn0",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "左转",
+						"value": "turnLeft"
+					}, {
+						"label": "右转",
+						"value": "turnRight"
+					}]
+				}],
+				"code": "{CAR}.{OP}();",
+				"tags": ["module"],
+				"module": "car",
+				"uid": "DUHqhx"
+			}, {
+				"type": "statement",
+				"name": "carTurn1",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "NhyLFz"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "左转",
+						"value": "turnLeft"
+					}, {
+						"label": "右转",
+						"value": "turnRight"
+					}]
+				}, {
+					"blockInputId": "ANGLE",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "NhyLFz"
+				}, {
+					"type": "text",
+					"value": "度"
+				}],
+				"code": "{CAR}.{OP}({ANGLE});",
+				"tags": ["module"],
+				"module": "car",
+				"uid": "h6lY4O"
+			}, {
+				"type": "statement",
+				"name": "carTurn2",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "h457tm"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "左转",
+						"value": "left"
+					}, {
+						"label": "右转",
+						"value": "right"
+					}]
+				}, {
+					"type": "text",
+					"value": "速度"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "h457tm"
+				}],
+				"code": "'{OP}' === 'left' ? '{CAR}.turnLeft();{CAR}.motorL({SPEED});' : '{CAR}.turnRight();{CAR}.motorR({SPEED});'",
+				"eval": true,
+				"tags": ["module"],
+				"module": "car",
+				"uid": "ORA7Bd"
+			}, {
+				"type": "statement",
+				"name": "carStop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"type": "text",
+					"value": "停止"
+				}],
+				"code": "{CAR}.stop();",
+				"tags": ["module"],
+				"module": "car",
+				"uid": "LV0hxJ"
+			}, {
+				"type": "statement",
+				"name": "carCalibrate",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "校准小车"
+				}, {
+					"id": "CAR",
+					"type": "dynamic-select",
+					"options": "cars"
+				}],
+				"code": "{CAR}.calibrate();",
+				"tags": ["module"],
+				"module": "car",
+				"uid": "oaNZtO"
+			}, {
+				"type": "output",
+				"name": "carTrackCheck",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "读取小车"
+				}, {
+					"id": "PIN",
+					"type": "dynamic-select",
+					"options": "cars"
+				}, {
+					"type": "text",
+					"value": "循迹板"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "左",
+						"value": "14"
+					}, {
+						"label": "中",
+						"value": "15"
+					}, {
+						"label": "右",
+						"value": "16"
+					}]
+				}, {
+					"type": "text",
+					"value": "监测点的数字量"
+				}],
+				"code": "digitalRead({INDEX})",
+				"returnType": {
+					"type": "simple",
+					"value": "int"
+				},
+				"tags": ["module"],
+				"module": "car",
+				"uid": "xWylGC"
+			}],
+			"imageUrl": "../assets/image/components/car.svg"
+		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
 			"label": "串口模块",
@@ -6960,7 +7342,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "s",
 				"anchor": [1, 0.5],
 				"tags": ["serial"],
-				"spec": "Serial",
+				"spec": ["tag", "serial"],
 				"label": "s",
 				"shape": "Dot",
 				"rotate": false
