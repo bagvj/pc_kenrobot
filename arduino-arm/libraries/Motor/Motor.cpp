@@ -125,6 +125,8 @@ void Motor::run(int index, bool direction, int speed)
 
 void Motor::setSpeed(int index, int speed)
 {
+	speed = speed > 100 ? 100 : (speed < 0 ? 0 : speed);
+	speed = map(speed, 0, 100, 0, 255);
 	if (index == 1 && _index1 == 1)
 	{
 		if((_isEnPin1 && digitalRead(_en1) == 0) || _en1 == 0)

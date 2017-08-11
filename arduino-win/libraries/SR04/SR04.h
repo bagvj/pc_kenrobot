@@ -34,7 +34,7 @@ public:
 	* in centimenter
 	* \return long distance in centimeter
 	*/
-	long Distance();
+	float Distance();
 	
 	/**
 	* Do count measurents and calculate the average. 
@@ -45,7 +45,7 @@ public:
 	* \param count number of measurements, default DEFAULT_PINGS
 	* \return long distance in centimeter
 	**/
-	long DistanceAvg(int wait=DEFAULT_DELAY, int count=DEFAULT_PINGS);
+	float DistanceAvg(int wait=DEFAULT_DELAY, int count=DEFAULT_PINGS);
 	
 	/**
 	* Do only a ping. Get result with methode getDistance()
@@ -59,7 +59,7 @@ public:
 	* \param keine
 	* \return Distanz in Zentimeter
 	*/
-	long getDistance();
+	float getDistance();
 	
 
 private:
@@ -78,11 +78,11 @@ private:
 	*
 	* duration / 5882 * 100 = distance in cm
 	*/	
-	long MicrosecondsToCentimeter(long duration);
+	float MicrosecondsToCentimeter(long duration);
 	
-	long _currentDistance;
 	int _echoPin, _triggerPin;
-	long _duration, _distance;
+	long _duration;
+	float _distance;
 	bool _autoMode;
 };
 #endif
