@@ -6,7 +6,7 @@
 #include "Servo_Motor.h"
 
 #include <Servo.h>
-// #include <CurieIMU.h>
+#include <CurieIMU.h>
 #include <MadgwickAHRS.h>
 
 Servo_Motor::Servo_Motor(int pinL, int pinR)
@@ -22,11 +22,11 @@ Servo_Motor::Servo_Motor(int pinL, int pinR)
   _calibrationTime = 0;
   // servoL.attach(_pinL);
   // servoR.attach(_pinR);
-  // CurieIMU.begin();
-  // CurieIMU.setGyroRate(100);
-  // CurieIMU.setGyroRange(250);
-  // CurieIMU.setAccelerometerRate(100);
-  // CurieIMU.setAccelerometerRange(2);
+  CurieIMU.begin();
+  CurieIMU.setGyroRate(100);
+  CurieIMU.setGyroRange(250);
+  CurieIMU.setAccelerometerRate(100);
+  CurieIMU.setAccelerometerRange(2);
   filter.begin(100);
 }
 
@@ -47,7 +47,7 @@ void Servo_Motor::calibrate() {
   _calibrationTime = c / (CALNUM-1);
   Serial.println("Calibration end");
   Serial.print("calibrationTime:");
-  Serial.println((unsigned long int)_calibrationTime);
+  Serial.println(_calibrationTime);
 }
 
 
@@ -234,8 +234,8 @@ float Servo_Motor::getHeading() {
   float ax, ay, az;
   float gx, gy, gz;
   float heading;
-  // while (!CurieIMU.dataReady());
-  // CurieIMU.readMotionSensor(aix, aiy, aiz, gix, giy, giz);
+  while (!CurieIMU.dataReady());
+  CurieIMU.readMotionSensor(aix, aiy, aiz, gix, giy, giz);
   ax = convertRawAcceleration(aix);
   ay = convertRawAcceleration(aiy);
   az = convertRawAcceleration(aiz);
