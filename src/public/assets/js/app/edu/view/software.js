@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'app/common/util/emitor', '../model/softwareModel', '../model/hardwareModel'], function($1, $2, util, emitor, softwareModel, hardwareModel) {
+define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', '../model/softwareModel', '../model/hardwareModel'], function($1, $2, _, util, emitor, softwareModel, hardwareModel) {
 	var region;
 	var container;
 	var dragContainer;
@@ -172,6 +172,22 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		var group;
 		var groupName;
 
+		var pins = hardwareData.board.pins;
+		pins = pins.filter(pin => {
+			var tags = pin.tags;
+			if(tags.indexOf("serial") >= 0 || tags.indexOf("VCC") >= 0 || tags.indexOf("GND") >= 0) {
+				return false;
+			}
+
+			return true;
+		}).map(pin => {
+			return {
+				id: pin.uid,
+				name: pin.name,
+			}
+		});
+		pins = _.sortBy(pins, "name");
+
 		hardwareData.components.forEach(function(componentData) {
 			modules.indexOf(componentData.type) < 0 && modules.push(componentData.type);
 			groupName = componentData.type + "s";
@@ -182,13 +198,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			});
 		});
 
+		var raw = {
+			name: "raw",
+			group: [],
+		};
+		
 		if (hardwareData.components.length > 0) {
 			var hardwareVariable = {
 				name: "hardwareVariable",
-				group: [],
-			};
-			var raw = {
-				name: "raw",
 				group: [],
 			};
 			var serial = {
@@ -243,12 +260,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 				modules.push(hardwareVariable.name);
 				groups[hardwareVariable.name + "s"] = hardwareVariable.group;
 			}
-			if (raw.group.length > 0) {
-				modules.push(raw.name);
-				groups[raw.name + "s"] = raw.group;
-			}
 			groups[serial.name + "s"] = serial.group;
 		}
+		modules.push(raw.name);
+		groups[raw.name + "s"] = raw.group.concat(pins);
 
 		softwareModel.updateDynamicBlocks(groups);
 
