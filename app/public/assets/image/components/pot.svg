@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>potentiometer</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="potentiometer">
+            <g id="Group" transform="translate(63.470588, 16.000000)" fill-rule="nonzero">
+                <polygon id="Shape" fill="#0C0C0C" points="3.45882353 1.32957746 0.494117647 4.48732394 23.0588235 4.48732394 19.7647059 1.32957746"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="22.7294118" y="4.48732394" width="1" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#000000" x="21.5764706" y="4.48732394" width="1" height="25.2619718"></rect>
+                <polygon id="Shape" fill="#101010" points="22.0705882 29.7492958 22.7294118 29.7492958 22.7294118 4.48732394 20.4235294 1.9943662 22.0705882 4.48732394"></polygon>
+                <polygon id="Shape" fill="#202020" points="19.2705882 1.9943662 20.4235294 4.48732394 20.4235294 29.7492958 21.5764706 29.7492958 21.5764706 4.48732394"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="19.7647059" y="4.48732394" width="1" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#000000" x="17.2941176" y="4.48732394" width="1" height="25.2619718"></rect>
+                <polygon id="Shape" fill="#303030" points="17.6235294 1.9943662 18.2823529 4.48732394 18.2823529 29.7492958 19.7647059 29.7492958 19.7647059 4.48732394"></polygon>
+                <polygon id="Shape" fill="#404040" points="15.6470588 1.9943662 15.6470588 4.48732394 15.6470588 29.7492958 17.2941176 29.7492958 17.2941176 4.48732394"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="14.6588235" y="4.48732394" width="1.15294118" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#000000" x="11.5294118" y="4.48732394" width="1.15294118" height="25.2619718"></rect>
+                <polygon id="Shape" fill="#515151" points="13.3411765 1.9943662 12.6823529 4.48732394 12.6823529 29.7492958 14.6588235 29.7492958 14.6588235 4.48732394"></polygon>
+                <polygon id="Shape" fill="#515151" points="10.8705882 1.9943662 9.55294118 4.48732394 9.55294118 29.7492958 11.5294118 29.7492958 11.5294118 4.48732394"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="8.56470588" y="4.48732394" width="1.15294118" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#000000" x="5.92941176" y="4.48732394" width="1" height="25.2619718"></rect>
+                <polygon id="Shape" fill="#404040" points="8.56470588 1.9943662 6.75294118 4.48732394 6.75294118 29.7492958 8.56470588 29.7492958 8.56470588 4.48732394"></polygon>
+                <polygon id="Shape" fill="#303030" points="6.42352941 1.9943662 4.44705882 4.48732394 4.44705882 29.7492958 5.92941176 29.7492958 5.92941176 4.48732394"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="3.62352941" y="4.48732394" width="1" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#000000" x="1.81176471" y="4.48732394" width="1" height="25.2619718"></rect>
+                <polygon id="Shape" fill="#202020" points="4.77647059 1.9943662 2.47058824 4.48732394 2.47058824 29.7492958 3.62352941 29.7492958 3.62352941 4.48732394"></polygon>
+                <polygon id="Shape" fill="#101010" points="3.45882353 1.9943662 1.15294118 4.48732394 1.15294118 29.7492958 1.81176471 29.7492958 1.81176471 4.48732394"></polygon>
+                <rect id="Rectangle-path" fill="#000000" x="0.823529412" y="4.48732394" width="1" height="25.2619718"></rect>
+                <rect id="Rectangle-path" fill="#515151" x="0.494117647" y="4.48732394" width="1" height="25.2619718"></rect>
+            </g>
+            <rect id="Rectangle-path" fill="#000000" fill-rule="nonzero" x="63.9647059" y="45.7492958" width="22.5647059" height="52.5183099"></rect>
+            <rect id="Rectangle-path" fill="#202020" fill-rule="nonzero" x="65.6117647" y="45.7492958" width="19.1058824" height="52.5183099"></rect>
+            <rect id="Rectangle-path" fill="#353535" fill-rule="nonzero" x="72.3647059" y="45.7492958" width="8.56470588" height="52.5183099"></rect>
+            <rect id="Rectangle-path" fill="#515151" fill-rule="nonzero" x="75.4941176" y="45.7492958" width="2.47058824" height="52.5183099"></rect>
+            <rect id="Rectangle-path" fill="#0C0C0C" fill-rule="nonzero" x="74.1764706" y="17.3295775" width="2.63529412" height="14.7915493"></rect>
+            <rect id="Rectangle-path" fill="#222426" fill-rule="nonzero" x="48.3176471" y="98.2676056" width="54.0235294" height="23.7661972"></rect>
+            <rect id="Rectangle-path" fill="#000000" fill-rule="nonzero" x="67.2588235" y="98.2676056" width="15.9764706" height="7.31267606"></rect>
+            <path d="M67.4235294,106.411268 L83.0705882,106.411268" id="Shape" stroke="#FFFFFF" stroke-width="0.550000012" opacity="0.2"></path>
+            <rect id="Rectangle-path" fill="#B3B3B3" fill-rule="nonzero" x="62.4823529" y="95.4422535" width="25.5294118" height="1.49577465"></rect>
+            <rect id="Rectangle-path" fill="#999999" fill-rule="nonzero" x="48.3176471" y="97.1042254" width="54.0235294" height="1.16338028"></rect>
+            <rect id="Rectangle-path" fill="#000000" fill-rule="nonzero" x="53.4235294" y="96.4394366" width="2.96470588" height="1.16338028"></rect>
+            <rect id="Rectangle-path" fill="#000000" fill-rule="nonzero" x="94.1058824" y="96.4394366" width="2.96470588" height="1.16338028"></rect>
+            <rect id="Rectangle-path" fill="#96969F" fill-rule="nonzero" x="92.6235294" y="113.890141" width="6.09411765" height="19.7774648"></rect>
+            <rect id="Rectangle-path" fill="#96969F" fill-rule="nonzero" x="72.2" y="113.890141" width="6.09411765" height="19.7774648"></rect>
+            <rect id="Rectangle-path" fill="#96969F" fill-rule="nonzero" x="51.9411765" y="113.890141" width="6.09411765" height="19.7774648"></rect>
+        </g>
+    </g>
+</svg>

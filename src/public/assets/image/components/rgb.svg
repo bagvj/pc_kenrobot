@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>RGBled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="74.8" cy="75.4" rx="20" ry="19"></ellipse>
+        <filter x="-3.8%" y="-3.9%" width="107.5%" height="107.9%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="1" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0504132699 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="RGBled">
+            <path d="M74.8,53.6 L74.8,53.6 C73.4,53.6 72.4,52.6 72.4,51.2 L72.4,46.4 C72.4,45 73.4,44 74.8,44 L74.8,44 C76.2,44 77.2,45 77.2,46.4 L77.2,51.2 C77.2,52.6 76,53.6 74.8,53.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <path d="M60.6,53.6 L60.6,53.6 C59.2,53.6 58.2,52.6 58.2,51.2 L58.2,46.4 C58.2,45 59.2,44 60.6,44 L60.6,44 C62,44 63,45 63,46.4 L63,51.2 C63,52.6 61.8,53.6 60.6,53.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <path d="M89,53.6 L89,53.6 C87.6,53.6 86.6,52.6 86.6,51.2 L86.6,46.4 C86.6,45 87.6,44 89,44 L89,44 C90.4,44 91.4,45 91.4,46.4 L91.4,51.2 C91.4,52.6 90.2,53.6 89,53.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <path d="M74.8,105.6 L74.8,105.6 C73.4,105.6 72.4,104.6 72.4,103.2 L72.4,98.4 C72.4,97 73.4,96 74.8,96 L74.8,96 C76.2,96 77.2,97 77.2,98.4 L77.2,103.2 C77.2,104.6 76,105.6 74.8,105.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <path d="M60.6,105.6 L60.6,105.6 C59.2,105.6 58.2,104.6 58.2,103.2 L58.2,98.4 C58.2,97 59.2,96 60.6,96 L60.6,96 C62,96 63,97 63,98.4 L63,103.2 C63,104.6 61.8,105.6 60.6,105.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <path d="M89,105.6 L89,105.6 C87.6,105.6 86.6,104.6 86.6,103.2 L86.6,98.4 C86.6,97 87.6,96 89,96 L89,96 C90.4,96 91.4,97 91.4,98.4 L91.4,103.2 C91.4,104.6 90.2,105.6 89,105.6 Z" id="Shape" fill="#C8C9CD" fill-rule="nonzero"></path>
+            <rect id="Rectangle-path" fill="#E7E7E7" fill-rule="nonzero" x="50" y="53" width="49.6800781" height="46.6"></rect>
+            <rect id="Rectangle-path" fill="#E7E7E7" fill-rule="nonzero" x="50" y="51" width="49.6800781" height="46.6"></rect>
+            <circle id="Oval" fill="#E0DFD0" fill-rule="nonzero" cx="74.8" cy="74.2" r="20"></circle>
+            <ellipse id="Oval" fill="#E0DFD0" fill-rule="nonzero" cx="74.8" cy="75.4" rx="20" ry="19"></ellipse>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="SVGID_1_" fill-opacity="1" fill="black">
+                <use filter="url(#filter-3)" xlink:href="#path-1"></use>
+            </g>
+            <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)" points="65.2 57.8 70 64 67.8 81.6 55 81.6 55 83.8 67.6 83.8 67.4 84.8 63.2 90.8 64.6 91.8 69.2 85.4 71.8 63.4 66.4 56.8"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)" points="94.6 81.6 81.2 81.6 79.2 64.2 84 58.2 82.6 57 77.4 63.6 79.8 85.4 80 85.6 84.4 92 85.8 91 81.6 85 81.4 83.8 94.8 83.8"></polygon>
+            <path d="M55.8,31 L55.8,31 C54.2,31 52.8,29.6 52.8,28 L52.8,17.8 C52.8,16.2 54.2,14.8 55.8,14.8 L55.8,14.8 C57.4,14.8 58.8,16.2 58.8,17.8 L58.8,28 C58.6,29.8 57.4,31 55.8,31 Z" id="Shape" fill="#E7E7E7" fill-rule="nonzero"></path>
+            <rect id="Rectangle-path" fill="#A8A3BA" fill-rule="nonzero" x="52.8" y="17.8" width="5.8" height="10.2"></rect>
+            <path d="M74.8,31 L74.8,31 C73.2,31 71.8,29.6 71.8,28 L71.8,17.8 C71.8,16.2 73.2,14.8 74.8,14.8 L74.8,14.8 C76.4,14.8 77.8,16.2 77.8,17.8 L77.8,28 C77.6,29.8 76.4,31 74.8,31 Z" id="Shape" fill="#E7E7E7" fill-rule="nonzero"></path>
+            <rect id="Rectangle-path" fill="#A8A3BA" fill-rule="nonzero" x="71.8" y="17.8" width="5.8" height="10.2"></rect>
+            <path d="M93.6,31 L93.6,31 C92,31 90.6,29.6 90.6,28 L90.6,17.8 C90.6,16.2 92,14.8 93.6,14.8 L93.6,14.8 C95.2,14.8 96.6,16.2 96.6,17.8 L96.6,28 C96.6,29.8 95.4,31 93.6,31 Z" id="Shape" fill="#E7E7E7" fill-rule="nonzero"></path>
+            <rect id="Rectangle-path" fill="#A8A3BA" fill-rule="nonzero" x="90.8" y="17.8" width="5.8" height="10.2"></rect>
+            <path d="M37.4,130.6 L35.4,130.6 L35.4,135 L33,135 L33,123 L37.4,123 C38.8,123 40,123.4 40.8,124 C41.6,124.6 42,125.6 42,126.6 C42,127.4 41.8,128.2 41.4,128.6 C41,129 40.6,129.6 39.8,130 L42.4,135 L42.4,135.2 L39.8,135.2 L37.4,130.6 Z M35.4,128.6 L37.4,128.6 C38,128.6 38.6,128.4 38.8,128.2 C39.2,127.8 39.4,127.4 39.4,126.8 C39.4,126.2 39.2,125.8 39,125.4 C38.6,125 38.2,125 37.6,125 L35.6,125 L35.6,128.6 L35.4,128.6 Z" id="Shape-Copy-2" fill="#838698" fill-rule="nonzero"></path>
+            <path d="M79.6,133.4 C79.2,134 78.6,134.4 77.6,134.6 C76.8,134.8 75.8,135 74.8,135 C73.8,135 72.8,134.8 72,134.4 C71.2,134 70.6,133.2 70.2,132.4 C69.8,131.6 69.6,130.6 69.6,129.4 L69.6,128.6 C69.6,127.4 69.8,126.4 70.2,125.4 C70.6,124.4 71.2,123.8 72,123.4 C72.8,123 73.6,122.6 74.6,122.6 C76,122.6 77.2,123 78,123.6 C78.8,124.2 79.2,125.2 79.4,126.6 L77,126.6 C76.8,126 76.6,125.4 76.2,125 C75.8,124.6 75.2,124.6 74.6,124.6 C73.8,124.6 73.2,125 72.6,125.6 C72,126.2 72,127.2 72,128.4 L72,129.2 C72,130.4 72.2,131.4 72.8,132 C73.2,132.6 74,133 75,133 C76,133 76.6,132.8 77,132.4 L77,130.4 L74.8,130.4 L74.8,128.6 L79.6,128.6 L79.6,133.4 L79.6,133.4 Z" id="Shape" fill="#838698" fill-rule="nonzero"></path>
+            <path d="M107,135 L107,123 L111.2,123 C112.6,123 113.8,123.2 114.6,123.8 C115.4,124.4 115.8,125.2 115.8,126.2 C115.8,126.8 115.6,127.4 115.4,127.8 C115.2,128.2 114.6,128.6 114.2,128.8 C114.8,129 115.4,129.2 115.6,129.8 C115.8,130.4 116.2,130.8 116.2,131.6 C116.2,132.8 115.8,133.6 115,134.2 C114.2,134.8 113.2,135.2 111.8,135.2 L107,135.2 L107,135 Z M109.4,128 L111.2,128 C112.4,128 113,127.4 113,126.4 C113,125.8 112.8,125.4 112.6,125.2 C112.2,125 111.8,124.8 111,124.8 L109.2,124.8 L109.2,128 L109.4,128 Z M109.4,129.8 L109.4,133 L111.6,133 C112.2,133 112.6,132.8 113,132.6 C113.4,132.4 113.4,132 113.4,131.4 C113.4,130.2 112.8,129.8 111.6,129.8 L109.4,129.8 Z" id="Shape-Copy" fill="#838698" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

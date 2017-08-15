@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>infraredSensor</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="infraredSensor" fill-rule="nonzero">
+            <rect id="Rectangle-path" fill="#383A40" x="19.7082484" y="80.82012" width="110.92381" height="37.44"></rect>
+            <polygon id="Shape" fill="#54555E" points="130.632058 80.82012 19.7082484 80.82012 28.0320579 70.92012 122.851106 70.92012"></polygon>
+            <rect id="Rectangle-path" fill="#383A40" x="71.6415817" y="40.14012" width="7.6" height="46.44"></rect>
+            <polygon id="Shape" fill="#565656" points="77.974915 30.42012 72.5463436 30.42012 71.6415817 40.14012 79.2415817 40.14012"></polygon>
+            <path d="M68.927296,74.52012 C68.927296,74.52012 62.774915,77.94012 50.6511055,77.94012 C38.527296,77.94012 32.374915,74.52012 32.374915,74.52012 L32.374915,51.84012 C32.374915,51.84012 33.0987246,35.28012 50.6511055,35.28012 C68.2034865,35.28012 68.927296,51.84012 68.927296,51.84012 L68.927296,74.52012 Z" id="Shape" fill="#3260C6"></path>
+            <ellipse id="Oval" fill="#6B7FF2" cx="50.2892008" cy="41.04012" rx="7.96190476" ry="3.24"></ellipse>
+            <path d="M119.593963,74.52012 C119.593963,74.52012 113.441582,77.94012 101.317772,77.94012 C89.1939627,77.94012 83.0415817,74.52012 83.0415817,74.52012 L83.0415817,51.84012 C83.0415817,51.84012 83.7653912,35.28012 101.317772,35.28012 C118.870153,35.28012 119.593963,51.84012 119.593963,51.84012 L119.593963,74.52012 L119.593963,74.52012 Z" id="Shape" fill="#3D3442"></path>
+            <ellipse id="Oval" fill="#6F6277" cx="101.13682" cy="41.04012" rx="7.96190476" ry="3.24"></ellipse>
+        </g>
+    </g>
+</svg>
