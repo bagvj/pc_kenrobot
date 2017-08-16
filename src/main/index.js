@@ -49,6 +49,7 @@ var arduinoOptions = {
 var config
 
 var mainWindow
+var firstRun
 
 init()
 
@@ -270,6 +271,7 @@ function checkIfFirstRun() {
 
 	config.version = util.getVersion()
 	config.reportInstall = false
+	firstRun = true
 	writeConfig(true)
 }
 
@@ -406,20 +408,24 @@ function saveSetting(setting) {
 function unzipPackages(force) {
 	var deferred = Q.defer()
 
-	if(!force && config.version && config.version == util.getVersion()) {
-		log.debug("skip unzip packages")
-		setTimeout(_ => {
-			deferred.resolve()
-		}, 10)
+	// if(!force && !firstRun) {
+	// 	log.debug("skip unzip packages")
+	// 	setTimeout(_ => {
+	// 		deferred.resolve()
+	// 	}, 10)
 
-		return deferred.promise
-	}
+	// 	return deferred.promise
+	// }
 
 	log.debug("unzip packages")
 	var packagesPath = path.join(util.getAppResourcePath(), "packages")
 	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
 		var oldPackages = config.packages || []
 		var list = packages.filter(p => {
+			if(force || firstRun) {
+				return true
+			}
+
 			if(!oldPackages.find(o => o.name == p.name && o.checksum == p.checksum)) {
 				return true
 			}
@@ -430,16 +436,12 @@ function unzipPackages(force) {
 		var total = list.length
 		var doUnzip = _ => {
 			if(list.length == 0) {
-				config.version = util.getVersion()
 				config.packages = oldPackages
 				if(is.dev()) {
 					deferred.resolve()
 				} else {
-					writeConfig().then(_ => {
+					writeConfig().fin(_ => {
 						deferred.resolve()
-					}, err => {
-						err && log.error(err)
-						deferred.reject()
 					})
 				}
 				return
