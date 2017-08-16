@@ -130,7 +130,7 @@ function listenMessages() {
 	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
 	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
-	listenMessage("openUrl", url => url && shell.openExternal(url))
+	listenMessage("openUrl", url => util.resolvePromise(url && shell.openExternal(url)))
 
 	listenMessage("listSerialPort", _ => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
@@ -147,6 +147,7 @@ function listenMessages() {
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", _ => loadExamples())
 	listenMessage("openExample", (category, name) => openExample(category, name))
+	listenMessage("unzipPackages", forceUnzip => unzipPackages(forceUnzip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", _ => loadPackages())
 	listenMessage("deletePackage", name => deletePackage(name))
@@ -397,6 +398,84 @@ function loadSetting() {
 function saveSetting(setting) {
 	config.setting = setting
 	return writeConfig()
+}
+
+/**
+ * 解压资源包
+ */
+function unzipPackages(force) {
+	var deferred = Q.defer()
+
+	if(!force && config.version && config.version == util.getVersion()) {
+		log.debug("skip unzip packages")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+
+		return deferred.promise
+	}
+
+	log.debug("unzip packages")
+	var packagesPath = path.join(util.getAppResourcePath(), "packages")
+	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
+		var oldPackages = config.packages || []
+		var list = packages.filter(p => {
+			if(!oldPackages.find(o => o.name == p.name && o.checksum == p.checksum)) {
+				return true
+			}
+
+			return !fs.existsSync(path.join(getPackagesPath(), p.name, "packages.json"))
+		})
+
+		var total = list.length
+		var doUnzip = _ => {
+			if(list.length == 0) {
+				config.version = util.getVersion()
+				config.packages = oldPackages
+				if(is.dev()) {
+					deferred.resolve()
+				} else {
+					writeConfig().then(_ => {
+						deferred.resolve()
+					}, err => {
+						err && log.error(err)
+						deferred.reject()
+					})
+				}
+				return
+			}
+
+			var p = list.pop()
+			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
+				var oldPackage = oldPackages.find(o => o.name == p.name)
+				if(oldPackage) {
+					oldPackage.checksum = p.checksum
+				} else {
+					oldPackages.push(p)
+				}
+			}, err => {
+
+			}, progress => {
+				deferred.notify({
+					progress: progress,
+					name: p.name,
+					version: p.version,
+					count: total - list.length,
+					total: total,
+				})
+			})
+			.fin(_ => {
+				doUnzip()
+			})
+		}
+
+		doUnzip()
+	}, err => {
+		err && log.error(err)
+		deferred.resolve()
+	})
+
+	return deferred.promise
 }
 
 /**

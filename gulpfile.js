@@ -208,9 +208,9 @@ gulp.task('pack', ['pack-main', 'pack-public'])
  * 示例: gulp build-pack --release --branch=beta
  *       gulp build-pack --release --standalone --platform=arm --compress
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --feature=with-101
+ *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
  */
-gulp.task('build', ['clean-dist'], callback => {
+gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var platform = args.platform || "win"
 	var branch = args.branch || "release"
 	var feature = args.feature || ""
@@ -248,7 +248,9 @@ gulp.task('build', ['clean-dist'], callback => {
 		bit: arch == "ia32" ? 32 : 64,
 	})
 	nconf.save()
-	
+
+	var packageNames = args.packages ? args.packages.split(',') : []
+
 	if(args.standalone) {
 		var extraFiles = [
 			`./arduino-${platform}/**/*`,
@@ -258,7 +260,10 @@ gulp.task('build', ['clean-dist'], callback => {
 			`./plugins/FlashPlayer/${platform}/**/*`,
 			`!./plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
 			"./firmwares/**/*",
+			"./packages/packages.json",
 		]
+
+		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = _ => {
@@ -371,7 +376,10 @@ gulp.task('build', ['clean-dist'], callback => {
 			`plugins/FlashPlayer/${platform}`,
 			`!plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
 			"firmwares",
+			"packages/packages.json",
 		]
+
+		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		builder.build({
 			targets: targets,
@@ -435,6 +443,34 @@ gulp.task('check', callback => {
 	}, err => {
 		callback(err)
 	})
+})
+
+gulp.task('packages', callback => {
+	var packageNames = args.packages ? args.packages.split(',') : []
+
+	var reg = /([^-]+)-v(\d\.\d+\.\d+)-([^\.]+)\.7z/g
+	var packages = []
+
+	var platform = args.platform || "win"
+	globby.sync(`packages/*${platform}.7z`).forEach(p => {
+		var name = path.basename(p)
+		reg.lastIndex = 0
+		var match = reg.exec(name)
+		if(!packageNames.includes(match[1])) {
+			return
+		}
+
+		packages.push({
+			name: match[1],
+			version: match[2],
+			platform: match[3],
+			archiveName: name,
+			checksum: "sha256:" + hasha.fromFileSync(p, {algorithm: "sha256"}),
+		})
+	})
+	fs.writeJsonSync("packages/packages.json", packages)
+
+	callback()
 })
 
 gulp.task('upload', _ => {
