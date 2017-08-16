@@ -408,6 +408,7 @@ function saveSetting(setting) {
 function unzipPackages(skip) {
 	var deferred = Q.defer()
 
+	skip = skip || is.dev()
 	if(skip) {
 		log.debug("skip unzip packages")
 		setTimeout(_ => {
