@@ -12,7 +12,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	var componentContextMenu;
 	var boardContextMenu;
 	var contextMenuTarget;
-	var componentTemplate = '<li data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" /></div><div class="name">{{label}}</div></li>'
+	var componentTemplate = '<li data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" style="width:{{width}}px;height:{{height}}px;" /></div><div class="name">{{label}}</div></li>'
 	var boardTemplate = '<li data-value="{{name}}" title="{{label}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
 
 	var mouseDownComponentDom;
@@ -98,7 +98,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			var li = componentTemplate.replace(/\{\{name\}\}/g, component.name)
 				.replace(/\{\{label\}\}/g, component.label)
 				.replace(/\{\{filter\}\}/, component.category)
-				.replace(/\{\{src\}\}/, component.imageUrl);
+				.replace(/\{\{src\}\}/, component.imageUrl)
+				.replace(/\{\{width\}\}/, component.width)
+				.replace(/\{\{height\}\}/, component.height);
 			componentList.append(li);
 		});
 		Array.from(componentList[0].querySelectorAll("li .image")).forEach(function(imageDom) {

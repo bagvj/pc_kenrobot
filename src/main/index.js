@@ -148,7 +148,7 @@ function listenMessages() {
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", _ => loadExamples())
 	listenMessage("openExample", (category, name) => openExample(category, name))
-	listenMessage("unzipPackages", forceUnzip => unzipPackages(forceUnzip))
+	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", _ => loadPackages())
 	listenMessage("deletePackage", name => deletePackage(name))
@@ -405,24 +405,24 @@ function saveSetting(setting) {
 /**
  * 解压资源包
  */
-function unzipPackages(force) {
+function unzipPackages(skip) {
 	var deferred = Q.defer()
 
-	// if(!force && !firstRun) {
-	// 	log.debug("skip unzip packages")
-	// 	setTimeout(_ => {
-	// 		deferred.resolve()
-	// 	}, 10)
+	if(skip) {
+		log.debug("skip unzip packages")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
 
-	// 	return deferred.promise
-	// }
+		return deferred.promise
+	}
 
 	log.debug("unzip packages")
 	var packagesPath = path.join(util.getAppResourcePath(), "packages")
 	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
 		var oldPackages = config.packages || []
 		var list = packages.filter(p => {
-			if(force || firstRun) {
+			if(firstRun) {
 				return true
 			}
 
