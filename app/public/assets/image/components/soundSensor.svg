@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>sound</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-0.00454545455%" y1="50.084507%" x2="99.9954545%" y2="50.084507%" id="linearGradient-1">
+            <stop stop-color="#6B7486" offset="0.1215721%"></stop>
+            <stop stop-color="#CFD9DE" offset="50.72%"></stop>
+            <stop stop-color="#687B96" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9954442%" y1="0.395348837%" x2="49.9954442%" y2="101.169767%" id="linearGradient-2">
+            <stop stop-color="#95A5AC" offset="0%"></stop>
+            <stop stop-color="#42426A" offset="99.77%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="-0.182926829%" x2="49.9756098%" y2="101.95122%" id="linearGradient-3">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="99.8214286%" x2="49.9756098%" y2="0.119047619%" id="linearGradient-4">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0.341462202%" y1="50.3626501%" x2="100.441462%" y2="50.3626501%" id="linearGradient-5">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100.848783%" y1="50.3626511%" x2="0.748782914%" y2="50.3626511%" id="linearGradient-6">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="1.60714286%" x2="49.9756098%" y2="101.309524%" id="linearGradient-7">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="101.646341%" x2="49.9756098%" y2="-0.487804878%" id="linearGradient-8">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9753086%" y1="-0.0166666667%" x2="49.9753086%" y2="99.6857143%" id="linearGradient-9">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9753086%" y1="99.9857143%" x2="49.9753086%" y2="0.283333333%" id="linearGradient-10">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-1.18292806%" y1="50.3583328%" x2="98.919511%" y2="50.3583328%" id="linearGradient-11">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="99.3268317%" y1="50.3583338%" x2="-0.775607285%" y2="50.3583338%" id="linearGradient-12">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="-0.0166666667%" x2="49.9756098%" y2="99.6857143%" id="linearGradient-13">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9756098%" y1="99.9857143%" x2="49.9756098%" y2="0.283333333%" id="linearGradient-14">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0.341462179%" y1="50.3583328%" x2="100.443901%" y2="50.3583328%" id="linearGradient-15">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100.851222%" y1="50.3583338%" x2="0.748782959%" y2="50.3583338%" id="linearGradient-16">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="49.974359%" cy="50.7051282%" fx="49.974359%" fy="50.7051282%" r="49.6487179%" gradientTransform="translate(0.499744,0.507051),scale(1.000000,0.999506),translate(-0.499744,-0.507051)" id="radialGradient-17">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50.5538462%" cy="50.0641026%" fx="50.5538462%" fy="50.0641026%" r="49.6794872%" gradientTransform="translate(0.505538,0.500641),scale(1.000000,0.999506),translate(-0.505538,-0.500641)" id="radialGradient-18">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50.5538462%" cy="51.025641%" fx="50.5538462%" fy="51.025641%" r="49.6794872%" gradientTransform="translate(0.505538,0.510256),scale(1.000000,0.999506),translate(-0.505538,-0.510256)" id="radialGradient-19">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="49.974359%" cy="51.025641%" fx="49.974359%" fy="51.025641%" r="49.6487179%" gradientTransform="translate(0.499744,0.510256),scale(1.000000,0.999506),translate(-0.499744,-0.510256)" id="radialGradient-20">
+            <stop stop-color="#B8B8B8" offset="0%"></stop>
+            <stop stop-color="#6E6E6E" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sound">
+            <g transform="translate(52.000000, 24.000000)" id="svg2">
+                <g>
+                    <path d="M45.1822222,4.70454545 C45.1822222,4.70454545 45.1822222,0.409090909 22.6933333,0.409090909 C0.204444444,0.409090909 0.204444444,4.70454545 0.204444444,4.70454545 L0.204444444,36.7159091 C0.204444444,36.7159091 0.204444444,32.4204545 22.6933333,32.4204545 C45.1822222,32.4204545 45.1822222,36.7159091 45.1822222,36.7159091 L45.1822222,4.70454545 L45.1822222,4.70454545 Z" id="Shape" fill="url(#linearGradient-1)"></path>
+                    <path d="M45.08,36.7159091 C45.08,34.2613636 36.9022222,32.3181818 22.6933333,32.3181818 C0.204444444,32.3181818 0.204444444,36.7159091 0.204444444,36.7159091 L45.08,36.7159091 L45.08,36.7159091 Z" id="Shape" fill="url(#linearGradient-2)"></path>
+                    <g id="Group" transform="translate(33.733333, 64.431818)">
+                        <polygon id="Shape" fill="url(#linearGradient-3)" points="0.102222222 9.10227273 4.29333333 4.90909091 8.48444444 9.10227273"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-4)" points="0.102222222 0.613636364 4.29333333 4.90909091 8.48444444 0.613636364"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-5)" points="8.48444444 0.613636364 4.29333333 4.90909091 8.48444444 9.10227273"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-6)" points="0.102222222 0.613636364 4.29333333 4.90909091 0.102222222 9.10227273"></polygon>
+                    </g>
+                    <g id="Group" transform="translate(33.733333, 80.795455)">
+                        <polygon id="Shape" fill="url(#linearGradient-7)" points="0.102222222 9 4.29333333 4.70454545 8.48444444 9"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-8)" points="0.102222222 0.511363636 4.29333333 4.70454545 8.48444444 0.511363636"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-5)" points="8.48444444 0.511363636 4.29333333 4.70454545 8.48444444 9"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-6)" points="0.102222222 0.511363636 4.29333333 4.70454545 0.102222222 9"></polygon>
+                    </g>
+                    <g id="Group" transform="translate(26.577778, 43.977273)">
+                        <polygon id="Shape" fill="url(#linearGradient-9)" points="0.102222222 8.59090909 4.29333333 4.29545455 8.38222222 8.59090909"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-10)" points="0.102222222 0 4.29333333 4.29545455 8.38222222 0"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-11)" points="8.48444444 0 4.29333333 4.29545455 8.48444444 8.59090909"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-12)" points="0.102222222 0 4.29333333 4.29545455 0.102222222 8.59090909"></polygon>
+                    </g>
+                    <g id="Group" transform="translate(10.222222, 43.977273)">
+                        <polygon id="Shape" fill="url(#linearGradient-13)" points="0.102222222 8.59090909 4.29333333 4.29545455 8.48444444 8.59090909"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-14)" points="0.102222222 0 4.29333333 4.29545455 8.48444444 0"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-15)" points="8.48444444 0 4.29333333 4.29545455 8.48444444 8.59090909"></polygon>
+                        <polygon id="Shape" fill="url(#linearGradient-16)" points="0.102222222 0 4.29333333 4.29545455 0.102222222 8.59090909"></polygon>
+                    </g>
+                    <ellipse id="Oval" fill="url(#radialGradient-17)" cx="22.6933333" cy="62.1818182" rx="3.98666667" ry="3.98863636"></ellipse>
+                    <ellipse id="Oval" fill="url(#radialGradient-18)" cx="7.56444444" cy="70.1590909" rx="3.98666667" ry="3.98863636"></ellipse>
+                    <ellipse id="Oval" fill="url(#radialGradient-19)" cx="7.56444444" cy="85.8068182" rx="3.98666667" ry="3.98863636"></ellipse>
+                    <ellipse id="Oval" fill="url(#radialGradient-20)" cx="22.6933333" cy="85.8068182" rx="3.98666667" ry="3.98863636"></ellipse>
+                    <path d="M45.1822222,4.90909091 C45.1822222,4.80681818 45.1822222,4.39772727 44.7733333,3.88636364 C43.6488889,2.55681818 39.2533333,0.409090909 22.6933333,0.409090909 C6.95111111,0.409090909 1.94222222,2.25 0.613333333,3.78409091 C0.204444444,4.29545455 0.204444444,4.70454545 0.204444444,4.80681818 L0.204444444,6.44318182 L0.92,5.82954545 C0.92,5.82954545 1.53333333,5.31818182 1.63555556,5.31818182 C1.63555556,5.31818182 6.74666667,2.45454545 22.7955556,2.45454545 C38.0266667,2.45454545 42.4222222,4.19318182 43.7511111,5.21590909 C43.7511111,5.21590909 44.3644444,5.625 44.4666667,5.625 L45.3866667,6.34090909 C45.1822222,6.34090909 45.1822222,5.11363636 45.1822222,4.90909091 L45.1822222,4.90909091 Z" id="Shape" fill="#383838"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

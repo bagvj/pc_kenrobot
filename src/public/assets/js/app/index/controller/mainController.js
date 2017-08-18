@@ -54,18 +54,31 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.postMessage("app:getBaseUrl").then(url => {
 			baseUrl = url;
 
-			setTimeout(_ => {
-				onSwitch("edu");
+			kenrobot.postMessage("app:unzipPackages").then(_ => {
 
-				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+			}, err => {
+				util.message({
+					text: "解压出错",
+					type: "error"
+				});
+			}, progressData => {
+				kenrobot.trigger("unpack", "show", progressData);
+			}).fin(_ => {
+				kenrobot.trigger("unpack", "hide");
+
 				setTimeout(_ => {
-					onCheckUpdate(false);
+					onSwitch("edu");
 
-					inSync = false;
-					//项目同步
-					onProjectSync();
-				}, 3000);
-			}, 400);
+					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+					setTimeout(_ => {
+						onCheckUpdate(false);
+
+						inSync = false;
+						//项目同步
+						onProjectSync();
+					}, 3000);
+				}, 400);
+			});
 		});
 	}
 

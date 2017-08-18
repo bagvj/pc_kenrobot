@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>touchSensor</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="75" cy="60" r="24"></circle>
+        <filter x="-3.1%" y="-3.1%" width="106.2%" height="106.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.303158967 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="touchSensor">
+            <rect id="Rectangle-4" fill="#00979D" x="35" y="23" width="80" height="104" rx="6"></rect>
+            <g id="Oval-4">
+                <use fill="#DFDFE9" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            </g>
+            <circle id="Oval-4-Copy" fill="#D7D7E0" cx="75" cy="60" r="19"></circle>
+            <circle id="Oval" fill="#DFDFE9" cx="75" cy="60" r="15"></circle>
+            <circle id="Oval-Copy" fill="#D7D7E0" cx="75" cy="60" r="10"></circle>
+            <text id="TOUCH" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                <tspan x="54" y="114">TOUC</tspan>
+                <tspan x="88.309082" y="114">H</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

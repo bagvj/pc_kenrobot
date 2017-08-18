@@ -4874,7 +4874,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/button.png"
+			"imageUrl": "../assets/image/components/button.svg"
 		}, {
 			"uid": "jOXP4w",
 			"name": "pot",
@@ -4898,7 +4898,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/pot.png"
+			"imageUrl": "../assets/image/components/pot.svg"
 		}, {
 			"uid": "Eeifb8",
 			"name": "hts221",
@@ -4974,7 +4974,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "hts221",
 				"uid": "0o473f"
 			}],
-			"imageUrl": "../assets/image/components/hts221.png"
+			"imageUrl": "../assets/image/components/hts221.svg"
 		}, {
 			"uid": "HRwNap",
 			"name": "encoder",
@@ -5108,7 +5108,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "encoder",
 				"uid": "uQirVf"
 			}],
-			"imageUrl": "../assets/image/components/encoder.png"
+			"imageUrl": "../assets/image/components/encoder.svg"
 		}, {
 			"uid": "smMsxb",
 			"name": "infraredSensor",
@@ -5132,7 +5132,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/infraredSensor.png"
+			"imageUrl": "../assets/image/components/infraredSensor.svg"
 		}, {
 			"uid": "p4XQGM",
 			"name": "lightSensor",
@@ -5156,7 +5156,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/lightSensor.png"
+			"imageUrl": "../assets/image/components/lightSensor.svg"
 		}, {
 			"uid": "M1Rtcm",
 			"name": "soundSensor",
@@ -5180,7 +5180,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/soundSensor.png"
+			"imageUrl": "../assets/image/components/soundSensor.svg"
 		}, {
 			"uid": "ZFBwUm",
 			"name": "limitSwitch",
@@ -5204,7 +5204,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/limitSwitch.png"
+			"imageUrl": "../assets/image/components/limitSwitch.svg"
 		}, {
 			"uid": "Hkm7ip",
 			"name": "touchSensor",
@@ -5228,7 +5228,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/touchSensor.png"
+			"imageUrl": "../assets/image/components/touchSensor.svg"
 		}, {
 			"uid": "0bVzdu",
 			"name": "ultrasound",
@@ -5361,7 +5361,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "ultrasound",
 				"uid": "KsZVo2"
 			}],
-			"imageUrl": "../assets/image/components/ultrasound.png"
+			"imageUrl": "../assets/image/components/ultrasound.svg"
 		}, {
 			"uid": "Upqst6",
 			"name": "lm35",
@@ -5521,7 +5521,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "led",
 				"uid": "U7dzAq"
 			}],
-			"imageUrl": "../assets/image/components/led.png"
+			"imageUrl": "../assets/image/components/led.svg"
 		}, {
 			"uid": "SnHrBC",
 			"name": "rgb",
@@ -5790,7 +5790,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "rgb",
 				"uid": "GrE8rY"
 			}],
-			"imageUrl": "../assets/image/components/rgb.png"
+			"imageUrl": "../assets/image/components/rgb.svg"
 		}, {
 			"uid": "0dp9Yl",
 			"name": "lcd",
@@ -6219,7 +6219,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "lcd",
 				"uid": "nDEGXV"
 			}],
-			"imageUrl": "../assets/image/components/lcd.png"
+			"imageUrl": "../assets/image/components/lcd.svg"
 		}, {
 			"uid": "EzeAXy",
 			"name": "buzzer",
@@ -6432,7 +6432,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "buzzer",
 				"uid": "IOYb1Y"
 			}],
-			"imageUrl": "../assets/image/components/buzzer.png"
+			"imageUrl": "../assets/image/components/buzzer.svg"
 		}, {
 			"uid": "gqwDEu",
 			"name": "dcMotor",
@@ -6553,7 +6553,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "dcMotor",
 				"uid": "vBhAoh"
 			}],
-			"imageUrl": "../assets/image/components/dcMotor.png"
+			"imageUrl": "../assets/image/components/dcMotor.svg"
 		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
@@ -6653,7 +6653,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "servo",
 				"uid": "wFdxeI"
 			}],
-			"imageUrl": "../assets/image/components/servo.png"
+			"imageUrl": "../assets/image/components/servo.svg"
 		}, {
 			"uid": "Q5Etxw",
 			"name": "continuousServo",
@@ -6809,7 +6809,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "continuousServo",
 				"uid": "PNFLTP"
 			}],
-			"imageUrl": "../assets/image/components/continuousServo.png"
+			"imageUrl": "../assets/image/components/continuousServo.svg"
 		}, {
 			"uid": "Uf0rkg",
 			"name": "L298P",
@@ -7051,7 +7051,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "L298P",
 				"uid": "tziV6k"
 			}],
-			"imageUrl": "../assets/image/components/L298P.png"
+			"imageUrl": "../assets/image/components/L298P.svg"
 		}, {
 			"uid": "Ps9VEj",
 			"name": "car",
@@ -7483,7 +7483,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "serial",
 				"uid": "6yQc6n"
 			}],
-			"imageUrl": "../assets/image/components/serial.png"
+			"imageUrl": "../assets/image/components/serial.svg"
 		}, {
 			"uid": "AyR8kQ",
 			"name": "serial2",
@@ -7512,7 +7512,7 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/serial.png"
+			"imageUrl": "../assets/image/components/serial.svg"
 		}, {
 			"uid": "4erQi6",
 			"name": "bluetooth",
@@ -7541,7 +7541,7 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/bluetooth.png"
+			"imageUrl": "../assets/image/components/bluetooth.svg"
 		}, {
 			"uid": "XHqwvv",
 			"name": "wifi",
@@ -7570,7 +7570,7 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/wifi.png"
+			"imageUrl": "../assets/image/components/wifi.svg"
 		}]
 	};
 

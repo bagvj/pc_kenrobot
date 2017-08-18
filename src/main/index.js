@@ -49,6 +49,7 @@ var arduinoOptions = {
 var config
 
 var mainWindow
+var firstRun
 
 init()
 
@@ -130,7 +131,7 @@ function listenMessages() {
 	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
 	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
-	listenMessage("openUrl", url => url && shell.openExternal(url))
+	listenMessage("openUrl", url => util.resolvePromise(url && shell.openExternal(url)))
 
 	listenMessage("listSerialPort", _ => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
@@ -147,6 +148,7 @@ function listenMessages() {
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", _ => loadExamples())
 	listenMessage("openExample", (category, name) => openExample(category, name))
+	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", _ => loadPackages())
 	listenMessage("deletePackage", name => deletePackage(name))
@@ -269,6 +271,7 @@ function checkIfFirstRun() {
 
 	config.version = util.getVersion()
 	config.reportInstall = false
+	firstRun = true
 	writeConfig(true)
 }
 
@@ -397,6 +400,85 @@ function loadSetting() {
 function saveSetting(setting) {
 	config.setting = setting
 	return writeConfig()
+}
+
+/**
+ * 解压资源包
+ */
+function unzipPackages(skip) {
+	var deferred = Q.defer()
+
+	skip = skip || is.dev()
+	if(skip) {
+		log.debug("skip unzip packages")
+		setTimeout(_ => {
+			deferred.resolve()
+		}, 10)
+
+		return deferred.promise
+	}
+
+	log.debug("unzip packages")
+	var packagesPath = path.join(util.getAppResourcePath(), "packages")
+	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
+		var oldPackages = config.packages || []
+		var list = packages.filter(p => {
+			if(firstRun) {
+				return true
+			}
+
+			if(!oldPackages.find(o => o.name == p.name && o.checksum == p.checksum)) {
+				return true
+			}
+
+			return !fs.existsSync(path.join(getPackagesPath(), p.name, "packages.json"))
+		})
+
+		var total = list.length
+		var doUnzip = _ => {
+			if(list.length == 0) {
+				config.packages = oldPackages
+				if(is.dev()) {
+					deferred.resolve()
+				} else {
+					writeConfig().fin(_ => {
+						deferred.resolve()
+					})
+				}
+				return
+			}
+
+			var p = list.pop()
+			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
+				var oldPackage = oldPackages.find(o => o.name == p.name)
+				if(oldPackage) {
+					oldPackage.checksum = p.checksum
+				} else {
+					oldPackages.push(p)
+				}
+			}, err => {
+
+			}, progress => {
+				deferred.notify({
+					progress: progress,
+					name: p.name,
+					version: p.version,
+					count: total - list.length,
+					total: total,
+				})
+			})
+			.fin(_ => {
+				doUnzip()
+			})
+		}
+
+		doUnzip()
+	}, err => {
+		err && log.error(err)
+		deferred.resolve()
+	})
+
+	return deferred.promise
 }
 
 /**

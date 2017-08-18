@@ -645,7 +645,7 @@ function showSaveDialog(options, win) {
 
 	options = options || {}
 	options.title = "保存"
-	options.defaultPath = options.defaultPath || app.getPath("documents")
+	options.defaultPath = options.defaultPath || path.join(app.getPath("documents"), "untitled")
 	options.buttonLabel = "保存"
 
 	win = win || BrowserWindow.getAllWindows()[0]
