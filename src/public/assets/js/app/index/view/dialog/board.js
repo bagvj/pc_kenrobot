@@ -121,7 +121,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 						<span class="name"></span>by
 						<span class="author"></span>
 					</div>
-					<div class="des">这个包包含的开发板：<span class="boards"></span></div>
+					<div class="des">此扩展包含：<span class="boards"></span></div>
 					<div class="toolbar">
 						<span class="more">更多信息</span>
 						<span class="placeholder"></span>
