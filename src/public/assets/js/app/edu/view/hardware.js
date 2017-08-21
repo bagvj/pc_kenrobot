@@ -69,7 +69,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function setData(hardwareData) {
 		hardwareData = hardwareData || {};
-		setBoard(hardwareData.board || "ArduinoUNO");
+		setBoard(hardwareData.board);
 		
 		hardwareModel.setData(hardwareData);
 
@@ -436,7 +436,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function setBoard(name) {
-		boardList.find('> ul > li[data-value="' + name + '"]').click();
+		if(name) {
+			boardList.find('> ul > li[data-value="' + name + '"]').click();
+		} else {
+			boardList.find('> ul > li:eq(0)').click();
+		}
 	}
 
 	function updateBoards(boards) {

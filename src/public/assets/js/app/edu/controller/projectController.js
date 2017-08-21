@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, config, util, emitor, progress, schema, hardware, software, code) {
+define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, schema, hardware, software, code) {
 	var currentProject;
 	var savePath;
 
@@ -47,11 +47,13 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 			packages.forEach(function(pkg) {
 				var protocol = pkg.path.startsWith("/") ? "file://" : "file:///";
 				pkg.boards && pkg.boards.forEach(function(board) {
+					board.order = pkg.order;
 					board.imageUrl = `${protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
 				});
 
 				pkg.components && pkg.components.forEach(function(component) {
+					component.order = pkg.order;
 					component.imageUrl = `${protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
@@ -60,6 +62,9 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 					});
 				});
 			});
+
+			schema.boards = _.sortBy(schema.boards, ["order"]);
+			schema.components = _.sortBy(schema.components, ["order"]);
 		})
 		.fin(function() {
 			promise.resolve()

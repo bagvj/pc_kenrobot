@@ -9,6 +9,7 @@ const util = require('./util')
 const token = require('./token')
 const serialPort = require('./serialPort') //串口
 const project = require('./project') //同步
+const packageOrders = require('./packageOrders') //包优先级
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -532,6 +533,7 @@ function loadPackages() {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
 			util.readJson(p).then(packageConfig => {
+				packageConfig.order = packageOrders[packageConfig.name] || 0
 				packageConfig.path = path.dirname(p)
 				packageConfig.boards && packageConfig.boards.forEach(board => {
 					board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
