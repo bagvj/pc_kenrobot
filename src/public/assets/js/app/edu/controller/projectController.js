@@ -43,28 +43,25 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	function loadPackages() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:loadPackages").then(function(packages) {
-			packages.forEach(function(pkg) {
-				var protocol = pkg.path.startsWith("/") ? "file://" : "file:///";
-				pkg.boards && pkg.boards.forEach(function(board) {
-					board.order = pkg.order;
-					board.imageUrl = `${protocol}${pkg.path}/${board.imageUrl}`;
+		kenrobot.postMessage("app:loadPackages").then(pkgs => {
+			schema.packages = _.sortBy(schema.packages.concat(pkgs), ["order"]);
+
+			schema.packages.forEach(pkg => {
+				pkg.logo = pkg.logo ? `${pkg.protocol}${pkg.path}/${pkg.logo}` : "../assets/image/default-vendor-logo.png";
+				pkg.boards && pkg.boards.forEach(board => {
+					board.imageUrl = `${pkg.protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
 				});
 
-				pkg.components && pkg.components.forEach(function(component) {
-					component.order = pkg.order;
-					component.imageUrl = `${protocol}${pkg.path}/${component.imageUrl}`;
+				pkg.components && pkg.components.forEach(component => {
+					component.imageUrl = `${pkg.protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
-					component.blocks && component.blocks.forEach(function(block) {
+					component.blocks && component.blocks.forEach(block => {
 						schema.blocks.push(block);
 					});
 				});
 			});
-
-			schema.boards = _.sortBy(schema.boards, ["order"]);
-			schema.components = _.sortBy(schema.components, ["order"]);
 		})
 		.fin(function() {
 			promise.resolve()

@@ -1,5 +1,6 @@
 define(['vendor/lodash'], function($1) {
 	var schema = {
+		"packages": [],
 		"boards": [],
 		"components": [],
 		"blocks": [{
@@ -2797,7 +2798,16 @@ define(['vendor/lodash'], function($1) {
 	};
 
 	var builtInPackage = {
-		"name": "kenrobot",
+		"name": "Arduino",
+		"company":　"Arduino",
+		"version": "0.5.3",
+		"author": "Kenrobot",
+		"category": "built-in",
+		"help": "http://www.kenrobot.com/",
+		"order": 0,
+		"path": "..",
+		"protocol": "",
+		"logo": "assets/image/arduino.png",
 		"boards": [{
 			"label": "Arduino UNO",
 			"name": "ArduinoUNO",
@@ -3149,7 +3159,7 @@ define(['vendor/lodash'], function($1) {
 				"value": "Serial"
 			}],
 			"uid": "8gEwUv",
-			"imageUrl": "../assets/image/boards/ArduinoUNO.svg",
+			"imageUrl": "assets/image/boards/ArduinoUNO.svg",
 			"width": 393,
 			"height": 281
 		}, {
@@ -3503,7 +3513,7 @@ define(['vendor/lodash'], function($1) {
 				"value": "Serial"
 			}],
 			"uid": "LBgQBg",
-			"imageUrl": "../assets/image/boards/ArduinoLeonardo.svg",
+			"imageUrl": "assets/image/boards/ArduinoLeonardo.svg",
 			"width": 373,
 			"height": 283
 		}, {
@@ -3818,7 +3828,7 @@ define(['vendor/lodash'], function($1) {
 				"value": "Serial"
 			}],
 			"uid": "DqkZ3k",
-			"imageUrl": "../assets/image/boards/ArduinoNano.svg",
+			"imageUrl": "assets/image/boards/ArduinoNano.svg",
 			"width": 255,
 			"height": 102
 		}, {
@@ -4847,7 +4857,7 @@ define(['vendor/lodash'], function($1) {
 				"value": "Serial"
 			}],
 			"uid": "b6Y98i",
-			"imageUrl": "../assets/image/boards/ArduinoMega2560.svg",
+			"imageUrl": "assets/image/boards/ArduinoMega2560.svg",
 			"width": 575,
 			"height": 285
 		}],
@@ -4874,7 +4884,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/button.svg"
+			"imageUrl": "assets/image/components/button.svg"
 		}, {
 			"uid": "jOXP4w",
 			"name": "pot",
@@ -4898,7 +4908,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/pot.svg"
+			"imageUrl": "assets/image/components/pot.svg"
 		}, {
 			"uid": "Eeifb8",
 			"name": "hts221",
@@ -4974,7 +4984,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "hts221",
 				"uid": "0o473f"
 			}],
-			"imageUrl": "../assets/image/components/hts221.svg"
+			"imageUrl": "assets/image/components/hts221.svg"
 		}, {
 			"uid": "HRwNap",
 			"name": "encoder",
@@ -5108,7 +5118,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "encoder",
 				"uid": "uQirVf"
 			}],
-			"imageUrl": "../assets/image/components/encoder.svg"
+			"imageUrl": "assets/image/components/encoder.svg"
 		}, {
 			"uid": "smMsxb",
 			"name": "infraredSensor",
@@ -5132,7 +5142,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/infraredSensor.svg"
+			"imageUrl": "assets/image/components/infraredSensor.svg"
 		}, {
 			"uid": "p4XQGM",
 			"name": "lightSensor",
@@ -5156,7 +5166,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/lightSensor.svg"
+			"imageUrl": "assets/image/components/lightSensor.svg"
 		}, {
 			"uid": "M1Rtcm",
 			"name": "soundSensor",
@@ -5180,7 +5190,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/soundSensor.svg"
+			"imageUrl": "assets/image/components/soundSensor.svg"
 		}, {
 			"uid": "ZFBwUm",
 			"name": "limitSwitch",
@@ -5204,7 +5214,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/limitSwitch.svg"
+			"imageUrl": "assets/image/components/limitSwitch.svg"
 		}, {
 			"uid": "Hkm7ip",
 			"name": "touchSensor",
@@ -5228,7 +5238,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"raw": true,
 			"blocks": [],
-			"imageUrl": "../assets/image/components/touchSensor.svg"
+			"imageUrl": "assets/image/components/touchSensor.svg"
 		}, {
 			"uid": "0bVzdu",
 			"name": "ultrasound",
@@ -5361,7 +5371,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "ultrasound",
 				"uid": "KsZVo2"
 			}],
-			"imageUrl": "../assets/image/components/ultrasound.svg"
+			"imageUrl": "assets/image/components/ultrasound.svg"
 		}, {
 			"uid": "Upqst6",
 			"name": "lm35",
@@ -5427,7 +5437,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "lm35",
 				"uid": "6IcaG6"
 			}],
-			"imageUrl": "../assets/image/components/lm35.svg"
+			"imageUrl": "assets/image/components/lm35.svg"
 		}, {
 			"uid": "E2ZSBW",
 			"name": "led",
@@ -5521,7 +5531,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "led",
 				"uid": "U7dzAq"
 			}],
-			"imageUrl": "../assets/image/components/led.svg"
+			"imageUrl": "assets/image/components/led.svg"
 		}, {
 			"uid": "SnHrBC",
 			"name": "rgb",
@@ -5790,7 +5800,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "rgb",
 				"uid": "GrE8rY"
 			}],
-			"imageUrl": "../assets/image/components/rgb.svg"
+			"imageUrl": "assets/image/components/rgb.svg"
 		}, {
 			"uid": "0dp9Yl",
 			"name": "lcd",
@@ -6219,7 +6229,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "lcd",
 				"uid": "nDEGXV"
 			}],
-			"imageUrl": "../assets/image/components/lcd.svg"
+			"imageUrl": "assets/image/components/lcd.svg"
 		}, {
 			"uid": "EzeAXy",
 			"name": "buzzer",
@@ -6432,7 +6442,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "buzzer",
 				"uid": "IOYb1Y"
 			}],
-			"imageUrl": "../assets/image/components/buzzer.svg"
+			"imageUrl": "assets/image/components/buzzer.svg"
 		}, {
 			"uid": "gqwDEu",
 			"name": "dcMotor",
@@ -6553,7 +6563,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "dcMotor",
 				"uid": "vBhAoh"
 			}],
-			"imageUrl": "../assets/image/components/dcMotor.svg"
+			"imageUrl": "assets/image/components/dcMotor.svg"
 		}, {
 			"uid": "wiWnL4",
 			"name": "servo",
@@ -6653,7 +6663,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "servo",
 				"uid": "wFdxeI"
 			}],
-			"imageUrl": "../assets/image/components/servo.svg"
+			"imageUrl": "assets/image/components/servo.svg"
 		}, {
 			"uid": "Q5Etxw",
 			"name": "continuousServo",
@@ -6809,7 +6819,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "continuousServo",
 				"uid": "PNFLTP"
 			}],
-			"imageUrl": "../assets/image/components/continuousServo.svg"
+			"imageUrl": "assets/image/components/continuousServo.svg"
 		}, {
 			"uid": "Uf0rkg",
 			"name": "L298P",
@@ -7051,7 +7061,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "L298P",
 				"uid": "tziV6k"
 			}],
-			"imageUrl": "../assets/image/components/L298P.svg"
+			"imageUrl": "assets/image/components/L298P.svg"
 		}, {
 			"uid": "Ps9VEj",
 			"name": "car",
@@ -7328,7 +7338,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "car",
 				"uid": "xWylGC"
 			}],
-			"imageUrl": "../assets/image/components/car.svg"
+			"imageUrl": "assets/image/components/car.svg"
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
@@ -7483,7 +7493,7 @@ define(['vendor/lodash'], function($1) {
 				"module": "serial",
 				"uid": "6yQc6n"
 			}],
-			"imageUrl": "../assets/image/components/serial.svg"
+			"imageUrl": "assets/image/components/serial.svg"
 		}, {
 			"uid": "AyR8kQ",
 			"name": "serial2",
@@ -7512,7 +7522,7 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/serial.svg"
+			"imageUrl": "assets/image/components/serial.svg"
 		}, {
 			"uid": "4erQi6",
 			"name": "bluetooth",
@@ -7541,7 +7551,7 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/bluetooth.svg"
+			"imageUrl": "assets/image/components/bluetooth.svg"
 		}, {
 			"uid": "XHqwvv",
 			"name": "wifi",
@@ -7570,33 +7580,11 @@ define(['vendor/lodash'], function($1) {
 				"setup": "Serial.begin(9600);"
 			},
 			"blocks": [],
-			"imageUrl": "../assets/image/components/wifi.svg"
+			"imageUrl": "assets/image/components/wifi.svg"
 		}]
 	};
 
-	_.pullAll(schema.boards, _.filter(schema.boards, function(board) {
-		return board.hidden;
-	}));
-
-	_.pullAll(schema.components, _.filter(schema.components, function(component) {
-		return component.hidden;
-	}));
-
-	_.pullAll(schema.blocks, _.filter(schema.blocks, function(block) {
-		return block.hidden;
-	}));
-
-	builtInPackage.boards.forEach(function(board) {
-		!board.hidden && schema.boards.push(board);
-	});
-
-	builtInPackage.components.forEach(function(component) {
-		!component.hidden && schema.components.push(component);
-
-		!component.hidden && component.blocks.forEach(function(block) {
-			!block.hidden && schema.blocks.push(block);
-		});
-	});
+	schema.packages.push(builtInPackage);
 
 	return schema;
 });

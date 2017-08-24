@@ -535,6 +535,7 @@ function loadPackages() {
 			util.readJson(p).then(packageConfig => {
 				packageConfig.order = packageOrders[packageConfig.name] || 0
 				packageConfig.path = path.dirname(p)
+				packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
 				packageConfig.boards && packageConfig.boards.forEach(board => {
 					board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
 						board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)

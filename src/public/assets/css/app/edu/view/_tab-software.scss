@@ -50,12 +50,16 @@ $focus-color: #f1cb33;
 }
 
 .tab-software {
+	display: flex;
+
 	.left-region {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
+		// position: absolute;
+		// top: 0;
+		// left: 0;
+		// bottom: 0;
+		position: relative;
 		width: 300px;
+		flex-shrink: 0;
 
 		&:after {
 			display: block;
@@ -70,11 +74,14 @@ $focus-color: #f1cb33;
 	}
 
 	.center-region {
-		position: absolute;
-		top: 0;
-		left: 305px;
-		bottom: 0;
-		right: 0;
+		// position: absolute;
+		// top: 0;
+		// left: 305px;
+		// bottom: 0;
+		// right: 0;
+		position: relative;
+		margin-left: 5px;
+		flex: 1;
 
 		.code-region {
 			position: absolute;
@@ -151,6 +158,10 @@ $focus-color: #f1cb33;
 			width: 100%;
 			top: 0;
 			bottom: 0;
+			// display: flex;
+			// position: relative;
+			// flex-direction: column;
+			// height: 100%;
 
 			.top-region {
 				overflow: hidden;
@@ -160,6 +171,9 @@ $focus-color: #f1cb33;
 				left: 0;
 				right: 0;
 				padding-top: 20px;
+				// position: relative;
+			 //    margin-top: 20px;
+			 //    height: 40px;
 			}
 
 			.block-region {
@@ -169,6 +183,8 @@ $focus-color: #f1cb33;
 				left: 0;
 				right: 0;
 				padding: 20px;
+				// flex: 1;
+				// position: relative;
 			}
 		}
 	}

@@ -12,20 +12,19 @@
 			<div class="content-region">
 				<div class="tab tab-hardware">
 					<div class="left-region">
-						<div class="search-wrap">
-							<input class="search" type="text" placeholder="搜索..." />
-							<i class="kenrobot ken-search"></i>
-						</div>
-						<div class="filters-wrap">
-							<ul class="filters">
-								<li data-filter="all">全部</li>
-								<li data-filter="sensor">传感模块</li>
-								<li data-filter="action">执行模块</li>
-								<li data-filter="function">通信模块</li>
-							</ul>
-						</div>
+						<ul class="categories">
+							<li class="active" data-category="all">全部模块</li>
+							<li data-category="vendor">厂商模块</li>
+						</ul>
+						<ul class="filters">
+							<li data-filter="all">所有</li>
+							<li data-filter="sensor">传感</li>
+							<li data-filter="action">执行</li>
+							<li data-filter="function">通信</li>
+						</ul>
 						<div class="components-wrap no-scrollbar">
 							<ul class="components"></ul>
+							<ul class="vendor-components"></ul>
 						</div>
 					</div>
 					<div class="center-region">
