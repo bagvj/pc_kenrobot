@@ -1,8 +1,8 @@
 define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'app/common/util/emitor', '../model/hardwareModel'], function($1, $2, util, emitor, hardwareModel) {
 	var region;
 	var filterList;
-	var componentList;
-	var search;
+	var componentsWrap;
+
 	var boardData;
 	var boardList;
 
@@ -12,8 +12,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	var componentContextMenu;
 	var boardContextMenu;
 	var contextMenuTarget;
-	var componentTemplate = '<li data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" style="width:{{width}}px;height:{{height}}px;" /></div><div class="name">{{label}}</div></li>'
+	var componentTemplate = '<li class="component-item" data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" style="width:{{width}}px;height:{{height}}px;" /></div><div class="name">{{label}}</div></li>'
 	var boardTemplate = '<li data-value="{{name}}" title="{{label}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
+	var vendorTemplate = '<li ><div class="placeholder"><img class="vendor-logo" src="{{logo}}" /><span class="vendor-name ellipsis">{{name}}</span></div><ul>{{items}}</ul></li>'
 
 	var mouseDownComponentDom;
 	var dragContainer;
@@ -28,10 +29,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		region = $('.content-region .tab-hardware');
 		topRegion = region.find(".top-region").on("click", ".tool-button", onToolButtonClick);
 
-		search = $('.search', region).on('keyup', onSearchKeyup).on('change', onSearchChange).on('blur', onSearchBlur);
+		componentsWrap = $('.components-wrap', region)
+		componentsWrap.perfectScrollbar();
+
+		var categories = region.find('.categories > li').on('click', onCategoryClick);
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
-		componentList = $('.components', region);
-		componentList.parent().perfectScrollbar();
 
 		container = $('.hardware-container', region).on('containerEvent', onContainerEvent);
 		hardwareModel.init(container[0]);
@@ -50,6 +52,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 			.on('progress', 'check', onCheckProgress);
 
 		kenrobot.on('monitor', 'close', onMonitorClose);
+
+		categories.eq(0).click();
 	}
 
 	function loadSchema(schema) {
@@ -57,6 +61,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 		updateBoards(schema.boards);
 		updateComponents(schema.components);
+		updatePackages(schema.packages);
+
+		Array.from(componentsWrap[0].querySelectorAll(".component-item .image")).forEach(imageDom => {
+			imageDom.addEventListener("mousedown", onComponentMouseDown);
+			imageDom.addEventListener("touchstart", onComponentMouseDown);
+		});
+
+		filterList.find('[data-filter="all"]').click();
 	}
 
 	function getBoardData() {
@@ -93,22 +105,39 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	}
 
 	function updateComponents(components) {
-		componentList.empty();
-		components.forEach(function(component) {
-			var li = componentTemplate.replace(/\{\{name\}\}/g, component.name)
-				.replace(/\{\{label\}\}/g, component.label)
-				.replace(/\{\{filter\}\}/, component.category)
-				.replace(/\{\{src\}\}/, component.imageUrl)
-				.replace(/\{\{width\}\}/, component.width)
-				.replace(/\{\{height\}\}/, component.height);
-			componentList.append(li);
-		});
-		Array.from(componentList[0].querySelectorAll("li .image")).forEach(function(imageDom) {
-			imageDom.addEventListener("mousedown", onComponentMouseDown);
-			imageDom.addEventListener("touchstart", onComponentMouseDown);
+		var componentList = componentsWrap.find(".components").empty();
+		components.forEach(component => componentList.append(buildComponent(component)));
+	}
+
+	function updatePackages(packages) {
+		var vendorList = componentsWrap.find(".vendor-components").empty();
+		packages.forEach(pkg => {
+			if(!pkg.components || pkg.components.length == 0) {
+				return
+			}
+
+			var name = pkg.company || pkg.name;
+			var items = pkg.components.reduce((result, component) => result + buildComponent(component), '');
+			var vendorLi = vendorTemplate.replace(/\{\{name\}\}/g, name).replace(/\{\{logo\}\}/g, pkg.logo).replace(/\{\{items\}\}/g, items);
+			vendorList.append(vendorLi);
 		});
 
-		filterList.find('[data-filter="all"]').click();
+		vendorList.find("> li .placeholder").on("click", onToggleVendor);
+	}
+
+	function onToggleVendor(e) {
+		var li = $(this).parent("li");
+		li.toggleClass("active");
+		componentsWrap.perfectScrollbar("update");
+	}
+
+	function buildComponent(component) {
+		return componentTemplate.replace(/\{\{name\}\}/g, component.name)
+			.replace(/\{\{label\}\}/g, component.label)
+			.replace(/\{\{filter\}\}/, component.category)
+			.replace(/\{\{src\}\}/, component.imageUrl)
+			.replace(/\{\{width\}\}/, component.width)
+			.replace(/\{\{height\}\}/, component.height);
 	}
 
 	function onAppStart() {
@@ -366,52 +395,28 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		boardData = hardwareModel.addBoard(name);
 	}
 
+	function onCategoryClick(e) {
+		var li = $(this);
+		util.toggleActive(li);
+
+		var category = li.data("category");
+		var componentList = category == "all" ? componentsWrap.find(".components") : componentsWrap.find(".vendor-components");
+		util.toggleActive(componentList);
+
+		filterList.find(">li.active").click();
+	}
+
 	function onFilterClick(e) {
 		var li = $(this);
 		util.toggleActive(li);
 
-		componentList.find("> li.active").removeClass("active");
+		var componentList = componentsWrap.find("ul.active");
+		componentList.find(".component-item").removeClass("active");
 		var filter = li.data('filter');
-		var list = filter == "all" ? componentList.find("> li") : componentList.find('> li[data-filter="' + filter + '"]');
+		var list = filter == "all" ? componentList.find(".component-item") : componentList.find('.component-item[data-filter="' + filter + '"]');
 		list.addClass("active");
 
-		componentList.parent().perfectScrollbar("update");
-	}
-
-	function doComponentSearch() {
-		var key = search.val().toLowerCase();
-		if (!key) {
-			return;
-		}
-
-		var filter = filterList.find("> li.active").data("filter");
-		var list = filter == "all" ? componentList.find("> li") : componentList.find('> li[data-filter="' + filter + '"]');
-		list.removeClass("active").filter(function(i, item) {
-			var li = $(item);
-			return li.data('label').toLowerCase().indexOf(key) >= 0 || li.data('name').toLowerCase().indexOf(key) >= 0;
-		}).addClass("active");
-
-		componentList.parent().perfectScrollbar("update");
-	}
-
-	function doComponentFilter() {
-		var filter = filterList.find("> li.active").data("filter");
-		var list = filter == "all" ? componentList.find("> li") : componentList.find('> li[data-filter="' + filter + '"]');
-		list.addClass("active");
-
-		componentList.parent().perfectScrollbar("update");
-	}
-
-	function onSearchKeyup(e) {
-		e.keyCode == 13 && doComponentSearch();
-	}
-
-	function onSearchChange(e) {
-		!search.val() && doComponentFilter();
-	}
-
-	function onSearchBlur(e) {
-		doComponentSearch();
+		componentsWrap.perfectScrollbar("update");
 	}
 
 	function onComponentNameBlur(e) {
