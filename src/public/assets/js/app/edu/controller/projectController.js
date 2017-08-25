@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, config, util, emitor, progress, schema, hardware, software, code) {
+define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, schema, hardware, software, code) {
 	var currentProject;
 	var savePath;
 
@@ -43,19 +43,21 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/util', 'ap
 	function loadPackages() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:loadPackages").then(function(packages) {
-			packages.forEach(function(pkg) {
-				var protocol = pkg.path.startsWith("/") ? "file://" : "file:///";
-				pkg.boards && pkg.boards.forEach(function(board) {
-					board.imageUrl = `${protocol}${pkg.path}/${board.imageUrl}`;
+		kenrobot.postMessage("app:loadPackages").then(pkgs => {
+			schema.packages = _.sortBy(schema.packages.concat(pkgs), ["order"]);
+
+			schema.packages.forEach(pkg => {
+				pkg.logo = pkg.logo ? `${pkg.protocol}${pkg.path}/${pkg.logo}` : "../assets/image/default-vendor-logo.png";
+				pkg.boards && pkg.boards.forEach(board => {
+					board.imageUrl = `${pkg.protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
 				});
 
-				pkg.components && pkg.components.forEach(function(component) {
-					component.imageUrl = `${protocol}${pkg.path}/${component.imageUrl}`;
+				pkg.components && pkg.components.forEach(component => {
+					component.imageUrl = `${pkg.protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
-					component.blocks && component.blocks.forEach(function(block) {
+					component.blocks && component.blocks.forEach(block => {
 						schema.blocks.push(block);
 					});
 				});

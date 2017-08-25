@@ -242,7 +242,8 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 							color: config.labelColor,
 							font: config.font,
 						},
-						location: pin.overlay,
+						// location: pin.overlay,
+						location: [0.5, -0.5]
 					}]
 				],
 				parameters: {
@@ -420,6 +421,10 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 			_componentDom.classList.remove('selected');
 		});
 		componentDom.classList.add("selected");
+	}
+
+	function getSelectedComponent() {
+		return container.querySelector(".component.selected");
 	}
 
 	function disconnectComponent(componentDom) {
@@ -665,6 +670,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 		addComponent: addComponent,
 		removeComponent: removeComponent,
 		selectComponent: selectComponent,
+		getSelectedComponent: getSelectedComponent,
 
 		disconnectComponent: disconnectComponent,
 		disconnectAllComponents: disconnectAllComponents,
