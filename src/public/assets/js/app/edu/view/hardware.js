@@ -35,7 +35,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		var categories = region.find('.categories > li').on('click', onCategoryClick);
 		filterList = $('.filters', region).on('click', '> li', onFilterClick);
 
-		container = $('.hardware-container', region).on('containerEvent', onContainerEvent);
+		container = $('.hardware-container', region).on('containerEvent', onContainerEvent).on("keyup", onContainerKeyUp);
 		hardwareModel.init(container[0]);
 		dragContainer = $('.component-drag-layer')[0];
 
@@ -389,6 +389,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		} else if(action == "remove-all-components") {
 			hideComponentDialog();
 		}
+	}
+
+	function onContainerKeyUp(e) {
+		if(e.keyCode != 46 && e.keyCode != 8) {
+			return;
+		}
+
+		//delete 或者 backspace
+		var componentDom = hardwareModel.getSelectedComponent()
+		componentDom && hardwareModel.removeComponent(componentDom);
 	}
 
 	function onBoardChange(name) {
