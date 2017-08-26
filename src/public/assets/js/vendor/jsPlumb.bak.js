@@ -11113,7 +11113,7 @@
                     cxy = component.pointOnPath(loc, absolute);  // a connection
                 }
                 else {
-                    var locToUse = this.loc.constructor == Array ? this.loc : this.endpointLoc;
+                    var locToUse = _ju.isArray(this.loc) ? this.loc : this.endpointLoc;
                     cxy = { x: locToUse[0] * component.w,
                         y: locToUse[1] * component.h };
                 }

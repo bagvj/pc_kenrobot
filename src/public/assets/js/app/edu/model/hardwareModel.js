@@ -1,4 +1,4 @@
-define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
+define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 
 	var config = {
 		color: '#F1C933',
@@ -233,7 +233,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 				height: pin.rotate ? pin.width : pin.height
 			}
 			var epBoard = jsPlumbInstance.addEndpoint(boardDom, {
-				anchor: [pin.x, pin.y, 0, -1, 0, 0],
+				anchor: [pin.x, pin.y],
 				endpoint: [shape, sizeOptions],
 				overlays: [
 					['Label', {
@@ -420,6 +420,10 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 			_componentDom.classList.remove('selected');
 		});
 		componentDom.classList.add("selected");
+	}
+
+	function getSelectedComponent() {
+		return container.querySelector(".component.selected");
 	}
 
 	function disconnectComponent(componentDom) {
@@ -665,6 +669,7 @@ define(['vendor/jsPlumb', 'app/common/util/util'], function($1, util) {
 		addComponent: addComponent,
 		removeComponent: removeComponent,
 		selectComponent: selectComponent,
+		getSelectedComponent: getSelectedComponent,
 
 		disconnectComponent: disconnectComponent,
 		disconnectAllComponents: disconnectAllComponents,
