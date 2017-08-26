@@ -9,6 +9,7 @@
     "email": "support@kenrobot.com"
   },
   "copyright": "©2016 KenRobot",
+  "homepage": "http://www.kenrobot.com",
   "dependencies": {
     "7zip-bin": "^2.1.0",
     "electron-debug": "^1.4.0",
