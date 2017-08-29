@@ -1,5 +1,10 @@
 define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], function($1, util, emitor) {
 	var dialogWin;
+	var platforms = {
+		win: "Windows",
+		mac: "Mac",
+		linux: "Linux",
+	};
 
 	function init() {
 		dialogWin = $('.about-dialog');
@@ -15,7 +20,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 
 	function onShow(args) {
 		dialogWin.find(".office-web").data("href", args.url).text(args.url);
-		dialogWin.find(".version").text(args.version);
+
+		var platform = platforms[args.platform] || "未知";
+		var bit = args.platform == "mac" ? "" : ` ${args.bit}位`
+		dialogWin.find(".version").text(`${args.version} (${platform}${bit})`);
+		dialogWin.find(".date").text(util.formatDate(args.date * 1000, "yyyy-MM-dd"));
 
 		util.dialog({
 			selector: dialogWin
