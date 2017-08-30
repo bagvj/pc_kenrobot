@@ -85,10 +85,12 @@ function getAppInfo() {
 		info.ext = path.extname(app.getPath("exe")).replace('.', '')
 		info.branch = "beta"
 		info.feature = ""
+		info.date = stamp()
 	} else {
 		info.ext = PACKAGE.buildInfo.ext
 		info.branch = PACKAGE.buildInfo.branch
 		info.feature = PACKAGE.buildInfo.feature
+		info.date = PACKAGE.buildInfo.date
 	}
 
 	return info

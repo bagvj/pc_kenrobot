@@ -175,8 +175,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var pins = hardwareData.board.pins;
 		pins = pins.filter(pin => {
 			var tags = pin.tags;
-			if(tags.indexOf("serial") >= 0 || tags.indexOf("VCC") >= 0 || tags.indexOf("GND") >= 0) {
+			if(!tags.includes("digital") && !tags.includes("analog-in")) {
 				return false;
+			}
+
+			if(hardwareData.board.name == "upDuino") {
+				if(pin.name == "0" || pin.name == "1") {
+					return false;
+				}
 			}
 
 			return true;
@@ -186,7 +192,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				name: pin.name,
 			}
 		});
-		pins = _.sortBy(pins, "name");
+		pins.sort((a, b) => {
+			if(a.name.startsWith("A") && b.name.startsWith("A")) {
+				return parseInt(a.name.substring(1)) - parseInt(b.name.substring(1));
+			} else if(isNaN(a.name) || isNaN(b.name)) {
+		       return a.name.localeCompare(b.name);
+		    } else {
+		       return parseInt(a.name) - parseInt(b.name);
+		    }
+		});
 
 		hardwareData.components.forEach(function(componentData) {
 			modules.indexOf(componentData.type) < 0 && modules.push(componentData.type);

@@ -23,23 +23,20 @@ define(function() {
 	}, {
 		placeholder: "帮助",
 		menu: [{
-			text: "Arduino驱动下载",
-			action: "download-arduino-driver",
+			text: "驱动下载",
+			action: "download-driver",
 		}, "_", {
 			text: "检查更新",
 			action: "check-update",
 		}, {
-			text: "啃萝卜官网",
-			action: "visit-kenrobot",
-		}, {
-			text: "Arduino论坛",
-			action: "visit-arduino",
+			text: "吖扑科学官网",
+			action: "visit-uper",
 		}, "_", {
 			text: "建议反馈",
 			action: "suggestion",
 		}, {
-			text: "关于啃萝卜",
-			action: "about-kenrobot",
+			text: "关于软件",
+			action: "about-software",
 		}]
 	}, {
 		placeholder: "版本",

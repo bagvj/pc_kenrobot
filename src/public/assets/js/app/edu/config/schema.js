@@ -3542,7 +3542,7 @@ define(['vendor/lodash'], function($1) {
 				"uid": "LdyiLN",
 				"x": 0.18,
 				"y": 0.078,
-				"name": "D11",
+				"name": "11",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, -1.5],
 				"label": "11",

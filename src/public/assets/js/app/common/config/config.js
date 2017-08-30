@@ -5,6 +5,7 @@ define(function() {
 			url: {
 				kenrobot: "http://www.kenrobot.com",
 				arduino: "http://www.arduino.cn",
+				uper: "http://www.uper.cc",
 				arduinoDriver: "http://ide.kenrobot.com/download/arduino-driver-x{BIT}.7z",
 				support: "http://www.arduino.cn/forum-101-1.html",
 				about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",

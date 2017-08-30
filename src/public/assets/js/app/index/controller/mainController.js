@@ -148,7 +148,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "switch":
 				onSwitch(extra.type);
 				break;
-			case "download-arduino-driver":
+			case "download-driver":
 				var info = kenrobot.appInfo;
 				if (info.platform != "win") {
 					util.message("您的系统是" + info.platform + ", 不需要安装驱动");
@@ -177,18 +177,21 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "check-update":
 				onCheckUpdate();
 				break;
-			case "visit-kenrobot":
-				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
-				break;
-			case "visit-arduino":
-				kenrobot.postMessage("app:openUrl", config.url.arduino);
+			case "visit-uper":
+				kenrobot.postMessage("app:openUrl", config.url.uper);
 				break;
 			case "suggestion":
 				kenrobot.postMessage("app:openUrl", config.url.support);
 				break;
-			case "about-kenrobot":
+			case "about-software":
 				var info = kenrobot.appInfo;
-				kenrobot.trigger("about", "show", {version: info.version, url: config.url.kenrobot});
+				kenrobot.trigger("about", "show", {
+					version: info.version,
+					url: config.url.kenrobot,
+					date: info.date,
+					platform: info.platform,
+					bit: info.bit,
+				});
 				break;
 			case "show-board-dialog":
 				kenrobot.trigger("board", "show");

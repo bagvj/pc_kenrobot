@@ -1,8 +1,8 @@
 {
   "private": true,
   "main": "main/index.js",
-  "name": "Kenrobot",
-  "version": "0.5.3",
+  "name": "upDuino",
+  "version": "0.1.1",
   "description": "啃萝卜平台",
   "author": {
     "name": "Kenrobot",
