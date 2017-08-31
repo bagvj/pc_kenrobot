@@ -20,7 +20,7 @@
       "!node_modules/**/.*"
     ],
     "win": {
-      "publisherName": "KenRobot"
+      "publisherName": "吖扑科学"
     },
     "nsis": {
       "oneClick": false,
@@ -56,7 +56,7 @@
         }
       ],
       "iconSize": 128,
-      "title": "KenRobot"
+      "title": "upDuino编程套件"
     }
   },
   "devDependencies": {
