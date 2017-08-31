@@ -5,11 +5,11 @@
   "version": "0.1.1",
   "description": "啃萝卜平台",
   "author": {
-    "name": "Kenrobot",
-    "email": "support@kenrobot.com"
+    "name": "uper",
+    "email": "support@uper.cc"
   },
   "copyright": "©2016 KenRobot",
-  "homepage": "http://www.kenrobot.com",
+  "homepage": "http://www.uper.cc",
   "dependencies": {
     "7zip-bin": "^2.1.0",
     "electron-debug": "^1.4.0",

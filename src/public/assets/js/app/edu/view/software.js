@@ -93,14 +93,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			var rxd = pins.rxd;
 			var txd = pins.txd;
 			var isSoftwareSerial;
-			var multiSerial;
+			var isSerial;
+			var isMultiSerial;
 			var serialName;
 			if (rxd && txd) {
 				if (rxd.tags.includes("serial-rx") && txd.tags.includes("serial-tx") && (!rxd.extra || !txd.extra || rxd.extra.serial == txd.extra.serial)) {
 					//硬串
+					isSerial = true;
 					var rxdPins = hardwareData.board.pins.filter(p => p.tags.includes("serial-tx"));
 					if (rxdPins.length > 1) {
-						multiSerial = true;
+						isMultiSerial = true;
 						serialName = rxd.extra.serial;
 					}
 				} else {
@@ -127,8 +129,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				}
 				if (isSoftwareSerial) {
 					tempCode = tempCode.replace("Serial", componentData.varName);
-				} else if (multiSerial) {
+				} else if (isMultiSerial) {
 					tempCode = tempCode.replace("Serial", serialName);
+				} else if(isSerial) {
+					tempCode = tempCode.replace(componentData.varName, "Serial");
 				}
 				setupCode += tempCode;
 			}
@@ -348,9 +352,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function toggleToolButton(value) {
 		if (value) {
-			topRegion.find(".tool-button").addClass("simple");
+			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
-			topRegion.find(".tool-button").removeClass("simple");
+			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
 		}
 	}
 
