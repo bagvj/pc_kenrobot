@@ -614,18 +614,6 @@ function openExample(category, name, pkg) {
  * 加载示例
  */
 function loadExamples() {
-	// var deferred = Q.defer()
-
-	// log.debug('loadExamples')
-	// util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(examples => {
-	// 	deferred.resolve(examples)
-	// }, err => {
-	// 	err && log.error(err)
-	// 	deferred.reject(err)
-	// })
-
-	// return deferred.promise
-
 	var deferred = Q.defer()
 
 	var examples = []
