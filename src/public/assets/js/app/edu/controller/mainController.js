@@ -11,8 +11,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 
 		loadExamples().then(exampleMenu => {
 			var exampleMenuItem = menu.find(menuItem => menuItem.id && menuItem.id == "example");
-			var buildInMenuItem = exampleMenuItem.menu.find(menuItem => menuItem.id && menuItem.id == "example-built-in");
-			buildInMenuItem.menu = exampleMenu;
+			exampleMenuItem.menu = exampleMenu;
 			
 			kenrobot.trigger("app-menu", "load", menu, "edu");
 		});
@@ -34,23 +33,48 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	function loadExamples() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:loadExamples").then(function(examples) {
-			var exampleMenu = examples.map(ca => {
-				return {
-					placeholder: ca.category,
-					arrow: true,
-					menu: ca.list.map(example => {
-						return {
-							text: example.name,
-							action: "open-example",
-							extra: {
-								name: example.name,
-								category: example.category,
-							},
-						};
-					}),
-				};
+		kenrobot.postMessage("app:loadExamples").then(examples => {
+			var exampleMenu = [];
+			examples.forEach(exampleGroup => {
+				var groupMenu
+				if(exampleGroup.name == "built-in") {
+					groupMenu = {
+						id: "built-in-examples",
+						placeholder: "内置示例",
+						arrow: true,
+						menuCls: "example-built-in",
+					}
+					exampleMenu.push(groupMenu)
+					exampleMenu.push("_");
+				} else {
+					groupMenu = {
+						id: `${exampleGroup.name}-examples`,
+						placeholder: `${exampleGroup.name}示例`,
+						arrow: true,
+						menuCls: "example-third-party",
+					}
+					exampleMenu.push(groupMenu)
+				}
+
+				groupMenu.menu = exampleGroup.groups.map(ca => {
+					return {
+						placeholder: ca.category,
+						arrow: true,
+						menu: ca.list.map(example => {
+							return {
+								text: example.name,
+								action: "open-example",
+								extra: {
+									package: exampleGroup.name,
+									name: example.name,
+									category: example.category,
+								},
+							};
+						}),
+					};
+				});
 			});
+
 			promise.resolve(exampleMenu);
 		}, function(err) {
 			promise.resolve([]);
@@ -74,7 +98,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				onShortcut(action);
 				break;
 			case "open-example":
-				kenrobot.postMessage("app:openExample", extra.category, extra.name).then(projectInfo => {
+				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(projectInfo => {
 					emitor.trigger("project", "open", projectInfo);
 				}, _ => {
 					util.message("打开失败");

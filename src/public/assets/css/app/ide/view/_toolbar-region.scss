@@ -4,7 +4,7 @@
 	right: 10px;
 	z-index: 2;
 
-	& > span {
+	.hover-button {
 		float: left;
 		margin-right: 15px;
 		width: 40px;
@@ -25,6 +25,16 @@
 		&:hover {
 			background-color: #0078cf;
 			border-color: #0078cf;
+
+			.text {
+				transform: translateY(0);
+				opacity: 1;
+			}
+
+			.icon {
+				transform: translateY(-40px);
+				opacity: 0;
+			}
 		}
 
 		&[disabled] {
@@ -45,12 +55,31 @@
 			pointer-events: none;
 		}
 
-		& > i {
+		.icon {
 			display: block;
 			font-size: 24px;
-			margin-left: auto;
-			margin-right: auto;
-			width: 24px;
+			width: 100%;
+			text-align: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translateY(0);
+			opacity: 1;
+			transition: all 0.2s;
+		}
+
+		.text {
+			width: 100%;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 12px;
+			line-height: 40px;
+			text-align: center;
+			transform: translateY(40px);
+			opacity: 0;
+			transition: all 0.2s;
 		}
 	}
 }

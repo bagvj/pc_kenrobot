@@ -93,14 +93,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			var rxd = pins.rxd;
 			var txd = pins.txd;
 			var isSoftwareSerial;
-			var multiSerial;
+			var isSerial;
+			var isMultiSerial;
 			var serialName;
 			if (rxd && txd) {
 				if (rxd.tags.includes("serial-rx") && txd.tags.includes("serial-tx") && (!rxd.extra || !txd.extra || rxd.extra.serial == txd.extra.serial)) {
 					//硬串
+					isSerial = true;
 					var rxdPins = hardwareData.board.pins.filter(p => p.tags.includes("serial-tx"));
 					if (rxdPins.length > 1) {
-						multiSerial = true;
+						isMultiSerial = true;
 						serialName = rxd.extra.serial;
 					}
 				} else {
@@ -127,7 +129,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				}
 				if (isSoftwareSerial) {
 					tempCode = tempCode.replace("Serial", componentData.varName);
-				} else if (multiSerial) {
+				} else if (isMultiSerial) {
 					tempCode = tempCode.replace("Serial", serialName);
 				}
 				setupCode += tempCode;
@@ -175,8 +177,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var pins = hardwareData.board.pins;
 		pins = pins.filter(pin => {
 			var tags = pin.tags;
-			if(tags.indexOf("serial") >= 0 || tags.indexOf("VCC") >= 0 || tags.indexOf("GND") >= 0) {
+			if(!tags.includes("digital") && !tags.includes("analog-in")) {
 				return false;
+			}
+
+			if(hardwareData.board.name == "upDuino") {
+				if(pin.name == "0" || pin.name == "1") {
+					return false;
+				}
 			}
 
 			return true;
@@ -186,7 +194,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				name: pin.name,
 			}
 		});
-		pins = _.sortBy(pins, "name");
+		pins.sort((a, b) => {
+			if(a.name.startsWith("A") && b.name.startsWith("A")) {
+				return parseInt(a.name.substring(1)) - parseInt(b.name.substring(1));
+			} else if(isNaN(a.name) || isNaN(b.name)) {
+		       return a.name.localeCompare(b.name);
+		    } else {
+		       return parseInt(a.name) - parseInt(b.name);
+		    }
+		});
 
 		hardwareData.components.forEach(function(componentData) {
 			modules.indexOf(componentData.type) < 0 && modules.push(componentData.type);
@@ -334,9 +350,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function toggleToolButton(value) {
 		if (value) {
-			topRegion.find(".tool-button").addClass("simple");
+			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
-			topRegion.find(".tool-button").removeClass("simple");
+			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
 		}
 	}
 

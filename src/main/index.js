@@ -148,7 +148,7 @@ function listenMessages() {
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", _ => loadExamples())
-	listenMessage("openExample", (category, name) => openExample(category, name))
+	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", _ => loadPackages())
@@ -588,10 +588,17 @@ function deletePackage(name) {
  * @param {*} category 分类
  * @param {*} name 名字
  */
-function openExample(category, name) {
+function openExample(category, name, pkg) {
 	var deferred = Q.defer()
+	pkg = pkg || "built-in"
 
-	var examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
+	var examplePath
+	if(pkg == "built-in") {
+		examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
+	} else {
+		examplePath = path.join(getPackagesPath(), pkg, "examples", category, name)
+	}
+
 	log.debug(`openExample: ${examplePath}`)
 	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
 		deferred.resolve(projectInfo)
@@ -609,9 +616,37 @@ function openExample(category, name) {
 function loadExamples() {
 	var deferred = Q.defer()
 
+	var examples = []
 	log.debug('loadExamples')
-	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(examples => {
-		deferred.resolve(examples)
+
+	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(exampleGroups => {
+		examples.push({
+			name: "built-in",
+			groups: exampleGroups
+		})
+
+		var packagesPath = getPackagesPath()
+		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
+			Q.all(pathList.map(p => {
+				var d = Q.defer()
+				util.readJson(p).then(groups => {
+					examples.push({
+						name: path.basename(path.dirname(path.dirname(p))),
+						groups: groups,
+					})
+				})
+				.fin(_ => {
+					d.resolve()
+				})
+				return d.promise	
+			}))
+			.then(_ => {
+				deferred.resolve(examples)
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
