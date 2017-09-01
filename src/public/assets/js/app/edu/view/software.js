@@ -131,8 +131,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 					tempCode = tempCode.replace("Serial", componentData.varName);
 				} else if (isMultiSerial) {
 					tempCode = tempCode.replace("Serial", serialName);
-				} else if(isSerial) {
-					tempCode = tempCode.replace(componentData.varName, "Serial");
 				}
 				setupCode += tempCode;
 			}
