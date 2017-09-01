@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'app/common/util/emitor', '../model/hardwareModel'], function($1, $2, util, emitor, hardwareModel) {
+define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', '../model/hardwareModel'], function($1, $2, _, util, emitor, hardwareModel) {
 	var region;
 	var filterList;
 	var componentsWrap;
@@ -12,7 +12,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 	var componentContextMenu;
 	var boardContextMenu;
 	var contextMenuTarget;
-	var componentTemplate = '<li class="component-item" data-filter="{{filter}}" data-label="{{label}}" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" style="width:{{width}}px;height:{{height}}px;" /></div><div class="name">{{label}}</div></li>'
+	var componentTemplate = '<li class="component-item" data-name="{{name}}"><div class="image-wrap"><img class="image" draggable="false" src="{{src}}" style="width:{{width}}px;height:{{height}}px;" /></div><div class="name">{{label}}</div></li>'
 	var boardTemplate = '<li data-value="{{name}}" title="{{label}}"><div class="board {{name}}" style="background-image: url({{src}})"></div><div class="board-name">{{label}}</div></li>';
 	var vendorTemplate = '<li ><div class="placeholder"><img class="vendor-logo" src="{{logo}}" /><span class="vendor-name ellipsis">{{name}}</span></div><ul>{{items}}</ul></li>'
 
@@ -133,9 +133,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function buildComponent(component) {
 		return componentTemplate.replace(/\{\{name\}\}/g, component.name)
-			.replace(/\{\{label\}\}/g, component.label)
-			.replace(/\{\{filter\}\}/, component.category)
 			.replace(/\{\{src\}\}/, component.imageUrl)
+			.replace(/\{\{label\}\}/, component.label)
 			.replace(/\{\{width\}\}/, component.width)
 			.replace(/\{\{height\}\}/, component.height);
 	}
@@ -403,6 +402,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 
 	function onBoardChange(name) {
 		boardData = hardwareModel.addBoard(name);
+
+		filterList.find(">li.active").click();
 	}
 
 	function onCategoryClick(e) {
@@ -420,10 +421,19 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/util', 'ap
 		var li = $(this);
 		util.toggleActive(li);
 
+		var boardTags = boardData.tags;
 		var componentList = componentsWrap.find("ul.active");
 		componentList.find(".component-item").removeClass("active");
 		var filter = li.data('filter');
-		var list = filter == "all" ? componentList.find(".component-item") : componentList.find('.component-item[data-filter="' + filter + '"]');
+		var list = componentList.find('.component-item').filter((index, componentDom) => {
+			var name = componentDom.dataset.name;
+			var componentConfig = hardwareModel.getComponentConfig(name);
+			if(_.intersection(componentConfig.boards, boardTags).length == 0) {
+				return false;
+			}
+
+			return filter == "all" ? true : componentConfig.category == filter;
+		});
 		list.addClass("active");
 
 		componentsWrap.perfectScrollbar("update");

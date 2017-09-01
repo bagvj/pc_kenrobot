@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/boards', '../config/menu'], function($1, Mousetrap, util, emitor, config, boards, menu) {
+define(['vendor/jquery', 'vendor/lodash', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/boards', '../config/menu'], function($1, _, Mousetrap, util, emitor, config, boards, menu) {
 	function init() {
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
@@ -15,8 +15,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			boardMenuItem.menu = boardMenu;
 
 			var exampleMenuItem = menu.find(menuItem => menuItem.id && menuItem.id == "example");
-			var buildInMenuItem = exampleMenuItem.menu.find(menuItem => menuItem.id && menuItem.id == "example-built-in");
-			buildInMenuItem.menu = exampleMenu;
+			exampleMenuItem.menu = exampleMenu;
 			
 			kenrobot.trigger("app-menu", "load", menu, "ide");
 		});
@@ -44,13 +43,21 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 	function loadBoards() {
 		var promise = $.Deferred();
 
-		var boardList = boards.concat();
-		kenrobot.postMessage("app:loadPackages").then(function(packages) {
-			packages.forEach(function(pkg) {
+		var builtInPkg = {
+			boards: boards,
+			order: 0,
+		}
+
+		var boardList = []
+		kenrobot.postMessage("app:loadPackages").then(pkgs => {
+			pkgs.unshift(builtInPkg)
+			pkgs = _.sortBy(pkgs, ["order"]);
+			pkgs.forEach(pkg => {
 				pkg.boards && (boardList = boardList.concat(pkg.boards));
 			});
 		})
 		.fin(function() {
+
 			var boardMenu = boardList.map(board => {
 				return {
 					text: board.label,
@@ -78,22 +85,47 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		var promise = $.Deferred();
 
 		kenrobot.postMessage("app:loadExamples").then(function(examples) {
-			var exampleMenu = examples.map(ca => {
-				return {
-					placeholder: ca.category,
-					arrow: true,
-					menu: ca.list.map(example => {
-						return {
-							text: example.name,
-							action: "open-example",
-							extra: {
-								name: example.name,
-								category: example.category,
-							},
-						};
-					}),
-				};
+			var exampleMenu = [];
+			examples.forEach(exampleGroup => {
+				var groupMenu
+				if(exampleGroup.name == "built-in") {
+					groupMenu = {
+						id: "built-in-examples",
+						placeholder: "内置示例",
+						arrow: true,
+						menuCls: "example-built-in",
+					}
+					exampleMenu.push(groupMenu)
+					exampleMenu.push("_");
+				} else {
+					groupMenu = {
+						id: `${exampleGroup.name}-examples`,
+						placeholder: `${exampleGroup.name}示例`,
+						arrow: true,
+						menuCls: "example-third-party",
+					}
+					exampleMenu.push(groupMenu)
+				}
+
+				groupMenu.menu = exampleGroup.groups.map(ca => {
+					return {
+						placeholder: ca.category,
+						arrow: true,
+						menu: ca.list.map(example => {
+							return {
+								text: example.name,
+								action: "open-example",
+								extra: {
+									package: exampleGroup.name,
+									name: example.name,
+									category: example.category,
+								},
+							};
+						}),
+					};
+				});
 			});
+
 			promise.resolve(exampleMenu);
 		}, function(err) {
 			promise.resolve([]);
@@ -127,9 +159,9 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 
 				break;
 			case "open-example":
-				kenrobot.postMessage("app:openExample", extra.category, extra.name, "ino").then(code => {
+				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(code => {
 					emitor.trigger("project", "open", code);
-				}, _ => {
+				}, () => {
 					util.message("打开失败");
 				});
 				break;

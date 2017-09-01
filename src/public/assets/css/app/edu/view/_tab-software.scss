@@ -52,6 +52,61 @@ $focus-color: #f1cb33;
 .tab-software {
 	display: flex;
 
+	.hover-button {
+		position: relative;
+		overflow: hidden;
+
+		.text {
+			width: 100%;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 12px;
+			line-height: 40px;
+			text-align: center;
+			transform: translateY(40px);
+			opacity: 0;
+			transition: all 0.2s;
+			display: none;
+		}
+
+		&.simple {
+			.icon {
+				width: 100%;
+				text-align: center;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transform: translateY(0);
+				opacity: 1;
+				transition: all 0.2s;
+			}
+
+			.text {
+				display: block;
+			}
+		}
+
+		&.simple:hover {
+			.text {
+				transform: translateY(0);
+				opacity: 1;
+			}
+
+			.icon {
+				transform: translateY(-40px);
+				opacity: 0;
+			}
+
+			&.simple {
+				.text {
+					display: block;
+				}
+			}
+		}
+	}
+
 	.left-region {
 		// position: absolute;
 		// top: 0;
@@ -148,7 +203,7 @@ $focus-color: #f1cb33;
 					font-size: 24px;
 					margin-left: auto;
 					margin-right: auto;
-					width: 24px;
+					// width: 24px;
 				}
 			}
 		}
@@ -361,7 +416,6 @@ $focus-color: #f1cb33;
 		}
 	}
 
-
 	.top-region {
 		.tool-button {
 			height: 40px;
@@ -372,17 +426,17 @@ $focus-color: #f1cb33;
 			border-style: solid;
 			float: left;
 			cursor: pointer;
-			transition: 0.2s background-color 0.2s border-color;
+			transition: all 0.2s;
 
 			& > i {
 				display: block;
 				font-size: 24px;
 				margin-left: auto;
 				margin-right: auto;
-				width: 24px;
+				// width: 24px;
 			}
 
-			& > span {
+			.text-normal {
 				font-size: 16px;
 			}
 
@@ -399,7 +453,7 @@ $focus-color: #f1cb33;
 					margin-right: auto;
 				}
 
-				& > span {
+				.text-normal {
 					display: none;
 				}
 			}
@@ -440,7 +494,7 @@ $focus-color: #f1cb33;
 				top: 0;
 				left: 0;
 				transform: translateX(-100%);
-				transition: 0.2s transform;
+				transition: transform 0.2s;
 				pointer-events: none;
 			}
 		}

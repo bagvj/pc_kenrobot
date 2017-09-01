@@ -3542,7 +3542,7 @@ define(['vendor/lodash'], function($1) {
 				"uid": "LdyiLN",
 				"x": 0.18,
 				"y": 0.078,
-				"name": "D11",
+				"name": "11",
 				"tags": ["digital", "analog-out"],
 				"overlay": [0.5, -1.5],
 				"label": "11",
@@ -6373,14 +6373,25 @@ define(['vendor/lodash'], function($1) {
 					"accept": "connector-top"
 				}],
 				"content": [{
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "打开",
+						"value": "open"
+					}, {
+						"label": "关闭",
+						"value": "close"
+					}]
+				}, {
 					"type": "text",
-					"value": "关闭蜂鸣器"
+					"value": "蜂鸣器"
 				}, {
 					"id": "BUZZER",
 					"type": "dynamic-select",
 					"options": "buzzers"
 				}],
-				"code": "noTone({BUZZER});",
+				"eval": true,
+				"code": "'{OP}' === 'open' ? 'digitalWrite({BUZZER}, HIGH);' : 'noTone({BUZZER});'",
 				"tags": ["module"],
 				"module": "buzzer",
 				"uid": "DSWgJ7"
@@ -7345,7 +7356,7 @@ define(['vendor/lodash'], function($1) {
 			"label": "串口模块",
 			"type": "serial",
 			"category": "function",
-			"boards": ["Arduino"],
+			"boards": ["Arduino", "upDuino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
@@ -7405,6 +7416,41 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module"],
 				"module": "serial",
 				"uid": "p3UznJ"
+			}, {
+				"type": "statement",
+				"name": "serialSendAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "打印"
+				}, {
+					"id": "LN",
+					"type": "static-select",
+					"options": [{
+						"label": "有换行符",
+						"value": "println"
+					}, {
+						"label": "没有换行符",
+						"value": "print"
+					}]
+				}],
+				"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",
+				"tags": ["module", "advanced"],
+				"module": "serial",
+				"uid": "jlHqUs"
 			}, {
 				"type": "output",
 				"name": "serialReceive",
@@ -7492,6 +7538,34 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module", "advanced"],
 				"module": "serial",
 				"uid": "6yQc6n"
+			}, {
+				"type": "statement",
+				"name": "serialBeginAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "设置波特率"
+				}, {
+					"id": "BAUDRATE",
+					"type": "number-input",
+				}],
+				"code": "{SERIAL}.begin({BAUDRATE});",
+				"tags": ["module", "advanced"],
+				"module": "serial",
+				"uid": "fkhrsR"
 			}],
 			"imageUrl": "assets/image/components/serial.svg"
 		}, {
@@ -7500,7 +7574,7 @@ define(['vendor/lodash'], function($1) {
 			"label": "软串口",
 			"type": "serial",
 			"category": "function",
-			"boards": ["Arduino"],
+			"boards": ["Arduino", "upDuino"],
 			"width": 72,
 			"height": 72,
 			"pins": [{
