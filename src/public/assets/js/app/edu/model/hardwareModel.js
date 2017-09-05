@@ -312,6 +312,7 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 		});
 
 		var endpoints = componentData.endpoints || {};
+		var pinNum = componentConfig.pins.length;
 		componentConfig.pins.forEach(function(pin) {
 			var type = pin.tags.join(" ");
 			!componentData.endpoints && (endpoints[pin.name] = {
@@ -331,12 +332,22 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 				endpoint: [pin.shape || 'Dot', {
 					radius: config.endpoint.radius
 				}],
+				overlays: pinNum > 1 ? [
+					['Label', {
+						label: 'Pin ' + pin.label,
+						labelStyle: {
+							color: config.labelColor,
+							font: config.font,
+						},
+						location: pin.overlay,
+					}]
+				] : [],
 				isSource: true,
 				isTarget: false,
 				cssClass: 'component-endpoint',
 				hoverClass: 'component-endpoint--hover',
 				connectorStyle: {
-					strokeStyle: config.color,
+					strokeStyle: pin.color || config.color,
 					fillStyle: 'transparent',
 					lineWidth: 2,
 					joinstyle: 'round',

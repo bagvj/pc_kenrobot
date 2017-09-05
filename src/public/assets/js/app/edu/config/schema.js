@@ -489,6 +489,75 @@ define(['vendor/lodash'], function($1) {
 			"uid": "EH9wYs"
 		}, {
 			"type": "output",
+			"name": "number",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 0
+			}],
+			"code": "{VALUE}",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["data"],
+			"uid": "6kmKjU"
+		}, {
+			"type": "output",
+			"name": "boolean",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "True",
+					"value": "true"
+				}, {
+					"label": "False",
+					"value": "false"
+				}]
+			}],
+			"code": "{STATE}",
+			"returnType": {
+				"type": "simple",
+				"value": "bool"
+			},
+			"tags": ["data"],
+			"uid": "nllNTV"
+		}, {
+			"type": "output",
+			"name": "highLow",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "HIGH",
+					"value": "HIGH"
+				}, {
+					"label": "LOW",
+					"value": "LOW"
+				}]
+			}],
+			"code": "{STATE}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["data"],
+			"uid": "UgUd3U"
+		}, {
+			"type": "output",
 			"name": "string",
 			"connectors": [{
 				"type": "connector-output",
@@ -595,6 +664,31 @@ define(['vendor/lodash'], function($1) {
 			"uid": "1ZtonP"
 		}, {
 			"type": "output",
+			"name": "boolArray",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "大小为"
+			}, {
+				"id": "VALUE",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "的布尔数组"
+			}],
+			"code": "(bool *)malloc({VALUE}*sizeof(bool))",
+			"returnType": {
+				"type": "simple",
+				"value": "bool *"
+			},
+			"tags": ["data"],
+			"uid": "KiTI7b"
+		}, {
+			"type": "output",
 			"name": "stringSum",
 			"connectors": [{
 				"type": "connector-output",
@@ -633,100 +727,6 @@ define(['vendor/lodash'], function($1) {
 			"uid": "9sXabi"
 		}, {
 			"type": "output",
-			"name": "boolean",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "True",
-					"value": "true"
-				}, {
-					"label": "False",
-					"value": "false"
-				}]
-			}],
-			"code": "{STATE}",
-			"returnType": {
-				"type": "simple",
-				"value": "bool"
-			},
-			"tags": ["data"],
-			"uid": "nllNTV"
-		}, {
-			"type": "output",
-			"name": "highLow",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "HIGH",
-					"value": "HIGH"
-				}, {
-					"label": "LOW",
-					"value": "LOW"
-				}]
-			}],
-			"code": "{STATE}",
-			"returnType": {
-				"type": "simple",
-				"value": "int"
-			},
-			"tags": ["data"],
-			"uid": "UgUd3U"
-		}, {
-			"type": "output",
-			"name": "boolArray",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "大小为"
-			}, {
-				"id": "VALUE",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "的布尔数组"
-			}],
-			"code": "(bool *)malloc({VALUE}*sizeof(bool))",
-			"returnType": {
-				"type": "simple",
-				"value": "bool *"
-			},
-			"tags": ["data"],
-			"uid": "KiTI7b"
-		}, {
-			"type": "output",
-			"name": "number",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"id": "VALUE",
-				"type": "number-input",
-				"value": 0
-			}],
-			"code": "{VALUE}",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": ["data"],
-			"uid": "6kmKjU"
-		}, {
-			"type": "output",
 			"name": "numberArray",
 			"connectors": [{
 				"type": "connector-output",
@@ -750,73 +750,6 @@ define(['vendor/lodash'], function($1) {
 			},
 			"tags": ["data"],
 			"uid": "HishdZ"
-		}, {
-			"type": "output",
-			"name": "stringArrayAdvanced",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "pYYLrj"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "数组，大小:"
-			}, {
-				"blockInputId": "VALUE",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "pYYLrj"
-			}, {
-				"type": "text",
-				"value": "类型:"
-			}, {
-				"id": "TYPE",
-				"type": "static-select",
-				"options": [{
-					"label": "文本",
-					"value": "String *"
-				}, {
-					"label": "字符",
-					"value": "char *"
-				}]
-			}],
-			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
-			"returnType": {
-				"type": "fromDropdown",
-				"id": "TYPE",
-				"options": "vars"
-			},
-			"tags": ["data", "advanced"],
-			"uid": "vQnRye"
-		}, {
-			"type": "output",
-			"name": "char",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "'"
-			}, {
-				"id": "TEXT",
-				"type": "char-input",
-				"placeholder": "字符"
-			}, {
-				"type": "text",
-				"value": "'"
-			}],
-			"code": "'{TEXT}'",
-			"returnType": {
-				"type": "simple",
-				"value": "char"
-			},
-			"tags": ["data", "advanced"],
-			"uid": "iltYPk"
 		}, {
 			"type": "output",
 			"name": "numberArrayAdvanced",
@@ -859,6 +792,73 @@ define(['vendor/lodash'], function($1) {
 			},
 			"tags": ["data", "advanced"],
 			"uid": "QEMney"
+		}, {
+			"type": "output",
+			"name": "char",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "'"
+			}, {
+				"id": "TEXT",
+				"type": "char-input",
+				"placeholder": "字符"
+			}, {
+				"type": "text",
+				"value": "'"
+			}],
+			"code": "'{TEXT}'",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": ["data", "advanced"],
+			"uid": "iltYPk"
+		}, {
+			"type": "output",
+			"name": "stringArrayAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "pYYLrj"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数组，大小:"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "pYYLrj"
+			}, {
+				"type": "text",
+				"value": "类型:"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "文本",
+					"value": "String *"
+				}, {
+					"label": "字符",
+					"value": "char *"
+				}]
+			}],
+			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
+			"returnType": {
+				"type": "fromDropdown",
+				"id": "TYPE",
+				"options": "vars"
+			},
+			"tags": ["data", "advanced"],
+			"uid": "vQnRye"
 		}, {
 			"type": "statement",
 			"name": "declareVariable",
@@ -2002,26 +2002,6 @@ define(['vendor/lodash'], function($1) {
 			"uid": "vbxsf7"
 		}, {
 			"type": "statement-input",
-			"name": "else",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-root",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "否则，那么"
-			}],
-			"code": "else {{STATEMENTS}}",
-			"tags": ["logic"],
-			"uid": "kEK1px"
-		}, {
-			"type": "statement-input",
 			"name": "ifAdvanced",
 			"connectors": [{
 				"type": "connector-top",
@@ -2800,7 +2780,7 @@ define(['vendor/lodash'], function($1) {
 	var builtInPackage = {
 		"name": "Arduino",
 		"company": "Arduino",
-		"version": "0.5.3",
+		"version": "0.5.5",
 		"author": "Kenrobot",
 		"category": "built-in",
 		"help": "http://www.kenrobot.com/",
@@ -5000,7 +4980,8 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["digital"],
 				"label": "k",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "sa",
 				"anchor": [0.5, 1],
@@ -5008,7 +4989,8 @@ define(['vendor/lodash'], function($1) {
 				"spec": ["name", "3"],
 				"label": "sa",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "sb",
 				"anchor": [0.75, 1],
@@ -5016,7 +4998,8 @@ define(['vendor/lodash'], function($1) {
 				"spec": ["name", "2"],
 				"label": "sb",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <Encoder.h>",
@@ -5254,14 +5237,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["digital"],
 				"label": "tri",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "ech",
 				"anchor": [0.667, 1],
 				"tags": ["digital"],
 				"label": "ech",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <SR04.h>",
@@ -5547,21 +5532,24 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["analog-out", "any"],
 				"label": "r",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "g",
 				"anchor": [0.5, 1],
 				"tags": ["analog-out", "any"],
 				"label": "g",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "b",
 				"anchor": [0.75, 1],
 				"tags": ["analog-out", "any"],
 				"label": "b",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <RGBLed.h>",
@@ -5817,7 +5805,8 @@ define(['vendor/lodash'], function($1) {
 				"spec": ["tag", "sda"],
 				"label": "sda",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "scl",
 				"anchor": [0.67, 0],
@@ -5825,7 +5814,8 @@ define(['vendor/lodash'], function($1) {
 				"spec": ["tag", "scl"],
 				"label": "scl",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <LiquidCrystal_I2C.h>",
@@ -6469,14 +6459,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["analog-out"],
 				"label": "a",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "b",
 				"anchor": [0.667, 1],
 				"tags": ["analog-out"],
 				"label": "b",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <DCMotor.h>",
@@ -6846,42 +6838,48 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["analog-out"],
 				"label": "pwm1",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "dir1",
 				"anchor": [0.5, 0],
 				"tags": ["digital", "analog-in"],
 				"label": "dir1",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "en1",
 				"anchor": [0.75, 0],
 				"tags": ["digital", "analog-in", "GND", "VCC"],
 				"label": "en1",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "pwm2",
 				"anchor": [0.25, 1],
 				"tags": ["analog-out"],
 				"label": "pwm2",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "dir2",
 				"anchor": [0.5, 1],
 				"tags": ["digital", "analog-in"],
 				"label": "dir2",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "en2",
 				"anchor": [0.75, 1],
 				"tags": ["digital", "analog-in", "GND", "VCC"],
 				"label": "en2",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <Motor.h>",
@@ -7088,14 +7086,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["analog-out"],
 				"label": "leftPin",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "rightPin",
 				"anchor": [0.667, 1],
 				"tags": ["analog-out"],
 				"label": "rightPin",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <curieBot.h>",
@@ -7560,7 +7560,7 @@ define(['vendor/lodash'], function($1) {
 					"value": "设置波特率"
 				}, {
 					"id": "BAUDRATE",
-					"type": "number-input",
+					"type": "number-input"
 				}],
 				"code": "{SERIAL}.begin({BAUDRATE});",
 				"tags": ["module", "advanced"],
@@ -7583,14 +7583,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["digital", "analog-in"],
 				"label": "rxd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "txd",
 				"anchor": [0.667, 1],
 				"tags": ["digital", "analog-in"],
 				"label": "txd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -7612,14 +7614,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["digital", "analog-in"],
 				"label": "rxd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "txd",
 				"anchor": [0.67, 1],
 				"tags": ["digital", "analog-in"],
 				"label": "txd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
@@ -7641,14 +7645,16 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["digital", "analog-in"],
 				"label": "rxd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}, {
 				"name": "txd",
 				"anchor": [0.67, 1],
 				"tags": ["digital", "analog-in"],
 				"label": "txd",
 				"shape": "Dot",
-				"rotate": false
+				"rotate": false,
+				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"setup": "Serial.begin(9600);"
