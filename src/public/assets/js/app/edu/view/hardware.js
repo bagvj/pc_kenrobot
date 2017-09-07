@@ -24,6 +24,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	var preMouseMoveY;
 	var dragMouseX;
 	var dragMouseY;
+	var nameBlurFn;
 
 	function init() {
 		region = $('.content-region .tab-hardware');
@@ -40,7 +41,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		dragContainer = $('.component-drag-layer')[0];
 
 		boardList = $('.boards', region).on('click', '.placeholder', onShowBoardSelect).on('click', 'ul > li', onBoardSelectClick);
-		componentOption = $('.component-option-region', region).on('blur', '.name', onComponentNameBlur);
+		componentOption = $('.component-option-region', region);
+		componentOption.find(".name").on('blur', onComponentNameBlur).on('keyup', onComponentNameKeyUp);
 		boardContextMenu = $('.board-menu', region).on('click', '> li', onBoardContextMenu);
 		componentContextMenu = $('.component-menu', region).on('click', '> li', onComponentContextMenu);
 
@@ -443,7 +445,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var uid = componentOption.data("uid");
 		var name = componentOption.find(".name").val();
 		var componentData = hardwareModel.getComponentData(uid);
-		componentData.varName = name;
+		componentData && (componentData.varName = name);
+	}
+
+	function onComponentNameKeyUp(e) {
+		if(!nameBlurFn) {
+			nameBlurFn = util.throttle(onComponentNameBlur, 300);
+		}
+
+		nameBlurFn();
 	}
 
 	function hideComponentDialog() {

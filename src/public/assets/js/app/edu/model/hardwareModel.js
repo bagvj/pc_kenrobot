@@ -1,4 +1,4 @@
-define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
+define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1, _, util) {
 
 	var config = {
 		color: '#F1C933',
@@ -37,7 +37,8 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 				tolerance: 'touch',
 				cursor: 'crosshair',
 				hoverClass: 'drop-hover',
-				activeClass: 'drag-active'
+				activeClass: 'drag-active',
+				canDrop: onCanDrop,
 			},
 			Connector: ['Flowchart', {
 				cornerRadius: 5,
@@ -226,12 +227,13 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 		boardDom.style.backgroundImage = `url(${boardData.imageUrl})`;
 		boardDom.style.width = `${boardData.width}px`;
 		boardDom.style.height = `${boardData.height}px`;
-		boardData.pins.forEach(function(pin) {
+		boardData.pins.forEach(pin => {
 			var shape = pin.shape || "Rectangle";
 			var sizeOptions = shape == "Dot" ? {radius: pin.radius} : {
 				width: pin.rotate ? pin.height : pin.width,
 				height: pin.rotate ? pin.width : pin.height
 			}
+
 			var epBoard = jsPlumbInstance.addEndpoint(boardDom, {
 				anchor: [pin.x, pin.y],
 				endpoint: [shape, sizeOptions],
@@ -246,7 +248,7 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 					}]
 				],
 				parameters: {
-					pin: pin
+					pin: clone(pin)
 				},
 				cssClass: 'board-endpoint pin-' + pin.name,
 				isTarget: true,
@@ -312,7 +314,8 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 		});
 
 		var endpoints = componentData.endpoints || {};
-		componentConfig.pins.forEach(function(pin) {
+		var pinNum = componentConfig.pins.length;
+		componentConfig.pins.forEach(pin => {
 			var type = pin.tags.join(" ");
 			!componentData.endpoints && (endpoints[pin.name] = {
 				type: type,
@@ -325,18 +328,28 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 				anchor: pin.anchor,
 				uuid: endpoints[pin.name].uid,
 				parameters: {
-					pin: pin,
+					pin: clone(pin),
 					type: type,
 				},
 				endpoint: [pin.shape || 'Dot', {
 					radius: config.endpoint.radius
 				}],
+				overlays: pinNum > 1 ? [
+					['Label', {
+						label: 'Pin ' + pin.label,
+						labelStyle: {
+							color: config.labelColor,
+							font: config.font,
+						},
+						location: pin.overlay,
+					}]
+				] : [],
 				isSource: true,
 				isTarget: false,
 				cssClass: 'component-endpoint',
 				hoverClass: 'component-endpoint--hover',
 				connectorStyle: {
-					strokeStyle: config.color,
+					strokeStyle: pin.color || config.color,
 					fillStyle: 'transparent',
 					lineWidth: 2,
 					joinstyle: 'round',
@@ -510,48 +523,107 @@ define(['vendor/jsPlumb.bak', 'app/common/util/util'], function($1, util) {
 		jsPlumbInstance.unbind('connection');
 		jsPlumbInstance.unbind('connectionDetached');
 
-		jsPlumbInstance.bind('connection', function(connection) {
-			connection.connection.bind('click', function(c) {
-				unselectAllConnections();
-				selectConnection(c);
-			});
+		jsPlumbInstance.bind('connection', onConnection);
+		jsPlumbInstance.bind('connectionDetached', onConnectionDetached);
+		jsPlumbInstance.bind('connectionMoved', onConnectionMoved);
+	}
 
-			connection.targetEndpoint.setType('connected');
-			connection.sourceEndpoint.setType('connected');
+	function onCanDrop(drag) {
+		return this.el._jsPlumb.isEnabled() && drag.isEnabled();
+	}
 
-			connection.connection.setParameters({
-				sourceUid: connection.sourceEndpoint.getUuid(),
-				targetUid: connection.targetEndpoint.getUuid()
-			});
+	function onConnection(info) {
+		info.connection.bind('click', connection => {
+			unselectAllConnections();
+			selectConnection(connection);
+		});
 
-			if([].indexOf.call(connection.target.classList, 'board') >= 0) {
-				var componentUid = connection.source.dataset.uid;
-				var componentData = components[componentUid];
-				var sourcePin = connection.sourceEndpoint.getParameter('pin');
-				var targetPin = connection.targetEndpoint.getParameter('pin');
-				componentData.pins[sourcePin.name] = targetPin;
+		info.targetEndpoint.setType('connected');
+		info.sourceEndpoint.setType('connected');
+
+		info.connection.setParameters({
+			sourceUid: info.sourceEndpoint.getUuid(),
+			targetUid: info.targetEndpoint.getUuid()
+		});
+
+		if(Array.from(info.target.classList).includes('board')) {
+			var componentUid = info.source.dataset.uid;
+			var componentData = components[componentUid];
+			var sourcePin = info.sourceEndpoint.getParameter('pin');
+			var targetPin = info.targetEndpoint.getParameter('pin');
+			componentData.pins[sourcePin.name] = targetPin;
+
+			if(!boardData.tuples) {
+				return;
 			}
-		});
 
-		jsPlumbInstance.bind('connectionDetached', function(connection) {
-			unselectConnection(connection.connection);
-			connection.connection.unbind('click');
-			connection.targetEndpoint.removeType('connected');
-			connection.sourceEndpoint.removeType('connected');
+			var tags = _.intersection(sourcePin.tags, targetPin.tags);
+			var tagName = tags[0];
 
-			if([].indexOf.call(connection.target.classList, 'board') >= 0) {
-				var componentUid = connection.source.dataset.uid;
-				var componentData = components[componentUid];
-				var sourcePin = connection.sourceEndpoint.getParameter('pin');
-				delete componentData.pins[sourcePin.name];
+			boardData.tuples.forEach(tuple => {
+				var tupleTag = tuple.tags.find(tag => tag.name == tagName)
+				if(tupleTag) {
+					if(tuple.members.includes(targetPin.name)) {
+						tuple.members.forEach(name => {
+							if(name != targetPin.name) {
+								var pin = boardData.pins.find(p => p.name == name);
+								var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
+								endpoint.setEnabled(false);
+							}
+						});
+
+						targetPin.tupleValue = tupleTag.value;
+
+						return true;
+					}
+				}
+			});
+		}
+	}
+
+	function onConnectionDetached(info) {
+		unselectConnection(info.connection);
+		info.connection.unbind('click');
+		info.targetEndpoint.removeType('connected');
+		info.sourceEndpoint.removeType('connected');
+
+		if(Array.from(info.target.classList).includes('board')) {
+			var componentUid = info.source.dataset.uid;
+			var componentData = components[componentUid];
+			var sourcePin = info.sourceEndpoint.getParameter('pin');
+			var targetPin = info.targetEndpoint.getParameter('pin');
+			delete componentData.pins[sourcePin.name];
+
+			if(!boardData.tuples) {
+				return;
 			}
-		});
 
-		jsPlumbInstance.bind('connectionMoved', function(connection) {
-			connection.originalTargetEndpoint.removeType('selected');
-			connection.originalTargetEndpoint.removeClass('selected');
-			connection.originalTargetEndpoint.removeClass('endpointDrag');
-		});
+			var tags = _.intersection(sourcePin.tags, targetPin.tags);
+			var tagName = tags[0];
+
+			boardData.tuples.forEach(tuple => {
+				var tupleTag = tuple.tags.find(tag => tag.name == tagName)
+				if(tupleTag) {
+					if(tuple.members.includes(targetPin.name)) {
+						tuple.members.forEach(name => {
+							var pin = boardData.pins.find(p => p.name == name);
+							var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
+							endpoint.setEnabled(true);
+						});
+
+						delete targetPin.tupleValue;
+
+						return true;
+					}
+				}
+			});
+		}
+	}
+
+	function onConnectionMoved(info) {
+		info.originalTargetEndpoint.removeType('selected');
+		info.originalTargetEndpoint.removeClass('selected');
+		info.originalTargetEndpoint.removeClass('endpointDrag');
 	}
 
 	function onBoardEndpointClick(endpoint) {
