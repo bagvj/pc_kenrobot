@@ -600,18 +600,19 @@
 		left: 20px;
 		right: 20px;
 		bottom: 20px;
-		border: 1px dashed #6c769b;
 		border-radius: 10px;
 
 		&.can-drop {
 			background-color: #f3f7fa;
-			&:after {
-				content: '';
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				border: 1px dashed #6c779b;
-			}
+		}
+
+		&:after {
+			content: '';
+			width: 100%;
+			height: 100%;
+			border: 1px dashed #6c779b;
+			border-radius: 10px;
+			position: absolute;
 		}
 	}
 }
