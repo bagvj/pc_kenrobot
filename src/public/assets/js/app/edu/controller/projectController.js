@@ -61,6 +61,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 						schema.blocks.push(block);
 					});
 				});
+
+				pkg.blocks && pkg.blocks.forEach(block => {
+					schema.blocks.push(block);
+				});
 			});
 		})
 		.fin(function() {

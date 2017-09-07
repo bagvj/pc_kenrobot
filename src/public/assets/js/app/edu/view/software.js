@@ -487,7 +487,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && filters.indexOf("always") < 0) {
 				return;
 			}
 
@@ -529,7 +529,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && filters.indexOf("always") < 0) {
 				//block是模块，但没有相应硬件
 				return;
 			}
