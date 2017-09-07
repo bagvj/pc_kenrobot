@@ -24,6 +24,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	var preMouseMoveY;
 	var dragMouseX;
 	var dragMouseY;
+	var nameBlurFn;
 
 	function init() {
 		region = $('.content-region .tab-hardware');
@@ -445,15 +446,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var name = componentOption.find(".name").val();
 		var componentData = hardwareModel.getComponentData(uid);
 		componentData && (componentData.varName = name);
-		console.log("onComponentNameBlur", name);
 	}
 
 	function onComponentNameKeyUp(e) {
-		if(e.keyCode != 13) {
-			return;
+		if(!nameBlurFn) {
+			nameBlurFn = util.throttle(onComponentNameBlur, 300);
 		}
 
-		onComponentNameBlur();
+		nameBlurFn();
 	}
 
 	function hideComponentDialog() {
