@@ -7413,7 +7413,7 @@ define(['vendor/lodash'], function($1) {
 					}]
 				}],
 				"code": "{SERIAL}.{LN}({DATA});",
-				"tags": ["module"],
+				"tags": ["always", "module"],
 				"module": "serial",
 				"uid": "p3UznJ"
 			}, {
