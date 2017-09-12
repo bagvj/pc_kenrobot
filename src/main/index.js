@@ -418,11 +418,11 @@ function unzipPackages(skip) {
 				return true
 			}
 
-			if(!oldPackages.find(o => o.name == p.name && o.checksum == p.checksum)) {
+			if(oldPackages.find(o => o.name == p.name && o.checksum != p.checksum)) {
 				return true
 			}
 
-			return !fs.existsSync(path.join(getPackagesPath(), p.name, "packages.json"))
+			return !fs.existsSync(path.join(getPackagesPath(), p.name, "package.json"))
 		})
 
 		var total = list.length
@@ -441,9 +441,9 @@ function unzipPackages(skip) {
 
 			var p = list.pop()
 			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
-				var oldPackage = oldPackages.find(o => o.name == p.name)
-				if(oldPackage) {
-					oldPackage.checksum = p.checksum
+				var index = oldPackages.findIndex(o => o.name == p.name)
+				if(index >= 0) {
+					oldPackages.splice(index, 1, p)
 				} else {
 					oldPackages.push(p)
 				}
