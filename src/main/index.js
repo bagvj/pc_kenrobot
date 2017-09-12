@@ -160,20 +160,11 @@ function listenMessages() {
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", _ => app.quit())
 	listenMessage("reload", _ => mainWindow.reload())
+	listenMessage("relaunch", _ => onAppRelaunch())
 	listenMessage("fullscreen", _ => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
 	listenMessage("min", _ => mainWindow.minimize())
-	listenMessage("max", _ => {
-		if(mainWindow.isFullScreen()) {
-			mainWindow.setFullScreen(false)
-		} else {
-			mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
-		}
-	})
-	listenMessage("errorReport", err => {
-		log.error(`------ error message ------`)
-		log.error(`${err.message}(${err.src} at line ${err.line}:${err.col})`)
-		log.error(`${err.stack}`)
-	})
+	listenMessage("max", _ => onAppToggleMax())
+	listenMessage("errorReport", err => onAppErrorReport(err))
 }
 
 function listenMessage(name, callback) {
@@ -243,6 +234,25 @@ function createWindow() {
 function onAppWillQuit() {
 	serialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+}
+
+function onAppToggleMax() {
+	if(mainWindow.isFullScreen()) {
+		mainWindow.setFullScreen(false)
+	} else {
+		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+	}
+}
+
+function onAppRelaunch() {
+	app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+	app.exit(0)
+}
+
+function onAppErrorReport(err) {
+	log.error(`------ error message ------`)
+	log.error(`${err.message}(${err.src} at line ${err.line}:${err.col})`)
+	log.error(`${err.stack}`)
 }
 
 function checkIfFirstRun() {

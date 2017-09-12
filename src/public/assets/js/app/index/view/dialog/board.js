@@ -226,8 +226,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					item.find(".versions > ul > li:eq(0)").trigger("click");
 				}, 10);
 				var info = kenrobot.appInfo;
-				util.message(`${prefix}安装成功<br />建议重新运行${info.name}`);
 				closeLock--;
+				util.confirm({
+					text: `${prefix}安装成功，建议重新运行${info.name}`,
+					onConfirm: () => kenrobot.postMessage("app:relaunch")
+				});
 			}, err => {
 				item.find(".x-progress").removeClass("active").css("transform", "");
 				util.message(`${prefix}安装失败`);
@@ -268,10 +271,13 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				kenrobot.postMessage("app:deletePackage", p.name).then(() => {
 					_.pull(installedPackages, _.find(installedPackages, pack => pack.name == p.name));
 					var info = kenrobot.appInfo;
-					util.message(`删除成功<br />建议重新运行${info.name}`);
 					setTimeout(() => {
 						item.find(".versions > ul > li:eq(0)").trigger("click");
 					}, 10);
+					util.confirm({
+						text: `删除成功，建议重新运行${info.name}`,
+						onConfirm: () => kenrobot.postMessage("app:relaunch")
+					});
 				}, err => {
 					util.message("删除失败");
 				});

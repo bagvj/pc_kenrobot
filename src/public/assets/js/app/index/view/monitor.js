@@ -8,7 +8,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	var lastPortId;
 	var lastComName;
 	var autoScroll;
-	var buffer;
+	var buffer = [];
+	var maxLines = 500;
 
 	function init() {
 		monitorRegion = $('.monitor').on('click', '.close-btn', onCloseClick).on('click', '.send', onSendClick).on('click', '.switch', onSwitchClick).on('click', '.clear', onClearClick).on('click', '.open', onOpenClick);
@@ -90,14 +91,18 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 		}
 
 		if (data instanceof Buffer) {
-			data = data.toString().replace(/\r\n/g, '\n');
+			data = data.toString();
 		}
-
+		data = data.replace(/\r\n/g, '\n');
 		if (data == "") {
 			return
 		}
+		buffer.push(data.split(/\r\n|\n|\n/));
+		if(buffer.length > maxLines) {
+			buffer.splice(0, buffer.length - maxLines);
+		}
 
-		output.val(output.val() + data);
+		output.val(buffer.join("\n"));
 		if (autoScroll) {
 			output.scrollTop(output[0].scrollHeight);
 		}

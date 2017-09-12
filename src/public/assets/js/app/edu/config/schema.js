@@ -7409,7 +7409,7 @@ define(['vendor/lodash'], function($1) {
 						"value": "println"
 					}, {
 						"label": "没有换行符",
-						"value": "print"
+						"value": "write"
 					}]
 				}],
 				"code": "{SERIAL}.{LN}({DATA});",
@@ -7444,7 +7444,7 @@ define(['vendor/lodash'], function($1) {
 						"value": "println"
 					}, {
 						"label": "没有换行符",
-						"value": "print"
+						"value": "write"
 					}]
 				}],
 				"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",
