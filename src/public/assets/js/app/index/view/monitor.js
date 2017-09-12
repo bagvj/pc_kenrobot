@@ -128,6 +128,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	}
 
 	function onClearClick(e) {
+		buffer = [];
 		output.val("");
 	}
 
