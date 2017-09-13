@@ -68,16 +68,13 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			},
 			MaxConnections: 1
 		});
-		jsPlumbInstance.registerConnectionTypes({
-			'selected': {
-				paintStyle: {
-					strokeStyle: config.colorHover
-				},
-				hoverPaintStyle: {
-					strokeStyle: config.colorHover
-				}
-			}
-		});
+		// jsPlumbInstance.registerConnectionTypes({
+		// 	'selected': {
+		// 		paintStyle: {
+		// 			strokeStyle: "green"
+		// 		}
+		// 	}
+		// });
 		jsPlumbInstance.registerEndpointTypes({
 			'selected': {
 				paintStyle: {
@@ -460,34 +457,34 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		onContainerEvent("remove-all-components");
 	};
 
-	function removeSelectedConnection() {
-		jsPlumbInstance.getAllConnections().forEach(function(connection) {
-			if (connection.hasType('selected')) {
-				connection.endpoints.forEach(function(endpoint) {
-					endpoint.removeType('selected');
-					endpoint.removeClass('selected');
-				});
-				jsPlumbInstance.detach(connection);
-			}
-		});
-	};
+	// function removeSelectedConnection() {
+	// 	jsPlumbInstance.getAllConnections().forEach(function(connection) {
+	// 		if (connection.hasType('selected')) {
+	// 			connection.endpoints.forEach(function(endpoint) {
+	// 				endpoint.removeType('selected');
+	// 				endpoint.removeClass('selected');
+	// 			});
+	// 			jsPlumbInstance.detach(connection);
+	// 		}
+	// 	});
+	// };
 
-	function unselectAllConnections() {
-		jsPlumbInstance.getAllConnections().forEach(function(connection) {
-			connection.removeType('selected');
-			connection.canvas.classList.remove('selected');
-			connection.endpoints.forEach(function(endpoint) {
-				endpoint.removeType('selected');
-				endpoint.canvas.classList.remove('selected');
-			});
-		});
-	}
+	// function unselectAllConnections() {
+	// 	jsPlumbInstance.getAllConnections().forEach(function(connection) {
+	// 		connection.removeType('selected');
+	// 		connection.canvas.classList.remove('selected');
+	// 		connection.endpoints.forEach(function(endpoint) {
+	// 			endpoint.removeType('selected');
+	// 			endpoint.canvas.classList.remove('selected');
+	// 		});
+	// 	});
+	// }
 
 	function onComponentMouseDown(e) {
 		var componentDom = this;
 		dragComponentDom = componentDom;
 
-		unselectAllConnections();
+		// unselectAllConnections();
 
 		[].forEach.call(container.querySelectorAll('.component'), function(com) {
 			com.classList.remove('selected');
@@ -502,7 +499,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			source: componentDom
 		}).addClass('selected');
 
-		getConnections(componentDom).forEach(selectConnection);
+		// getConnections(componentDom).forEach(selectConnection);
 		onContainerEvent("select-component", {
 			uid: componentDom.dataset.uid
 		});
@@ -533,10 +530,10 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	}
 
 	function onConnection(info) {
-		info.connection.bind('click', connection => {
-			unselectAllConnections();
-			selectConnection(connection);
-		});
+		// info.connection.bind('click', connection => {
+		// 	unselectAllConnections();
+		// 	selectConnection(connection);
+		// });
 
 		info.targetEndpoint.setType('connected');
 		info.sourceEndpoint.setType('connected');
@@ -647,13 +644,13 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 	function onComponentEndpointClick(endpoint) {
 		endpoint.canvas.classList.add('selected');
-		unselectAllConnections();
+		// unselectAllConnections();
 
-		if (endpoint.hasType('selected')) {
-			return false;
-		}
+		// if (endpoint.hasType('selected')) {
+		// 	return false;
+		// }
 
-		endpoint.connections.forEach(selectConnection);
+		// endpoint.connections.forEach(selectConnection);
 	}
 
 	function selectConnection(connection) {
@@ -747,7 +744,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		disconnectAllComponents: disconnectAllComponents,
 		removeAllComponents: removeAllComponents,
 
-		removeSelectedConnection: removeSelectedConnection,
-		unselectAllConnections: unselectAllConnections,
+		// removeSelectedConnection: removeSelectedConnection,
+		// unselectAllConnections: unselectAllConnections,
 	}
 });
