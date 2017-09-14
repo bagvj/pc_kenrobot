@@ -31,20 +31,6 @@ const defers = {}
 var deferAutoId = 0
 
 /**
- * 判断当前系统是否为64位
- */
-function isX64() {
-	return process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432')
-}
-
-/**
- * 判断当前系统是否为64位
- */
-function isAppX64() {
-	return is.dev() ? isX64() : PACKAGE.buildInfo.bit == 64
-}
-
-/**
  * 获取平台名字
  */
 function getPlatform() {
@@ -73,8 +59,10 @@ function getVersion() {
  * 获取系统信息
  */
 function getAppInfo() {
+	var isX64 = process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432')
+
 	var info = {
-		bit: isX64() ? 64 : 32,
+		bit: isX64 ? 64 : 32,
 		arch: process.arch,
 		platform: getPlatform(),
 		version: getVersion(),
@@ -86,11 +74,13 @@ function getAppInfo() {
 		info.branch = "beta"
 		info.feature = ""
 		info.date = stamp()
+		info.appBit = info.bit
 	} else {
 		info.ext = PACKAGE.buildInfo.ext
 		info.branch = PACKAGE.buildInfo.branch
 		info.feature = PACKAGE.buildInfo.feature
 		info.date = PACKAGE.buildInfo.date
+		info.appBit = PACKAGE.buildInfo.appBit
 	}
 
 	return info
@@ -697,8 +687,6 @@ function request(url, options, json) {
 	return deferred.promise
 }
 
-module.exports.isX64 = isX64
-module.exports.isAppX64 = isAppX64
 module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
