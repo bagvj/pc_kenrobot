@@ -66,9 +66,39 @@ $disabled-deep-color: #dadada;
 			height: 40px;
 			display: inline-flex;
 			align-items: center;
-			padding-left: 14px;
 			border-radius: 5px;
 			position: relative;
+
+			.toggle {
+				margin-left: 6px;
+				margin-right: 6px;
+				width: 14px;
+				height: 14px;
+				background-color: rgba(0, 0, 0, 0.24);
+				border-radius: 50%;
+				position: relative;
+
+				&:before {
+					content: '';
+					width: 8px;
+					height: 2px;
+					position: absolute;
+					top: calc(50% - 1px);
+					left: calc(50% - 4px);
+					background-color: white;
+				}
+
+				&:after {
+					display: none;
+					content: '';
+					width: 2px;
+					height: 8px;
+					position: absolute;
+					top: calc(50% - 4px);
+					left: calc(50% - 1px);
+					background-color: white;
+				}
+			}
 		}
 
 		.statement-extension {
@@ -99,6 +129,20 @@ $disabled-deep-color: #dadada;
 				}
 			}
 		}
+
+		&.fold {
+			& > .statement-header {
+				& > .toggle {
+					&:after {
+						display: block;
+					}
+				}
+			}
+
+			& > .statement-extension {
+				display: none;
+			}
+		}
 	}
 
 	&.block-output {
@@ -125,7 +169,7 @@ $disabled-deep-color: #dadada;
 		}
 	}
 
-	span {
+	.text {
 		margin-right: 14px;
 	}
 
@@ -891,7 +935,7 @@ $disabled-deep-color: #dadada;
 				background-color: white;
 				background-image: $disabled-image;
 
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -921,7 +965,7 @@ $disabled-deep-color: #dadada;
 				background-color: white;
 				background-image: $disabled-image;
 
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -953,7 +997,7 @@ $disabled-deep-color: #dadada;
 			background-image: $disabled-image;
 
 			& > .statement-content {
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -990,7 +1034,7 @@ $disabled-deep-color: #dadada;
 				background-position: 4px 0;
 			}
 
-			& > span {
+			& > .text {
 				color: $disabled-color;
 			}
 

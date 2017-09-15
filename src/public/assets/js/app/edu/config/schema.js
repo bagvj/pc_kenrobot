@@ -853,7 +853,7 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE",
 				"options": "vars"
 			},
@@ -1191,7 +1191,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "FfAMeF"
 			}],
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE"
 			},
 			"createDynamicContent": "vars",
@@ -1529,7 +1529,7 @@ define(['vendor/lodash'], function($1) {
 			"createDynamicContent": "vars",
 			"code": "{TYPE} {VARNAME}",
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE",
 				"options": "vars"
 			},
