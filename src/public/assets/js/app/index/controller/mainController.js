@@ -193,7 +193,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 					url: config.url.kenrobot,
 					date: info.date,
 					platform: info.platform,
-					bit: info.bit,
+					bit: info.appBit,
 				});
 				break;
 			case "show-board-dialog":

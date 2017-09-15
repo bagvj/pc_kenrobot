@@ -853,7 +853,7 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE",
 				"options": "vars"
 			},
@@ -1191,7 +1191,7 @@ define(['vendor/lodash'], function($1) {
 				"name": "FfAMeF"
 			}],
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE"
 			},
 			"createDynamicContent": "vars",
@@ -1529,7 +1529,7 @@ define(['vendor/lodash'], function($1) {
 			"createDynamicContent": "vars",
 			"code": "{TYPE} {VARNAME}",
 			"returnType": {
-				"type": "fromDropdown",
+				"type": "fromSelect",
 				"id": "TYPE",
 				"options": "vars"
 			},
@@ -7409,11 +7409,11 @@ define(['vendor/lodash'], function($1) {
 						"value": "println"
 					}, {
 						"label": "没有换行符",
-						"value": "print"
+						"value": "write"
 					}]
 				}],
 				"code": "{SERIAL}.{LN}({DATA});",
-				"tags": ["module"],
+				"tags": ["always", "module"],
 				"module": "serial",
 				"uid": "p3UznJ"
 			}, {
@@ -7444,7 +7444,7 @@ define(['vendor/lodash'], function($1) {
 						"value": "println"
 					}, {
 						"label": "没有换行符",
-						"value": "print"
+						"value": "write"
 					}]
 				}],
 				"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",

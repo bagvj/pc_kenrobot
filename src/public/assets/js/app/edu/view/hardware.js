@@ -430,9 +430,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var list = componentList.find('.component-item').filter((index, componentDom) => {
 			var name = componentDom.dataset.name;
 			var componentConfig = hardwareModel.getComponentConfig(name);
-			if(_.intersection(componentConfig.boards, boardTags).length == 0) {
-				return false;
-			}
+			// if(_.intersection(componentConfig.boards, boardTags).length == 0) {
+			// 	return false;
+			// }
 
 			return filter == "all" ? true : componentConfig.category == filter;
 		});

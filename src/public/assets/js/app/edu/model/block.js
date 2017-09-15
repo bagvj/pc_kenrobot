@@ -51,11 +51,12 @@ define(['app/common/util/util'], function(util) {
 
 		switch (this.data.type) {
 			case "statement-input":
-				this.dom.innerHTML = '<div class="statement-header"></div><div class="statement-extension"><div class="statement-extension-content"></div><div class="statement-extension-end"></div></div>';
+				this.dom.innerHTML = '<div class="statement-header"><span class="toggle"></span></div><div class="statement-extension"><div class="statement-extension-content"></div><div class="statement-extension-end"></div></div>';
 				this.contentDom = this.dom.querySelector(".statement-header");
 
 				buildContent(this);
 				buildConnectors(this);
+				this.contentDom.querySelector(".toggle").addEventListener("click", onBlockFold);
 				this.dom.addEventListener("mousedown", onBlockMouseDown);
 				this.dom.addEventListener("touchstart", onBlockMouseDown);
 				break;
@@ -282,6 +283,7 @@ define(['app/common/util/util'], function(util) {
 			case "text":
 				elementDom = document.createElement("span");
 				elementDom.innerHTML = elementData.value;
+				elementDom.classList.add("text");
 				break;
 			case "block-input":
 				elementDom = document.createElement("div");
@@ -368,6 +370,15 @@ define(['app/common/util/util'], function(util) {
 			optionDom.innerHTML = optionData.name;
 			selectDom.appendChild(optionDom);
 		});
+	}
+
+	function onBlockFold(e) {
+		var dom = e.target.parentNode.parentNode;
+		if(Array.from(dom.classList).indexOf("fold") >= 0) {
+			dom.classList.remove("fold");
+		} else {
+			dom.classList.add("fold");
+		}
 	}
 
 	function onBlockMouseDown(e) {
@@ -942,7 +953,7 @@ define(['app/common/util/util'], function(util) {
 				value = validComment(value);
 			}
 			var valueWithoutAsterisk = value.replace(' *', '');
-			code = code.replace(new RegExp('{' + elem.id + '}.withoutAsterisk', 'g'), valueWithoutAsterisk);
+			code = code.replace(new RegExp('{' + elem.id + '.withoutAsterisk}', 'g'), valueWithoutAsterisk);
 			code = code.replace(new RegExp('{' + elem.id + '}', 'g'), value);
 		});
 
@@ -1260,7 +1271,7 @@ define(['app/common/util/util'], function(util) {
 	}
 
 	function getTypeFromBlock(block) {
-		var result;
+		var result = '';
 		switch (block.data.returnType.type) {
 			case 'simple':
 				result = block.data.returnType.value;
@@ -1291,7 +1302,16 @@ define(['app/common/util/util'], function(util) {
 				result = getFromDynamicSelectType(block, block.data.returnType.id, block.data.returnType.options);
 				break;
 			case 'fromSelect':
-				result = block.dom.querySelector('[data-content-id="' + block.data.returnType.id + '"]').value;
+				var elementData;
+				block.data.content.forEach(function(eleData) {
+					if (eleData.id == block.data.returnType.id) {
+						elementData = eleData;
+						return true;
+					}
+				});
+				if(elementData) {
+					result = block.dom.querySelector('[data-content-id="' + elementData.uid + '"]').value;
+				}
 				break;
 		}
 		return result;
