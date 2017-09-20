@@ -284,7 +284,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 		componentData.uid = componentData.uid || util.uuid(6);
 		componentData.pins = componentData.pins || {};
-		componentData.varName = componentData.varName || genVarName(componentData.name);
+		componentData.varName = componentData.varName || genVarName(componentConfig.defaultVarName || componentData.name);
 		componentData.code = clone(componentConfig.code);
 		componentData.type = componentConfig.type;
 		usedNames[componentData.varName] = true;

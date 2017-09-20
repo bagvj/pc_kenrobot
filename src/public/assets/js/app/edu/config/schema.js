@@ -231,6 +231,43 @@ define(['vendor/lodash'], function($1) {
 			"uid": "Ndr6KO"
 		}, {
 			"type": "statement",
+			"name": "pinMode2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置引脚"
+			}, {
+				"id": "PIN",
+				"type": "string-input",
+			}, {
+				"type": "text",
+				"value": "的模式为"
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "输入",
+					"value": "INPUT"
+				}, {
+					"label": "输出",
+					"value": "OUTPUT"
+				}, {
+					"label": "上拉",
+					"value": "INPUT_PULLUP"
+				}]
+			}],
+			"code": "pinMode({PIN},{MODE});",
+			"tags": ["module", "advanced"],
+			"module": "default",
+			"uid": "7flgZS"
+		}, {
+			"type": "statement",
 			"name": "motorRun",
 			"connectors": [{
 				"type": "connector-top",
@@ -7409,6 +7446,9 @@ define(['vendor/lodash'], function($1) {
 						"value": "println"
 					}, {
 						"label": "没有换行符",
+						"value": "print"
+					}, {
+						"label": "二进制",
 						"value": "write"
 					}]
 				}],
