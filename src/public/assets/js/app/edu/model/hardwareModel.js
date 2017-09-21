@@ -564,8 +564,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 						tuple.members.forEach(name => {
 							if(name != targetPin.name) {
 								var pin = boardData.pins.find(p => p.name == name);
-								var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
-								endpoint.setEnabled(false);
+								pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
 							}
 						});
 
@@ -604,8 +603,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 					if(tuple.members.includes(targetPin.name)) {
 						tuple.members.forEach(name => {
 							var pin = boardData.pins.find(p => p.name == name);
-							var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
-							endpoint.setEnabled(true);
+							pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
 						});
 
 						delete targetPin.tupleValue;
