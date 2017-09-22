@@ -88,6 +88,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				includeCode = includeCode.concat(code.include.split('\n'));
 			}
 
+			var componentConfig = hardwareModel.getComponentConfig(componentData.name);
+
 			var pin;
 			var pins = componentData.pins;
 			var rxd = pins.rxd;
@@ -115,10 +117,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 			if (code.var) {
 				tempCode = code.var.replace(nameReg, componentData.varName);
-				for (var name in pins) {
-					pin = pins[name];
-					tempCode = tempCode.replace(new RegExp(`{${name}}`, 'g'), pin && pin.tupleValue || pin.value || pin.name || "");
-				}
+				componentConfig.pins.forEach(pinConfig => {
+					pin = pins[pinConfig.name];
+					if(pin) {
+						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pin && pin.tupleValue || pin.value || pin.name || "");
+					} else {
+						pinConfig.defaultValue && (tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue));
+					}
+				});
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
 			if (code.setup) {
