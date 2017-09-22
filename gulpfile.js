@@ -92,7 +92,7 @@ gulp.task('clean-assets-temp-js', _ => {
 })
 
 gulp.task('transform-assets-js', ['clean-assets-temp-js'], callback => {
-	if(!args.force && !args.release) {
+	if (!args.force && !args.release) {
 		callback()
 		return
 	}
@@ -105,7 +105,7 @@ gulp.task('transform-assets-js', ['clean-assets-temp-js'], callback => {
 })
 
 gulp.task('copy-assets-vendor-js', ['clean-assets-temp-js'], callback => {
-	if(!args.force && !args.release) {
+	if (!args.force && !args.release) {
 		callback()
 		return
 	}
@@ -115,10 +115,10 @@ gulp.task('copy-assets-vendor-js', ['clean-assets-temp-js'], callback => {
 })
 
 gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-assets-vendor-js'], _ => {
-	if(args.release) {
+	if (args.release) {
 		gulp.src([ASSETS_SRC + 'js/require.js'])
 			.pipe(gulp.dest(ASSETS_DIST + 'js/'))
-	
+
 		return gulp.src(TEMP + 'js/*.js')
 			.pipe(requirejsOptimize({
 				useStrict: true,
@@ -132,7 +132,9 @@ gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-ass
 })
 
 gulp.task('pack-assets-css', ['clean-assets-css'], _ => {
-	return sass(ASSETS_SRC + 'css/*.scss', {style: "expanded"})
+	return sass(ASSETS_SRC + 'css/*.scss', {
+			style: "expanded"
+		})
 		.pipe(autoprefixer())
 		.pipe(gulpif(args.release, cleanCSS()))
 		.pipe(gulp.dest(ASSETS_DIST + 'css/'))
@@ -152,14 +154,14 @@ gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-
 
 gulp.task('pack-other', ['clean-other'], _ => {
 	return gulp.src([
-			SRC + 'public/**/*',
-			'!' + SRC + "public/renderer.js",
-			'!' + SRC + "public/assets/**/*",
-		]).pipe(gulp.dest(APP + 'public/'))
+		SRC + 'public/**/*',
+		'!' + SRC + "public/renderer.js",
+		'!' + SRC + "public/assets/**/*",
+	]).pipe(gulp.dest(APP + 'public/'))
 })
 
 gulp.task('pack-main', ['clean-main'], _ => {
-	if(args.release) {
+	if (args.release) {
 		return browserify(SRC + 'main/index.js', {
 				ignoreMissing: true,
 				commondir: false,
@@ -184,7 +186,7 @@ gulp.task('pack-main', ['clean-main'], _ => {
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], _ => {
-	if(args.release) {
+	if (args.release) {
 		return gulp.src(SRC + 'public/renderer.js')
 			.pipe(babel({
 				presets: ['es2015']
@@ -219,17 +221,17 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var ext
 
 	var targets
-	if(platform == "linux") {
+	if (platform == "linux") {
 		arch = args.arch || "ia32"
 		target = args.target || "AppImage"
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
-	} else if(platform == "arm") {
+	} else if (platform == "arm") {
 		arch = builder.Arch.armv7l.toString()
 		target = args.target || "dir"
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
-	} else if(platform == "mac") {
+	} else if (platform == "mac") {
 		target = args.target || "dmg"
 		ext = target
 		targets = builder.Platform.MAC.createTarget(target)
@@ -252,7 +254,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 
 	var packageNames = args.packages ? args.packages.split(',') : []
 
-	if(args.standalone) {
+	if (args.standalone) {
 		var extraFiles = [
 			`./arduino-${platform}/**/*`,
 			"./scripts/**/*",
@@ -269,54 +271,56 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = _ => {
 			var defer = Q.defer()
-			gulp.src(extraFiles, {base: "."})
-			.pipe(gulp.dest(dist))
-			.on('end', _ => {
-				defer.resolve()
-			})
-			.on('error', err => {
-				defer.reject(err)
-			})
+			gulp.src(extraFiles, {
+					base: "."
+				})
+				.pipe(gulp.dest(dist))
+				.on('end', _ => {
+					defer.resolve()
+				})
+				.on('error', err => {
+					defer.reject(err)
+				})
 
 			return defer.promise
 		}
-		
+
 		var distApp = path.join(dist, 'resources', 'app')
 
 		var taskB = _ => {
 			var defer = Q.defer()
 
 			gulp.src([
-				APP + '**/*',
-				"!" + APP + "node_modules/serialport/build/Release/obj",
-				"!" + APP + "node_modules/serialport/build/Release/obj/**/*",
-				"!" + APP + "node_modules/**/test",
-				"!" + APP + "node_modules/**/test/**/*",
-				"!" + APP + "node_modules/**/tests",
-				"!" + APP + "node_modules/**/tests/**/*",
-				"!" + APP + "node_modules/**/example",
-				"!" + APP + "node_modules/**/example/**/*",
-				"!" + APP + "node_modules/**/examples",
-				"!" + APP + "node_modules/**/examples/**/*",
-				"!" + APP + "node_modules/**/docs",
-				"!" + APP + "node_modules/**/docs/**/*",
-				"!" + APP + "node_modules/**/doc",
-				"!" + APP + "node_modules/**/doc/**/*",
-				"!" + APP + "node_modules/**/*.md",
-				"!" + APP + "node_modules/**/*.d.ts",
-				"!" + APP + "node_modules/**/*appveyor.yml*",
-				"!" + APP + "node_modules/**/.*",
-			]).pipe(gulp.dest(distApp))
-			.on('end', _ => {
-				defer.resolve()
-			})
-			.on('error', err => {
-				defer.reject(err)
-			})
+					APP + '**/*',
+					"!" + APP + "node_modules/serialport/build/Release/obj",
+					"!" + APP + "node_modules/serialport/build/Release/obj/**/*",
+					"!" + APP + "node_modules/**/test",
+					"!" + APP + "node_modules/**/test/**/*",
+					"!" + APP + "node_modules/**/tests",
+					"!" + APP + "node_modules/**/tests/**/*",
+					"!" + APP + "node_modules/**/example",
+					"!" + APP + "node_modules/**/example/**/*",
+					"!" + APP + "node_modules/**/examples",
+					"!" + APP + "node_modules/**/examples/**/*",
+					"!" + APP + "node_modules/**/docs",
+					"!" + APP + "node_modules/**/docs/**/*",
+					"!" + APP + "node_modules/**/doc",
+					"!" + APP + "node_modules/**/doc/**/*",
+					"!" + APP + "node_modules/**/*.md",
+					"!" + APP + "node_modules/**/*.d.ts",
+					"!" + APP + "node_modules/**/*appveyor.yml*",
+					"!" + APP + "node_modules/**/.*",
+				]).pipe(gulp.dest(distApp))
+				.on('end', _ => {
+					defer.resolve()
+				})
+				.on('error', err => {
+					defer.reject(err)
+				})
 
 			return defer.promise
 		}
-		
+
 		var taskC = _ => {
 			var defer = Q.defer()
 
@@ -336,7 +340,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		var taskD = _ => {
 			var defer = Q.defer()
 
-			if(!args.compress) {
+			if (!args.compress) {
 				setTimeout(_ => {
 					defer.resolve()
 				}, 10)
@@ -348,7 +352,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}`
 			var command = `cd "${path.resolve(path.dirname(dist))}" && "${path7za}" a ${name}.7z ${path.basename(dist)}/*`
 			child_process.exec(command, (err, stdout, stderr) => {
-				if(err) {
+				if (err) {
 					console.log(err)
 					defer.reject(err)
 					return
@@ -396,21 +400,23 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			fs.move(output, file, err => {
 				nconf.clear('buildInfo')
 				nconf.save()
-				
+
 				console.log(file)
-				if(!args.upload) {
+				if (!args.upload) {
 					callback()
 					return
 				}
 
-				var options = args.remotePath ? {remotePath: args.remotePath} : {}
+				var options = args.remotePath ? {
+					remotePath: args.remotePath
+				} : {}
 				upload(file, options).then(_ => {
 					callback()
 				}, err1 => {
 					console.error(err1)
 					callback(err1)
 				})
-			})		
+			})
 		}, err => {
 			console.error(err)
 			callback(err)
@@ -430,11 +436,11 @@ gulp.task('check', callback => {
 	globby(["./src/**/*.js", "./src/**/*.json", "./src/**/*.html", "./src/**/*.scss"]).then(files => {
 		var result = []
 		files.forEach(file => {
-			if(!isutf8(fs.readFileSync(file))) {
+			if (!isutf8(fs.readFileSync(file))) {
 				result.push(file)
 			}
 		})
-		if(result.length > 0) {
+		if (result.length > 0) {
 			console.log('these files not encoding by utf8')
 			console.log(result.join("\n"))
 		} else {
@@ -457,7 +463,7 @@ gulp.task('packages', callback => {
 		var name = path.basename(p)
 		reg.lastIndex = 0
 		var match = reg.exec(name)
-		if(!packageNames.includes(match[1])) {
+		if (!packageNames.includes(match[1])) {
 			return
 		}
 
@@ -466,7 +472,9 @@ gulp.task('packages', callback => {
 			version: match[2],
 			platform: match[3],
 			archiveName: name,
-			checksum: "sha256:" + hasha.fromFileSync(p, {algorithm: "sha256"}),
+			checksum: "sha256:" + hasha.fromFileSync(p, {
+				algorithm: "sha256"
+			}),
 		})
 	})
 	fs.writeJsonSync("packages/packages.json", packages)
@@ -475,13 +483,15 @@ gulp.task('packages', callback => {
 })
 
 gulp.task('upload', _ => {
-	if(!args.file) {
+	if (!args.file) {
 		console.log('please spec file use "--file"')
 		return
 	}
-	
+
 	var files = args.file.split(',')
-	var options = args.remotePath ? {remotePath: args.remotePath} : {}
+	var options = args.remotePath ? {
+		remotePath: args.remotePath
+	} : {}
 
 	return upload(files, options)
 })

@@ -3,6 +3,7 @@ const log = require('electron-log')
 const Q = require('q')
 
 const SerialPort = require('serialport') //串口
+const Delimiter = SerialPort.parsers.Delimiter
 
 var connectedPorts = {
 	autoPortId: 0,
@@ -66,20 +67,10 @@ function openSerialPort(comName, options, callbacks) {
 			callbacks && callbacks.onClose && callbacks.onClose(portId)
 		})
 
-		var parser
-		if(options.parser != "raw") {
-			var type = Object.prototype.toString.call(options.parser)
-			if(type == "[object String]") {
-				var newline = options.parser.replace("NL", '\n').replace("CR", '\r')
-				parser = port.pipe(SerialPort.parsers.Readline({delimiter: newline}))
-			} else if(type == "[object Array]") {
-				parser = port.pipe(new SerialPort.parsers.Delimiter({delimiter: Buffer.from(options.parser)}))
-			}
-		}
-
-		var target = parser || port
-		target.on('data', data => {
-			callbacks && callbacks.onData && callbacks.onData(portId, data)
+		var target = options.parser == "raw" ? port : port.pipe(new Delimiter({delimiter: Buffer.from(options.parser)}))
+		target.on('readable', _ => {
+			var data = target.read()
+			data && callbacks && callbacks.onData && callbacks.onData(portId, data)
 		})
 
 		port.flush(_ => {

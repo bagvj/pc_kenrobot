@@ -284,7 +284,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 		componentData.uid = componentData.uid || util.uuid(6);
 		componentData.pins = componentData.pins || {};
-		componentData.varName = componentData.varName || genVarName(componentData.name);
+		componentData.varName = componentData.varName || genVarName(componentConfig.defaultVarName || componentData.name);
 		componentData.code = clone(componentConfig.code);
 		componentData.type = componentConfig.type;
 		usedNames[componentData.varName] = true;
@@ -564,8 +564,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 						tuple.members.forEach(name => {
 							if(name != targetPin.name) {
 								var pin = boardData.pins.find(p => p.name == name);
-								var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
-								endpoint.setEnabled(false);
+								pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
 							}
 						});
 
@@ -604,8 +603,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 					if(tuple.members.includes(targetPin.name)) {
 						tuple.members.forEach(name => {
 							var pin = boardData.pins.find(p => p.name == name);
-							var endpoint = jsPlumbInstance.getEndpoint(pin.uid);
-							endpoint.setEnabled(true);
+							pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
 						});
 
 						delete targetPin.tupleValue;
