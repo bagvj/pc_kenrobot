@@ -8,8 +8,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	var lastPortId;
 	var lastComName;
 	var autoScroll;
-	var buffer = [];
-	var maxLines = 500;
+	var buffers = [];
+	var maxBuffer = 500;
+	var maxLines = 300;
 
 	function init() {
 		monitorRegion = $('.monitor').on('click', '.close-btn', onCloseClick).on('click', '.send', onSendClick).on('click', '.switch', onSwitchClick).on('click', '.clear', onClearClick).on('click', '.open', onOpenClick);
@@ -29,6 +30,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	}
 
 	function onCloseClick(e) {
+		onClearClick();
+
 		if(!monitorRegion.hasClass("active")) {
 			return;
 		}
@@ -48,12 +51,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 			});
 			monitorRegion.dequeue("fadeOut");
 
-			lastPortId && kenrobot.postMessage("app:closeSerialPort", lastPortId)
+			lastPortId && kenrobot.postMessage("app:closeSerialPort", lastPortId);
+			lastPortId = null;
 		} else {
 			monitorRegion.addClass("active").addClass("x-fadeIn").delay(300, "fadeIn").queue("fadeIn", function() {
 				monitorRegion.addClass("x-in");
 			});
 			monitorRegion.dequeue("fadeIn");
+			onOpenClick();
 		}
 	}
 
@@ -77,6 +82,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 			monitorRegion.find(".command").focus();
 
 			util.message("串口打开成功");
+			onClearClick();
 		}, function(err) {
 			util.message({
 				text: "串口打开失败",
@@ -90,19 +96,18 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 			return
 		}
 
-		if (data instanceof Buffer) {
-			data = data.toString();
-		}
-		data = data.replace(/\r\n/g, '\n');
-		if (data == "") {
-			return
-		}
-		buffer.push(data.split(/\r\n|\n|\n/));
-		if(buffer.length > maxLines) {
-			buffer.splice(0, buffer.length - maxLines);
+		buffers.push(Buffer.isBuffer(data) ? data : Buffer.from(data));
+		if(buffers.length > maxBuffer) {
+			buffers.splice(0, buffers.length - maxBuffer);
 		}
 
-		output.val(buffer.join("\n"));
+		var result = Buffer.concat(buffers).toString();
+		result = result.split(/[\n\r]+/g);
+		if(result.length > maxLines) {
+			result.splice(0, result.length - maxLines);
+		}
+
+		output.val(result.join('\n'));
 		if (autoScroll) {
 			output.scrollTop(output[0].scrollHeight);
 		}
@@ -128,7 +133,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	}
 
 	function onClearClick(e) {
-		buffer = [];
+		buffers = [];
 		output.val("");
 	}
 
@@ -162,9 +167,13 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 	}
 
 	function onSendClick(e) {
-		var command = monitorRegion.find(".command").val()
+		var command = $.trim(monitorRegion.find(".command").val())
 		if (!command) {
 			return
+		}
+
+		if(!command.endsWith("\n")) {
+			command += "\n";
 		}
 
 		if (!lastPortId) {
