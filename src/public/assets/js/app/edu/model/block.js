@@ -27,7 +27,7 @@ define(['app/common/util/util'], function(util) {
 	var delayTimer;
 
 	var translateRegExp = /translate\(((-)*(\d|\.)*)px, ((-)*(\d|\.)*)px\)/;
-	var reservedWords = 'setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger, constants,floating,point,void,bool,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts';
+	var reservedWords = 'setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger,constants,floating,point,void,bool,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts';
 	reservedWords = reservedWords.split(',');
 
 	function Block(blockData, reverse) {
@@ -97,6 +97,8 @@ define(['app/common/util/util'], function(util) {
 				}
 			}
 		}
+
+		buildInnerContent(this);
 	}
 
 	Block.prototype.getCode = function() {
@@ -156,6 +158,28 @@ define(['app/common/util/util'], function(util) {
 				extDom.classList.add("with-content");
 			}
 			elementData.extra ? extDom.appendChild(elementDom) : block.contentDom.appendChild(elementDom);
+		});
+	}
+
+	function buildInnerContent(block) {
+		block.data.content.forEach(elementData => {
+			if(elementData.type != "block-input") {
+				return;
+			}
+
+			if(!elementData.value) {
+				return;
+			}
+
+			var connectorUid = getIOConnectorUid(block, elementData.blockInputId);
+			var dropContainerDom = block.dom.querySelector('[data-connector-uid="' + connectorUid + '"]');
+			var outputBlock = buildBlock(elementData.value);
+			outputBlock.setEnable(true);
+
+			ioConnectors[connectorUid].connectedTo = outputBlock.ioConnectors[0];
+			ioConnectors[outputBlock.ioConnectors[0]].connectedTo = connectorUid;
+
+			dropContainerDom.appendChild(outputBlock.dom);
 		});
 	}
 
@@ -816,7 +840,7 @@ define(['app/common/util/util'], function(util) {
 	function removeBlock(block, redraw) {
 		block.dom.removeEventListener("mousedown", onBlockMouseDown);
 		block.dom.removeEventListener("touchstart", onBlockMouseDown);
-		if (mouseDownBlockDom && mouseDownBlockDom.dataset.uid == uid) {
+		if (mouseDownBlockDom && mouseDownBlockDom.dataset.uid == block.uid) {
 			document.removeEventListener("mousemove", onBlockPreMouseMove);
 			document.removeEventListener("touchmove", onBlockPreMouseMove);
 			document.removeEventListener("mousemove", onBlockMouseMove);
@@ -1681,6 +1705,10 @@ define(['app/common/util/util'], function(util) {
 
 			var connectorUid = getIOConnectorUid(block, elementData.blockInputId);
 			var dropContainerDom = block.dom.querySelector('[data-connector-uid="' + connectorUid + '"]');
+			Array.from(dropContainerDom.children).forEach(childDom => {
+				var childBlock = getBlock(childDom.dataset.uid);
+				childBlock && childBlock.remove();
+			});
 			var outputBlock = buildBlock(elementData.value);
 
 			ioConnectors[connectorUid].connectedTo = outputBlock.ioConnectors[0];
