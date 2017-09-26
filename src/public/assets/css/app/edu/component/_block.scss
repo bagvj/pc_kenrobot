@@ -935,7 +935,7 @@ $disabled-deep-color: #dadada;
 				background-color: white;
 				background-image: $disabled-image;
 
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -965,7 +965,7 @@ $disabled-deep-color: #dadada;
 				background-color: white;
 				background-image: $disabled-image;
 
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -997,7 +997,7 @@ $disabled-deep-color: #dadada;
 			background-image: $disabled-image;
 
 			& > .statement-content {
-				& > span {
+				& > .text {
 					color: $disabled-color;
 				}
 
@@ -1034,7 +1034,7 @@ $disabled-deep-color: #dadada;
 				background-position: 4px 0;
 			}
 
-			& > span {
+			& > .text {
 				color: $disabled-color;
 			}
 
