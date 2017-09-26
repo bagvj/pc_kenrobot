@@ -6635,6 +6635,11 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"type": "connector-bottom",
 					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "LR0Cly"
 				}],
 				"content": [{
 					"type": "text",
@@ -6647,14 +6652,23 @@ define(['vendor/lodash'], function($1) {
 					"type": "text",
 					"value": "角度为"
 				}, {
-					"id": "POSITION",
-					"type": "number-input",
-					"value": 90
+					"blockInputId": "ANGLE",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "LR0Cly",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "90"
+						}],
+						"name": "number"
+					}
 				}, {
 					"type": "text",
 					"value": "度"
 				}],
-				"code": "{SERVO}.write({POSITION});",
+				"code": "{SERVO}.write({ANGLE});",
 				"tags": ["module"],
 				"module": "servo",
 				"uid": "i7pG0w"
