@@ -13,7 +13,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('code', 'copy', onCodeCopy)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
-		kenrobot.on("project", "open", onProjectOpen);
+		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave);
 	}
 
 	function openProject(projectInfo) {
@@ -104,7 +104,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		}
 	}
 
-	function onProjectSave(saveAs) {
+	function onProjectSave(saveAs, exitAfterSave) {
 		onCodeRefresh();
 
 		var projectInfo = getCurrentProject();
@@ -116,6 +116,8 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				text: "保存成功",
 				type: "success"
 			});
+
+			exitAfterSave && setTimeout(_ => kenrobot.postMessage("app:exit"), 400);
 		}, function() {
 			util.message({
 				text: "保存失败",

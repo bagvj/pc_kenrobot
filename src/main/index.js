@@ -87,6 +87,7 @@ function listenEvents() {
 	app.on('ready', onAppReady)
 	.on('window-all-closed', _ => process.platform !== 'darwin' && app.quit())
 	.on('activate', _ => mainWindow === null && createWindow())
+	.on('before-quit', onAppBeforeQuit)
 	.on('will-quit', onAppWillQuit)
 	.on('quit', _ => log.debug('app quit'))
 }
@@ -159,6 +160,7 @@ function listenMessages() {
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", _ => app.quit())
+	listenMessage("exit", _ => app.exit(0))
 	listenMessage("reload", _ => mainWindow.reload())
 	listenMessage("relaunch", _ => onAppRelaunch())
 	listenMessage("fullscreen", _ => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
@@ -231,7 +233,12 @@ function createWindow() {
 	mainWindow.focus()
 }
 
-function onAppWillQuit() {
+function onAppBeforeQuit(e) {
+	e.preventDefault()
+	util.postMessage("app:onBeforeQuit")
+}
+
+function onAppWillQuit(e) {
 	serialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
 }

@@ -534,7 +534,8 @@ define(['vendor/lodash'], function($1) {
 			"content": [{
 				"id": "VALUE",
 				"type": "number-input",
-				"value": 0
+				"value": 0,
+				"placeholder": "数字"
 			}],
 			"code": "{VALUE}",
 			"returnType": {
@@ -815,17 +816,18 @@ define(['vendor/lodash'], function($1) {
 				"type": "static-select",
 				"options": [{
 					"label": "浮点数",
-					"value": "float *"
+					"value": "float *",
+					"type": "float *"
 				}, {
 					"label": "整数",
-					"value": "int *"
+					"value": "int *",
+					"type": "int *"
 				}]
 			}],
 			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
 			"returnType": {
 				"type": "fromSelect",
-				"id": "TYPE",
-				"options": "vars"
+				"id": "TYPE"
 			},
 			"tags": ["data", "advanced"],
 			"uid": "QEMney"
@@ -882,17 +884,18 @@ define(['vendor/lodash'], function($1) {
 				"type": "static-select",
 				"options": [{
 					"label": "文本",
-					"value": "String *"
+					"value": "String *",
+					"type": "String *"
 				}, {
 					"label": "字符",
-					"value": "char *"
+					"value": "char *",
+					"type": "char *"
 				}]
 			}],
 			"code": "({TYPE})malloc({VALUE}*sizeof({TYPE.withoutAsterisk}))",
 			"returnType": {
 				"type": "fromSelect",
-				"id": "TYPE",
-				"options": "vars"
+				"id": "TYPE"
 			},
 			"tags": ["data", "advanced"],
 			"uid": "vQnRye"
@@ -1025,7 +1028,7 @@ define(['vendor/lodash'], function($1) {
 			"returnType": {
 				"type": "fromDynamicSelect",
 				"id": "VAR",
-				"pointer": "true",
+				"pointer": true,
 				"options": "vars"
 			},
 			"tags": ["variable"],
@@ -1045,7 +1048,7 @@ define(['vendor/lodash'], function($1) {
 				"acceptType": {
 					"type": "fromDynamicSelect",
 					"id": "NAME",
-					"pointer": "true",
+					"pointer": true,
 					"options": "vars"
 				},
 				"name": "mWxqPh"
@@ -1076,7 +1079,7 @@ define(['vendor/lodash'], function($1) {
 				"acceptType": {
 					"type": "fromDynamicSelect",
 					"id": "NAME",
-					"pointer": "true",
+					"pointer": true,
 					"options": "vars"
 				},
 				"name": "mWxqPh"
@@ -1119,7 +1122,7 @@ define(['vendor/lodash'], function($1) {
 			"returnType": {
 				"type": "fromDynamicSelect",
 				"id": "VAR",
-				"pointer": "true",
+				"pointer": true,
 				"options": "vars"
 			},
 			"tags": ["variable", "advanced"],
@@ -1204,19 +1207,24 @@ define(['vendor/lodash'], function($1) {
 				"type": "static-select",
 				"options": [{
 					"label": "整数",
-					"value": "int"
+					"value": "int",
+					"type": "int"
 				}, {
 					"label": "浮点数",
-					"value": "float"
+					"value": "float",
+					"type": "float"
 				}, {
 					"label": "文本",
-					"value": "String"
+					"value": "String",
+					"type": "String"
 				}, {
 					"label": "字符",
-					"value": "char"
+					"value": "char",
+					"type": "char"
 				}, {
 					"label": "布尔",
-					"value": "bool"
+					"value": "bool",
+					"type": "bool"
 				}]
 			}, {
 				"type": "text",

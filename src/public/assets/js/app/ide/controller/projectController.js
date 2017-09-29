@@ -13,7 +13,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			.on('code', 'copy', onCodeCopy)
 			.on('board', 'change', onBoardChange);
 
-		kenrobot.on("project", "open", onProjectOpen);
+		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave);
 	}
 
 	function openProject(projectInfo) {
@@ -99,7 +99,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		});
 	}
 
-	function onProjectSave(saveAs) {
+	function onProjectSave(saveAs, exitAfterSave) {
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		saveAs = saveAs == true ? true : savePath == null;
@@ -109,6 +109,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				text: "保存成功",
 				type: "success"
 			});
+
+			exitAfterSave && setTimeout(_ => kenrobot.postMessage("app:exit"), 400);
 		}, function() {
 			util.message({
 				text: "保存失败",
