@@ -320,6 +320,11 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			});
 
 			componentData.pins[pin.name] = componentData.pins[pin.name] || "";
+			var shape = pin.shape || "Dot";
+			var sizeOptions = shape == "Dot" ? {radius: pin.radius || config.endpoint.radius} : {
+				width: pin.rotate ? pin.height : pin.width,
+				height: pin.rotate ? pin.width : pin.height
+			};
 
 			var epComponent = jsPlumbInstance.addEndpoint(componentDom, {
 				anchor: pin.anchor,
@@ -328,9 +333,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 					pin: clone(pin),
 					type: type,
 				},
-				endpoint: [pin.shape || 'Dot', {
-					radius: config.endpoint.radius
-				}],
+				endpoint: [shape, sizeOptions],
 				overlays: pinNum > 1 ? [
 					['Label', {
 						label: 'Pin ' + pin.label,

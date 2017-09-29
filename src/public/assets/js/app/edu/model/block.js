@@ -1,4 +1,4 @@
-define(['app/common/util/util'], function(util) {
+define(function() {
 	var blocks = {};
 	var connectors = {};
 	var ioConnectors = {};
@@ -27,12 +27,12 @@ define(['app/common/util/util'], function(util) {
 	var delayTimer;
 
 	var translateRegExp = /translate\(((-)*(\d|\.)*)px, ((-)*(\d|\.)*)px\)/;
-	var reservedWords = 'setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger, constants,floating,point,void,bool,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts';
+	var reservedWords = 'setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger,constants,floating,point,void,bool,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts';
 	reservedWords = reservedWords.split(',');
 
 	function Block(blockData, reverse) {
 		this.data = blockData;
-		this.uid = util.uuid(6);
+		this.uid = uuid(6);
 		this.connectable = false;
 		this.reverse = reverse;
 		this.enable = true;
@@ -97,6 +97,8 @@ define(['app/common/util/util'], function(util) {
 				}
 			}
 		}
+
+		buildInnerContent(this);
 	}
 
 	Block.prototype.getCode = function() {
@@ -159,6 +161,28 @@ define(['app/common/util/util'], function(util) {
 		});
 	}
 
+	function buildInnerContent(block) {
+		block.data.content.forEach(function(elementData) {
+			if(elementData.type != "block-input") {
+				return;
+			}
+
+			if(!elementData.value) {
+				return;
+			}
+
+			var connectorUid = getIOConnectorUid(block, elementData.blockInputId);
+			var dropContainerDom = block.dom.querySelector('[data-connector-uid="' + connectorUid + '"]');
+			var outputBlock = buildBlock(elementData.value);
+			outputBlock.setEnable(true);
+
+			ioConnectors[connectorUid].connectedTo = outputBlock.ioConnectors[0];
+			ioConnectors[outputBlock.ioConnectors[0]].connectedTo = connectorUid;
+
+			dropContainerDom.appendChild(outputBlock.dom);
+		});
+	}
+
 	function buildConnectors(block) {
 		var connectorDom;
 		var connectorUid;
@@ -166,7 +190,7 @@ define(['app/common/util/util'], function(util) {
 		var containerDom;
 
 		block.data.connectors.forEach(function(connectorData) {
-			connectorUid = util.uuid(6)
+			connectorUid = uuid(6)
 			connector = {
 				uid: connectorUid,
 				data: connectorData,
@@ -219,7 +243,7 @@ define(['app/common/util/util'], function(util) {
 	}
 
 	function createBlockElement(block, elementData) {
-		elementData.id && (elementData.uid = util.uuid(6));
+		elementData.id && (elementData.uid = uuid(6));
 		var elementDom;
 		switch (elementData.type) {
 			case "static-select":
@@ -298,7 +322,7 @@ define(['app/common/util/util'], function(util) {
 					delayDo(function() {
 						var name = validName(elementDom.value);
 						name ? updateBlockVar(block, name) : removeBlockVar(block);
-					}, 1000);
+					}, 400);
 				});
 				break;
 			case "number-input":
@@ -506,6 +530,7 @@ define(['app/common/util/util'], function(util) {
 						break;
 				}
 				setBlockEnable(block, isInGroup(dropConnectorDom));
+				updateBlockVars();
 			} else {
 				setBlockEnable(block, false);
 			}
@@ -816,7 +841,7 @@ define(['app/common/util/util'], function(util) {
 	function removeBlock(block, redraw) {
 		block.dom.removeEventListener("mousedown", onBlockMouseDown);
 		block.dom.removeEventListener("touchstart", onBlockMouseDown);
-		if (mouseDownBlockDom && mouseDownBlockDom.dataset.uid == uid) {
+		if (mouseDownBlockDom && mouseDownBlockDom.dataset.uid == block.uid) {
 			document.removeEventListener("mousemove", onBlockPreMouseMove);
 			document.removeEventListener("touchmove", onBlockPreMouseMove);
 			document.removeEventListener("mousemove", onBlockMouseMove);
@@ -895,9 +920,7 @@ define(['app/common/util/util'], function(util) {
 		if (block.data.createDynamicContent) {
 			removeBlockVar(block);
 		} else {
-			for (var key in blockVars) {
-				updateBlockVarType(key);
-			}
+			updateBlockVars();
 		}
 
 		delete blocks[block.uid];
@@ -1204,7 +1227,7 @@ define(['app/common/util/util'], function(util) {
 		} else if (name) {
 			blockVar = {
 				name: name,
-				id: util.uuid(6),
+				id: uuid(6),
 				blockUid: block.uid,
 				type: type,
 				args: args,
@@ -1229,6 +1252,12 @@ define(['app/common/util/util'], function(util) {
 			block = getBlock(blockVar.blockUid);
 			blockVar.type = block ? getTypeFromBlock(block) : "";
 		});
+	}
+
+	function updateBlockVars() {
+		for (var key in blockVars) {
+			updateBlockVarType(key);
+		}
 	}
 
 	function removeBlockVar(block) {
@@ -1291,7 +1320,7 @@ define(['app/common/util/util'], function(util) {
 						c = ioConnectors[key];
 						if (c.blockUid == block.uid && c.data.name == elementData.name) {
 							connector = c;
-							return true;
+							break;
 						}
 					}
 				}
@@ -1303,14 +1332,22 @@ define(['app/common/util/util'], function(util) {
 				break;
 			case 'fromSelect':
 				var elementData;
-				block.data.content.forEach(function(eleData) {
+				block.data.content.find(function(eleData) {
 					if (eleData.id == block.data.returnType.id) {
 						elementData = eleData;
 						return true;
 					}
 				});
 				if(elementData) {
-					result = block.dom.querySelector('[data-content-id="' + elementData.uid + '"]').value;
+					var value = block.dom.querySelector('[data-content-id="' + elementData.uid + '"]').value;
+					result = value;
+
+					elementData.options.forEach(function(option) {
+						if(option.value == value) {
+							result = option.type || value;
+							return true;
+						}
+					});
 				}
 				break;
 		}
@@ -1357,7 +1394,7 @@ define(['app/common/util/util'], function(util) {
 			return "";
 		}
 
-		var varName = tempDom.dataset.value || tempDom.value;
+		var varName =  tempDom.value || tempDom.dataset.value;
 		var vars = blockVars[acceptType.options];
 		if(!vars) {
 			return "";
@@ -1382,32 +1419,32 @@ define(['app/common/util/util'], function(util) {
 	}
 
 	function getFromDynamicSelectType(block, id, options) {
-		// var attributeValue = block.$block.find('select[data-content-id="' + id + '"][data-dropdowncontent="' + options + '"]').attr('data-value');
-		// var selectedValue = block.$block.find('select[data-content-id="' + id + '"][data-dropdowncontent="' + options + '"]').val();
-		// var varName = attributeValue || selectedValue;
+		var tempDom = block.dom.querySelector('select[data-options="' + options + '"]');
+		if(!tempDom) {
+			return "";
+		}
 
-		// var softVar = _.find(softwareArrays[options], {
-		// 	name: varName
-		// });
-		// if (!softVar) {
-		// 	for (var j in componentsArray.sensors) {
-		// 		if (componentsArray.sensors[j].name === varName) {
-		// 			if (componentsArray.sensors[j].type === 'Joystick' || componentsArray.sensors[j].type === 'LineFollower') {
-		// 				return 'float *';
-		// 			} else if (componentsArray.sensors[j].type === 'ButtonPad') {
-		// 				return 'char';
-		// 			} else {
-		// 				return 'float';
-		// 			}
-		// 		}
-		// 	}
-		// }
-		// if (softVar) {
-		// 	if (block.data && block.data.returnType && block.data.returnType.pointer) {
-		// 		softVar.type = softVar.type.replace(' *', '');
-		// 	}
-		// 	return softVar.type;
-		// }
+		var varName = tempDom.value || tempDom.dataset.value;
+		var vars = blockVars[options];
+		if(!vars) {
+			return "";
+		}
+
+		var varData;
+		vars.forEach(function(_varData) {
+			if(_varData.name == varName) {
+				varData = _varData;
+				return true;
+			}
+		});
+
+		if (varData) {
+			if (block.data && block.data.returnType && block.data.returnType.pointer) {
+				varData.type = varData.type.replace(' *', '');
+			}
+			return varData.type;
+		}
+
 		return '';
 	}
 
@@ -1638,6 +1675,35 @@ define(['app/common/util/util'], function(util) {
 		return name;
 	}
 
+	function uuid(len, radix) {
+		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+		var uuid = [], i;
+		radix = radix || chars.length;
+
+		if (len) {
+			// Compact form
+			for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+		} else {
+			// rfc4122, version 4 form
+			var r;
+
+			// rfc4122 requires these characters
+			uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+			uuid[14] = '4';
+
+			// Fill in random data.  At i==19 set the high bits of clock sequence as
+			// per rfc4122, sec. 4.1.5
+			for (i = 0; i < 36; i++) {
+				if (!uuid[i]) {
+					r = 0 | Math.random()*16;
+					uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+				}
+			}
+		}
+
+		return uuid.join('');
+	}
+
 	function clone(data) {
 		return JSON.parse(JSON.stringify(data));
 	}
@@ -1681,6 +1747,10 @@ define(['app/common/util/util'], function(util) {
 
 			var connectorUid = getIOConnectorUid(block, elementData.blockInputId);
 			var dropContainerDom = block.dom.querySelector('[data-connector-uid="' + connectorUid + '"]');
+			Array.from(dropContainerDom.children).forEach(function(childDom) {
+				var childBlock = getBlock(childDom.dataset.uid);
+				childBlock && childBlock.remove();
+			});
 			var outputBlock = buildBlock(elementData.value);
 
 			ioConnectors[connectorUid].connectedTo = outputBlock.ioConnectors[0];

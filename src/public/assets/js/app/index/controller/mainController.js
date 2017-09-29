@@ -19,6 +19,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.on("user", "update", onUserUpdate);	
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
+			.listenMessage("app:onBeforeQuit", onBeforeQuit)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
@@ -232,6 +233,16 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onFullscreenChange(fullscreen) {
 		emitor.trigger("app", "fullscreenChange", fullscreen);
+	}
+
+	function onBeforeQuit() {
+		util.confirm({
+			text: "保存项目后再退出？",
+			cancelLabel: "直接退出",
+			confirmLabel: "保存后退出",
+			onCancel: _ => setTimeout(_ => kenrobot.postMessage("app:exit"), 400),
+			onConfirm: _ => kenrobot.trigger("project", "save", null, true),
+		});
 	}
 
 	function onSerialPortData(portId, data) {
