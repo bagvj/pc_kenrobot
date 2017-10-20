@@ -121,11 +121,11 @@ function listenMessages() {
 	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
 	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
 	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
-	
+
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
 	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
 	listenMessage("upload2", (projectPath, comName, options) => upload2(projectPath, comName, options))
-	
+
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", _ => loadExamples())
@@ -137,7 +137,8 @@ function listenMessages() {
 
 	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
-	
+	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
+
 	listenMessage("setToken", value => token.set(value))
 	listenMessage("saveToken", value => token.save(value))
 	listenMessage("loadToken", key => token.load(key))
@@ -149,7 +150,7 @@ function listenMessages() {
 	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
 	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
 	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
-	
+
 	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", _ => project.sync())
 	listenMessage("projectList", type => project.list(type))
@@ -194,7 +195,7 @@ function onAppReady() {
 		createWindow()
 		loadBoards()
 		checkIfFirstRun()
-		installReport()
+		doReports()
 	})
 }
 
@@ -214,7 +215,7 @@ function createWindow() {
 			webSecurity: false,
 		}
 	})
-	
+
 	if(args.fullscreen) {
 		mainWindow.setFullScreen(true)
 	} else if(args.maximize) {
@@ -273,38 +274,55 @@ function checkIfFirstRun() {
 	writeConfig(true)
 }
 
-function installReport() {
-	if(is.dev() || config.reportInstall) {
-		return
+function doReports() {
+	if(!is.dev() && !config.reportInstall) {
+		//安装report
+		reportToServer(null, "installations").then(_ => {
+			config.reportInstall = true
+			writeConfig()
+		})
 	}
 
+	//打开report
+	reportToServer(null, "open")
+}
+
+function reportToServer(data, type) {
+	var deferred = Q.defer()
+
 	var appInfo = util.getAppInfo()
-	var installInfo = {
+	var baseInfo = {
 		version: appInfo.version,
 		platform: appInfo.platform,
-		bit: appInfo.bit,
+		bit: appInfo.appBit,
 		ext: appInfo.ext,
 		branch: appInfo.branch,
 		feature: appInfo.feature,
-		installTime: util.stamp(),
 	}
-	var url = "http://userver.kenrobot.com/statistics/installations"
+
+	data = Object.assign({}, data, baseInfo)
+	type = type || 'log'
+	var url = "http://userver.kenrobot.com/statistics/report"
 	util.request(url, {
 		method: "post",
 		data: {
-			data: JSON.stringify(installInfo)
+			data: JSON.stringify(data),
+			type: type,
 		}
 	}).then(_ => {
-		config.reportInstall = true
-		writeConfig()
+		deferred.resolve()
 	}, err => {
+		log.error(`report error: type: ${type}, ${JSON.stringify(data)}`)
 		err && log.error(err)
+		deferred.reject(err)
 	})
+
+	return deferred.promise
 }
 
 /**
  * 检查更新
- * @param {*} checkUrl 
+ * @param {*} checkUrl
  */
 function checkUpdate(checkUrl) {
 	var deferred = Q.defer()
@@ -489,7 +507,7 @@ function unzipPackage(packagePath) {
 		var name = path.basename(packagePath)
 		name = name.substring(0, name.indexOf("-"))
 		var ext = is.windows() ? "bat" : "sh"
-		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {			
+		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {
 			if(scripts.length == 0) {
 				deferred.resolve()
 				return
@@ -525,7 +543,7 @@ function loadPackages() {
 	var packages = []
 	var packagesPath = getPackagesPath()
 	log.debug(`loadPackages: ${packagesPath}`)
-	
+
 	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
@@ -542,7 +560,7 @@ function loadPackages() {
 						board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
 					}
 				})
-				
+
 				var packageSrcPath = path.join(packageConfig.path, "src")
 				if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
 					arduinoOptions.librariesPath.push(packageSrcPath)
@@ -553,7 +571,7 @@ function loadPackages() {
 			.fin(_ => {
 				d.resolve()
 			})
-			return d.promise	
+			return d.promise
 		}))
 		.then(_ => {
 			deferred.resolve(packages)
@@ -635,7 +653,7 @@ function loadExamples() {
 				.fin(_ => {
 					d.resolve()
 				})
-				return d.promise	
+				return d.promise
 			}))
 			.then(_ => {
 				deferred.resolve(examples)
@@ -739,7 +757,7 @@ function download(url, options) {
 
 /**
  * 安装驱动
- * @param {*} driverPath 
+ * @param {*} driverPath
  */
 function installDriver(driverPath) {
 	var deferred = Q.defer()
@@ -762,7 +780,7 @@ function installDriver(driverPath) {
 /**
  * 打开串口
  * @param {*} comName 端口路径
- * @param {*} options 
+ * @param {*} options
  */
 function openSerialPort(comName, options) {
 	return serialPort.openSerialPort(comName, options, {
@@ -824,7 +842,7 @@ function filterArduinoPorts(ports) {
 
 /**
  * 编译项目
- * @param {*} projectPath 项目路径 
+ * @param {*} projectPath 项目路径
  * @param {*} options 编译选项
  */
 function buildProject(projectPath, options) {
@@ -845,7 +863,7 @@ function buildProject(projectPath, options) {
 		err && log.error(err)
 		deferred.reject(err)
 	})
-	
+
 	return deferred.promise
 }
 
@@ -861,7 +879,7 @@ function preBuild(projectPath, options) {
 	if(fs.existsSync(packagesPath)) {
 		buildSpecs.push(`-hardware=${packagesPath}`)
 	}
-	
+
 	buildSpecs.push(`-fqbn=${options.fqbn}`)
 	var arduinoPath = getArduinoPath()
 	Object.keys(options.prefs).forEach(key => {
@@ -996,7 +1014,7 @@ function uploadFirmware2(targetPath, comName, options) {
 		err && log.error(err)
 		deferred.reject(err)
 	})
-	
+
 	return deferred.promise
 }
 
@@ -1038,7 +1056,7 @@ function preUploadFirmware(targetPath, comName, options) {
 
 /**
  * 加载主板
- * @param {*} forceReload 
+ * @param {*} forceReload
  */
 function loadBoards(forceReload) {
 	var deferred = Q.defer()
@@ -1057,7 +1075,7 @@ function loadBoards(forceReload) {
 	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
-	
+
 	var searchPath = 'arduino-' + util.getPlatform()
 	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		Q.all(pathList.map(p => {
@@ -1109,7 +1127,7 @@ function loadBoards(forceReload) {
 
 /**
  * 匹配主板名
- * @param {*} ports 
+ * @param {*} ports
  */
 function matchBoardNames(ports) {
 	var deferred = Q.defer()
@@ -1135,8 +1153,8 @@ function matchBoardNames(ports) {
 
 /**
  * 获取脚本路径
- * @param {*} name 
- * @param {*} type 
+ * @param {*} name
+ * @param {*} type
  */
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
