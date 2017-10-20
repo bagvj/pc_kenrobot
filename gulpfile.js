@@ -208,7 +208,7 @@ gulp.task('pack', ['pack-main', 'pack-public'])
 /**
  * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
  * 示例: gulp build-pack --release --branch=beta
- *       gulp build-pack --release --standalone --platform=arm --compress
+ *       gulp build-pack --release --branch=beta --platform=arm --standalone --compress
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
  *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
  */
@@ -227,7 +227,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if (platform == "arm") {
-		arch = builder.Arch.armv7l.toString()
+		arch = args.arch || "armv7l"
 		target = args.target || "dir"
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
@@ -260,9 +260,6 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"./scripts/**/*",
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
-			`./plugins/FlashPlayer/${platform}/**/*`,
-			`!./plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
-			"./firmwares/**/*",
 			"./packages/packages.json",
 		]
 
@@ -349,7 +346,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			}
 
 			var packageConfig = require('./app/package')
-			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}`
+			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}-standalone`
 			var command = `cd "${path.resolve(path.dirname(dist))}" && "${path7za}" a ${name}.7z ${path.basename(dist)}/*`
 			child_process.exec(command, (err, stdout, stderr) => {
 				if (err) {
@@ -378,9 +375,6 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"scripts",
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
-			`plugins/FlashPlayer/${platform}`,
-			`!plugins/FlashPlayer/${platform}/**/*${arch == "ia32" ? "64" : "32"}.dll`,
-			"firmwares",
 			"packages/packages.json",
 		]
 
