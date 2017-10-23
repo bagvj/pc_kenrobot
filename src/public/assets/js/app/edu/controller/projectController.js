@@ -34,10 +34,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		loadPackages().then(function() {
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
-			
+
 			openProject(getDefaultProject());
 			emitor.trigger("code", "start-refresh");
-		});	
+		});
 	}
 
 	function loadPackages() {
@@ -51,20 +51,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				pkg.boards && pkg.boards.forEach(board => {
 					board.imageUrl = `${pkg.protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
+
+					board.blocks && board.blocks.forEach(block => schema.blocks.push(block));
 				});
 
 				pkg.components && pkg.components.forEach(component => {
 					component.imageUrl = `${pkg.protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
-					component.blocks && component.blocks.forEach(block => {
-						schema.blocks.push(block);
-					});
+					component.blocks && component.blocks.forEach(block => schema.blocks.push(block));
 				});
 
-				pkg.blocks && pkg.blocks.forEach(block => {
-					schema.blocks.push(block);
-				});
+				pkg.blocks && pkg.blocks.forEach(block => schema.blocks.push(block));
 			});
 		})
 		.fin(function() {
