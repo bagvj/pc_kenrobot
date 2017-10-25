@@ -25,7 +25,7 @@ define(['vendor/jquery'], function() {
 		var html = messageConfig.template.replace(/\{type\}/g, type).replace(/\{text\}/g, text).replace(/\{title\}/g, title)
 		var messageDiv = $(html).appendTo(messageLayer);
 		messages.push(messageDiv);
-		
+
 		$('.x-message-close', messageDiv).on('click', function() {
 			onMessageHide(messageDiv);
 		});
@@ -234,11 +234,11 @@ define(['vendor/jquery'], function() {
 	 * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、季度(q)可以用1-2个占位符
 	 * 年(y)可以用1-4个占位符，毫秒(S)只能用1个占位符(是1-3位的数字)、周(E)可以用1-3个占位符
 	 * eg:
-	 * formatDate(date, "yyyy-MM-dd hh:mm:ss.S")==> 2006-07-02 08:09:04.423      
-	 * formatDate(date, "yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04      
-	 * formatDate(date, "yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04      
-	 * formatDate(date, "yyyy-MM-dd EEE hh:mm:ss") ==> 2009-03-10 星期二 08:09:04      
-	 * formatDate(date, "yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18      
+	 * formatDate(date, "yyyy-MM-dd hh:mm:ss.S")==> 2006-07-02 08:09:04.423
+	 * formatDate(date, "yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04
+	 * formatDate(date, "yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04
+	 * formatDate(date, "yyyy-MM-dd EEE hh:mm:ss") ==> 2009-03-10 星期二 08:09:04
+	 * formatDate(date, "yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18
 	 */
 	function formatDate(date, format) {
 		if (typeof date == "number") {
@@ -300,9 +300,9 @@ define(['vendor/jquery'], function() {
 
 	function throttle(fn, delay) {
 		var timerId;
-		return _ => {
+		return () => {
 			timerId && clearTimeout(timerId);
-			timerId = setTimeout(_ => {
+			timerId = setTimeout(() => {
 				fn();
 				clearTimeout(timerId);
 				timerId = null;

@@ -191,7 +191,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				var count = resetPasswordDelay;
 				var sendBtn = tab.find(".send-btn").attr("disabled", true).val(`重新发送(${count})`);
 				var timerId;
-				timerId = setInterval(_ => {
+				timerId = setInterval(() => {
 					count--;
 					if (count == 0) {
 						sendBtn.attr("disabled", false).val("发送");

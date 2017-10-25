@@ -115,7 +115,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				type: "success"
 			});
 
-			exitAfterSave && setTimeout(_ => kenrobot.postMessage("app:exit"), 400);
+			exitAfterSave && setTimeout(() => kenrobot.postMessage("app:exit"), 400);
 		}, function() {
 			util.message({
 				text: "保存失败",

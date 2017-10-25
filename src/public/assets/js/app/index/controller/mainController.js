@@ -16,7 +16,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		emitor.on('app', 'check-update', onCheckUpdate)
 			.on('app', 'switch', onSwitch)
 			.on("app", "start", onAppStart)
-			.on("user", "update", onUserUpdate);	
+			.on("user", "update", onUserUpdate);
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
 			.listenMessage("app:onBeforeQuit", onBeforeQuit)
@@ -46,16 +46,16 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
 		kenrobot.postMessage("app:projectSyncUrl", config.url.projectSync);
-		
+
 		inSync = true;
-		userModel.loadToken().always(_ => {
+		userModel.loadToken().always(() => {
 			emitor.trigger("user", "update");
 		});
 
 		kenrobot.postMessage("app:getBaseUrl").then(url => {
 			baseUrl = url;
 
-			kenrobot.postMessage("app:unzipPackages").then(_ => {
+			kenrobot.postMessage("app:unzipPackages").then(() => {
 
 			}, err => {
 				util.message({
@@ -64,14 +64,14 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				});
 			}, progressData => {
 				kenrobot.trigger("unpack", "show", progressData);
-			}).fin(_ => {
+			}).fin(() => {
 				kenrobot.trigger("unpack", "hide");
 
-				setTimeout(_ => {
+				setTimeout(() => {
 					onSwitch("edu");
 
 					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-					setTimeout(_ => {
+					setTimeout(() => {
 						onCheckUpdate(false);
 
 						inSync = false;
@@ -98,15 +98,15 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onUserLogout() {
-		userModel.logout().then(_ => {
+		userModel.logout().then(() => {
 			util.message("退出成功");
-		}).always(_ => {
+		}).always(() => {
 			emitor.trigger("user", "update");
 		});
 	}
 
 	function onUserUpdate() {
-		kenrobot.getUserInfo() && setTimeout(_ => onProjectSync(), 2000);
+		kenrobot.getUserInfo() && setTimeout(() => onProjectSync(), 2000);
 	}
 
 	function onProjectSync() {
@@ -120,7 +120,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 		inSync = true;
 		util.message("项目开始同步");
-		kenrobot.postMessage("app:projectSync").then(_ => {
+		kenrobot.postMessage("app:projectSync").then(() => {
 			inSync = false;
 			util.message("项目同步成功");
 		}, err => {
@@ -161,7 +161,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 					util.confirm({
 						text: "驱动下载成功，是否安装?",
 						onConfirm: () => {
-							kenrobot.postMessage("app:installDriver", result.path).then(_ => {
+							kenrobot.postMessage("app:installDriver", result.path).then(() => {
 								util.message("驱动安装成功");
 							}, err => {
 								util.message({
@@ -220,10 +220,10 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onSwitch(type) {
 		kenrobot.reset();
-		
+
 		kenrobot.trigger("app", "will-leave");
 		iframe.src = `${baseUrl}/${type}`;
-		iframe.addEventListener("load", _ => {
+		iframe.addEventListener("load", () => {
 			mousetrap = Mousetrap(iframe.contentDocument);
 		}, false);
 		pace.restart();
@@ -240,8 +240,8 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			text: "保存项目后再退出？",
 			cancelLabel: "直接退出",
 			confirmLabel: "保存后退出",
-			onCancel: _ => setTimeout(_ => kenrobot.postMessage("app:exit"), 400),
-			onConfirm: _ => kenrobot.trigger("project", "save", null, true),
+			onCancel: () => setTimeout(() => kenrobot.postMessage("app:exit"), 400),
+			onConfirm: () => kenrobot.trigger("project", "save", null, true),
 		});
 	}
 

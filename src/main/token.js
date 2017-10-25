@@ -24,7 +24,7 @@ function save(value) {
 	var deferred = Q.defer()
 
 	var key = crypto.randomBytes(128)
-	util.writeFile(getTokenPath(), util.encrypt(JSON.stringify(value), key)).then(_ => {
+	util.writeFile(getTokenPath(), util.encrypt(JSON.stringify(value), key)).then(() => {
 		deferred.resolve(key.toString("hex"))
 	}, err => {
 		err && log.error(err)
@@ -40,13 +40,13 @@ function load(key) {
 
 	var tokenPath = getTokenPath()
 	if(!fs.existsSync(tokenPath)) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.reject()
 		}, 10)
 
 		return deferred.promise
 	}
-	
+
 	util.readFile(tokenPath, "utf8").then(content => {
 		try {
 			var plainText = util.decrypt(content, Buffer.from(key, "hex"))

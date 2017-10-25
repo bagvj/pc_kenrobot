@@ -46,7 +46,7 @@ function openSerialPort(comName, options, callbacks) {
 
 	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
 	options.autoOpen = false
-	
+
 
 	var port = new SerialPort(comName, options)
 	port.open(err => {
@@ -62,18 +62,18 @@ function openSerialPort(comName, options, callbacks) {
 		port.on('error', err => {
 			callbacks && callbacks.onError && callbacks.onError(portId, err)
 		})
-		port.on('close', _ => {
+		port.on('close', () => {
 			delete connectedPorts.ports[portId]
 			callbacks && callbacks.onClose && callbacks.onClose(portId)
 		})
 
 		var target = options.parser == "raw" ? port : port.pipe(new Delimiter({delimiter: Buffer.from(options.parser)}))
-		target.on('readable', _ => {
+		target.on('readable', () => {
 			var data = target.read()
 			data && callbacks && callbacks.onData && callbacks.onData(portId, data)
 		})
 
-		port.flush(_ => {
+		port.flush(() => {
 			deferred.resolve(portId)
 		})
 	})
@@ -92,7 +92,7 @@ function writeSerialPort(portId, content) {
 	log.debug(`writeSerialPort: ${portId}, ${content}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.reject()
 		}, 10)
 		return deferred.promise
@@ -105,7 +105,7 @@ function writeSerialPort(portId, content) {
 			return
 		}
 
-		port.drain(_ => {
+		port.drain(() => {
 			deferred.resolve()
 		})
 	})
@@ -123,13 +123,13 @@ function closeSerialPort(portId) {
 	log.debug(`closeSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.reject()
 		}, 10)
 		return deferred.promise
 	}
 
-	port.close(_ => {
+	port.close(() => {
 		deferred.resolve()
 	})
 
@@ -158,13 +158,13 @@ function updateSerialPort(portId, options) {
 	log.debug(`updateSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.reject()
 		}, 10)
 		return deferred.promise
 	}
 
-	port.update(options, _ => {
+	port.update(options, () => {
 		deferred.resolve()
 	})
 
@@ -182,13 +182,13 @@ function flushSerialPort(portId, options) {
 	log.debug(`flushSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.reject()
 		}, 10)
 		return deferred.promise
 	}
 
-	port.flush(_ => {
+	port.flush(() => {
 		deferred.resolve()
 	})
 
@@ -202,19 +202,19 @@ function resetSerialPort(comName) {
 		baudRate: 1200
 	})
 
-	serialPort.on('open', _ => {
+	serialPort.on('open', () => {
 		serialPort.set({
 			rts: true,
 			dtr: false,
 		})
-		setTimeout(_ => {
-			serialPort.close(_ => {
+		setTimeout(() => {
+			serialPort.close(() => {
 				deferred.resolve()
 			})
 		}, 650)
 	}).on('error', err => {
 		log.error(err)
-		serialPort.close(_ => {
+		serialPort.close(() => {
 			deferred.reject(err)
 		})
 	})

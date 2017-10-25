@@ -70,11 +70,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				});
 				return
 			}
-			
+
 			util.confirm({
 				text: `ino文件必须放在文件夹内，是否创建并移动?`,
-				onConfirm: _ => {
-					kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(_ => {
+				onConfirm: () => {
+					kenrobot.postMessage("app:moveFile", err.path, err.newPath).then(() => {
 						kenrobot.postMessage("app:projectOpen", err.newPath, "ino").then(res => {
 							savePath = res.path;
 							openProject(res.code);
@@ -82,13 +82,13 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 								text: "打开成功",
 								type: "success"
 							});
-						}, _ => {
+						}, () => {
 							util.message({
 								text: "打开失败",
 								type: "error",
 							});
 						});
-					}, _ => {
+					}, () => {
 						util.message({
 							text: "打开失败",
 							type: "error",
@@ -110,7 +110,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 				type: "success"
 			});
 
-			exitAfterSave && setTimeout(_ => kenrobot.postMessage("app:exit"), 400);
+			exitAfterSave && setTimeout(() => kenrobot.postMessage("app:exit"), 400);
 		}, function() {
 			util.message({
 				text: "保存失败",

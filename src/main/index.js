@@ -21,6 +21,7 @@ const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const express = require('express')
+const _ = require('lodash')
 
 const httpPort = 8778
 const baseUrl = `http://localhost:${httpPort}`
@@ -85,21 +86,21 @@ function initServer() {
  */
 function listenEvents() {
 	app.on('ready', onAppReady)
-	.on('window-all-closed', _ => process.platform !== 'darwin' && app.quit())
-	.on('activate', _ => mainWindow === null && createWindow())
+	.on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
+	.on('activate', () => mainWindow === null && createWindow())
 	.on('before-quit', onAppBeforeQuit)
 	.on('will-quit', onAppWillQuit)
-	.on('quit', _ => log.debug('app quit'))
+	.on('quit', () => log.debug('app quit'))
 }
 
 /**
  * 监听消息
  */
 function listenMessages() {
-	listenMessage("getAppInfo", _ => util.resolvePromise(util.getAppInfo()))
-	listenMessage("getBaseUrl", _ => util.resolvePromise(baseUrl))
+	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
+	listenMessage("getBaseUrl", () => util.resolvePromise(baseUrl))
 
-	listenMessage("loadSetting", _ => loadSetting())
+	listenMessage("loadSetting", () => loadSetting())
 	listenMessage("saveSetting", setting => saveSetting(setting))
 
 	listenMessage("execFile", exePath => util.execFile(exePath))
@@ -115,7 +116,7 @@ function listenMessages() {
 	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
 	listenMessage("openUrl", url => util.resolvePromise(url && shell.openExternal(url)))
 
-	listenMessage("listSerialPort", _ => listSerialPort())
+	listenMessage("listSerialPort", () => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
 	listenMessage("writeSerialPort", (portId, content) => serialPort.writeSerialPort(portId, content))
 	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
@@ -128,11 +129,11 @@ function listenMessages() {
 
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
-	listenMessage("loadExamples", _ => loadExamples())
+	listenMessage("loadExamples", () => loadExamples())
 	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
-	listenMessage("loadPackages", _ => loadPackages())
+	listenMessage("loadPackages", () => loadPackages())
 	listenMessage("deletePackage", name => deletePackage(name))
 
 	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
@@ -142,7 +143,7 @@ function listenMessages() {
 	listenMessage("setToken", value => token.set(value))
 	listenMessage("saveToken", value => token.save(value))
 	listenMessage("loadToken", key => token.load(key))
-	listenMessage("removeToken", _ => token.remove())
+	listenMessage("removeToken", () => token.remove())
 
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
 	listenMessage("projectOpen", (projectPath, type) => project.open(projectPath, type))
@@ -152,7 +153,7 @@ function listenMessages() {
 	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
 
 	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
-	listenMessage("projectSync", _ => project.sync())
+	listenMessage("projectSync", () => project.sync())
 	listenMessage("projectList", type => project.list(type))
 	listenMessage("projectUpload", (name, type) => project.upload(name, type))
 	listenMessage("projectDelete", (name, type) => project.remove(name, type))
@@ -160,13 +161,13 @@ function listenMessages() {
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
-	listenMessage("quit", _ => app.quit())
-	listenMessage("exit", _ => app.exit(0))
-	listenMessage("reload", _ => mainWindow.reload())
-	listenMessage("relaunch", _ => onAppRelaunch())
-	listenMessage("fullscreen", _ => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
-	listenMessage("min", _ => mainWindow.minimize())
-	listenMessage("max", _ => onAppToggleMax())
+	listenMessage("quit", () => app.quit())
+	listenMessage("exit", () => app.exit(0))
+	listenMessage("reload", () => mainWindow.reload())
+	listenMessage("relaunch", () => onAppRelaunch())
+	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
+	listenMessage("min", () => mainWindow.minimize())
+	listenMessage("max", () => onAppToggleMax())
 	listenMessage("errorReport", err => onAppErrorReport(err))
 }
 
@@ -222,12 +223,12 @@ function createWindow() {
 		mainWindow.maximize()
 	}
 
-	mainWindow.on('closed', _ => (mainWindow = null))
-		.once('ready-to-show', _ => mainWindow.show())
-		.on('enter-full-screen', _ => util.postMessage("app:onFullscreenChange", true))
-		.on('leave-full-screen', _ => util.postMessage("app:onFullscreenChange", false))
+	mainWindow.on('closed', () => (mainWindow = null))
+		.once('ready-to-show', () => mainWindow.show())
+		.on('enter-full-screen', () => util.postMessage("app:onFullscreenChange", true))
+		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
 
-	mainWindow.webContents.on('devtools-reload-page', _ => serialPort.closeAllSerialPort())
+	mainWindow.webContents.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
 	mainWindow.webContents.session.on('will-download', onDownload)
 
 	mainWindow.loadURL(baseUrl)
@@ -277,7 +278,7 @@ function checkIfFirstRun() {
 function doReports() {
 	if(!is.dev() && !config.reportInstall) {
 		//安装report
-		reportToServer(null, "installations").then(_ => {
+		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
 			writeConfig()
 		})
@@ -300,7 +301,7 @@ function reportToServer(data, type) {
 		feature: appInfo.feature,
 	}
 
-	data = Object.assign({}, data, baseInfo)
+	data = _.merge({}, data, baseInfo)
 	type = type || 'log'
 	var url = "http://userver.kenrobot.com/statistics/report"
 	util.request(url, {
@@ -309,7 +310,7 @@ function reportToServer(data, type) {
 			data: JSON.stringify(data),
 			type: type,
 		}
-	}).then(_ => {
+	}).then(() => {
 		deferred.resolve()
 	}, err => {
 		log.error(`report error: type: ${type}, ${JSON.stringify(data)}`)
@@ -348,7 +349,7 @@ function removeOldVersions(newVersion) {
 	var deferred = Q.defer()
 
 	if(is.dev()) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.resolve()
 		}, 10)
 		return deferred.promise
@@ -386,7 +387,7 @@ function loadConfig() {
 	log.debug("loadConfig")
 	var configPath = path.join(util.getAppDataPath(), "config.json")
 	if(!fs.existsSync(configPath)) {
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.resolve({})
 		}, 10)
 		return deferred.promise
@@ -427,7 +428,7 @@ function unzipPackages(skip) {
 	skip = skip || is.dev()
 	if(skip) {
 		log.debug("skip unzip packages")
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.resolve()
 		}, 10)
 
@@ -451,13 +452,13 @@ function unzipPackages(skip) {
 		})
 
 		var total = list.length
-		var doUnzip = _ => {
+		var doUnzip = () => {
 			if(list.length == 0) {
 				config.packages = oldPackages
 				if(is.dev()) {
 					deferred.resolve()
 				} else {
-					writeConfig().fin(_ => {
+					writeConfig().fin(() => {
 						deferred.resolve()
 					})
 				}
@@ -465,7 +466,7 @@ function unzipPackages(skip) {
 			}
 
 			var p = list.pop()
-			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(_ => {
+			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
 				var index = oldPackages.findIndex(o => o.name == p.name)
 				if(index >= 0) {
 					oldPackages.splice(index, 1, p)
@@ -483,9 +484,7 @@ function unzipPackages(skip) {
 					total: total,
 				})
 			})
-			.fin(_ => {
-				doUnzip()
-			})
+			.fin(() => doUnzip())
 		}
 
 		doUnzip()
@@ -503,7 +502,7 @@ function unzipPackages(skip) {
 function unzipPackage(packagePath) {
 	var deferred = Q.defer()
 
-	util.unzip(packagePath, getPackagesPath(), true).then(_ => {
+	util.unzip(packagePath, getPackagesPath(), true).then(() => {
 		var name = path.basename(packagePath)
 		name = name.substring(0, name.indexOf("-"))
 		var ext = is.windows() ? "bat" : "sh"
@@ -514,7 +513,7 @@ function unzipPackage(packagePath) {
 			}
 
 			var scriptPath = scripts[0]
-			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(_ => {
+			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
 				deferred.resolve()
 			}, err => {
 				err && log.error(err)
@@ -568,12 +567,12 @@ function loadPackages() {
 
 				packages.push(packageConfig)
 			})
-			.fin(_ => {
+			.fin(() => {
 				d.resolve()
 			})
 			return d.promise
 		}))
-		.then(_ => {
+		.then(() => {
 			deferred.resolve(packages)
 		})
 	}, err => {
@@ -588,7 +587,7 @@ function deletePackage(name) {
 	var deferred = Q.defer()
 
 	log.debug(`deletePackage: ${name}`)
-	util.removeFile(path.join(getPackagesPath(), name)).then(_ => {
+	util.removeFile(path.join(getPackagesPath(), name)).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
@@ -650,12 +649,12 @@ function loadExamples() {
 						groups: groups,
 					})
 				})
-				.fin(_ => {
+				.fin(() => {
 					d.resolve()
 				})
 				return d.promise
 			}))
-			.then(_ => {
+			.then(() => {
 				deferred.resolve(examples)
 			})
 		}, err => {
@@ -764,9 +763,9 @@ function installDriver(driverPath) {
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.join(util.getAppDataPath(), "temp")
-	util.unzip(driverPath, dir).then(_ => {
+	util.unzip(driverPath, dir).then(() => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
-		util.execFile(exePath).then(_ => {
+		util.execFile(exePath).then(() => {
 			deferred.resolve()
 		})
 	}, err => {
@@ -816,7 +815,7 @@ function listSerialPort() {
 			return
 		}
 
-		matchBoardNames(ports).then(_ => {
+		matchBoardNames(ports).then(() => {
 			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(ports)
 		}, err => {
@@ -851,7 +850,7 @@ function buildProject(projectPath, options) {
 	preBuild(projectPath, options).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
 		var scriptPath = getScriptPath("call")
-		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(_ => {
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -873,7 +872,7 @@ function preBuild(projectPath, options) {
 	log.debug('pre-build')
 
 	var buildSpecs = []
-	options = Object.assign({}, arduinoOptions.default.build, options)
+	options = _.merge({}, arduinoOptions.default.build, options)
 
 	var packagesPath = getPackagesPath()
 	if(fs.existsSync(packagesPath)) {
@@ -902,10 +901,10 @@ function preBuild(projectPath, options) {
 		.replace("PROJECT_BUILD_PATH", projectBuildPath)
 		.replace("PROJECT_ARDUINO_FILE", path.join(projectPath, `${path.basename(projectPath)}.ino`))
 
-	util.writeFile(commandPath, command).then(_ => {
+	util.writeFile(commandPath, command).then(() => {
 		var optionPath = path.join(projectPath, 'build', 'build.options.json')
 		if(!fs.existsSync(optionPath)) {
-			setTimeout(_ => {
+			setTimeout(() => {
 				deferred.resolve(commandPath)
 			}, 10)
 			return deferred.promise
@@ -917,7 +916,7 @@ function preBuild(projectPath, options) {
 				return
 			}
 
-			util.removeFile(path.join(projectPath, 'build')).fin(_ => {
+			util.removeFile(path.join(projectPath, 'build')).fin(() => {
 				fs.ensureDirSync(path.join(projectPath, 'build'))
 				deferred.resolve(commandPath)
 			})
@@ -939,7 +938,7 @@ function preBuild(projectPath, options) {
  * @param {*} options 选项
  */
 function upload(projectPath, options) {
-	options = Object.assign({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, arduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware(targetPath, options)
@@ -952,7 +951,7 @@ function upload(projectPath, options) {
  * @param {*} options 选项
  */
 function upload2(projectPath, comName, options) {
-	options = Object.assign({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, arduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware2(targetPath, comName, options)
@@ -981,7 +980,7 @@ function uploadFirmware(targetPath, options) {
 				ports: ports,
 			})
 		}
-	}, _ => {
+	}, () => {
 		deferred.reject({
 			status: "NOT_FOUND_PORT"
 		})
@@ -1002,7 +1001,7 @@ function uploadFirmware2(targetPath, comName, options) {
 	preUploadFirmware(targetPath, comName, options).then(commandPath => {
 		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
 		var scriptPath = getScriptPath("call")
-		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(_ => {
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -1028,7 +1027,7 @@ function preUploadFirmware(targetPath, comName, options) {
 	var deferred = Q.defer()
 
 	log.debug("pre upload firmware")
-	options = Object.assign({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, arduinoOptions.default.upload, options)
 
 	var commandPath = getCommandPath("upload")
 	var command = util.handleQuotes(options.command)
@@ -1039,8 +1038,8 @@ function preUploadFirmware(targetPath, comName, options) {
 		.replace("ARDUINO_COMPORT", comName)
 		.replace("TARGET_PATH", targetPath)
 
-	util.writeFile(commandPath, command).then(_ => {
-		serialPort.resetSerialPort(comName).then(_ => {
+	util.writeFile(commandPath, command).then(() => {
+		serialPort.resetSerialPort(comName).then(() => {
 			deferred.resolve(commandPath)
 		}, err => {
 			err && log.error(err)
@@ -1063,7 +1062,7 @@ function loadBoards(forceReload) {
 
 	if(config.boardNames && !forceReload) {
 		log.debug("skip loadBoards")
-		setTimeout(_ => {
+		setTimeout(() => {
 			deferred.resolve(config.boardNames)
 		}, 10)
 
@@ -1104,13 +1103,13 @@ function loadBoards(forceReload) {
 					}
 				}
 			})
-			.fin(_ => {
+			.fin(() => {
 				d.resolve()
 			})
 			return d.promise
-		})).then(_ => {
+		})).then(() => {
 			config.boardNames = boardNames
-			writeConfig().then(_ => {
+			writeConfig().then(() => {
 				deferred.resolve(config.boardNames)
 			}, err => {
 				err && log.error(err)
