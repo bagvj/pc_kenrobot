@@ -607,7 +607,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			boardData.pins.filter(pin => pin.tuple && pin.members.includes(name)).forEach(pin => {
 				var value = _.every(pin.members, n => {
 					var pp = boardData.pins.find(p => p.name == n);
-					return pp && jsPlumbInstance.getEndpoint(pp.uid).isEnabled();
+					return !pp || jsPlumbInstance.getEndpoint(pp.uid).isEnabled();
 				});
 				jsPlumbInstance.getEndpoint(pin.uid).setEnabled(value);
 			});
