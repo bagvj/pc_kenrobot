@@ -74,6 +74,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var codeInfo = softwareModel.getCode();
 
 		var includeCode = [];
+		var constCode = '';
 		var varCode = '';
 		var setupCode = '';
 		var tempCode;
@@ -95,9 +96,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		var nameReg = new RegExp('{NAME}', 'g');
-		hardwareData.components.sort(function(a, b) {
+		var components = hardwareData.components.sort(function(a, b) {
 			return a.name.localeCompare(b.name);
-		}).forEach(function(componentData) {
+		});
+		components.forEach(function(componentData) {
 			code = componentData.code;
 			if (code.include) {
 				includeCode = includeCode.concat(code.include.split('\n'));
@@ -156,12 +158,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				setupCode += tempCode;
 			}
 		});
+		_.uniqBy(components, 'name').filter(componentData => componentData.code.const).forEach(componentData => {
+			constCode += componentData.code.const;
+		});
 		includeCode = includeCode.sort().reduce(function(result, line) {
 			(result.length == 0 || result[result.length - 1] != line) && result.push(line);
 			return result;
 		}, []).join('\n');
 
 		codeInfo.include = includeCode;
+		codeInfo.const = constCode;
 		codeInfo.global = varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
 

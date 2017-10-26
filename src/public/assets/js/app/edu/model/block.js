@@ -536,7 +536,7 @@ define(function() {
 			}
 			setBlockDragging(block, false);
 		}
-		
+
 		activeConnectors = [];
 		activeIOConnectors = [];
 		dragBlock = null;
@@ -1568,7 +1568,7 @@ define(function() {
 				node = node.parentNode;
 			}
 		}
-		
+
 		return find;
 	}
 
