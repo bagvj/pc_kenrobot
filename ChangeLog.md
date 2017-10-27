@@ -288,3 +288,7 @@
 #### fix bugs
 
 - 修复部分情况下编译时prefs被覆盖的bug
+
+#### features
+
+- 开发板包有更新
