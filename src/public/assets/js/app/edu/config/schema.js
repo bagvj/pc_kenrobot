@@ -842,14 +842,14 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "'"
 			}, {
-				"id": "TEXT",
+				"id": "VALUE",
 				"type": "char-input",
 				"placeholder": "字符"
 			}, {
 				"type": "text",
 				"value": "'"
 			}],
-			"code": "'{TEXT}'",
+			"code": "'{VALUE}'",
 			"returnType": {
 				"type": "simple",
 				"value": "char"

@@ -12,7 +12,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		loadExamples().then(exampleMenu => {
 			var exampleMenuItem = menu.find(menuItem => menuItem.id && menuItem.id == "example");
 			exampleMenuItem.menu = exampleMenu;
-			
+
 			kenrobot.trigger("app-menu", "load", menu, "edu");
 		});
 
@@ -22,7 +22,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				emitor.trigger("setting", "change", name, specSetting[name]);
 			}
 		}, err => {
-			
+
 		});
 	}
 
@@ -100,7 +100,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			case "open-example":
 				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(projectInfo => {
 					emitor.trigger("project", "open", projectInfo);
-				}, _ => {
+				}, () => {
 					util.message("打开失败");
 				});
 				break;

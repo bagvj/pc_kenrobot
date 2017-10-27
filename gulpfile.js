@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.11 electron-builder@19.7.1 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch express jszip serialport@5.0.0
+ * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch express jszip lodash serialport@5.0.0
  */
 
 const gulp = require('gulp') //基础库
@@ -47,35 +47,35 @@ const APP = './app/'
 const ASSETS_SRC = SRC + 'public/assets/'
 const ASSETS_DIST = APP + 'public/assets/'
 
-gulp.task('clean-assets-js', _ => {
+gulp.task('clean-assets-js', () => {
 	return del(ASSETS_DIST + 'js')
 })
 
-gulp.task('clean-assets-css', _ => {
+gulp.task('clean-assets-css', () => {
 	return del(ASSETS_DIST + 'css')
 })
 
-gulp.task('clean-assets-image', _ => {
+gulp.task('clean-assets-image', () => {
 	return del(ASSETS_DIST + 'image')
 })
 
-gulp.task('clean-assets-font', _ => {
+gulp.task('clean-assets-font', () => {
 	return del(ASSETS_DIST + 'font')
 })
 
-gulp.task('clean-main', _ => {
+gulp.task('clean-main', () => {
 	return del(APP + 'main')
 })
 
-gulp.task('clean-renderer', _ => {
+gulp.task('clean-renderer', () => {
 	return del(APP + 'public/renderer.js')
 })
 
-gulp.task('clean-public', _ => {
+gulp.task('clean-public', () => {
 	return del(APP + 'public')
 })
 
-gulp.task('clean-other', _ => {
+gulp.task('clean-other', () => {
 	return del([
 		APP + 'public/**/*',
 		'!' + APP + "public/renderer.js",
@@ -83,11 +83,11 @@ gulp.task('clean-other', _ => {
 	])
 })
 
-gulp.task('clean-dist', _ => {
+gulp.task('clean-dist', () => {
 	return del(DIST)
 })
 
-gulp.task('clean-assets-temp-js', _ => {
+gulp.task('clean-assets-temp-js', () => {
 	return del(TEMP + 'js')
 })
 
@@ -114,7 +114,7 @@ gulp.task('copy-assets-vendor-js', ['clean-assets-temp-js'], callback => {
 		.pipe(gulp.dest(TEMP + 'js/vendor/'))
 })
 
-gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-assets-vendor-js'], _ => {
+gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-assets-vendor-js'], () => {
 	if (args.release) {
 		gulp.src([ASSETS_SRC + 'js/require.js'])
 			.pipe(gulp.dest(ASSETS_DIST + 'js/'))
@@ -131,7 +131,7 @@ gulp.task('pack-assets-js', ['clean-assets-js', 'transform-assets-js', 'copy-ass
 	}
 })
 
-gulp.task('pack-assets-css', ['clean-assets-css'], _ => {
+gulp.task('pack-assets-css', ['clean-assets-css'], () => {
 	return sass(ASSETS_SRC + 'css/*.scss', {
 			style: "expanded"
 		})
@@ -140,19 +140,19 @@ gulp.task('pack-assets-css', ['clean-assets-css'], _ => {
 		.pipe(gulp.dest(ASSETS_DIST + 'css/'))
 })
 
-gulp.task('pack-assets-image', ['clean-assets-image'], _ => {
+gulp.task('pack-assets-image', ['clean-assets-image'], () => {
 	return gulp.src(ASSETS_SRC + 'image/**/*')
 		.pipe(gulp.dest(ASSETS_DIST + 'image/'))
 })
 
-gulp.task('pack-assets-font', ['clean-assets-font'], _ => {
+gulp.task('pack-assets-font', ['clean-assets-font'], () => {
 	return gulp.src(ASSETS_SRC + 'font/**/*')
 		.pipe(gulp.dest(ASSETS_DIST + 'font/'))
 })
 
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
-gulp.task('pack-other', ['clean-other'], _ => {
+gulp.task('pack-other', ['clean-other'], () => {
 	return gulp.src([
 		SRC + 'public/**/*',
 		'!' + SRC + "public/renderer.js",
@@ -160,7 +160,7 @@ gulp.task('pack-other', ['clean-other'], _ => {
 	]).pipe(gulp.dest(APP + 'public/'))
 })
 
-gulp.task('pack-main', ['clean-main'], _ => {
+gulp.task('pack-main', ['clean-main'], () => {
 	if (args.release) {
 		return browserify(SRC + 'main/index.js', {
 				ignoreMissing: true,
@@ -185,7 +185,7 @@ gulp.task('pack-main', ['clean-main'], _ => {
 	}
 })
 
-gulp.task('pack-renderer', ['clean-renderer'], _ => {
+gulp.task('pack-renderer', ['clean-renderer'], () => {
 	if (args.release) {
 		return gulp.src(SRC + 'public/renderer.js')
 			.pipe(babel({
@@ -266,13 +266,13 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
-		var taskA = _ => {
+		var taskA = () => {
 			var defer = Q.defer()
 			gulp.src(extraFiles, {
 					base: "."
 				})
 				.pipe(gulp.dest(dist))
-				.on('end', _ => {
+				.on('end', () => {
 					defer.resolve()
 				})
 				.on('error', err => {
@@ -284,7 +284,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 
 		var distApp = path.join(dist, 'resources', 'app')
 
-		var taskB = _ => {
+		var taskB = () => {
 			var defer = Q.defer()
 
 			gulp.src([
@@ -308,7 +308,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 					"!" + APP + "node_modules/**/*appveyor.yml*",
 					"!" + APP + "node_modules/**/.*",
 				]).pipe(gulp.dest(distApp))
-				.on('end', _ => {
+				.on('end', () => {
 					defer.resolve()
 				})
 				.on('error', err => {
@@ -318,7 +318,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			return defer.promise
 		}
 
-		var taskC = _ => {
+		var taskC = () => {
 			var defer = Q.defer()
 
 			nconf.clear('buildInfo')
@@ -326,7 +326,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 
 			asar.createPackageWithOptions(distApp, path.join(path.dirname(distApp), "app.asar"), {
 				unpackDir: `node_modules/7zip-bin-${platform}`,
-			}, _ => {
+			}, () => {
 				fs.removeSync(distApp)
 				defer.resolve()
 			})
@@ -334,11 +334,11 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			return defer.promise
 		}
 
-		var taskD = _ => {
+		var taskD = () => {
 			var defer = Q.defer()
 
 			if (!args.compress) {
-				setTimeout(_ => {
+				setTimeout(() => {
 					defer.resolve()
 				}, 10)
 
@@ -365,7 +365,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		taskA().then(taskB).then(taskC).then(taskD).catch(err => {
 			console.log(err)
 			callback(err)
-		}).done(_ => {
+		}).done(() => {
 			console.log("done")
 			callback()
 		})
@@ -404,7 +404,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 				var options = args.remotePath ? {
 					remotePath: args.remotePath
 				} : {}
-				upload(file, options).then(_ => {
+				upload(file, options).then(() => {
 					callback()
 				}, err1 => {
 					console.error(err1)
@@ -476,7 +476,7 @@ gulp.task('packages', callback => {
 	callback()
 })
 
-gulp.task('upload', _ => {
+gulp.task('upload', () => {
 	if (!args.file) {
 		console.log('please spec file use "--file"')
 		return

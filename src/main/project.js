@@ -86,7 +86,7 @@ function upload(name, type) {
 			}
 
 			var item = result.data
-			updateLocalItem(item.name, item.type, item.modify_time).then(_ => {
+			updateLocalItem(item.name, item.type, item.modify_time).then(() => {
 				log.debug(`project upload success: ${name} ${type}`)
 				deferred.resolve(item)
 			}, err => {
@@ -101,7 +101,7 @@ function upload(name, type) {
 		err && log.error(err)
 		deferred.reject(err)
 	})
-	
+
 	return deferred.promise
 }
 
@@ -140,9 +140,9 @@ function download(name, type) {
 		fs.ensureDirSync(path.dirname(zipPath))
 		var stream = fs.createWriteStream(zipPath)
 		res.body.pipe(stream)
-		res.body.on("end", _ => {
-			unzip(zipPath, getProjectsDir(id, type), name, type).then(_ => {
-				updateLocalItem(name, type, modify_time).then(_ => {
+		res.body.on("end", () => {
+			unzip(zipPath, getProjectsDir(id, type), name, type).then(() => {
+				updateLocalItem(name, type, modify_time).then(() => {
 					log.debug(`project download success: ${name} ${type}`)
 					deferred.resolve()
 				}, err => {
@@ -198,7 +198,7 @@ function remove(name, type) {
 		Q.all([
 			util.removeFile(path.join(getProjectsDir(id, type), getProjectRelativePath(name, type))),
 			removeLocalItem(name),
-		]).then(_ => {
+		]).then(() => {
 			log.debug(`project remove success: ${name} ${type}`)
 			deferred.resolve()
 		}, err => {
@@ -223,7 +223,7 @@ function sync() {
 		getLocalList()
 	]).then(result => {
 		var [remoteList, localList] = result
-		doSync(remoteList, localList).then(_ => {
+		doSync(remoteList, localList).then(() => {
 			log.debug(`project sync success`)
 			deferred.resolve()
 		}, err => {
@@ -267,7 +267,7 @@ function zip(projectsDir, name, type) {
 		type: "nodebuffer",
 	})
 	.pipe(fs.createWriteStream(zipPath))
-	.on('finish', _ => {
+	.on('finish', () => {
 		deferred.resolve(zipPath)
 	})
 	.on('error', err => {
@@ -281,7 +281,7 @@ function zip(projectsDir, name, type) {
 function unzip(zipPath, projectsDir, name, type) {
 	var deferred = Q.defer()
 
-	util.unzip(zipPath, projectsDir).then(_ => {
+	util.unzip(zipPath, projectsDir).then(() => {
 		log.error(`unzip success: ${name} ${type}`)
 		deferred.resolve()
 	}, err => {
@@ -324,7 +324,7 @@ function doSync(remoteList, localList) {
 
 	downloadSync(downloadList, notify)
 		.then(uploadSync(uploadList, notify))
-		.then(_ => {
+		.then(() => {
 			deferred.resolve()
 		})
 		.catch(err => {
@@ -371,18 +371,18 @@ function downloadSync(downloadList, notify) {
 	var deferred = Q.defer()
 
 	var worker
-	worker = _ => {
+	worker = () => {
 		if(downloadList.length == 0) {
 			return util.resolvePromise(true, deferred)
 		}
 
 		var item = downloadList.shift()
-		download(item.name, item.type).then(_ => {
+		download(item.name, item.type).then(() => {
 			notify(item.name, item.type, "download")
 			if(downloadList.length == 0) {
 				deferred.resolve()
 			} else {
-				setTimeout(_ => worker(), 100)
+				setTimeout(() => worker(), 100)
 			}
 		}, err => {
 			err && log.error(err)
@@ -398,18 +398,18 @@ function uploadSync(uploadList, notify) {
 	var deferred = Q.defer()
 
 	var worker
-	worker = _ => {
+	worker = () => {
 		if(uploadList.length == 0) {
 			return util.resolvePromise(true, deferred)
 		}
 
 		var item = uploadList.shift()
-		upload(item.name, item.type).then(_ => {
+		upload(item.name, item.type).then(() => {
 			notify(item.name, item.type, "upload")
 			if(uploadList.length == 0) {
 				deferred.resolve()
 			} else {
-				setTimeout(_ => worker(), 100)
+				setTimeout(() => worker(), 100)
 			}
 		}, err => {
 			err && log.error(err)
@@ -436,7 +436,7 @@ function updateLocalItem(name, type, modify_time) {
 			localItem.modify_time = modify_time
 		}
 
-		saveLocalList(localList).then(_ => {
+		saveLocalList(localList).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -460,8 +460,8 @@ function removeLocalItem(name) {
 			return
 		}
 		localList.splice(index, 1)
-		
-		saveLocalList(localList).then(_ => {
+
+		saveLocalList(localList).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -546,8 +546,8 @@ function newSave(name, type, data, savePath) {
 
 	var projectsDir = getProjectsDir(token.user_id, type)
 	savePath = path.join(projectsDir, getProjectRelativePath(name, type))
-	newDoSave(name, type, data, savePath).then(_ => {
-		updateLocalItem(name, type, util.stamp()).then(_ => {
+	newDoSave(name, type, data, savePath).then(() => {
+		updateLocalItem(name, type, util.stamp()).then(() => {
 			throttleSync()
 			deferred.resolve({
 				name: name,
@@ -571,7 +571,7 @@ function newSaveAs(name, type, data, savePath) {
 	var deferred = Q.defer()
 
 	var doSave = projectPath => {
-		newDoSave(name, type, data, projectPath).then(_ => {
+		newDoSave(name, type, data, projectPath).then(() => {
 			deferred.resolve({
 				name: name,
 				type: type,
@@ -602,7 +602,7 @@ function newSaveAs(name, type, data, savePath) {
 			deferred.reject(err)
 		})
 	}
-	
+
 	return deferred.promise
 }
 
@@ -762,9 +762,9 @@ function newDoOpen(openPath, type) {
 
 /**
  * 保存项目
- * @param {*} oldProjectPath 
- * @param {*} projectInfo 
- * @param {*} isTemp 
+ * @param {*} oldProjectPath
+ * @param {*} projectInfo
+ * @param {*} isTemp
  */
 function save(oldProjectPath, projectInfo, isTemp) {
 	var deferred = Q.defer()
@@ -780,13 +780,13 @@ function save(oldProjectPath, projectInfo, isTemp) {
 		Q.all([
 			util.writeFile(path.join(projectPath, path.basename(projectPath) + ".ino"), projectInfo.project_data.code),
 			util.writeJson(path.join(projectPath, "project.json"), projectInfo)
-		]).then(_ => {
+		]).then(() => {
 			deferred.resolve({
 				path: projectPath,
 				updated_at: projectInfo.updated_at,
 				project_name: projectInfo.project_name
 			})
-		}, _ => {
+		}, () => {
 			deferred.reject()
 		})
 	}
@@ -799,17 +799,17 @@ function save(oldProjectPath, projectInfo, isTemp) {
 	} else {
 		util.showSaveDialog().then(projectPath => {
 			doSave(projectPath)
-		}, _ => {
+		}, () => {
 			deferred.reject()
 		})
 	}
-	
+
 	return deferred.promise
 }
 
 /**
  * 打开项目
- * @param {*} projectPath 项目路径 
+ * @param {*} projectPath 项目路径
  */
 function open(projectPath, type) {
 	var deferred = Q.defer()
@@ -831,7 +831,7 @@ function open(projectPath, type) {
 			var dirname = path.dirname(projectPath)
 			var basename = path.basename(projectPath, path.extname(projectPath))
 			if(path.basename(dirname) != basename) {
-				setTimeout(_ => {
+				setTimeout(() => {
 					deferred.reject({
 						path: projectPath,
 						newPath: path.join(dirname, basename, `${basename}.ino`),

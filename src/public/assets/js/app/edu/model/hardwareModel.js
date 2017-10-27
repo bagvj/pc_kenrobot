@@ -369,26 +369,21 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				return;
 			}
 
-			var epBoardDom;
+			var boardPin;
 			if(spec[0] == "name") {
-				//name
-				epBoardDom = container.querySelector(".board-endpoint.pin-" + spec[1]);
+				boardPin = boardData.pins.find(p => p.name == name)
 			} else {
-				//tag
-				[].forEach.call(container.querySelectorAll(".board-endpoint"), function(endpointDom) {
-					var endpoint = endpointDom._jsPlumb;
-					var tags = endpoint.scope.split(" ");
-					if(tags.indexOf(spec[1]) >= 0) {
-						epBoardDom = endpointDom;
-						return true;
-					}
-				});
+				boardPin = boardData.pins.find(p => p.tags.includes(spec[1]))
 			}
-			if(!epBoardDom) {
+			if(!boardPin) {
 				return;
 			}
 
-			var epBoard = epBoardDom._jsPlumb;
+			var epBoard = jsPlumbInstance.getEndpoint(boardPin.uid)
+			if(!epBoard) {
+				return;
+			}
+
 			epBoard.detachAll();
 			jsPlumbInstance.connect({
 				uuids: [epComponent.getUuid(), epBoard.getUuid()],
@@ -410,7 +405,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	function removeComponent(componentDom) {
 		var uid = componentDom.dataset.uid;
 		var componentData = getComponentData(uid);
-		
+
 		componentDom.removeEventListener("touchstart", onComponentMouseDown);
 		componentDom.removeEventListener("mousedown", onComponentMouseDown);
 
@@ -533,11 +528,6 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	}
 
 	function onConnection(info) {
-		// info.connection.bind('click', connection => {
-		// 	unselectAllConnections();
-		// 	selectConnection(connection);
-		// });
-
 		info.targetEndpoint.setType('connected');
 		info.sourceEndpoint.setType('connected');
 
@@ -546,38 +536,50 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			targetUid: info.targetEndpoint.getUuid()
 		});
 
-		if(Array.from(info.target.classList).includes('board')) {
-			var componentUid = info.source.dataset.uid;
-			var componentData = components[componentUid];
-			var sourcePin = info.sourceEndpoint.getParameter('pin');
-			var targetPin = info.targetEndpoint.getParameter('pin');
-			componentData.pins[sourcePin.name] = targetPin;
-
-			if(!boardData.tuples) {
-				return;
-			}
-
-			var tags = _.intersection(sourcePin.tags, targetPin.tags);
-			var tagName = tags[0];
-
-			boardData.tuples.forEach(tuple => {
-				var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-				if(tupleTag) {
-					if(tuple.members.includes(targetPin.name)) {
-						tuple.members.forEach(name => {
-							if(name != targetPin.name) {
-								var pin = boardData.pins.find(p => p.name == name);
-								pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
-							}
-						});
-
-						targetPin.tupleValue = tupleTag.value;
-
-						return true;
-					}
-				}
-			});
+		if(!Array.from(info.target.classList).includes('board')) {
+			return
 		}
+
+		var componentUid = info.source.dataset.uid;
+		var componentData = components[componentUid];
+		var sourcePin = info.sourceEndpoint.getParameter('pin');
+		var targetPin = info.targetEndpoint.getParameter('pin');
+		componentData.pins[sourcePin.name] = targetPin;
+
+		var usedPinNames = targetPin.tuple ? targetPin.members : [targetPin.name];
+		boardData.pins.forEach(pin => {
+			var names = pin.tuple ? pin.members : [pin.name];
+			if(_.intersection(usedPinNames, names).length > 0) {
+				jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
+			}
+		});
+
+		// 兼容代码，board里的tuples未来考虑移除
+		if(!boardData.tuples) {
+			return;
+		}
+
+		var tags = _.intersection(sourcePin.tags, targetPin.tags);
+		var tagName = tags[0];
+
+		boardData.tuples.forEach(tuple => {
+			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
+			if(tupleTag) {
+				if(tuple.members.includes(targetPin.name)) {
+					tuple.members.forEach(name => {
+						if(name != targetPin.name) {
+							var pin = boardData.pins.find(p => p.name == name);
+							pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
+						}
+					});
+
+					targetPin.tupleValue = tupleTag.value;
+
+					return true;
+				}
+			}
+		});
+		// 兼容代码，board里的tuples未来考虑移除
 	}
 
 	function onConnectionDetached(info) {
@@ -586,36 +588,55 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		info.targetEndpoint.removeType('connected');
 		info.sourceEndpoint.removeType('connected');
 
-		if(Array.from(info.target.classList).includes('board')) {
-			var componentUid = info.source.dataset.uid;
-			var componentData = components[componentUid];
-			var sourcePin = info.sourceEndpoint.getParameter('pin');
-			var targetPin = info.targetEndpoint.getParameter('pin');
-			delete componentData.pins[sourcePin.name];
-
-			if(!boardData.tuples) {
-				return;
-			}
-
-			var tags = _.intersection(sourcePin.tags, targetPin.tags);
-			var tagName = tags[0];
-
-			boardData.tuples.forEach(tuple => {
-				var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-				if(tupleTag) {
-					if(tuple.members.includes(targetPin.name)) {
-						tuple.members.forEach(name => {
-							var pin = boardData.pins.find(p => p.name == name);
-							pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
-						});
-
-						delete targetPin.tupleValue;
-
-						return true;
-					}
-				}
-			});
+		if(!Array.from(info.target.classList).includes('board')) {
+			return;
 		}
+
+		var componentUid = info.source.dataset.uid;
+		var componentData = components[componentUid];
+		var sourcePin = info.sourceEndpoint.getParameter('pin');
+		var targetPin = info.targetEndpoint.getParameter('pin');
+		delete componentData.pins[sourcePin.name];
+
+		var usedPinNames = targetPin.tuple ? targetPin.members : [targetPin.name];
+		usedPinNames.forEach(name => {
+			var pin = boardData.pins.find(p => p.name == name);
+			pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
+		});
+		usedPinNames.forEach(name => {
+			boardData.pins.filter(pin => pin.tuple && pin.members.includes(name)).forEach(pin => {
+				var value = _.every(pin.members, n => {
+					var pp = boardData.pins.find(p => p.name == n);
+					return !pp || jsPlumbInstance.getEndpoint(pp.uid).isEnabled();
+				});
+				jsPlumbInstance.getEndpoint(pin.uid).setEnabled(value);
+			});
+		});
+
+		// 兼容代码，board里的tuples未来考虑移除
+		if(!boardData.tuples) {
+			return;
+		}
+
+		var tags = _.intersection(sourcePin.tags, targetPin.tags);
+		var tagName = tags[0];
+
+		boardData.tuples.forEach(tuple => {
+			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
+			if(tupleTag) {
+				if(tuple.members.includes(targetPin.name)) {
+					tuple.members.forEach(name => {
+						var pin = boardData.pins.find(p => p.name == name);
+						pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
+					});
+
+					delete targetPin.tupleValue;
+
+					return true;
+				}
+			}
+		});
+		// 兼容代码，board里的tuples未来考虑移除
 	}
 
 	function onConnectionMoved(info) {

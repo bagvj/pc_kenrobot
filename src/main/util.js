@@ -135,7 +135,7 @@ function versionCompare(versionA, versionB) {
 
 /**
  * 发送消息
- * @param {*} name 
+ * @param {*} name
  */
 function postMessage(name, ...args) {
 	log.debug(`postMessage: ${name}, ${args.join(", ")}`)
@@ -172,7 +172,7 @@ function callDefer(deferId, type, ...args) {
 
 /**
  * 处理引号
- * @param {*} p 
+ * @param {*} p
  */
 function handleQuotes(p) {
 	return is.windows() ? p : p.replace(/"/g, "")
@@ -213,9 +213,9 @@ function stamp() {
 
 function throttle(fn, delay) {
 	var timerId
-	return _ => {
+	return () => {
 		timerId && clearTimeout(timerId)
-		timerId = setTimeout(_ => {
+		timerId = setTimeout(() => {
 			fn()
 			clearTimeout(timerId)
 			timerId = null;
@@ -259,7 +259,7 @@ function rsa_decrypt(encrypted, key) {
 function resolvePromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
-	setTimeout(_ => {
+	setTimeout(() => {
 		deferred.resolve(result)
 	}, 10)
 
@@ -269,7 +269,7 @@ function resolvePromise(result, deferred) {
 function rejectPromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
-	setTimeout(_ => {
+	setTimeout(() => {
 		deferred.reject(result)
 	}, 10)
 
@@ -278,7 +278,7 @@ function rejectPromise(result, deferred) {
 
 /**
  * 执行可执行文件
- * @param {*} driverPath 
+ * @param {*} driverPath
  */
 function execFile(exePath) {
 	var deferred = Q.defer()
@@ -290,7 +290,7 @@ function execFile(exePath) {
 	} else {
 		command = `${exePath}`
 	}
-	execCommand(command, null, true).fin(_ => {
+	execCommand(command, null, true).fin(() => {
 		deferred.resolve()
 	})
 
@@ -383,7 +383,7 @@ function spawnCommand(command, args, options) {
 /**
  * 读取文件
  * @param {*} file 路径
- * @param {*} options 选项 
+ * @param {*} options 选项
  */
 function readFile(file, options, sync) {
 	if(sync) {
@@ -498,7 +498,7 @@ function readJson(file, options) {
  * 写json
  * @param {*} file 路径
  * @param {*} data 数据
- * @param {*} options 选项 
+ * @param {*} options 选项
  */
 function writeJson(file, data, options, sync) {
 	if(sync) {
@@ -571,11 +571,11 @@ function unzip(zipPath, dist, spawn) {
 				match = temp
 				temp = reg.exec(progess.data)
 			} while(temp)
-			
+
 			deferred.notify(parseInt(match[1]))
 		})
 	} else {
-		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(_ => {
+		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -591,7 +591,7 @@ function zip(dir, files, dist, type) {
 
 	files = files instanceof Array ? files : [files]
 	type = type || "7z"
-	execCommand(`cd "${dir}" && "${path7za}" a -t${type} -r ${dist} ${files.join(' ')}`).then(_ => {
+	execCommand(`cd "${dir}" && "${path7za}" a -t${type} -r ${dist} ${files.join(' ')}`).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
