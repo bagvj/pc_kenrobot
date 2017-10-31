@@ -8,13 +8,13 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 
 	function init() {
 		dialogWin = $('.update-dialog').on("click", ".cancel", onCancelClick).on("click", ".download", onDownloadClick);
-		
+
 		kenrobot.on('update', 'show', onShow, {canReset: false});
 	}
 
 	function onShow(args) {
 		canClose = true;
-	
+
 		versionInfo = args;
 		action = "download";
 
@@ -40,7 +40,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
 				versionPath = result.path;
 
-				kenrobot.postMessage("app:removeOldVersions", versionInfo.version).fin(_ => {
+				kenrobot.postMessage("app:removeOldVersions", versionInfo.version).fin(() => {
 					var info = kenrobot.appInfo;
 					if(info.platform == "win") {
 						downloadBtn.val("安装").attr("disabled", false);
@@ -64,7 +64,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			});
 		} else if(action == "install") {
 			onCancelClick();
-			kenrobot.postMessage("app:execFile", versionPath).then(_ => {
+			kenrobot.postMessage("app:execFile", versionPath).then(() => {
 				util.message("安装成功");
 			}, err => {
 				util.message("安装失败");
@@ -72,7 +72,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 		} else {
 			onCancelClick();
 			kenrobot.postMessage("app:showItemInFolder", versionPath);
-		}	
+		}
 	}
 
 	function onClosing() {

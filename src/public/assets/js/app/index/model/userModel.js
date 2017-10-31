@@ -19,7 +19,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 
 		var key = localStorage.userKey;
 		if(!key) {
-			setTimeout(_ => {
+			setTimeout(() => {
 				promise.reject()
 			}, 10);
 
@@ -77,7 +77,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		userInfo = null;
 		localStorage.removeItem("userKey");
 		kenrobot.postMessage("app:removeToken");
-		kenrobot.postMessage("app:request", config.url.logout).then(_ => {
+		kenrobot.postMessage("app:request", config.url.logout).then(() => {
 			promise.resolve();
 		}, err => {
 			promise.reject(err);

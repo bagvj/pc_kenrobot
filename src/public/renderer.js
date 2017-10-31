@@ -5,7 +5,6 @@
 	module.paths.push(isDev ? path.resolve('app', 'node_modules') : path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'))
 	
 	const {ipcRenderer} = require('electron')
-	const is = require('electron-is')
 	const Q = require('q')
 
 	var registeredEvents = []

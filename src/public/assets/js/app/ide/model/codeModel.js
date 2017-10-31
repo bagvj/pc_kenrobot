@@ -1,7 +1,7 @@
 define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace/theme-default', 'vendor/ace/theme-black', 'vendor/ace/theme-white', 'vendor/ace/mode-arduino', 'vendor/ace/snippets/text', 'vendor/ace/snippets/arduino', 'vendor/ace/ext-language_tools'], function(util, emitor, beautify) {
 	var editor;
 	var codeTemplate = '/**\n * copyright(C) uper.cc\n * FileName: {{name}}.ino\n * Author: {{author}}\n * Create: {{created_at}}\n * Modify: {{updated_at}}\n */\nINCLUDE_CODE{{global}}\nvoid setup()\n{\n    {{setup}}\n}\n\nvoid loop()\n{\n    {{loop}}\n}';
-	
+
 	function init(container) {
 		editor = ace.edit(container);
 		editor.setOptions({
@@ -20,28 +20,28 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 				win: "Ctrl-S",
 				mac: "Command-S"
 			},
-			exec: _ => emitor.trigger("project", "save"),
+			exec: () => emitor.trigger("project", "save"),
 		}, {
 			name: "saveAsProject",
 			bindKey: {
 				win: "Ctrl-Shift-S",
 				mac: "Command-Shift-S"
 			},
-			exec: _ => emitor.trigger('project', 'save', true),
+			exec: () => emitor.trigger('project', 'save', true),
 		}, {
 			name: "openProject",
 			bindKey: {
 				win: "Ctrl-O",
 				mac: "Command-O"
 			},
-			exec: _ => emitor.trigger("project", "open"),
+			exec: () => emitor.trigger("project", "open"),
 		}, {
 			name: "newProject",
 			bindKey: {
 				win: "Ctrl-N",
 				mac: "Command-N"
 			},
-			exec: _ => emitor.trigger("project", "new"),
+			exec: () => emitor.trigger("project", "new"),
 		}, {
 			name: "formatCode",
 			bindKey: {

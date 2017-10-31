@@ -74,15 +74,32 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var codeInfo = softwareModel.getCode();
 
 		var includeCode = [];
+		var constCode = '';
 		var varCode = '';
 		var setupCode = '';
 		var tempCode;
 		var code;
 
+		code = hardwareData.board.code
+		if(code) {
+			if (code.include) {
+				includeCode = includeCode.concat(code.include.split('\n'));
+			}
+
+			if (code.var) {
+				varCode += code.var;
+			}
+
+			if (code.setup) {
+				setupCode += code.setup;
+			}
+		}
+
 		var nameReg = new RegExp('{NAME}', 'g');
-		hardwareData.components.sort(function(a, b) {
+		var components = hardwareData.components.sort(function(a, b) {
 			return a.name.localeCompare(b.name);
-		}).forEach(function(componentData) {
+		});
+		components.forEach(function(componentData) {
 			code = componentData.code;
 			if (code.include) {
 				includeCode = includeCode.concat(code.include.split('\n'));
@@ -141,12 +158,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				setupCode += tempCode;
 			}
 		});
+		_.uniqBy(components, 'name').filter(componentData => componentData.code.const).forEach(componentData => {
+			constCode += componentData.code.const;
+		});
 		includeCode = includeCode.sort().reduce(function(result, line) {
 			(result.length == 0 || result[result.length - 1] != line) && result.push(line);
 			return result;
 		}, []).join('\n');
 
 		codeInfo.include = includeCode;
+		codeInfo.const = constCode;
 		codeInfo.global = varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
 
@@ -167,6 +188,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			var block = softwareModel.createBlock(blockData.name, true);
 			var li = $('<li>').data("filter", blockData.tags.concat());
 			blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
+			blockData.board && li.data("board", blockData.board);
 			blockList.append(li.append(block.dom));
 		});
 
@@ -210,7 +232,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		    }
 		});
 
-		hardwareData.components.forEach(function(componentData) {
+		hardwareData.components.forEach(componentData => {
 			modules.indexOf(componentData.type) < 0 && modules.push(componentData.type);
 			groupName = componentData.type + "s";
 			group = groups[groupName] || (groups[groupName] = []);
@@ -224,7 +246,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			name: "raw",
 			group: [],
 		};
-		
+
 		if (hardwareData.components.length > 0) {
 			var hardwareVariable = {
 				name: "hardwareVariable",
@@ -286,6 +308,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 		modules.push(raw.name);
 		groups[raw.name + "s"] = raw.group.concat(pins);
+
+		hardwareData.board.module && modules.push(hardwareData.board.module);
 
 		softwareModel.updateDynamicBlocks(groups);
 
@@ -493,7 +517,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && filters.indexOf("always") < 0) {
+			if (filter == "module" && filters.indexOf("always") < 0 && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
 				return;
 			}
 
@@ -535,7 +559,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && filters.indexOf("always") < 0) {
+			if (filter == "module" && filters.indexOf("always") < 0 && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
 				//block是模块，但没有相应硬件
 				return;
 			}

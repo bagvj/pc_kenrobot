@@ -28,7 +28,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 	}
 
 	function afterShow() {
-		setTimeout(_ => dialogWin.find(".input").focus(), 100);
+		setTimeout(() => dialogWin.find(".input").focus(), 100);
 	}
 
 	function onCancel() {

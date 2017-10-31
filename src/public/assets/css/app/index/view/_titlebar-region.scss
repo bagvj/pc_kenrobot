@@ -179,7 +179,7 @@
 			&:last-child {
 				margin-right: 0;
 			}
-			
+
 			& > .placeholder {
 				text-align: center;
 				line-height: 50px;
@@ -210,7 +210,7 @@
 
 		.wrap {
 			height: 50px;
-			
+
 			&.login:hover {
 				.login-menu {
 					display: block;
@@ -237,7 +237,7 @@
 					padding-right: 18px;
 					line-height: 36px;
 					position: relative;
-				
+
 					&:after {
 						content: '';
 						position: absolute;
@@ -270,7 +270,7 @@
 						position: absolute;
 						border: 3px solid transparent;
 						border-top-color: white;
-					}			
+					}
 
 					li {
 						text-align: center;

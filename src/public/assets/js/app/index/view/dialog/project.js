@@ -6,8 +6,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	var projectTypes = {
 		edu: "教育版",
 		ide: "开发版",
-		scratch2: "scratch 2",
-		scratch3: "scratch 3",
 	};
 
 	function init() {
@@ -16,7 +14,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 
 		projectList = dialogWin.find(".list > ul");
 		projectList.parent().perfectScrollbar();
-		
+
 
 		kenrobot.on("project", "show", onShow, {canReset: false});
 	}
@@ -32,7 +30,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onClosed() {
 		projectList.empty();
 		projectList.parent().perfectScrollbar("update");
-		
+
 		toolbar.find(".x-checkbox").prop("checked", false);
 	}
 
@@ -87,10 +85,10 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var name = li.data("name");
 		var type = li.data("type");
 
-		setTimeout(_ => {
+		setTimeout(() => {
 			kenrobot.trigger("project", "open-by", name, type);
 		}, 500);
-		
+
 		dialogWin.find(".x-dialog-close").trigger("click");
 
 		return false;
