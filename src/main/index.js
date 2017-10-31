@@ -20,11 +20,7 @@ const Q = require('q')
 const fs = require('fs-extra')
 const minimist = require('minimist') //命令行参数解析
 const hasha = require('hasha') //计算hash
-const express = require('express')
 const _ = require('lodash')
-
-const httpPort = 8778
-const baseUrl = `http://localhost:${httpPort}`
 
 var args = minimist(process.argv.slice(1)) //命令行参数
 
@@ -46,7 +42,6 @@ function init() {
 	})
 
 	initLog()
-	initServer()
 
 	if(app.makeSingleInstance((commandLine, workingDirectory) => {
 		if(mainWindow) {
@@ -74,13 +69,6 @@ function initLog() {
 	}
 }
 
-function initServer() {
-	var httpRoot = path.join(__dirname, "..")
-	var http = express()
-	http.use('/', express.static(path.join(httpRoot, "public")))
-	http.listen(httpPort)
-}
-
 /**
  * 监听事件
  */
@@ -98,7 +86,7 @@ function listenEvents() {
  */
 function listenMessages() {
 	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
-	listenMessage("getBaseUrl", () => util.resolvePromise(baseUrl))
+	listenMessage("getBaseUrl", () => util.resolvePromise("."))
 
 	listenMessage("loadSetting", () => loadSetting())
 	listenMessage("saveSetting", setting => saveSetting(setting))
@@ -231,7 +219,7 @@ function createWindow() {
 	mainWindow.webContents.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
 	mainWindow.webContents.session.on('will-download', onDownload)
 
-	mainWindow.loadURL(baseUrl)
+	mainWindow.loadURL(`file://${__dirname}/../public/index.html`)
 	mainWindow.focus()
 }
 

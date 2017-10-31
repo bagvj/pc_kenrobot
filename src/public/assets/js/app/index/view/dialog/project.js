@@ -6,8 +6,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	var projectTypes = {
 		edu: "教育版",
 		ide: "开发版",
-		scratch2: "scratch 2",
-		scratch3: "scratch 3",
 	};
 
 	function init() {

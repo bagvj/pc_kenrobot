@@ -252,12 +252,6 @@ function zip(projectsDir, name, type) {
 			zip.file(`${relativePath}/${name}.ino`, fs.createReadStream(path.join(projectsDir, `${relativePath}/${name}.ino`)))
 			zip.file(`${relativePath}/project.json`, fs.createReadStream(path.join(projectsDir, `${relativePath}/project.json`)))
 			break
-		case "scratch2":
-			zip.file(relativePath, fs.createReadStream(path.join(projectsDir, relativePath)))
-			break
-		case "scratch3":
-			zip.file(relativePath, fs.createReadStream(path.join(projectsDir, relativePath)))
-			break
 	}
 
 	var zipPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.zip`)
@@ -515,12 +509,6 @@ function getProjectRelativePath(name, type) {
 		case "ide":
 			relativePath = name
 			break
-		case "scratch2":
-			relativePath = `${name}.sb2`
-			break
-		case "scratch3":
-			relativePath = `${name}.json`
-			break
 	}
 
 	return relativePath
@@ -589,12 +577,6 @@ function newSaveAs(name, type, data, savePath) {
 	} else {
 		var options = {}
 		options.defaultPath = path.join(util.getAppPath("documents"), getProjectRelativePath(name, type))
-		if(type == "scratch2") {
-			options.filters = [{name: "sb2", extensions: ["sb2"]}]
-		} else if(type == "scratch3") {
-			options.filters = [{name: "json", extensions: ["json"]}]
-		}
-
 		util.showSaveDialog(options).then(savePath => {
 			doSave(savePath)
 		}, err => {
@@ -618,10 +600,6 @@ function newDoSave(name, type, data, savePath) {
 			util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
 			util.writeJson(path.join(savePath, 'project.json'), data),
 		])
-	} else if(type == "scratch2") {
-		return util.writeFile(savePath, new Buffer(data, "base64"))
-	} else if(type == "scratch3") {
-		return util.writeFile(savePath, data)
 	} else {
 		return util.rejectPromise()
 	}
@@ -664,12 +642,6 @@ function newOpen(type, name) {
 		} else if(type == "ide") {
 			options.properties =  ["openFile"]
 			options.filters = [{name: "ino", extensions: ["ino"]}]
-		} else if(type == "scratch2") {
-			options.properties =  ["openFile"]
-			options.filters = [{name: "sb2", extensions: ["sb2"]}]
-		} else if(type == "scratch3") {
-			options.properties =  ["openFile"]
-			options.filters = [{name: "json", extensions: ["json"]}]
 		}
 
 		util.showOpenDialog(options).then(openPath => {
@@ -720,34 +692,6 @@ function newDoOpen(openPath, type) {
 					path: dirname,
 				},
 				data: data,
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
-	} else if(type == "scratch2") {
-		util.readFile(openPath, "base64").then(data => {
-			deferred.resolve({
-				extra: {
-					name: path.basename(openPath, path.extname(openPath)),
-					type: type,
-					path: openPath,
-				},
-				data: data
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
-	} else if(type == "scratch3") {
-		util.readFile(openPath).then(data => {
-			deferred.resolve({
-				extra: {
-					name: path.basename(openPath, path.extname(openPath)),
-					type: type,
-					path: openPath,
-				},
-				data: data
 			})
 		}, err => {
 			err && log.error(err)
