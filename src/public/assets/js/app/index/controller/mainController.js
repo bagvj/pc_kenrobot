@@ -110,22 +110,22 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onProjectSync() {
-		if(inSync || !kenrobot.getUserInfo()) {
-			return;
-		}
+		// if(inSync || !kenrobot.getUserInfo()) {
+		// 	return;
+		// }
 
-		inSync = true;
-		util.message("项目开始同步");
-		kenrobot.postMessage("app:projectSync").then(() => {
-			inSync = false;
-			util.message("项目同步成功");
-		}, err => {
-			inSync = false;
-			util.message({
-				text: "项目同步失败",
-				type: "error",
-			});
-		});
+		// inSync = true;
+		// util.message("项目开始同步");
+		// kenrobot.postMessage("app:projectSync").then(() => {
+		// 	inSync = false;
+		// 	util.message("项目同步成功");
+		// }, err => {
+		// 	inSync = false;
+		// 	util.message({
+		// 		text: "项目同步失败",
+		// 		type: "error",
+		// 	});
+		// });
 	}
 
 	function onMenuAction(action, extra) {
