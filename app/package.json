@@ -24,7 +24,7 @@
     "minimist": "^1.2.0",
     "node-fetch": "^1.7.3",
     "q": "^1.5.1",
-    "serialport": "^5.0.0",
+    "serialport": "^6.0.4",
     "sudo-prompt": "^7.1.1"
   }
 }
