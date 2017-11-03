@@ -13,6 +13,7 @@ const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
 const minifyHtml = require("gulp-minify-html") //html压缩
 const sftp = require('gulp-sftp') //
 const Q = require('q')
+
 const fs = require('fs-extra')
 const globby = require('globby')
 const isutf8 = require('isutf8')

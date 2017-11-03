@@ -1045,12 +1045,7 @@ define(['vendor/lodash'], function($1) {
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
-				"acceptType": {
-					"type": "fromDynamicSelect",
-					"id": "NAME",
-					"pointer": true,
-					"options": "vars"
-				},
+				"acceptType": "all",
 				"name": "mWxqPh"
 			}],
 			"content": [{
@@ -1076,12 +1071,7 @@ define(['vendor/lodash'], function($1) {
 			}, {
 				"blockInputId": "VALUE",
 				"type": "block-input",
-				"acceptType": {
-					"type": "fromDynamicSelect",
-					"id": "NAME",
-					"pointer": true,
-					"options": "vars"
-				},
+				"acceptType": "all",
 				"name": "mWxqPh"
 			}],
 			"code": "{NAME}[{ITERATOR}] = {VALUE};",
@@ -7565,6 +7555,34 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module", "advanced"],
 				"module": "serial",
 				"uid": "lBwj1v"
+			}, {
+				"type": "statement-input",
+				"name": "serialIfAvailable",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-root",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "如果串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "可用"
+				}],
+				"code": "if({SERIAL}.available()){{STATEMENTS}}",
+				"tags": ["module"],
+				"module": "serial",
+				"uid": "9T7K8X"
 			}, {
 				"type": "statement",
 				"name": "serialWrite",
