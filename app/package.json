@@ -2,7 +2,7 @@
   "private": true,
   "main": "main/index.js",
   "name": "Kenrobot",
-  "version": "0.5.10",
+  "version": "0.5.11",
   "description": "啃萝卜平台",
   "author": {
     "name": "Kenrobot",
