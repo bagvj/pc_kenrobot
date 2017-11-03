@@ -110,26 +110,22 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onProjectSync() {
-		if(kenrobot.viewType != "scratch2" && kenrobot.viewType != "scratch3") {
-			return;
-		}
+		// if(inSync || !kenrobot.getUserInfo()) {
+		// 	return;
+		// }
 
-		if(inSync || !kenrobot.getUserInfo()) {
-			return;
-		}
-
-		inSync = true;
-		util.message("项目开始同步");
-		kenrobot.postMessage("app:projectSync").then(() => {
-			inSync = false;
-			util.message("项目同步成功");
-		}, err => {
-			inSync = false;
-			util.message({
-				text: "项目同步失败",
-				type: "error",
-			});
-		});
+		// inSync = true;
+		// util.message("项目开始同步");
+		// kenrobot.postMessage("app:projectSync").then(() => {
+		// 	inSync = false;
+		// 	util.message("项目同步成功");
+		// }, err => {
+		// 	inSync = false;
+		// 	util.message({
+		// 		text: "项目同步失败",
+		// 		type: "error",
+		// 	});
+		// });
 	}
 
 	function onMenuAction(action, extra) {
@@ -222,7 +218,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.reset();
 
 		kenrobot.trigger("app", "will-leave");
-		iframe.src = `${baseUrl}/${type}`;
+		iframe.src = `${baseUrl}/${type}/index.html`;
 		iframe.addEventListener("load", () => {
 			mousetrap = Mousetrap(iframe.contentDocument);
 		}, false);
@@ -240,7 +236,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			text: "保存项目后再退出？",
 			cancelLabel: "直接退出",
 			confirmLabel: "保存后退出",
-			onCancel: () => setTimeout(() => kenrobot.postMessage("app:exit"), 400),
+			onCancel: value => !value && setTimeout(() => kenrobot.postMessage("app:exit"), 400),
 			onConfirm: () => kenrobot.trigger("project", "save", null, true),
 		});
 	}

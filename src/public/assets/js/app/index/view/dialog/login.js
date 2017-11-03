@@ -82,6 +82,10 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			tab.removeClass("left-fadeIn left-fadeOut right-fadeOut").addClass("right-fadeIn").addClass("active");
 			currentTab.removeClass("active left-fadeIn left-fadeOut right-fadeIn").addClass("right-fadeOut");
 		}
+		tabs.delay(300, "clear-class").queue("clear-class", function() {
+			tabs.removeClass("left-fadeIn right-fadeIn left-fadeOut right-fadeOut");
+		});
+		tabs.dequeue("clear-class");
 	}
 
 	function reset(name) {

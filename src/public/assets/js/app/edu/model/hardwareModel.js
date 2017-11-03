@@ -68,13 +68,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			},
 			MaxConnections: 1
 		});
-		// jsPlumbInstance.registerConnectionTypes({
-		// 	'selected': {
-		// 		paintStyle: {
-		// 			strokeStyle: "green"
-		// 		}
-		// 	}
-		// });
+
 		jsPlumbInstance.registerEndpointTypes({
 			'selected': {
 				paintStyle: {
@@ -234,7 +228,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			var epBoard = jsPlumbInstance.addEndpoint(boardDom, {
 				anchor: [pin.x, pin.y],
 				endpoint: [shape, sizeOptions],
-				overlays: [
+				overlays: (pin.overlay && pin.label) ? [
 					['Label', {
 						label: 'Pin ' + pin.label,
 						labelStyle: {
@@ -243,16 +237,17 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 						},
 						location: pin.overlay,
 					}]
-				],
+				] : [],
 				parameters: {
 					pin: clone(pin)
 				},
-				cssClass: 'board-endpoint pin-' + pin.name,
+				cssClass: `board-endpoint${pin.hide ? ' hidden-endpoint': ''}`,
 				isTarget: true,
 				isSource: false,
 				scope: pin.tags.join(" "),
 				uuid: pin.uid
 			});
+			pin.visible === false && (epBoard.setVisible(false));
 
 			epBoard.unbind('click');
 			epBoard.bind('click', onBoardEndpointClick);
@@ -455,34 +450,9 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		onContainerEvent("remove-all-components");
 	};
 
-	// function removeSelectedConnection() {
-	// 	jsPlumbInstance.getAllConnections().forEach(function(connection) {
-	// 		if (connection.hasType('selected')) {
-	// 			connection.endpoints.forEach(function(endpoint) {
-	// 				endpoint.removeType('selected');
-	// 				endpoint.removeClass('selected');
-	// 			});
-	// 			jsPlumbInstance.detach(connection);
-	// 		}
-	// 	});
-	// };
-
-	// function unselectAllConnections() {
-	// 	jsPlumbInstance.getAllConnections().forEach(function(connection) {
-	// 		connection.removeType('selected');
-	// 		connection.canvas.classList.remove('selected');
-	// 		connection.endpoints.forEach(function(endpoint) {
-	// 			endpoint.removeType('selected');
-	// 			endpoint.canvas.classList.remove('selected');
-	// 		});
-	// 	});
-	// }
-
 	function onComponentMouseDown(e) {
 		var componentDom = this;
 		dragComponentDom = componentDom;
-
-		// unselectAllConnections();
 
 		[].forEach.call(container.querySelectorAll('.component'), function(com) {
 			com.classList.remove('selected');
@@ -497,7 +467,6 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			source: componentDom
 		}).addClass('selected');
 
-		// getConnections(componentDom).forEach(selectConnection);
 		onContainerEvent("select-component", {
 			uid: componentDom.dataset.uid
 		});
@@ -564,20 +533,19 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 		boardData.tuples.forEach(tuple => {
 			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-			if(tupleTag) {
-				if(tuple.members.includes(targetPin.name)) {
-					tuple.members.forEach(name => {
-						if(name != targetPin.name) {
-							var pin = boardData.pins.find(p => p.name == name);
-							pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
-						}
-					});
-
-					targetPin.tupleValue = tupleTag.value;
-
-					return true;
-				}
+			if(!tupleTag || !tuple.members.includes(targetPin.name)) {
+				return
 			}
+			tuple.members.forEach(name => {
+				if(name != targetPin.name) {
+					var pin = boardData.pins.find(p => p.name == name);
+					pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
+				}
+			});
+
+			targetPin.tupleValue = tupleTag.value;
+
+			return true;
 		});
 		// 兼容代码，board里的tuples未来考虑移除
 	}
@@ -601,15 +569,24 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		var usedPinNames = targetPin.tuple ? targetPin.members : [targetPin.name];
 		usedPinNames.forEach(name => {
 			var pin = boardData.pins.find(p => p.name == name);
-			pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
+			if(!pin) {
+				return
+			}
+			var ep = jsPlumbInstance.getEndpoint(pin.uid);
+			ep && ep.setEnabled(true);
 		});
 		usedPinNames.forEach(name => {
 			boardData.pins.filter(pin => pin.tuple && pin.members.includes(name)).forEach(pin => {
 				var value = _.every(pin.members, n => {
 					var pp = boardData.pins.find(p => p.name == n);
-					return !pp || jsPlumbInstance.getEndpoint(pp.uid).isEnabled();
+					if(!pp) {
+						return true;
+					}
+					var ep = jsPlumbInstance.getEndpoint(pp.uid);
+					return ep && ep.isEnabled();
 				});
-				jsPlumbInstance.getEndpoint(pin.uid).setEnabled(value);
+				var ep = jsPlumbInstance.getEndpoint(pin.uid);
+				ep && ep.setEnabled(value);
 			});
 		});
 
@@ -623,18 +600,21 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 		boardData.tuples.forEach(tuple => {
 			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-			if(tupleTag) {
-				if(tuple.members.includes(targetPin.name)) {
-					tuple.members.forEach(name => {
-						var pin = boardData.pins.find(p => p.name == name);
-						pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(true);
-					});
-
-					delete targetPin.tupleValue;
-
-					return true;
-				}
+			if(!tupleTag || !tuple.members.includes(targetPin.name)) {
+				return
 			}
+
+			tuple.members.forEach(name => {
+				var pin = boardData.pins.find(p => p.name == name);
+				if(!pin) {
+					return
+				}
+				var ep = jsPlumbInstance.getEndpoint(pin.uid);
+				ep && ep.setEnabled(true);
+			});
+
+			delete targetPin.tupleValue;
+			return true;
 		});
 		// 兼容代码，board里的tuples未来考虑移除
 	}
@@ -666,13 +646,6 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 	function onComponentEndpointClick(endpoint) {
 		endpoint.canvas.classList.add('selected');
-		// unselectAllConnections();
-
-		// if (endpoint.hasType('selected')) {
-		// 	return false;
-		// }
-
-		// endpoint.connections.forEach(selectConnection);
 	}
 
 	function selectConnection(connection) {
@@ -765,8 +738,5 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		disconnectComponent: disconnectComponent,
 		disconnectAllComponents: disconnectAllComponents,
 		removeAllComponents: removeAllComponents,
-
-		// removeSelectedConnection: removeSelectedConnection,
-		// unselectAllConnections: unselectAllConnections,
 	}
 });

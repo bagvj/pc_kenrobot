@@ -75,8 +75,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 		var includeCode = [];
 		var constCode = '';
+		var funcDeclareCode = '';
 		var varCode = '';
 		var setupCode = '';
+		var funcImplementCode = '';
 		var tempCode;
 		var code;
 
@@ -144,6 +146,15 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				});
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
+			if(code.funcDeclare) {
+				tempCode = code.funcDeclare.replace(nameReg, componentData.varName);
+				funcDeclareCode += tempCode;
+			}
+			if(code.funcImplement) {
+				tempCode = code.funcImplement.replace(nameReg, componentData.varName);
+				funcImplementCode += tempCode;
+			}
+
 			if (code.setup) {
 				tempCode = code.setup.replace(nameReg, componentData.varName);
 				for (var name in pins) {
@@ -168,8 +179,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 		codeInfo.include = includeCode;
 		codeInfo.const = constCode;
-		codeInfo.global = varCode + codeInfo.global;
+		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
+		codeInfo.loop = codeInfo.loop;
+		codeInfo.end = funcImplementCode;
 
 		return codeInfo;
 	}

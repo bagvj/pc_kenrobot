@@ -501,7 +501,7 @@
 
 		&.simple {
 			width: 40px;
-			
+
 			& > i {
 				float: none;
 				margin-left: auto;
@@ -519,7 +519,7 @@
 		color: white;
 		background-color: #888694;
 		border: 1px solid #646271;
-		
+
 		&:hover {
 			background-color: #646271;
 			border-color: #646271;
@@ -536,7 +536,7 @@
 		color: white;
 		background-color: #888694;
 		border: 1px solid #646271;
-		
+
 		&:hover {
 			background-color: #646271;
 			border-color: #646271;
@@ -549,7 +549,7 @@
 		border: 1px solid #646271;
 		position: relative;
 		overflow: hidden;
-		
+
 		&:hover {
 			background-color: #646271;
 			border-color: #646271;
@@ -654,7 +654,7 @@
 		opacity: 0;
 		transition: opacity 80ms ease-in;
 		z-index: 10;
-		padding: 3px 5px;		
+		padding: 3px 5px;
 		background-color: #fdbf2d;
 		pointer-events: none;
 
@@ -664,12 +664,20 @@
 	}
 
 	.jsplumb-endpoint {
-		z-index: 1;
+		z-index: 9;
 		cursor: pointer;
 		border-radius: 10px;
 
 		&.board-endpoint {
 			opacity: 0;
+		}
+
+		&.hidden-endpoint {
+			pointer-events: none;
+
+			& > svg {
+				pointer-events: none;
+			}
 		}
 
 		&.jsplumb-hover,
@@ -680,6 +688,11 @@
 
 		&.drag-active {
 			opacity: 0.6;
+			pointer-events: auto;
+
+			& > svg {
+				pointer-events: auto;
+			}
 		}
 
 		&.drop-hover {
@@ -694,7 +707,7 @@
 			opacity: 1;
 			background-color: #f1c933;
 		}
-	}	
+	}
 }
 
 .component-drag-layer {
