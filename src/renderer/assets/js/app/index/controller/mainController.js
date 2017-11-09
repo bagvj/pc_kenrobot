@@ -68,7 +68,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				kenrobot.trigger("unpack", "hide");
 
 				setTimeout(() => {
-					onSwitch("edu");
+					onSwitch("default");
 
 					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 					setTimeout(() => {
@@ -215,17 +215,17 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		});
 	}
 
-	function onSwitch(type) {
+	function onSwitch(name) {
 		kenrobot.reset();
 
 		kenrobot.trigger("app", "will-leave");
-		iframe.src = `${baseUrl}/${type}/index.html`;
+		iframe.src = `${baseUrl}/${name}/index.html`;
 		iframe.addEventListener("load", () => {
 			mousetrap = Mousetrap(iframe.contentDocument);
 		}, false);
 		pace.restart();
 
-		kenrobot.viewType = type;
+		kenrobot.viewName = name;
 	}
 
 	function onFullscreenChange(fullscreen) {

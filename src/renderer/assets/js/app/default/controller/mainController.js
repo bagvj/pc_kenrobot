@@ -13,11 +13,11 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			var exampleMenuItem = menu.find(menuItem => menuItem.id && menuItem.id == "example");
 			exampleMenuItem.menu = exampleMenu;
 
-			kenrobot.trigger("app-menu", "load", menu, "edu");
+			kenrobot.trigger("app-menu", "load", menu, "default");
 		});
 
 		kenrobot.postMessage("app:loadSetting").then(setting => {
-			var specSetting = setting[kenrobot.viewType];
+			var specSetting = setting[kenrobot.viewName];
 			for(var name in specSetting) {
 				emitor.trigger("setting", "change", name, specSetting[name]);
 			}

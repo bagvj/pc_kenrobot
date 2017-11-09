@@ -3,11 +3,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	var toolbar;
 	var projectList;
 
-	var projectTypes = {
-		edu: "教育版",
-		ide: "开发版",
-	};
-
 	function init() {
 		dialogWin = $('.project-dialog');
 		toolbar = dialogWin.find(".toolbar").on("click", ".x-checkbox-label", onSelectAll).on("click", ".new-project", onNewProject).on("click", ".delete-project", onDeleteProject);
@@ -35,8 +30,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function update() {
-		var viewType = kenrobot.viewType
-		kenrobot.postMessage("app:projectList", viewType).then(list => {
+		kenrobot.postMessage("app:projectList", "edu").then(list => {
 			list = _.sortBy(list, ["type", "modify_time"]);
 			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
@@ -44,7 +38,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				var li = $(`<li>
 					<input class="x-checkbox" type="checkbox" id="project-${uid}" /><label class="x-checkbox-label" for="project-${uid}"></label>
 					<span class="title-wrap"><span class="title ellipsis" title="${projectData.name}">${projectData.name}</span></span>
-					<span class="type">${formatProjectType(projectData.type)}</span>
 					<span class="modify-time">${time}</span>
 					<span class="actions"><i class="kenrobot ken-clear" data-action="delete"></i></span>
 				</li>`);
@@ -169,10 +162,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		});
 
 		deletedLi.remove();
-	}
-
-	function formatProjectType(type) {
-		return projectTypes[type] || "未知";
 	}
 
 	return {

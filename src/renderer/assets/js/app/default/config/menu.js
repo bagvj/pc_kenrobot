@@ -3,21 +3,21 @@ define(function() {
 		id: "file",
 		placeholder: "文件",
 		menu: [{
-			text: "新建",
+			text: "新建项目",
 			action: "new-project",
 			shortcut: {
 				key: ["ctrl+n", "command+n"],
 				text: "Ctrl+N",
 			}
 		}, "_", {
-			text: "打开",
+			text: "打开项目",
 			action: "open-project",
 			shortcut: {
 				key: ["ctrl+o", "command+o"],
 				text: "Ctrl+O",
 			}
 		}, {
-			text: "保存",
+			text: "保存项目",
 			action: "save-project",
 			shortcut: {
 				key: ["ctrl+s", "command+s"],
@@ -67,11 +67,8 @@ define(function() {
 		id: "options",
 		placeholder: "选项",
 		menu: [{
-			id: "boards",
-			placeholder: "开发板",
-			arrow: true,
-			menuCls: "boards",
-			menuWidth: 300,
+			text: "开发板管理",
+			action: "show-board-dialog",
 		}, "_", {
 			id: "fullscreen",
 			text: "全屏",
@@ -107,24 +104,6 @@ define(function() {
 		}, {
 			text: "关于啃萝卜",
 			action: "about-kenrobot",
-		}]
-	}, {
-		id: "version",
-		placeholder: "版本",
-		menu: [{
-			text: "教育版",
-			action: "switch",
-			cls: "check",
-			extra: {
-				type: "edu"
-			},
-		}, {
-			text: "开发版",
-			action: "switch",
-			cls: "check",
-			extra: {
-				type: "ide"
-			},
 		}]
 	}];
 

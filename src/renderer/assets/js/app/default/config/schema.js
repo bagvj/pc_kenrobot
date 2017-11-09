@@ -7589,7 +7589,7 @@ define(['vendor/lodash'], function($1) {
 					"options": "serials"
 				}, {
 					"type": "text",
-					"value": "可用"
+					"value": "有数据可读"
 				}],
 				"code": "if({SERIAL}.available()){{STATEMENTS}}",
 				"tags": ["module"],

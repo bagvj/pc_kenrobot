@@ -20,11 +20,11 @@ require.config({
 			deps: ['./ace'],
 		},
 		"vendor/ace/ext-language_tools": {
-			deps: ['./ace', "./mode-arduino", "./snippets/text", "./snippets/arduino", "./theme-default", "./theme-black", "./theme-white"],
+			deps: ['./ace', "./mode-arduino", "./snippets/text", "./snippets/arduino", "./theme-default", "./theme-black", './theme-white'],
 		},
 	},
 });
 
-require(['./app/ide/index'], function(app) {
+require(['./app/default/index'], function(app) {
 	app.init();
 });

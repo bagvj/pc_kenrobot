@@ -8,7 +8,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			.on('click', '.login-region .login-menu > ul > li', onLoginMenuClick)
 			.on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region);
-		
+
 		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate);
 		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false});
 	}
@@ -51,7 +51,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			util.toggleActive(version);
 		}
 	}
- 
+
 	function genMenu(menu) {
 		var menuItems = menu.map(menuItem => {
 			if(menuItem == "_") {
@@ -118,6 +118,8 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		var action = $(this).data("action");
 		switch(action) {
 			case "setting":
+			case "project-manager":
+			case "project-sync":
 				util.message("敬请期待");
 				break;
 			case "logout":
