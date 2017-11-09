@@ -1215,6 +1215,18 @@ define(['vendor/lodash'], function($1) {
 					"label": "布尔",
 					"value": "bool",
 					"type": "bool"
+				}, {
+					"label": "uint8_t",
+					"value": "uint8_t",
+					"type": "uint8_t"
+				}, {
+					"label": "uint16_t",
+					"value": "uint16_t",
+					"type": "uint16_t"
+				}, {
+					"label": "uint32_t",
+					"value": "uint32_t",
+					"type": "uint32_t"
 				}]
 			}, {
 				"type": "text",

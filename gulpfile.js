@@ -1,7 +1,8 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.27.3 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.26.2 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch jszip lodash serialport@6.0.4
+ * npm install --global gulp node-gyp electron-rebuild electron@1.6.15
  */
 
 const gulp = require('gulp') //基础库
@@ -220,6 +221,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var arch
 	var target
 	var ext
+	var packageConfig = require('./app/package')
 
 	var targets
 	if (platform == "linux") {
@@ -346,8 +348,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 				return defer.promise
 			}
 
-			var packageConfig = require('./app/package')
-			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}-standalone`
+			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}-standalone`
 			var command = `cd "${path.resolve(path.dirname(dist))}" && "${path7za}" a ${name}.7z ${path.basename(dist)}/*`
 			child_process.exec(command, (err, stdout, stderr) => {
 				if (err) {
@@ -385,11 +386,14 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			targets: targets,
 			config: {
 				extraFiles: extraFiles,
+			},
+			appInfo: {
+				buildNumber: packageConfig.buildNumber,
+				companyName: packageConfig.companyName,
 			}
 		}).then(result => {
 			var output = result[0]
-			var packageConfig = require('./app/package')
-			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
+			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
 			var file = path.join(path.dirname(output), name)
 
 			fs.move(output, file, err => {
