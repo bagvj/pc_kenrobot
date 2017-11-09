@@ -62,7 +62,7 @@
     .x-confirm-title {
         font-size: 18px;
         line-height: 18px;
-        color: #666; 
+        color: #666;
     }
 
     .x-confirm-content {
@@ -75,11 +75,13 @@
 
     .x-confirm-btns {
         .cancel {
+            padding-left: 16px;
+            padding-right: 16px;
             float: right;
             background-color: #ddd;
             border: 1px solid #ccc;
             border-radius: 3px;
-            width: 80px;
+            min-width: 80px;
             height: 36px;
             color: #666;
             font-size: 14px;
@@ -91,12 +93,14 @@
         }
 
         .confirm {
+            padding-left: 16px;
+            padding-right: 16px;
             margin-left: 18px;
             float: right;
             background-color: #20a0ff;
             border: 1px solid #0088ff;
             border-radius: 3px;
-            width: 80px;
+            min-width: 80px;
             height: 36px;
             font-size: 14px;
             color: white;

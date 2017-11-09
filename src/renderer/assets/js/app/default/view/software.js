@@ -39,9 +39,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			.on('app', 'activeTab', onActiveTab)
 			.on("ui", "lock", onUILock)
 			.on('progress', "check", onCheckProgress)
-			.on("progress", "upload", onUploadProgress);
+			.on("progress", "upload", onUploadProgress)
+			.on("code", "changeMode", onCodeChangeMode);
 
-		kenrobot.on('monitor', 'close', onMonitorClose);
+		kenrobot.on('monitor', 'close', onMonitorClose).on("monitor", "toggle", onMonitorToggle);
 	}
 
 	function loadSchema(schema) {
@@ -335,6 +336,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	}
 
+	function onCodeChangeMode(mode) {
+		mode == "text" ? region.addClass("text-mode") : region.removeClass("text-mode");
+	}
+
 	function onBlockHoverOver(e) {
 		var sourceBlock = $(this);
 		var offset = sourceBlock.offset();
@@ -412,7 +417,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				toggleCode();
 				break;
 			case "show-monitor":
-				topRegion.find(".show-monitor").toggleClass("active");
 				kenrobot.trigger('monitor', 'toggle');
 				break;
 			case "save":
@@ -439,6 +443,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function onMonitorClose() {
 		topRegion.find(".show-monitor").removeClass("active");
+	}
+
+	function onMonitorToggle() {
+		topRegion.find(".show-monitor").toggleClass("active");
 	}
 
 	function onActiveTab(name) {

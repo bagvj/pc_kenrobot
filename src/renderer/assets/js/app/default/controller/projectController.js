@@ -26,8 +26,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		hardware.setData(projectData.hardware);
 		software.setData(projectData.software);
 		code.setData(projectData.code);
+		code.setMode(projectData.mode);
 
-		emitor.trigger("code", "start-refresh");
+		projectData.mode == "block" && emitor.trigger("code", "start-refresh");
 	}
 
 	function onAppStart() {
@@ -241,6 +242,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onCodeRefresh() {
+		if(code.getMode() != "block") {
+			return;
+		}
+
 		var hardwareBlockData = hardware.getBlockData();
 		var codeInfo = software.getCode(hardwareBlockData);
 
@@ -271,6 +276,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			hardware: hardware.getData(),
 			software: software.getData(),
 			code: code.getData(),
+			mode: code.getMode(),
 		};
 	}
 

@@ -52,6 +52,29 @@ $focus-color: #f1cb33;
 .tab-software {
 	display: flex;
 
+	&.text-mode {
+		.left-region {
+			display: none;
+		}
+
+		.center-region {
+			margin-left: 0;
+
+			.software-region {
+				display: none;
+			}
+
+			.code-region {
+				left: 0;
+				width: 100%;
+
+				.ace_cursor {
+					color: #979797;
+				}
+			}
+		}
+	}
+
 	.hover-button {
 		position: relative;
 		overflow: hidden;
@@ -108,10 +131,6 @@ $focus-color: #f1cb33;
 	}
 
 	.left-region {
-		// position: absolute;
-		// top: 0;
-		// left: 0;
-		// bottom: 0;
 		position: relative;
 		width: 300px;
 		flex-shrink: 0;
@@ -129,11 +148,6 @@ $focus-color: #f1cb33;
 	}
 
 	.center-region {
-		// position: absolute;
-		// top: 0;
-		// left: 305px;
-		// bottom: 0;
-		// right: 0;
 		position: relative;
 		margin-left: 5px;
 		flex: 1;
@@ -173,17 +187,31 @@ $focus-color: #f1cb33;
 			    }
 			}
 
+			&.enter-full {
+				@include animation('code-region-enter-full' 0.2s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+			}
+
+			&.leave-full {
+				@include animation('code-region-leave-full' 0.2s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+			}
+
 			.code-container {
 				height: 100%;
 				font-size: 13px;
 				line-height: 20px;
 			}
 
-			.copy {
+			.toolbar {
 				position: absolute;
 				top: 10px;
 				right: 10px;
-				display: block;
+				display: flex;
+				flex-direction: row-reverse;
+			}
+
+			.hover-button {
+				position: relative;
+				display: none;
 				width: 40px;
 				height: 40px;
 				border-radius: 5px;
@@ -192,6 +220,7 @@ $focus-color: #f1cb33;
 				line-height: 40px;
 				background-color: #20A0FF;
 				border-color: #298cd5;
+				margin-left: 10px;
 
 				&:hover {
 					background-color: #0078cf;
@@ -203,7 +232,6 @@ $focus-color: #f1cb33;
 					font-size: 24px;
 					margin-left: auto;
 					margin-right: auto;
-					// width: 24px;
 				}
 			}
 		}
@@ -213,10 +241,6 @@ $focus-color: #f1cb33;
 			width: 100%;
 			top: 0;
 			bottom: 0;
-			// display: flex;
-			// position: relative;
-			// flex-direction: column;
-			// height: 100%;
 
 			.top-region {
 				overflow: hidden;
@@ -226,9 +250,6 @@ $focus-color: #f1cb33;
 				left: 0;
 				right: 0;
 				padding-top: 20px;
-				// position: relative;
-			 //    margin-top: 20px;
-			 //    height: 40px;
 			}
 
 			.block-region {
@@ -238,8 +259,6 @@ $focus-color: #f1cb33;
 				left: 0;
 				right: 0;
 				padding: 20px;
-				// flex: 1;
-				// position: relative;
 			}
 		}
 	}
@@ -433,7 +452,6 @@ $focus-color: #f1cb33;
 				font-size: 24px;
 				margin-left: auto;
 				margin-right: auto;
-				// width: 24px;
 			}
 
 			.text-normal {

@@ -105,11 +105,21 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 		editor.setValue(code, 1);
 	}
 
+	function setMode(mode) {
+		if(mode == "text") {
+			editor.setReadOnly(false);
+		} else {
+			editor.setReadOnly(true);
+		}
+	}
+
 	return {
 		init: init,
 		getData: getData,
 		setData: setData,
 
 		genCode: genCode,
+
+		setMode: setMode,
 	}
 });
