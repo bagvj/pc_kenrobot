@@ -29,6 +29,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		code.setMode(projectData.mode);
 
 		projectData.mode == "block" && emitor.trigger("code", "start-refresh");
+		projectData.mode == "text" && emitor.trigger("app", "activeTab", "software");
 	}
 
 	function onAppStart() {
