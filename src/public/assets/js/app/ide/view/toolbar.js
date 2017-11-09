@@ -2,12 +2,12 @@ define(['vendor/jquery', 'app/common/util/emitor'], function($1, emitor) {
 	var region;
 
 	function init() {
-		region = $('.toolbar-region').on('click', "span", onToolClick);
+		region = $('.toolbar-region').on('click', ".hover-button", onToolClick);
 		emitor.on("ui", "lock", onUILock)
 			.on('progress', "check", onCheckProgress)
 			.on("progress", "upload", onUploadProgress);
 	}
-	
+
 	function onToolClick(e) {
 		var action = $(this).data('action');
 		switch(action) {

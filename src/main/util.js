@@ -67,6 +67,7 @@ function getAppInfo() {
 		platform: getPlatform(),
 		version: getVersion(),
 		name: app.getName(),
+		buildNumber: PACKAGE.buildNumber,
 	}
 
 	if(is.dev()) {

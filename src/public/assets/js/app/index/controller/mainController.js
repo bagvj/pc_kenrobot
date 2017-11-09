@@ -190,7 +190,8 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 					url: config.url.kenrobot,
 					date: info.date,
 					platform: info.platform,
-					bit: info.appBit,
+					appBit: info.appBit,
+					buildNumber: info.buildNumber,
 				});
 				break;
 			case "show-board-dialog":
