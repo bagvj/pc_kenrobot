@@ -46,8 +46,8 @@ const TEMP = '.temp/'
 
 const APP = './app/'
 
-const ASSETS_SRC = SRC + 'public/assets/'
-const ASSETS_DIST = APP + 'public/assets/'
+const ASSETS_SRC = SRC + 'renderer/assets/'
+const ASSETS_DIST = APP + 'renderer/assets/'
 
 gulp.task('clean-assets-js', () => {
 	return del(ASSETS_DIST + 'js')
@@ -69,19 +69,19 @@ gulp.task('clean-main', () => {
 	return del(APP + 'main')
 })
 
-gulp.task('clean-renderer', () => {
-	return del(APP + 'public/renderer.js')
+gulp.task('clean-renderer-js', () => {
+	return del(APP + 'renderer/index.js')
 })
 
-gulp.task('clean-public', () => {
-	return del(APP + 'public')
+gulp.task('clean-renderer', () => {
+	return del(APP + 'renderer')
 })
 
 gulp.task('clean-other', () => {
 	return del([
-		APP + 'public/**/*',
-		'!' + APP + "public/renderer.js",
-		'!' + APP + "public/assets/**/*",
+		APP + 'renderer/**/*',
+		'!' + APP + "renderer/index.js",
+		'!' + APP + "renderer/assets/**/*",
 	])
 })
 
@@ -156,10 +156,10 @@ gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-
 
 gulp.task('pack-other', ['clean-other'], () => {
 	return gulp.src([
-		SRC + 'public/**/*',
-		'!' + SRC + "public/renderer.js",
-		'!' + SRC + "public/assets/**/*",
-	]).pipe(gulp.dest(APP + 'public/'))
+		SRC + 'renderer/**/*',
+		'!' + SRC + "renderer/index.js",
+		'!' + SRC + "renderer/assets/**/*",
+	]).pipe(gulp.dest(APP + 'renderer/'))
 })
 
 gulp.task('pack-main', ['clean-main'], () => {
@@ -187,25 +187,25 @@ gulp.task('pack-main', ['clean-main'], () => {
 	}
 })
 
-gulp.task('pack-renderer', ['clean-renderer'], () => {
+gulp.task('pack-renderer-js', ['clean-renderer-js'], () => {
 	if (args.release) {
-		return gulp.src(SRC + 'public/renderer.js')
+		return gulp.src(SRC + 'renderer/index.js')
 			.pipe(babel({
 				presets: ['es2015']
 			}))
 			.pipe(uglify())
-			.pipe(gulp.dest(APP + 'public/'))
+			.pipe(gulp.dest(APP + 'renderer/'))
 	} else {
-		return gulp.src(SRC + 'public/renderer.js')
-			.pipe(gulp.dest(APP + 'public/'))
+		return gulp.src(SRC + 'renderer/index.js')
+			.pipe(gulp.dest(APP + 'renderer/'))
 	}
 })
 
-gulp.task('pack-public', ['clean-public'], callback => {
-	runSequence(['pack-renderer', 'pack-assets', 'pack-other'], callback)
+gulp.task('pack-renderer', ['clean-renderer'], callback => {
+	runSequence(['pack-renderer-js', 'pack-assets', 'pack-other'], callback)
 })
 
-gulp.task('pack', ['pack-main', 'pack-public'])
+gulp.task('pack', ['pack-main', 'pack-renderer'])
 
 /**
  * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE

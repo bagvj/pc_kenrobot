@@ -219,7 +219,7 @@ function createWindow() {
 	mainWindow.webContents.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
 	mainWindow.webContents.session.on('will-download', onDownload)
 
-	mainWindow.loadURL(`file://${__dirname}/../public/index.html`)
+	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
 	mainWindow.focus()
 }
 
