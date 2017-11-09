@@ -93,7 +93,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 				break;
 			case "back":
 				util.confirm({
-					text: "放弃文本模式下的修改，返回图形模式？",
+					text: "放弃所有文本模式下的修改，返回图形模式？",
 					onConfirm: () => setMode("block")
 				});
 				break;

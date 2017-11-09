@@ -196,7 +196,7 @@ function remove(name, type) {
 		}
 
 		Q.all([
-			util.removeFile(path.join(getProjectsDir(id, type), getProjectRelativePath(name, type))),
+			util.removeFile(path.join(getProjectsDir(id, type), name)),
 			removeLocalItem(name),
 		]).then(() => {
 			log.debug(`project remove success: ${name} ${type}`)
@@ -245,14 +245,8 @@ function zip(projectsDir, name, type) {
 	var deferred = Q.defer()
 
 	var zip = new JSZip()
-	var relativePath = getProjectRelativePath(name, type)
-	switch(type) {
-		case "edu":
-		case "ide":
-			zip.file(`${relativePath}/${name}.ino`, fs.createReadStream(path.join(projectsDir, `${relativePath}/${name}.ino`)))
-			zip.file(`${relativePath}/project.json`, fs.createReadStream(path.join(projectsDir, `${relativePath}/project.json`)))
-			break
-	}
+	zip.file(`${name}/${name}.ino`, fs.createReadStream(path.join(projectsDir, `${name}/${name}.ino`)))
+	zip.file(`${name}/project.json`, fs.createReadStream(path.join(projectsDir, `${name}/project.json`)))
 
 	var zipPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.zip`)
 	fs.ensureDirSync(path.dirname(zipPath))
@@ -293,7 +287,7 @@ function projectExist(name, type) {
 	}
 
 	var projectsDir = getProjectsDir(token.user_id, type)
-	var projectPath = path.join(projectsDir, getProjectRelativePath(name, type))
+	var projectPath = path.join(projectsDir, name)
 	return fs.existsSync(projectPath)
 }
 
@@ -502,18 +496,6 @@ function getProjectsDir(id, type) {
 	return path.join(util.getAppDocumentPath(), "projects", getUserSpec(id), type)
 }
 
-function getProjectRelativePath(name, type) {
-	var relativePath
-	switch(type) {
-		case "edu":
-		case "ide":
-			relativePath = name
-			break
-	}
-
-	return relativePath
-}
-
 function getUserSpec(id, type) {
 	type = type || 0
 	var md5 = hasha(`${id}`, {algorithm: "md5"})
@@ -533,7 +515,7 @@ function newSave(name, type, data, savePath) {
 	}
 
 	var projectsDir = getProjectsDir(token.user_id, type)
-	savePath = path.join(projectsDir, getProjectRelativePath(name, type))
+	savePath = path.join(projectsDir, name)
 	newDoSave(name, type, data, savePath).then(() => {
 		updateLocalItem(name, type, util.stamp()).then(() => {
 			throttleSync()
@@ -576,7 +558,7 @@ function newSaveAs(name, type, data, savePath) {
 		doSave(savePath)
 	} else {
 		var options = {}
-		options.defaultPath = path.join(util.getAppPath("documents"), getProjectRelativePath(name, type))
+		options.defaultPath = path.join(util.getAppPath("documents"), name)
 		util.showSaveDialog(options).then(savePath => {
 			doSave(savePath)
 		}, err => {
@@ -590,19 +572,10 @@ function newSaveAs(name, type, data, savePath) {
 
 function newDoSave(name, type, data, savePath) {
 	log.debug(`project save: ${name} ${type} -> ${savePath}`)
-	if(type == "edu") {
-		return Q.all([
-			util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
-			util.writeJson(path.join(savePath, 'project.json'), data),
-		])
-	} else if(type == "ide") {
-		return Q.all([
-			util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
-			util.writeJson(path.join(savePath, 'project.json'), data),
-		])
-	} else {
-		return util.rejectPromise()
-	}
+	return Q.all([
+		util.writeFile(path.join(savePath, `${name}.ino`), data.project_data.code),
+		util.writeJson(path.join(savePath, 'project.json'), data),
+	])
 }
 
 function newOpen(type, name) {
@@ -625,7 +598,7 @@ function newOpen(type, name) {
 			return util.rejectPromise(null, deferred)
 		}
 
-		var openPath = path.join(getProjectsDir(token.user_id, type), getProjectRelativePath(name, type))
+		var openPath = path.join(getProjectsDir(token.user_id, type), name)
 		doOpen(openPath)
 
 		return deferred.promise
@@ -636,13 +609,7 @@ function newOpen(type, name) {
 		} else {
 			options.defaultPath = util.getAppPath("documents")
 		}
-
-		if(type == "edu") {
-			options.properties = ["openDirectory"]
-		} else if(type == "ide") {
-			options.properties =  ["openFile"]
-			options.filters = [{name: "ino", extensions: ["ino"]}]
-		}
+		options.properties = ["openDirectory"]
 
 		util.showOpenDialog(options).then(openPath => {
 			doOpen(openPath)
@@ -660,46 +627,19 @@ function newDoOpen(openPath, type) {
 
 	log.debug(`project open: ${type} -> ${openPath}`)
 
-	if(type == "edu") {
-		util.readJson(path.join(openPath, "project.json")).then(data => {
-			deferred.resolve({
-				extra: {
-					name: path.basename(openPath),
-					type: type,
-					path: openPath,
-				},
-				data: data
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
-	} else if(type == "ide") {
-		var dirname = path.dirname(openPath)
-		var basename = path.basename(openPath, path.extname(openPath))
-		if(path.basename(dirname) != basename) {
-			return util.rejectPromise({
+	util.readJson(path.join(openPath, "project.json")).then(data => {
+		deferred.resolve({
+			extra: {
+				name: path.basename(openPath),
+				type: type,
 				path: openPath,
-				newPath: path.join(dirname, basename, `${basename}.ino`),
-				status: "DIR_INVALID",
-			}, deferred)
-		}
-		util.readFile(openPath).then(data => {
-			deferred.resolve({
-				extra: {
-					name: basename,
-					type: type,
-					path: dirname,
-				},
-				data: data,
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
+			},
+			data: data
 		})
-	} else {
-		util.rejectPromise(null, deferred)
-	}
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
 
 	return deferred.promise
 }

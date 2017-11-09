@@ -30,7 +30,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function update() {
-		kenrobot.postMessage("app:projectList", "edu").then(list => {
+		kenrobot.postMessage("app:projectList").then(list => {
 			list = _.sortBy(list, ["type", "modify_time"]);
 			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
