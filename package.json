@@ -6,7 +6,7 @@
     "compression": "maximum",
     "files": [
       "main",
-      "public",
+      "renderer",
       "node_modules",
       "!node_modules/serialport/build/Release/obj",
       "!node_modules/**/test",

@@ -98,6 +98,8 @@ function listenMessages() {
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
+	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
+	listenMessage("writeJson", (filePath, data, options, sync) => util.writeJson(filePath, data, options, sync))
 	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
 	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
@@ -133,8 +135,9 @@ function listenMessages() {
 	listenMessage("loadToken", key => token.load(key))
 	listenMessage("removeToken", () => token.remove())
 
+	listenMessage("projectRead", projectPath => project.read(projectPath))
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
-	listenMessage("projectOpen", (projectPath, type) => project.open(projectPath, type))
+	listenMessage("projectOpen", projectPath => project.open(projectPath))
 
 	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
 	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
@@ -219,7 +222,7 @@ function createWindow() {
 	mainWindow.webContents.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
 	mainWindow.webContents.session.on('will-download', onDownload)
 
-	mainWindow.loadURL(`file://${__dirname}/../public/index.html`)
+	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
 	mainWindow.focus()
 }
 
