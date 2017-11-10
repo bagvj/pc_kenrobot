@@ -81,7 +81,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 			monitorRegion.find(".open").val("关闭串口");
 			monitorRegion.find(".command").focus();
 
-			util.message("串口打开成功");
+			// util.message("串口打开成功");
 			onClearClick();
 		}, function(err) {
 			util.message({

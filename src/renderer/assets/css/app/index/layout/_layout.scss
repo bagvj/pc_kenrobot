@@ -5,13 +5,14 @@ html, body {
 }
 
 .pace {
-	top: 50px;
+	top: 51px;
 	width: 100%;
 	position: absolute;
 
 	.pace-progress {
 		position: absolute;
 		background-color: #0088ff;
+		height: 1px;
 	}
 }
 

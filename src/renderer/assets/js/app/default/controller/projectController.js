@@ -29,7 +29,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		code.setMode(projectData.mode);
 
 		projectData.mode == "block" && emitor.trigger("code", "start-refresh");
-		projectData.mode == "text" && emitor.trigger("app", "activeTab", "software");
+		emitor.trigger("app", "activeTab", projectData.mode == "text" ? "software" : "hardware");
 	}
 
 	function onAppStart() {
@@ -37,8 +37,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
 
-			openProject(getDefaultProject());
-			emitor.trigger("code", "start-refresh");
+			loadRecentProject().then(result => {
+				savePath = result.path;
+				openProject(result.projectInfo);
+				kenrobot.trigger("app", "setTitle", savePath);
+				emitor.trigger("code", "start-refresh");
+			}, () => {
+				savePath = null;
+				openProject(getDefaultProject());
+				kenrobot.trigger("app", "setTitle", savePath);
+				localStorage.recentProject = savePath;
+				emitor.trigger("code", "start-refresh");
+			});
 		});
 	}
 
@@ -74,15 +84,37 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		return promise
 	}
 
+	function loadRecentProject() {
+		var promise = $.Deferred();
+		var recentProjectPath = localStorage.recentProject;
+		if(!recentProjectPath || recentProjectPath === "null" || recentProjectPath === "undefined") {
+			setTimeout(() => promise.reject(), 10);
+			return promise;
+		}
+
+		kenrobot.postMessage("app:projectRead", recentProjectPath).then(result => {
+			promise.resolve(result);
+		}, () => {
+			promise.reject();
+		});
+
+		return promise;
+	}
+
 	function onProjectNew() {
 		savePath = null;
 		openProject(getDefaultProject());
+		kenrobot.trigger("app", "setTitle", savePath);
+		localStorage.recentProject = savePath;
 		util.message("新建成功");
 	}
 
 	function onProjectOpen(projectInfo) {
 		if(projectInfo) {
+			savePath = null;
 			openProject(projectInfo);
+			kenrobot.trigger("app", "setTitle", savePath);
+			localStorage.recentProject = savePath;
 			util.message({
 				text: "打开成功",
 				type: "success"
@@ -91,6 +123,8 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			kenrobot.postMessage("app:projectOpen").then(function(result) {
 				savePath = result.path;
 				openProject(result.projectInfo);
+				kenrobot.trigger("app", "setTitle", savePath);
+				localStorage.recentProject = savePath;
 				util.message({
 					text: "打开成功",
 					type: "success"
@@ -111,7 +145,8 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		projectInfo.project_data = getProjectData();
 		saveAs = saveAs == true ? true : savePath == null;
 
-		doProjectSave(projectInfo, saveAs).then(function() {
+		doProjectSave(projectInfo, saveAs).then(function(result) {
+			localStorage.recentProject = result.path;
 			util.message({
 				text: "保存成功",
 				type: "success"
@@ -134,14 +169,15 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		var saveAs = savePath == null;
 		var boardData = hardware.getBoardData();
 
-		doProjectSave(projectInfo, saveAs).then(function() {
+		doProjectSave(projectInfo, saveAs).then(function(result) {
+			localStorage.recentProject = result.path;
 			emitor.trigger("ui", "lock", "build", true);
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", savePath, boardData.build).then(function() {
+			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(function() {
 				util.message("编译成功，正在上传");
 				setTimeout(function() {
 					var uploadProgressHelper = {};
-					kenrobot.postMessage("app:upload", savePath, boardData.upload).then(function() {
+					kenrobot.postMessage("app:upload", result.path, boardData.upload).then(function() {
 						emitor.trigger("ui", "lock", "build", false);
 						util.message({
 							text: "上传成功",
@@ -159,7 +195,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 									}
 									util.message("正在上传");
 									uploadProgressHelper = {};
-									kenrobot.postMessage("app:upload2", savePath, port.comName, boardData.upload).then(function() {
+									kenrobot.postMessage("app:upload2", result.path, port.comName, boardData.upload).then(function() {
 										emitor.trigger("ui", "lock", "build", false);
 										util.message({
 											text: "上传成功",
@@ -206,9 +242,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		var boardData = hardware.getBoardData();
 
 		util.message("正在验证，请稍候");
-		doProjectSave(projectInfo, true, true).then(function(path) {
+		doProjectSave(projectInfo, true, true).then(function(result) {
 			emitor.trigger("ui", "lock", "build", true);
-			kenrobot.postMessage("app:buildProject", path, boardData.build).then(function() {
+			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(function() {
 				emitor.trigger("ui", "lock", "build", false);
 				util.message("验证成功");
 			}, function(err) {
@@ -233,8 +269,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			if(saveAs && !isTemp) {
 				savePath = result.path;
 				projectInfo.project_name = result.project_name;
+				kenrobot.trigger("app", "setTitle", savePath);
+				localStorage.recentProject = savePath;
 			}
-			promise.resolve(result.path);
+			promise.resolve(result);
 		}, function() {
 			promise.reject();
 		});
@@ -264,7 +302,15 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				text: "复制失败",
 				type: "warning"
 			});
-		})
+		});
+	}
+
+	function onCodeToggleComment() {
+		if(code.getMode() != "block") {
+			return;
+		}
+
+		code.toggleComment();
 	}
 
 	function onSoftwareBlockUpdate() {

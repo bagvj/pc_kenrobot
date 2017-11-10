@@ -1,3 +1,6 @@
+$logo-size: 24px;
+$menu-height: 26px;
+
 .titlebar-region {
 	background-color: #ededed;
 	-webkit-app-region: drag;
@@ -15,29 +18,55 @@
 		pointer-events: none;
 	}
 
+	.logo-wrap {
+		display: flex;
+		flex-shrink: 0;
+		height: $logo-size;
+		line-height: $logo-size;
+	}
+
 	.logo {
-		width: 50px;
-		height: 50px;
+		width: $logo-size;
+		height: $logo-size;
 		background: url(../image/logo.png) center center no-repeat;
-		background-size: 50px;
+		background-size: $logo-size;
+		margin-left: 11px;
+		margin-right: 6px;
+	}
+
+	.project-path {
+		margin-left: 20px;
+		font-size: 12px;
+		max-width: 500px;
 	}
 
 	.left-widgets {
-		-webkit-app-region: no-drag;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
 
 	& > .placeholder {
-		flex: 1;
+		width: 100px;
 	}
 
 	.right-widgets {
 		-webkit-app-region: no-drag;
 	}
 
+	.app-menu-wrap {
+		display: flex;
+		flex-direction: row;
+
+		& > .placeholder {
+			flex: 1;
+		}
+	}
+
 	.app-menu {
-		height: 50px;
+		-webkit-app-region: no-drag;
+		height: $menu-height;
 		display: inline-block;
-		margin-left: 5px;
 
 		&.active {
 			li {
@@ -174,7 +203,7 @@
 		& > ul > li {
 			padding-left: 15px;
 			padding-right: 15px;
-			height: 50px;
+			height: $menu-height;
 
 			&:last-child {
 				margin-right: 0;
@@ -182,7 +211,7 @@
 
 			& > .placeholder {
 				text-align: center;
-				line-height: 50px;
+				line-height: $menu-height;
 				padding-right: 11px;
 				position: relative;
 
@@ -194,7 +223,7 @@
 					border-top-color: #666;
 					display: block;
 					position: absolute;
-					top: 24px;
+					top: 11px;
 					right: 2px;
 				}
 			}

@@ -122,10 +122,10 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				emitor.trigger('project', 'save', true);
 				break;
 			case "toggle-comment":
-
+				emitor.trigger('code', 'toggle-comment');
 				break;
 			case "copy":
-
+				emitor.trigger('code', 'copy');
 				break;
 		}
 	}

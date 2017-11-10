@@ -41,8 +41,6 @@ define(function() {
 			text: "关于啃萝卜",
 			action: "about-kenrobot",
 		}]
-	}, {
-		placeholder: "版本",
 	}];
 
 	return menu;

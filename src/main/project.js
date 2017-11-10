@@ -691,60 +691,45 @@ function save(oldProjectPath, projectInfo, isTemp) {
 	return deferred.promise
 }
 
+function read(projectPath) {
+	var deferred = Q.defer()
+
+	util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
+		deferred.resolve({
+			path: projectPath,
+			projectInfo: projectInfo
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
 /**
  * 打开项目
  * @param {*} projectPath 项目路径
  */
-function open(projectPath, type) {
+function open(projectPath) {
 	var deferred = Q.defer()
-	type = type || "project"
+
+	var doRead = p => {
+		read(p).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			deferred.reject(err)
+		});
+	}
 
 	log.debug(`openProject ${projectPath}`)
-	var read = projectPath => {
-		if(type == "project") {
-			util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
-				deferred.resolve({
-					path: projectPath,
-					projectInfo: projectInfo
-				})
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		} else {
-			var dirname = path.dirname(projectPath)
-			var basename = path.basename(projectPath, path.extname(projectPath))
-			if(path.basename(dirname) != basename) {
-				setTimeout(() => {
-					deferred.reject({
-						path: projectPath,
-						newPath: path.join(dirname, basename, `${basename}.ino`),
-						status: "DIR_INVALID",
-					})
-				}, 10)
-				return
-			}
-			util.readFile(projectPath).then(code => {
-				deferred.resolve({
-					path: dirname,
-					code: code,
-				})
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		}
-	}
 	if(projectPath) {
-		read(projectPath)
+		doRead(projectPath)
 	} else {
-		var filters = type == "project" ? null : [{name: "ino", extensions: ["ino"]}]
-		var properties = type == "project" ? ["openDirectory"] : ["openFile"]
 		util.showOpenDialog({
-			properties: properties,
-			filters: filters,
-		}).then(projectPath => {
-			read(projectPath)
+			properties: ["openDirectory"],
+		}).then(p => {
+			doRead(p)
 		}, err => {
 			err && log.error(err)
 			deferred.reject(err)
@@ -762,6 +747,7 @@ module.exports.upload = upload
 module.exports.remove = remove
 module.exports.download = download
 
+module.exports.read = read
 module.exports.open = open
 module.exports.save = save
 

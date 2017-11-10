@@ -9,8 +9,8 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			.on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region);
 
-		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate);
-		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false});
+		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate)
+		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false}).on("app", "setTitle", onAppSetTitle, {canReset: false});;
 	}
 
 	function activeAppMenu(e) {
@@ -103,6 +103,10 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		});
 
 		return $('<ul>').append(menuItems);
+	}
+
+	function onAppSetTitle(title) {
+		region.find(".project-path").text(title).attr("title", title);
 	}
 
 	function onLoginClick(e) {

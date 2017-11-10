@@ -15,8 +15,12 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 
 		emitor.on("code", "start-refresh", onStartRefresh)
 			.on('code', 'stop-refresh', onStopRefresh)
+			.on('code', 'toggle-comment', onToggleComment)
 			.on('app', 'will-leave', onAppWillLeave)
-			.on('app', 'start', onAppStart);
+			.on('app', 'start', onAppStart)
+			.on("ui", "lock", onUILock)
+			.on('progress', "check", onCheckProgress)
+			.on("progress", "upload", onUploadProgress);
 	}
 
 	function getData() {
@@ -49,6 +53,10 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 			codeModel.setMode(mode);
 			onStartRefresh();
 		}
+	}
+
+	function onToggleComment() {
+		codeModel.toggleComment();
 	}
 
 	function showButtons() {
@@ -110,6 +118,44 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 				emitor.trigger("project", "save");
 				break;
 		}
+	}
+
+	function onUILock(type, value) {
+		if (type == "build") {
+			if (value) {
+				toolbar.find(".check").attr("disabled", true);
+				toolbar.find(".upload").attr("disabled", true);
+			} else {
+				toolbar.find(".check").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+				toolbar.find(".upload").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+			}
+		}
+	}
+
+	function onCheckProgress(value) {
+		if (value < 0) {
+			return;
+		}
+
+		toolbar.find(".check .x-progress").show().css({
+			transform: "translateX(-" + (100 - value) + "%)"
+		});
+	}
+
+	function onUploadProgress(value, type) {
+		if (value < 0) {
+			return;
+		}
+
+		if (type == "build") {
+			value = 80 * value / 100;
+		} else {
+			value = value / 100 + 80;
+		}
+
+		toolbar.find(".upload .x-progress").show().css({
+			transform: "translateX(-" + (100 - value) + "%)"
+		});
 	}
 
 	return {
