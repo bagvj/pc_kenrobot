@@ -146,7 +146,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	}
 
 	function getComponentData(uid) {
-		return components[uid];
+		return components[uid].data;
 	}
 
 	function getComponentConfig(name) {
@@ -284,7 +284,10 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		componentData.type = componentConfig.type;
 		usedNames[componentData.varName] = true;
 
-		components[componentData.uid] = componentData;
+		components[componentData.uid] = {
+			data: componentData,
+			endpoints: {}
+		};
 
 		var componentDom = document.createElement('img');
 		container.appendChild(componentDom);
@@ -358,6 +361,8 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 			epComponent.canvas.classList.add('selected');
 			epComponent.unbind('click');
 			epComponent.bind('click', onComponentEndpointClick);
+
+			components[componentData.uid].endpoints[pin.name] = epComponent;
 
 			var spec = pin.spec
 			if(!spec || spec.length < 2) {
@@ -510,7 +515,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		}
 
 		var componentUid = info.source.dataset.uid;
-		var componentData = components[componentUid];
+		var componentData = getComponentData(componentUid);
 		var sourcePin = info.sourceEndpoint.getParameter('pin');
 		var targetPin = info.targetEndpoint.getParameter('pin');
 		componentData.pins[sourcePin.name] = targetPin;
@@ -522,6 +527,15 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
 			}
 		});
+
+		if(sourcePin.mutex) {
+			var endpoints = components[componentUid].endpoints;
+			sourcePin.mutex.forEach(name => {
+				var ep = endpoints[name];
+				ep && ep.setEnabled(false);
+			});
+		}
+
 
 		// 兼容代码，board里的tuples未来考虑移除
 		if(!boardData.tuples) {
@@ -561,7 +575,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		}
 
 		var componentUid = info.source.dataset.uid;
-		var componentData = components[componentUid];
+		var componentData = getComponentData(componentUid);
 		var sourcePin = info.sourceEndpoint.getParameter('pin');
 		var targetPin = info.targetEndpoint.getParameter('pin');
 		delete componentData.pins[sourcePin.name];
@@ -589,6 +603,14 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				ep && ep.setEnabled(value);
 			});
 		});
+
+		if(sourcePin.mutex) {
+			var endpoints = components[componentUid].endpoints;
+			sourcePin.mutex.forEach(name => {
+				var ep = endpoints[name];
+				ep && ep.setEnabled(true);
+			});
+		}
 
 		// 兼容代码，board里的tuples未来考虑移除
 		if(!boardData.tuples) {

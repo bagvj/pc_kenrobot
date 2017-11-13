@@ -136,7 +136,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			}
 
 			if (code.var) {
-				tempCode = code.var.replace(nameReg, componentData.varName);
+				var mutexName;
+				componentConfig.pins.forEach(pinConfig => {
+					pin = pins[pinConfig.name];
+					if(pin && pinConfig.mutex) {
+						mutexName = pinConfig.name;
+						return true;
+					}
+				});
+				var varTemplate = (code.var === true && mutexName) ? code.conditionVars[mutexName] : code.var;
+				tempCode = varTemplate.replace(nameReg, componentData.varName);
 				componentConfig.pins.forEach(pinConfig => {
 					pin = pins[pinConfig.name];
 					if(pin) {
