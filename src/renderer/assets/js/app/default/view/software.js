@@ -189,7 +189,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 		codeInfo.include = includeCode;
 		codeInfo.const = constCode;
-		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n' : '') + varCode + codeInfo.global;
+		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
 		codeInfo.loop = codeInfo.loop;
 		codeInfo.end = funcImplementCode;
