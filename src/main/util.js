@@ -25,7 +25,7 @@ wKB/BwSpp+Py2MTT2wIDAQAB
 -----END PUBLIC KEY-----
 `
 
-is.dev() && app.setName(PACKAGE.name)
+is.dev() && app.setName(PACKAGE.productName)
 
 const defers = {}
 var deferAutoId = 0

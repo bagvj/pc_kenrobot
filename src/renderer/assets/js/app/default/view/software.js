@@ -66,8 +66,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		setupBlock.setConnectable(true);
 		loopBlock.setConnectable(true);
 
-		$('.block-global', region).removeClass("active").addClass(globalBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(globalBlock.dom);
-		$('.block-setup', region).removeClass("active").addClass(setupBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(setupBlock.dom);
+		$('.block-global', region).removeClass("active").addClass(globalBlock.hasChildren() ? "active with-content" : "").find(".group-extension").append(globalBlock.dom);
+		$('.block-setup', region).removeClass("active").addClass(setupBlock.hasChildren() ? "active with-content" : "").find(".group-extension").append(setupBlock.dom);
 		$('.block-loop', region).addClass("active").addClass(loopBlock.hasChildren() ? "with-content" : "").find(".group-extension").append(loopBlock.dom);
 	}
 
@@ -136,7 +136,16 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			}
 
 			if (code.var) {
-				tempCode = code.var.replace(nameReg, componentData.varName);
+				var mutexName;
+				componentConfig.pins.forEach(pinConfig => {
+					pin = pins[pinConfig.name];
+					if(pin && pinConfig.mutex) {
+						mutexName = pinConfig.name;
+						return true;
+					}
+				});
+				var varTemplate = (code.var === true && mutexName) ? code.conditionVars[mutexName] : code.var;
+				tempCode = varTemplate.replace(nameReg, componentData.varName);
 				componentConfig.pins.forEach(pinConfig => {
 					pin = pins[pinConfig.name];
 					if(pin) {
@@ -180,7 +189,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 		codeInfo.include = includeCode;
 		codeInfo.const = constCode;
-		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n' : '') + varCode + codeInfo.global;
+		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
 		codeInfo.loop = codeInfo.loop;
 		codeInfo.end = funcImplementCode;
@@ -360,8 +369,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				topRegion.find(".check").attr("disabled", true);
 				topRegion.find(".upload").attr("disabled", true);
 			} else {
-				topRegion.find(".check").attr("disabled", false).find(".x-progress").hide().css("transform", "");
-				topRegion.find(".upload").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+				topRegion.find(".check").attr("disabled", false).find(".x-progress").hide().css("left", "-100%");
+				topRegion.find(".upload").attr("disabled", false).find(".x-progress").hide().css("left", "-100%");
 			}
 		}
 	}
@@ -372,7 +381,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		topRegion.find(".check .x-progress").show().css({
-			transform: "translateX(-" + (100 - value) + "%)"
+			left: "-" + (100 - value) + "%"
 		});
 	}
 
@@ -388,7 +397,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		topRegion.find(".upload .x-progress").show().css({
-			transform: "translateX(-" + (100 - value) + "%)"
+			left: "-" + (100 - value) + "%"
 		});
 	}
 

@@ -82,7 +82,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					version: p.version,
 				}
 			});
-			promise.resolve();
+			promise.resolve(installedPackages);
 		}, err => {
 			installedPackages = [];
 			promise.resolve();
@@ -103,7 +103,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		kenrobot.postMessage("app:request", config.url.packages).then(_packages => {
 			var info = kenrobot.appInfo;
 			packages = _packages.filter(p => p.platform == info.platform);
-			promise.resolve();
+			promise.resolve(packages);
 		}, err => {
 			promise.reject(err);
 		});
@@ -140,7 +140,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			li.find(".versions > ul").append(versions);
 			boardList.append(li);
 
-			versions = group.map(p => p.version).sort(versionCompare);
+			versions = group.map(p => p.version).sort(util.versionCompare);
 			group.forEach(p => {p.versions = versions});
 		});
 
@@ -176,11 +176,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		item.find(".boards").text(p.boards.map(b => b.name).join(","));
 		var installBtn = item.find('.install');
 		var deleteBtn = item.find(".delete");
-		
+
 		var installedPackage = installedPackages.find(pack => pack.name == p.name);
 		if(installedPackage) {
 			deleteBtn.attr("disabled", false).addClass("active");
-			var result = versionCompare(installedPackage.version, p.version);
+			var result = util.versionCompare(installedPackage.version, p.version);
 			if(result < 0) {
 				installBtn.attr("disabled", false).val("更新").data("action", "update");
 			} else if(result == 0) {
@@ -205,7 +205,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var action = installBtn.data("action");
 		var item = installBtn.parents(".item");
 		var p = item.data("value");
-		
+
 		item.find(".versions").attr("disabled", true);
 		item.find(".delete").attr("disabled", true);
 		var oldText = installBtn.val();
@@ -253,7 +253,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		}, progress => {
 			var totalSize = progress.totalSize || 100 * 1024 * 1024;
 			var percent = parseInt(100 * progress.size / totalSize);
-			percent = percent > 100 ? 100 : percent; 
+			percent = percent > 100 ? 100 : percent;
 			item.find(".x-progress").addClass("active").css("transform", `translateX(${percent - 100}%)`);
 		});
 		closeLock++;
@@ -264,7 +264,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onDeleteClick(e) {
 		var item = $(this).parents(".item");
 		var p = item.data("value");
-		
+
 		util.confirm({
 			text: `确定要删除“${p.name}”这个包吗？`,
 			onConfirm: () => {
@@ -283,7 +283,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 				});
 			}
 		});
-		
+
 		return false;
 	}
 
@@ -317,7 +317,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 						return false;
 					}
 
-					return p.versions.find(version => versionCompare(version, installedPackage.version) > 0) != null;
+					return p.versions.find(version => util.versionCompare(version, installedPackage.version) > 0) != null;
 				});
 				break;
 			case "installed":
@@ -342,31 +342,6 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onBoardClick(e) {
 		var li = $(this);
 		util.toggleActive(li);
-	}
-
-	function versionCompare(versionA, versionB) {
-		var reg = /(\d+).(\d+).(\d+)/;
-		var matchA = reg.exec(versionA);
-		var matchB = reg.exec(versionB);
-
-		var versionsA = [
-			parseInt(matchA[1]),
-			parseInt(matchA[2]),
-			parseInt(matchA[3]),
-		];
-		var versionsB = [
-			parseInt(matchB[1]),
-			parseInt(matchB[2]),
-			parseInt(matchB[3]),
-		];
-
-		for(var i = 0; i <= 2; i++) {
-			if(versionsA[i] != versionsB[i]) {
-				return versionsA[i] > versionsB[i] ? 1 : -1;
-			}
-		}
-
-		return 0;
 	}
 
 	return {

@@ -567,9 +567,8 @@
 			position: absolute;
 			background-color: rgba(151, 228, 67, 0.8);
 			top: 0;
-			left: 0;
-			transform: translateX(-100%);
-			transition: 0.2s transform;
+			left: -100%;
+			transition: 0.2s left;
 			pointer-events: none;
 		}
 	}

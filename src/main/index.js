@@ -55,7 +55,7 @@ function init() {
 	listenEvents()
 	listenMessages()
 
-	log.debug(`app start, version ${util.getVersion()}`)
+	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
 }
 
 function initLog() {
@@ -125,6 +125,11 @@ function listenMessages() {
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", () => loadPackages())
 	listenMessage("deletePackage", name => deletePackage(name))
+
+	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
+	listenMessage("loadLibraries", () => loadLibraries())
+	listenMessage("unzipLibrary", (name, libraryPath) => unzipLibrary(name, libraryPath))
+	listenMessage("deleteLibrary", name => deleteLibrary(name))
 
 	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
@@ -660,6 +665,98 @@ function loadExamples() {
 	return deferred.promise
 }
 
+function getInstalledLibraries() {
+	var deferred = Q.defer()
+
+	var reg = /^([^=]+)=(.*)$/gm
+	util.searchFiles(`${getLibrariesPath()}/**/library.properties`).then(pathList => {
+		var libraries = []
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			util.readFile(p).then(content => {
+				var matches = content.match(reg)
+				if(matches.length < 0) {
+					return
+				}
+
+				var library = {}
+				matches.map(match => match.split('=')).forEach(match => {
+					library[match[0]] = match[1]
+				})
+				if(!library.name || !library.version) {
+					return
+				}
+
+				libraries.push(library)
+			})
+			.fin(() => {
+				d.resolve()
+			})
+			return d.promise
+		}))
+		.then(() => {
+			deferred.resolve(libraries)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function loadLibraries() {
+	var deferred = Q.defer()
+
+	util.readJson(path.join(util.getAppResourcePath(), "libraries", "libraries.json")).then(result => {
+		deferred.resolve(result.libraries)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 解压单个资源包
+ */
+function unzipLibrary(name, libraryPath) {
+	var deferred = Q.defer()
+
+	var librariesPath = getLibrariesPath()
+	var outputName = path.basename(libraryPath, path.extname(libraryPath))
+	util.unzip(libraryPath, librariesPath, true).then(() => {
+		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
+			deferred.resolve()
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	}, progress => {
+		deferred.notify(progress)
+	})
+
+	return deferred.promise
+}
+
+function deleteLibrary(name) {
+	var deferred = Q.defer()
+
+	log.debug(`deleteLibrary: ${name}`)
+	util.removeFile(path.join(getLibrariesPath(), name)).then(() => {
+		deferred.resolve()
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
 function onDownload(e, item, webContent) {
 	var url = item.getURL()
 	var pos = url.lastIndexOf("#")
@@ -670,7 +767,7 @@ function onDownload(e, item, webContent) {
 	var savePath = path.join(util.getAppDataPath(), 'download', item.getFilename())
 	if(query.checksum && fs.existsSync(savePath)) {
 		pos = query.checksum.indexOf(":")
-		var algorithm = query.checksum.substring(0, pos)
+		var algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
 		var hash = query.checksum.substring(pos + 1)
 		if(hash == hasha.fromFileSync(savePath, {algorithm: algorithm})) {
 			item.cancel()
@@ -878,6 +975,8 @@ function preBuild(projectPath, options) {
 		buildSpecs.push(`-prefs=${key}=${value}`)
 	})
 
+	var librariesPath = getLibrariesPath()
+	buildSpecs.push(`-libraries="${librariesPath}"`)
 	arduinoOptions.librariesPath.forEach(libraryPath => {
 		buildSpecs.push(`-libraries="${libraryPath}"`)
 	})
@@ -1085,14 +1184,14 @@ function loadBoards(forceReload) {
 				pidList = pidList.map(pid => pid.substring(pid.indexOf('=') + 3))
 				vidList = vidList.map(vid => vid.substring(vid.indexOf('=') + 3))
 
-				for(var i = 0; i < pidList.length; i++) {
-					boardNames[pidList[i] + "_" + vidList[i]] = {
-						pid: pidList[i],
+				pidList.forEach((v, i) => {
+					boardNames[v + "_" + vidList[i]] = {
+						pid: v,
 						vid: vidList[i],
 						type: types[i],
 						name: names[types[i]]
 					}
-				}
+				})
 			})
 			.fin(() => {
 				d.resolve()
@@ -1170,4 +1269,11 @@ function getArduinoPath() {
  */
 function getPackagesPath() {
 	return path.join(app.getPath("documents"), app.getName(), "packages")
+}
+
+/**
+ * 获取解压后的libraries路径
+ */
+function getLibrariesPath() {
+	return path.join(app.getPath("documents"), app.getName(), "libraries")
 }

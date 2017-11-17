@@ -6645,11 +6645,6 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"type": "connector-bottom",
 					"accept": "connector-top"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "LR0Cly"
 				}],
 				"content": [{
 					"type": "text",
@@ -6662,18 +6657,25 @@ define(['vendor/lodash'], function($1) {
 					"type": "text",
 					"value": "角度为"
 				}, {
-					"blockInputId": "ANGLE",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "LR0Cly",
-					"value": {
-						"content": [{
-							"id": "VALUE",
-							"type": "number-input",
-							"value": "90"
-						}],
-						"name": "number"
-					}
+					"id": "ANGLE",
+					"type": "static-select",
+					"options": [{
+						"label": "0",
+						"value": "0"
+					}, {
+						"label": "45",
+						"value": "45"
+					}, {
+						"label": "90",
+						"value": "90"
+					}, {
+						"label": "135",
+						"value": "135"
+					}, {
+						"label": "180",
+						"value": "180"
+					}],
+					"value": "90"
 				}, {
 					"type": "text",
 					"value": "度"
@@ -6762,14 +6764,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置舵机"
+					"value": "全角度舵机"
 				}, {
 					"id": "SERVO",
 					"type": "dynamic-select",
 					"options": "continuousServos"
-				}, {
-					"type": "text",
-					"value": "方向为"
 				}, {
 					"id": "DIRECTION",
 					"type": "static-select",
@@ -6780,6 +6779,9 @@ define(['vendor/lodash'], function($1) {
 						"label": "逆时针",
 						"value": "0"
 					}]
+				},{
+					"type": "text",
+					"value": "转动"
 				}],
 				"code": "{SERVO}.write({DIRECTION});",
 				"tags": ["module"],
@@ -6797,14 +6799,14 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "停止舵机"
+					"value": "全角度舵机"
 				}, {
 					"id": "SERVO",
 					"type": "dynamic-select",
 					"options": "continuousServos"
 				}, {
 					"type": "text",
-					"value": "转动"
+					"value": "停止转动"
 				}],
 				"code": "{SERVO}.write(90);",
 				"tags": ["module"],
@@ -6832,7 +6834,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "设置舵机"
+					"value": "全角度舵机"
 				}, {
 					"blockInputId": "SERVO",
 					"type": "block-input",
@@ -6868,7 +6870,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "停止舵机"
+					"value": "全角度舵机"
 				}, {
 					"blockInputId": "SERVO",
 					"type": "block-input",
@@ -6876,7 +6878,7 @@ define(['vendor/lodash'], function($1) {
 					"name": "nEt27Q"
 				}, {
 					"type": "text",
-					"value": "转动"
+					"value": "停止转动"
 				}],
 				"code": "{SERVO}.write(90);",
 				"tags": ["module", "advanced"],

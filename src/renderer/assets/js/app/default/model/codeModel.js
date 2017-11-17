@@ -117,12 +117,17 @@ define(['app/common/util/util', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace
 		editor.execCommand("togglecomment");
 	}
 
+	function getCopyText() {
+		return editor.getCopyText() || getData();
+	}
+
 	return {
 		init: init,
 		getData: getData,
 		setData: setData,
 
 		genCode: genCode,
+		getCopyText: getCopyText,
 
 		setMode: setMode,
 		toggleComment: toggleComment,
