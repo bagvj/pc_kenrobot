@@ -84,7 +84,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	function setData(hardwareData) {
 		hardwareData = hardwareData || {};
 		setBoard(hardwareData.board);
-		
+
 		hardwareModel.setData(hardwareData);
 
 		hideComponentDialog();
@@ -93,7 +93,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	function getBlockData() {
 		var data = {};
 		data.board = getBoardData();
-		
+
 		var hardwareData = getData();
 		data.components = hardwareData.components.map(function(componentData) {
 			return hardwareModel.getComponentData(componentData.uid);
@@ -162,7 +162,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		topRegion.find(".check .x-progress").show().css({
-			transform: "translateX(-" + (100 - value) + "%)"
+			left: "-" + (100 - value) + "%"
 		});
 	}
 
@@ -307,13 +307,13 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function onComponentMouseMove(e) {
 		var touch = e instanceof MouseEvent ? e : e.changedTouches[0];
-		
+
 		if (mouseDownComponentDom) {
 			document.removeEventListener("mouseup", onComponentMouseUpBeforeMove);
 			document.removeEventListener("touchend", onComponentMouseUpBeforeMove);
 			document.addEventListener("mouseup", onComponentMouseUp);
 			document.addEventListener("touchend", onComponentMouseUp);
-			
+
 			var li = $(mouseDownComponentDom).closest("li")[0];
 			dragComponentDom = document.createElement("img");
 			dragComponentDom.src = mouseDownComponentDom.src;

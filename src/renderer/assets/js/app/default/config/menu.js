@@ -42,7 +42,7 @@ define(function() {
 				text: "Ctrl+/",
 			}
 		}, "_", {
-			text: "复制",
+			text: "复制代码",
 			action: "copy",
 			shortcut: {
 				key: ["ctrl+c", "command+c"],
@@ -69,6 +69,9 @@ define(function() {
 		menu: [{
 			text: "开发板管理",
 			action: "show-board-dialog",
+		}, {
+			text: "库管理",
+			action: "show-library-dialog",
 		}, "_", {
 			id: "fullscreen",
 			text: "全屏",

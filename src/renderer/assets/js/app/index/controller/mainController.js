@@ -197,6 +197,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "show-board-dialog":
 				kenrobot.trigger("board", "show");
 				break;
+			case "show-library-dialog":
+				kenrobot.trigger("library", "show");
+				break;
 		}
 	}
 

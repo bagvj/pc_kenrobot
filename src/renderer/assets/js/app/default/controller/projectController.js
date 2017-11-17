@@ -295,7 +295,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onCodeCopy() {
-		kenrobot.postMessage("app:copy", code.getData(), "code").then(function() {
+		kenrobot.postMessage("app:copy", code.getCopyText(), "code").then(function() {
 			util.message("复制成功");
 		}, function(err) {
 			util.message({

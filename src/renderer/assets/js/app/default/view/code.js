@@ -35,6 +35,14 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		codeModel.genCode(codeInfo);
 	}
 
+	function getCopyText() {
+		if(mode != "text") {
+			return getData();
+		}
+
+		return codeModel.getCopyText();
+	}
+
 	function getMode() {
 		return mode;
 	}
@@ -126,8 +134,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 				toolbar.find(".check").attr("disabled", true);
 				toolbar.find(".upload").attr("disabled", true);
 			} else {
-				toolbar.find(".check").attr("disabled", false).find(".x-progress").hide().css("transform", "");
-				toolbar.find(".upload").attr("disabled", false).find(".x-progress").hide().css("transform", "");
+				toolbar.find(".check").attr("disabled", false).find(".x-progress").hide().css("left", "-100%");
+				toolbar.find(".upload").attr("disabled", false).find(".x-progress").hide().css("left", "-100%");
 			}
 		}
 	}
@@ -138,7 +146,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		}
 
 		toolbar.find(".check .x-progress").show().css({
-			transform: "translateX(-" + (100 - value) + "%)"
+			left: "-" + (100 - value) + "%"
 		});
 	}
 
@@ -154,7 +162,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		}
 
 		toolbar.find(".upload .x-progress").show().css({
-			transform: "translateX(-" + (100 - value) + "%)"
+			left: "-" + (100 - value) + "%"
 		});
 	}
 
@@ -163,6 +171,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		getData: getData,
 		setData: setData,
 		genCode: genCode,
+		getCopyText: getCopyText,
 
 		getMode: getMode,
 		setMode: setMode,
