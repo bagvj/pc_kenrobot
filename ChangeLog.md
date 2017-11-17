@@ -327,3 +327,4 @@
 #### fix bugs
 
 - 修复上传、编译按钮在显示进度条时的圆角bug
+- 修复内置示例->01Basic->AnalogReadSerial串口打印一直为0的bug
