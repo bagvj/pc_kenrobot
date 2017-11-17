@@ -264,7 +264,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
 			"./packages/packages.json",
-			"./libraies/libraies.json",
+			"./libraries/libraries.json",
 		]
 
 		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
@@ -379,7 +379,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
 			"packages/packages.json",
-			"libraies/libraies.json",
+			"libraries/libraries.json",
 		]
 
 		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
