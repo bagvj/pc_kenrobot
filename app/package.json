@@ -2,13 +2,16 @@
   "private": true,
   "main": "main/index.js",
   "name": "upDuino",
-  "version": "0.2.1",
+  "productName": "upDuino",
+  "version": "0.2.2",
+  "buildNumber": 3,
   "description": "啃萝卜平台",
+  "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
     "name": "uper",
     "email": "support@uper.cc"
   },
-  "copyright": "©2016 KenRobot",
+  "copyright": "©2017 KenRobot",
   "homepage": "http://www.uper.cc",
   "dependencies": {
     "7zip-bin": "^2.2.7",

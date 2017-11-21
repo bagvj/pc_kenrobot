@@ -1,7 +1,8 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.27.3 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
+ * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.26.2 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
  * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch jszip lodash serialport@6.0.4
+ * npm install --global gulp node-gyp electron-rebuild electron@1.6.15
  */
 
 const gulp = require('gulp') //基础库
@@ -45,8 +46,8 @@ const TEMP = '.temp/'
 
 const APP = './app/'
 
-const ASSETS_SRC = SRC + 'public/assets/'
-const ASSETS_DIST = APP + 'public/assets/'
+const ASSETS_SRC = SRC + 'renderer/assets/'
+const ASSETS_DIST = APP + 'renderer/assets/'
 
 gulp.task('clean-assets-js', () => {
 	return del(ASSETS_DIST + 'js')
@@ -68,19 +69,19 @@ gulp.task('clean-main', () => {
 	return del(APP + 'main')
 })
 
-gulp.task('clean-renderer', () => {
-	return del(APP + 'public/renderer.js')
+gulp.task('clean-renderer-js', () => {
+	return del(APP + 'renderer/index.js')
 })
 
-gulp.task('clean-public', () => {
-	return del(APP + 'public')
+gulp.task('clean-renderer', () => {
+	return del(APP + 'renderer')
 })
 
 gulp.task('clean-other', () => {
 	return del([
-		APP + 'public/**/*',
-		'!' + APP + "public/renderer.js",
-		'!' + APP + "public/assets/**/*",
+		APP + 'renderer/**/*',
+		'!' + APP + "renderer/index.js",
+		'!' + APP + "renderer/assets/**/*",
 	])
 })
 
@@ -155,10 +156,10 @@ gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-
 
 gulp.task('pack-other', ['clean-other'], () => {
 	return gulp.src([
-		SRC + 'public/**/*',
-		'!' + SRC + "public/renderer.js",
-		'!' + SRC + "public/assets/**/*",
-	]).pipe(gulp.dest(APP + 'public/'))
+		SRC + 'renderer/**/*',
+		'!' + SRC + "renderer/index.js",
+		'!' + SRC + "renderer/assets/**/*",
+	]).pipe(gulp.dest(APP + 'renderer/'))
 })
 
 gulp.task('pack-main', ['clean-main'], () => {
@@ -186,25 +187,25 @@ gulp.task('pack-main', ['clean-main'], () => {
 	}
 })
 
-gulp.task('pack-renderer', ['clean-renderer'], () => {
+gulp.task('pack-renderer-js', ['clean-renderer-js'], () => {
 	if (args.release) {
-		return gulp.src(SRC + 'public/renderer.js')
+		return gulp.src(SRC + 'renderer/index.js')
 			.pipe(babel({
 				presets: ['es2015']
 			}))
 			.pipe(uglify())
-			.pipe(gulp.dest(APP + 'public/'))
+			.pipe(gulp.dest(APP + 'renderer/'))
 	} else {
-		return gulp.src(SRC + 'public/renderer.js')
-			.pipe(gulp.dest(APP + 'public/'))
+		return gulp.src(SRC + 'renderer/index.js')
+			.pipe(gulp.dest(APP + 'renderer/'))
 	}
 })
 
-gulp.task('pack-public', ['clean-public'], callback => {
-	runSequence(['pack-renderer', 'pack-assets', 'pack-other'], callback)
+gulp.task('pack-renderer', ['clean-renderer'], callback => {
+	runSequence(['pack-renderer-js', 'pack-assets', 'pack-other'], callback)
 })
 
-gulp.task('pack', ['pack-main', 'pack-public'])
+gulp.task('pack', ['pack-main', 'pack-renderer'])
 
 /**
  * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
@@ -220,6 +221,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var arch
 	var target
 	var ext
+	var packageConfig = require('./app/package')
 
 	var targets
 	if (platform == "linux") {
@@ -262,6 +264,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./examples/**/*",
 			"./packages/packages.json",
+			"./libraries/libraries.json",
 		]
 
 		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
@@ -346,8 +349,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 				return defer.promise
 			}
 
-			var packageConfig = require('./app/package')
-			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}-standalone`
+			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}-${platform}-standalone`
 			var command = `cd "${path.resolve(path.dirname(dist))}" && "${path7za}" a ${name}.7z ${path.basename(dist)}/*`
 			child_process.exec(command, (err, stdout, stderr) => {
 				if (err) {
@@ -377,6 +379,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"examples",
 			"packages/packages.json",
+			"libraries/libraries.json",
 		]
 
 		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
@@ -385,11 +388,14 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			targets: targets,
 			config: {
 				extraFiles: extraFiles,
+			},
+			appInfo: {
+				buildNumber: packageConfig.buildNumber,
+				companyName: packageConfig.companyName,
 			}
 		}).then(result => {
 			var output = result[0]
-			var packageConfig = require('./app/package')
-			var name = `${packageConfig.name}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
+			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
 			var file = path.join(path.dirname(output), name)
 
 			fs.move(output, file, err => {
