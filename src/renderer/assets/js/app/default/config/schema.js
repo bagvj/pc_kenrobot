@@ -5866,8 +5866,8 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"code": {
 				"include": "#include <LiquidCrystal_I2C.h>",
-				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
-				"setup": "{NAME}.begin();{NAME}.clear();"
+				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);{NAME}.begin();",
+				"setup": "{NAME}.clear();"
 			},
 			"blocks": [{
 				"type": "statement",
@@ -6115,7 +6115,7 @@ define(['vendor/lodash'], function($1) {
 					"id": "ADDR",
 					"type": "number-input"
 				}],
-				"code": "{LCD}.setAddress({ADDR});",
+				"code": "{LCD}.setAddress({ADDR});{LCD}.begin();",
 				"tags": ["module", "advanced"],
 				"module": "lcd",
 				"uid": "nayhFh"
