@@ -328,3 +328,13 @@
 
 - 修复上传、编译按钮在显示进度条时的圆角bug
 - 修复内置示例->01Basic->AnalogReadSerial串口打印一直为0的bug
+
+### v0.6.2
+
+#### features
+
+- 优化液晶模块“设置液晶地址”编程块
+
+#### fix bugs
+
+- 修复编译里找不到libraries这个目录的bug

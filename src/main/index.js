@@ -963,9 +963,7 @@ function preBuild(projectPath, options) {
 	options = _.merge({}, arduinoOptions.default.build, options)
 
 	var packagesPath = getPackagesPath()
-	if(fs.existsSync(packagesPath)) {
-		buildSpecs.push(`-hardware=${packagesPath}`)
-	}
+	fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 	buildSpecs.push(`-fqbn=${options.fqbn}`)
 	var arduinoPath = getArduinoPath()
@@ -976,7 +974,8 @@ function preBuild(projectPath, options) {
 	})
 
 	var librariesPath = getLibrariesPath()
-	buildSpecs.push(`-libraries="${librariesPath}"`)
+	fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
+
 	arduinoOptions.librariesPath.forEach(libraryPath => {
 		buildSpecs.push(`-libraries="${libraryPath}"`)
 	})
