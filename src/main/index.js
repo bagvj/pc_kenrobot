@@ -123,7 +123,7 @@ function listenMessages() {
 	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
-	listenMessage("loadPackages", () => loadPackages())
+	listenMessage("loadPackages", (extra) => loadPackages(extra))
 	listenMessage("deletePackage", name => deletePackage(name))
 
 	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
@@ -132,6 +132,7 @@ function listenMessages() {
 	listenMessage("deleteLibrary", name => deleteLibrary(name))
 
 	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
+	listenMessage("checkPackageLibraryUpdate", packagesUrl => checkPackageLibraryUpdate(packagesUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
@@ -339,6 +340,41 @@ function checkUpdate(checkUrl) {
 }
 
 /**
+ * 检查package和library更新
+ * @param {*} checkUrl
+ */
+function checkPackageLibraryUpdate(packagesUrl) {
+	var deferred = Q.defer()
+
+	Q.all([
+		loadPackages(false),
+		util.request(packagesUrl)
+	]).then(result => {
+		var installedPackages = result[0]
+		var allPackages = result[1]
+
+		var canUpdatePackages = []
+		installedPackages.forEach(pkg => {
+			var newPkg = allPackages.find(p => p.name == pkg.name && util.versionCompare(p.version, pkg.version) > 0)
+			newPkg && canUpdatePackages.push(newPkg)
+		})
+
+		var status = 0
+		if(canUpdatePackages.length > 0) {
+			status = 1
+		}
+		deferred.resolve({
+			status: status
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
  * 删除旧版本
  */
 function removeOldVersions(newVersion) {
@@ -532,8 +568,9 @@ function unzipPackage(packagePath) {
 /**
  * 加载所有包
  */
-function loadPackages() {
+function loadPackages(extra) {
 	var deferred = Q.defer()
+	extra = extra != false;
 
 	var packages = []
 	var packagesPath = getPackagesPath()
@@ -542,30 +579,34 @@ function loadPackages() {
 	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
-			util.readJson(p).then(packageConfig => {
-				packageConfig.order = packageOrders[packageConfig.name] || 0
-				packageConfig.path = path.dirname(p)
-				packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
-				packageConfig.boards && packageConfig.boards.forEach(board => {
-					board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
-						board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)
+			if(extra) {
+				util.readJson(p).then(packageConfig => {
+					packageConfig.order = packageOrders[packageConfig.name] || 0
+					packageConfig.path = path.dirname(p)
+					packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
+					packageConfig.boards && packageConfig.boards.forEach(board => {
+						board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
+							board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)
+						})
+
+						if(board.upload && board.upload.command) {
+							board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
+						}
 					})
 
-					if(board.upload && board.upload.command) {
-						board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
+					var packageSrcPath = path.join(packageConfig.path, "src")
+					if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
+						arduinoOptions.librariesPath.push(packageSrcPath)
 					}
+
+					packages.push(packageConfig)
 				})
-
-				var packageSrcPath = path.join(packageConfig.path, "src")
-				if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
-					arduinoOptions.librariesPath.push(packageSrcPath)
-				}
-
-				packages.push(packageConfig)
-			})
-			.fin(() => {
-				d.resolve()
-			})
+				.fin(() => {
+					d.resolve()
+				})
+			} else {
+				util.readJson(p).then(packageConfig => packages.push(packageConfig)).fin(() => d.resolve())
+			}
 			return d.promise
 		}))
 		.then(() => {

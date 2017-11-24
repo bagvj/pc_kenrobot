@@ -72,7 +72,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 					setTimeout(() => {
-						onCheckUpdate(false);
+						onCheckUpdate(false).then(status => {
+							status > 0 && onCheckPackageLibraryUpdate(false);
+						});
 
 						inSync = false;
 						//项目同步
@@ -174,6 +176,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "check-update":
 				onCheckUpdate();
 				break;
+			case "check-package-library-update":
+				onCheckPackageLibraryUpdate();
+				break;
 			case "visit-kenrobot":
 				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
 				break;
@@ -204,17 +209,46 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onCheckUpdate(manual) {
+		var promise = $.Deferred();
+
 		manual = manual !== false;
 
 		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(result => {
 			if(result.status != 0) {
 				manual && util.message("已经是最新版本了");
+				promise.resolve(1);
 				return;
 			}
 
 			kenrobot.trigger("update", "show", result.data);
+			promise.resolve(0);
 		}, err => {
 			manual && util.message("检查更新失败");
+			promise.resolve(-1)
+		});
+
+		return promise
+	}
+
+
+	function onCheckPackageLibraryUpdate(manual) {
+		manual = manual !== false;
+
+		kenrobot.postMessage("app:checkPackageLibraryUpdate", config.url.packages).then(result => {
+			if(result.status == 0) {
+				manual && util.message("开发板和库已经是最新版本了");
+				return;
+			}
+
+			if(result.status == 1) {
+				util.confirm({
+					text: "开发板有更新，是否去更新？",
+					onConfirm: () => kenrobot.trigger("board", "show"),
+				})
+				return;
+			}
+		}, err => {
+			manual && util.message("开发板和库检查更新失败");
 		});
 	}
 
