@@ -100,8 +100,10 @@ define(['app/common/util/util', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace
 			.replace(/\{\{loop\}\}/, codeInfo.loop || "    ")
 			.replace(/\{\{end\}\}/, codeInfo.end ? "\n\n" + codeInfo.end : "");
 
-		code = beautify.js_beautify(code).replace(/INCLUDE_CODE/, codeInfo.include ? "\n" + codeInfo.include + "\n" : "")
-										 .replace(/CONST_CODE/, codeInfo.const ? "\n" + codeInfo.const + "\n" : "");
+		code = beautify.js_beautify(code, {
+			brace_style: "collapse-preserve-inline"
+		}).replace(/INCLUDE_CODE/, codeInfo.include ? "\n" + codeInfo.include + "\n" : "").replace(/CONST_CODE/, codeInfo.const ? "\n" + codeInfo.const + "\n" : "");
+
 		editor.setValue(code, 1);
 	}
 

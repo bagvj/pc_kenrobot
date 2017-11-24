@@ -5885,8 +5885,8 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"code": {
 				"include": "#include <LiquidCrystal_I2C.h>",
-				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);{NAME}.begin();",
-				"setup": "{NAME}.clear();"
+				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
+				"setup": "{NAME}.begin();{NAME}.clear();"
 			},
 			"blocks": [{
 				"type": "statement",
