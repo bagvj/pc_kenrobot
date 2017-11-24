@@ -621,6 +621,25 @@ define(['vendor/lodash'], function($1) {
 			"uid": "kp7kKD"
 		}, {
 			"type": "output",
+			"name": "rawInput",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "VALUE",
+				"type": "string-input",
+				"placeholder": "内容"
+			}],
+			"code": "{VALUE}",
+			"returnType": {
+				"type": "rawInput",
+				"id": "VALUE"
+			},
+			"tags": ["data"],
+			"uid": "Qw6JBY"
+		}, {
+			"type": "output",
 			"name": "stringArray",
 			"connectors": [{
 				"type": "connector-output",
@@ -5866,8 +5885,8 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"code": {
 				"include": "#include <LiquidCrystal_I2C.h>",
-				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);{NAME}.begin();",
-				"setup": "{NAME}.clear();"
+				"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
+				"setup": "{NAME}.begin();{NAME}.clear();"
 			},
 			"blocks": [{
 				"type": "statement",

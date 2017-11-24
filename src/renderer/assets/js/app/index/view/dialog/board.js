@@ -75,7 +75,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			return promise;
 		}
 
-		kenrobot.postMessage("app:loadPackages").then(list => {
+		kenrobot.postMessage("app:loadPackages", false).then(list => {
 			installedPackages = list.map(p => {
 				return {
 					name: p.name,
