@@ -64,6 +64,11 @@
         "libxtst6",
         "libnss3"
       ]
+    },
+    "fileAssociations": {
+      "ext": "krb",
+      "name": "KRobot",
+      "description": "KRobot"
     }
   },
   "devDependencies": {

@@ -35,6 +35,7 @@ init()
  * 初始化
  */
 function init() {
+	console.log(args)
 	process.on('uncaughtException', err => {
 		var stack = err.stack || (err.name + ': ' + err.message)
 		log.error(stack)
@@ -60,13 +61,13 @@ function init() {
 
 function initLog() {
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	if(is.dev() && args.dev) {
+	// if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
-	} else {
-		log.transports.console = false
-		log.transports.file.level = 'error'
-	}
+	// } else {
+	// 	log.transports.console = false
+	// 	log.transports.file.level = 'error'
+	// }
 }
 
 /**

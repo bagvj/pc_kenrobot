@@ -98,7 +98,12 @@ function getAppDataPath() {
  * 获取资源路径
  */
 function getAppResourcePath() {
-	return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
+	// return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
+	if(is.dev()) {
+		return path.resolve(".")
+	} else {
+		return path.resolve(app.getAppPath(), "..", "..")
+	}
 }
 
 function getAppDocumentPath() {
