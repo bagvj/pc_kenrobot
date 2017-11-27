@@ -7,8 +7,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	var doKeyFilter;
 	var closeLock;
 
+	var libraryTemplate = `<li class="item"><div class="x-progress"></div><div class="wrap"><div class="title"><span class="name"></span>by<span class="author"></span></div><div class="des"><span class="sentence"></span><span class="paragraph"></span></div><div class="toolbar"><span class="more">更多信息</span><span class="placeholder"></span><div class="x-select versions"><div class="placeholder"></div><ul></ul></div><input type="button" class="install" value="安装" /><input type="button" class="delete" value="删除" /></div></div></li>`
+
 	var libraries;
 	var installedLibraries;
+	var isCreated;
 
 	function init() {
 		dialogWin = $('.library-dialog');
@@ -47,7 +50,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function onDialogShow() {
-		$.when(loadLibraries(), getInstalledLibraries()).then(() => update(), err => {
+		$.when(loadLibraries(), getInstalledLibraries(true)).then(() => update(), err => {
 			util.message("加载包配置失败");
 		});
 	}
@@ -72,9 +75,9 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		closeLock = 0;
 	}
 
-	function getInstalledLibraries() {
+	function getInstalledLibraries(forece) {
 		var promise = $.Deferred();
-		if(installedLibraries) {
+		if(!forece && installedLibraries) {
 			setTimeout(() => {
 				promise.resolve(installedLibraries);
 			}, 10);
@@ -117,51 +120,51 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function update() {
-		libraryList.empty();
-		_.forEach(_.groupBy(libraries, "name"), group => {
-			var li = $(`<li class="item">
-				<div class="x-progress"></div>
-				<div class="wrap">
-					<div class="title">
-						<span class="name"></span>by
-						<span class="author"></span>
-					</div>
-					<div class="des"><span class="sentence"></span><span class="paragraph"></span></div>
-					<div class="toolbar">
-						<span class="more">更多信息</span>
-						<span class="placeholder"></span>
-						<div class="x-select versions">
-							<div class="placeholder"></div>
-							<ul></ul>
-						</div>
-						<input type="button" class="install" value="安装" />
-						<input type="button" class="delete" value="删除" />
-					</div>
-				</div>
-			</li>`);
-			// group = _.sortBy(group, ["version"], ["desc"])
-			var versions = group.map(lib => {
-				return $('<li>').data('value', lib).text(lib.version)
+		if(!isCreated) {
+			libraryList.empty();
+			_.forEach(_.groupBy(libraries, "name"), group => {
+				var lib = group[0];
+				var li = $(libraryTemplate);
+				var liList = group.map(l => {
+					return $('<li>').data('value', l).text(l.version)
+				});
+				li.data("value", lib).data("name", lib.name);
+				li.find(".name").text(lib.name);
+				li.find(".author").text(lib.author);
+				li.find(".des .sentence").text(lib.sentence);
+				li.find(".versions > ul").append(liList);
+				li.find(".versions .placeholder").html(liList[0].html());
+				li.find('.install').attr("disabled", false).val("安装").data("action", "install");
+				li.find('.delete').attr("disabled", false).removeClass("active");
+
+				libraryList.append(li);
+
+				var versions = group.map(l => l.version);
+				group.forEach(l => {l.versions = versions});
 			});
-			li.find(".versions > ul").append(versions);
-			libraryList.append(li);
 
-			versions = group.map(lib => lib.version);
-			group.forEach(lib => {lib.versions = versions});
-		});
+			libraryList.find("> .item").on("click", onLibraryClick)
+				.on("click", ".versions .placeholder", onShowVersionSelect)
+				.on("click", ".versions > ul > li", onVersionSelectClick)
+				.on("click", ".more", onMoreClick)
+				.on("click", ".install", onInstallClick)
+				.on("click", ".delete", onDeleteClick);
 
-		libraryList.off("click", "> li", onLibraryClick).on("click", "> li", onLibraryClick)
-			.off("click", ".versions .placeholder", onShowVersionSelect).on("click", ".versions .placeholder", onShowVersionSelect)
-			.off("click", ".versions > ul > li", onVersionSelectClick).on("click", ".versions > ul > li", onVersionSelectClick)
-			.off("click", ".more", onMoreClick).on("click", ".more", onMoreClick)
-			.off("click", ".install", onInstallClick).on("click", ".install", onInstallClick)
-			.off("click", ".delete", onDeleteClick).on("click", ".delete", onDeleteClick);
+			isCreated = true;
+		}
 
-		libraryList.parent().perfectScrollbar("update");
-
-		libraryList.find(".versions > ul > li").filter((index, li) => $(li).index() == 0).click();
 		types.find('> ul > li[data-value="all"]').click();
 		categories.find('> ul > li[data-value="all"]').click();
+
+		doUpdate();
+	}
+
+	function doUpdate() {
+		var items = libraryList.find(".item");
+		installedLibraries.forEach(l => {
+			var item = items.filter(item => item.data("name") == l.name);
+			item.find(".versions li:eq(0)").click();
+		});
 	}
 
 	function onShowVersionSelect(e) {
@@ -177,7 +180,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		util.toggleActive(li);
 
 		var lib = li.data("value");
-		var item = li.parents(".item").data("value", lib);
+		var item = li.parents(".item").data("value", lib).data("name", lib.name);
 		item.find(".name").text(lib.name);
 		item.find(".author").text(lib.author);
 		item.find(".des .sentence").text(lib.sentence);
@@ -186,7 +189,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var installBtn = item.find('.install');
 		var deleteBtn = item.find(".delete");
 
-		var installedLibrary = installedLibraries.find(pack => pack.name == lib.name);
+		var installedLibrary = installedLibraries.find(l => l.name == lib.name);
 		if(installedLibrary) {
 			deleteBtn.attr("disabled", false).addClass("active");
 			var result = util.versionCompare(installedLibrary.version, lib.version);
