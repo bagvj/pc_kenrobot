@@ -1,7 +1,7 @@
 /**
  * 引入 gulp及组件
  * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.26.2 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch jszip lodash serialport@6.0.4
+ * npm install --save electron-debug electron-is electron-log fs-extra command-line-args q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch jszip lodash serialport@6.0.4
  * npm install --global gulp node-gyp electron-rebuild electron@1.6.15
  */
 

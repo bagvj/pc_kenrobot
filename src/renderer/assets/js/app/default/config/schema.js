@@ -596,6 +596,37 @@ define(['vendor/lodash'], function($1) {
 			"uid": "UgUd3U"
 		}, {
 			"type": "output",
+			"name": "dataFormat",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "FORMAT",
+				"type": "static-select",
+				"options": [{
+					"label": "二进制",
+					"value": "BIN"
+				}, {
+					"label": "八进制",
+					"value": "OCT"
+				}, {
+					"label": "十进制",
+					"value": "DEC"
+				}, {
+					"label": "十六进制",
+					"value": "HEX"
+				}]
+			}],
+			"code": "{FORMAT}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["data"],
+			"uid": "WkMlbG"
+		}, {
+			"type": "output",
 			"name": "string",
 			"connectors": [{
 				"type": "connector-output",
@@ -1018,6 +1049,112 @@ define(['vendor/lodash'], function($1) {
 			"code": "{NAME} = {VALUE};",
 			"tags": ["variable"],
 			"uid": "R5KH9G"
+		}, {
+			"type": "statement",
+			"name": "createArray",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "为从字符串"
+			}, {
+				"id": "VALUE",
+				"type": "string-input",
+				"placeholder": "内容"
+			}, {
+				"type": "text",
+				"value": "创建的"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "整数",
+					"value": "int"
+				}, {
+					"label": "浮点数",
+					"value": "float"
+				}, {
+					"label": "字符",
+					"value": "char"
+				}, {
+					"label": "uint8_t",
+					"value": "uint8_t"
+				}, {
+					"label": "uint16_t",
+					"value": "uint16_t"
+				}, {
+					"label": "uint32_t",
+					"value": "uint32_t"
+				}]
+			}, {
+				"type": "text",
+				"value": "数组"
+			}],
+			"code": "{TYPE} {NAME}[] = {{VALUE}};",
+			"tags": ["variable"],
+			"uid": "5riNPJ"
+		}, {
+			"type": "statement",
+			"name": "createArrayAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "E9YCZZ"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "为从字符串"
+			}, {
+				"id": "VALUE",
+				"type": "string-input",
+				"placeholder": "内容"
+			}, {
+				"type": "text",
+				"value": "创建的"
+			}, {
+				"blockInputId": "TYPE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "E9YCZZ",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "string-input",
+						"value": "unsigned char*"
+					}],
+					"name": "rawInput"
+				}
+			}, {
+				"type": "text",
+				"value": "数组"
+			}],
+			"code": "{TYPE} {NAME}[] = {{VALUE}};",
+			"tags": ["variable", "advanced"],
+			"uid": "HnJfIt"
 		}, {
 			"type": "output",
 			"name": "arrayVariable",
@@ -6907,9 +7044,9 @@ define(['vendor/lodash'], function($1) {
 			"imageUrl": "assets/image/components/continuousServo.svg"
 		}, {
 			"uid": "Uf0rkg",
-			"name": "L298P",
-			"label": "L298P驱动板",
-			"type": "L298P",
+			"name": "L298",
+			"label": "L298驱动板",
+			"type": "L298",
 			"category": "action",
 			"boards": ["Arduino"],
 			"width": 120,
@@ -6923,18 +7060,18 @@ define(['vendor/lodash'], function($1) {
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}, {
-				"name": "dir1",
+				"name": "in1",
 				"anchor": [0.5, 0],
 				"tags": ["digital", "analog-in"],
-				"label": "dir1",
+				"label": "in1",
 				"shape": "Dot",
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}, {
-				"name": "en1",
+				"name": "in2",
 				"anchor": [0.75, 0],
 				"tags": ["digital", "analog-in", "GND", "VCC"],
-				"label": "en1",
+				"label": "in2",
 				"shape": "Dot",
 				"rotate": false,
 				"overlay": [0.5, -1]
@@ -6947,30 +7084,30 @@ define(['vendor/lodash'], function($1) {
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}, {
-				"name": "dir2",
+				"name": "in3",
 				"anchor": [0.5, 1],
 				"tags": ["digital", "analog-in"],
-				"label": "dir2",
+				"label": "in3",
 				"shape": "Dot",
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}, {
-				"name": "en2",
+				"name": "in4",
 				"anchor": [0.75, 1],
 				"tags": ["digital", "analog-in", "GND", "VCC"],
-				"label": "en2",
+				"label": "in4",
 				"shape": "Dot",
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <Motor.h>",
-				"var": "if('{en2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2}, {en2});'} else if('{en1}' != '' && ('{dir2}' != '' || '{pwm2}' != '')) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2});'} else if('{dir2}' != '' || '{pwm2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {pwm2}, {dir2});'} else if('{en1}' !== '') {'Motor {NAME}({pwm1}, {dir1}, {en1});'} else {'Motor {NAME}({pwm1}, {dir1});'}",
+				"var": "if('{in4}' != '') {'Motor {NAME}({pwm1}, {in1}, {in2}, {pwm2}, {in3}, {in4});'} else if('{in2}' != '' && ('{in3}' != '' || '{pwm2}' != '')) {'Motor {NAME}({pwm1}, {in1}, {in2}, {pwm2}, {in3});'} else if('{in3}' != '' || '{pwm2}' != '') {'Motor {NAME}({pwm1}, {in1}, {pwm2}, {in3});'} else if('{in2}' !== '') {'Motor {NAME}({pwm1}, {in1}, {in2});'} else {'Motor {NAME}({pwm1}, {in1});'}",
 				"eval": true
 			},
 			"blocks": [{
 				"type": "statement",
-				"name": "L298PSetSpeed",
+				"name": "L298SetSpeed",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -6989,7 +7126,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298Ps"
+					"options": "L298s"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7011,11 +7148,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
 				"tags": ["module"],
-				"module": "L298P",
+				"module": "L298",
 				"uid": "9bBKXv"
 			}, {
 				"type": "statement",
-				"name": "L298PSetDirection",
+				"name": "L298SetDirection",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7029,7 +7166,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298Ps"
+					"options": "L298s"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7056,11 +7193,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
 				"tags": ["module", "advanced"],
-				"module": "L298P",
+				"module": "L298",
 				"uid": "KuYvM6"
 			}, {
 				"type": "statement",
-				"name": "L298PRun",
+				"name": "L298Run",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7079,7 +7216,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298Ps"
+					"options": "L298s"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7114,11 +7251,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
 				"tags": ["module", "advanced"],
-				"module": "L298P",
+				"module": "L298",
 				"uid": "ym7Mdx"
 			}, {
 				"type": "statement",
-				"name": "L298PStop",
+				"name": "L298Stop",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7132,7 +7269,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298Ps"
+					"options": "L298s"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7149,10 +7286,10 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.stop({INDEX});",
 				"tags": ["module"],
-				"module": "L298P",
+				"module": "L298",
 				"uid": "tziV6k"
 			}],
-			"imageUrl": "assets/image/components/L298P.svg"
+			"imageUrl": "assets/image/components/L298.svg"
 		}, {
 			"uid": "Ps9VEj",
 			"name": "car",
@@ -7501,6 +7638,72 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["always", "module"],
 				"module": "serial",
 				"uid": "p3UznJ"
+			}, {
+				"type": "statement",
+				"name": "serialPrint",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "0eigsZ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "GK7wF0"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "发送"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "0eigsZ"
+				}, {
+					"type": "text",
+					"value": "格式"
+				}, {
+					"blockInputId": "FORMAT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "GK7wF0",
+					"value": {
+						"content": [{
+							"id": "FORMAT",
+							"type": "static-select",
+							"value": "DEC"
+						}],
+						"name": "dataFormat"
+					}
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "有换行符",
+						"value": "println"
+					}, {
+						"label": "没有换行符",
+						"value": "print"
+					}]
+				}],
+				"code": "{SERIAL}.{OP}({DATA}, {FORMAT});",
+				"tags": ["always", "module", "advanced"],
+				"module": "serial",
+				"uid": "zLOiPK"
 			}, {
 				"type": "statement",
 				"name": "serialSendAdvanced",

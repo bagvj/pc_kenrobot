@@ -18,11 +18,19 @@ const log = require('electron-log')
 
 const Q = require('q')
 const fs = require('fs-extra')
-const minimist = require('minimist') //命令行参数解析
+const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
 
-var args = minimist(process.argv.slice(1)) //命令行参数
+const optionDefinitions = [
+	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
+	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
+	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
+	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
+	{ name: 'project', alias: 'p', type: String, defaultOption: true}
+]
+
+var args = commandLineArgs(optionDefinitions, {partial: true}) //命令行参数
 
 var config
 
@@ -35,7 +43,6 @@ init()
  * 初始化
  */
 function init() {
-	console.log(args)
 	process.on('uncaughtException', err => {
 		var stack = err.stack || (err.name + ': ' + err.message)
 		log.error(stack)
@@ -57,6 +64,7 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
+	log.debug(args)
 }
 
 function initLog() {
@@ -65,8 +73,8 @@ function initLog() {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
 	// } else {
-	// 	log.transports.console = false
-	// 	log.transports.file.level = 'error'
+		// log.transports.console = false
+		// log.transports.file.level = 'error'
 	// }
 }
 

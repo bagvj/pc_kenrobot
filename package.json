@@ -67,8 +67,7 @@
     },
     "fileAssociations": {
       "ext": "krb",
-      "name": "KRobot",
-      "description": "KRobot"
+      "name": "KRobot"
     }
   },
   "devDependencies": {

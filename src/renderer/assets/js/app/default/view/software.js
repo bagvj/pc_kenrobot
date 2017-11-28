@@ -151,7 +151,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 					if(pin) {
 						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pin && pin.tupleValue || pin.value || pin.name || "");
 					} else {
-						pinConfig.defaultValue && (tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue));
+						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue || "");
 					}
 				});
 				varCode += code.eval ? eval(tempCode) : tempCode;

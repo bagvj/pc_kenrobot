@@ -99,11 +99,7 @@ function getAppDataPath() {
  */
 function getAppResourcePath() {
 	// return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
-	if(is.dev()) {
-		return path.resolve(".")
-	} else {
-		return path.resolve(app.getAppPath(), "..", "..")
-	}
+	return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
 }
 
 function getAppDocumentPath() {
