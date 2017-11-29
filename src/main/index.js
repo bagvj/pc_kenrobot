@@ -64,18 +64,18 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
-	log.debug(args)
+	// log.debug(args)
 }
 
 function initLog() {
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	// if(is.dev() && args.dev) {
+	if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
-	// } else {
-		// log.transports.console = false
-		// log.transports.file.level = 'error'
-	// }
+	} else {
+		log.transports.console = false
+		log.transports.file.level = 'error'
+	}
 }
 
 /**
