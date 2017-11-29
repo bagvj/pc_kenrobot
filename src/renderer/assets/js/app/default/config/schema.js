@@ -6935,7 +6935,7 @@ define(['vendor/lodash'], function($1) {
 						"label": "逆时针",
 						"value": "0"
 					}]
-				},{
+				}, {
 					"type": "text",
 					"value": "转动"
 				}],
@@ -7876,7 +7876,36 @@ define(['vendor/lodash'], function($1) {
 					"value": "设置波特率"
 				}, {
 					"id": "BAUDRATE",
-					"type": "number-input"
+					"type": "static-select",
+					"options": [{
+						"label": "300",
+						"value": "300"
+					}, {
+						"label": "1200",
+						"value": "1200"
+					}, {
+						"label": "2400",
+						"value": "2400"
+					}, {
+						"label": "4800",
+						"value": "4800"
+					}, {
+						"label": "9600",
+						"value": "9600"
+					}, {
+						"label": "19200",
+						"value": "19200"
+					}, {
+						"label": "38400",
+						"value": "38400"
+					}, {
+						"label": "57600",
+						"value": "57600"
+					}, {
+						"label": "115200",
+						"value": "115200"
+					}],
+					"value": "9600"
 				}],
 				"code": "{SERIAL}.begin({BAUDRATE});",
 				"tags": ["module", "advanced"],
