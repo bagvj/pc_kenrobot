@@ -1430,7 +1430,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "simple",
 				"value": "void"
 			},
-			"code": "void {FUNCNAME}(){{STATEMENTS}}",
+			"code": "void {FUNCNAME}(){\n{STATEMENTS}\n}",
 			"tags": ["function"],
 			"uid": "lZ0xnG"
 		}, {
@@ -1495,7 +1495,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "RETURN"
 			},
-			"code": "{RETURN.connectionType} {FUNCNAME}() {{STATEMENTS}return {RETURN};}",
+			"code": "{RETURN.connectionType} {FUNCNAME}() {\n{STATEMENTS}\nreturn {RETURN};\n}",
 			"tags": ["function"],
 			"uid": "ZWKexM"
 		}, {
@@ -1564,7 +1564,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "ARGS"
 			},
-			"code": "void {FUNCNAME} ({ARGS}){{STATEMENTS}}",
+			"code": "void {FUNCNAME} ({ARGS}){\n{STATEMENTS}\n}",
 			"tags": ["function", "advanced"],
 			"uid": "JsiS6Y"
 		}, {
@@ -1659,7 +1659,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "ARGS"
 			},
-			"code": "{RETURN.connectionType} {FUNCNAME} ({ARGS}) {{STATEMENTS}return {RETURN};}",
+			"code": "{RETURN.connectionType} {FUNCNAME} ({ARGS}) {\n{STATEMENTS}\nreturn {RETURN};\n}",
 			"tags": ["function", "advanced"],
 			"uid": "iagCN1"
 		}, {
@@ -1869,7 +1869,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "if({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "if({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "heBaUa"
 		}, {
@@ -1934,7 +1934,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "else if ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "else if ({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "yaqR8I"
 		}, {
@@ -1954,7 +1954,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "否则，那么"
 			}],
-			"code": "else {{STATEMENTS}}",
+			"code": "else {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "ZfRdU7"
 		}, {
@@ -1981,7 +1981,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "的值为"
 			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
+			"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "3zhrCA"
 		}, {
@@ -2036,7 +2036,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
 			"eval": true,
 			"tags": ["logic"],
 			"uid": "0ByIUU"
@@ -2057,7 +2057,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "永远循环"
 			}],
-			"code": "for(;;) {{STATEMENTS}}",
+			"code": "for(;;) {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "EXxo6w"
 		}, {
@@ -2122,7 +2122,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "则一直循环执行"
 			}],
-			"code": "while ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "while ({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "5RidrE"
 		}, {
@@ -2149,7 +2149,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "case {VAR}:{{STATEMENTS}break;}",
+			"code": "case {VAR}:{\n{STATEMENTS}\nbreak;\n}",
 			"tags": ["logic"],
 			"uid": "ff0qMf"
 		}, {
@@ -2169,7 +2169,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "如果都不是，那么"
 			}],
-			"code": "default:{{STATEMENTS}break;}",
+			"code": "default:{\n{STATEMENTS}\nbreak;\n}",
 			"tags": ["logic"],
 			"uid": "vkklu3"
 		}, {
@@ -2236,7 +2236,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "if({CONDITION}){{STATEMENTS}}",
+			"code": "if({CONDITION}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "LoJkxZ"
 		}, {
@@ -2269,7 +2269,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "else if ({VAR}){{STATEMENTS}}",
+			"code": "else if ({VAR}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "SB5Ph7"
 		}, {
@@ -2342,7 +2342,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
 			"eval": true,
 			"tags": ["logic", "advanced"],
 			"uid": "0sHb8t"
@@ -2373,7 +2373,7 @@ define(['vendor/lodash'], function($1) {
 				"acceptType": "all",
 				"name": "kyrV6g"
 			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
+			"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "Mjse7L"
 		}, {
@@ -2406,7 +2406,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "则一直循环执行"
 			}],
-			"code": "while ({CONDITION}){{STATEMENTS}}",
+			"code": "while ({CONDITION}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "3N9W0i"
 		}, {
@@ -8110,7 +8110,7 @@ define(['vendor/lodash'], function($1) {
 					"type": "text",
 					"value": "有数据可读"
 				}],
-				"code": "if({SERIAL}.available()){{STATEMENTS}}",
+				"code": "if({SERIAL}.available()){\n{STATEMENTS}\n}",
 				"tags": ["module"],
 				"module": "serial",
 				"uid": "9T7K8X"
