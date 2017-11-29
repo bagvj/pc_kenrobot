@@ -793,13 +793,16 @@ define(['vendor/lodash'], function($1) {
 				"name": "4kdQw8"
 			}],
 			"content": [{
+				"type": "text",
+				"value": "拼接"
+			}, {
 				"blockInputId": "ARG1",
 				"type": "block-input",
 				"acceptType": "String",
 				"name": "nkbOkw"
 			}, {
 				"type": "text",
-				"value": "+"
+				"value": "和"
 			}, {
 				"blockInputId": "ARG2",
 				"type": "block-input",
@@ -5093,10 +5096,70 @@ define(['vendor/lodash'], function($1) {
 			"blocks": [],
 			"imageUrl": "assets/image/components/pot.svg"
 		}, {
-			"uid": "Eeifb8",
-			"name": "hts221",
-			"label": "温湿度传感器",
-			"type": "hts221",
+			"uid": "L5MW3R",
+			"name": "dht11",
+			"label": "温湿度传感器(DHT11)",
+			"type": "dht11",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <DHT.h>",
+				"var": "DHT {NAME}({s}, DHT11);",
+				"setup": "{NAME}.begin();"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "dht11Temperature",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "读取"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "dht11s"
+				}, {
+					"type": "text",
+					"value": "的"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "温度",
+						"value": "readTemperature"
+					}, {
+						"label": "湿度",
+						"value": "readHumidity"
+					}]
+				}],
+				"code": "{SENSOR}.{OP}()",
+				"returnType": {
+					"type": "simple",
+					"value": "float"
+				},
+				"tags": ["module"],
+				"module": "dht11",
+				"uid": "DhzpFn"
+			}],
+			"imageUrl": "assets/image/components/dht11.svg"
+		}, {
+			"uid": "11HXi6",
+			"name": "dht22",
+			"label": "温湿度传感器(DHT22)",
+			"type": "dht22",
 			"category": "sensor",
 			"boards": ["Arduino"],
 			"width": 72,
@@ -5116,7 +5179,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"blocks": [{
 				"type": "output",
-				"name": "hts221Temperature",
+				"name": "dht22Temperature",
 				"connectors": [{
 					"type": "connector-output",
 					"accept": "connector-input"
@@ -5127,47 +5190,31 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "SENSOR",
 					"type": "dynamic-select",
-					"options": "hts221s"
+					"options": "dht22s"
 				}, {
 					"type": "text",
-					"value": "的温度"
+					"value": "的"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "温度",
+						"value": "readTemperature"
+					}, {
+						"label": "湿度",
+						"value": "readHumidity"
+					}]
 				}],
-				"code": "{SENSOR}.readTemperature()",
+				"code": "{SENSOR}.{OP}()",
 				"returnType": {
 					"type": "simple",
 					"value": "float"
 				},
 				"tags": ["module"],
-				"module": "hts221",
-				"uid": "d2guSS"
-			}, {
-				"type": "output",
-				"name": "hts221Humidity",
-				"connectors": [{
-					"type": "connector-output",
-					"accept": "connector-input"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "读取"
-				}, {
-					"id": "SENSOR",
-					"type": "dynamic-select",
-					"options": "hts221s"
-				}, {
-					"type": "text",
-					"value": "的湿度"
-				}],
-				"code": "{SENSOR}.readHumidity()",
-				"returnType": {
-					"type": "simple",
-					"value": "float"
-				},
-				"tags": ["module"],
-				"module": "hts221",
-				"uid": "0o473f"
+				"module": "dht22",
+				"uid": "NnuP9M"
 			}],
-			"imageUrl": "assets/image/components/hts221.svg"
+			"imageUrl": "assets/image/components/dht22.svg"
 		}, {
 			"uid": "HRwNap",
 			"name": "encoder",
@@ -7044,9 +7091,257 @@ define(['vendor/lodash'], function($1) {
 			"imageUrl": "assets/image/components/continuousServo.svg"
 		}, {
 			"uid": "Uf0rkg",
-			"name": "L298",
-			"label": "L298驱动板",
-			"type": "L298",
+			"name": "L298P",
+			"label": "L298P驱动板",
+			"type": "L298P",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 120,
+			"height": 120,
+			"pins": [{
+				"name": "pwm1",
+				"anchor": [0.25, 0],
+				"tags": ["analog-out"],
+				"label": "pwm1",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "dir1",
+				"anchor": [0.5, 0],
+				"tags": ["digital", "analog-in"],
+				"label": "dir1",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "en1",
+				"anchor": [0.75, 0],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
+				"label": "en1",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "pwm2",
+				"anchor": [0.25, 1],
+				"tags": ["analog-out"],
+				"label": "pwm2",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "dir2",
+				"anchor": [0.5, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "dir2",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "en2",
+				"anchor": [0.75, 1],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
+				"label": "en2",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <Motor.h>",
+				"var": "if('{en2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2}, {en2});'} else if('{en1}' != '' && ('{dir2}' != '' || '{pwm2}' != '')) {'Motor {NAME}({pwm1}, {dir1}, {en1}, {pwm2}, {dir2});'} else if('{dir2}' != '' || '{pwm2}' != '') {'Motor {NAME}({pwm1}, {dir1}, {pwm2}, {dir2});'} else if('{en1}' !== '') {'Motor {NAME}({pwm1}, {dir1}, {en1});'} else {'Motor {NAME}({pwm1}, {dir1});'}",
+				"eval": true
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "L298PSetSpeed",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "TsTLTk"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ps"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机转速为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "TsTLTk"
+				}],
+				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
+				"tags": ["module"],
+				"module": "L298P",
+				"uid": "9bBKXv"
+			}, {
+				"type": "statement",
+				"name": "L298PSetDirection",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ps"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机方向为"
+				}, {
+					"id": "DIR",
+					"type": "static-select",
+					"options": [{
+						"label": "正",
+						"value": "true"
+					}, {
+						"label": "反",
+						"value": "false"
+					}]
+				}],
+				"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
+				"tags": ["module", "advanced"],
+				"module": "L298P",
+				"uid": "KuYvM6"
+			}, {
+				"type": "statement",
+				"name": "L298PRun",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "uSYWse"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ps"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机转动，方向为"
+				}, {
+					"id": "DIR",
+					"type": "static-select",
+					"options": [{
+						"label": "正",
+						"value": "true"
+					}, {
+						"label": "反",
+						"value": "false"
+					}]
+				}, {
+					"type": "text",
+					"value": "转速为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "uSYWse"
+				}],
+				"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "L298P",
+				"uid": "ym7Mdx"
+			}, {
+				"type": "statement",
+				"name": "L298PStop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ps"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机停止"
+				}],
+				"code": "{MOTOR}.stop({INDEX});",
+				"tags": ["module"],
+				"module": "L298P",
+				"uid": "tziV6k"
+			}],
+			"imageUrl": "assets/image/components/L298P.svg"
+		}, {
+			"uid": "aCrRQU",
+			"name": "L298N",
+			"label": "L298N驱动板",
+			"type": "L298N",
 			"category": "action",
 			"boards": ["Arduino"],
 			"width": 120,
@@ -7107,7 +7402,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"blocks": [{
 				"type": "statement",
-				"name": "L298SetSpeed",
+				"name": "L298NSetSpeed",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7118,7 +7413,7 @@ define(['vendor/lodash'], function($1) {
 					"type": "connector-input",
 					"accept": "connector-output",
 					"acceptType": "all",
-					"name": "TsTLTk"
+					"name": "ypOMoN"
 				}],
 				"content": [{
 					"type": "text",
@@ -7126,7 +7421,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298s"
+					"options": "L298Ns"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7144,15 +7439,15 @@ define(['vendor/lodash'], function($1) {
 					"blockInputId": "SPEED",
 					"type": "block-input",
 					"acceptType": "all",
-					"name": "TsTLTk"
+					"name": "ypOMoN"
 				}],
 				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
 				"tags": ["module"],
-				"module": "L298",
-				"uid": "9bBKXv"
+				"module": "L298N",
+				"uid": "6O9eNg"
 			}, {
 				"type": "statement",
-				"name": "L298SetDirection",
+				"name": "L298NSetDirection",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7166,7 +7461,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298s"
+					"options": "L298Ns"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7193,11 +7488,11 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
 				"tags": ["module", "advanced"],
-				"module": "L298",
-				"uid": "KuYvM6"
+				"module": "L298N",
+				"uid": "wO7ugx"
 			}, {
 				"type": "statement",
-				"name": "L298Run",
+				"name": "L298NRun",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7208,7 +7503,7 @@ define(['vendor/lodash'], function($1) {
 					"type": "connector-input",
 					"accept": "connector-output",
 					"acceptType": "all",
-					"name": "uSYWse"
+					"name": "gJSJfn"
 				}],
 				"content": [{
 					"type": "text",
@@ -7216,7 +7511,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298s"
+					"options": "L298Ns"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7247,15 +7542,15 @@ define(['vendor/lodash'], function($1) {
 					"blockInputId": "SPEED",
 					"type": "block-input",
 					"acceptType": "all",
-					"name": "uSYWse"
+					"name": "gJSJfn"
 				}],
 				"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
 				"tags": ["module", "advanced"],
-				"module": "L298",
-				"uid": "ym7Mdx"
+				"module": "L298N",
+				"uid": "fZxjFy"
 			}, {
 				"type": "statement",
-				"name": "L298Stop",
+				"name": "L298NStop",
 				"connectors": [{
 					"type": "connector-top",
 					"accept": "connector-bottom"
@@ -7269,7 +7564,7 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "MOTOR",
 					"type": "dynamic-select",
-					"options": "L298s"
+					"options": "L298Ns"
 				}, {
 					"id": "INDEX",
 					"type": "static-select",
@@ -7286,10 +7581,10 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"code": "{MOTOR}.stop({INDEX});",
 				"tags": ["module"],
-				"module": "L298",
-				"uid": "tziV6k"
+				"module": "L298N",
+				"uid": "WAvwCh"
 			}],
-			"imageUrl": "assets/image/components/L298.svg"
+			"imageUrl": "assets/image/components/L298N.svg"
 		}, {
 			"uid": "Ps9VEj",
 			"name": "car",
