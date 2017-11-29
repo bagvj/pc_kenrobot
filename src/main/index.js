@@ -30,7 +30,7 @@ const optionDefinitions = [
 	{ name: 'project', alias: 'p', type: String, defaultOption: true}
 ]
 
-var args = commandLineArgs(optionDefinitions, {partial: true}) //命令行参数
+var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
 var config
 
