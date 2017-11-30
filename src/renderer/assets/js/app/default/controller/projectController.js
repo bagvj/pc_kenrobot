@@ -102,11 +102,23 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onProjectNew() {
-		savePath = null;
-		openProject(getDefaultProject());
-		kenrobot.trigger("app", "setTitle", savePath);
-		localStorage.recentProject = savePath;
-		util.message("新建成功");
+		var doProjectNew = () => {
+			savePath = null;
+			openProject(getDefaultProject());
+			kenrobot.trigger("app", "setTitle", savePath);
+			localStorage.recentProject = savePath;
+			util.message("新建成功");
+		};
+
+		util.confirm({
+			cancelLabel: "不了",
+			confirmLabel: "好的",
+			text: "保存当前项目后再新建?",
+			onCancel: value => !value && doProjectNew(),
+			onConfirm: () => {
+				onProjectSave().then(() => setTimeout(doProjectNew, 400));
+			}
+		});
 	}
 
 	function onProjectOpen(projectInfo) {
@@ -139,13 +151,14 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onProjectSave(saveAs, exitAfterSave) {
+		var promise = $.Deferred();
 		onCodeRefresh();
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		saveAs = saveAs == true ? true : savePath == null;
 
-		doProjectSave(projectInfo, saveAs).then(function(result) {
+		doProjectSave(projectInfo, saveAs).then(result => {
 			localStorage.recentProject = result.path;
 			util.message({
 				text: "保存成功",
@@ -153,12 +166,16 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			});
 
 			exitAfterSave && setTimeout(() => kenrobot.postMessage("app:exit"), 400);
-		}, function() {
+			promise.resolve();
+		}, () => {
 			util.message({
 				text: "保存失败",
 				type: "warning",
 			});
+			promise.reject();
 		});
+
+		return promise;
 	}
 
 	function onProjectUpload() {
