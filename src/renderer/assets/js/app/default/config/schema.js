@@ -907,7 +907,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "simple",
 				"value": "char"
 			},
-			"tags": ["data", "advanced"],
+			"tags": ["data"],
 			"uid": "iltYPk"
 		}, {
 			"type": "output",
