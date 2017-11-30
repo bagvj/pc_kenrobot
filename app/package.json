@@ -4,7 +4,7 @@
   "name": "krobot",
   "productName": "KRobot",
   "version": "0.6.2",
-  "buildNumber": 4,
+  "buildNumber": 6,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
@@ -15,6 +15,7 @@
   "homepage": "http://www.kenrobot.com",
   "dependencies": {
     "7zip-bin": "^2.2.7",
+    "command-line-args": "^4.0.7",
     "electron-debug": "^1.4.0",
     "electron-is": "^2.4.0",
     "electron-log": "^2.2.11",
@@ -24,7 +25,6 @@
     "iconv-lite": "^0.4.19",
     "jszip": "^3.1.4",
     "lodash": "^4.17.4",
-    "minimist": "^1.2.0",
     "node-fetch": "^1.7.3",
     "q": "^1.5.1",
     "serialport": "^6.0.4",

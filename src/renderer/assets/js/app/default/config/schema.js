@@ -596,6 +596,37 @@ define(['vendor/lodash'], function($1) {
 			"uid": "UgUd3U"
 		}, {
 			"type": "output",
+			"name": "dataFormat",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"id": "FORMAT",
+				"type": "static-select",
+				"options": [{
+					"label": "二进制",
+					"value": "BIN"
+				}, {
+					"label": "八进制",
+					"value": "OCT"
+				}, {
+					"label": "十进制",
+					"value": "DEC"
+				}, {
+					"label": "十六进制",
+					"value": "HEX"
+				}]
+			}],
+			"code": "{FORMAT}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["data"],
+			"uid": "WkMlbG"
+		}, {
+			"type": "output",
 			"name": "string",
 			"connectors": [{
 				"type": "connector-output",
@@ -762,13 +793,16 @@ define(['vendor/lodash'], function($1) {
 				"name": "4kdQw8"
 			}],
 			"content": [{
+				"type": "text",
+				"value": "拼接"
+			}, {
 				"blockInputId": "ARG1",
 				"type": "block-input",
 				"acceptType": "String",
 				"name": "nkbOkw"
 			}, {
 				"type": "text",
-				"value": "+"
+				"value": "和"
 			}, {
 				"blockInputId": "ARG2",
 				"type": "block-input",
@@ -873,7 +907,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "simple",
 				"value": "char"
 			},
-			"tags": ["data", "advanced"],
+			"tags": ["data"],
 			"uid": "iltYPk"
 		}, {
 			"type": "output",
@@ -1018,6 +1052,112 @@ define(['vendor/lodash'], function($1) {
 			"code": "{NAME} = {VALUE};",
 			"tags": ["variable"],
 			"uid": "R5KH9G"
+		}, {
+			"type": "statement",
+			"name": "createArray",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "为从字符串"
+			}, {
+				"id": "VALUE",
+				"type": "string-input",
+				"placeholder": "内容"
+			}, {
+				"type": "text",
+				"value": "创建的"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "整数",
+					"value": "int"
+				}, {
+					"label": "浮点数",
+					"value": "float"
+				}, {
+					"label": "字符",
+					"value": "char"
+				}, {
+					"label": "uint8_t",
+					"value": "uint8_t"
+				}, {
+					"label": "uint16_t",
+					"value": "uint16_t"
+				}, {
+					"label": "uint32_t",
+					"value": "uint32_t"
+				}]
+			}, {
+				"type": "text",
+				"value": "数组"
+			}],
+			"code": "{TYPE} {NAME}[] = {{VALUE}};",
+			"tags": ["variable"],
+			"uid": "5riNPJ"
+		}, {
+			"type": "statement",
+			"name": "createArrayAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "E9YCZZ"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "定义变量"
+			}, {
+				"id": "NAME",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "为从字符串"
+			}, {
+				"id": "VALUE",
+				"type": "string-input",
+				"placeholder": "内容"
+			}, {
+				"type": "text",
+				"value": "创建的"
+			}, {
+				"blockInputId": "TYPE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "E9YCZZ",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "string-input",
+						"value": "unsigned char*"
+					}],
+					"name": "rawInput"
+				}
+			}, {
+				"type": "text",
+				"value": "数组"
+			}],
+			"code": "{TYPE} {NAME}[] = {{VALUE}};",
+			"tags": ["variable", "advanced"],
+			"uid": "HnJfIt"
 		}, {
 			"type": "output",
 			"name": "arrayVariable",
@@ -1290,7 +1430,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "simple",
 				"value": "void"
 			},
-			"code": "void {FUNCNAME}(){{STATEMENTS}}",
+			"code": "void {FUNCNAME}(){\n{STATEMENTS}\n}",
 			"tags": ["function"],
 			"uid": "lZ0xnG"
 		}, {
@@ -1355,7 +1495,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "RETURN"
 			},
-			"code": "{RETURN.connectionType} {FUNCNAME}() {{STATEMENTS}return {RETURN};}",
+			"code": "{RETURN.connectionType} {FUNCNAME}() {\n{STATEMENTS}\nreturn {RETURN};\n}",
 			"tags": ["function"],
 			"uid": "ZWKexM"
 		}, {
@@ -1424,7 +1564,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "ARGS"
 			},
-			"code": "void {FUNCNAME} ({ARGS}){{STATEMENTS}}",
+			"code": "void {FUNCNAME} ({ARGS}){\n{STATEMENTS}\n}",
 			"tags": ["function", "advanced"],
 			"uid": "JsiS6Y"
 		}, {
@@ -1519,7 +1659,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "fromInput",
 				"blockInputId": "ARGS"
 			},
-			"code": "{RETURN.connectionType} {FUNCNAME} ({ARGS}) {{STATEMENTS}return {RETURN};}",
+			"code": "{RETURN.connectionType} {FUNCNAME} ({ARGS}) {\n{STATEMENTS}\nreturn {RETURN};\n}",
 			"tags": ["function", "advanced"],
 			"uid": "iagCN1"
 		}, {
@@ -1729,7 +1869,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "if({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "if({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "heBaUa"
 		}, {
@@ -1794,7 +1934,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "else if ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "else if ({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "yaqR8I"
 		}, {
@@ -1814,7 +1954,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "否则，那么"
 			}],
-			"code": "else {{STATEMENTS}}",
+			"code": "else {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "ZfRdU7"
 		}, {
@@ -1841,7 +1981,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "的值为"
 			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
+			"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "3zhrCA"
 		}, {
@@ -1896,7 +2036,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
 			"eval": true,
 			"tags": ["logic"],
 			"uid": "0ByIUU"
@@ -1917,7 +2057,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "永远循环"
 			}],
-			"code": "for(;;) {{STATEMENTS}}",
+			"code": "for(;;) {\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "EXxo6w"
 		}, {
@@ -1982,7 +2122,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "则一直循环执行"
 			}],
-			"code": "while ({ARG1} {OPERATOR} {ARG2}){{STATEMENTS}}",
+			"code": "while ({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 			"tags": ["logic"],
 			"uid": "5RidrE"
 		}, {
@@ -2009,7 +2149,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "case {VAR}:{{STATEMENTS}break;}",
+			"code": "case {VAR}:{\n{STATEMENTS}\nbreak;\n}",
 			"tags": ["logic"],
 			"uid": "ff0qMf"
 		}, {
@@ -2029,7 +2169,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "如果都不是，那么"
 			}],
-			"code": "default:{{STATEMENTS}break;}",
+			"code": "default:{\n{STATEMENTS}\nbreak;\n}",
 			"tags": ["logic"],
 			"uid": "vkklu3"
 		}, {
@@ -2096,7 +2236,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "if({CONDITION}){{STATEMENTS}}",
+			"code": "if({CONDITION}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "LoJkxZ"
 		}, {
@@ -2129,7 +2269,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "那么"
 			}],
-			"code": "else if ({VAR}){{STATEMENTS}}",
+			"code": "else if ({VAR}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "SB5Ph7"
 		}, {
@@ -2202,7 +2342,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){{STATEMENTS}}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
 			"eval": true,
 			"tags": ["logic", "advanced"],
 			"uid": "0sHb8t"
@@ -2233,7 +2373,7 @@ define(['vendor/lodash'], function($1) {
 				"acceptType": "all",
 				"name": "kyrV6g"
 			}],
-			"code": "switch (int({VAR})) {{STATEMENTS}}",
+			"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "Mjse7L"
 		}, {
@@ -2266,7 +2406,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "则一直循环执行"
 			}],
-			"code": "while ({CONDITION}){{STATEMENTS}}",
+			"code": "while ({CONDITION}){\n{STATEMENTS}\n}",
 			"tags": ["logic", "advanced"],
 			"uid": "3N9W0i"
 		}, {
@@ -4956,10 +5096,70 @@ define(['vendor/lodash'], function($1) {
 			"blocks": [],
 			"imageUrl": "assets/image/components/pot.svg"
 		}, {
-			"uid": "Eeifb8",
-			"name": "hts221",
-			"label": "温湿度传感器",
-			"type": "hts221",
+			"uid": "L5MW3R",
+			"name": "dht11",
+			"label": "温湿度传感器(DHT11)",
+			"type": "dht11",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <DHT.h>",
+				"var": "DHT {NAME}({s}, DHT11);",
+				"setup": "{NAME}.begin();"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "dht11Temperature",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "读取"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "dht11s"
+				}, {
+					"type": "text",
+					"value": "的"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "温度",
+						"value": "readTemperature"
+					}, {
+						"label": "湿度",
+						"value": "readHumidity"
+					}]
+				}],
+				"code": "{SENSOR}.{OP}()",
+				"returnType": {
+					"type": "simple",
+					"value": "float"
+				},
+				"tags": ["module"],
+				"module": "dht11",
+				"uid": "DhzpFn"
+			}],
+			"imageUrl": "assets/image/components/dht11.svg"
+		}, {
+			"uid": "11HXi6",
+			"name": "dht22",
+			"label": "温湿度传感器(DHT22)",
+			"type": "dht22",
 			"category": "sensor",
 			"boards": ["Arduino"],
 			"width": 72,
@@ -4979,7 +5179,7 @@ define(['vendor/lodash'], function($1) {
 			},
 			"blocks": [{
 				"type": "output",
-				"name": "hts221Temperature",
+				"name": "dht22Temperature",
 				"connectors": [{
 					"type": "connector-output",
 					"accept": "connector-input"
@@ -4990,47 +5190,31 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"id": "SENSOR",
 					"type": "dynamic-select",
-					"options": "hts221s"
+					"options": "dht22s"
 				}, {
 					"type": "text",
-					"value": "的温度"
+					"value": "的"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "温度",
+						"value": "readTemperature"
+					}, {
+						"label": "湿度",
+						"value": "readHumidity"
+					}]
 				}],
-				"code": "{SENSOR}.readTemperature()",
+				"code": "{SENSOR}.{OP}()",
 				"returnType": {
 					"type": "simple",
 					"value": "float"
 				},
 				"tags": ["module"],
-				"module": "hts221",
-				"uid": "d2guSS"
-			}, {
-				"type": "output",
-				"name": "hts221Humidity",
-				"connectors": [{
-					"type": "connector-output",
-					"accept": "connector-input"
-				}],
-				"content": [{
-					"type": "text",
-					"value": "读取"
-				}, {
-					"id": "SENSOR",
-					"type": "dynamic-select",
-					"options": "hts221s"
-				}, {
-					"type": "text",
-					"value": "的湿度"
-				}],
-				"code": "{SENSOR}.readHumidity()",
-				"returnType": {
-					"type": "simple",
-					"value": "float"
-				},
-				"tags": ["module"],
-				"module": "hts221",
-				"uid": "0o473f"
+				"module": "dht22",
+				"uid": "NnuP9M"
 			}],
-			"imageUrl": "assets/image/components/hts221.svg"
+			"imageUrl": "assets/image/components/dht22.svg"
 		}, {
 			"uid": "HRwNap",
 			"name": "encoder",
@@ -6798,7 +6982,7 @@ define(['vendor/lodash'], function($1) {
 						"label": "逆时针",
 						"value": "0"
 					}]
-				},{
+				}, {
 					"type": "text",
 					"value": "转动"
 				}],
@@ -7154,6 +7338,254 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"imageUrl": "assets/image/components/L298P.svg"
 		}, {
+			"uid": "aCrRQU",
+			"name": "L298N",
+			"label": "L298N驱动板",
+			"type": "L298N",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 120,
+			"height": 120,
+			"pins": [{
+				"name": "pwm1",
+				"anchor": [0.25, 0],
+				"tags": ["analog-out"],
+				"label": "pwm1",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "in1",
+				"anchor": [0.5, 0],
+				"tags": ["digital", "analog-in"],
+				"label": "in1",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "in2",
+				"anchor": [0.75, 0],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
+				"label": "in2",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "pwm2",
+				"anchor": [0.25, 1],
+				"tags": ["analog-out"],
+				"label": "pwm2",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "in3",
+				"anchor": [0.5, 1],
+				"tags": ["digital", "analog-in"],
+				"label": "in3",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "in4",
+				"anchor": [0.75, 1],
+				"tags": ["digital", "analog-in", "GND", "VCC"],
+				"label": "in4",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <Motor.h>",
+				"var": "if('{in4}' != '') {'Motor {NAME}({pwm1}, {in1}, {in2}, {pwm2}, {in3}, {in4});'} else if('{in2}' != '' && ('{in3}' != '' || '{pwm2}' != '')) {'Motor {NAME}({pwm1}, {in1}, {in2}, {pwm2}, {in3});'} else if('{in3}' != '' || '{pwm2}' != '') {'Motor {NAME}({pwm1}, {in1}, {pwm2}, {in3});'} else if('{in2}' !== '') {'Motor {NAME}({pwm1}, {in1}, {in2});'} else {'Motor {NAME}({pwm1}, {in1});'}",
+				"eval": true
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "L298NSetSpeed",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ypOMoN"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ns"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机转速为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ypOMoN"
+				}],
+				"code": "{MOTOR}.setSpeed({INDEX}, {SPEED});",
+				"tags": ["module"],
+				"module": "L298N",
+				"uid": "6O9eNg"
+			}, {
+				"type": "statement",
+				"name": "L298NSetDirection",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ns"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机方向为"
+				}, {
+					"id": "DIR",
+					"type": "static-select",
+					"options": [{
+						"label": "正",
+						"value": "true"
+					}, {
+						"label": "反",
+						"value": "false"
+					}]
+				}],
+				"code": "{MOTOR}.setDirection({INDEX}, {DIR});",
+				"tags": ["module", "advanced"],
+				"module": "L298N",
+				"uid": "wO7ugx"
+			}, {
+				"type": "statement",
+				"name": "L298NRun",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "gJSJfn"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ns"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机转动，方向为"
+				}, {
+					"id": "DIR",
+					"type": "static-select",
+					"options": [{
+						"label": "正",
+						"value": "true"
+					}, {
+						"label": "反",
+						"value": "false"
+					}]
+				}, {
+					"type": "text",
+					"value": "转速为"
+				}, {
+					"blockInputId": "SPEED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "gJSJfn"
+				}],
+				"code": "{MOTOR}.run({INDEX}, {DIR}, {SPEED});",
+				"tags": ["module", "advanced"],
+				"module": "L298N",
+				"uid": "fZxjFy"
+			}, {
+				"type": "statement",
+				"name": "L298NStop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置电机驱动板模块"
+				}, {
+					"id": "MOTOR",
+					"type": "dynamic-select",
+					"options": "L298Ns"
+				}, {
+					"id": "INDEX",
+					"type": "static-select",
+					"options": [{
+						"label": "1",
+						"value": "1"
+					}, {
+						"label": "2",
+						"value": "2"
+					}]
+				}, {
+					"type": "text",
+					"value": "号电机停止"
+				}],
+				"code": "{MOTOR}.stop({INDEX});",
+				"tags": ["module"],
+				"module": "L298N",
+				"uid": "WAvwCh"
+			}],
+			"imageUrl": "assets/image/components/L298N.svg"
+		}, {
 			"uid": "Ps9VEj",
 			"name": "car",
 			"label": "小车",
@@ -7503,6 +7935,72 @@ define(['vendor/lodash'], function($1) {
 				"uid": "p3UznJ"
 			}, {
 				"type": "statement",
+				"name": "serialPrint",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "0eigsZ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "GK7wF0"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "串口"
+				}, {
+					"id": "SERIAL",
+					"type": "dynamic-select",
+					"options": "serials"
+				}, {
+					"type": "text",
+					"value": "发送"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "0eigsZ"
+				}, {
+					"type": "text",
+					"value": "格式"
+				}, {
+					"blockInputId": "FORMAT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "GK7wF0",
+					"value": {
+						"content": [{
+							"id": "FORMAT",
+							"type": "static-select",
+							"value": "DEC"
+						}],
+						"name": "dataFormat"
+					}
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "有换行符",
+						"value": "println"
+					}, {
+						"label": "没有换行符",
+						"value": "print"
+					}]
+				}],
+				"code": "{SERIAL}.{OP}({DATA}, {FORMAT});",
+				"tags": ["always", "module", "advanced"],
+				"module": "serial",
+				"uid": "zLOiPK"
+			}, {
+				"type": "statement",
 				"name": "serialSendAdvanced",
 				"connectors": [{
 					"type": "connector-top",
@@ -7612,7 +8110,7 @@ define(['vendor/lodash'], function($1) {
 					"type": "text",
 					"value": "有数据可读"
 				}],
-				"code": "if({SERIAL}.available()){{STATEMENTS}}",
+				"code": "if({SERIAL}.available()){\n{STATEMENTS}\n}",
 				"tags": ["module"],
 				"module": "serial",
 				"uid": "9T7K8X"
@@ -7673,7 +8171,36 @@ define(['vendor/lodash'], function($1) {
 					"value": "设置波特率"
 				}, {
 					"id": "BAUDRATE",
-					"type": "number-input"
+					"type": "static-select",
+					"options": [{
+						"label": "300",
+						"value": "300"
+					}, {
+						"label": "1200",
+						"value": "1200"
+					}, {
+						"label": "2400",
+						"value": "2400"
+					}, {
+						"label": "4800",
+						"value": "4800"
+					}, {
+						"label": "9600",
+						"value": "9600"
+					}, {
+						"label": "19200",
+						"value": "19200"
+					}, {
+						"label": "38400",
+						"value": "38400"
+					}, {
+						"label": "57600",
+						"value": "57600"
+					}, {
+						"label": "115200",
+						"value": "115200"
+					}],
+					"value": "9600"
 				}],
 				"code": "{SERIAL}.begin({BAUDRATE});",
 				"tags": ["module", "advanced"],

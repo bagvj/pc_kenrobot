@@ -18,11 +18,19 @@ const log = require('electron-log')
 
 const Q = require('q')
 const fs = require('fs-extra')
-const minimist = require('minimist') //命令行参数解析
+const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
 
-var args = minimist(process.argv.slice(1)) //命令行参数
+const optionDefinitions = [
+	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
+	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
+	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
+	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
+	{ name: 'project', alias: 'p', type: String, defaultOption: true}
+]
+
+var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
 var config
 
@@ -56,6 +64,7 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
+	// log.debug(args)
 }
 
 function initLog() {
