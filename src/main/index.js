@@ -23,11 +23,12 @@ const hasha = require('hasha') //计算hash
 const _ = require('lodash')
 
 const optionDefinitions = [
-	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
-	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
+	{ name: 'debug-brk', type: Number, defaultValue: false },
 	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
 	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
-	{ name: 'project', alias: 'p', type: String, defaultOption: true}
+	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
+	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
+	{ name: 'project', alias: 'p', type: checkOptionProject, defaultOption: true}
 ]
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
@@ -64,7 +65,8 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
-	// log.debug(args)
+	log.debug(args)
+	log.debug(process.argv.join(" "))
 }
 
 function initLog() {
@@ -234,7 +236,9 @@ function createWindow() {
 		.on('enter-full-screen', () => util.postMessage("app:onFullscreenChange", true))
 		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
 
-	mainWindow.webContents.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
+	mainWindow.webContents.on('will-navigate', e => e.preventDefault())
+		.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
+
 	mainWindow.webContents.session.on('will-download', onDownload)
 
 	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
@@ -417,6 +421,10 @@ function removeOldVersions(newVersion) {
 	})
 
 	return deferred.promise
+}
+
+function checkOptionProject(value) {
+	return {value: value}
 }
 
 /**

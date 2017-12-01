@@ -91,7 +91,7 @@ define(['vendor/jquery'], function() {
 			confirmDiv.dequeue("fadeOut");
 		};
 
-		$('.x-confirm-close').on('click', function() {
+		$('.x-confirm-close', confirmDiv).on('click', function() {
 			doClose(onCancel, true);
 		});
 
