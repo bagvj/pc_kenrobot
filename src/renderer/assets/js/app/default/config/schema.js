@@ -2036,7 +2036,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\\n{STATEMENTS}\\n}'",
 			"eval": true,
 			"tags": ["logic"],
 			"uid": "0ByIUU"
@@ -2342,7 +2342,7 @@ define(['vendor/lodash'], function($1) {
 				"type": "text",
 				"value": "执行"
 			}],
-			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\n{STATEMENTS}\n}'",
+			"code": "'for({VAR}={INIT};{VAR}' + ('{MODE}' === '+'?'<=':'>=' ) + '{FINAL};{VAR}{MODE}={ADD}){\\n{STATEMENTS}\\n}'",
 			"eval": true,
 			"tags": ["logic", "advanced"],
 			"uid": "0sHb8t"
@@ -5673,6 +5673,155 @@ define(['vendor/lodash'], function($1) {
 				"uid": "6IcaG6"
 			}],
 			"imageUrl": "assets/image/components/lm35.svg"
+		}, {
+			"uid": "Ecl6qj",
+			"name": "pir",
+			"label": "人体红外感知模块",
+			"type": "pir",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 100,
+			"height": 71,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["digital"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"var": "int {NAME} = {s};"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "pirRead",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "人体红外感知模块"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "pirs"
+				}, {
+					"type": "text",
+					"value": "有信号"
+				}],
+				"code": "digitalRead({SENSOR})",
+				"returnType": {
+					"type": "simple",
+					"value": "int"
+				},
+				"tags": ["module"],
+				"module": "pir",
+				"uid": "hnhNlI"
+			}],
+			"imageUrl": "assets/image/components/pir.svg"
+		}, {
+			"uid": "lcgpAz",
+			"name": "irRecv",
+			"label": "红外接收模块",
+			"type": "irRecv",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 50,
+			"height": 90,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <IRremote.h>",
+				"var": "IRrecv {NAME}({s});\ndecode_results {NAME}_results;",
+				"setup": "{NAME}.enableIRIn();"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "irRecvAvailable",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "红外接收"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "irRecvs"
+				}, {
+					"type": "text",
+					"value": "有信号"
+				}],
+				"code": "{SENSOR}.decode(&{SENSOR}_results)",
+				"returnType": {
+					"type": "simple",
+					"value": "int"
+				},
+				"tags": ["module"],
+				"module": "irRecv",
+				"uid": "E7ytFC"
+			}, {
+				"type": "output",
+				"name": "irRecvKey",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "红外接收"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "irRecvs"
+				}, {
+					"type": "text",
+					"value": "按键值"
+				}],
+				"code": "{SENSOR}_results.value",
+				"returnType": {
+					"type": "simple",
+					"value": "int"
+				},
+				"tags": ["module"],
+				"module": "irRecv",
+				"uid": "fdfBtm"
+			}, {
+				"type": "statement",
+				"name": "irRecvResume",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "红外接收"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "irRecvs"
+				}, {
+					"type": "text",
+					"value": "等待接收下一组信号"
+				}],
+				"code": "{SENSOR}.resume();",
+				"tags": ["module"],
+				"module": "irRecv",
+				"uid": "gvmYRo"
+			}],
+			"imageUrl": "assets/image/components/irRecv.svg"
 		}, {
 			"uid": "E2ZSBW",
 			"name": "led",
