@@ -13,7 +13,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('code', 'copy', onCodeCopy)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
-		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave);
+		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave).on("project", "load", onProjectLoad);
 	}
 
 	function openProject(projectInfo) {
@@ -38,23 +38,12 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			software.loadSchema(schema);
 
 			loadOpenProject().then(result => {
-				savePath = result.path;
-				openProject(result.projectInfo);
-				kenrobot.trigger("app", "setTitle", savePath);
-				localStorage.recentProject = savePath;
-				emitor.trigger("code", "start-refresh");
+				doLoadProject(result.path, result.projectInfo);
 			}, () => {
 				loadRecentProject().then(result => {
-					savePath = result.path;
-					openProject(result.projectInfo);
-					kenrobot.trigger("app", "setTitle", savePath);
-					emitor.trigger("code", "start-refresh");
+					doLoadProject(result.path, result.projectInfo);
 				}, () => {
-					savePath = null;
-					openProject(getDefaultProject());
-					kenrobot.trigger("app", "setTitle", savePath);
-					localStorage.recentProject = savePath;
-					emitor.trigger("code", "start-refresh");
+					doLoadProject(null, getDefaultProject());
 				});
 			});
 		});
@@ -119,6 +108,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		});
 
 		return promise;
+	}
+
+	function doLoadProject(projectPath, projectInfo) {
+		savePath = projectPath;
+		openProject(projectInfo);
+		kenrobot.trigger("app", "setTitle", savePath);
+		localStorage.recentProject = savePath;
+		emitor.trigger("code", "start-refresh");
+	}
+
+	function onProjectLoad(result) {
+		doLoadProject(result.path, result.projectInfo);
 	}
 
 	function onProjectNew() {

@@ -293,7 +293,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onLoadProject(result) {
-		console.dir(result)
+		kenrobot.trigger("project", "load", result);
 	}
 
 	function onBuildError(message, err) {
