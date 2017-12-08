@@ -8,6 +8,8 @@ const JSZip = require('jszip')
 const util = require('./util')
 const Token = require('./token')
 
+const PROJECT_EXT = ".krb"
+
 var syncUrl
 var throttleSync = util.throttle(sync, 3000)
 
@@ -662,8 +664,9 @@ function save(oldProjectPath, projectInfo, isTemp) {
 		projectInfo.project_name = path.basename(projectPath)
 
 		Q.all([
-			util.writeFile(path.join(projectPath, path.basename(projectPath) + ".ino"), projectInfo.project_data.code),
-			util.writeJson(path.join(projectPath, "project.json"), projectInfo)
+			util.writeFile(path.join(projectPath, projectInfo.project_name + ".ino"), projectInfo.project_data.code),
+			util.writeJson(path.join(projectPath, projectInfo.project_name + PROJECT_EXT), projectInfo),
+			util.removeFile(path.join(projectPath, "project.json"))
 		]).then(() => {
 			deferred.resolve({
 				path: projectPath,
@@ -694,9 +697,30 @@ function save(oldProjectPath, projectInfo, isTemp) {
 function read(projectPath) {
 	var deferred = Q.defer()
 
-	util.readJson(path.join(projectPath, "project.json")).then(projectInfo => {
+	var projectName = path.basename(projectPath)
+	var filePath = path.join(projectPath, projectName + PROJECT_EXT)
+	if(!fs.existsSync(filePath)) {
+		filePath = path.join(projectPath, projectName + ".json")
+	}
+	util.readJson(filePath).then(projectInfo => {
 		deferred.resolve({
 			path: projectPath,
+			projectInfo: projectInfo
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function load(projectPath) {
+	var deferred = Q.defer()
+
+	util.readJson(projectPath).then(projectInfo => {
+		deferred.resolve({
+			path: path.dirname(projectPath),
 			projectInfo: projectInfo
 		})
 	}, err => {
@@ -739,6 +763,14 @@ function open(projectPath) {
 	return deferred.promise
 }
 
+function check(projectPath) {
+	if(path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
+		return null
+	}
+
+	return projectPath
+}
+
 module.exports.setSyncUrl = setSyncUrl
 
 module.exports.sync = sync
@@ -748,8 +780,10 @@ module.exports.remove = remove
 module.exports.download = download
 
 module.exports.read = read
+module.exports.load = load
 module.exports.open = open
 module.exports.save = save
+module.exports.check = check
 
 module.exports.newSave = newSave
 module.exports.newSaveAs = newSaveAs

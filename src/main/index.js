@@ -28,10 +28,8 @@ const optionDefinitions = [
 	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
 	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
 	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
-	{ name: 'project', alias: 'p', type: checkOptionProject, defaultOption: true}
+	{ name: 'project', alias: 'p', type: project.check, defaultOption: true}
 ]
-
-const PROJECT_EXT = ".krb"
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
@@ -39,6 +37,8 @@ var config
 
 var mainWindow
 var firstRun
+var projectToLoad
+var isLoadReady
 
 init()
 
@@ -93,10 +93,7 @@ function listenEvents() {
 	.on('will-quit', onAppWillQuit)
 	.on('quit', () => log.debug('app quit'))
 
-	if(is.macOS()) {
-		app.on('open-file', onAppOpenFile)
-		app.on('open-url', onAppOpenUrl)
-	}
+	is.macOS() && app.on('open-file', onAppOpenFile)
 }
 
 /**
@@ -162,6 +159,7 @@ function listenMessages() {
 	listenMessage("projectRead", projectPath => project.read(projectPath))
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
 	listenMessage("projectOpen", projectPath => project.open(projectPath))
+	listenMessage("projectLoad", () => loadProject())
 
 	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
 	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
@@ -204,6 +202,7 @@ function onAppReady() {
 	log.debug('app ready')
 
 	is.dev() && args.devTool && debug({showDevTools: true})
+	args.project && (projectToLoad = args.project)
 
 	loadConfig().then(data => {
 		config = data
@@ -253,14 +252,15 @@ function createWindow() {
 }
 
 function onAppOpenFile(e, filePath) {
-	log.debug(`onAppOpenFile: ${filePath}`)
-	log.debug(e)
-	e.preventDefault()
-}
+	projectToLoad = project.check(filePath)
+	if(isLoadReady){
+		loadProject().then(result => {
+			util.postMessage("app:onLoadProject", result)
+		}, err => {
+			err && log.error(err)
+		})
+	}
 
-function onAppOpenUrl(e, url) {
-	log.debug(`onAppOpenUrl: ${url}`)
-	log.debug(e)
 	e.preventDefault()
 }
 
@@ -440,14 +440,6 @@ function removeOldVersions(newVersion) {
 	})
 
 	return deferred.promise
-}
-
-function checkOptionProject(projectPath) {
-	if(path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
-		return null
-	}
-
-	return projectPath
 }
 
 /**
@@ -1318,6 +1310,20 @@ function matchBoardNames(ports) {
 	})
 
 	return deferred.promise
+}
+
+function loadProject() {
+	log.debug(`loadProject: ${projectToLoad}`)
+	isLoadReady = true
+
+	if(projectToLoad) {
+		var projectPath = projectToLoad
+		projectToLoad = null
+
+		return project.load(projectPath)
+	}
+
+	return util.rejectPromise()
 }
 
 /**

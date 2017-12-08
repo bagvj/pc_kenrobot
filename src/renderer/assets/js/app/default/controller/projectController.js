@@ -33,21 +33,29 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onAppStart() {
-		loadPackages().then(function() {
+		loadPackages().then(() => {
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
 
-			loadRecentProject().then(result => {
+			loadOpenProject().then(result => {
 				savePath = result.path;
 				openProject(result.projectInfo);
 				kenrobot.trigger("app", "setTitle", savePath);
-				emitor.trigger("code", "start-refresh");
-			}, () => {
-				savePath = null;
-				openProject(getDefaultProject());
-				kenrobot.trigger("app", "setTitle", savePath);
 				localStorage.recentProject = savePath;
 				emitor.trigger("code", "start-refresh");
+			}, () => {
+				loadRecentProject().then(result => {
+					savePath = result.path;
+					openProject(result.projectInfo);
+					kenrobot.trigger("app", "setTitle", savePath);
+					emitor.trigger("code", "start-refresh");
+				}, () => {
+					savePath = null;
+					openProject(getDefaultProject());
+					kenrobot.trigger("app", "setTitle", savePath);
+					localStorage.recentProject = savePath;
+					emitor.trigger("code", "start-refresh");
+				});
 			});
 		});
 	}
@@ -82,6 +90,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		});
 
 		return promise
+	}
+
+	function loadOpenProject() {
+		var promise = $.Deferred();
+
+		kenrobot.postMessage("app:projectLoad").then(result => {
+			promise.resolve(result);
+		}, () => {
+			promise.reject();
+		});
+
+		return promise;
 	}
 
 	function loadRecentProject() {

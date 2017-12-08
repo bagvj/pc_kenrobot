@@ -23,6 +23,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
+			.listenMessage("app:onLoadProject", onLoadProject)
 			.on("util", "message", onUtilMessage, {canReset: false})
 			.on("shortcut", "register", onShortcutRegister, {canReset: false})
 			.on('build', 'error', onBuildError, {canReset: false})
@@ -289,6 +290,10 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onSerialPortClose(portId) {
 		kenrobot.trigger("serialport", "close", portId);
+	}
+
+	function onLoadProject(result) {
+		console.dir(result)
 	}
 
 	function onBuildError(message, err) {

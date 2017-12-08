@@ -364,6 +364,7 @@
 #### features
 
 - 新增“人体感知模块”和“红外接收模块”
+- 新增库“IRremote”
 
 #### fix bugs
 
