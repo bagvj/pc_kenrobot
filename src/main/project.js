@@ -700,7 +700,7 @@ function read(projectPath) {
 	var projectName = path.basename(projectPath)
 	var filePath = path.join(projectPath, projectName + PROJECT_EXT)
 	if(!fs.existsSync(filePath)) {
-		filePath = path.join(projectPath, projectName + ".json")
+		filePath = path.join(projectPath, "project.json")
 	}
 	util.readJson(filePath).then(projectInfo => {
 		deferred.resolve({
