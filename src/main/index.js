@@ -54,10 +54,21 @@ function init() {
 
 	initLog()
 
-	if(app.makeSingleInstance((commandLine, workingDirectory) => {
+	if(app.makeSingleInstance((argv, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
 			mainWindow.focus()
+
+			var secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+			secondArgs.project && (projectToLoad = secondArgs.project)
+			log.debug("app second run")
+			// log.debug(secondArgs)
+
+			loadProject().then(result => {
+				util.postMessage("app:onLoadProject", result)
+			}, err => {
+				err && log.error(err)
+			})
 		}
 	})) {
 		app.quit()
@@ -67,19 +78,19 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
-	log.debug(args)
-	log.debug(process.argv.join(" "))
+	// log.debug(args)
+	// log.debug(process.argv.join(" "))
 }
 
 function initLog() {
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	// if(is.dev() && args.dev) {
+	if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
-	// } else {
-		// log.transports.console = false
-		// log.transports.file.level = 'error'
-	// }
+	} else {
+		log.transports.console = false
+		log.transports.file.level = 'error'
+	}
 }
 
 /**
@@ -252,6 +263,8 @@ function createWindow() {
 }
 
 function onAppOpenFile(e, filePath) {
+	e.preventDefault()
+
 	projectToLoad = project.check(filePath)
 	if(isLoadReady){
 		loadProject().then(result => {
@@ -260,8 +273,6 @@ function onAppOpenFile(e, filePath) {
 			err && log.error(err)
 		})
 	}
-
-	e.preventDefault()
 }
 
 function onAppBeforeQuit(e) {
@@ -1313,10 +1324,10 @@ function matchBoardNames(ports) {
 }
 
 function loadProject() {
-	log.debug(`loadProject: ${projectToLoad}`)
 	isLoadReady = true
 
 	if(projectToLoad) {
+		log.debug(`loadProject: ${projectToLoad}`)
 		var projectPath = projectToLoad
 		projectToLoad = null
 
