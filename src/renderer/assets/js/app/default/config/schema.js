@@ -5733,7 +5733,7 @@ define(['vendor/lodash'], function($1) {
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
-				"tags": ["analog-in"],
+				"tags": ["analog-out", "analog-in"],
 				"label": "s",
 				"shape": "Dot",
 				"rotate": false
