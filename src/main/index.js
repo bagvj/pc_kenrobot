@@ -28,7 +28,7 @@ const optionDefinitions = [
 	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
 	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
 	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
-	{ name: 'project', alias: 'p', type: checkOptionProject, defaultOption: true}
+	{ name: 'project', alias: 'p', type: project.check, defaultOption: true}
 ]
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
@@ -37,6 +37,8 @@ var config
 
 var mainWindow
 var firstRun
+var projectToLoad
+var isLoadReady
 
 init()
 
@@ -52,10 +54,21 @@ function init() {
 
 	initLog()
 
-	if(app.makeSingleInstance((commandLine, workingDirectory) => {
+	if(app.makeSingleInstance((argv, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
 			mainWindow.focus()
+
+			var secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+			secondArgs.project && (projectToLoad = secondArgs.project)
+			log.debug("app second run")
+			// log.debug(secondArgs)
+
+			loadProject().then(result => {
+				util.postMessage("app:onLoadProject", result)
+			}, err => {
+				err && log.error(err)
+			})
 		}
 	})) {
 		app.quit()
@@ -65,8 +78,8 @@ function init() {
 	listenMessages()
 
 	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
-	log.debug(args)
-	log.debug(process.argv.join(" "))
+	// log.debug(args)
+	// log.debug(process.argv.join(" "))
 }
 
 function initLog() {
@@ -90,6 +103,8 @@ function listenEvents() {
 	.on('before-quit', onAppBeforeQuit)
 	.on('will-quit', onAppWillQuit)
 	.on('quit', () => log.debug('app quit'))
+
+	is.macOS() && app.on('open-file', onAppOpenFile)
 }
 
 /**
@@ -155,6 +170,7 @@ function listenMessages() {
 	listenMessage("projectRead", projectPath => project.read(projectPath))
 	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
 	listenMessage("projectOpen", projectPath => project.open(projectPath))
+	listenMessage("projectLoad", () => loadProject())
 
 	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
 	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
@@ -197,6 +213,7 @@ function onAppReady() {
 	log.debug('app ready')
 
 	is.dev() && args.devTool && debug({showDevTools: true})
+	args.project && (projectToLoad = args.project)
 
 	loadConfig().then(data => {
 		config = data
@@ -243,6 +260,19 @@ function createWindow() {
 
 	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
 	mainWindow.focus()
+}
+
+function onAppOpenFile(e, filePath) {
+	e.preventDefault()
+
+	projectToLoad = project.check(filePath)
+	if(isLoadReady){
+		loadProject().then(result => {
+			util.postMessage("app:onLoadProject", result)
+		}, err => {
+			err && log.error(err)
+		})
+	}
 }
 
 function onAppBeforeQuit(e) {
@@ -421,10 +451,6 @@ function removeOldVersions(newVersion) {
 	})
 
 	return deferred.promise
-}
-
-function checkOptionProject(value) {
-	return {value: value}
 }
 
 /**
@@ -1295,6 +1321,20 @@ function matchBoardNames(ports) {
 	})
 
 	return deferred.promise
+}
+
+function loadProject() {
+	isLoadReady = true
+
+	if(projectToLoad) {
+		log.debug(`loadProject: ${projectToLoad}`)
+		var projectPath = projectToLoad
+		projectToLoad = null
+
+		return project.load(projectPath)
+	}
+
+	return util.rejectPromise()
 }
 
 /**

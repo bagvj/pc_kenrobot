@@ -13,7 +13,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('code', 'copy', onCodeCopy)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
-		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave);
+		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave).on("project", "load", onProjectLoad);
 	}
 
 	function openProject(projectInfo) {
@@ -33,21 +33,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onAppStart() {
-		loadPackages().then(function() {
+		loadPackages().then(() => {
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
 
-			loadRecentProject().then(result => {
-				savePath = result.path;
-				openProject(result.projectInfo);
-				kenrobot.trigger("app", "setTitle", savePath);
-				emitor.trigger("code", "start-refresh");
+			loadOpenProject().then(result => {
+				doLoadProject(result.path, result.projectInfo);
 			}, () => {
-				savePath = null;
-				openProject(getDefaultProject());
-				kenrobot.trigger("app", "setTitle", savePath);
-				localStorage.recentProject = savePath;
-				emitor.trigger("code", "start-refresh");
+				loadRecentProject().then(result => {
+					doLoadProject(result.path, result.projectInfo);
+				}, () => {
+					doLoadProject(null, getDefaultProject());
+				});
 			});
 		});
 	}
@@ -84,6 +81,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		return promise
 	}
 
+	function loadOpenProject() {
+		var promise = $.Deferred();
+
+		kenrobot.postMessage("app:projectLoad").then(result => {
+			promise.resolve(result);
+		}, () => {
+			promise.reject();
+		});
+
+		return promise;
+	}
+
 	function loadRecentProject() {
 		var promise = $.Deferred();
 		var recentProjectPath = localStorage.recentProject;
@@ -99,6 +108,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		});
 
 		return promise;
+	}
+
+	function doLoadProject(projectPath, projectInfo) {
+		savePath = projectPath;
+		openProject(projectInfo);
+		kenrobot.trigger("app", "setTitle", savePath);
+		localStorage.recentProject = savePath;
+		emitor.trigger("code", "start-refresh");
+	}
+
+	function onProjectLoad(result) {
+		doLoadProject(result.path, result.projectInfo);
 	}
 
 	function onProjectNew() {
