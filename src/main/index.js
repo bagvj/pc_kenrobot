@@ -31,6 +31,8 @@ const optionDefinitions = [
 	{ name: 'project', alias: 'p', type: checkOptionProject, defaultOption: true}
 ]
 
+const PROJECT_EXT = ".krb"
+
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
 var config
@@ -71,13 +73,13 @@ function init() {
 
 function initLog() {
 	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
-	if(is.dev() && args.dev) {
+	// if(is.dev() && args.dev) {
 		//非debug模式，禁用控制台输出
 		log.transports.file.level = 'debug'
-	} else {
-		log.transports.console = false
-		log.transports.file.level = 'error'
-	}
+	// } else {
+		// log.transports.console = false
+		// log.transports.file.level = 'error'
+	// }
 }
 
 /**
@@ -90,6 +92,11 @@ function listenEvents() {
 	.on('before-quit', onAppBeforeQuit)
 	.on('will-quit', onAppWillQuit)
 	.on('quit', () => log.debug('app quit'))
+
+	if(is.macOS()) {
+		app.on('open-file', onAppOpenFile)
+		app.on('open-url', onAppOpenUrl)
+	}
 }
 
 /**
@@ -243,6 +250,18 @@ function createWindow() {
 
 	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
 	mainWindow.focus()
+}
+
+function onAppOpenFile(e, filePath) {
+	log.debug(`onAppOpenFile: ${filePath}`)
+	log.debug(e)
+	e.preventDefault()
+}
+
+function onAppOpenUrl(e, url) {
+	log.debug(`onAppOpenUrl: ${url}`)
+	log.debug(e)
+	e.preventDefault()
 }
 
 function onAppBeforeQuit(e) {
@@ -423,8 +442,12 @@ function removeOldVersions(newVersion) {
 	return deferred.promise
 }
 
-function checkOptionProject(value) {
-	return {value: value}
+function checkOptionProject(projectPath) {
+	if(path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
+		return null
+	}
+
+	return projectPath
 }
 
 /**
