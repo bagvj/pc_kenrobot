@@ -5680,8 +5680,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "pir",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 100,
-			"height": 71,
+			"width": 72,
+			"height": 72,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
@@ -5728,8 +5728,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "irRecv",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 50,
-			"height": 90,
+			"width": 72,
+			"height": 72,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],

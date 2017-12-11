@@ -1,9 +1,7 @@
-const {app, BrowserWindow, ipcMain, shell, clipboard, webContents} = require('electron')
+const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 
 const path = require('path')
-const os = require('os')
 const querystring = require('querystring')
-const crypto = require('crypto')
 
 const util = require('./util')
 const token = require('./token')
@@ -122,6 +120,7 @@ function listenMessages() {
 	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
 	listenMessage("readFile", (filePath, options) => util.readFile(filePath, options))
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
+	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
 	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
@@ -237,7 +236,7 @@ function createWindow() {
 		frame: false,
 		show: false,
 		webPreferences: {
-			plugins: true,
+			// plugins: true,
 			webSecurity: false,
 		}
 	})
@@ -1043,59 +1042,74 @@ function preBuild(projectPath, options) {
 
 	log.debug('pre-build')
 
-	var buildSpecs = []
-	options = _.merge({}, arduinoOptions.default.build, options)
+	var cachePath = path.join(projectPath, 'cache')
+	var buildPath = path.join(cachePath, 'build')
+	fs.ensureDirSync(buildPath)
+	util.removeFile(path.join(buildPath, "sketch", "build"), true)
 
-	var packagesPath = getPackagesPath()
-	fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
+	project.read(projectPath).then(result => {
+		var projectInfo = result.projectInfo
+		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
 
-	buildSpecs.push(`-fqbn=${options.fqbn}`)
-	var arduinoPath = getArduinoPath()
-	Object.keys(options.prefs).forEach(key => {
-		var value = util.handleQuotes(options.prefs[key])
-		value = value.replace(/ARDUINO_PATH/g, arduinoPath)
-		buildSpecs.push(`-prefs=${key}=${value}`)
-	})
+		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
+			var buildSpecs = []
+			options = _.merge({}, arduinoOptions.default.build, options)
 
-	var librariesPath = getLibrariesPath()
-	fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
+			var packagesPath = getPackagesPath()
+			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
-	arduinoOptions.librariesPath.forEach(libraryPath => {
-		buildSpecs.push(`-libraries="${libraryPath}"`)
-	})
+			buildSpecs.push(`-fqbn=${options.fqbn}`)
+			var arduinoPath = getArduinoPath()
+			Object.keys(options.prefs).forEach(key => {
+				var value = util.handleQuotes(options.prefs[key])
+				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
+				buildSpecs.push(`-prefs=${key}=${value}`)
+			})
 
-	var projectBuildPath = path.join(projectPath, 'build')
-	fs.ensureDirSync(projectBuildPath)
-	util.removeFile(path.join(projectBuildPath, "sketch", "build"), true)
-	var commandPath = getCommandPath("build")
-	var command = util.handleQuotes(options.command)
-	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
-		.replace("BUILD_SPECS", buildSpecs.join(' '))
-		.replace("PROJECT_BUILD_PATH", projectBuildPath)
-		.replace("PROJECT_ARDUINO_FILE", path.join(projectPath, `${path.basename(projectPath)}.ino`))
+			var librariesPath = getLibrariesPath()
+			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
-	util.writeFile(commandPath, command).then(() => {
-		var optionPath = path.join(projectPath, 'build', 'build.options.json')
-		if(!fs.existsSync(optionPath)) {
-			setTimeout(() => {
-				deferred.resolve(commandPath)
-			}, 10)
-			return deferred.promise
-		}
+			arduinoOptions.librariesPath.forEach(libraryPath => {
+				buildSpecs.push(`-libraries="${libraryPath}"`)
+			})
 
-		util.readJson(optionPath).then(opt => {
-			if(options.fqbn == opt.fqbn) {
-				deferred.resolve(commandPath)
-				return
-			}
+			var commandPath = getCommandPath("build")
+			var command = util.handleQuotes(options.command)
+			command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+				.replace("BUILD_SPECS", buildSpecs.join(' '))
+				.replace("PROJECT_BUILD_PATH", buildPath)
+				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
 
-			util.removeFile(path.join(projectPath, 'build')).fin(() => {
-				fs.ensureDirSync(path.join(projectPath, 'build'))
-				deferred.resolve(commandPath)
+			util.writeFile(commandPath, command).then(() => {
+				var optionPath = path.join(buildPath, 'build.options.json')
+				if(!fs.existsSync(optionPath)) {
+					setTimeout(() => {
+						deferred.resolve(commandPath)
+					}, 10)
+					return deferred.promise
+				}
+
+				util.readJson(optionPath).then(opt => {
+					if(options.fqbn == opt.fqbn) {
+						deferred.resolve(commandPath)
+						return
+					}
+
+					util.removeFile(buildPath).fin(() => {
+						fs.ensureDirSync(buildPath)
+						deferred.resolve(commandPath)
+					})
+				}, err => {
+					err && log.error(err)
+					deferred.resolve(commandPath)
+				})
+			}, err => {
+				err && log.error(err)
+				deferred.reject()
 			})
 		}, err => {
 			err && log.error(err)
-			deferred.resolve(commandPath)
+			deferred.reject()
 		})
 	}, err => {
 		err && log.error(err)
@@ -1112,7 +1126,7 @@ function preBuild(projectPath, options) {
  */
 function upload(projectPath, options) {
 	options = _.merge({}, arduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware(targetPath, options)
 }
@@ -1125,7 +1139,7 @@ function upload(projectPath, options) {
  */
 function upload2(projectPath, comName, options) {
 	options = _.merge({}, arduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware2(targetPath, comName, options)
 }

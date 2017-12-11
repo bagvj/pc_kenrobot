@@ -11,6 +11,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('project', 'check', onProjectCheck)
 			.on('code', 'refresh', onCodeRefresh)
 			.on('code', 'copy', onCodeCopy)
+			.on('code', 'export', onCodeExport)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
 		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave).on("project", "load", onProjectLoad);
@@ -282,7 +283,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		util.message("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(function(result) {
 			emitor.trigger("ui", "lock", "build", true);
-			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(function() {
+			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(() => {
 				emitor.trigger("ui", "lock", "build", false);
 				util.message("验证成功");
 			}, function(err) {
@@ -302,7 +303,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:projectSave", saveAs ? null : savePath, projectInfo, isTemp).then(function(result) {
+		kenrobot.postMessage("app:projectSave", saveAs ? null : savePath, projectInfo, isTemp).then(result => {
 			projectInfo.updated_at = result.updated_at;
 			if(saveAs && !isTemp) {
 				savePath = result.path;
@@ -333,11 +334,26 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onCodeCopy() {
-		kenrobot.postMessage("app:copy", code.getCopyText(), "code").then(function() {
+		kenrobot.postMessage("app:copy", code.getCopyText(), "code").then(() => {
 			util.message("复制成功");
-		}, function(err) {
+		}, () => {
 			util.message({
 				text: "复制失败",
+				type: "warning"
+			});
+		});
+	}
+
+	function onCodeExport() {
+		var projectInfo = getCurrentProject();
+		var options = {
+			filters: [{name: 'Arduino(*.ino)', extensions: ['ino']}]
+		}
+		kenrobot.postMessage("app:saveFile", projectInfo.project_name + ".ino", code.getData(), options).then(() => {
+			util.message("导出成功");
+		}, () => {
+			util.message({
+				text: "导出失败",
 				type: "warning"
 			});
 		});

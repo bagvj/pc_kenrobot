@@ -210,7 +210,7 @@ function uuid(len, radix) {
 }
 
 function stamp() {
-	return parseInt(new Date().getTime() / 1000)
+	return parseInt(Date.now() / 1000)
 }
 
 function throttle(fn, delay) {
@@ -384,17 +384,17 @@ function spawnCommand(command, args, options) {
 
 /**
  * 读取文件
- * @param {*} file 路径
+ * @param {*} filePath 路径
  * @param {*} options 选项
  */
-function readFile(file, options, sync) {
+function readFile(filePath, options, sync) {
 	if(sync) {
-		return fs.readFileSync(file, options)
+		return fs.readFileSync(filePath, options)
 	} else {
 		var deferred = Q.defer()
 		options = options || "utf8"
 
-		fs.readFile(file, options, (err, data) => {
+		fs.readFile(filePath, options, (err, data) => {
 			if(err) {
 				log.error(err)
 				deferred.reject(err)
@@ -410,16 +410,16 @@ function readFile(file, options, sync) {
 
 /**
  * 写文件
- * @param {*} file 路径
+ * @param {*} filePath 路径
  * @param {*} data 数据
  */
-function writeFile(file, data, options, sync) {
+function writeFile(filePath, data, options, sync) {
 	if(sync) {
-		fs.outputFileSync(file, data, options)
+		fs.outputFileSync(filePath, data, options)
 	} else {
 		var deferred = Q.defer()
 
-		fs.outputFile(file, data, options, err => {
+		fs.outputFile(filePath, data, options, err => {
 			if(err) {
 				log.error(err)
 				deferred.reject(err)
@@ -431,6 +431,32 @@ function writeFile(file, data, options, sync) {
 
 		return deferred.promise
 	}
+}
+
+/**
+ * 保存文件
+ * @param {*} filePath 路径
+ * @param {*} data 数据
+ */
+function saveFile(filePath, data, options) {
+	var deferred = Q.defer()
+
+	options = options || {}
+	filePath && (options.defaultPath = filePath)
+
+	showSaveDialog(options).then(savePath => {
+		writeFile(savePath, data, options).then(() => {
+			deferred.resolve()
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function moveFile(src, dst, options) {
@@ -452,15 +478,15 @@ function moveFile(src, dst, options) {
 
 /**
  * 删除文件
- * @param {*} file 路径
+ * @param {*} filePath 路径
  */
-function removeFile(file, sync) {
+function removeFile(filePath, sync) {
 	if(sync) {
-		fs.removeSync(file)
+		fs.removeSync(filePath)
 	} else {
 		var deferred = Q.defer()
 
-		fs.remove(file, err => {
+		fs.remove(filePath, err => {
 			if(err) {
 				log.error(err)
 				deferred.reject(err)
@@ -476,14 +502,14 @@ function removeFile(file, sync) {
 
 /**
  * 读取json
- * @param {*} file 路径
+ * @param {*} filePath 路径
  * @param {*} options 选项
  */
-function readJson(file, options) {
+function readJson(filePath, options) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	fs.readJson(file, options, (err, data) => {
+	fs.readJson(filePath, options, (err, data) => {
 		if(err) {
 			log.error(err)
 			deferred.reject(err)
@@ -498,18 +524,18 @@ function readJson(file, options) {
 
 /**
  * 写json
- * @param {*} file 路径
+ * @param {*} filePath 路径
  * @param {*} data 数据
  * @param {*} options 选项
  */
-function writeJson(file, data, options, sync) {
+function writeJson(filePath, data, options, sync) {
 	if(sync) {
-		fs.outputJsonSync(file, data, options)
+		fs.outputJsonSync(filePath, data, options)
 	} else {
 		var deferred = Q.defer()
 		options = options || {}
 
-		fs.outputJson(file, data, options, err => {
+		fs.outputJson(filePath, data, options, err => {
 			if(err) {
 				log.error(err)
 				deferred.reject(err)
@@ -639,18 +665,18 @@ function showSaveDialog(options, win) {
 
 	options = options || {}
 	options.title = "保存"
-	options.defaultPath = options.defaultPath || path.join(app.getPath("documents"), "untitled")
+	options.defaultPath = (options.defaultPath && path.isAbsolute(options.defaultPath)) ? options.defaultPath : path.join(app.getPath("documents"), options.defaultPath || "untitled")
 	options.buttonLabel = "保存"
 
 	win = win || BrowserWindow.getAllWindows()[0]
 
-	dialog.showSaveDialog(win, options, file => {
-		if(!file) {
+	dialog.showSaveDialog(win, options, savePath => {
+		if(!savePath) {
 			deferred.reject()
 			return
 		}
 
-		deferred.resolve(file)
+		deferred.resolve(savePath)
 	})
 
 	return deferred.promise
@@ -721,6 +747,7 @@ module.exports.spawnCommand = spawnCommand
 
 module.exports.readFile = readFile
 module.exports.writeFile = writeFile
+module.exports.saveFile = saveFile
 module.exports.moveFile = moveFile
 module.exports.removeFile = removeFile
 module.exports.readJson = readJson

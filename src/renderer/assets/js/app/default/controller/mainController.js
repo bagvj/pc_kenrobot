@@ -95,6 +95,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			case "save-as-project":
 			case "toggle-comment":
 			case "copy":
+			case "export":
 				onShortcut(action);
 				break;
 			case "open-example":
@@ -126,6 +127,9 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				break;
 			case "copy":
 				emitor.trigger('code', 'copy');
+				break;
+			case "export":
+				emitor.trigger('code', 'export');
 				break;
 		}
 	}

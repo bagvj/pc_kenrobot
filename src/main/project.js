@@ -664,8 +664,8 @@ function save(oldProjectPath, projectInfo, isTemp) {
 		projectInfo.project_name = path.basename(projectPath)
 
 		Q.all([
-			util.writeFile(path.join(projectPath, projectInfo.project_name + ".ino"), projectInfo.project_data.code),
 			util.writeJson(path.join(projectPath, projectInfo.project_name + PROJECT_EXT), projectInfo),
+			util.removeFile(path.join(projectPath, projectInfo.project_name + ".ino")),
 			util.removeFile(path.join(projectPath, "project.json"))
 		]).then(() => {
 			deferred.resolve({
@@ -681,10 +681,10 @@ function save(oldProjectPath, projectInfo, isTemp) {
 	if(oldProjectPath) {
 		doSave(oldProjectPath)
 	} else if(isTemp) {
-		var projectPath = path.join(util.getAppPath("temp"), "build", "sketch" + new Date().getTime())
+		var projectPath = path.join(util.getAppPath("temp"), "build", `sketch_${util.stamp()}`)
 		doSave(projectPath)
 	} else {
-		util.showSaveDialog().then(projectPath => {
+		util.showSaveDialog({defaultPath: getDefaultName()}).then(projectPath => {
 			doSave(projectPath)
 		}, () => {
 			deferred.reject()
@@ -769,6 +769,23 @@ function check(projectPath) {
 	}
 
 	return projectPath
+}
+
+const months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]
+
+var suffix = 96
+const getSuffix = () => {
+	suffix++
+	return String.fromCharCode(suffix <= 122 ? suffix : (suffix = 97))
+}
+
+function getDefaultName() {
+	var date = new Date()
+	var month = months[date.getMonth()]
+	var day = (100 + date.getDate()).toString().substring(1)
+	var suffix = getSuffix()
+
+	return `sketch_${month}${day}${suffix}`
 }
 
 module.exports.setSyncUrl = setSyncUrl
