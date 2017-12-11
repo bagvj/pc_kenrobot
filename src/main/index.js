@@ -1046,6 +1046,7 @@ function preBuild(projectPath, options) {
 	var buildPath = path.join(cachePath, 'build')
 	fs.ensureDirSync(buildPath)
 	util.removeFile(path.join(buildPath, "sketch", "build"), true)
+	util.removeFile(path.join(projectPath, "build"), true)
 
 	project.read(projectPath).then(result => {
 		var projectInfo = result.projectInfo
