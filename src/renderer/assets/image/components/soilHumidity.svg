@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="218" height="502.667" viewBox="0 0 218 502.667">
+  <path stroke="#000" stroke-miterlimit="10" d="M63.5 129H0V8s0-2.953 2.563-5.75C4.61.015 7.844 0 7.844 0h202.49s3.666.516 5.385 2.578C218.139 5.482 218 8 218 8v121.5"/>
+  <path fill="#EDCC92" stroke="#000" stroke-miterlimit="10" d="M64 432.262l-29.688 69.146s-1.081 1.259-2.313 1.259c-1.202 0-2.258-1.13-2.258-1.13L0 432.262V130.313h64v301.949z"/>
+  <path fill="#FFF" stroke="#000" stroke-miterlimit="10" d="M154.731 130.313c0-25.107-20.358-45.458-45.472-45.458-25.112 0-45.471 20.351-45.471 45.458"/>
+  <ellipse cx="14.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="50.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="14.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="50.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="14.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="50.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="14.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="50.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="14.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="50.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="32.237" cy="485.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <path fill="#EDCC92" stroke="#000" stroke-miterlimit="10" d="M154 130h64"/>
+  <text fill="#FFF" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="24" transform="translate(37.5645 57.5)">
+    土壤湿度检测
+  </text>
+  <circle cx="19.5" cy="18.5" r="10.5" fill="#FFF"/>
+  <circle cx="198.5" cy="18.5" r="10.5" fill="#FFF"/>
+  <path fill="#EDCC92" stroke="#000" stroke-miterlimit="10" d="M218 432.262l-29.688 69.146s-1.08 1.259-2.313 1.259c-1.202 0-2.258-1.13-2.258-1.13L154 432.262V130.313h64v301.949z"/>
+  <ellipse cx="168.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="204.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="168.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="204.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="168.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="204.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="168.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="204.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="178.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="242.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="304.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="361.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="168.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="204.237" cy="424.718" fill="#FFF" rx="2.327" ry="2.272"/>
+  <ellipse cx="186.237" cy="485.718" fill="#FFF" rx="2.327" ry="2.272"/>
+</svg>

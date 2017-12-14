@@ -34,7 +34,6 @@ function save(value) {
 	return deferred.promise
 }
 
-
 function load(key) {
 	var deferred = Q.defer()
 

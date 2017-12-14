@@ -299,7 +299,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			}
 
 			var tab = tabs.filter(".tab-weixin");
-			tab.find(".qrcode").removeClass("timeout").data("key", result.data.login_key).attr("src", result.data.qrcodeurl);
+			tab.find(".qrcode").removeClass("timeout").data("key", result.data.auth_key).attr("src", result.data.qrcodeurl);
 
 			clearTimeout(qrcodeTimer);
 			qrcodeTimer = setTimeout(onQrcodeTimeout, qrcodeDelay);

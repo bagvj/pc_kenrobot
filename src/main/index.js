@@ -20,6 +20,8 @@ const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
 
+const listenMessage = util.listenMessage
+
 const optionDefinitions = [
 	{ name: 'debug-brk', type: Number, defaultValue: false },
 	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
@@ -110,7 +112,6 @@ function listenEvents() {
  */
 function listenMessages() {
 	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
-	listenMessage("getBaseUrl", () => util.resolvePromise("."))
 
 	listenMessage("loadSetting", () => loadSetting())
 	listenMessage("saveSetting", setting => saveSetting(setting))
@@ -166,14 +167,12 @@ function listenMessages() {
 	listenMessage("loadToken", key => token.load(key))
 	listenMessage("removeToken", () => token.remove())
 
-	listenMessage("projectRead", projectPath => project.read(projectPath))
-	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
-	listenMessage("projectOpen", projectPath => project.open(projectPath))
 	listenMessage("projectLoad", () => loadProject())
 
-	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
-	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
-	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
+	listenMessage("projectRead", projectPath => project.read(projectPath))
+	listenMessage("projectOpen", name => project.open(name))
+	listenMessage("projectSave", (name, data, savePath) => project.save(name, data, savePath))
+	listenMessage("projectSaveAs", (name, data, isTemp) => project.saveAs(name, data, isTemp))
 
 	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", () => project.sync())
@@ -192,20 +191,6 @@ function listenMessages() {
 	listenMessage("min", () => mainWindow.minimize())
 	listenMessage("max", () => onAppToggleMax())
 	listenMessage("errorReport", err => onAppErrorReport(err))
-}
-
-function listenMessage(name, callback) {
-	var eventName = `app:${name}`
-	ipcMain.on(eventName, (e, deferId, ...args) => {
-		var promise = callback.apply(this, args) || util.resolvePromise()
-		promise.then(result => {
-			e.sender.send(eventName, deferId, true, result)
-		}, err => {
-			e.sender.send(eventName, deferId, false, err)
-		}, progress => {
-			e.sender.send(eventName, deferId, "notify", progress)
-		})
-	})
 }
 
 function onAppReady() {
@@ -540,7 +525,7 @@ function unzipPackages(skip) {
 			}
 
 			var p = list.pop()
-			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
+			util.uncompress(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
 				var index = oldPackages.findIndex(o => o.name == p.name)
 				if(index >= 0) {
 					oldPackages.splice(index, 1, p)
@@ -576,7 +561,7 @@ function unzipPackages(skip) {
 function unzipPackage(packagePath) {
 	var deferred = Q.defer()
 
-	util.unzip(packagePath, getPackagesPath(), true).then(() => {
+	util.uncompress(packagePath, getPackagesPath(), true).then(() => {
 		var name = path.basename(packagePath)
 		name = name.substring(0, name.indexOf("-"))
 		var ext = is.windows() ? "bat" : "sh"
@@ -809,7 +794,7 @@ function unzipLibrary(name, libraryPath) {
 
 	var librariesPath = getLibrariesPath()
 	var outputName = path.basename(libraryPath, path.extname(libraryPath))
-	util.unzip(libraryPath, librariesPath, true).then(() => {
+	util.uncompress(libraryPath, librariesPath, true).then(() => {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -934,7 +919,7 @@ function installDriver(driverPath) {
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.join(util.getAppDataPath(), "temp")
-	util.unzip(driverPath, dir).then(() => {
+	util.uncompress(driverPath, dir).then(() => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(() => {
 			deferred.resolve()
@@ -1346,7 +1331,7 @@ function loadProject() {
 		var projectPath = projectToLoad
 		projectToLoad = null
 
-		return project.load(projectPath)
+		return project.read(projectPath)
 	}
 
 	return util.rejectPromise()

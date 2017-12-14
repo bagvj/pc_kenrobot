@@ -3,7 +3,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 	var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
 	function getUserId() {
-		return userInfo ? userInfo.user_id : 0;
+		return userInfo ? userInfo.id : 0;
 	}
 
 	function getUserInfo() {
@@ -86,13 +86,12 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 		return promise;
 	}
 
-	function weixinLogin(key, autoLogin) {
+	function weixinLogin(authKey, autoLogin) {
 		var promise = $.Deferred();
-		kenrobot.postMessage("app:request", config.url.login, {
+		kenrobot.postMessage("app:request", config.url.weixinLogin, {
 			method: "POST",
 			data: {
-				source: "weixin",
-				login_key : key,
+				auth_key : authKey,
 			},
 		}).then(function(result) {
 			if(result.status == 0 || result.status == 1) {
@@ -109,7 +108,7 @@ define(['vendor/jquery', 'app/common/config/config', 'app/common/util/emitor'], 
 	function weixinQrcode() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:request", config.url.loginQrcode).then(result => {
+		kenrobot.postMessage("app:request", config.url.weixinQrcode).then(result => {
 			promise.resolve(result);
 		}, err => {
 			promise.reject(err);

@@ -3,7 +3,7 @@ const child_process = require('child_process')
 const path = require('path')
 const crypto = require('crypto')
 
-const {app, dialog, BrowserWindow} = require('electron')
+const {app, ipcMain, dialog, BrowserWindow} = require('electron')
 const log = require('electron-log')
 const is = require('electron-is')
 
@@ -12,6 +12,7 @@ const fs = require('fs-extra')
 const glob = require('glob')
 const sudo = require('sudo-prompt')
 const iconv = require('iconv-lite')
+const _ = require('lodash')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
@@ -98,7 +99,6 @@ function getAppDataPath() {
  * 获取资源路径
  */
 function getAppResourcePath() {
-	// return (!is.windows() && !is.dev()) ? path.resolve(app.getAppPath(), "..", "..") : path.resolve(".")
 	return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
 }
 
@@ -143,6 +143,20 @@ function postMessage(name, ...args) {
 	log.debug(`postMessage: ${name}, ${args.join(", ")}`)
 	var wins = BrowserWindow.getAllWindows()
 	wins && wins.length && wins[0].webContents.send(name, args)
+}
+
+function listenMessage(name, callback) {
+	var eventName = `app:${name}`
+	ipcMain.on(eventName, (e, deferId, ...args) => {
+		var promise = callback.apply(this, args) || resolvePromise()
+		promise.then(result => {
+			e.sender.send(eventName, deferId, true, result)
+		}, err => {
+			e.sender.send(eventName, deferId, false, err)
+		}, progress => {
+			e.sender.send(eventName, deferId, "notify", progress)
+		})
+	})
 }
 
 function getDefer() {
@@ -313,8 +327,10 @@ function execCommand(command, options, useSudo) {
 	log.debug(`execCommand:${command}, options: ${JSON.stringify(options)}, useSudo: ${useSudo}`)
 	if(useSudo) {
 		sudo.exec(command, {name: "kenrobot"}, (err, stdout, stderr) => {
-			stdout = is.windows() ? iconv.decode(stdout || "", 'gbk') : stdout
-			stderr = is.windows() ? iconv.decode(stderr || "", 'gbk') : stderr
+			stdout = stdout || ""
+			stderr = stderr || ""
+			stdout = is.windows() ? iconv.decode(Buffer.from(stdout), 'win1252') : stdout
+			stderr = is.windows() ? iconv.decode(Buffer.from(stderr), 'win1252') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
@@ -323,13 +339,15 @@ function execCommand(command, options, useSudo) {
 				return
 			}
 
-			is.dev() && log.debug(stdout)
+			is.dev() && stdout && log.debug(stdout)
 			deferred.resolve(stdout)
 		})
 	} else {
 		child_process.exec(command, options, (err, stdout, stderr) => {
-			stdout = is.windows() ? iconv.decode(stdout || "", 'gbk') : stdout
-			stderr = is.windows() ? iconv.decode(stderr || "", 'gbk') : stderr
+			stdout = stdout || ""
+			stderr = stderr || ""
+			stdout = is.windows() ? iconv.decode(Buffer.from(stdout), 'win1252') : stdout
+			stderr = is.windows() ? iconv.decode(Buffer.from(stderr), 'win1252') : stderr
 			if(err) {
 				log.error(err)
 				stdout && log.error(stdout)
@@ -338,7 +356,7 @@ function execCommand(command, options, useSudo) {
 				return
 			}
 
-			is.dev() && log.debug(stdout)
+			is.dev() && stdout && log.debug(stdout)
 			deferred.resolve(stdout)
 		})
 	}
@@ -358,8 +376,8 @@ function spawnCommand(command, args, options) {
 	var stdout = ''
 	var stderr = ''
 	child.stdout.on('data', data => {
-		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
-		is.dev() && log.debug(str)
+		var str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
+		is.dev() && str && log.debug(str)
 		stdout += str
 		deferred.notify({
 			type: "stdout",
@@ -367,8 +385,8 @@ function spawnCommand(command, args, options) {
 		})
 	})
 	child.stderr.on('data', data => {
-		var str = is.windows() ? iconv.decode(data, 'gbk') : data.toString()
-		is.dev() && log.debug(str)
+		var str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
+		is.dev() && str && log.debug(str)
 		stderr += str
 		deferred.notify({
 			type: "stderr",
@@ -572,17 +590,18 @@ function searchFiles(pattern) {
 
 /**
  * 解压文件
- * @param {*} zipPath 压缩文件路径
+ * @param {*} filePath 压缩文件路径
  * @param {*} dist 解压缩目录
  * @param {*} spawn 是否用spawn, 默认为false
  */
-function unzip(zipPath, dist, spawn) {
+function uncompress(filePath, dist, spawn) {
 	var deferred = Q.defer()
 	var reg = /([\d]+)% \d+ - .*\r?/g
 
-	log.debug(`unzip: ${zipPath} => ${dist}`)
+	log.debug(`uncompress: ${filePath} => ${dist}`)
+
 	if(spawn) {
-		spawnCommand(`"${path7za}"`, ["x", `"${zipPath}"`, "-bsp1", "-y", `-o"${dist}"`], {shell: true}).then(result => {
+		spawnCommand(`"${path7za}"`, ["x", `"${filePath}"`, "-bsp1", "-y", `-o"${dist}"`], {shell: true}).then(result => {
 			deferred.resolve(result)
 		}, err => {
 			err && log.error(err)
@@ -603,7 +622,7 @@ function unzip(zipPath, dist, spawn) {
 			deferred.notify(parseInt(match[1]))
 		})
 	} else {
-		execCommand(`"${path7za}" x "${zipPath}" -y -o"${dist}"`).then(() => {
+		execCommand(`"${path7za}" x "${filePath}" -y -o"${dist}"`).then(() => {
 			deferred.resolve()
 		}, err => {
 			err && log.error(err)
@@ -614,12 +633,14 @@ function unzip(zipPath, dist, spawn) {
 	return deferred.promise
 }
 
-function zip(dir, files, dist, type) {
+function compress(dir, files, dist, type) {
 	var deferred = Q.defer()
 
-	files = files instanceof Array ? files : [files]
+	files = files  ? files : [files]
 	type = type || "7z"
-	execCommand(`cd "${dir}" && "${path7za}" a -t${type} -r ${dist} ${files.join(' ')}`).then(() => {
+	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
+
+	execCommand(`cd ${is.windows() ? "/d " : ""}${dir} && "${path7za}" a -t${type} -r ${dist} ${files.join(' ')}`).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
@@ -725,6 +746,7 @@ module.exports.getAppPath = getAppPath
 
 module.exports.versionCompare = versionCompare
 module.exports.postMessage = postMessage
+module.exports.listenMessage = listenMessage
 
 module.exports.getDefer = getDefer
 module.exports.callDefer = callDefer
@@ -754,8 +776,8 @@ module.exports.readJson = readJson
 module.exports.writeJson = writeJson
 
 module.exports.searchFiles = searchFiles
-module.exports.unzip = unzip
-module.exports.zip = zip
+module.exports.compress = compress
+module.exports.uncompress = uncompress
 
 module.exports.showOpenDialog = showOpenDialog
 module.exports.showSaveDialog = showSaveDialog

@@ -14,7 +14,8 @@ define(function() {
 			logout: "http://server.kenrobot.com/logout",
 			register: "http://server.kenrobot.com/register",
 			findPassword: "http://server.kenrobot.com/password/email",
-			loginQrcode: "http://server.kenrobot.com/auth/weixin/gettoken",
+			weixinQrcode: "http://server.kenrobot.com/api/auth/weixin/token",
+			weixinLogin: "http://server.kenrobot.com/api/auth/weixin/login",
 
 			projectSync: "http://userver.kenrobot.com/api/project/sync"
 		},

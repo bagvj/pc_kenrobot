@@ -39,10 +39,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			software.loadSchema(schema);
 
 			loadOpenProject().then(result => {
-				doLoadProject(result.path, result.projectInfo);
+				doLoadProject(result.path, result.data);
 			}, () => {
 				loadRecentProject().then(result => {
-					doLoadProject(result.path, result.projectInfo);
+					doLoadProject(result.path, result.data);
 				}, () => {
 					doLoadProject(null, getDefaultProject());
 				});
@@ -75,7 +75,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				pkg.blocks && pkg.blocks.forEach(block => schema.blocks.push(block));
 			});
 		})
-		.fin(function() {
+		.fin(() => {
 			promise.resolve()
 		});
 
@@ -120,7 +120,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onProjectLoad(result) {
-		doLoadProject(result.path, result.projectInfo);
+		doLoadProject(result.path, result.data);
 	}
 
 	function onProjectNew() {
@@ -154,16 +154,16 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				type: "success"
 			});
 		} else {
-			kenrobot.postMessage("app:projectOpen").then(function(result) {
-				savePath = result.path;
-				openProject(result.projectInfo);
+			kenrobot.postMessage("app:projectOpen").then(result => {
+				savePath = result.extra.path;
+				openProject(result.data);
 				kenrobot.trigger("app", "setTitle", savePath);
 				localStorage.recentProject = savePath;
 				util.message({
 					text: "打开成功",
 					type: "success"
 				});
-			}, function(err) {
+			}, err => {
 				util.message({
 					text: "打开失败",
 					type: "error",
@@ -303,17 +303,26 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:projectSave", saveAs ? null : savePath, projectInfo, isTemp).then(result => {
-			projectInfo.updated_at = result.updated_at;
-			if(saveAs && !isTemp) {
-				savePath = result.path;
+		var savePromise
+		if(saveAs) {
+			savePromise = kenrobot.postMessage("app:projectSaveAs", projectInfo.project_name, projectInfo, isTemp);
+		} else {
+			savePromise = kenrobot.postMessage("app:projectSave", projectInfo.project_name, projectInfo, savePath);
+		}
+
+		savePromise.then(result => {
+			if(!isTemp) {
 				projectInfo.project_name = result.project_name;
+				projectInfo.project_type = result.project_type;
+				projectInfo.updated_at = result.updated_at;
+
+				savePath = result.path;
 				kenrobot.trigger("app", "setTitle", savePath);
 				localStorage.recentProject = savePath;
 			}
 			promise.resolve(result);
-		}, function() {
-			promise.reject();
+		}, err => {
+			promise.reject(err);
 		});
 
 		return promise;
@@ -390,6 +399,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		return {
 			project_name: "我的项目",
 			project_data: {},
+			project_type: "local",
 			created_at: now,
 			updated_at: now,
 		};
