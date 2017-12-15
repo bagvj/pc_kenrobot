@@ -7,8 +7,9 @@ const util = require('./util')
 const token = require('./token')
 const serialPort = require('./serialPort') //串口
 const project = require('./project') //同步
-const packageOrders = require('./packageOrders') //包优先级
-const arduinoOptions = require('./arduinoOptions')
+const packageOrders = require('./config/packageOrders') //包优先级
+const arduinoOptions = require('./config/arduinoOptions')
+const Url = require('./config/url')
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -157,15 +158,15 @@ function listenMessages() {
 	listenMessage("unzipLibrary", (name, libraryPath) => unzipLibrary(name, libraryPath))
 	listenMessage("deleteLibrary", name => deleteLibrary(name))
 
-	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
+	listenMessage("checkUpdate", checkUrl => checkUpdate())
 	listenMessage("checkPackageLibraryUpdate", packagesUrl => checkPackageLibraryUpdate(packagesUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
-	listenMessage("setToken", value => token.set(value))
 	listenMessage("saveToken", value => token.save(value))
 	listenMessage("loadToken", key => token.load(key))
 	listenMessage("removeToken", () => token.remove())
+	listenMessage("verifyToken", () => token.verify())
 
 	listenMessage("projectLoad", () => loadProject())
 
@@ -174,17 +175,20 @@ function listenMessages() {
 	listenMessage("projectSave", (name, data, savePath) => project.save(name, data, savePath))
 	listenMessage("projectSaveAs", (name, data, isTemp) => project.saveAs(name, data, isTemp))
 
-	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", () => project.sync())
-	listenMessage("projectList", type => project.list(type))
-	listenMessage("projectUpload", (name, type) => project.upload(name, type))
-	listenMessage("projectDelete", (name, type) => project.remove(name, type))
-	listenMessage("projectDownload", (name, type) => project.download(name, type))
+	listenMessage("projectList", () => project.list())
+
+	if(is.dev()) {
+		listenMessage("projectCreate", name => project.create(name))
+		listenMessage("projectUpload", (name, hash) => project.upload(name, hash))
+		listenMessage("projectDelete", (name, hash) => project.remove(name, hash))
+		listenMessage("projectDownload", (name, hash) => project.download(name, hash))
+	}
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", () => app.quit())
-	listenMessage("exit", () => app.exit(0))
+	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
 	listenMessage("reload", () => mainWindow.reload())
 	listenMessage("relaunch", () => onAppRelaunch())
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
@@ -267,6 +271,7 @@ function onAppBeforeQuit(e) {
 function onAppWillQuit(e) {
 	serialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+	return true
 }
 
 function onAppToggleMax() {
@@ -327,8 +332,8 @@ function reportToServer(data, type) {
 
 	data = _.merge({}, data, baseInfo)
 	type = type || 'log'
-	var url = "http://userver.kenrobot.com/statistics/report"
-	util.request(url, {
+
+	util.request(Url.REPORT, {
 		method: "post",
 		data: {
 			data: JSON.stringify(data),
@@ -349,11 +354,11 @@ function reportToServer(data, type) {
  * 检查更新
  * @param {*} checkUrl
  */
-function checkUpdate(checkUrl) {
+function checkUpdate() {
 	var deferred = Q.defer()
 
 	var info = util.getAppInfo()
-	var url = `${checkUrl}&appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
+	var url = `${Url.CHECK_UPDATE}&appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
 	log.debug(`checkUpdate: ${url}`)
 
 	util.request(url).then(result => {
@@ -678,7 +683,7 @@ function openExample(category, name, pkg) {
 	}
 
 	log.debug(`openExample: ${examplePath}`)
-	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
+	project.read(examplePath).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
 		err && log.error(err)
@@ -1034,7 +1039,7 @@ function preBuild(projectPath, options) {
 	util.removeFile(path.join(projectPath, "build"), true)
 
 	project.read(projectPath).then(result => {
-		var projectInfo = result.projectInfo
+		var projectInfo = result.data
 		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
 
 		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {

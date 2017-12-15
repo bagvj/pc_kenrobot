@@ -717,7 +717,6 @@ function request(url, options, json) {
 		delete options.data
 	}
 
-	// log.debug(`request: ${url}, options: ${JSON.stringify(options)}`)
 	fetch(url, options).then(res => {
 		if(res.ok) {
 			return json ? res.json() : res

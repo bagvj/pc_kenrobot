@@ -155,7 +155,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			});
 		} else {
 			kenrobot.postMessage("app:projectOpen").then(result => {
-				savePath = result.extra.path;
+				savePath = result.path;
 				openProject(result.data);
 				kenrobot.trigger("app", "setTitle", savePath);
 				localStorage.recentProject = savePath;

@@ -96,8 +96,8 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				onShortcut(action);
 				break;
 			case "open-example":
-				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(projectInfo => {
-					emitor.trigger("project", "open", projectInfo);
+				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(result => {
+					emitor.trigger("project", "open", result.data);
 				}, () => {
 					util.message("打开失败");
 				});
