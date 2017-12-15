@@ -381,8 +381,8 @@ function doSave(savePath, projectName, projectInfo, projectType) {
 
 	return Q.all([
 		util.writeJson(projectPath, projectInfo),
-		util.removeFile(path.join(projectPath, `${projectName}.ino`)),
-		util.removeFile(path.join(projectPath, "project.json"))
+		util.removeFile(path.join(savePath, `${projectName}.ino`)),
+		util.removeFile(path.join(savePath, "project.json"))
 	])
 }
 
