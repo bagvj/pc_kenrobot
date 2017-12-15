@@ -17,12 +17,9 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 		});
 
 		kenrobot.postMessage("app:loadSetting").then(setting => {
-			var specSetting = setting[kenrobot.viewName];
-			for(var name in specSetting) {
-				emitor.trigger("setting", "change", name, specSetting[name]);
+			for(var name in setting) {
+				emitor.trigger("setting", "change", name, setting[name]);
 			}
-		}, err => {
-
 		});
 	}
 
@@ -95,11 +92,12 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			case "save-as-project":
 			case "toggle-comment":
 			case "copy":
+			case "export":
 				onShortcut(action);
 				break;
 			case "open-example":
-				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(projectInfo => {
-					emitor.trigger("project", "open", projectInfo);
+				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(result => {
+					emitor.trigger("project", "open", result.data);
 				}, () => {
 					util.message("打开失败");
 				});
@@ -126,6 +124,9 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				break;
 			case "copy":
 				emitor.trigger('code', 'copy');
+				break;
+			case "export":
+				emitor.trigger('code', 'export');
 				break;
 		}
 	}

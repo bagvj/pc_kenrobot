@@ -15,14 +15,14 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			.on("click", ".switch-login", onSwitchLoginClick)
 			.on("keyup", ".x-field input", onTabEnter);
 
-		tabs.find(".x-field > input").on("focus", function(e) {
-			$(this).attr("placeholder", "");
-		}).on("blur", function(e) {
-			$(this).attr("placeholder", $(this).data("placeholder"));
-		}).each((index, input) => {
-			var item = $(input);
-			item.data("placeholder", item.attr("placeholder"));
-		});
+		// tabs.find(".x-field > input").on("focus", function(e) {
+		// 	$(this).attr("placeholder", "");
+		// }).on("blur", function(e) {
+		// 	$(this).attr("placeholder", $(this).data("placeholder"));
+		// }).each((index, input) => {
+		// 	var item = $(input);
+		// 	item.data("placeholder", item.attr("placeholder"));
+		// });
 
 		tabs.filter(".tab-login")
 			.on("click", ".switch-register", onSwitchRegisterClick)
@@ -299,7 +299,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			}
 
 			var tab = tabs.filter(".tab-weixin");
-			tab.find(".qrcode").removeClass("timeout").data("key", result.data.login_key).attr("src", result.data.qrcodeurl);
+			tab.find(".qrcode").removeClass("timeout").data("key", result.data.auth_key).attr("src", result.data.qrcodeurl);
 
 			clearTimeout(qrcodeTimer);
 			qrcodeTimer = setTimeout(onQrcodeTimeout, qrcodeDelay);

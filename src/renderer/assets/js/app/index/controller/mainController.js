@@ -3,7 +3,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	var iframe;
 	var mousetrap;
 
-	var baseUrl;
 	var inSync;
 
 	function init() {
@@ -46,43 +45,35 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
-		kenrobot.postMessage("app:projectSyncUrl", config.url.projectSync);
-
 		inSync = true;
 		userModel.loadToken().always(() => {
 			emitor.trigger("user", "update");
 		});
 
-		kenrobot.postMessage("app:getBaseUrl").then(url => {
-			baseUrl = url;
-
-			kenrobot.postMessage("app:unzipPackages").then(() => {
-
-			}, err => {
-				util.message({
-					text: "解压出错",
-					type: "error"
-				});
-			}, progressData => {
-				kenrobot.trigger("unpack", "show", progressData);
-			}).fin(() => {
-				kenrobot.trigger("unpack", "hide");
-
-				setTimeout(() => {
-					onSwitch("default");
-
-					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-					setTimeout(() => {
-						onCheckUpdate(false).then(status => {
-							status > 0 && onCheckPackageLibraryUpdate(false);
-						});
-
-						inSync = false;
-						//项目同步
-						onProjectSync();
-					}, 3000);
-				}, 400);
+		kenrobot.postMessage("app:unzipPackages").then(() => true, err => {
+			util.message({
+				text: "解压出错",
+				type: "error"
 			});
+		}, progressData => {
+			kenrobot.trigger("unpack", "show", progressData);
+		}).fin(() => {
+			kenrobot.trigger("unpack", "hide");
+
+			setTimeout(() => {
+				onSwitch("default");
+
+				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+				setTimeout(() => {
+					onCheckUpdate(false).then(status => {
+						status > 0 && onCheckPackageLibraryUpdate(false);
+					});
+
+					inSync = false;
+					//项目同步
+					onProjectSync();
+				}, 3000);
+			}, 400);
 		});
 	}
 
@@ -118,7 +109,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		// }
 
 		// inSync = true;
-		// util.message("项目开始同步");
+		// // util.message("项目开始同步");
 		// kenrobot.postMessage("app:projectSync").then(() => {
 		// 	inSync = false;
 		// 	util.message("项目同步成功");
@@ -214,7 +205,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 		manual = manual !== false;
 
-		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(result => {
+		kenrobot.postMessage("app:checkUpdate").then(result => {
 			if(result.status != 0) {
 				manual && util.message("已经是最新版本了");
 				promise.resolve(1);
@@ -257,13 +248,11 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.reset();
 
 		kenrobot.trigger("app", "will-leave");
-		iframe.src = `${baseUrl}/${name}/index.html`;
+		iframe.src = `./${name}/index.html`;
 		iframe.addEventListener("load", () => {
 			mousetrap = Mousetrap(iframe.contentDocument);
 		}, false);
 		pace.restart();
-
-		kenrobot.viewName = name;
 	}
 
 	function onFullscreenChange(fullscreen) {

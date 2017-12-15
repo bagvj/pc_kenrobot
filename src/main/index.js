@@ -1,16 +1,15 @@
-const {app, BrowserWindow, ipcMain, shell, clipboard, webContents} = require('electron')
+const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 
 const path = require('path')
-const os = require('os')
 const querystring = require('querystring')
-const crypto = require('crypto')
 
 const util = require('./util')
 const token = require('./token')
 const serialPort = require('./serialPort') //串口
 const project = require('./project') //同步
-const packageOrders = require('./packageOrders') //包优先级
-const arduinoOptions = require('./arduinoOptions')
+const packageOrders = require('./config/packageOrders') //包优先级
+const arduinoOptions = require('./config/arduinoOptions')
+const Url = require('./config/url')
 
 const is = require('electron-is')
 const debug = require('electron-debug')
@@ -21,6 +20,8 @@ const fs = require('fs-extra')
 const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
+
+const listenMessage = util.listenMessage
 
 const optionDefinitions = [
 	{ name: 'debug-brk', type: Number, defaultValue: false },
@@ -112,7 +113,6 @@ function listenEvents() {
  */
 function listenMessages() {
 	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
-	listenMessage("getBaseUrl", () => util.resolvePromise("."))
 
 	listenMessage("loadSetting", () => loadSetting())
 	listenMessage("saveSetting", setting => saveSetting(setting))
@@ -122,6 +122,7 @@ function listenMessages() {
 	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
 	listenMessage("readFile", (filePath, options) => util.readFile(filePath, options))
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
+	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
 	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
@@ -157,56 +158,43 @@ function listenMessages() {
 	listenMessage("unzipLibrary", (name, libraryPath) => unzipLibrary(name, libraryPath))
 	listenMessage("deleteLibrary", name => deleteLibrary(name))
 
-	listenMessage("checkUpdate", checkUrl => checkUpdate(checkUrl))
+	listenMessage("checkUpdate", checkUrl => checkUpdate())
 	listenMessage("checkPackageLibraryUpdate", packagesUrl => checkPackageLibraryUpdate(packagesUrl))
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
-	listenMessage("setToken", value => token.set(value))
 	listenMessage("saveToken", value => token.save(value))
 	listenMessage("loadToken", key => token.load(key))
 	listenMessage("removeToken", () => token.remove())
+	listenMessage("verifyToken", () => token.verify())
 
-	listenMessage("projectRead", projectPath => project.read(projectPath))
-	listenMessage("projectSave", (projectPath, projectInfo, isTemp) => project.save(projectPath, projectInfo, isTemp))
-	listenMessage("projectOpen", projectPath => project.open(projectPath))
 	listenMessage("projectLoad", () => loadProject())
 
-	listenMessage("projectNewSave", (name, type, data, savePath) => project.newSave(name, type, data, savePath))
-	listenMessage("projectNewSaveAs", (name, type, data) => project.newSaveAs(name, type, data))
-	listenMessage("projectNewOpen", (type, name) => project.newOpen(type, name))
+	listenMessage("projectRead", projectPath => project.read(projectPath))
+	listenMessage("projectOpen", name => project.open(name))
+	listenMessage("projectSave", (name, data, savePath) => project.save(name, data, savePath))
+	listenMessage("projectSaveAs", (name, data, isTemp) => project.saveAs(name, data, isTemp))
 
-	listenMessage("projectSyncUrl", url => project.setSyncUrl(url))
 	listenMessage("projectSync", () => project.sync())
-	listenMessage("projectList", type => project.list(type))
-	listenMessage("projectUpload", (name, type) => project.upload(name, type))
-	listenMessage("projectDelete", (name, type) => project.remove(name, type))
-	listenMessage("projectDownload", (name, type) => project.download(name, type))
+	listenMessage("projectList", () => project.list())
+
+	if(is.dev()) {
+		listenMessage("projectCreate", name => project.create(name))
+		listenMessage("projectUpload", (name, hash) => project.upload(name, hash))
+		listenMessage("projectDelete", (name, hash) => project.remove(name, hash))
+		listenMessage("projectDownload", (name, hash) => project.download(name, hash))
+	}
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", () => app.quit())
-	listenMessage("exit", () => app.exit(0))
+	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
 	listenMessage("reload", () => mainWindow.reload())
 	listenMessage("relaunch", () => onAppRelaunch())
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
 	listenMessage("min", () => mainWindow.minimize())
 	listenMessage("max", () => onAppToggleMax())
 	listenMessage("errorReport", err => onAppErrorReport(err))
-}
-
-function listenMessage(name, callback) {
-	var eventName = `app:${name}`
-	ipcMain.on(eventName, (e, deferId, ...args) => {
-		var promise = callback.apply(this, args) || util.resolvePromise()
-		promise.then(result => {
-			e.sender.send(eventName, deferId, true, result)
-		}, err => {
-			e.sender.send(eventName, deferId, false, err)
-		}, progress => {
-			e.sender.send(eventName, deferId, "notify", progress)
-		})
-	})
 }
 
 function onAppReady() {
@@ -237,7 +225,7 @@ function createWindow() {
 		frame: false,
 		show: false,
 		webPreferences: {
-			plugins: true,
+			// plugins: true,
 			webSecurity: false,
 		}
 	})
@@ -283,6 +271,7 @@ function onAppBeforeQuit(e) {
 function onAppWillQuit(e) {
 	serialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+	return true
 }
 
 function onAppToggleMax() {
@@ -343,8 +332,8 @@ function reportToServer(data, type) {
 
 	data = _.merge({}, data, baseInfo)
 	type = type || 'log'
-	var url = "http://userver.kenrobot.com/statistics/report"
-	util.request(url, {
+
+	util.request(Url.REPORT, {
 		method: "post",
 		data: {
 			data: JSON.stringify(data),
@@ -365,11 +354,11 @@ function reportToServer(data, type) {
  * 检查更新
  * @param {*} checkUrl
  */
-function checkUpdate(checkUrl) {
+function checkUpdate() {
 	var deferred = Q.defer()
 
 	var info = util.getAppInfo()
-	var url = `${checkUrl}&appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
+	var url = `${Url.CHECK_UPDATE}&appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
 	log.debug(`checkUpdate: ${url}`)
 
 	util.request(url).then(result => {
@@ -541,7 +530,7 @@ function unzipPackages(skip) {
 			}
 
 			var p = list.pop()
-			util.unzip(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
+			util.uncompress(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
 				var index = oldPackages.findIndex(o => o.name == p.name)
 				if(index >= 0) {
 					oldPackages.splice(index, 1, p)
@@ -577,7 +566,7 @@ function unzipPackages(skip) {
 function unzipPackage(packagePath) {
 	var deferred = Q.defer()
 
-	util.unzip(packagePath, getPackagesPath(), true).then(() => {
+	util.uncompress(packagePath, getPackagesPath(), true).then(() => {
 		var name = path.basename(packagePath)
 		name = name.substring(0, name.indexOf("-"))
 		var ext = is.windows() ? "bat" : "sh"
@@ -694,7 +683,7 @@ function openExample(category, name, pkg) {
 	}
 
 	log.debug(`openExample: ${examplePath}`)
-	util.readJson(path.join(examplePath, "project.json")).then(projectInfo => {
+	project.read(examplePath).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
 		err && log.error(err)
@@ -810,7 +799,7 @@ function unzipLibrary(name, libraryPath) {
 
 	var librariesPath = getLibrariesPath()
 	var outputName = path.basename(libraryPath, path.extname(libraryPath))
-	util.unzip(libraryPath, librariesPath, true).then(() => {
+	util.uncompress(libraryPath, librariesPath, true).then(() => {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -935,7 +924,7 @@ function installDriver(driverPath) {
 
 	log.debug(`installDriver: ${driverPath}`)
 	var dir = path.join(util.getAppDataPath(), "temp")
-	util.unzip(driverPath, dir).then(() => {
+	util.uncompress(driverPath, dir).then(() => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(() => {
 			deferred.resolve()
@@ -1043,59 +1032,75 @@ function preBuild(projectPath, options) {
 
 	log.debug('pre-build')
 
-	var buildSpecs = []
-	options = _.merge({}, arduinoOptions.default.build, options)
+	var cachePath = path.join(projectPath, 'cache')
+	var buildPath = path.join(cachePath, 'build')
+	fs.ensureDirSync(buildPath)
+	util.removeFile(path.join(buildPath, "sketch", "build"), true)
+	util.removeFile(path.join(projectPath, "build"), true)
 
-	var packagesPath = getPackagesPath()
-	fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
+	project.read(projectPath).then(result => {
+		var projectInfo = result.data
+		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
 
-	buildSpecs.push(`-fqbn=${options.fqbn}`)
-	var arduinoPath = getArduinoPath()
-	Object.keys(options.prefs).forEach(key => {
-		var value = util.handleQuotes(options.prefs[key])
-		value = value.replace(/ARDUINO_PATH/g, arduinoPath)
-		buildSpecs.push(`-prefs=${key}=${value}`)
-	})
+		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
+			var buildSpecs = []
+			options = _.merge({}, arduinoOptions.default.build, options)
 
-	var librariesPath = getLibrariesPath()
-	fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
+			var packagesPath = getPackagesPath()
+			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
-	arduinoOptions.librariesPath.forEach(libraryPath => {
-		buildSpecs.push(`-libraries="${libraryPath}"`)
-	})
+			buildSpecs.push(`-fqbn=${options.fqbn}`)
+			var arduinoPath = getArduinoPath()
+			Object.keys(options.prefs).forEach(key => {
+				var value = util.handleQuotes(options.prefs[key])
+				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
+				buildSpecs.push(`-prefs=${key}=${value}`)
+			})
 
-	var projectBuildPath = path.join(projectPath, 'build')
-	fs.ensureDirSync(projectBuildPath)
-	util.removeFile(path.join(projectBuildPath, "sketch", "build"), true)
-	var commandPath = getCommandPath("build")
-	var command = util.handleQuotes(options.command)
-	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
-		.replace("BUILD_SPECS", buildSpecs.join(' '))
-		.replace("PROJECT_BUILD_PATH", projectBuildPath)
-		.replace("PROJECT_ARDUINO_FILE", path.join(projectPath, `${path.basename(projectPath)}.ino`))
+			var librariesPath = getLibrariesPath()
+			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
-	util.writeFile(commandPath, command).then(() => {
-		var optionPath = path.join(projectPath, 'build', 'build.options.json')
-		if(!fs.existsSync(optionPath)) {
-			setTimeout(() => {
-				deferred.resolve(commandPath)
-			}, 10)
-			return deferred.promise
-		}
+			arduinoOptions.librariesPath.forEach(libraryPath => {
+				buildSpecs.push(`-libraries="${libraryPath}"`)
+			})
 
-		util.readJson(optionPath).then(opt => {
-			if(options.fqbn == opt.fqbn) {
-				deferred.resolve(commandPath)
-				return
-			}
+			var commandPath = getCommandPath("build")
+			var command = util.handleQuotes(options.command)
+			command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+				.replace("BUILD_SPECS", buildSpecs.join(' '))
+				.replace("PROJECT_BUILD_PATH", buildPath)
+				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
 
-			util.removeFile(path.join(projectPath, 'build')).fin(() => {
-				fs.ensureDirSync(path.join(projectPath, 'build'))
-				deferred.resolve(commandPath)
+			util.writeFile(commandPath, command).then(() => {
+				var optionPath = path.join(buildPath, 'build.options.json')
+				if(!fs.existsSync(optionPath)) {
+					setTimeout(() => {
+						deferred.resolve(commandPath)
+					}, 10)
+					return deferred.promise
+				}
+
+				util.readJson(optionPath).then(opt => {
+					if(options.fqbn == opt.fqbn) {
+						deferred.resolve(commandPath)
+						return
+					}
+
+					util.removeFile(buildPath).fin(() => {
+						fs.ensureDirSync(buildPath)
+						deferred.resolve(commandPath)
+					})
+				}, err => {
+					err && log.error(err)
+					deferred.resolve(commandPath)
+				})
+			}, err => {
+				err && log.error(err)
+				deferred.reject()
 			})
 		}, err => {
 			err && log.error(err)
-			deferred.resolve(commandPath)
+			deferred.reject()
 		})
 	}, err => {
 		err && log.error(err)
@@ -1112,7 +1117,7 @@ function preBuild(projectPath, options) {
  */
 function upload(projectPath, options) {
 	options = _.merge({}, arduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware(targetPath, options)
 }
@@ -1125,7 +1130,7 @@ function upload(projectPath, options) {
  */
 function upload2(projectPath, comName, options) {
 	options = _.merge({}, arduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
+	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware2(targetPath, comName, options)
 }
@@ -1331,7 +1336,7 @@ function loadProject() {
 		var projectPath = projectToLoad
 		projectToLoad = null
 
-		return project.load(projectPath)
+		return project.read(projectPath)
 	}
 
 	return util.rejectPromise()

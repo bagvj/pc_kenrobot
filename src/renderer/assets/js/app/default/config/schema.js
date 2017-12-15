@@ -5680,8 +5680,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "pir",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 100,
-			"height": 71,
+			"width": 72,
+			"height": 72,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
@@ -5728,8 +5728,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "irRecv",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 50,
-			"height": 90,
+			"width": 72,
+			"height": 72,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 1],
@@ -5822,6 +5822,55 @@ define(['vendor/lodash'], function($1) {
 				"uid": "gvmYRo"
 			}],
 			"imageUrl": "assets/image/components/irRecv.svg"
+		}, {
+			"uid": "qurwAO",
+			"name": "soilHumidity",
+			"label": "土壤湿度模块",
+			"type": "soilHumidity",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 0],
+				"tags": ["analog-in"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"var": "int {NAME} = {s};",
+				"setup": "pinMode({NAME}, INPUT);"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "soilHumidityRead",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "读取土壤湿度模块"
+				}, {
+					"id": "SENSOR",
+					"type": "dynamic-select",
+					"options": "soilHumiditys"
+				}, {
+					"type": "text",
+					"value": "的值"
+				}],
+				"code": "analogRead({SENSOR})",
+				"returnType": {
+					"type": "simple",
+					"value": "int"
+				},
+				"tags": ["module"],
+				"module": "soilHumidity",
+				"uid": "15vrNF"
+			}],
+			"imageUrl": "assets/image/components/soilHumidity.svg"
 		}, {
 			"uid": "E2ZSBW",
 			"name": "led",
@@ -5919,7 +5968,7 @@ define(['vendor/lodash'], function($1) {
 		}, {
 			"uid": "SnHrBC",
 			"name": "rgb",
-			"label": "三色LED",
+			"label": "三色LED(共阴)",
 			"type": "rgb",
 			"category": "action",
 			"boards": ["Arduino"],
@@ -5966,7 +6015,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "点亮三色LED"
+					"value": "点亮三色LED(共阴)"
 				}, {
 					"id": "LED",
 					"type": "dynamic-select",
@@ -6019,7 +6068,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "点亮三色LED"
+					"value": "点亮三色LED(共阴)"
 				}, {
 					"id": "LED",
 					"type": "dynamic-select",
@@ -6062,23 +6111,13 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "熄灭三色LED"
+					"value": "熄灭三色LED(共阴)"
 				}, {
 					"id": "LED",
 					"type": "dynamic-select",
 					"options": "rgbs"
-				}, {
-					"id": "TYPE",
-					"type": "static-select",
-					"options": [{
-						"label": "共阴",
-						"value": "0, 0, 0"
-					}, {
-						"label": "共阳",
-						"value": "255, 255, 255"
-					}]
 				}],
-				"code": "{LED}.setRGBcolor({TYPE});",
+				"code": "{LED}.setRGBcolor(0, 0, 0);",
 				"tags": ["module"],
 				"module": "rgb",
 				"uid": "IFYIMn"
@@ -6094,7 +6133,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "让三色LED渐变"
+					"value": "让三色LED(共阴)渐变"
 				}, {
 					"id": "LED",
 					"type": "dynamic-select",
@@ -6152,7 +6191,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "点亮三色LED"
+					"value": "点亮三色LED(共阴)"
 				}, {
 					"id": "LED",
 					"type": "dynamic-select",
@@ -6186,6 +6225,268 @@ define(['vendor/lodash'], function($1) {
 				"tags": ["module", "advanced"],
 				"module": "rgb",
 				"uid": "GrE8rY"
+			}],
+			"imageUrl": "assets/image/components/rgb.svg"
+		}, {
+			"uid": "PU6Gq5",
+			"name": "rgb2",
+			"label": "三色LED(共阳)",
+			"type": "rgb2",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 90,
+			"pins": [{
+				"name": "r",
+				"anchor": [0.25, 1],
+				"tags": ["analog-out", "any"],
+				"label": "r",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "g",
+				"anchor": [0.5, 1],
+				"tags": ["analog-out", "any"],
+				"label": "g",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "b",
+				"anchor": [0.75, 1],
+				"tags": ["analog-out", "any"],
+				"label": "b",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <RGBLed.h>",
+				"var": "RGBLed {NAME}({r}, {g}, {b});"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "rgb2LedSimple",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "点亮三色LED(共阳)"
+				}, {
+					"id": "LED",
+					"type": "dynamic-select",
+					"options": "rgb2s"
+				}, {
+					"type": "text",
+					"value": "设置为"
+				}, {
+					"id": "COLOR",
+					"type": "static-select",
+					"options": [{
+						"label": "白色",
+						"value": "0,0,0"
+					}, {
+						"label": "黄色",
+						"value": "0,0,255"
+					}, {
+						"label": "橙色",
+						"value": "55,205,255"
+					}, {
+						"label": "红色",
+						"value": "0,255,255"
+					}, {
+						"label": "深绿",
+						"value": "255,195,153"
+					}, {
+						"label": "蓝色",
+						"value": "215,215,0"
+					}, {
+						"label": "深紫",
+						"value": "255,255,0"
+					}, {
+						"label": "粉红",
+						"value": "0,255,0"
+					}]
+				}],
+				"code": "{LED}.setRGBcolor({COLOR});",
+				"tags": ["module"],
+				"module": "rgb2",
+				"uid": "ukelNY"
+			}, {
+				"type": "statement",
+				"name": "rgb2Led",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "点亮三色LED(共阳)"
+				}, {
+					"id": "LED",
+					"type": "dynamic-select",
+					"options": "rgb2s"
+				}, {
+					"type": "text",
+					"value": "色值红色为"
+				}, {
+					"id": "RED",
+					"type": "number-input",
+					"value": 0
+				}, {
+					"type": "text",
+					"value": "绿色为"
+				}, {
+					"id": "GREEN",
+					"type": "number-input",
+					"value": 0
+				}, {
+					"type": "text",
+					"value": "蓝色为"
+				}, {
+					"id": "BLUE",
+					"type": "number-input",
+					"value": 0
+				}],
+				"code": "{LED}.setRGBcolor({RED},{GREEN},{BLUE});",
+				"tags": ["module"],
+				"module": "rgb2",
+				"uid": "kPdsKa"
+			}, {
+				"type": "statement",
+				"name": "rgb2LedOff",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "熄灭三色LED(共阳)"
+				}, {
+					"id": "LED",
+					"type": "dynamic-select",
+					"options": "rgb2s"
+				}],
+				"code": "{LED}.setRGBcolor(255, 255, 255);",
+				"tags": ["module"],
+				"module": "rgb2",
+				"uid": "nKE4FL"
+			}, {
+				"type": "statement",
+				"name": "rgb2LedFade",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "让三色LED(共阳)渐变"
+				}, {
+					"id": "LED",
+					"type": "dynamic-select",
+					"options": "rgb2s"
+				}, {
+					"type": "text",
+					"value": "色值红色为"
+				}, {
+					"id": "RED",
+					"type": "number-input",
+					"value": 0
+				}, {
+					"type": "text",
+					"value": "绿色为"
+				}, {
+					"id": "GREEN",
+					"type": "number-input",
+					"value": 0
+				}, {
+					"type": "text",
+					"value": "蓝色为"
+				}, {
+					"id": "BLUE",
+					"type": "number-input",
+					"value": 0
+				}],
+				"code": "{LED}.crossFade({RED},{GREEN},{BLUE});",
+				"tags": ["module"],
+				"module": "rgb2",
+				"uid": "ak1IYh"
+			}, {
+				"type": "statement",
+				"name": "rgb2LedAdvanced",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "98c9mu"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "7RGiRj"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "5nyHcj"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "点亮三色LED(共阳)"
+				}, {
+					"id": "LED",
+					"type": "dynamic-select",
+					"options": "rgb2s"
+				}, {
+					"type": "text",
+					"value": "色值红色为"
+				}, {
+					"blockInputId": "RED",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "98c9mu"
+				}, {
+					"type": "text",
+					"value": "绿色为"
+				}, {
+					"blockInputId": "GREEN",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "7RGiRj"
+				}, {
+					"type": "text",
+					"value": "蓝色为"
+				}, {
+					"blockInputId": "BLUE",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "5nyHcj"
+				}],
+				"code": "{LED}.setRGBcolor({RED},{GREEN},{BLUE});",
+				"tags": ["module", "advanced"],
+				"module": "rgb2",
+				"uid": "YDhkmh"
 			}],
 			"imageUrl": "assets/image/components/rgb.svg"
 		}, {
