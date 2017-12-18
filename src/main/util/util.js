@@ -88,15 +88,26 @@ function getAppInfo() {
 	return info
 }
 
-function getAppPath(name) {
-	if(name == "appData") {
-		return path.join(app.getPath("appData"), app.getName())
-	} else if(name == "appResource") {
-		return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
-	} else if(name == "appDocuments") {
-		return path.join(app.getPath("documents"), app.getName())
-	} else {
-		return app.getPath(name)
+function getAppPath(name, extra) {
+	switch(name) {
+		case "appData":
+			return path.join(app.getPath("appData"), app.getName())
+		case "appResource":
+			return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
+		case "appDocuments":
+			return path.join(app.getPath("documents"), app.getName())
+		case "script":
+			return path.join(getAppPath("appResource"), "scripts", `${extra}.${is.windows() ? "bat" : "sh"}`)
+		case "command":
+			return path.join(getAppPath("appData"), "temp", `${uuid()}`)
+		case "libraries":
+			return path.join(getAppPath("appDocuments"), "libraries")
+		case "packages":
+			return path.join(getAppPath("appDocuments"), "packages")
+		case "arduino":
+			return path.join(getAppPath("appResource"), `arduino-${getPlatform()}`)
+		default:
+			return app.getPath(name)
 	}
 }
 

@@ -519,7 +519,7 @@ function loadPackages(extra) {
 
 	Package.load(extra).then(packages => {
 		packages.forEach(pkg => {
-			var srcPath = path.join(Package.getPackagesPath(), pkg.name, "src")
+			var srcPath = path.join(util.getAppPath("packages"), pkg.name, "src")
 			if(fs.existsSync(srcPath) && !arduinoOptions.librariesPath.includes(srcPath)) {
 				arduinoOptions.librariesPath.push(srcPath)
 			}
@@ -546,7 +546,7 @@ function openExample(category, name, pkg) {
 	if(pkg == "built-in") {
 		examplePath = path.join(util.getAppPath("appResource"), "examples", category, name)
 	} else {
-		examplePath = path.join(Package.getPackagesPath(), pkg, "examples", category, name)
+		examplePath = path.join(util.getAppPath("packages"), pkg, "examples", category, name)
 	}
 
 	log.debug(`openExample: ${examplePath}`)
@@ -575,7 +575,7 @@ function loadExamples() {
 			groups: exampleGroups
 		})
 
-		var packagesPath = Package.getPackagesPath()
+		var packagesPath = util.getAppPath("packages")
 		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
 			Q.all(pathList.map(p => {
 				var d = Q.defer()
@@ -609,7 +609,7 @@ function getInstalledLibraries() {
 	var deferred = Q.defer()
 
 	var reg = /^([^=]+)=(.*)$/gm
-	util.searchFiles(`${getLibrariesPath()}/**/library.properties`).then(pathList => {
+	util.searchFiles(`${util.getAppPath("libraries")}/**/library.properties`).then(pathList => {
 		var libraries = []
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
@@ -664,7 +664,7 @@ function loadLibraries() {
 function unzipLibrary(name, libraryPath) {
 	var deferred = Q.defer()
 
-	var librariesPath = getLibrariesPath()
+	var librariesPath = util.getAppPath("libraries")
 	var outputName = path.basename(libraryPath, path.extname(libraryPath))
 	util.uncompress(libraryPath, librariesPath, true).then(() => {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
@@ -687,7 +687,7 @@ function deleteLibrary(name) {
 	var deferred = Q.defer()
 
 	log.debug(`deleteLibrary: ${name}`)
-	util.removeFile(path.join(getLibrariesPath(), name)).then(() => {
+	util.removeFile(path.join(util.getAppPath("libraries"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
@@ -877,7 +877,7 @@ function buildProject(projectPath, options) {
 
 	preBuild(projectPath, options).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
-		var scriptPath = getScriptPath("call")
+		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -913,27 +913,27 @@ function preBuild(projectPath, options) {
 			var buildSpecs = []
 			options = _.merge({}, arduinoOptions.default.build, options)
 
-			var packagesPath = Package.getPackagesPath()
+			var packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 			buildSpecs.push(`-fqbn=${options.fqbn}`)
-			var arduinoPath = getArduinoPath()
+			var arduinoPath = util.getAppPath("arduino")
 			Object.keys(options.prefs).forEach(key => {
 				var value = util.handleQuotes(options.prefs[key])
 				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
 				buildSpecs.push(`-prefs=${key}=${value}`)
 			})
 
-			var librariesPath = getLibrariesPath()
+			var librariesPath = util.getAppPath("libraries")
 			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
 			arduinoOptions.librariesPath.forEach(libraryPath => {
 				buildSpecs.push(`-libraries="${libraryPath}"`)
 			})
 
-			var commandPath = getCommandPath("build")
+			var commandPath = util.getAppPath("command", "build")
 			var command = util.handleQuotes(options.command)
-			command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+			command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 				.replace("BUILD_SPECS", buildSpecs.join(' '))
 				.replace("PROJECT_BUILD_PATH", buildPath)
 				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
@@ -1045,7 +1045,7 @@ function uploadFirmware2(targetPath, comName, options) {
 
 	preUploadFirmware(targetPath, comName, options).then(commandPath => {
 		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
-		var scriptPath = getScriptPath("call")
+		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -1074,9 +1074,9 @@ function preUploadFirmware(targetPath, comName, options) {
 	log.debug("pre upload firmware")
 	options = _.merge({}, arduinoOptions.default.upload, options)
 
-	var commandPath = getCommandPath("upload")
+	var commandPath = util.getAppPath("command", "upload")
 	var command = util.handleQuotes(options.command)
-	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+	command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 		.replace("ARDUINO_MCU", options.mcu)
 		.replace("ARDUINO_BURNRATE", options.baudrate)
 		.replace("ARDUINO_PROGRAMMER", options.programer)
@@ -1207,35 +1207,4 @@ function loadProject() {
 	}
 
 	return util.rejectPromise()
-}
-
-/**
- * 获取脚本路径
- * @param {*} name
- * @param {*} type
- */
-function getScriptPath(name) {
-	var ext = is.windows() ? "bat" : "sh"
-	return path.join(util.getAppPath("appResource"), "scripts", `${name}.${ext}`)
-}
-
-/**
- * 获取command路径
- */
-function getCommandPath(name) {
-	return path.join(util.getAppPath("appData"), "temp", `${name}.txt`)
-}
-
-/**
- * 获取arduino路径
- */
-function getArduinoPath() {
-	return path.join(util.getAppPath("appResource"), `arduino-${util.getPlatform()}`)
-}
-
-/**
- * 获取解压后的libraries路径
- */
-function getLibrariesPath() {
-	return path.join(util.getAppPath("documents"), app.getName(), "libraries")
 }

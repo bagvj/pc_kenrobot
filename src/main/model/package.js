@@ -33,7 +33,7 @@ function unzipAll(packages, skip, firstRun) {
 				return true
 			}
 
-			return !fs.existsSync(path.join(getPackagesPath(), p.name, "package.json"))
+			return !fs.existsSync(path.join(util.getAppPath("packages"), p.name, "package.json"))
 		})
 
 		var total = list.length
@@ -44,7 +44,7 @@ function unzipAll(packages, skip, firstRun) {
 			}
 
 			var p = list.pop()
-			util.uncompress(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
+			util.uncompress(path.join(packagesPath, p.archiveName), util.getAppPath("packages"), true).then(() => {
 				var index = packages.findIndex(o => o.name == p.name)
 				if(index >= 0) {
 					packages.splice(index, 1, p)
@@ -80,11 +80,11 @@ function unzipAll(packages, skip, firstRun) {
 function unzip(packagePath) {
 	var deferred = Q.defer()
 
-	util.uncompress(packagePath, getPackagesPath(), true).then(() => {
+	util.uncompress(packagePath, util.getAppPath("packages"), true).then(() => {
 		var name = path.basename(packagePath)
 		name = name.substring(0, name.indexOf("-"))
 		var ext = is.windows() ? "bat" : "sh"
-		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {
+		util.searchFiles(path.join(util.getAppPath("packages"), name) + `/**/post_install.${ext}`).then(scripts => {
 			if(scripts.length == 0) {
 				deferred.resolve()
 				return
@@ -119,7 +119,7 @@ function load(extra) {
 	extra = extra !== false;
 
 	var packages = []
-	var packagesPath = getPackagesPath()
+	var packagesPath = util.getAppPath("packages")
 	log.debug(`loadPackages: ${packagesPath}`)
 
 	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
@@ -165,7 +165,7 @@ function remove(name) {
 	var deferred = Q.defer()
 
 	log.debug(`deletePackage: ${name}`)
-	util.removeFile(path.join(getPackagesPath(), name)).then(() => {
+	util.removeFile(path.join(util.getAppPath("packages"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
@@ -175,13 +175,8 @@ function remove(name) {
 	return deferred.promise
 }
 
-function getPackagesPath() {
-	return path.join(util.getAppPath("appDocuments"), "packages")
-}
-
 module.exports.unzip = unzip
 module.exports.unzipAll = unzipAll
 
 module.exports.load = load
 module.exports.remove = remove
-module.exports.getPackagesPath = getPackagesPath
