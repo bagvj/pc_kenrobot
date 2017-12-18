@@ -122,9 +122,13 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 		var action = $(this).data("action");
 		switch(action) {
 			case "setting":
-			case "project-manager":
-			case "project-sync":
 				util.message("敬请期待");
+				break;
+			case "project-manager":
+				kenrobot.trigger("project", "show");
+				break;
+			case "project-sync":
+				kenrobot.trigger("project", "sync");
 				break;
 			case "logout":
 				kenrobot.trigger("user", "logout");
@@ -153,7 +157,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 	}
 
 	function onUserUpdate() {
-		var userInfo = kenrobot.getUserInfo();
+		var userInfo = kenrobot.user;
 		var loginWrap = region.find(".login-region .wrap");
 		if(userInfo) {
 			loginWrap.addClass("login");

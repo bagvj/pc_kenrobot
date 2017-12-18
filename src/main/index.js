@@ -3,23 +3,24 @@ const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 const path = require('path')
 const querystring = require('querystring')
 
-const util = require('./util')
-const token = require('./token')
-const serialPort = require('./serialPort') //串口
-const project = require('./project') //同步
-const packageOrders = require('./config/packageOrders') //包优先级
-const arduinoOptions = require('./config/arduinoOptions')
-const Url = require('./config/url')
-
 const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
-
 const Q = require('q')
 const fs = require('fs-extra')
 const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
+
+const util = require('./util/util')
+const serialPort = require('./serialPort') //串口
+const packageOrders = require('./config/packageOrders') //包优先级
+const arduinoOptions = require('./config/arduinoOptions')
+const Url = require('./config/url')
+const Token = require('./model/token')
+const Project = require('./model/project') //同步
+const User = require('./model/user')
+const Package = require('./model/package')
 
 const listenMessage = util.listenMessage
 
@@ -29,7 +30,7 @@ const optionDefinitions = [
 	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
 	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
 	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
-	{ name: 'project', alias: 'p', type: project.check, defaultOption: true}
+	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
 ]
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
@@ -148,10 +149,11 @@ function listenMessages() {
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", () => loadExamples())
 	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
+
+	listenMessage("unzipPackage", packagePath => Package.unzip(packagePath))
+	listenMessage("deletePackage", name => Package.remove(name))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
-	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", (extra) => loadPackages(extra))
-	listenMessage("deletePackage", name => deletePackage(name))
 
 	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
 	listenMessage("loadLibraries", () => loadLibraries())
@@ -163,26 +165,29 @@ function listenMessages() {
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
-	listenMessage("saveToken", value => token.save(value))
-	listenMessage("loadToken", key => token.load(key))
-	listenMessage("removeToken", () => token.remove())
-	listenMessage("verifyToken", () => token.verify())
+	listenMessage("loadToken", () => User.loadToken())
+	listenMessage("login", (username, password) => User.login(username, password))
+	listenMessage("logout", () => User.logout())
+	listenMessage("weixinLogin", key => User.weixinLogin(key))
+	listenMessage("weixinQrcode", () => User.weixinQrcode())
+	listenMessage("register", fields => User.register(fields))
+	listenMessage("resetPassword", email => User.resetPassword(email))
 
 	listenMessage("projectLoad", () => loadProject())
 
-	listenMessage("projectRead", projectPath => project.read(projectPath))
-	listenMessage("projectOpen", name => project.open(name))
-	listenMessage("projectSave", (name, data, savePath) => project.save(name, data, savePath))
-	listenMessage("projectSaveAs", (name, data, isTemp) => project.saveAs(name, data, isTemp))
+	listenMessage("projectRead", projectPath => Project.read(projectPath))
+	listenMessage("projectOpen", name => Project.open(name))
+	listenMessage("projectSave", (name, data, savePath) => Project.save(name, data, savePath))
+	listenMessage("projectSaveAs", (name, data, isTemp) => Project.saveAs(name, data, isTemp))
 
-	listenMessage("projectSync", () => project.sync())
-	listenMessage("projectList", () => project.list())
+	listenMessage("projectSync", () => Project.sync())
+	listenMessage("projectList", () => Project.list())
 
 	if(is.dev()) {
-		listenMessage("projectCreate", name => project.create(name))
-		listenMessage("projectUpload", (name, hash) => project.upload(name, hash))
-		listenMessage("projectDelete", (name, hash) => project.remove(name, hash))
-		listenMessage("projectDownload", (name, hash) => project.download(name, hash))
+		listenMessage("projectCreate", name => Project.create(name))
+		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
+		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
+		listenMessage("projectDownload", (name, hash) => Project.download(name, hash))
 	}
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
@@ -253,7 +258,7 @@ function createWindow() {
 function onAppOpenFile(e, filePath) {
 	e.preventDefault()
 
-	projectToLoad = project.check(filePath)
+	projectToLoad = Project.check(filePath)
 	if(isLoadReady){
 		loadProject().then(result => {
 			util.postMessage("app:onLoadProject", result)
@@ -270,7 +275,7 @@ function onAppBeforeQuit(e) {
 
 function onAppWillQuit(e) {
 	serialPort.closeAllSerialPort()
-	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
 	return true
 }
 
@@ -420,7 +425,7 @@ function removeOldVersions(newVersion) {
 	}
 
 	var info = util.getAppInfo()
-	var downloadPath = path.join(util.getAppDataPath(), "download")
+	var downloadPath = path.join(util.getAppPath("appData"), "download")
 	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
 		var versionReg = /\d+\.\d+\.\d+/
 		files.map(f => path.basename(f)).filter(name => {
@@ -449,7 +454,7 @@ function loadConfig() {
 	var deferred = Q.defer()
 
 	log.debug("loadConfig")
-	var configPath = path.join(util.getAppDataPath(), "config.json")
+	var configPath = path.join(util.getAppPath("appData"), "config.json")
 	if(!fs.existsSync(configPath)) {
 		setTimeout(() => {
 			deferred.resolve({})
@@ -470,7 +475,7 @@ function loadConfig() {
  * 载入配置
  */
 function writeConfig(sync) {
-	var configPath = path.join(util.getAppDataPath(), "config.json")
+	var configPath = path.join(util.getAppPath("appData"), "config.json")
 	return util.writeJson(configPath, config, null, sync)
 }
 
@@ -489,109 +494,17 @@ function saveSetting(setting) {
 function unzipPackages(skip) {
 	var deferred = Q.defer()
 
-	skip = skip || is.dev()
-	if(skip) {
-		log.debug("skip unzip packages")
-		setTimeout(() => {
+	Package.unzip(config.packages, skip || is.dev()).then(packages => {
+		if(is.dev()) {
 			deferred.resolve()
-		}, 10)
-
-		return deferred.promise
-	}
-
-	log.debug("unzip packages")
-	var packagesPath = path.join(util.getAppResourcePath(), "packages")
-	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
-		var oldPackages = config.packages || []
-		var list = packages.filter(p => {
-			if(firstRun) {
-				return true
-			}
-
-			if(oldPackages.find(o => o.name == p.name && o.checksum != p.checksum)) {
-				return true
-			}
-
-			return !fs.existsSync(path.join(getPackagesPath(), p.name, "package.json"))
-		})
-
-		var total = list.length
-		var doUnzip = () => {
-			if(list.length == 0) {
-				config.packages = oldPackages
-				if(is.dev()) {
-					deferred.resolve()
-				} else {
-					writeConfig().fin(() => {
-						deferred.resolve()
-					})
-				}
-				return
-			}
-
-			var p = list.pop()
-			util.uncompress(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
-				var index = oldPackages.findIndex(o => o.name == p.name)
-				if(index >= 0) {
-					oldPackages.splice(index, 1, p)
-				} else {
-					oldPackages.push(p)
-				}
-			}, err => {
-
-			}, progress => {
-				deferred.notify({
-					progress: progress,
-					name: p.name,
-					version: p.version,
-					count: total - list.length,
-					total: total,
-				})
-			})
-			.fin(() => doUnzip())
+			return
 		}
 
-		doUnzip()
-	}, err => {
-		err && log.error(err)
-		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-/**
- * 解压单个资源包
- */
-function unzipPackage(packagePath) {
-	var deferred = Q.defer()
-
-	util.uncompress(packagePath, getPackagesPath(), true).then(() => {
-		var name = path.basename(packagePath)
-		name = name.substring(0, name.indexOf("-"))
-		var ext = is.windows() ? "bat" : "sh"
-		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {
-			if(scripts.length == 0) {
-				deferred.resolve()
-				return
-			}
-
-			var scriptPath = scripts[0]
-			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
-				deferred.resolve()
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
+		config.packages = packages
+		writeConfig().fin(() => deferred.resolve())
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
-	}, progress => {
-		deferred.notify(progress)
 	})
 
 	return deferred.promise
@@ -604,60 +517,14 @@ function loadPackages(extra) {
 	var deferred = Q.defer()
 	extra = extra != false;
 
-	var packages = []
-	var packagesPath = getPackagesPath()
-	log.debug(`loadPackages: ${packagesPath}`)
-
-	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
-		Q.all(pathList.map(p => {
-			var d = Q.defer()
-			if(extra) {
-				util.readJson(p).then(packageConfig => {
-					packageConfig.order = packageOrders[packageConfig.name] || 0
-					packageConfig.path = path.dirname(p)
-					packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
-					packageConfig.boards && packageConfig.boards.forEach(board => {
-						board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
-							board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)
-						})
-
-						if(board.upload && board.upload.command) {
-							board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
-						}
-					})
-
-					var packageSrcPath = path.join(packageConfig.path, "src")
-					if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
-						arduinoOptions.librariesPath.push(packageSrcPath)
-					}
-
-					packages.push(packageConfig)
-				})
-				.fin(() => {
-					d.resolve()
-				})
-			} else {
-				util.readJson(p).then(packageConfig => packages.push(packageConfig)).fin(() => d.resolve())
+	Package.load(extra).then(packages => {
+		packages.forEach(pkg => {
+			var srcPath = path.join(pkg.path, "src")
+			if(fs.existsSync(srcPath) && !arduinoOptions.librariesPath.includes(srcPath)) {
+				arduinoOptions.librariesPath.push(srcPath)
 			}
-			return d.promise
-		}))
-		.then(() => {
-			deferred.resolve(packages)
 		})
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-function deletePackage(name) {
-	var deferred = Q.defer()
-
-	log.debug(`deletePackage: ${name}`)
-	util.removeFile(path.join(getPackagesPath(), name)).then(() => {
-		deferred.resolve()
+		deferred.resolve(packages)
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -677,13 +544,13 @@ function openExample(category, name, pkg) {
 
 	var examplePath
 	if(pkg == "built-in") {
-		examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
+		examplePath = path.join(util.getAppPath("appResource"), "examples", category, name)
 	} else {
-		examplePath = path.join(getPackagesPath(), pkg, "examples", category, name)
+		examplePath = path.join(Package.getPackagesPath(), pkg, "examples", category, name)
 	}
 
 	log.debug(`openExample: ${examplePath}`)
-	project.read(examplePath).then(projectInfo => {
+	Project.read(examplePath).then(projectInfo => {
 		deferred.resolve(projectInfo)
 	}, err => {
 		err && log.error(err)
@@ -702,13 +569,13 @@ function loadExamples() {
 	var examples = []
 	log.debug('loadExamples')
 
-	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(exampleGroups => {
+	util.readJson(path.join(util.getAppPath("appResource"), "examples", "examples.json")).then(exampleGroups => {
 		examples.push({
 			name: "built-in",
 			groups: exampleGroups
 		})
 
-		var packagesPath = getPackagesPath()
+		var packagesPath = Package.getPackagesPath()
 		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
 			Q.all(pathList.map(p => {
 				var d = Q.defer()
@@ -781,7 +648,7 @@ function getInstalledLibraries() {
 function loadLibraries() {
 	var deferred = Q.defer()
 
-	util.readJson(path.join(util.getAppResourcePath(), "libraries", "libraries.json")).then(result => {
+	util.readJson(path.join(util.getAppPath("appResource"), "libraries", "libraries.json")).then(result => {
 		deferred.resolve(result.libraries)
 	}, err => {
 		err && log.error(err)
@@ -837,7 +704,7 @@ function onDownload(e, item, webContent) {
 	url = url.substring(0, pos)
 
 	var deferId = query.deferId
-	var savePath = path.join(util.getAppDataPath(), 'download', item.getFilename())
+	var savePath = path.join(util.getAppPath("appData"), 'download', item.getFilename())
 	if(query.checksum && fs.existsSync(savePath)) {
 		pos = query.checksum.indexOf(":")
 		var algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
@@ -923,7 +790,7 @@ function installDriver(driverPath) {
 	var deferred = Q.defer()
 
 	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.join(util.getAppDataPath(), "temp")
+	var dir = path.join(util.getAppPath("appData"), "temp")
 	util.uncompress(driverPath, dir).then(() => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(() => {
@@ -1038,7 +905,7 @@ function preBuild(projectPath, options) {
 	util.removeFile(path.join(buildPath, "sketch", "build"), true)
 	util.removeFile(path.join(projectPath, "build"), true)
 
-	project.read(projectPath).then(result => {
+	Project.read(projectPath).then(result => {
 		var projectInfo = result.data
 		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
 
@@ -1046,7 +913,7 @@ function preBuild(projectPath, options) {
 			var buildSpecs = []
 			options = _.merge({}, arduinoOptions.default.build, options)
 
-			var packagesPath = getPackagesPath()
+			var packagesPath = Package.getPackagesPath()
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 			buildSpecs.push(`-fqbn=${options.fqbn}`)
@@ -1336,7 +1203,7 @@ function loadProject() {
 		var projectPath = projectToLoad
 		projectToLoad = null
 
-		return project.read(projectPath)
+		return Project.read(projectPath)
 	}
 
 	return util.rejectPromise()
@@ -1349,28 +1216,21 @@ function loadProject() {
  */
 function getScriptPath(name) {
 	var ext = is.windows() ? "bat" : "sh"
-	return path.join(util.getAppResourcePath(), "scripts", `${name}.${ext}`)
+	return path.join(util.getAppPath("appResource"), "scripts", `${name}.${ext}`)
 }
 
 /**
  * 获取command路径
  */
 function getCommandPath(name) {
-	return path.join(util.getAppDataPath(), "temp", `${name}.txt`)
+	return path.join(util.getAppPath("appData"), "temp", `${name}.txt`)
 }
 
 /**
  * 获取arduino路径
  */
 function getArduinoPath() {
-	return path.join(util.getAppResourcePath(), `arduino-${util.getPlatform()}`)
-}
-
-/**
- * 获取解压后的packages路径
- */
-function getPackagesPath() {
-	return path.join(app.getPath("documents"), app.getName(), "packages")
+	return path.join(util.getAppPath("appResource"), `arduino-${util.getPlatform()}`)
 }
 
 /**

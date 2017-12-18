@@ -4,9 +4,9 @@ const Q = require('q')
 const hasha = require('hasha')
 const log = require('electron-log')
 
-const util = require('./util')
+const util = require('../util/util')
 const Token = require('./token')
-const Url = require('./config/url')
+const Url = require('../config/url')
 
 const PROJECT_EXT = ".krb"
 const PROJECT_TYPE = "krobot"
@@ -36,6 +36,9 @@ function read(filePath, projectType) {
 		if(!fs.existsSync(projectPath)) {
 			projectPath = path.join(filePath, "project.json")
 		}
+		if(!fs.existsSync(projectPath)) {
+			return util.rejectPromise(null, deferred)
+		}
 	}
 
 	util.readJson(projectPath).then(projectInfo => {
@@ -64,9 +67,8 @@ function open(name) {
 		})
 	}
 
-	var token = Token.get()
 	if(name) {
-		if(!token) {
+		if(!Token.getUser()) {
 			return util.rejectPromise(null, deferred)
 		}
 
@@ -75,7 +77,7 @@ function open(name) {
 		return deferred.promise
 	} else {
 		var options = {}
-		options.defaultPath = token ? getProjectsDir() : util.getAppPath("documents")
+		options.defaultPath = Token.getUser() ? getProjectsDir() : util.getAppPath("documents")
 		options.properties = ["openDirectory"]
 
 		util.showOpenDialog(options).then(openPath => {
@@ -92,45 +94,44 @@ function open(name) {
 function save(projectName, projectInfo, savePath) {
 	var deferred = Q.defer()
 
-	// var token = Token.get()
-	// if(!token) {
-	// 	var prefix = path.join(util.getAppDocumentPath(), "projects")
-	// 	if(savePath && savePath.startsWith(prefix)) {
-	// 		savePath = null
-	// 	}
-	// 	return saveAs(projectName, projectInfo, false, savePath)
-	// }
+	if(!Token.getUser()) {
+		var prefix = path.join(util.getAppPath("appDocuments"), "projects")
+		if(savePath && savePath.startsWith(prefix)) {
+			savePath = null
+		}
+		return saveAs(projectName, projectInfo, false, savePath)
+	}
 
-	// savePath = path.join(getProjectsDir(), projectName)
-	// doSave(savePath, projectName, projectInfo, "cloud").then(() => {
-	// 	updateLocalItem(projectName).then(() => {
-	// 		throttleSync()
-	// 		deferred.resolve({
-	// 			project_name: projectInfo.project_name,
-	// 			project_type: projectInfo.project_type,
-	// 			updated_at: projectInfo.updated_at,
-	// 			path: savePath,
-	// 		})
-	// 	}, err => {
-	// 		err && log.error(err)
-	// 		deferred.reject(err)
-	// 	})
-	// }, err => {
-	// 	err && log.error(err)
-	// 	deferred.reject(err)
-	// })
-
-	doSave(savePath, projectName, projectInfo, "local").then(() => {
-		deferred.resolve({
-			project_name: projectInfo.project_name,
-			project_type: projectInfo.project_type,
-			updated_at: projectInfo.updated_at,
-			path: savePath,
+	savePath = path.join(getProjectsDir(), projectName)
+	doSave(savePath, projectName, projectInfo, "cloud").then(() => {
+		updateLocalItem(projectName).then(() => {
+			throttleSync()
+			deferred.resolve({
+				project_name: projectInfo.project_name,
+				project_type: projectInfo.project_type,
+				updated_at: projectInfo.updated_at,
+				path: savePath,
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
 		})
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
 	})
+
+	// doSave(savePath, projectName, projectInfo, "local").then(() => {
+	// 	deferred.resolve({
+	// 		project_name: projectInfo.project_name,
+	// 		project_type: projectInfo.project_type,
+	// 		updated_at: projectInfo.updated_at,
+	// 		path: savePath,
+	// 	})
+	// }, err => {
+	// 	err && log.error(err)
+	// 	deferred.reject(err)
+	// })
 
 	return deferred.promise
 }
@@ -221,7 +222,7 @@ function create(name) {
 
 	log.debug(`project create: ${name}`)
 
-	Token.request(config.url.projectSynCreate, {
+	Token.request(Url.PROJECT_SYNC_CREATE, {
 		method: 'post',
 		data: {
 			name: name,
@@ -326,7 +327,7 @@ function download(name, hash) {
 
 	var url = `${Url.PROJECT_SYNC_DOWNLOAD}/${hash}`
 	Token.request(url, {method: "post"}, false).then(res => {
-		var savePath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.7z`)
+		var savePath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
 		fs.ensureDirSync(path.dirname(savePath))
 
 		var stream = fs.createWriteStream(savePath)
@@ -359,7 +360,7 @@ function download(name, hash) {
 function compress(projectsDir, name) {
 	var deferred = Q.defer()
 
-	var outputPath = path.join(util.getAppDataPath(), 'temp', `${util.uuid(6)}.7z`)
+	var outputPath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
 	var files = [`${name}/${name}${PROJECT_EXT}`]
 	util.compress(projectsDir, files, outputPath).then(() => {
 		deferred.resolve(outputPath)
@@ -543,8 +544,7 @@ function downloadSync(downloadList, notify) {
 function loadLocalList() {
 	var deferred = Q.defer()
 
-	var token = Token.get()
-	if(!token) {
+	if(!Token.getUser()) {
 		return util.rejectPromise(null, deferred)
 	}
 
@@ -557,8 +557,7 @@ function loadLocalList() {
 }
 
 function saveLocalList(localList) {
-	var token = Token.get()
-	if(!token) {
+	if(!Token.getUser()) {
 		return util.rejectPromise()
 	}
 
@@ -623,21 +622,21 @@ function removeLocalItem(hash) {
 }
 
 function getLocalListPath() {
-	var token = Token.get()
-	if(!token) {
+	var userId = Token.getUserId()
+	if(!userId) {
 		return null
 	}
 
-	return path.join(util.getAppDataPath(), "projects", getUserSpec(token.id, 1), "list.json")
+	return path.join(util.getAppPath("appData"), "projects", getUserSpec(userId, 1), "list.json")
 }
 
 function getProjectsDir() {
-	var token = Token.get()
-	if(!token) {
+	var userId = Token.getUserId()
+	if(!userId) {
 		return null
 	}
 
-	return path.join(util.getAppDocumentPath(), "projects", getUserSpec(token.id))
+	return path.join(util.getAppPath("appDocuments"), "projects", getUserSpec(userId))
 }
 
 function getUserSpec(id, index) {

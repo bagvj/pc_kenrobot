@@ -8,14 +8,6 @@ define(function() {
 			support: "http://www.arduino.cn/forum-101-1.html",
 			about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",
 			packages: "http://www.kenrobot.com/packages/packages.json",
-
-			register: "http://server.kenrobot.com/register",
-			findPassword: "http://server.kenrobot.com/password/email",
-
-			login: "http://server.kenrobot.com/api/auth/login",
-			logout: "http://server.kenrobot.com/api/auth/logout",
-			weixinQrcode: "http://server.kenrobot.com/api/auth/weixin/token",
-			weixinLogin: "http://server.kenrobot.com/api/auth/weixin/login",
 		},
 		arduinoDriver: {
 			checksum: {

@@ -14,7 +14,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		kenrobot.on("project", "show", onShow, {canReset: false});
 	}
 
-	function onShow(args) {
+	function onShow() {
 		setTimeout(() => update(), 500);
 		util.dialog({
 			selector: dialogWin,

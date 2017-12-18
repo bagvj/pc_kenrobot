@@ -92,9 +92,7 @@ function writeSerialPort(portId, content) {
 	log.debug(`writeSerialPort: ${portId}, ${content}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(() => {
-			deferred.reject()
-		}, 10)
+		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
 	}
 
@@ -123,9 +121,7 @@ function closeSerialPort(portId) {
 	log.debug(`closeSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(() => {
-			deferred.reject()
-		}, 10)
+		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
 	}
 
@@ -158,9 +154,7 @@ function updateSerialPort(portId, options) {
 	log.debug(`updateSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(() => {
-			deferred.reject()
-		}, 10)
+		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
 	}
 
@@ -182,9 +176,7 @@ function flushSerialPort(portId, options) {
 	log.debug(`flushSerialPort, portId: ${portId}`)
 	var port = connectedPorts.ports[portId]
 	if(!port) {
-		setTimeout(() => {
-			deferred.reject()
-		}, 10)
+		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
 	}
 
@@ -208,9 +200,7 @@ function resetSerialPort(comName) {
 			dtr: false,
 		})
 		setTimeout(() => {
-			serialPort.close(() => {
-				deferred.resolve()
-			})
+			serialPort.close(() => deferred.resolve())
 		}, 650)
 	}).on('error', err => {
 		log.error(err)

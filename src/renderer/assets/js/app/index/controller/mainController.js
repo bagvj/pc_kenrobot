@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu', '../model/userModel'], function($1, pace, Mousetrap, util, emitor, config, menu, userModel) {
+define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, pace, Mousetrap, util, emitor, config, menu) {
 
 	var iframe;
 	var mousetrap;
@@ -6,8 +6,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	var inSync;
 
 	function init() {
-		kenrobot.getUserInfo = userModel.getUserInfo;
-
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		iframe = document.getElementById("content-frame");
@@ -46,7 +44,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
 		inSync = true;
-		userModel.loadToken().always(() => {
+		kenrobot.postMessage("app:loadToken").then(result => {
+			kenrobot.user = result
+		}).fin(() => {
 			emitor.trigger("user", "update");
 		});
 
@@ -92,34 +92,35 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onUserLogout() {
-		userModel.logout().then(() => {
+		kenrobot.postMessage("app:logout").then(() => {
 			util.message("退出成功");
-		}).always(() => {
+		}).fin(() => {
+			kenrobot.user = null;
 			emitor.trigger("user", "update");
 		});
 	}
 
 	function onUserUpdate() {
-		kenrobot.getUserInfo() && setTimeout(() => onProjectSync(), 2000);
+		kenrobot.user && setTimeout(() => onProjectSync(), 2000);
 	}
 
 	function onProjectSync() {
-		// if(inSync || !kenrobot.getUserInfo()) {
-		// 	return;
-		// }
+		if(inSync || !kenrobot.user) {
+			return;
+		}
 
-		// inSync = true;
-		// // util.message("项目开始同步");
-		// kenrobot.postMessage("app:projectSync").then(() => {
-		// 	inSync = false;
-		// 	util.message("项目同步成功");
-		// }, err => {
-		// 	inSync = false;
-		// 	util.message({
-		// 		text: "项目同步失败",
-		// 		type: "error",
-		// 	});
-		// });
+		inSync = true;
+		// util.message("项目开始同步");
+		kenrobot.postMessage("app:projectSync").then(() => {
+			inSync = false;
+			util.message("项目同步成功");
+		}, err => {
+			inSync = false;
+			util.message({
+				text: "项目同步失败",
+				type: "error",
+			});
+		});
 	}
 
 	function onMenuAction(action, extra) {

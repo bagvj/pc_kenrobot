@@ -16,7 +16,7 @@ const _ = require('lodash')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
-const PACKAGE = require("../package")
+const PACKAGE = require("../../package")
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
@@ -88,26 +88,16 @@ function getAppInfo() {
 	return info
 }
 
-/**
- * 获取appData目录
- */
-function getAppDataPath() {
-	return path.join(app.getPath("appData"), app.getName())
-}
-
-/**
- * 获取资源路径
- */
-function getAppResourcePath() {
-	return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
-}
-
-function getAppDocumentPath() {
-	return path.join(app.getPath("documents"), app.getName())
-}
-
 function getAppPath(name) {
-	return app.getPath(name)
+	if(name == "appData") {
+		return path.join(app.getPath("appData"), app.getName())
+	} else if(name == "appResource") {
+		return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
+	} else if(name == "appDocuments") {
+		return path.join(app.getPath("documents"), app.getName())
+	} else {
+		return app.getPath(name)
+	}
 }
 
 function versionCompare(versionA, versionB) {
@@ -275,9 +265,7 @@ function rsa_decrypt(encrypted, key) {
 function resolvePromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
-	setTimeout(() => {
-		deferred.resolve(result)
-	}, 10)
+	setTimeout(() => deferred.resolve(result), 10)
 
 	return deferred.promise
 }
@@ -285,9 +273,7 @@ function resolvePromise(result, deferred) {
 function rejectPromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
-	setTimeout(() => {
-		deferred.reject(result)
-	}, 10)
+	setTimeout(() => deferred.reject(result), 10)
 
 	return deferred.promise
 }
@@ -738,9 +724,6 @@ function request(url, options, json) {
 module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
-module.exports.getAppDataPath = getAppDataPath
-module.exports.getAppResourcePath = getAppResourcePath
-module.exports.getAppDocumentPath = getAppDocumentPath
 module.exports.getAppPath = getAppPath
 
 module.exports.versionCompare = versionCompare

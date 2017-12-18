@@ -178,7 +178,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
-		saveAs = saveAs == true ? true : savePath == null;
+		// saveAs = saveAs == true ? true : savePath == null;
 
 		doProjectSave(projectInfo, saveAs).then(result => {
 			localStorage.recentProject = result.path;
