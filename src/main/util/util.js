@@ -16,7 +16,7 @@ const _ = require('lodash')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
-const PACKAGE = require("../../package")
+const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', '..', 'app.asar', 'package.json'))
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
@@ -72,7 +72,7 @@ function getAppInfo() {
 	}
 
 	if(is.dev()) {
-		info.ext = path.extname(app.getPath("exe")).replace('.', '')
+		info.ext = path.extname(getAppPath("exe")).replace('.', '')
 		info.branch = "beta"
 		info.feature = ""
 		info.date = stamp()
@@ -645,7 +645,7 @@ function showOpenDialog(options, win) {
 
 	options = options || {}
 	options.title = "打开"
-	options.defaultPath = options.defaultPath || app.getPath("documents")
+	options.defaultPath = options.defaultPath || getAppPath("documents")
 	options.buttonLabel = "打开"
 
 	win = win || BrowserWindow.getAllWindows()[0]
@@ -672,7 +672,7 @@ function showSaveDialog(options, win) {
 
 	options = options || {}
 	options.title = "保存"
-	options.defaultPath = (options.defaultPath && path.isAbsolute(options.defaultPath)) ? options.defaultPath : path.join(app.getPath("documents"), options.defaultPath || "untitled")
+	options.defaultPath = (options.defaultPath && path.isAbsolute(options.defaultPath)) ? options.defaultPath : path.join(getAppPath("documents"), options.defaultPath || "untitled")
 	options.buttonLabel = "保存"
 
 	win = win || BrowserWindow.getAllWindows()[0]

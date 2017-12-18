@@ -4,7 +4,7 @@
   "name": "krobot",
   "productName": "KRobot",
   "version": "0.6.5",
-  "buildNumber": 14,
+  "buildNumber": 16,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
@@ -20,7 +20,7 @@
     "electron-is": "^2.4.0",
     "electron-log": "^2.2.12",
     "flat-cache": "^1.3.0",
-    "fs-extra": "^4.0.3",
+    "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "hasha": "^3.0.0",
     "iconv-lite": "^0.4.19",

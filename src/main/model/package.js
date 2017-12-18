@@ -5,11 +5,12 @@ const log = require('electron-log')
 const is = require('electron-is')
 
 const util = require('../util/util')
+const packageOrders = require('../config/packageOrders') //包优先级
 
 /**
  * 解压资源包
  */
-function unzipAll(packages, skip) {
+function unzipAll(packages, skip, firstRun) {
 	var deferred = Q.defer()
 
 	packages = packages || []
@@ -175,7 +176,7 @@ function remove(name) {
 }
 
 function getPackagesPath() {
-	return path.join(app.getPath("appDocuments"), "packages")
+	return path.join(util.getAppPath("appDocuments"), "packages")
 }
 
 module.exports.unzip = unzip

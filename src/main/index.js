@@ -13,8 +13,7 @@ const hasha = require('hasha') //计算hash
 const _ = require('lodash')
 
 const util = require('./util/util')
-const serialPort = require('./serialPort') //串口
-const packageOrders = require('./config/packageOrders') //包优先级
+const SerialPort = require('./model/serialPort') //串口
 const arduinoOptions = require('./config/arduinoOptions')
 const Url = require('./config/url')
 const Token = require('./model/token')
@@ -136,10 +135,10 @@ function listenMessages() {
 
 	listenMessage("listSerialPort", () => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
-	listenMessage("writeSerialPort", (portId, content) => serialPort.writeSerialPort(portId, content))
-	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
-	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
-	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
+	listenMessage("writeSerialPort", (portId, content) => SerialPort.writeSerialPort(portId, content))
+	listenMessage("closeSerialPort", portId => SerialPort.closeSerialPort(portId))
+	listenMessage("updateSerialPort", (portId, options) => SerialPort.updateSerialPort(portId, options))
+	listenMessage("flushSerialPort", portId => SerialPort.flushSerialPort(portId))
 
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
 	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
@@ -247,7 +246,7 @@ function createWindow() {
 		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
 
 	mainWindow.webContents.on('will-navigate', e => e.preventDefault())
-		.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
+		.on('devtools-reload-page', () => SerialPort.closeAllSerialPort())
 
 	mainWindow.webContents.session.on('will-download', onDownload)
 
@@ -274,7 +273,7 @@ function onAppBeforeQuit(e) {
 }
 
 function onAppWillQuit(e) {
-	serialPort.closeAllSerialPort()
+	SerialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
 	return true
 }
@@ -493,8 +492,9 @@ function saveSetting(setting) {
  */
 function unzipPackages(skip) {
 	var deferred = Q.defer()
+	skip = skip !== false ? false : is.dev()
 
-	Package.unzip(config.packages, skip || is.dev()).then(packages => {
+	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
 		if(is.dev()) {
 			deferred.resolve()
 			return
@@ -505,7 +505,7 @@ function unzipPackages(skip) {
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
-	})
+	}, progress => deferred.notify(progress))
 
 	return deferred.promise
 }
@@ -519,7 +519,7 @@ function loadPackages(extra) {
 
 	Package.load(extra).then(packages => {
 		packages.forEach(pkg => {
-			var srcPath = path.join(pkg.path, "src")
+			var srcPath = path.join(Package.getPackagesPath(), pkg.name, "src")
 			if(fs.existsSync(srcPath) && !arduinoOptions.librariesPath.includes(srcPath)) {
 				arduinoOptions.librariesPath.push(srcPath)
 			}
@@ -810,7 +810,7 @@ function installDriver(driverPath) {
  * @param {*} options
  */
 function openSerialPort(comName, options) {
-	return serialPort.openSerialPort(comName, options, {
+	return SerialPort.openSerialPort(comName, options, {
 		onError: onSerialPortError,
 		onData: onSerialPortData,
 		onClose: onSerialPortClose,
@@ -835,7 +835,7 @@ function onSerialPortClose(portId) {
 function listSerialPort() {
 	var deferred = Q.defer()
 
-	serialPort.listSerialPort().then(ports => {
+	SerialPort.listSerialPort().then(ports => {
 		ports = filterArduinoPorts(ports)
 
 		if(ports.length == 0) {
@@ -1084,7 +1084,7 @@ function preUploadFirmware(targetPath, comName, options) {
 		.replace("TARGET_PATH", targetPath)
 
 	util.writeFile(commandPath, command).then(() => {
-		serialPort.resetSerialPort(comName).then(() => {
+		SerialPort.resetSerialPort(comName).then(() => {
 			deferred.resolve(commandPath)
 		}, err => {
 			err && log.error(err)
@@ -1237,5 +1237,5 @@ function getArduinoPath() {
  * 获取解压后的libraries路径
  */
 function getLibrariesPath() {
-	return path.join(app.getPath("documents"), app.getName(), "libraries")
+	return path.join(util.getAppPath("documents"), app.getName(), "libraries")
 }
