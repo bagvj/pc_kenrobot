@@ -121,18 +121,6 @@ function save(projectName, projectInfo, savePath) {
 		deferred.reject(err)
 	})
 
-	// doSave(savePath, projectName, projectInfo, "local").then(() => {
-	// 	deferred.resolve({
-	// 		project_name: projectInfo.project_name,
-	// 		project_type: projectInfo.project_type,
-	// 		updated_at: projectInfo.updated_at,
-	// 		path: savePath,
-	// 	})
-	// }, err => {
-	// 	err && log.error(err)
-	// 	deferred.reject(err)
-	// })
-
 	return deferred.promise
 }
 

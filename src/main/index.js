@@ -149,7 +149,7 @@ function listenMessages() {
 	listenMessage("loadExamples", () => loadExamples())
 	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
 
-	listenMessage("unzipPackage", packagePath => Package.unzip(packagePath))
+	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
 	listenMessage("deletePackage", name => Package.remove(name))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("loadPackages", (extra) => loadPackages(extra))

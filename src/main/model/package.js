@@ -77,22 +77,28 @@ function unzipAll(packages, skip, firstRun) {
 /**
  * 解压单个资源包
  */
-function unzip(packagePath) {
+function unzip(name, packagePath, removeOld) {
 	var deferred = Q.defer()
+	removeOld = removeOld !== false
 
-	util.uncompress(packagePath, util.getAppPath("packages"), true).then(() => {
-		var name = path.basename(packagePath)
-		name = name.substring(0, name.indexOf("-"))
-		var ext = is.windows() ? "bat" : "sh"
-		util.searchFiles(path.join(util.getAppPath("packages"), name) + `/**/post_install.${ext}`).then(scripts => {
-			if(scripts.length == 0) {
-				deferred.resolve()
-				return
-			}
+	var doUnzip = () => {
+		util.uncompress(packagePath, util.getAppPath("packages"), true).then(() => {
+			var name = path.basename(packagePath)
+			name = name.substring(0, name.indexOf("-"))
+			var ext = is.windows() ? "bat" : "sh"
+			util.searchFiles(path.join(util.getAppPath("packages"), name) + `/**/post_install.${ext}`).then(scripts => {
+				if(scripts.length == 0) {
+					deferred.resolve()
+					return
+				}
 
-			var scriptPath = scripts[0]
-			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
-				deferred.resolve()
+				var scriptPath = scripts[0]
+				util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
+					deferred.resolve()
+				}, err => {
+					err && log.error(err)
+					deferred.reject(err)
+				})
 			}, err => {
 				err && log.error(err)
 				deferred.reject(err)
@@ -100,13 +106,19 @@ function unzip(packagePath) {
 		}, err => {
 			err && log.error(err)
 			deferred.reject(err)
+		}, progress => {
+			deferred.notify(progress)
 		})
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	}, progress => {
-		deferred.notify(progress)
-	})
+	}
+
+	if(removeOld) {
+		remove(name).then(() => doUnzip(), err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	} else {
+		doUnzip()
+	}
 
 	return deferred.promise
 }
