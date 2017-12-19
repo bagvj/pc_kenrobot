@@ -20,6 +20,7 @@ const Token = require('./model/token')
 const Project = require('./model/project') //同步
 const User = require('./model/user')
 const Package = require('./model/package')
+const Cache = require('./util/cache')
 
 const listenMessage = util.listenMessage
 
@@ -65,7 +66,7 @@ function init() {
 			log.debug("app second run")
 			// log.debug(secondArgs)
 
-			loadProject().then(result => {
+			loadOpenProject().then(result => {
 				util.postMessage("app:onLoadProject", result)
 			}, err => {
 				err && log.error(err)
@@ -172,7 +173,8 @@ function listenMessages() {
 	listenMessage("register", fields => User.register(fields))
 	listenMessage("resetPassword", email => User.resetPassword(email))
 
-	listenMessage("projectLoad", () => loadProject())
+	listenMessage("loadOpenOrRecentProject", () => loadOpenOrRecentProject())
+	listenMessage("setRecentProject", projectPath => Cache.setItem("recentProject", projectPath))
 
 	listenMessage("projectRead", projectPath => Project.read(projectPath))
 	listenMessage("projectOpen", name => Project.open(name))
@@ -259,7 +261,7 @@ function onAppOpenFile(e, filePath) {
 
 	projectToLoad = Project.check(filePath)
 	if(isLoadReady){
-		loadProject().then(result => {
+		loadOpenProject().then(result => {
 			util.postMessage("app:onLoadProject", result)
 		}, err => {
 			err && log.error(err)
@@ -550,8 +552,9 @@ function openExample(category, name, pkg) {
 	}
 
 	log.debug(`openExample: ${examplePath}`)
-	Project.read(examplePath).then(projectInfo => {
-		deferred.resolve(projectInfo)
+	Project.read(examplePath).then(result => {
+		result.path = null
+		deferred.resolve(result)
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -1195,11 +1198,11 @@ function matchBoardNames(ports) {
 	return deferred.promise
 }
 
-function loadProject() {
+function loadOpenProject() {
 	isLoadReady = true
 
 	if(projectToLoad) {
-		log.debug(`loadProject: ${projectToLoad}`)
+		log.debug(`loadOpenProject: ${projectToLoad}`)
 		var projectPath = projectToLoad
 		projectToLoad = null
 
@@ -1207,4 +1210,21 @@ function loadProject() {
 	}
 
 	return util.rejectPromise()
+}
+
+function loadOpenOrRecentProject() {
+	var deferred = Q.defer()
+
+	loadOpenProject().then(result => {
+		deferred.resolve(result)
+	}, () => {
+		var projectPath = Cache.getItem("recentProject")
+		Project.read(projectPath).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			deferred.reject(err)
+		})
+	})
+
+	return deferred.promise
 }

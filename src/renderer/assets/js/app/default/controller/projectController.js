@@ -14,23 +14,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('code', 'export', onCodeExport)
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
-		kenrobot.on("project", "open", onProjectOpen).on("project", "save", onProjectSave).on("project", "load", onProjectLoad);
-	}
-
-	function openProject(projectInfo) {
-		emitor.trigger("code", "stop-refresh");
-
-		currentProject && (currentProject.project_data = getProjectData());
-		currentProject = projectInfo;
-
-		var projectData = projectInfo.project_data;
-		hardware.setData(projectData.hardware);
-		software.setData(projectData.software);
-		code.setData(projectData.code);
-		code.setMode(projectData.mode);
-
-		projectData.mode == "block" && emitor.trigger("code", "start-refresh");
-		emitor.trigger("app", "activeTab", projectData.mode == "text" ? "software" : "hardware");
+		kenrobot.on("project", "open", onProjectOpen)
+			.on("project", "save", onProjectSave)
+			.on("project", "load", onProjectLoad);
 	}
 
 	function onAppStart() {
@@ -38,15 +24,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
 
-			loadOpenProject().then(result => {
-				doLoadProject(result.path, result.data);
-			}, () => {
-				loadRecentProject().then(result => {
-					doLoadProject(result.path, result.data);
-				}, () => {
-					doLoadProject(null, getDefaultProject());
-				});
-			});
+			loadOpenOrRecentProject();
 		});
 	}
 
@@ -82,41 +60,38 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		return promise
 	}
 
-	function loadOpenProject() {
-		var promise = $.Deferred();
-
-		kenrobot.postMessage("app:projectLoad").then(result => {
-			promise.resolve(result);
+	function loadOpenOrRecentProject() {
+		kenrobot.postMessage("app:loadOpenOrRecentProject").then(result => {
+			doLoadProject(result.path, result.data);
 		}, () => {
-			promise.reject();
+			doLoadProject(null, getDefaultProject());
 		});
-
-		return promise;
 	}
 
-	function loadRecentProject() {
-		var promise = $.Deferred();
-		var recentProjectPath = localStorage.recentProject;
-		if(!recentProjectPath || recentProjectPath === "null" || recentProjectPath === "undefined") {
-			setTimeout(() => promise.reject(), 10);
-			return promise;
-		}
+	function doLoadProject(projectPath, projectInfo, message) {
+		emitor.trigger("code", "stop-refresh");
 
-		kenrobot.postMessage("app:projectRead", recentProjectPath).then(result => {
-			promise.resolve(result);
-		}, () => {
-			promise.reject();
-		});
+		currentProject && (currentProject.project_data = getProjectData());
+		currentProject = projectInfo;
 
-		return promise;
-	}
+		var projectData = projectInfo.project_data;
+		hardware.setData(projectData.hardware);
+		software.setData(projectData.software);
+		code.setData(projectData.code);
+		code.setMode(projectData.mode);
 
-	function doLoadProject(projectPath, projectInfo) {
+		(!projectData.mode || projectData.mode == "block") && emitor.trigger("code", "start-refresh");
+		emitor.trigger("app", "activeTab", projectData.mode == "text" ? "software" : "hardware");
+
 		savePath = projectPath;
-		openProject(projectInfo);
+
+		kenrobot.postMessage("app:setRecentProject", savePath);
 		kenrobot.trigger("app", "setTitle", savePath);
-		localStorage.recentProject = savePath;
-		emitor.trigger("code", "start-refresh");
+
+		util.message({
+			text: message || "打开成功",
+			type: "success"
+		});
 	}
 
 	function onProjectLoad(result) {
@@ -124,52 +99,29 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onProjectNew() {
-		var doProjectNew = () => {
-			savePath = null;
-			openProject(getDefaultProject());
-			kenrobot.trigger("app", "setTitle", savePath);
-			localStorage.recentProject = savePath;
-			util.message("新建成功");
-		};
+		var doProjectNew = () => doLoadProject(null, getDefaultProject(), "新建成功");
 
 		util.confirm({
 			cancelLabel: "不了",
 			confirmLabel: "好的",
 			text: "保存当前项目后再新建?",
 			onCancel: value => !value && doProjectNew(),
-			onConfirm: () => {
-				onProjectSave().then(() => setTimeout(doProjectNew, 400));
-			}
+			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectNew, 400))
 		});
 	}
 
 	function onProjectOpen(projectInfo) {
 		if(projectInfo) {
-			savePath = null;
-			openProject(projectInfo);
-			kenrobot.trigger("app", "setTitle", savePath);
-			localStorage.recentProject = savePath;
-			util.message({
-				text: "打开成功",
-				type: "success"
-			});
-		} else {
-			kenrobot.postMessage("app:projectOpen").then(result => {
-				savePath = result.path;
-				openProject(result.data);
-				kenrobot.trigger("app", "setTitle", savePath);
-				localStorage.recentProject = savePath;
-				util.message({
-					text: "打开成功",
-					type: "success"
-				});
-			}, err => {
-				util.message({
-					text: "打开失败",
-					type: "error",
-				});
-			});
+			doLoadProject(null, projectInfo);
+			return;
 		}
+
+		kenrobot.postMessage("app:projectOpen").then(onProjectLoad, err => {
+			util.message({
+				text: "打开失败",
+				type: "error",
+			});
+		});
 	}
 
 	function onProjectSave(saveAs, exitAfterSave) {
@@ -178,10 +130,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
-		// saveAs = saveAs == true ? true : savePath == null;
+		saveAs = saveAs || !savePath;
 
 		doProjectSave(projectInfo, saveAs).then(result => {
-			localStorage.recentProject = result.path;
 			util.message({
 				text: "保存成功",
 				type: "success"
@@ -205,14 +156,12 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
-		var saveAs = savePath == null;
 		var boardData = hardware.getBoardData();
 
-		doProjectSave(projectInfo, saveAs).then(function(result) {
-			localStorage.recentProject = result.path;
+		doProjectSave(projectInfo, !savePath).then(result => {
 			emitor.trigger("ui", "lock", "build", true);
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(function() {
+			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(() => {
 				util.message("编译成功，正在上传");
 				setTimeout(function() {
 					var uploadProgressHelper = {};
@@ -281,7 +230,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		var boardData = hardware.getBoardData();
 
 		util.message("正在验证，请稍候");
-		doProjectSave(projectInfo, true, true).then(function(result) {
+		doProjectSave(projectInfo, true, true).then(result => {
 			emitor.trigger("ui", "lock", "build", true);
 			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(() => {
 				emitor.trigger("ui", "lock", "build", false);
@@ -318,7 +267,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 				savePath = result.path;
 				kenrobot.trigger("app", "setTitle", savePath);
-				localStorage.recentProject = savePath;
+				kenrobot.postMessage("app:setRecentProject", savePath);
 			}
 			promise.resolve(result);
 		}, err => {

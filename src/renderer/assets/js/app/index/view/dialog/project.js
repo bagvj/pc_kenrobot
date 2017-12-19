@@ -79,8 +79,12 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var hash = li.data("hash");
 
 		setTimeout(() => {
-			kenrobot.trigger("project", "open-by", name, hash);
-		}, 500);
+			kenrobot.postMessage("app:projectOpen", name).then(result => {
+				kenrobot.trigger("project", "load", result);
+			}, err => {
+				util.message("打开失败");
+			});
+		}, 200);
 
 		dialogWin.find(".x-dialog-close").trigger("click");
 

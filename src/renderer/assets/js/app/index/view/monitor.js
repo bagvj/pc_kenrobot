@@ -7,7 +7,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 
 	var lastPortId;
 	var lastComName;
-	var autoScroll;
+	var autoScroll = true;
 	var buffers = [];
 	var maxBuffer = 500;
 	var maxLines = 300;
