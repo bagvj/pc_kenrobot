@@ -3,6 +3,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 	var region;
 	var toolbar;
 	var mode;
+	var container;
 
 	function init() {
 		mode = "block";
@@ -10,7 +11,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		region = $('.content-region .code-region')
 		toolbar = region.find(".toolbar").on('click', ".hover-button", onButtonClick);
 
-		var container = $(".code-container", region);
+		container = $(".code-container", region);
 		codeModel.init(container[0]);
 
 		emitor.on("code", "start-refresh", onStartRefresh)
@@ -21,6 +22,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 			.on("ui", "lock", onUILock)
 			.on('progress', "check", onCheckProgress)
 			.on("progress", "upload", onUploadProgress);
+
+		kenrobot.on("setting", "change", onSettingChange);
 	}
 
 	function getData() {
@@ -164,6 +167,21 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		toolbar.find(".upload .x-progress").show().css({
 			left: "-" + (100 - value) + "%"
 		});
+	}
+
+	function onSettingChange(type, name, value) {
+		if(type != "editor") {
+			return;
+		}
+
+		switch(name) {
+			case "line-height":
+				container.css("line-height", `${value}px`);
+				break;
+			case "font-size":
+				container.css("font-size", `${value}px`);
+				break;
+		}
 	}
 
 	return {

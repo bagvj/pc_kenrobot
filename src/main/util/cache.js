@@ -7,41 +7,40 @@ const flatCache = require('flat-cache')
 
 const util = require('./util')
 
-var cache
+var cacheMap = {}
 
-function getCache() {
-	if(!cache) {
-		cache = flatCache.load('storage', util.getAppPath("appData"))
+function Cache(name) {
+	if(cacheMap[name]) {
+		return cacheMap[name]
 	}
 
-	return cache
+	this.name = name
+	this._cache = flatCache.load(name, util.getAppPath("appData"))
+
+	cacheMap[name] = this
 }
 
-function getItem(key) {
-	return getCache().getKey(key)
+Cache.prototype.getItem = function(key, defaultValue) {
+	var value = this._cache.getKey(key)
+	return value !== undefined ? value : defaultValue
 }
 
-function setItem(key, value, doSave) {
+Cache.prototype.setItem = function(key, value, doSave) {
 	doSave = doSave !== false
 
-	var c = getCache()
-	c.setKey(key, value)
-	doSave && c.save()
+	this._cache.setKey(key, value)
+	doSave && this._cache.save(true)
 }
 
-function removeItem(key, doSave) {
+Cache.prototype.removeItem = function(key, doSave) {
 	doSave = doSave !== false
 
-	var c = getCache()
-	c.removeKey(key)
-	doSave && c.save()
+	this._cache.removeKey(key)
+	doSave && this._cache.save(true)
 }
 
-function save() {
-	getCache().save()
+Cache.prototype.save = function() {
+	this._cache.save(true)
 }
 
-module.exports.getItem = getItem
-module.exports.setItem = setItem
-module.exports.removeItem = removeItem
-module.exports.save = save
+module.exports = Cache

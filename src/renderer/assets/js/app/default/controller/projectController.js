@@ -1,12 +1,14 @@
 define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, schema, hardware, software, code) {
 	var currentProject;
 	var savePath;
+	var hasShowSave;
 
 	function init() {
 		emitor.on('app', 'start', onAppStart)
 		    .on('project', 'new', onProjectNew)
 			.on('project', 'open', onProjectOpen)
 			.on('project', 'save', onProjectSave)
+			.on("project", "load", onProjectLoad)
 			.on('project', 'upload', onProjectUpload)
 			.on('project', 'check', onProjectCheck)
 			.on('code', 'refresh', onCodeRefresh)
@@ -84,8 +86,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		emitor.trigger("app", "activeTab", projectData.mode == "text" ? "software" : "hardware");
 
 		savePath = projectPath;
+		hasShowSave = false;
 
-		kenrobot.postMessage("app:setRecentProject", savePath);
+		kenrobot.postMessage("app:setCache", "recentProject", savePath);
 		kenrobot.trigger("app", "setTitle", savePath);
 
 		util.message({
@@ -116,7 +119,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			return;
 		}
 
-		kenrobot.postMessage("app:projectOpen").then(onProjectLoad, err => {
+		kenrobot.postMessage("app:projectOpen").then(onProjectLoad, () => {
 			util.message({
 				text: "打开失败",
 				type: "error",
@@ -130,7 +133,6 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
-		saveAs = saveAs || !savePath;
 
 		doProjectSave(projectInfo, saveAs).then(result => {
 			util.message({
@@ -214,7 +216,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			}, function(progressData) {
 				emitor.trigger("progress", "upload", progress.matchBuildProgress(progressData.data), "build");
 			});
-		}, function() {
+		}, () => {
 			util.message({
 				text: "保存失败",
 				type: "warning",
@@ -241,7 +243,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			}, function(progressData) {
 				emitor.trigger("progress", "check", progress.matchBuildProgress(progressData.data))
 			});
-		}, function() {
+		}, () => {
 			util.message({
 				text: "保存失败",
 				type: "warning",
@@ -252,27 +254,60 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	function doProjectSave(projectInfo, saveAs, isTemp) {
 		var promise = $.Deferred();
 
-		var savePromise
-		if(saveAs) {
-			savePromise = kenrobot.postMessage("app:projectSaveAs", projectInfo.project_name, projectInfo, isTemp);
-		} else {
-			savePromise = kenrobot.postMessage("app:projectSave", projectInfo.project_name, projectInfo, savePath);
+		var doSave = projectName => {
+			var savePromise
+			if(saveAs) {
+				savePromise = kenrobot.postMessage("app:projectSaveAs", projectName, projectInfo, isTemp);
+			} else {
+				savePromise = kenrobot.postMessage("app:projectSave", projectName, projectInfo, savePath);
+			}
+
+			savePromise.then(result => {
+				if(!isTemp) {
+					projectInfo.project_name = result.project_name;
+					projectInfo.project_type = result.project_type;
+					projectInfo.updated_at = result.updated_at;
+
+					savePath = result.path;
+					kenrobot.trigger("app", "setTitle", savePath);
+					kenrobot.postMessage("app:setCache", "recentProject", savePath);
+				}
+				saveAs && (hasShowSave = false);
+				promise.resolve(result);
+			}, err => {
+				promise.reject(err);
+			});
+		};
+
+		var save = () => {
+			if(!savePath && (!projectInfo.project_type || projectInfo.project_type != "cloud")) {
+				kenrobot.trigger("prompt", "show", {
+					title: "项目保存",
+					placeholder: "项目名字",
+					value: projectInfo.project_name,
+					callback: name => {
+						if(!name) {
+							kenrobot.trigger("util", "message", {
+								text: "保存失败",
+								type: "error",
+							});
+							return
+						}
+
+						doSave(name);
+					}
+				});
+			} else {
+				doSave(projectInfo.project_name);
+			}
 		}
 
-		savePromise.then(result => {
-			if(!isTemp) {
-				projectInfo.project_name = result.project_name;
-				projectInfo.project_type = result.project_type;
-				projectInfo.updated_at = result.updated_at;
-
-				savePath = result.path;
-				kenrobot.trigger("app", "setTitle", savePath);
-				kenrobot.postMessage("app:setRecentProject", savePath);
-			}
-			promise.resolve(result);
-		}, err => {
-			promise.reject(err);
-		});
+		if(kenrobot.user || saveAs || hasShowSave) {
+			save();
+		} else {
+			hasShowSave = true;
+			kenrobot.trigger("save", "show", () => doSave(projectInfo.project_name));
+		}
 
 		return promise;
 	}

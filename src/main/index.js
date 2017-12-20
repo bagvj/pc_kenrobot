@@ -14,13 +14,16 @@ const _ = require('lodash')
 
 const util = require('./util/util')
 const SerialPort = require('./model/serialPort') //串口
-const arduinoOptions = require('./config/arduinoOptions')
+const ArduinoOptions = require('./config/arduinoOptions')
 const Url = require('./config/url')
+
 const Token = require('./model/token')
 const Project = require('./model/project') //同步
 const User = require('./model/user')
 const Package = require('./model/package')
 const Cache = require('./util/cache')
+
+const CONFIG_KEY = "config"
 
 const listenMessage = util.listenMessage
 
@@ -35,6 +38,7 @@ const optionDefinitions = [
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
+var cache
 var config
 
 var mainWindow
@@ -55,6 +59,10 @@ function init() {
 	})
 
 	initLog()
+
+	cache = new Cache(CONFIG_KEY)
+	config = cache.getItem(CONFIG_KEY, {})
+	util.removeFile(path.join(util.getAppPath("appData"), "config.json"), true)
 
 	if(app.makeSingleInstance((argv, workingDirectory) => {
 		if(mainWindow) {
@@ -115,9 +123,6 @@ function listenEvents() {
 function listenMessages() {
 	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
 
-	listenMessage("loadSetting", () => loadSetting())
-	listenMessage("saveSetting", setting => saveSetting(setting))
-
 	listenMessage("execFile", exePath => util.execFile(exePath))
 	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
 	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
@@ -173,8 +178,10 @@ function listenMessages() {
 	listenMessage("register", fields => User.register(fields))
 	listenMessage("resetPassword", email => User.resetPassword(email))
 
+	listenMessage("setCache", (key, value) => key !== CONFIG_KEY ? cache.setItem(key, value) : util.rejectPromise())
+	listenMessage("getCache", (key, defaultValue) => key !== CONFIG_KEY ? util.resolvePromise(cache.getItem(key, defaultValue)) : util.rejectPromise())
+
 	listenMessage("loadOpenOrRecentProject", () => loadOpenOrRecentProject())
-	listenMessage("setRecentProject", projectPath => Cache.setItem("recentProject", projectPath))
 
 	listenMessage("projectRead", projectPath => Project.read(projectPath))
 	listenMessage("projectOpen", name => Project.open(name))
@@ -209,14 +216,10 @@ function onAppReady() {
 	is.dev() && args.devTool && debug({showDevTools: true})
 	args.project && (projectToLoad = args.project)
 
-	loadConfig().then(data => {
-		config = data
-
-		createWindow()
-		loadBoards()
-		checkIfFirstRun()
-		doReports()
-	})
+	createWindow()
+	loadBoards()
+	checkIfFirstRun()
+	doReports()
 }
 
 /**
@@ -231,7 +234,6 @@ function createWindow() {
 		frame: false,
 		show: false,
 		webPreferences: {
-			// plugins: true,
 			webSecurity: false,
 		}
 	})
@@ -307,7 +309,7 @@ function checkIfFirstRun() {
 	config.version = util.getVersion()
 	config.reportInstall = false
 	firstRun = true
-	writeConfig(true)
+	cache.setItem(CONFIG_KEY, config)
 }
 
 function doReports() {
@@ -315,7 +317,7 @@ function doReports() {
 		//安装report
 		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
-			writeConfig()
+			cache.setItem(CONFIG_KEY, config)
 		})
 	}
 
@@ -419,10 +421,7 @@ function removeOldVersions(newVersion) {
 	var deferred = Q.defer()
 
 	if(is.dev()) {
-		setTimeout(() => {
-			deferred.resolve()
-		}, 10)
-		return deferred.promise
+		return util.resolvePromise(null, deferred)
 	}
 
 	var info = util.getAppInfo()
@@ -449,47 +448,6 @@ function removeOldVersions(newVersion) {
 }
 
 /**
- * 载入配置
- */
-function loadConfig() {
-	var deferred = Q.defer()
-
-	log.debug("loadConfig")
-	var configPath = path.join(util.getAppPath("appData"), "config.json")
-	if(!fs.existsSync(configPath)) {
-		setTimeout(() => {
-			deferred.resolve({})
-		}, 10)
-		return deferred.promise
-	}
-
-	util.readJson(configPath).then(data => {
-		deferred.resolve(data)
-	}, err => {
-		deferred.resolve({})
-	})
-
-	return deferred.promise
-}
-
-/**
- * 载入配置
- */
-function writeConfig(sync) {
-	var configPath = path.join(util.getAppPath("appData"), "config.json")
-	return util.writeJson(configPath, config, null, sync)
-}
-
-function loadSetting() {
-	return util.resolvePromise(config.setting || {})
-}
-
-function saveSetting(setting) {
-	config.setting = setting
-	return writeConfig()
-}
-
-/**
  * 解压资源包
  */
 function unzipPackages(skip) {
@@ -503,7 +461,8 @@ function unzipPackages(skip) {
 		}
 
 		config.packages = packages
-		writeConfig().fin(() => deferred.resolve())
+		cache.setItem(CONFIG_KEY, config)
+		deferred.resolve()
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -522,8 +481,8 @@ function loadPackages(extra) {
 	Package.load(extra).then(packages => {
 		packages.forEach(pkg => {
 			var srcPath = path.join(util.getAppPath("packages"), pkg.name, "src")
-			if(fs.existsSync(srcPath) && !arduinoOptions.librariesPath.includes(srcPath)) {
-				arduinoOptions.librariesPath.push(srcPath)
+			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
+				ArduinoOptions.librariesPath.push(srcPath)
 			}
 		})
 		deferred.resolve(packages)
@@ -914,7 +873,7 @@ function preBuild(projectPath, options) {
 
 		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
 			var buildSpecs = []
-			options = _.merge({}, arduinoOptions.default.build, options)
+			options = _.merge({}, ArduinoOptions.default.build, options)
 
 			var packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
@@ -930,7 +889,7 @@ function preBuild(projectPath, options) {
 			var librariesPath = util.getAppPath("libraries")
 			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
-			arduinoOptions.librariesPath.forEach(libraryPath => {
+			ArduinoOptions.librariesPath.forEach(libraryPath => {
 				buildSpecs.push(`-libraries="${libraryPath}"`)
 			})
 
@@ -986,7 +945,7 @@ function preBuild(projectPath, options) {
  * @param {*} options 选项
  */
 function upload(projectPath, options) {
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware(targetPath, options)
@@ -999,7 +958,7 @@ function upload(projectPath, options) {
  * @param {*} options 选项
  */
 function upload2(projectPath, comName, options) {
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware2(targetPath, comName, options)
@@ -1075,7 +1034,7 @@ function preUploadFirmware(targetPath, comName, options) {
 	var deferred = Q.defer()
 
 	log.debug("pre upload firmware")
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 
 	var commandPath = util.getAppPath("command", "upload")
 	var command = util.handleQuotes(options.command)
@@ -1157,12 +1116,9 @@ function loadBoards(forceReload) {
 			return d.promise
 		})).then(() => {
 			config.boardNames = boardNames
-			writeConfig().then(() => {
-				deferred.resolve(config.boardNames)
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
+			cache.setItem(CONFIG_KEY, config)
+
+			deferred.resolve(config.boardNames)
 		})
 	}, err => {
 		err && log.error(err)
@@ -1218,7 +1174,7 @@ function loadOpenOrRecentProject() {
 	loadOpenProject().then(result => {
 		deferred.resolve(result)
 	}, () => {
-		var projectPath = Cache.getItem("recentProject")
+		var projectPath = cache.getItem("recentProject")
 		Project.read(projectPath).then(result => {
 			deferred.resolve(result)
 		}, err => {
