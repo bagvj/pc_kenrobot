@@ -3155,7 +3155,7 @@ define(['vendor/lodash'], function($1) {
 				"x": 0.827,
 				"y": 0.046,
 				"name": "3",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "ir-send"],
 				"overlay": [0.5, -1.5],
 				"shape": "Rectangle",
 				"rotate": false,
@@ -3509,7 +3509,7 @@ define(['vendor/lodash'], function($1) {
 				"x": 0.818,
 				"y": 0.049,
 				"name": "3",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "ir-send"],
 				"overlay": [0.5, -1.5],
 				"shape": "Rectangle",
 				"rotate": false,
@@ -3817,7 +3817,7 @@ define(['vendor/lodash'], function($1) {
 				"x": 0.631,
 				"y": 0.078,
 				"name": "3",
-				"tags": ["digital", "analog-out", "init"],
+				"tags": ["digital", "analog-out", "init", "ir-send"],
 				"overlay": [0.5, -1.5],
 				"label": "D3",
 				"shape": "Dot",
@@ -4179,7 +4179,7 @@ define(['vendor/lodash'], function($1) {
 				"x": 0.576,
 				"y": 0.053,
 				"name": "3",
-				"tags": ["digital", "analog-out"],
+				"tags": ["digital", "analog-out", "ir-send"],
 				"overlay": [0.5, -1.5],
 				"shape": "Rectangle",
 				"rotate": false,
@@ -8314,6 +8314,1506 @@ define(['vendor/lodash'], function($1) {
 				"uid": "xWylGC"
 			}],
 			"imageUrl": "assets/image/components/car.svg"
+		}, {
+			"uid": "JulbGU",
+			"name": "irSend",
+			"label": "红外发射模块",
+			"type": "irSend",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "s",
+				"anchor": [0.5, 1],
+				"tags": ["ir-send"],
+				"label": "s",
+				"shape": "Dot",
+				"rotate": false
+			}],
+			"code": {
+				"include": "#include <IRremote.h>",
+				"var": "IRsend {NAME};"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "irSendSend",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "T0upij"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "33CBhJ"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "红外发射模块"
+				}, {
+					"id": "IR_SEND",
+					"type": "dynamic-select",
+					"options": "irSends"
+				}, {
+					"type": "text",
+					"value": "发射数据"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "T0upij"
+				}, {
+					"type": "text",
+					"value": "编码"
+				}, {
+					"blockInputId": "BIT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "33CBhJ"
+				}],
+				"code": "{IR_SEND}.sendNEC({DATA}, {BIT});",
+				"tags": ["module"],
+				"module": "irSend",
+				"uid": "jC5Tqn"
+			}],
+			"imageUrl": "assets/image/components/irSend.svg"
+		}, {
+			"uid": "1vspZl",
+			"name": "u8g",
+			"label": "OLED模块",
+			"type": "u8g",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 72,
+			"height": 72,
+			"pins": [{
+				"name": "sda",
+				"anchor": [0.33, 0],
+				"tags": ["sda"],
+				"spec": ["tag", "sda"],
+				"label": "sda",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "scl",
+				"anchor": [0.67, 0],
+				"tags": ["scl"],
+				"spec": ["tag", "scl"],
+				"label": "scl",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <U8glib.h>",
+				"var": "U8GLIB_SSD1306_128X64 {NAME}(U8G_I2C_OPT_NONE);"
+			},
+			"blocks": [{
+				"type": "statement-input",
+				"name": "u8gLoop",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-root",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}],
+				"code": "{U8G}.firstPage();do{\n{STATEMENTS}\n}while({U8G}.nextPage());",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "aKR4YK"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawPoint",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Tpj4Kp"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ntOnvb"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画点，X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Tpj4Kp",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ntOnvb",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.drawPixel({XPOS}, {YPOS});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "ayHyd8"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawLine",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "jJFyT6"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "aSWdZu"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "4JQ5HO"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "elSZ6f"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画线段，X1"
+				}, {
+					"blockInputId": "XPOS1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "jJFyT6",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "YPOS1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "aSWdZu",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "XPOS2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "4JQ5HO",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "YPOS2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "elSZ6f",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.drawLine({XPOS1}, {YPOS1}, {XPOS2}, {YPOS2});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "hJ13tM"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawLineHV",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "lbkKZe"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "SEGhXA"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "dHWKqE"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "SHAPE",
+					"type": "static-select",
+					"options": [{
+						"label": "平行线",
+						"value": "drawHLine"
+					}, {
+						"label": "垂直线",
+						"value": "drawVLine"
+					}]
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "lbkKZe",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "SEGhXA",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "L"
+				}, {
+					"blockInputId": "LENGTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "dHWKqE",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.{SHAPE}({XPOS}, {YPOS}, {LENGTH});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "00D7ya"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawTriangle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "kxokiW"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "jJK0ze"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "JEVt8g"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "H3CHGd"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "biIyJ1"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Pn94Ok"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画实心三角形"
+				}, {
+					"blockInputId": "X1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "kxokiW",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "Y1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "jJK0ze",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "X2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "JEVt8g",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "Y2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "H3CHGd",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X3"
+				}, {
+					"blockInputId": "X3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "biIyJ1",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y3"
+				}, {
+					"blockInputId": "Y3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Pn94Ok",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.drawTriangle({X1}, {Y1}, {X2}, {Y2}, {X3}, {Y3});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "M0RJJA"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "JH1Y67"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Vw0dYH"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "AnzxrR"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "bSkaTH"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心矩形",
+						"value": "drawFrame"
+					}, {
+						"label": "实心矩形",
+						"value": "drawBox"
+					}]
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "JH1Y67",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Vw0dYH",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "WIDTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "AnzxrR",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "bSkaTH",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "Nmrn2S"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawRoundRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "nb3uCx"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "5aUbfv"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "PIE9cE"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "tDwdrr"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "AMYved"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆角矩形",
+						"value": "drawRFrame"
+					}, {
+						"label": "实心圆角矩形",
+						"value": "drawRBox"
+					}]
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "nb3uCx",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "5aUbfv",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "WIDTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "PIE9cE",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "tDwdrr",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "AMYved",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, {RADIUS});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "i8wV2q"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawCircle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "fG7SZz"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "31qIsz"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "U2QAOb"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆",
+						"value": "drawCircle"
+					}, {
+						"label": "实心圆",
+						"value": "drawDisc"
+					}]
+				}, {
+					"id": "SHAPE",
+					"type": "static-select",
+					"options": [{
+						"label": "整圆",
+						"value": "U8G_DRAW_ALL"
+					}, {
+						"label": "左上半圆",
+						"value": "U8G_DRAW_UPPER_LEFT"
+					}, {
+						"label": "左下半圆",
+						"value": "U8G_DRAW_LOWER_LEFT"
+					}, {
+						"label": "右上半圆",
+						"value": "U8G_DRAW_UPPER_RIGHT"
+					}, {
+						"label": "右下半圆",
+						"value": "U8G_DRAW_LOWER_RIGHT"
+					}]
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "fG7SZz",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "31qIsz",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "U2QAOb",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.{OP}({XPOS}, {YPOS}, {RADIUS}, {SHAPE});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "DbMrHZ"
+			}, {
+				"type": "statement",
+				"name": "u8gDrawEllipse",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "WwbbY1"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ZhL5EO"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "8AX8x8"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "pYtefg"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心椭圆",
+						"value": "drawEllipse"
+					}, {
+						"label": "实心椭圆",
+						"value": "drawFilledEllipse"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "WwbbY1",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ZhL5EO",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Rx"
+				}, {
+					"blockInputId": "RX",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "8AX8x8",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "RY"
+				}, {
+					"blockInputId": "RY",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "pYtefg",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.{OP}({XPOS}, {YPOS}, {RX}, {RY});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "H9l4b9"
+			}, {
+				"type": "statement",
+				"name": "u8gSetFont",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "设置字体"
+				}, {
+					"id": "FONT",
+					"type": "static-select",
+					"options": [{
+						"label": "小",
+						"value": "u8g_font_fixed_v0r"
+					}, {
+						"label": "中",
+						"value": "u8g_font_9x18"
+					}, {
+						"label": "大",
+						"value": "u8g_font_fur20"
+					}]
+				}],
+				"code": "{U8G}.setFont({FONT});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "aqWpYA"
+			}, {
+				"type": "statement",
+				"name": "u8gRotate",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "下句旋转"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "90度",
+						"value": "setRot90"
+					}, {
+						"label": "180度",
+						"value": "setRot180"
+					}, {
+						"label": "270度",
+						"value": "setRot270"
+					}]
+				}],
+				"code": "{U8G}.{OP}();",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "oXQBh4"
+			}, {
+				"type": "statement",
+				"name": "u8gSetPos",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "KAVXZY"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "T3J3Z4"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "下句显示位置"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "KAVXZY",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "T3J3Z4",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.setPrintPos({XPOS}, {YPOS});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "xKEnPe"
+			}, {
+				"type": "statement",
+				"name": "u8gPrint",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "mRSMnU"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "mRSMnU"
+				}],
+				"code": "{U8G}.print({DATA});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "iPq7WP"
+			}, {
+				"type": "statement",
+				"name": "u8gSetColor",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "下句"
+				}, {
+					"id": "TYPE",
+					"type": "static-select",
+					"options": [{
+						"label": "透明",
+						"value": "0"
+					}, {
+						"label": "不透明",
+						"value": "1"
+					}]
+				}],
+				"code": "{U8G}.setColorIndex({TYPE});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "eYypEN"
+			}, {
+				"type": "statement",
+				"name": "u8gPrintStr",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "DTkGZA"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ngF8HQ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "gDKyhr"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "显示字符"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "DTkGZA"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ngF8HQ",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "gDKyhr",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "不旋转",
+						"value": "drawStr"
+					}, {
+						"label": "旋转90度",
+						"value": "drawStr90"
+					}, {
+						"label": "旋转180",
+						"value": "drawStr180"
+					}, {
+						"label": "旋转270",
+						"value": "drawStr270"
+					}]
+				}],
+				"code": "{U8G}.{OP}({XPOS}, {YPOS}, {DATA});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "kwnsvN"
+			}, {
+				"type": "statement",
+				"name": "u8gPrintBitmap",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "O4ZiEY"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "OglmwV"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "sWUvE6"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ar1aPN"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "gptfLo"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED"
+				}, {
+					"id": "U8G",
+					"type": "dynamic-select",
+					"options": "u8gs"
+				}, {
+					"type": "text",
+					"value": "显示位图"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "O4ZiEY"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "OglmwV",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "sWUvE6",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "WIDTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ar1aPN",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "gptfLo",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{U8G}.drawXBMP({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, {DATA});",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "kwnsvN"
+			}, {
+				"type": "statement",
+				"name": "u8gDefineBitmap",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "r067kz"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "定义OLED位图"
+				}, {
+					"id": "NAME",
+					"type": "string-input",
+					"placeholder": "名字"
+				}, {
+					"type": "text",
+					"value": "="
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "r067kz",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "rawInput",
+							"placeholder": "位图数据"
+						}],
+						"name": "rawInput"
+					}
+				}],
+				"code": "static unsigned char {NAME}[] U8G_PROGMEM = {{DATA}};",
+				"tags": ["module"],
+				"module": "u8g",
+				"uid": "KkS3LQ"
+			}],
+			"imageUrl": "assets/image/components/u8g.svg"
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",

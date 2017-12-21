@@ -99,7 +99,7 @@ function getAppPath(name, extra) {
 		case "script":
 			return path.join(getAppPath("appResource"), "scripts", `${extra}.${is.windows() ? "bat" : "sh"}`)
 		case "command":
-			return path.join(getAppPath("appData"), "temp", `${uuid()}`)
+			return path.join(getAppPath("appData"), "temp", `${uuid(6)}`)
 		case "libraries":
 			return path.join(getAppPath("appDocuments"), "libraries")
 		case "packages":
