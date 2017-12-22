@@ -17,7 +17,7 @@ var suffix = 96
 var throttleSync = util.throttle(sync, 3000)
 
 function check(projectPath) {
-	if(path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
+	if(!projectPath || path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
 		return null
 	}
 

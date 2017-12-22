@@ -1175,6 +1175,10 @@ function loadOpenOrRecentProject() {
 		deferred.resolve(result)
 	}, () => {
 		var projectPath = cache.getItem("recentProject")
+		if(!projectPath) {
+			util.rejectPromise(null, deferred)
+			return
+		}
 		Project.read(projectPath).then(result => {
 			deferred.resolve(result)
 		}, err => {
