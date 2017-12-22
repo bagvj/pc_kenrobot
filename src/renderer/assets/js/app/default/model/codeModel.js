@@ -1,4 +1,4 @@
-define(['app/common/util/util', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace/theme-default', 'vendor/ace/theme-black', 'vendor/ace/mode-arduino', 'vendor/ace/snippets/text', 'vendor/ace/snippets/arduino', 'vendor/ace/ext-language_tools'], function(util, beautify) {
+define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace/theme-default', 'vendor/ace/theme-black', 'vendor/ace/mode-arduino', 'vendor/ace/snippets/text', 'vendor/ace/snippets/arduino', 'vendor/ace/ext-language_tools'], function(util, emitor, beautify) {
 	var editor;
 	var codeTemplate = '/**\n * Copyright(C), 2016-2038, KenRobot.com\n * FileName: {{name}}.ino\n * Author: {{author}}\n * Create: {{created_at}}\n * Modify: {{updated_at}}\n */\nINCLUDE_CODE CONST_CODE {{global}}\nvoid setup()\n{\n{{setup}}\n}\n\nvoid loop()\n{\n{{loop}}\n}{{end}}';
 
@@ -78,6 +78,8 @@ define(['app/common/util/util', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace
 			},
 			exec: function() {},
 		}]);
+
+		kenrobot.on("setting", "change", onSettingChange);
 	}
 
 	function getData() {
@@ -121,6 +123,19 @@ define(['app/common/util/util', 'vendor/beautify', 'vendor/ace/ace', 'vendor/ace
 
 	function getCopyText() {
 		return editor.getCopyText() || getData();
+	}
+
+	function onSettingChange(type, name, value) {
+		if(type != "editor") {
+			return;
+		}
+
+		switch(name) {
+			case "tab-size":
+				editor.getSession().setTabSize(value);
+				editor.setValue(editor.getValue(), 1);
+				break;
+		}
 	}
 
 	return {

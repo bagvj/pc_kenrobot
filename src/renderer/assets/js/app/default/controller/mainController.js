@@ -16,10 +16,14 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			kenrobot.trigger("app-menu", "load", menu, "default");
 		});
 
-		kenrobot.postMessage("app:loadSetting").then(setting => {
-			for(var name in setting) {
-				emitor.trigger("setting", "change", name, setting[name]);
-			}
+		kenrobot.postMessage("app:getCache", "setting").then(setting => {
+			setting = setting || {}
+			Object.keys(setting).forEach(type => {
+				var specSettings = setting[type]
+				for(var name in specSettings) {
+					kenrobot.trigger("setting", "change", type, name, specSettings[name]);
+				}
+			})
 		});
 	}
 
@@ -97,7 +101,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				break;
 			case "open-example":
 				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(result => {
-					emitor.trigger("project", "open", result.data);
+					kenrobot.trigger("project", "load", result);
 				}, () => {
 					util.message("打开失败");
 				});

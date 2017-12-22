@@ -3,23 +3,27 @@ const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
 const path = require('path')
 const querystring = require('querystring')
 
-const util = require('./util')
-const token = require('./token')
-const serialPort = require('./serialPort') //串口
-const project = require('./project') //同步
-const packageOrders = require('./config/packageOrders') //包优先级
-const arduinoOptions = require('./config/arduinoOptions')
-const Url = require('./config/url')
-
 const is = require('electron-is')
 const debug = require('electron-debug')
 const log = require('electron-log')
-
 const Q = require('q')
 const fs = require('fs-extra')
 const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
+
+const util = require('./util/util')
+const SerialPort = require('./model/serialPort') //串口
+const ArduinoOptions = require('./config/arduinoOptions')
+const Url = require('./config/url')
+
+const Token = require('./model/token')
+const Project = require('./model/project') //同步
+const User = require('./model/user')
+const Package = require('./model/package')
+const Cache = require('./util/cache')
+
+const CONFIG_KEY = "config"
 
 const listenMessage = util.listenMessage
 
@@ -29,11 +33,12 @@ const optionDefinitions = [
 	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
 	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
 	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
-	{ name: 'project', alias: 'p', type: project.check, defaultOption: true}
+	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
 ]
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
+var cache
 var config
 
 var mainWindow
@@ -55,6 +60,10 @@ function init() {
 
 	initLog()
 
+	cache = new Cache(CONFIG_KEY)
+	config = cache.getItem(CONFIG_KEY, {})
+	util.removeFile(path.join(util.getAppPath("appData"), "config.json"), true)
+
 	if(app.makeSingleInstance((argv, workingDirectory) => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
@@ -65,7 +74,7 @@ function init() {
 			log.debug("app second run")
 			// log.debug(secondArgs)
 
-			loadProject().then(result => {
+			loadOpenProject().then(result => {
 				util.postMessage("app:onLoadProject", result)
 			}, err => {
 				err && log.error(err)
@@ -114,9 +123,6 @@ function listenEvents() {
 function listenMessages() {
 	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
 
-	listenMessage("loadSetting", () => loadSetting())
-	listenMessage("saveSetting", setting => saveSetting(setting))
-
 	listenMessage("execFile", exePath => util.execFile(exePath))
 	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
 	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
@@ -135,10 +141,10 @@ function listenMessages() {
 
 	listenMessage("listSerialPort", () => listSerialPort())
 	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
-	listenMessage("writeSerialPort", (portId, content) => serialPort.writeSerialPort(portId, content))
-	listenMessage("closeSerialPort", portId => serialPort.closeSerialPort(portId))
-	listenMessage("updateSerialPort", (portId, options) => serialPort.updateSerialPort(portId, options))
-	listenMessage("flushSerialPort", portId => serialPort.flushSerialPort(portId))
+	listenMessage("writeSerialPort", (portId, content) => SerialPort.writeSerialPort(portId, content))
+	listenMessage("closeSerialPort", portId => SerialPort.closeSerialPort(portId))
+	listenMessage("updateSerialPort", (portId, options) => SerialPort.updateSerialPort(portId, options))
+	listenMessage("flushSerialPort", portId => SerialPort.flushSerialPort(portId))
 
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
 	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
@@ -148,10 +154,11 @@ function listenMessages() {
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", () => loadExamples())
 	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
+
+	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
+	listenMessage("deletePackage", name => Package.remove(name))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
-	listenMessage("unzipPackage", packagePath => unzipPackage(packagePath))
 	listenMessage("loadPackages", (extra) => loadPackages(extra))
-	listenMessage("deletePackage", name => deletePackage(name))
 
 	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
 	listenMessage("loadLibraries", () => loadLibraries())
@@ -163,26 +170,32 @@ function listenMessages() {
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
-	listenMessage("saveToken", value => token.save(value))
-	listenMessage("loadToken", key => token.load(key))
-	listenMessage("removeToken", () => token.remove())
-	listenMessage("verifyToken", () => token.verify())
+	listenMessage("loadToken", () => User.loadToken())
+	listenMessage("login", (username, password) => User.login(username, password))
+	listenMessage("logout", () => User.logout())
+	listenMessage("weixinLogin", key => User.weixinLogin(key))
+	listenMessage("weixinQrcode", () => User.weixinQrcode())
+	listenMessage("register", fields => User.register(fields))
+	listenMessage("resetPassword", email => User.resetPassword(email))
 
-	listenMessage("projectLoad", () => loadProject())
+	listenMessage("setCache", (key, value) => key !== CONFIG_KEY ? cache.setItem(key, value) : util.rejectPromise())
+	listenMessage("getCache", (key, defaultValue) => key !== CONFIG_KEY ? util.resolvePromise(cache.getItem(key, defaultValue)) : util.rejectPromise())
 
-	listenMessage("projectRead", projectPath => project.read(projectPath))
-	listenMessage("projectOpen", name => project.open(name))
-	listenMessage("projectSave", (name, data, savePath) => project.save(name, data, savePath))
-	listenMessage("projectSaveAs", (name, data, isTemp) => project.saveAs(name, data, isTemp))
+	listenMessage("loadOpenOrRecentProject", () => loadOpenOrRecentProject())
 
-	listenMessage("projectSync", () => project.sync())
-	listenMessage("projectList", () => project.list())
+	listenMessage("projectRead", projectPath => Project.read(projectPath))
+	listenMessage("projectOpen", name => Project.open(name))
+	listenMessage("projectSave", (name, data, savePath) => Project.save(name, data, savePath))
+	listenMessage("projectSaveAs", (name, data, isTemp) => Project.saveAs(name, data, isTemp))
+
+	listenMessage("projectSync", () => Project.sync())
+	listenMessage("projectList", () => Project.list())
 
 	if(is.dev()) {
-		listenMessage("projectCreate", name => project.create(name))
-		listenMessage("projectUpload", (name, hash) => project.upload(name, hash))
-		listenMessage("projectDelete", (name, hash) => project.remove(name, hash))
-		listenMessage("projectDownload", (name, hash) => project.download(name, hash))
+		listenMessage("projectCreate", name => Project.create(name))
+		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
+		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
+		listenMessage("projectDownload", (name, hash) => Project.download(name, hash))
 	}
 
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
@@ -203,14 +216,10 @@ function onAppReady() {
 	is.dev() && args.devTool && debug({showDevTools: true})
 	args.project && (projectToLoad = args.project)
 
-	loadConfig().then(data => {
-		config = data
-
-		createWindow()
-		loadBoards()
-		checkIfFirstRun()
-		doReports()
-	})
+	createWindow()
+	loadBoards()
+	checkIfFirstRun()
+	doReports()
 }
 
 /**
@@ -225,7 +234,6 @@ function createWindow() {
 		frame: false,
 		show: false,
 		webPreferences: {
-			// plugins: true,
 			webSecurity: false,
 		}
 	})
@@ -242,7 +250,7 @@ function createWindow() {
 		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
 
 	mainWindow.webContents.on('will-navigate', e => e.preventDefault())
-		.on('devtools-reload-page', () => serialPort.closeAllSerialPort())
+		.on('devtools-reload-page', () => SerialPort.closeAllSerialPort())
 
 	mainWindow.webContents.session.on('will-download', onDownload)
 
@@ -253,9 +261,9 @@ function createWindow() {
 function onAppOpenFile(e, filePath) {
 	e.preventDefault()
 
-	projectToLoad = project.check(filePath)
+	projectToLoad = Project.check(filePath)
 	if(isLoadReady){
-		loadProject().then(result => {
+		loadOpenProject().then(result => {
 			util.postMessage("app:onLoadProject", result)
 		}, err => {
 			err && log.error(err)
@@ -269,8 +277,8 @@ function onAppBeforeQuit(e) {
 }
 
 function onAppWillQuit(e) {
-	serialPort.closeAllSerialPort()
-	util.removeFile(path.join(util.getAppDataPath(), "temp"), true)
+	SerialPort.closeAllSerialPort()
+	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
 	return true
 }
 
@@ -301,7 +309,7 @@ function checkIfFirstRun() {
 	config.version = util.getVersion()
 	config.reportInstall = false
 	firstRun = true
-	writeConfig(true)
+	cache.setItem(CONFIG_KEY, config)
 }
 
 function doReports() {
@@ -309,7 +317,7 @@ function doReports() {
 		//安装report
 		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
-			writeConfig()
+			cache.setItem(CONFIG_KEY, config)
 		})
 	}
 
@@ -413,14 +421,11 @@ function removeOldVersions(newVersion) {
 	var deferred = Q.defer()
 
 	if(is.dev()) {
-		setTimeout(() => {
-			deferred.resolve()
-		}, 10)
-		return deferred.promise
+		return util.resolvePromise(null, deferred)
 	}
 
 	var info = util.getAppInfo()
-	var downloadPath = path.join(util.getAppDataPath(), "download")
+	var downloadPath = path.join(util.getAppPath("appData"), "download")
 	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
 		var versionReg = /\d+\.\d+\.\d+/
 		files.map(f => path.basename(f)).filter(name => {
@@ -443,156 +448,25 @@ function removeOldVersions(newVersion) {
 }
 
 /**
- * 载入配置
- */
-function loadConfig() {
-	var deferred = Q.defer()
-
-	log.debug("loadConfig")
-	var configPath = path.join(util.getAppDataPath(), "config.json")
-	if(!fs.existsSync(configPath)) {
-		setTimeout(() => {
-			deferred.resolve({})
-		}, 10)
-		return deferred.promise
-	}
-
-	util.readJson(configPath).then(data => {
-		deferred.resolve(data)
-	}, err => {
-		deferred.resolve({})
-	})
-
-	return deferred.promise
-}
-
-/**
- * 载入配置
- */
-function writeConfig(sync) {
-	var configPath = path.join(util.getAppDataPath(), "config.json")
-	return util.writeJson(configPath, config, null, sync)
-}
-
-function loadSetting() {
-	return util.resolvePromise(config.setting || {})
-}
-
-function saveSetting(setting) {
-	config.setting = setting
-	return writeConfig()
-}
-
-/**
  * 解压资源包
  */
 function unzipPackages(skip) {
 	var deferred = Q.defer()
+	skip = skip !== false ? false : is.dev()
 
-	skip = skip || is.dev()
-	if(skip) {
-		log.debug("skip unzip packages")
-		setTimeout(() => {
+	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
+		if(is.dev()) {
 			deferred.resolve()
-		}, 10)
-
-		return deferred.promise
-	}
-
-	log.debug("unzip packages")
-	var packagesPath = path.join(util.getAppResourcePath(), "packages")
-	util.readJson(path.join(packagesPath, "packages.json")).then(packages => {
-		var oldPackages = config.packages || []
-		var list = packages.filter(p => {
-			if(firstRun) {
-				return true
-			}
-
-			if(oldPackages.find(o => o.name == p.name && o.checksum != p.checksum)) {
-				return true
-			}
-
-			return !fs.existsSync(path.join(getPackagesPath(), p.name, "package.json"))
-		})
-
-		var total = list.length
-		var doUnzip = () => {
-			if(list.length == 0) {
-				config.packages = oldPackages
-				if(is.dev()) {
-					deferred.resolve()
-				} else {
-					writeConfig().fin(() => {
-						deferred.resolve()
-					})
-				}
-				return
-			}
-
-			var p = list.pop()
-			util.uncompress(path.join(packagesPath, p.archiveName), getPackagesPath(), true).then(() => {
-				var index = oldPackages.findIndex(o => o.name == p.name)
-				if(index >= 0) {
-					oldPackages.splice(index, 1, p)
-				} else {
-					oldPackages.push(p)
-				}
-			}, err => {
-
-			}, progress => {
-				deferred.notify({
-					progress: progress,
-					name: p.name,
-					version: p.version,
-					count: total - list.length,
-					total: total,
-				})
-			})
-			.fin(() => doUnzip())
+			return
 		}
 
-		doUnzip()
-	}, err => {
-		err && log.error(err)
+		config.packages = packages
+		cache.setItem(CONFIG_KEY, config)
 		deferred.resolve()
-	})
-
-	return deferred.promise
-}
-
-/**
- * 解压单个资源包
- */
-function unzipPackage(packagePath) {
-	var deferred = Q.defer()
-
-	util.uncompress(packagePath, getPackagesPath(), true).then(() => {
-		var name = path.basename(packagePath)
-		name = name.substring(0, name.indexOf("-"))
-		var ext = is.windows() ? "bat" : "sh"
-		util.searchFiles(path.join(getPackagesPath(), name) + `/**/post_install.${ext}`).then(scripts => {
-			if(scripts.length == 0) {
-				deferred.resolve()
-				return
-			}
-
-			var scriptPath = scripts[0]
-			util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
-				deferred.resolve()
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
-	}, progress => {
-		deferred.notify(progress)
-	})
+	}, progress => deferred.notify(progress))
 
 	return deferred.promise
 }
@@ -604,60 +478,14 @@ function loadPackages(extra) {
 	var deferred = Q.defer()
 	extra = extra != false;
 
-	var packages = []
-	var packagesPath = getPackagesPath()
-	log.debug(`loadPackages: ${packagesPath}`)
-
-	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
-		Q.all(pathList.map(p => {
-			var d = Q.defer()
-			if(extra) {
-				util.readJson(p).then(packageConfig => {
-					packageConfig.order = packageOrders[packageConfig.name] || 0
-					packageConfig.path = path.dirname(p)
-					packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
-					packageConfig.boards && packageConfig.boards.forEach(board => {
-						board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
-							board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)
-						})
-
-						if(board.upload && board.upload.command) {
-							board.upload.command = board.upload.command.replace(/PACKAGE_PATH/g, packageConfig.path)
-						}
-					})
-
-					var packageSrcPath = path.join(packageConfig.path, "src")
-					if(fs.existsSync(packageSrcPath) && !arduinoOptions.librariesPath.includes(packageSrcPath)) {
-						arduinoOptions.librariesPath.push(packageSrcPath)
-					}
-
-					packages.push(packageConfig)
-				})
-				.fin(() => {
-					d.resolve()
-				})
-			} else {
-				util.readJson(p).then(packageConfig => packages.push(packageConfig)).fin(() => d.resolve())
+	Package.load(extra).then(packages => {
+		packages.forEach(pkg => {
+			var srcPath = path.join(util.getAppPath("packages"), pkg.name, "src")
+			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
+				ArduinoOptions.librariesPath.push(srcPath)
 			}
-			return d.promise
-		}))
-		.then(() => {
-			deferred.resolve(packages)
 		})
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-function deletePackage(name) {
-	var deferred = Q.defer()
-
-	log.debug(`deletePackage: ${name}`)
-	util.removeFile(path.join(getPackagesPath(), name)).then(() => {
-		deferred.resolve()
+		deferred.resolve(packages)
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -677,14 +505,15 @@ function openExample(category, name, pkg) {
 
 	var examplePath
 	if(pkg == "built-in") {
-		examplePath = path.join(util.getAppResourcePath(), "examples", category, name)
+		examplePath = path.join(util.getAppPath("appResource"), "examples", category, name)
 	} else {
-		examplePath = path.join(getPackagesPath(), pkg, "examples", category, name)
+		examplePath = path.join(util.getAppPath("packages"), pkg, "examples", category, name)
 	}
 
 	log.debug(`openExample: ${examplePath}`)
-	project.read(examplePath).then(projectInfo => {
-		deferred.resolve(projectInfo)
+	Project.read(examplePath).then(result => {
+		result.path = null
+		deferred.resolve(result)
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
@@ -702,13 +531,13 @@ function loadExamples() {
 	var examples = []
 	log.debug('loadExamples')
 
-	util.readJson(path.join(util.getAppResourcePath(), "examples", "examples.json")).then(exampleGroups => {
+	util.readJson(path.join(util.getAppPath("appResource"), "examples", "examples.json")).then(exampleGroups => {
 		examples.push({
 			name: "built-in",
 			groups: exampleGroups
 		})
 
-		var packagesPath = getPackagesPath()
+		var packagesPath = util.getAppPath("packages")
 		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
 			Q.all(pathList.map(p => {
 				var d = Q.defer()
@@ -742,7 +571,7 @@ function getInstalledLibraries() {
 	var deferred = Q.defer()
 
 	var reg = /^([^=]+)=(.*)$/gm
-	util.searchFiles(`${getLibrariesPath()}/**/library.properties`).then(pathList => {
+	util.searchFiles(`${util.getAppPath("libraries")}/**/library.properties`).then(pathList => {
 		var libraries = []
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
@@ -781,7 +610,7 @@ function getInstalledLibraries() {
 function loadLibraries() {
 	var deferred = Q.defer()
 
-	util.readJson(path.join(util.getAppResourcePath(), "libraries", "libraries.json")).then(result => {
+	util.readJson(path.join(util.getAppPath("appResource"), "libraries", "libraries.json")).then(result => {
 		deferred.resolve(result.libraries)
 	}, err => {
 		err && log.error(err)
@@ -797,7 +626,7 @@ function loadLibraries() {
 function unzipLibrary(name, libraryPath) {
 	var deferred = Q.defer()
 
-	var librariesPath = getLibrariesPath()
+	var librariesPath = util.getAppPath("libraries")
 	var outputName = path.basename(libraryPath, path.extname(libraryPath))
 	util.uncompress(libraryPath, librariesPath, true).then(() => {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
@@ -820,7 +649,7 @@ function deleteLibrary(name) {
 	var deferred = Q.defer()
 
 	log.debug(`deleteLibrary: ${name}`)
-	util.removeFile(path.join(getLibrariesPath(), name)).then(() => {
+	util.removeFile(path.join(util.getAppPath("libraries"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
@@ -837,7 +666,7 @@ function onDownload(e, item, webContent) {
 	url = url.substring(0, pos)
 
 	var deferId = query.deferId
-	var savePath = path.join(util.getAppDataPath(), 'download', item.getFilename())
+	var savePath = path.join(util.getAppPath("appData"), 'download', item.getFilename())
 	if(query.checksum && fs.existsSync(savePath)) {
 		pos = query.checksum.indexOf(":")
 		var algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
@@ -923,7 +752,7 @@ function installDriver(driverPath) {
 	var deferred = Q.defer()
 
 	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.join(util.getAppDataPath(), "temp")
+	var dir = path.join(util.getAppPath("appData"), "temp")
 	util.uncompress(driverPath, dir).then(() => {
 		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(() => {
@@ -943,7 +772,7 @@ function installDriver(driverPath) {
  * @param {*} options
  */
 function openSerialPort(comName, options) {
-	return serialPort.openSerialPort(comName, options, {
+	return SerialPort.openSerialPort(comName, options, {
 		onError: onSerialPortError,
 		onData: onSerialPortData,
 		onClose: onSerialPortClose,
@@ -968,7 +797,7 @@ function onSerialPortClose(portId) {
 function listSerialPort() {
 	var deferred = Q.defer()
 
-	serialPort.listSerialPort().then(ports => {
+	SerialPort.listSerialPort().then(ports => {
 		ports = filterArduinoPorts(ports)
 
 		if(ports.length == 0) {
@@ -1010,7 +839,7 @@ function buildProject(projectPath, options) {
 
 	preBuild(projectPath, options).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
-		var scriptPath = getScriptPath("call")
+		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -1038,35 +867,35 @@ function preBuild(projectPath, options) {
 	util.removeFile(path.join(buildPath, "sketch", "build"), true)
 	util.removeFile(path.join(projectPath, "build"), true)
 
-	project.read(projectPath).then(result => {
+	Project.read(projectPath).then(result => {
 		var projectInfo = result.data
 		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
 
 		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
 			var buildSpecs = []
-			options = _.merge({}, arduinoOptions.default.build, options)
+			options = _.merge({}, ArduinoOptions.default.build, options)
 
-			var packagesPath = getPackagesPath()
+			var packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 			buildSpecs.push(`-fqbn=${options.fqbn}`)
-			var arduinoPath = getArduinoPath()
+			var arduinoPath = util.getAppPath("arduino")
 			Object.keys(options.prefs).forEach(key => {
 				var value = util.handleQuotes(options.prefs[key])
 				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
 				buildSpecs.push(`-prefs=${key}=${value}`)
 			})
 
-			var librariesPath = getLibrariesPath()
+			var librariesPath = util.getAppPath("libraries")
 			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
-			arduinoOptions.librariesPath.forEach(libraryPath => {
+			ArduinoOptions.librariesPath.forEach(libraryPath => {
 				buildSpecs.push(`-libraries="${libraryPath}"`)
 			})
 
-			var commandPath = getCommandPath("build")
+			var commandPath = util.getAppPath("command", "build")
 			var command = util.handleQuotes(options.command)
-			command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+			command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 				.replace("BUILD_SPECS", buildSpecs.join(' '))
 				.replace("PROJECT_BUILD_PATH", buildPath)
 				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
@@ -1116,7 +945,7 @@ function preBuild(projectPath, options) {
  * @param {*} options 选项
  */
 function upload(projectPath, options) {
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware(targetPath, options)
@@ -1129,7 +958,7 @@ function upload(projectPath, options) {
  * @param {*} options 选项
  */
 function upload2(projectPath, comName, options) {
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
 
 	return uploadFirmware2(targetPath, comName, options)
@@ -1178,7 +1007,7 @@ function uploadFirmware2(targetPath, comName, options) {
 
 	preUploadFirmware(targetPath, comName, options).then(commandPath => {
 		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
-		var scriptPath = getScriptPath("call")
+		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -1205,11 +1034,11 @@ function preUploadFirmware(targetPath, comName, options) {
 	var deferred = Q.defer()
 
 	log.debug("pre upload firmware")
-	options = _.merge({}, arduinoOptions.default.upload, options)
+	options = _.merge({}, ArduinoOptions.default.upload, options)
 
-	var commandPath = getCommandPath("upload")
+	var commandPath = util.getAppPath("command", "upload")
 	var command = util.handleQuotes(options.command)
-	command = command.replace(/ARDUINO_PATH/g, getArduinoPath())
+	command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 		.replace("ARDUINO_MCU", options.mcu)
 		.replace("ARDUINO_BURNRATE", options.baudrate)
 		.replace("ARDUINO_PROGRAMMER", options.programer)
@@ -1217,7 +1046,7 @@ function preUploadFirmware(targetPath, comName, options) {
 		.replace("TARGET_PATH", targetPath)
 
 	util.writeFile(commandPath, command).then(() => {
-		serialPort.resetSerialPort(comName).then(() => {
+		SerialPort.resetSerialPort(comName).then(() => {
 			deferred.resolve(commandPath)
 		}, err => {
 			err && log.error(err)
@@ -1287,12 +1116,9 @@ function loadBoards(forceReload) {
 			return d.promise
 		})).then(() => {
 			config.boardNames = boardNames
-			writeConfig().then(() => {
-				deferred.resolve(config.boardNames)
-			}, err => {
-				err && log.error(err)
-				deferred.reject(err)
-			})
+			cache.setItem(CONFIG_KEY, config)
+
+			deferred.resolve(config.boardNames)
 		})
 	}, err => {
 		err && log.error(err)
@@ -1328,54 +1154,37 @@ function matchBoardNames(ports) {
 	return deferred.promise
 }
 
-function loadProject() {
+function loadOpenProject() {
 	isLoadReady = true
 
 	if(projectToLoad) {
-		log.debug(`loadProject: ${projectToLoad}`)
+		log.debug(`loadOpenProject: ${projectToLoad}`)
 		var projectPath = projectToLoad
 		projectToLoad = null
 
-		return project.read(projectPath)
+		return Project.read(projectPath)
 	}
 
 	return util.rejectPromise()
 }
 
-/**
- * 获取脚本路径
- * @param {*} name
- * @param {*} type
- */
-function getScriptPath(name) {
-	var ext = is.windows() ? "bat" : "sh"
-	return path.join(util.getAppResourcePath(), "scripts", `${name}.${ext}`)
-}
+function loadOpenOrRecentProject() {
+	var deferred = Q.defer()
 
-/**
- * 获取command路径
- */
-function getCommandPath(name) {
-	return path.join(util.getAppDataPath(), "temp", `${name}.txt`)
-}
+	loadOpenProject().then(result => {
+		deferred.resolve(result)
+	}, () => {
+		var projectPath = cache.getItem("recentProject")
+		if(!projectPath) {
+			util.rejectPromise(null, deferred)
+			return
+		}
+		Project.read(projectPath).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			deferred.reject(err)
+		})
+	})
 
-/**
- * 获取arduino路径
- */
-function getArduinoPath() {
-	return path.join(util.getAppResourcePath(), `arduino-${util.getPlatform()}`)
-}
-
-/**
- * 获取解压后的packages路径
- */
-function getPackagesPath() {
-	return path.join(app.getPath("documents"), app.getName(), "packages")
-}
-
-/**
- * 获取解压后的libraries路径
- */
-function getLibrariesPath() {
-	return path.join(app.getPath("documents"), app.getName(), "libraries")
+	return deferred.promise
 }

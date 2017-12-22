@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../../model/userModel'], function($1, util, emitor, config, userModel) {
+define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config'], function($1, util, emitor, config) {
 	var dialogWin;
 	var tabs;
 
@@ -14,15 +14,6 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		tabs = dialogWin.find(".tab")
 			.on("click", ".switch-login", onSwitchLoginClick)
 			.on("keyup", ".x-field input", onTabEnter);
-
-		// tabs.find(".x-field > input").on("focus", function(e) {
-		// 	$(this).attr("placeholder", "");
-		// }).on("blur", function(e) {
-		// 	$(this).attr("placeholder", $(this).data("placeholder"));
-		// }).each((index, input) => {
-		// 	var item = $(input);
-		// 	item.data("placeholder", item.attr("placeholder"));
-		// });
 
 		tabs.filter(".tab-login")
 			.on("click", ".switch-register", onSwitchRegisterClick)
@@ -142,11 +133,12 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		}
 
 		var autoLogin = tab.find('.auto-login').is(":checked");
-		userModel.login(username, password, autoLogin).then(result => {
+		kenrobot.postMessage("app:login", username, password, autoLogin).then(result => {
 			if (result.status == 0) {
 				dialogWin.find(".x-dialog-close").trigger("click");
 
 				util.message("登录成功");
+				kenrobot.user = result.data.user;
 				emitor.trigger("user", "update");
 			} else {
 				showError(tab, result.message);
@@ -190,7 +182,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			return;
 		}
 
-		userModel.resetPassword(email).then(result => {
+		kenrobot.postMessage("app:resetPassword", email).then(result => {
 			if (result.status == 0) {
 				var count = resetPasswordDelay;
 				var sendBtn = tab.find(".send-btn").attr("disabled", true).val(`重新发送(${count})`);
@@ -232,7 +224,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			return;
 		}
 
-		userModel.register({
+		kenrobot.postMessage("app:register", {
 			email: email,
 			username: username,
 			password: password,
@@ -260,6 +252,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 			setWeixinLoginCheck(false);
 			dialogWin.find(".x-dialog-close").trigger("click");
 			util.message("登录成功");
+
+			kenrobot.user = result.data.user;
 			emitor.trigger("user", "update");
 		} else if (result.status == -3) {
 			refreshWeixinQrcode();
@@ -279,7 +273,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 		var qrcode = tabs.filter(".tab-weixin").find(".qrcode");
 		var autoLogin = tabs.filter(".tab-login").find('.auto-login');
 		qrcodeLoginTimer = setInterval(function() {
-			userModel.weixinLogin(qrcode.data("key"), autoLogin.is(":checked")).then(onWeixinLogin);
+			kenrobot.postMessage("app:weixinLogin", qrcode.data("key"), autoLogin.is(":checked")).then(onWeixinLogin);
 		}, 3000);
 	}
 
@@ -293,7 +287,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/
 	}
 
 	function refreshWeixinQrcode() {
-		userModel.weixinQrcode().then(result => {
+		kenrobot.postMessage("app:weixinQrcode").then(result => {
 			if (result.status != 0) {
 				return;
 			}
