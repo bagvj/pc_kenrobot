@@ -63,6 +63,9 @@
   "list": [{
     "name": "lcd1602",
     "category": "07Display"
+  }, {
+    "name": "OLED",
+    "category": "07Display"
   }]
 }, {
   "category": "08Strings",

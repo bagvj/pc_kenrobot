@@ -8349,11 +8349,6 @@ define(['vendor/lodash'], function($1) {
 					"accept": "connector-output",
 					"acceptType": "all",
 					"name": "T0upij"
-				}, {
-					"type": "connector-input",
-					"accept": "connector-output",
-					"acceptType": "all",
-					"name": "33CBhJ"
 				}],
 				"content": [{
 					"type": "text",
@@ -8364,22 +8359,14 @@ define(['vendor/lodash'], function($1) {
 					"options": "irSends"
 				}, {
 					"type": "text",
-					"value": "发射数据"
+					"value": "发射编码"
 				}, {
 					"blockInputId": "DATA",
 					"type": "block-input",
 					"acceptType": "all",
 					"name": "T0upij"
-				}, {
-					"type": "text",
-					"value": "编码"
-				}, {
-					"blockInputId": "BIT",
-					"type": "block-input",
-					"acceptType": "all",
-					"name": "33CBhJ"
 				}],
-				"code": "{IR_SEND}.sendNEC({DATA}, {BIT});",
+				"code": "{IR_SEND}.sendNEC({DATA}, 32);",
 				"tags": ["module"],
 				"module": "irSend",
 				"uid": "jC5Tqn"
