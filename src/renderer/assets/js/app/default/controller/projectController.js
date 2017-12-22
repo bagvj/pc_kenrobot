@@ -46,6 +46,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				});
 
 				pkg.components && pkg.components.forEach(component => {
+					component.package = pkg.name;
 					component.imageUrl = `${pkg.protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 

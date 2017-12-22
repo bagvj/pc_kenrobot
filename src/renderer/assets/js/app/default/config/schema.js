@@ -8661,6 +8661,9 @@ define(['vendor/lodash'], function($1) {
 						"value": "drawVLine"
 					}]
 				}, {
+					"type": "text",
+					"value": "X"
+				}, {
 					"blockInputId": "XPOS",
 					"type": "block-input",
 					"acceptType": "all",
@@ -8760,6 +8763,9 @@ define(['vendor/lodash'], function($1) {
 				}, {
 					"type": "text",
 					"value": "画实心三角形"
+				}, {
+					"type": "text",
+					"value": "X1"
 				}, {
 					"blockInputId": "X1",
 					"type": "block-input",
@@ -8909,6 +8915,9 @@ define(['vendor/lodash'], function($1) {
 						"value": "drawBox"
 					}]
 				}, {
+					"type": "text",
+					"value": "X"
+				}, {
 					"blockInputId": "XPOS",
 					"type": "block-input",
 					"acceptType": "all",
@@ -9029,6 +9038,9 @@ define(['vendor/lodash'], function($1) {
 						"label": "实心圆角矩形",
 						"value": "drawRBox"
 					}]
+				}, {
+					"type": "text",
+					"value": "X"
 				}, {
 					"blockInputId": "XPOS",
 					"type": "block-input",
@@ -9175,6 +9187,9 @@ define(['vendor/lodash'], function($1) {
 						"label": "右下半圆",
 						"value": "U8G_DRAW_LOWER_RIGHT"
 					}]
+				}, {
+					"type": "text",
+					"value": "X"
 				}, {
 					"blockInputId": "XPOS",
 					"type": "block-input",
