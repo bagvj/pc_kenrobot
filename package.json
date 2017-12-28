@@ -86,6 +86,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-clean-css": "^3.9.0",
     "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.0.0",
     "gulp-minify-html": "^1.0.6",
     "gulp-requirejs-optimize": "^1.2.0",
     "gulp-ruby-sass": "^2.1.1",
