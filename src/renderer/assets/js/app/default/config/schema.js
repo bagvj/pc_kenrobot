@@ -5829,8 +5829,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "soilHumidity",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 0],
@@ -8375,12 +8375,12 @@ define(['vendor/lodash'], function($1) {
 		}, {
 			"uid": "1vspZl",
 			"name": "u8g",
-			"label": "OLED模块",
+			"label": "OLED模块(IIC)",
 			"type": "u8g",
 			"category": "action",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "sda",
 				"anchor": [0.33, 0],
