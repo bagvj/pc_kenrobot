@@ -10805,6 +10805,217 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"imageUrl": "assets/image/components/ssd1306.svg"
 		}, {
+			"uid": "QQoXzM",
+			"name": "rfid",
+			"label": "RFID模块",
+			"type": "mfrc522",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 120,
+			"pins": [{
+				"name": "SDA",
+				"anchor": [0.33, 1],
+				"tags": ["digital"],
+				"label": "SDA",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "RST",
+				"anchor": [0.67, 1],
+				"tags": ["digital"],
+				"label": "RST",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <SPI.h>\n#include <MFRC522.h>",
+				"var": "MFRC522 {NAME}({SDA}, {RST});",
+				"setup": "SPI.begin();\n{NAME}.PCD_Init();"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "mfrc522IsCardPresent",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "检测到有卡"
+				}],
+				"code": "{RFID}.PICC_IsNewCardPresent()",
+				"returnType": {
+					"type": "simple",
+					"value": "bool"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "pmRm5L"
+			}, {
+				"type": "output",
+				"name": "mfrc522ReadCardSerial",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "当前卡号可读"
+				}],
+				"code": "{RFID}.PICC_ReadCardSerial()",
+				"returnType": {
+					"type": "simple",
+					"value": "bool"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "tZEcHX"
+			}, {
+				"type": "output",
+				"name": "mfrc522GetTypeName",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "读取卡的类型"
+				}],
+				"code": "{RFID}.PICC_GetTypeName({RFID}.PICC_GetType({RFID}.uid.sak))",
+				"returnType": {
+					"type": "simple",
+					"value": "String"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "wLKwIb"
+			}, {
+				"type": "statement",
+				"name": "mfrc522DumpCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "串口显示卡号"
+				}],
+				"code": "for(byte i = 0; i < {RFID}.uid.size; i++) {\n    Serial.print({RFID}.uid.uidByte[i] < 0x10 ? \" 0\" : \" \");\n    Serial.print({RFID}.uid.uidByte[i], HEX);\n}",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "hEl4fn"
+			}, {
+				"type": "statement",
+				"name": "mfrc522DumpAllCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "串口显示卡片全部内容"
+				}],
+				"code": "{RFID}.PICC_DumpToSerial(&({RFID}.uid));",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "PdcmRD"
+			}, {
+				"type": "statement",
+				"name": "mfrc522StopReadCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "停止读卡"
+				}],
+				"code": "{RFID}.PICC_HaltA();",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "duyrI6"
+			}, {
+				"type": "statement",
+				"name": "mfrc522StopCryptol",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "准备读取下一张卡"
+				}],
+				"code": "{RFID}.PCD_StopCrypto1();",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "NozatW"
+			}],
+			"imageUrl": "assets/image/components/rfid.svg"
+		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
 			"label": "串口模块",

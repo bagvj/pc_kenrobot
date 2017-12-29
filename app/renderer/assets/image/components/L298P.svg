@@ -1,1 +1,66 @@
-<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 0h126v48H0z"/></defs><g fill="none" fill-rule="evenodd"><path fill="#797979" d="M20 49h6v52h-6zm14.857 0h6v52h-6zm14.857 0h6v52h-6zm14.857 0h6v52h-6zm14.858 0h6v52h-6zm14.857 0h6v52h-6zm14.857 0h6v52h-6zM124 49h6v52h-6z"/><g transform="translate(12 51)"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use fill="#464646" xlink:href="#a"/><circle fill="#383838" mask="url(#b)" cy="24" r="5"/></g><text font-family="MicrosoftYaHeiUI-Bold, Microsoft YaHei UI" font-size="13" font-weight="bold" letter-spacing="3" fill="#FFF"><tspan x="48" y="80">L298P</tspan></text><path fill="#A9A9A9" d="M21 101h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm14 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zM21 48h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm14 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4zm15 0h4v1h-4z"/><circle fill="#FFF" cx="24.5" cy="91.5" r="1.5"/><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="9" y="29">PWM1</tspan></text><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="69" y="29">DIR1</tspan></text><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="119" y="29">EN1</tspan></text><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="9" y="129">PWM2</tspan></text><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="69" y="129">DIR2</tspan></text><text font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11" fill="#464646"><tspan x="119" y="129">EN2</tspan></text></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>L298P</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="126" height="48"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="L298P">
+            <rect id="Rectangle-2" fill="#797979" x="20" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy" fill="#797979" x="34.8571429" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-2" fill="#797979" x="49.7142857" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-3" fill="#797979" x="64.5714286" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-4" fill="#797979" x="79.4285714" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-5" fill="#797979" x="94.2857143" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-6" fill="#797979" x="109.142857" y="49" width="6" height="52"></rect>
+            <rect id="Rectangle-2-Copy-7" fill="#797979" x="124" y="49" width="6" height="52"></rect>
+            <g id="Group" transform="translate(12.000000, 51.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Rectangle" fill="#464646" xlink:href="#path-1"></use>
+                <circle id="Oval-2" fill="#383838" mask="url(#mask-2)" cx="0" cy="24" r="5"></circle>
+            </g>
+            <text font-family="MicrosoftYaHeiUI-Bold, Microsoft YaHei UI" font-size="13" font-weight="bold" letter-spacing="3" fill="#FFFFFF">
+                <tspan x="48" y="80">L298P</tspan>
+            </text>
+            <rect id="Rectangle-3" fill="#A9A9A9" x="21" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy" fill="#A9A9A9" x="36" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-2" fill="#A9A9A9" x="51" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-3" fill="#A9A9A9" x="66" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-4" fill="#A9A9A9" x="80" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-5" fill="#A9A9A9" x="95" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-6" fill="#A9A9A9" x="110" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-7" fill="#A9A9A9" x="125" y="101" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-15" fill="#A9A9A9" x="21" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-14" fill="#A9A9A9" x="36" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-13" fill="#A9A9A9" x="51" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-12" fill="#A9A9A9" x="66" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-11" fill="#A9A9A9" x="80" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-10" fill="#A9A9A9" x="95" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-9" fill="#A9A9A9" x="110" y="48" width="4" height="1"></rect>
+            <rect id="Rectangle-3-Copy-8" fill="#A9A9A9" x="125" y="48" width="4" height="1"></rect>
+            <circle id="Oval-3" fill="#FFFFFF" cx="24.5" cy="91.5" r="1.5"></circle>
+            <text id="PWM1" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="9" y="29">PWM1</tspan>
+            </text>
+            <text id="DIR1" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="69" y="29">DIR1</tspan>
+            </text>
+            <text id="EN1" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="119" y="29">EN1</tspan>
+            </text>
+            <text id="PWM2" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="9" y="129">PWM2</tspan>
+            </text>
+            <text id="DIR2" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="69" y="129">DIR2</tspan>
+            </text>
+            <text id="EN2" font-family="MicrosoftYaHeiUI, Microsoft YaHei UI" font-size="11.0000002" font-weight="normal" fill="#464646">
+                <tspan x="119" y="129">EN2</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

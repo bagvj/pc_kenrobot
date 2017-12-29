@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 569 514.8"><style>.st4{fill:#fff}.st7{fill:#b3b3b3}</style><path id="图层_1" fill="#1a9fcc" d="M569 502.4l-12.8 12.4H435.8l-30.1-27.6-232.4.3-29.5 27.3H23.2L0 497.5v-478L16 .3 555.3 0 569 13.5z"/><g id="图层_5" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="5"><path d="M172.5 7.3h223v54h-223z"/><path stroke-linecap="round" d="M142 80.3H13.5v369h541v-369H433"/></g><path id="图层_4" fill="#c0997a" d="M404.2 497.6c-.6.6-1.9 1.2-1.9 1.2H177.1s-1.3-.4-2.4-1.4c-1-.9-1.7-2.6-1.7-2.6v-17.6l7.4-3-.1-11.2-7.3-3.2v-20h232v20.5l-6 3v11l6 3v18s-.3 1.8-.8 2.3z"/><g id="图层_3"><circle cx="48.7" cy="36.5" r="20.3" class="st4"/><circle cx="518.7" cy="33.5" r="20.3" class="st4"/><circle cx="518.7" cy="480.5" r="20.3" class="st4"/><circle cx="48.7" cy="480.5" r="20.3" class="st4"/><path fill="#333" stroke="#333" stroke-miterlimit="10" d="M24.5 94.3h520v287h-520z"/><path fill="#1a1a1a" stroke="#1a1a1a" stroke-miterlimit="10" d="M432.8 444.3H396s-3.2-.2-5 1.6c-1.7 1.7-1.9 4.9-1.9 4.9l.4 42.5s.2 1.9-1 3.4c-1.1 1.3-3.7 1.6-3.7 1.6h-193s-1.7.1-3-1.2c-1-1-1-2.8-1-2.8l.9-43.5s-.1-2.5-1-4.1c-.9-1.8-3.6-2.2-3.6-2.2l-41.4-.3s-2.3-.6-3.9-2.4c-2-2.2-2.2-4.6-2.2-4.6v-46.3s.3-1.6 2.4-3.4c1.1-1 3.9-1.3 3.9-1.3H435s3.1.4 4.4 2.5c1.6 2.5 1.2 5 1.2 5V438s-.1 2.1-2.2 4c-2 1.9-5.6 2.3-5.6 2.3z"/><circle cx="210.3" cy="33.2" r="16" class="st7"/><circle cx="261.3" cy="33.2" r="16" class="st7"/><circle cx="313.3" cy="33.2" r="16" class="st7"/><circle cx="363.3" cy="33.2" r="16" class="st7"/><text fill="#fff" stroke="#fff" stroke-miterlimit="10" font-family="ArialMT" font-size="21" transform="translate(180.333 82.497)">VCC GND SCL SDA</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 569 514.8">
+  <style>
+    .st4{fill:#fff}.st7{fill:#b3b3b3}
+  </style>
+  <path id="图层_1" fill="#1a9fcc" d="M569 502.4l-12.8 12.4H435.8l-30.1-27.6-232.4.3-29.5 27.3H23.2L0 497.5v-478L16 .3 555.3 0 569 13.5z"/>
+  <g id="图层_5" fill="none" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="5">
+    <path d="M172.5 7.3h223v54h-223z"/>
+    <path stroke-linecap="round" d="M142 80.3H13.5v369h541v-369H433"/>
+  </g>
+  <path id="图层_4" fill="#c0997a" d="M404.2 497.6c-.6.6-1.9 1.2-1.9 1.2H177.1s-1.3-.4-2.4-1.4c-1-.9-1.7-2.6-1.7-2.6v-17.6l7.4-3-.1-11.2-7.3-3.2v-20h232v20.5l-6 3v11l6 3v18s-.3 1.8-.8 2.3z"/>
+  <g id="图层_3">
+    <circle cx="48.7" cy="36.5" r="20.3" class="st4"/>
+    <circle cx="518.7" cy="33.5" r="20.3" class="st4"/>
+    <circle cx="518.7" cy="480.5" r="20.3" class="st4"/>
+    <circle cx="48.7" cy="480.5" r="20.3" class="st4"/>
+    <path fill="#333" stroke="#333" stroke-miterlimit="10" d="M24.5 94.3h520v287h-520z"/>
+    <path fill="#1a1a1a" stroke="#1a1a1a" stroke-miterlimit="10" d="M432.8 444.3H396s-3.2-.2-5 1.6c-1.7 1.7-1.9 4.9-1.9 4.9l.4 42.5s.2 1.9-1 3.4c-1.1 1.3-3.7 1.6-3.7 1.6h-193s-1.7.1-3-1.2c-1-1-1-2.8-1-2.8l.9-43.5s-.1-2.5-1-4.1c-.9-1.8-3.6-2.2-3.6-2.2l-41.4-.3s-2.3-.6-3.9-2.4c-2-2.2-2.2-4.6-2.2-4.6v-46.3s.3-1.6 2.4-3.4c1.1-1 3.9-1.3 3.9-1.3H435s3.1.4 4.4 2.5c1.6 2.5 1.2 5 1.2 5V438s-.1 2.1-2.2 4c-2 1.9-5.6 2.3-5.6 2.3z"/>
+    <circle cx="210.3" cy="33.2" r="16" class="st7"/>
+    <circle cx="261.3" cy="33.2" r="16" class="st7"/>
+    <circle cx="313.3" cy="33.2" r="16" class="st7"/>
+    <circle cx="363.3" cy="33.2" r="16" class="st7"/>
+    <text fill="#fff" stroke="#fff" stroke-miterlimit="10" font-family="ArialMT" font-size="21" transform="translate(180.333 82.497)">
+      VCC GND SCL SDA
+    </text>
+  </g>
+</svg>

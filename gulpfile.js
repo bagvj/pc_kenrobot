@@ -150,7 +150,7 @@ gulp.task('pack-assets-css', ['clean-assets-css'], () => {
 
 gulp.task('pack-assets-image', ['clean-assets-image'], () => {
 	return gulp.src(ASSETS_SRC + 'image/**/*')
-		.pipe(gulpif(args.release, imagemin()))
+		// .pipe(gulpif(args.release, imagemin()))
 		.pipe(gulp.dest(ASSETS_DIST + 'image/'))
 })
 
