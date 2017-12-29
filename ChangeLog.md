@@ -401,3 +401,4 @@
 #### features
 
 - 打开项目或示例时，增加提示“保存当前项目”
+- 新增基于“Adafruit SSD1306”的“OLED模块(SPI)”，原“OLED模块”重命为“OLED模块(IIC)”(基于“U8glib”)
