@@ -87,7 +87,11 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 	}
 
 	function setData(data) {
-		data ? editor.setValue(data, 1) : genCode();
+		if(data) {
+			data !== getData() && editor.setValue(data, 1);
+		} else {
+			genCode();
+		}
 	}
 
 	function genCode(codeInfo) {

@@ -207,7 +207,7 @@ function listenMessages() {
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
 	listenMessage("min", () => mainWindow.minimize())
 	listenMessage("max", () => onAppToggleMax())
-	listenMessage("errorReport", err => onAppErrorReport(err))
+	listenMessage("errorReport", message => onAppErrorReport(message))
 }
 
 function onAppReady() {
@@ -295,10 +295,8 @@ function onAppRelaunch() {
 	app.exit(0)
 }
 
-function onAppErrorReport(err) {
-	log.error(`------ error message ------`)
-	log.error(`${err.message}(${err.src} at line ${err.line}:${err.col})`)
-	log.error(`${err.stack}`)
+function onAppErrorReport(message) {
+	log.error(message)
 }
 
 function checkIfFirstRun() {
@@ -366,7 +364,7 @@ function checkUpdate() {
 	var deferred = Q.defer()
 
 	var info = util.getAppInfo()
-	var url = `${Url.CHECK_UPDATE}&appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
+	var url = `${Url.CHECK_UPDATE}?appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&arch=${info.arch}&ext=${info.ext}&features=${info.feature}`
 	log.debug(`checkUpdate: ${url}`)
 
 	util.request(url).then(result => {

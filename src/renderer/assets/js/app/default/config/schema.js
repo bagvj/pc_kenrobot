@@ -5829,8 +5829,8 @@ define(['vendor/lodash'], function($1) {
 			"type": "soilHumidity",
 			"category": "sensor",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "s",
 				"anchor": [0.5, 0],
@@ -8375,12 +8375,12 @@ define(['vendor/lodash'], function($1) {
 		}, {
 			"uid": "1vspZl",
 			"name": "u8g",
-			"label": "OLED模块",
+			"label": "OLED模块(IIC)",
 			"type": "u8g",
 			"category": "action",
 			"boards": ["Arduino"],
-			"width": 72,
-			"height": 72,
+			"width": 90,
+			"height": 90,
 			"pins": [{
 				"name": "sda",
 				"anchor": [0.33, 0],
@@ -8419,7 +8419,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -8454,7 +8454,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -8528,7 +8528,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -8629,7 +8629,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -8742,7 +8742,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -8883,7 +8883,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9007,7 +9007,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9137,7 +9137,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9259,7 +9259,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9358,7 +9358,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9396,7 +9396,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9444,7 +9444,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9506,7 +9506,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9536,7 +9536,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9586,7 +9586,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9689,7 +9689,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "OLED"
+					"value": "OLED (IIC)"
 				}, {
 					"id": "U8G",
 					"type": "dynamic-select",
@@ -9788,7 +9788,7 @@ define(['vendor/lodash'], function($1) {
 				}],
 				"content": [{
 					"type": "text",
-					"value": "定义OLED位图"
+					"value": "定义OLED (IIC)位图"
 				}, {
 					"id": "NAME",
 					"type": "string-input",
@@ -9816,6 +9816,1205 @@ define(['vendor/lodash'], function($1) {
 				"uid": "KkS3LQ"
 			}],
 			"imageUrl": "assets/image/components/u8g.svg"
+		}, {
+			"uid": "VGhS46",
+			"name": "display",
+			"label": "OLED模块(SPI)",
+			"type": "ssd1306",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 90,
+			"pins": [{
+				"name": "SCK",
+				"anchor": [0.1, 0],
+				"tags": ["digital"],
+				"label": "SCK",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "SDA",
+				"anchor": [0.3, 0],
+				"tags": ["digital"],
+				"label": "SDA",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "RES",
+				"anchor": [0.5, 0],
+				"tags": ["digital"],
+				"label": "RES",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "DC",
+				"anchor": [0.7, 0],
+				"tags": ["digital"],
+				"label": "DC",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "CS",
+				"anchor": [0.9, 0],
+				"tags": ["digital"],
+				"label": "CS",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <SPI.h>\n#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>",
+				"var": "Adafruit_SSD1306 {NAME}({SDA}, {SCK}, {DC}, {RES}, {CS});",
+				"setup": "{NAME}.begin();\n{NAME}.clearDisplay();"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "ssd1306Display",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}],
+				"code": "{OLED}.display();",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "ngyLp4"
+			}, {
+				"type": "statement",
+				"name": "ssd1306ClearDisplay",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "清屏"
+				}],
+				"code": "{OLED}.clearDisplay();",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "ngyLp4"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawPixel",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "u8Zc5O"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "9sfpOM"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画点"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "u8Zc5O",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "9sfpOM",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.drawPixel({XPOS}, {YPOS}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "kWQHav"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawLine",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "xnFKUV"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "TuY7sW"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "SWFhxn"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "DzhmtY"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画线"
+				}, {
+					"type": "text",
+					"value": "X1"
+				}, {
+					"blockInputId": "X1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "xnFKUV",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "Y1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "TuY7sW",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "X2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "SWFhxn",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "Y2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "DzhmtY",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.drawLine({X1}, {Y1}, {X2}, {Y2}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "tvtUyz"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "LKZ9hb"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "yT4PyN"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Av2U9R"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Ub0iW1"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心矩形",
+						"value": "drawRect"
+					}, {
+						"label": "实心矩形",
+						"value": "fillRect"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "LKZ9hb",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "yT4PyN",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "WIDTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Av2U9R",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Ub0iW1",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "Co4kKp"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawCircle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "hWuQ5u"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "v3vs50"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "VTo0gu"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆",
+						"value": "drawCircle"
+					}, {
+						"label": "实心圆",
+						"value": "fillCircle"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "hWuQ5u",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "v3vs50",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "VTo0gu",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {RADIUS}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "PrgK44"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawRoundRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Ng7zJB"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "S5fEIQ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "qkCny5"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "D4WITz"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "CMsREi"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆角矩形",
+						"value": "drawRoundRect"
+					}, {
+						"label": "实心圆角矩形",
+						"value": "fillRoundRect"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Ng7zJB",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "S5fEIQ",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "W",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "qkCny5",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "D4WITz",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "CMsREi",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, {RADIUS}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "ICRqMG"
+			}, {
+				"type": "statement",
+				"name": "ssd1306DrawTriangle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "gYpfOt"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "pFmUa0"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "aumLdg"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "nm7qe0"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "8UpNXP"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "HqabR7"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心三角形",
+						"value": "drawTriangle"
+					}, {
+						"label": "实心三角形",
+						"value": "fillTriangle"
+					}]
+				}, {
+					"type": "text",
+					"value": "X1"
+				}, {
+					"blockInputId": "X1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "gYpfOt",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "Y1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "pFmUa0",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "X2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "aumLdg",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "Y2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "nm7qe0",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X3"
+				}, {
+					"blockInputId": "X3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "8UpNXP",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y3"
+				}, {
+					"blockInputId": "Y3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "HqabR7",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({X1}, {Y2}, {X2}, {Y2}, {X3}, {Y3}, WHITE);",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "byzUZ5"
+			}, {
+				"type": "statement",
+				"name": "ssd1306SetFont",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "设置字体大小"
+				}, {
+					"id": "FONT",
+					"type": "static-select",
+					"options": [{
+						"label": "小",
+						"value": "1"
+					}, {
+						"label": "中",
+						"value": "2"
+					}, {
+						"label": "大",
+						"value": "3"
+					}, {
+						"label": "超大",
+						"value": "4"
+					}]
+				}],
+				"code": "{OLED}.setTextSize({FONT});",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "4XPzRS"
+			}, {
+				"type": "statement",
+				"name": "ssd1306SetColor",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "设置下句颜色"
+				}, {
+					"id": "COLOR",
+					"type": "static-select",
+					"options": [{
+						"label": "白字",
+						"value": "WHITE"
+					}, {
+						"label": "白底黑字",
+						"value": "BLACK"
+					}]
+				}],
+				"code": "{OLED}.setTextColor({COLOR});",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "xMlvvd"
+			}, {
+				"type": "statement",
+				"name": "ssd1306SetCursor",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "A7chav"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "yKUwqp"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "下句显示位置"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "A7chav",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "yKUwqp",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.setCursor({XPOS}, {YPOS});",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "ZldNQF"
+			}, {
+				"type": "statement",
+				"name": "ssd1306Print",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "4OZOMV"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "OLED (SPI)"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "ssd1306s"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "4OZOMV",
+					"value": {
+						"content": [{
+							"id": "TEXT",
+							"type": "string-input",
+							"value": "Hello, world",
+							"placeholder": "内容"
+						}],
+						"name": "string"
+					}
+				}],
+				"code": "{OLED}.println({DATA});",
+				"tags": ["module"],
+				"module": "ssd1306",
+				"uid": "adiYhp"
+			}],
+			"imageUrl": "assets/image/components/ssd1306.svg"
+		}, {
+			"uid": "QQoXzM",
+			"name": "rfid",
+			"label": "RFID模块",
+			"type": "mfrc522",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 120,
+			"pins": [{
+				"name": "SDA",
+				"anchor": [0.33, 1],
+				"tags": ["digital"],
+				"label": "SDA",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "RST",
+				"anchor": [0.67, 1],
+				"tags": ["digital"],
+				"label": "RST",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <SPI.h>\n#include <MFRC522.h>",
+				"var": "MFRC522 {NAME}({SDA}, {RST});",
+				"setup": "SPI.begin();\n{NAME}.PCD_Init();"
+			},
+			"blocks": [{
+				"type": "output",
+				"name": "mfrc522IsCardPresent",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "检测到有卡"
+				}],
+				"code": "{RFID}.PICC_IsNewCardPresent()",
+				"returnType": {
+					"type": "simple",
+					"value": "bool"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "pmRm5L"
+			}, {
+				"type": "output",
+				"name": "mfrc522ReadCardSerial",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "当前卡号可读"
+				}],
+				"code": "{RFID}.PICC_ReadCardSerial()",
+				"returnType": {
+					"type": "simple",
+					"value": "bool"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "tZEcHX"
+			}, {
+				"type": "output",
+				"name": "mfrc522GetTypeName",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "{RFID}",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "读取卡的类型"
+				}],
+				"code": "{RFID}.PICC_GetTypeName({RFID}.PICC_GetType({RFID}.uid.sak))",
+				"returnType": {
+					"type": "simple",
+					"value": "String"
+				},
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "wLKwIb"
+			}, {
+				"type": "statement",
+				"name": "mfrc522DumpCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "串口显示卡号"
+				}],
+				"code": "for(byte i = 0; i < {RFID}.uid.size; i++) {\n    Serial.print({RFID}.uid.uidByte[i] < 0x10 ? \" 0\" : \" \");\n    Serial.print({RFID}.uid.uidByte[i], HEX);\n}",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "hEl4fn"
+			}, {
+				"type": "statement",
+				"name": "mfrc522DumpAllCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "串口显示卡片全部内容"
+				}],
+				"code": "{RFID}.PICC_DumpToSerial(&({RFID}.uid));",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "PdcmRD"
+			}, {
+				"type": "statement",
+				"name": "mfrc522StopReadCard",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "停止读卡"
+				}],
+				"code": "{RFID}.PICC_HaltA();",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "duyrI6"
+			}, {
+				"type": "statement",
+				"name": "mfrc522StopCryptol",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "RFID"
+				}, {
+					"id": "RFID",
+					"type": "dynamic-select",
+					"options": "mfrc522s"
+				}, {
+					"type": "text",
+					"value": "准备读取下一张卡"
+				}],
+				"code": "{RFID}.PCD_StopCrypto1();",
+				"tags": ["module"],
+				"module": "mfrc522",
+				"uid": "NozatW"
+			}],
+			"imageUrl": "assets/image/components/rfid.svg"
 		}, {
 			"uid": "hr5P4L",
 			"name": "serial",

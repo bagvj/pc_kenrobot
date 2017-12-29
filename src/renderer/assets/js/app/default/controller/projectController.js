@@ -17,6 +17,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			.on('software', 'update-block', onSoftwareBlockUpdate);
 
 		kenrobot.on("project", "open", onProjectOpen)
+			.on('project', 'open-example', onProjectOpenExample)
 			.on("project", "save", onProjectSave)
 			.on("project", "load", onProjectLoad);
 	}
@@ -114,17 +115,44 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		});
 	}
 
-	function onProjectOpen(projectInfo) {
-		if(projectInfo) {
-			doLoadProject(null, projectInfo);
-			return;
+	function onProjectOpen(name, callback) {
+		var doProjectOpen = () => {
+			kenrobot.postMessage("app:projectOpen", name).then(result => {
+				onProjectLoad(result);
+				callback();
+			}, () => {
+				util.message({
+					text: "打开失败",
+					type: "error",
+				});
+			});
 		}
 
-		kenrobot.postMessage("app:projectOpen").then(onProjectLoad, () => {
-			util.message({
-				text: "打开失败",
-				type: "error",
+		var nameTips = name ? `项目“${name}”` : "";
+		util.confirm({
+			cancelLabel: "不了",
+			confirmLabel: "好的",
+			text: `保存当前项目后再打开${nameTips}?`,
+			onCancel: value => !value && doProjectOpen(),
+			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectOpen, 400))
+		});
+	}
+
+	function onProjectOpenExample(extra) {
+		var doOpenExample = () => {
+			kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(result => {
+				kenrobot.trigger("project", "load", result);
+			}, () => {
+				util.message("打开失败");
 			});
+		}
+
+		util.confirm({
+			cancelLabel: "不了",
+			confirmLabel: "好的",
+			text: `保存当前项目后再打开示例“${extra.name}”?`,
+			onCancel: value => !value && doOpenExample(),
+			onConfirm: () => onProjectSave().then(() => setTimeout(doOpenExample, 400))
 		});
 	}
 

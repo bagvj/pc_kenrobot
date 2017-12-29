@@ -213,11 +213,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			var block = softwareModel.createBlock(blockData.name, true);
-			var li = $('<li>').data("filter", blockData.tags.concat());
-			blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
-			blockData.board && li.data("board", blockData.board);
-			blockList.append(li.append(block.dom));
+			var block;
+			try {
+				block = softwareModel.createBlock(blockData.name, true);
+			} catch(err) {
+				block = null;
+				kenrobot.trigger("app", "error", `error when create block ${blockData.name}:${blockData.uid}, message: ${err.message}, stack: ${err.stack}`);
+			}
+
+			if(block) {
+				var li = $('<li>').data("filter", blockData.tags.concat());
+				blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
+				blockData.board && li.data("board", blockData.board);
+				blockList.append(li.append(block.dom));
+			}
 		});
 
 		blockList.find("> li > .block").hover(onBlockHoverOver, onBlockHoverOut);

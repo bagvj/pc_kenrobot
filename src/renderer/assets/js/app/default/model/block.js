@@ -570,8 +570,11 @@ define(function() {
 
 		activeConnectors = [];
 		for (var connectorUid in connectors) {
-			if (connectors[connectorUid].data.type !== "connector-empty" && getBlockByConnector(connectorUid).connectable && !connectorIsInBranch(connectorUid, block.uid)) {
-				activeConnectors.push(connectorUid);
+			if (connectors[connectorUid].data.type !== "connector-empty") {
+				var connector = getBlockByConnector(connectorUid);
+				if(connector && connector.connectable && !connectorIsInBranch(connectorUid, block.uid)) {
+					activeConnectors.push(connectorUid);
+				}
 			}
 		}
 	}

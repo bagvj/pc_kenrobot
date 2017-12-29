@@ -1,5 +1,6 @@
 module.exports = {
-	CHECK_UPDATE: "http://www.kenrobot.com/?app=api&mod=Download&act=checkupdate",
+	// CHECK_UPDATE: "http://www.kenrobot.com/?app=api&mod=Download&act=checkupdate",
+	CHECK_UPDATE: "http://www.kenrobot.com/downloads/checkupdate",
 
 	REPORT: "http://userver.kenrobot.com/statistics/report",
 
