@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 491 491">
+  <style>
+    .st3{fill:#b5b5b6}.st4,.st5{stroke:#fff;stroke-miterlimit:10}.st4{stroke-width:2;stroke-linecap:round;fill:none}.st5{fill:#fff}.st6{font-family:&apos;SimSun&apos;}.st9{font-family:&apos;ArialMT&apos;}.st10{font-size:18px}
+  </style>
+  <g id="图层_1">
+    <path id="XMLID_24_" fill="#00a0e9" d="M478.7 0H12.3C5.5 0 0 5.5 0 12.3v466.4c0 6.8 5.5 12.3 12.3 12.3h466.4c6.8 0 12.3-5.5 12.3-12.3V12.3C491 5.5 485.5 0 478.7 0zM40.3 473.3c-16.6 10.6-34.2-7-23.6-23.6.8-1.2 1.8-2.2 3-3 16.6-10.6 34.2 7 23.6 23.6-.8 1.2-1.8 2.2-3 3zm0-428c-16.6 10.6-34.2-7-23.6-23.6.8-1.2 1.8-2.2 3-3 16.6-10.6 34.2 7 23.6 23.6-.8 1.2-1.8 2.2-3 3zm432 428c-16.6 10.6-34.2-7-23.6-23.6.8-1.2 1.8-2.2 3-3 16.6-10.6 34.2 7 23.6 23.6-.8 1.2-1.8 2.2-3 3zm0-428c-16.6 10.6-34.2-7-23.6-23.6.8-1.2 1.8-2.2 3-3 16.6-10.6 34.2 7 23.6 23.6-.8 1.2-1.8 2.2-3 3z"/>
+  </g>
+  <g id="图层_2">
+    <path id="XMLID_6_" fill="#dcdddd" d="M471.1 423H20.9c-4.1 0-7.4-3.3-7.4-7.4V81.4c0-4.1 3.3-7.4 7.4-7.4h450.3c4.1 0 7.4 3.3 7.4 7.4v334.3c-.1 4-3.4 7.3-7.5 7.3z"/>
+  </g>
+  <g id="图层_3">
+    <path id="XMLID_7_" fill="#9fb99a" d="M429.5 407h-367C44.6 407 30 392.4 30 374.5v-205c0-17.9 14.6-32.5 32.5-32.5h367c17.9 0 32.5 14.6 32.5 32.5v205c0 17.9-14.6 32.5-32.5 32.5z"/>
+  </g>
+  <g id="图层_4">
+    <circle id="XMLID_3_" cx="101.5" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_4_" cx="142.9" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_5_" cx="391.5" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_8_" cx="350" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_9_" cx="308.6" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_10_" cx="267.2" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_11_" cx="225.8" cy="450.5" r="10.5" class="st3"/>
+    <circle id="XMLID_12_" cx="184.3" cy="450.5" r="10.5" class="st3"/>
+    <path id="XMLID_13_" d="M82 436.5v28.3" class="st4"/>
+    <path id="XMLID_14_" d="M414 436.3v28.4" class="st4"/>
+    <text id="XMLID_17_" font-size="21" transform="translate(59.964 461)" class="st5 st6">
+      1
+    </text>
+    <text id="XMLID_20_" font-size="24" transform="translate(423.964 461)" class="st5 st6">
+      8
+    </text>
+    <text id="XMLID_1_" class="st5 st9 st10" transform="translate(83.964 483.5)">
+      RST
+    </text>
+    <text id="XMLID_2_" class="st5 st9 st10" transform="translate(130.667 483.5)">
+      CE
+    </text>
+    <text id="XMLID_23_" class="st5 st9 st10" transform="translate(170.821 483.5)">
+      DC
+    </text>
+    <text id="XMLID_25_" class="st5 st9 st10" transform="translate(209.25 483.5)">
+      DIN
+    </text>
+    <text id="XMLID_26_" class="st5 st9 st10" transform="translate(249.678 483.5)">
+      CLK
+    </text>
+    <text id="XMLID_27_" class="st5 st9 st10" transform="translate(291.107 483.5)">
+      VCC
+    </text>
+    <text id="XMLID_28_" class="st5 st9 st10" transform="translate(340.536 483.5)">
+      BL
+    </text>
+    <text id="XMLID_29_" class="st5 st9 st10" transform="translate(371.63 483.5)">
+      GND
+    </text>
+  </g>
+</svg>

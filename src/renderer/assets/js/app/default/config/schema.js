@@ -9818,7 +9818,8 @@ define(['vendor/lodash'], function($1) {
 			"imageUrl": "assets/image/components/u8g.svg"
 		}, {
 			"uid": "VGhS46",
-			"name": "display",
+			"name": "ssd1306",
+			"defaultVarName": "display",
 			"label": "OLED模块(SPI)",
 			"type": "ssd1306",
 			"category": "action",
@@ -10804,6 +10805,1038 @@ define(['vendor/lodash'], function($1) {
 				"uid": "adiYhp"
 			}],
 			"imageUrl": "assets/image/components/ssd1306.svg"
+		}, {
+			"uid": "8a8l6X",
+			"name": "nokia5110",
+			"defaultVarName": "display",
+			"label": "Nokia 5110",
+			"type": "nokia5110",
+			"category": "action",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 90,
+			"pins": [{
+				"name": "RST",
+				"anchor": [0.1, 0],
+				"tags": ["digital"],
+				"label": "RST",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "CE",
+				"anchor": [0.3, 0],
+				"tags": ["digital"],
+				"label": "CE",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "DC",
+				"anchor": [0.5, 0],
+				"tags": ["digital"],
+				"label": "DC",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "DIN",
+				"anchor": [0.7, 0],
+				"tags": ["digital"],
+				"label": "DIN",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "CLK",
+				"anchor": [0.9, 0],
+				"tags": ["digital"],
+				"label": "CLK",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <SPI.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_PCD8544.h>",
+				"var": "Adafruit_PCD8544 {NAME}({CLK}, {DIN}, {DC}, {CE}, {RST});",
+				"setup": "{NAME}.begin();\n{NAME}.clearDisplay();\n{NAME}.setContrast(50);"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "nokia5110Display",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}],
+				"code": "{OLED}.display();",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "NNTt1j"
+			}, {
+				"type": "statement",
+				"name": "nokia5110ClearDisplay",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "清屏"
+				}],
+				"code": "{OLED}.clearDisplay();",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "NNTt1j"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawPixel",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "DGJAen"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "33eEeC"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画点"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "DGJAen",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "33eEeC",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.drawPixel({XPOS}, {YPOS}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "Gt1bgv"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawLine",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "cX7nPX"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "lVjfU1"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "PPqUtp"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "Ng8eps"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画线"
+				}, {
+					"type": "text",
+					"value": "X1"
+				}, {
+					"blockInputId": "X1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "cX7nPX",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "Y1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "lVjfU1",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "X2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "PPqUtp",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "Y2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "Ng8eps",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.drawLine({X1}, {Y1}, {X2}, {Y2}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "gLtihA"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "80g43g"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "uHZLPA"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "iu6Ap4"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "WXs2zc"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心矩形",
+						"value": "drawRect"
+					}, {
+						"label": "实心矩形",
+						"value": "fillRect"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "80g43g",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "uHZLPA",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "WIDTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "iu6Ap4",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "WXs2zc",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "OXeXoD"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawCircle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "cwtbyL"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "ieKL2j"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "s1M6Vr"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆",
+						"value": "drawCircle"
+					}, {
+						"label": "实心圆",
+						"value": "fillCircle"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "cwtbyL",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "ieKL2j",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "s1M6Vr",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {RADIUS}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "bDrZIU"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawRoundRect",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "nHXMnZ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "dFmsAr"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "u9FV4q"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "3lATbH"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "6UG0Fj"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心圆角矩形",
+						"value": "drawRoundRect"
+					}, {
+						"label": "实心圆角矩形",
+						"value": "fillRoundRect"
+					}]
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "nHXMnZ",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "dFmsAr",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "W"
+				}, {
+					"blockInputId": "W",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "u9FV4q",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "H"
+				}, {
+					"blockInputId": "HEIGHT",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "3lATbH",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "R"
+				}, {
+					"blockInputId": "RADIUS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "6UG0Fj",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({XPOS}, {YPOS}, {WIDTH}, {HEIGHT}, {RADIUS}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "W6tzsc"
+			}, {
+				"type": "statement",
+				"name": "nokia5110DrawTriangle",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "tqWpjK"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "3WAhaz"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "4DNV2v"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "iKS3Gw"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "tkLkSB"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "7wwBfG"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "画"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "空心三角形",
+						"value": "drawTriangle"
+					}, {
+						"label": "实心三角形",
+						"value": "fillTriangle"
+					}]
+				}, {
+					"type": "text",
+					"value": "X1"
+				}, {
+					"blockInputId": "X1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "tqWpjK",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y1"
+				}, {
+					"blockInputId": "Y1",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "3WAhaz",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X2"
+				}, {
+					"blockInputId": "X2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "4DNV2v",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y2"
+				}, {
+					"blockInputId": "Y2",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "iKS3Gw",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "X3"
+				}, {
+					"blockInputId": "X3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "tkLkSB",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y3"
+				}, {
+					"blockInputId": "Y3",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "7wwBfG",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.{OP}({X1}, {Y2}, {X2}, {Y2}, {X3}, {Y3}, BLACK);",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "MfwMhm"
+			}, {
+				"type": "statement",
+				"name": "nokia5110SetContrast",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "WsVahq"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "设置对比度"
+				}, {
+					"blockInputId": "VALUE",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "WsVahq",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "50"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.setContrast({VALUE});",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "ZCYX4H"
+			}, {
+				"type": "statement",
+				"name": "nokia5110SetFont",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "设置字体大小"
+				}, {
+					"id": "FONT",
+					"type": "static-select",
+					"options": [{
+						"label": "小",
+						"value": "1"
+					}, {
+						"label": "中",
+						"value": "2"
+					}, {
+						"label": "大",
+						"value": "3"
+					}, {
+						"label": "超大",
+						"value": "4"
+					}]
+				}],
+				"code": "{OLED}.setTextSize({FONT});",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "4hk8uT"
+			}, {
+				"type": "statement",
+				"name": "nokia5110SetColor",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "设置下句颜色"
+				}, {
+					"id": "COLOR",
+					"type": "static-select",
+					"options": [{
+						"label": "白字",
+						"value": "BLACK"
+					}, {
+						"label": "白底黑字",
+						"value": "WHITE"
+					}]
+				}],
+				"code": "{OLED}.setTextColor({COLOR});",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "BP70mj"
+			}, {
+				"type": "statement",
+				"name": "nokia5110SetCursor",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "nXQNHt"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "0XhVUD"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "下句显示位置"
+				}, {
+					"type": "text",
+					"value": "X"
+				}, {
+					"blockInputId": "XPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "nXQNHt",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "Y"
+				}, {
+					"blockInputId": "YPOS",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "0XhVUD",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{OLED}.setCursor({XPOS}, {YPOS});",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "Ou1BTm"
+			}, {
+				"type": "statement",
+				"name": "nokia5110Print",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "wuBiHi"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "Nokia 5110"
+				}, {
+					"id": "OLED",
+					"type": "dynamic-select",
+					"options": "nokia5110s"
+				}, {
+					"type": "text",
+					"value": "显示"
+				}, {
+					"blockInputId": "DATA",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "wuBiHi",
+					"value": {
+						"content": [{
+							"id": "TEXT",
+							"type": "string-input",
+							"value": "Hello, world",
+							"placeholder": "内容"
+						}],
+						"name": "string"
+					}
+				}],
+				"code": "{OLED}.println({DATA});",
+				"tags": ["module"],
+				"module": "nokia5110",
+				"uid": "fy6FEr"
+			}],
+			"imageUrl": "assets/image/components/nokia5110.svg"
 		}, {
 			"uid": "QQoXzM",
 			"name": "rfid",

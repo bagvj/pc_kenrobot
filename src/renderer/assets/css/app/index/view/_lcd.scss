@@ -1,0 +1,35 @@
+$lcd-width: 480px;
+$lcd-height: 240px;
+
+.lcd {
+	width: $lcd-width;
+	top: calc(50% - #{$lcd-height} * 0.5);
+	left: calc(50% - #{$lcd-width} * 0.5);
+
+	.x-float-close {
+		top: 0;
+		right: -24px;
+		position: absolute;
+		font-size: 24px;
+		line-height: 24px;
+		width: 24px;
+		height: 24px;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.3);
+		transition: background-color 0.2s;
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.6);
+		}
+	}
+
+	.lcd12864 {
+		background: #ccc;
+
+		width: $lcd-width;
+		height: 240px;
+		image-rendering: pixelated;
+		display: block;
+	}
+}
