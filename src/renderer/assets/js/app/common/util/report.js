@@ -1,8 +1,6 @@
 define(function() {
-	var debug;
 
-	function init(_debug) {
-		debug = _debug;
+	function init() {
 		window.onerror = onError;
 
 		kenrobot.on("app", "error", onAppError);
@@ -14,7 +12,7 @@ define(function() {
 
 	function onError(message, src, line, col, err) {
 		var key = message + "-" + src + "-" + line + "-" + col;
-		debug && err && console.error(err.stack);
+		kenrobot.appInfo.dev && err && console.error(err.stack);
 
 		var error = {
 			message: message,

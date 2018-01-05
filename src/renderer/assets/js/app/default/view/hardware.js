@@ -102,6 +102,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		return data;
 	}
 
+	function getComponentConfig(name) {
+		return hardwareModel.getComponentConfig(name);
+	}
+
 	function reset() {
 
 	}
@@ -518,6 +522,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		setData: setData,
 		getBoardData: getBoardData,
 		getBlockData: getBlockData,
+		getComponentConfig: getComponentConfig,
+
 		reset: reset,
 	};
 });

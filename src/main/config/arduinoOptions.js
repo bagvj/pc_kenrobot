@@ -7,6 +7,7 @@ module.exports = {
 				"runtime.tools.avrdude.path": '"ARDUINO_PATH/hardware/tools/avr"',
 				"build.warn_data_percentage": "75"
 			},
+			target_type: "hex",
 			command: '"ARDUINO_PATH/arduino-builder" -compile -logger=machine -hardware="ARDUINO_PATH/hardware" -hardware="ARDUINO_PATH/packages" -tools="ARDUINO_PATH/tools-builder" -tools="ARDUINO_PATH/hardware/tools/avr" -tools="ARDUINO_PATH/packages" -built-in-libraries="ARDUINO_PATH/libraries" -ide-version=10612 -warnings=none BUILD_SPECS -build-path="PROJECT_BUILD_PATH" "PROJECT_ARDUINO_FILE"'
 		},
 		upload: {

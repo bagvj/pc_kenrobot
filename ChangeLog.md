@@ -404,3 +404,14 @@
 - 新增基于“Adafruit SSD1306”的“OLED模块(SPI)”，原“OLED模块”重命为“OLED模块(IIC)”(基于“U8glib”)
 - 更新库“Adafruit SSD1306”和“Adafruit GFX Library”到最新版本
 - 新增“RFID模块”(基于“MFRC522”，当前只能读卡，写卡部分后续支持)
+
+### v0.6.8
+
+#### features
+
+- 新增“Nokia 5110”模块，类似“OLED模块(SPI)”
+- 新增“Nokia 5110”和“OLED模块(SPI)”仿真功能，当项目验证或者上传成功后，如果用到了上述两个模块会提示“是否仿真”
+- 新增“时钟模块”(基于“RTCLib_by_NeiroN”)，注意：如果安装了Kenblock这个包，由于兼容性问题请升到最新版
+- 优化“数据”、“变量”、“函数”和“代码”四种编程块的颜色
+- 优化“新版本下载”，现在可以后台下载
+- 删除库“DS1307RTC”、“RoSys”和“Time”
