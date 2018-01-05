@@ -638,7 +638,7 @@ function compress(dir, files, dist, type) {
 	type = type || "7z"
 	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
 
-	execCommand(`cd ${is.windows() ? "/d " : ""}${dir} && "${path7za}" a -t${type} -r ${dist} ${files.join(' ')}`).then(() => {
+	execCommand(`cd ${is.windows() ? "/d " : ""}${dir} && "${path7za}" a -t${type} -r "${dist}" ${files.join(' ')}`).then(() => {
 		deferred.resolve()
 	}, err => {
 		err && log.error(err)
