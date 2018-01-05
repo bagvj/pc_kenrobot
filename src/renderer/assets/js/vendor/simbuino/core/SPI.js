@@ -28,6 +28,8 @@ define(['./AtmelContext', './AtmelIO'], function(AtmelContext, AtmelIO) {
 		config: function(options) {
 			var self = this;
 
+			this.OnReceivedByte.splice(0, this.OnReceivedByte.length);
+
 			if(this.SCLK_PORT) {
 				var callbacks = this.SCLK_PORT.WriteRegister.get().OnRegisterChanged;
 				var index = callbacks.indexOf(this.OnClkChangedHandler);

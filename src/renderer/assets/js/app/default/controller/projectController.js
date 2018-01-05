@@ -188,22 +188,27 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		var boardData = hardware.getBoardData();
+		var options = {
+			build: boardData.build,
+			upload: boardData.upload,
+		};
 
 		doProjectSave(projectInfo, !savePath).then(result => {
 			emitor.trigger("ui", "lock", "build", true);
 			util.message("保存成功，开始编译");
-			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(() => {
+			kenrobot.postMessage("app:buildProject", result.path, options).then(targetPath => {
 				util.message("编译成功，正在上传");
-				setTimeout(function() {
+				setTimeout(() => {
 					var uploadProgressHelper = {};
-					kenrobot.postMessage("app:upload", result.path, boardData.upload).then(function() {
+					kenrobot.postMessage("app:uploadFirmware", targetPath, options).then(() => {
 						emitor.trigger("ui", "lock", "build", false);
 						util.message({
 							text: "上传成功",
 							type: "success"
 						});
+						trySimulate(projectInfo, targetPath);
 					}, function(err) {
-						if(err.status == "SELECT_PORT") {
+						if(err.status == "SELECT_PORT" || err.status == "NO_ARDUINO_PORT") {
 							kenrobot.trigger("port", "show", {
 								ports: err.ports,
 								callback: function(port) {
@@ -214,12 +219,13 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 									}
 									util.message("正在上传");
 									uploadProgressHelper = {};
-									kenrobot.postMessage("app:upload2", result.path, port.comName, boardData.upload).then(function() {
+									kenrobot.postMessage("app:uploadFirmware", targetPath, options, port.comName).then(() => {
 										emitor.trigger("ui", "lock", "build", false);
 										util.message({
 											text: "上传成功",
 											type: "success"
 										});
+										trySimulate(projectInfo, targetPath);
 									}, function(err1) {
 										emitor.trigger("ui", "lock", "build", false);
 										kenrobot.trigger("build", "error", "上传失败", err1);
@@ -228,7 +234,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 									});
 								}
 							});
-						} else if(err.status == "NOT_FOUND_PORT") {
+						} else if(err.status == "PORT_NOT_FOUND") {
 							emitor.trigger("ui", "lock", "build", false);
 							kenrobot.trigger("no-arduino", "show");
 						} else {
@@ -259,13 +265,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		var projectInfo = getCurrentProject();
 		projectInfo.project_data = getProjectData();
 		var boardData = hardware.getBoardData();
+		var options = {
+			build: boardData.build,
+			upload: boardData.upload,
+		};
 
 		util.message("正在验证，请稍候");
 		doProjectSave(projectInfo, true, true).then(result => {
 			emitor.trigger("ui", "lock", "build", true);
-			kenrobot.postMessage("app:buildProject", result.path, boardData.build).then(() => {
+			kenrobot.postMessage("app:buildProject", result.path, options).then(targetPath => {
 				emitor.trigger("ui", "lock", "build", false);
 				util.message("验证成功");
+				trySimulate(projectInfo, targetPath);
 			}, function(err) {
 				emitor.trigger("ui", "lock", "build", false);
 				kenrobot.trigger("build", "error", "验证失败", err);
@@ -339,6 +350,34 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		}
 
 		return promise;
+	}
+
+	function trySimulate(projectInfo, targetPath) {
+		var components = projectInfo.project_data.hardware.components;
+		var connections = projectInfo.project_data.hardware.connections;
+		var targetComponent = components.find(c => c.name == "ssd1306" || c.name == "nokia5110");
+		if(targetComponent) {
+			var componentConfig = hardware.getComponentConfig(targetComponent.name);
+			util.confirm({
+				cancelLabel: "不了",
+				confirmLabel: "好的",
+				text: `您正在使用“${componentConfig.label}”，是否开始仿真?`,
+				onConfirm: () => {
+					var boardData = hardware.getBoardData();
+					var options = Object.keys(targetComponent.endpoints).map(pin => {
+						var value = targetComponent.endpoints[pin];
+						var connection = connections.find(c => c.sourceUid == value.uid);
+						return [pin, boardData.pins.find(p => p.uid == connection.targetUid).name];
+					});
+					options = _.fromPairs(options);
+					options.type = targetComponent.name;
+
+					kenrobot.postMessage("app:readFile", targetPath).then(result => {
+						kenrobot.trigger("lcd", "upload", result, options);
+					});
+				},
+			});
+		}
 	}
 
 	function onCodeRefresh() {

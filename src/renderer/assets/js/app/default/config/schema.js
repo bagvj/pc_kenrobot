@@ -10809,7 +10809,7 @@ define(['vendor/lodash'], function($1) {
 			"uid": "8a8l6X",
 			"name": "nokia5110",
 			"defaultVarName": "display",
-			"label": "Nokia 5110",
+			"label": "Nokia 5110(硬SPI)",
 			"type": "nokia5110",
 			"category": "action",
 			"boards": ["Arduino"],
@@ -10817,7 +10817,7 @@ define(['vendor/lodash'], function($1) {
 			"height": 90,
 			"pins": [{
 				"name": "RST",
-				"anchor": [0.1, 0],
+				"anchor": [0.25, 0],
 				"tags": ["digital"],
 				"label": "RST",
 				"shape": "Dot",
@@ -10825,7 +10825,7 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -1]
 			}, {
 				"name": "CE",
-				"anchor": [0.3, 0],
+				"anchor": [0.5, 0],
 				"tags": ["digital"],
 				"label": "CE",
 				"shape": "Dot",
@@ -10833,32 +10833,16 @@ define(['vendor/lodash'], function($1) {
 				"overlay": [0.5, -1]
 			}, {
 				"name": "DC",
-				"anchor": [0.5, 0],
+				"anchor": [0.75, 0],
 				"tags": ["digital"],
 				"label": "DC",
-				"shape": "Dot",
-				"rotate": false,
-				"overlay": [0.5, -1]
-			}, {
-				"name": "DIN",
-				"anchor": [0.7, 0],
-				"tags": ["digital"],
-				"label": "DIN",
-				"shape": "Dot",
-				"rotate": false,
-				"overlay": [0.5, -1]
-			}, {
-				"name": "CLK",
-				"anchor": [0.9, 0],
-				"tags": ["digital"],
-				"label": "CLK",
 				"shape": "Dot",
 				"rotate": false,
 				"overlay": [0.5, -1]
 			}],
 			"code": {
 				"include": "#include <SPI.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_PCD8544.h>",
-				"var": "Adafruit_PCD8544 {NAME}({CLK}, {DIN}, {DC}, {CE}, {RST});",
+				"var": "Adafruit_PCD8544 {NAME}({DC}, {CE}, {RST});",
 				"setup": "{NAME}.begin();\n{NAME}.clearDisplay();\n{NAME}.setContrast(50);"
 			},
 			"blocks": [{

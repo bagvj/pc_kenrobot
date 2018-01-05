@@ -147,8 +147,7 @@ function listenMessages() {
 	listenMessage("flushSerialPort", portId => SerialPort.flushSerialPort(portId))
 
 	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
-	listenMessage("upload", (projectPath, options) => upload(projectPath, options))
-	listenMessage("upload2", (projectPath, comName, options) => upload2(projectPath, comName, options))
+	listenMessage("uploadFirmware", (targetPath, options, comName) => uploadFirmware(targetPath, options, comName))
 
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
@@ -796,16 +795,19 @@ function listSerialPort() {
 	var deferred = Q.defer()
 
 	SerialPort.listSerialPort().then(ports => {
-		ports = filterArduinoPorts(ports)
+		var arduinoPorts = filterArduinoPorts(ports)
 
-		if(ports.length == 0) {
-			deferred.reject()
+		if(arduinoPorts.length == 0) {
+			deferred.reject({
+				status: "NO_ARDUINO_PORT",
+				ports: ports,
+			})
 			return
 		}
 
-		matchBoardNames(ports).then(() => {
-			log.debug(ports.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
-			deferred.resolve(ports)
+		matchBoardNames(arduinoPorts).then(() => {
+			log.debug(arduinoPorts.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
+			deferred.resolve(arduinoPorts)
 		}, err => {
 			err && log.error(err)
 			deferred.reject(err)
@@ -835,11 +837,13 @@ function filterArduinoPorts(ports) {
 function buildProject(projectPath, options) {
 	var deferred = Q.defer()
 
-	preBuild(projectPath, options).then(commandPath => {
+	preBuild(projectPath, options.build).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
 		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
-			deferred.resolve()
+			var targetOptions = _.merge({}, ArduinoOptions.default, options)
+			var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${targetOptions.upload.target_type}`)
+			deferred.resolve(targetPath)
 		}, err => {
 			err && log.error(err)
 			deferred.reject(err)
@@ -871,15 +875,15 @@ function preBuild(projectPath, options) {
 
 		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
 			var buildSpecs = []
-			options = _.merge({}, ArduinoOptions.default.build, options)
+			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
 
 			var packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
-			buildSpecs.push(`-fqbn=${options.fqbn}`)
+			buildSpecs.push(`-fqbn=${buildOptions.fqbn}`)
 			var arduinoPath = util.getAppPath("arduino")
-			Object.keys(options.prefs).forEach(key => {
-				var value = util.handleQuotes(options.prefs[key])
+			Object.keys(buildOptions.prefs).forEach(key => {
+				var value = util.handleQuotes(buildOptions.prefs[key])
 				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
 				buildSpecs.push(`-prefs=${key}=${value}`)
 			})
@@ -892,7 +896,7 @@ function preBuild(projectPath, options) {
 			})
 
 			var commandPath = util.getAppPath("command", "build")
-			var command = util.handleQuotes(options.command)
+			var command = util.handleQuotes(buildOptions.command)
 			command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 				.replace("BUILD_SPECS", buildSpecs.join(' '))
 				.replace("PROJECT_BUILD_PATH", buildPath)
@@ -901,14 +905,12 @@ function preBuild(projectPath, options) {
 			util.writeFile(commandPath, command).then(() => {
 				var optionPath = path.join(buildPath, 'build.options.json')
 				if(!fs.existsSync(optionPath)) {
-					setTimeout(() => {
-						deferred.resolve(commandPath)
-					}, 10)
+					setTimeout(() => deferred.resolve(commandPath), 10)
 					return deferred.promise
 				}
 
 				util.readJson(optionPath).then(opt => {
-					if(options.fqbn == opt.fqbn) {
+					if(buildOptions.fqbn == opt.fqbn) {
 						deferred.resolve(commandPath)
 						return
 					}
@@ -938,60 +940,42 @@ function preBuild(projectPath, options) {
 }
 
 /**
- * 上传
- * @param {*} projectPath 项目路径
- * @param {*} options 选项
- */
-function upload(projectPath, options) {
-	options = _.merge({}, ArduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
-
-	return uploadFirmware(targetPath, options)
-}
-
-/**
- * 上传
- * @param {*} projectPath 项目路径
- * @param {*} comName 串口路径
- * @param {*} options 选项
- */
-function upload2(projectPath, comName, options) {
-	options = _.merge({}, ArduinoOptions.default.upload, options)
-	var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${options.target_type}`)
-
-	return uploadFirmware2(targetPath, comName, options)
-}
-
-/**
  * 上传固件
  * @param {*} targetPath 固件路径
  * @param {*} options 选项
  */
-function uploadFirmware(targetPath, options) {
-	var deferred = Q.defer()
-
-	listSerialPort().then(ports => {
-		if(ports.length == 1) {
-			uploadFirmware2(targetPath, ports[0].comName, options).then(result => {
-				deferred.resolve(result)
-			}, err => {
+function uploadFirmware(targetPath, options, comName) {
+	if(!comName) {
+		var deferred = Q.defer()
+		listSerialPort().then(ports => {
+			if(ports.length == 1) {
+				doUploadFirmware(targetPath, options, ports[0].comName).then(() => {
+					deferred.resolve()
+				}, err => {
+					deferred.reject(err)
+				}, progress => {
+					deferred.notify(progress)
+				})
+			} else {
+				deferred.reject({
+					status: "SELECT_PORT",
+					ports: ports,
+				})
+			}
+		}, err => {
+			if(err && err.status === "NO_ARDUINO_PORT") {
 				deferred.reject(err)
-			}, progress => {
-				deferred.notify(progress)
-			})
-		} else {
-			deferred.reject({
-				status: "SELECT_PORT",
-				ports: ports,
-			})
-		}
-	}, () => {
-		deferred.reject({
-			status: "NOT_FOUND_PORT"
+			} else {
+				deferred.reject({
+					status: "PORT_NOT_FOUND"
+				})
+			}
 		})
-	})
 
-	return deferred.promise
+		return deferred.promise
+	}
+
+	return doUploadFirmware(targetPath, options, comName)
 }
 
 /**
@@ -1000,10 +984,10 @@ function uploadFirmware(targetPath, options) {
  * @param {*} comName 串口路径
  * @param {*} options 选项
  */
-function uploadFirmware2(targetPath, comName, options) {
+function doUploadFirmware(targetPath, options, comName) {
 	var deferred = Q.defer()
 
-	preUploadFirmware(targetPath, comName, options).then(commandPath => {
+	preUploadFirmware(targetPath, options, comName).then(commandPath => {
 		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
 		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
@@ -1028,18 +1012,18 @@ function uploadFirmware2(targetPath, comName, options) {
  * @param {*} comName 串口路径
  * @param {*} options 选项
  */
-function preUploadFirmware(targetPath, comName, options) {
+function preUploadFirmware(targetPath, options, comName) {
 	var deferred = Q.defer()
 
 	log.debug("pre upload firmware")
-	options = _.merge({}, ArduinoOptions.default.upload, options)
+	var uploadOptions = _.merge({}, ArduinoOptions.default.upload, options.upload)
 
 	var commandPath = util.getAppPath("command", "upload")
-	var command = util.handleQuotes(options.command)
+	var command = util.handleQuotes(uploadOptions.command)
 	command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
-		.replace("ARDUINO_MCU", options.mcu)
-		.replace("ARDUINO_BURNRATE", options.baudrate)
-		.replace("ARDUINO_PROGRAMMER", options.programer)
+		.replace("ARDUINO_MCU", uploadOptions.mcu)
+		.replace("ARDUINO_BURNRATE", uploadOptions.baudrate)
+		.replace("ARDUINO_PROGRAMMER", uploadOptions.programer)
 		.replace("ARDUINO_COMPORT", comName)
 		.replace("TARGET_PATH", targetPath)
 

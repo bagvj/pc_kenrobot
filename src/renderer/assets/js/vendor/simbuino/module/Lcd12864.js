@@ -26,9 +26,9 @@ define(['../core/AtmelContext', '../core/AtmelIO', '../core/SPI'], function(Atme
 				self.Lcd_OnResetChanged(oldVal, newVal);
 			};
 
-			SPI.OnReceivedByte.push(function(val) {
+			this.spiOnReceivedByteHandler = function(val) {
 				self.spi_OnReceivedByte(val);
-			});
+			}
 
 			this.reset();
 		},
@@ -81,6 +81,8 @@ define(['../core/AtmelContext', '../core/AtmelIO', '../core/SPI'], function(Atme
 			this.RESET_BIT = options.RESET.bit;
 
 			this.RESET_PORT.WriteRegister.get().OnRegisterChanged.push(this.lcdOnResetChangedHandler);
+
+			SPI.OnReceivedByte.indexOf(this.spiOnReceivedByteHandler) < 0 && SPI.OnReceivedByte.push(this.spiOnReceivedByteHandler);
 		},
 
 		Lcd_OnResetChanged: function(oldVal, newVal) {
