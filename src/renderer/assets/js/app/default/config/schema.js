@@ -12033,6 +12033,279 @@ define(['vendor/lodash'], function($1) {
 			}],
 			"imageUrl": "assets/image/components/rfid.svg"
 		}, {
+			"uid": "siuztb",
+			"name": "rtc",
+			"defaultVarName": "rtc",
+			"label": "时钟模块",
+			"type": "rtc",
+			"category": "sensor",
+			"boards": ["Arduino"],
+			"width": 90,
+			"height": 90,
+			"pins": [{
+				"name": "RST",
+				"anchor": [0.25, 0],
+				"tags": ["digital", "analog-in"],
+				"label": "RST",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "CLK",
+				"anchor": [0.5, 0],
+				"tags": ["digital", "analog-in"],
+				"label": "CLK",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}, {
+				"name": "DAT",
+				"anchor": [0.75, 0],
+				"tags": ["digital", "analog-in"],
+				"label": "DAT",
+				"shape": "Dot",
+				"rotate": false,
+				"overlay": [0.5, -1]
+			}],
+			"code": {
+				"include": "#include <Wire.h>\n#include <RTClib.h>",
+				"var": "DS1302 {NAME}({RST}, {CLK}, {DAT});",
+				"setup": "Wire.begin();\n{NAME}.begin();\nif(!{NAME}.isrunning())\n{{NAME}.adjust(DateTime(__DATE__, __TIME__));\n}"
+			},
+			"blocks": [{
+				"type": "statement",
+				"name": "rtcSetTime",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置RTC"
+				}, {
+					"id": "RTC",
+					"type": "dynamic-select",
+					"options": "rtcs"
+				}, {
+					"type": "text",
+					"value": "时间为系统时间"
+				}],
+				"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
+				"tags": ["module"],
+				"module": "rtc",
+				"uid": "llRGTy"
+			}, {
+				"type": "statement",
+				"name": "rtcSetTime2",
+				"connectors": [{
+					"type": "connector-top",
+					"accept": "connector-bottom"
+				}, {
+					"type": "connector-bottom",
+					"accept": "connector-top"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "6W6RzZ"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "TseaAD"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "GOmgpM"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "owt2Sx"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "h8kvnf"
+				}, {
+					"type": "connector-input",
+					"accept": "connector-output",
+					"acceptType": "all",
+					"name": "BEvJ2b"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "设置RTC"
+				}, {
+					"id": "RTC",
+					"type": "dynamic-select",
+					"options": "rtcs"
+				}, {
+					"type": "text",
+					"value": "时间为 年"
+				}, {
+					"blockInputId": "YEAR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "6W6RzZ",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "2018"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "/月"
+				}, {
+					"blockInputId": "MONTH",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "TseaAD",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "1"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "/日"
+				}, {
+					"blockInputId": "DAY",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "GOmgpM",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "1"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": "时"
+				}, {
+					"blockInputId": "HOUR",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "owt2Sx",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "12"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": ":分"
+				}, {
+					"blockInputId": "MIN",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "h8kvnf",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}, {
+					"type": "text",
+					"value": ":秒"
+				}, {
+					"blockInputId": "SEC",
+					"type": "block-input",
+					"acceptType": "all",
+					"name": "BEvJ2b",
+					"value": {
+						"content": [{
+							"id": "VALUE",
+							"type": "number-input",
+							"value": "0"
+						}],
+						"name": "number"
+					}
+				}],
+				"code": "{RTC}.adjust(DateTime({YEAR}, {MONTH}, {DAY}, {HOUR}, {MIN}, {SEC}));",
+				"tags": ["module"],
+				"module": "rtc",
+				"uid": "6LtoXb"
+			}, {
+				"type": "output",
+				"name": "rtcGetTime",
+				"connectors": [{
+					"type": "connector-output",
+					"accept": "connector-input"
+				}],
+				"content": [{
+					"type": "text",
+					"value": "获取"
+				}, {
+					"id": "RTC",
+					"type": "dynamic-select",
+					"options": "rtcs"
+				}, {
+					"type": "text",
+					"value": "的"
+				}, {
+					"id": "OP",
+					"type": "static-select",
+					"options": [{
+						"label": "年",
+						"value": "year",
+						"type": "uint16_t"
+					}, {
+						"label": "月",
+						"value": "month",
+						"type": "uint8_t"
+					}, {
+						"label": "日",
+						"value": "day",
+						"type": "uint8_t"
+					}, {
+						"label": "星期几",
+						"value": "getDayOfTheWeek",
+						"type": "uint8_t"
+					}, {
+						"label": "时",
+						"value": "hour",
+						"type": "uint8_t"
+					}, {
+						"label": "分",
+						"value": "minute",
+						"type": "uint8_t"
+					}, {
+						"label": "秒",
+						"value": "second",
+						"type": "uint8_t"
+					}]
+				}],
+				"code": "{RTC}.now().{OP}()",
+				"returnType": {
+					"type": "fromSelect",
+					"id": "OP"
+				},
+				"tags": ["module"],
+				"module": "rtc",
+				"uid": "apjdJ2"
+			}],
+			"imageUrl": "assets/image/components/rtc.svg"
+		}, {
 			"uid": "hr5P4L",
 			"name": "serial",
 			"label": "串口模块",
