@@ -418,10 +418,6 @@ function checkPackageLibraryUpdate(packagesUrl) {
 function removeOldVersions(newVersion) {
 	var deferred = Q.defer()
 
-	if(is.dev()) {
-		return util.resolvePromise(null, deferred)
-	}
-
 	var info = util.getAppInfo()
 	var downloadPath = path.join(util.getAppPath("appData"), "download")
 	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
