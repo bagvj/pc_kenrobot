@@ -10406,7 +10406,7 @@ define(['vendor/lodash'], function($1) {
 					"type": "text",
 					"value": "W"
 				}, {
-					"blockInputId": "W",
+					"blockInputId": "WIDTH",
 					"type": "block-input",
 					"acceptType": "all",
 					"name": "qkCny5",
