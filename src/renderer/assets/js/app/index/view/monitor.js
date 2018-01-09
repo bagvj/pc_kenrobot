@@ -7,14 +7,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 
 	var lastPortId;
 	var lastComName;
-	var autoScroll;
+	var autoScroll = true;
 	var buffers = [];
 	var maxBuffer = 500;
 	var maxLines = 300;
 
 	function init() {
 		monitorRegion = $('.monitor').on('click', '.close-btn', onCloseClick).on('click', '.send', onSendClick).on('click', '.switch', onSwitchClick).on('click', '.clear', onClearClick).on('click', '.open', onOpenClick);
-		monitorRegion.find(".auto-scroll").on("change", onAutoScrollChange);
+		monitorRegion.find(".auto-scroll").on("change", onAutoScrollChange).prop("checked", true);
 		monitorRegion.find('.command').on('keyup', onCommandEnter);
 		output = monitorRegion.find(".output");
 

@@ -14,7 +14,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		kenrobot.on("project", "show", onShow, {canReset: false});
 	}
 
-	function onShow(args) {
+	function onShow() {
 		setTimeout(() => update(), 500);
 		util.dialog({
 			selector: dialogWin,
@@ -31,7 +31,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 
 	function update() {
 		kenrobot.postMessage("app:projectList").then(list => {
-			list = _.sortBy(list, ["type", "modify_time"]);
+			list = _.sortBy(list, "modify_time");
 			list.reverse().forEach(projectData => {
 				var uid = util.uuid(6);
 				var time = util.formatDate(new Date(projectData.modify_time * 1000), "yyyy-MM-dd HH:mm");
@@ -41,7 +41,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					<span class="modify-time">${time}</span>
 					<span class="actions"><i class="kenrobot ken-clear" data-action="delete"></i></span>
 				</li>`);
-				li.data("name", projectData.name).data("type", projectData.type);
+				li.data("name", projectData.name).data("hash", projectData.hash);
 				projectList.append(li);
 			});
 
@@ -76,13 +76,11 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function onTitleClick(e) {
 		var li = $(this).parents("li");
 		var name = li.data("name");
-		var type = li.data("type");
+		var hash = li.data("hash");
 
-		setTimeout(() => {
-			kenrobot.trigger("project", "open-by", name, type);
-		}, 500);
-
-		dialogWin.find(".x-dialog-close").trigger("click");
+		kenrobot.trigger("project", "open", name, () => {
+			dialogWin.find(".x-dialog-close").trigger("click");
+		});
 
 		return false;
 	}
@@ -91,12 +89,12 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		var action = $(this).data("action");
 		var li = $(this).parents("li");
 		var name = li.data("name");
-		var type = li.data("type");
+		var hash = li.data("hash");
 
 		if(action == "delete") {
 			util.confirm({
 				text: `确定要删除项目“${name}”吗？`,
-				onConfirm: () => deleteProject(name, type),
+				onConfirm: () => deleteProject(name, hash),
 			});
 		}
 
@@ -126,7 +124,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			var li = $(item).parents("li")
 			return {
 				name: li.data("name"),
-				type: li.data("type"),
+				hash: li.data("hash"),
 			};
 		});
 
@@ -136,7 +134,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			}
 
 			var item = items.shift();
-			deleteProject(item.name, item.type);
+			deleteProject(item.name, item.hash);
 			setTimeout(() => doDelete(), 1000);
 		}
 
@@ -146,19 +144,19 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		});
 	}
 
-	function deleteProject(name, type) {
-		kenrobot.postMessage("app:projectDelete", name, type).then(() => {
-			onDeleteProjectSuccess(name, type);
+	function deleteProject(name, hash) {
+		kenrobot.postMessage("app:projectDelete", name, hash).then(() => {
+			onDeleteProjectSuccess(name, hash);
 			util.message(`删除项目“${name}”成功`);
 		}, err => {
 			util.message(`删除项目“${name}”失败`);
 		});
 	}
 
-	function onDeleteProjectSuccess(name, type) {
+	function onDeleteProjectSuccess(name, hash) {
 		var deletedLi = projectList.find("li").filter((index, item) => {
 			var li = $(item);
-			return li.data("name") == name && li.data("type") == type;
+			return li.data("name") == name && li.data("hash") == hash;
 		});
 
 		deletedLi.remove();

@@ -1,14 +1,11 @@
-define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu', '../model/userModel'], function($1, pace, Mousetrap, util, emitor, config, menu, userModel) {
+define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, pace, Mousetrap, util, emitor, config, menu) {
 
 	var iframe;
 	var mousetrap;
 
-	var baseUrl;
 	var inSync;
 
 	function init() {
-		kenrobot.getUserInfo = userModel.getUserInfo;
-
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
 		iframe = document.getElementById("content-frame");
@@ -23,6 +20,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
+			.listenMessage("app:onLoadProject", onLoadProject)
 			.on("util", "message", onUtilMessage, {canReset: false})
 			.on("shortcut", "register", onShortcutRegister, {canReset: false})
 			.on('build', 'error', onBuildError, {canReset: false})
@@ -45,41 +43,37 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	function onAppStart() {
 		kenrobot.trigger("app-menu", "load", menu, "index");
 
-		kenrobot.postMessage("app:projectSyncUrl", config.url.projectSync);
-
 		inSync = true;
-		userModel.loadToken().always(() => {
+		kenrobot.postMessage("app:loadToken").then(result => {
+			kenrobot.user = result
+		}).fin(() => {
 			emitor.trigger("user", "update");
 		});
 
-		kenrobot.postMessage("app:getBaseUrl").then(url => {
-			baseUrl = url;
-
-			kenrobot.postMessage("app:unzipPackages").then(() => {
-
-			}, err => {
-				util.message({
-					text: "解压出错",
-					type: "error"
-				});
-			}, progressData => {
-				kenrobot.trigger("unpack", "show", progressData);
-			}).fin(() => {
-				kenrobot.trigger("unpack", "hide");
-
-				setTimeout(() => {
-					onSwitch("default");
-
-					//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
-					setTimeout(() => {
-						onCheckUpdate(false);
-
-						inSync = false;
-						//项目同步
-						onProjectSync();
-					}, 3000);
-				}, 400);
+		kenrobot.postMessage("app:unzipPackages").then(() => true, err => {
+			util.message({
+				text: "解压出错",
+				type: "error"
 			});
+		}, progressData => {
+			kenrobot.trigger("unpack", "show", progressData);
+		}).fin(() => {
+			kenrobot.trigger("unpack", "hide");
+
+			setTimeout(() => {
+				onSwitch("default");
+
+				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
+				setTimeout(() => {
+					onCheckUpdate(false).then(status => {
+						status > 0 && onCheckPackageLibraryUpdate(false);
+					});
+
+					inSync = false;
+					//项目同步
+					onProjectSync();
+				}, 3000);
+			}, 400);
 		});
 	}
 
@@ -98,34 +92,35 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onUserLogout() {
-		userModel.logout().then(() => {
+		kenrobot.postMessage("app:logout").then(() => {
 			util.message("退出成功");
-		}).always(() => {
+		}).fin(() => {
+			kenrobot.user = null;
 			emitor.trigger("user", "update");
 		});
 	}
 
 	function onUserUpdate() {
-		kenrobot.getUserInfo() && setTimeout(() => onProjectSync(), 2000);
+		kenrobot.user && setTimeout(() => onProjectSync(), 2000);
 	}
 
 	function onProjectSync() {
-		// if(inSync || !kenrobot.getUserInfo()) {
-		// 	return;
-		// }
+		if(inSync || !kenrobot.user) {
+			return;
+		}
 
-		// inSync = true;
+		inSync = true;
 		// util.message("项目开始同步");
-		// kenrobot.postMessage("app:projectSync").then(() => {
-		// 	inSync = false;
-		// 	util.message("项目同步成功");
-		// }, err => {
-		// 	inSync = false;
-		// 	util.message({
-		// 		text: "项目同步失败",
-		// 		type: "error",
-		// 	});
-		// });
+		kenrobot.postMessage("app:projectSync").then(() => {
+			inSync = false;
+			util.message("项目同步成功");
+		}, err => {
+			inSync = false;
+			util.message({
+				text: "项目同步失败",
+				type: "error",
+			});
+		});
 	}
 
 	function onMenuAction(action, extra) {
@@ -145,7 +140,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "switch":
 				onSwitch(extra.type);
 				break;
-			case "download-driver":
+			case "download-arduino-driver":
 				var info = kenrobot.appInfo;
 				if (info.platform != "win") {
 					util.message("您的系统是" + info.platform + ", 不需要安装驱动");
@@ -174,8 +169,14 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "check-update":
 				onCheckUpdate();
 				break;
+			case "check-package-library-update":
+				onCheckPackageLibraryUpdate();
+				break;
 			case "visit-uper":
 				kenrobot.postMessage("app:openUrl", config.url.uper);
+				break;
+			case "visit-arduino":
+				kenrobot.postMessage("app:openUrl", config.url.arduino);
 				break;
 			case "suggestion":
 				kenrobot.postMessage("app:openUrl", config.url.support);
@@ -201,17 +202,46 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onCheckUpdate(manual) {
+		var promise = $.Deferred();
+
 		manual = manual !== false;
 
-		kenrobot.postMessage("app:checkUpdate", config.url.checkUpdate).then(result => {
+		kenrobot.postMessage("app:checkUpdate").then(result => {
 			if(result.status != 0) {
 				manual && util.message("已经是最新版本了");
+				promise.resolve(1);
 				return;
 			}
 
 			kenrobot.trigger("update", "show", result.data);
+			promise.resolve(0);
 		}, err => {
 			manual && util.message("检查更新失败");
+			promise.resolve(-1)
+		});
+
+		return promise
+	}
+
+
+	function onCheckPackageLibraryUpdate(manual) {
+		manual = manual !== false;
+
+		kenrobot.postMessage("app:checkPackageLibraryUpdate", config.url.packages).then(result => {
+			if(result.status == 0) {
+				manual && util.message("开发板和库已经是最新版本了");
+				return;
+			}
+
+			if(result.status == 1) {
+				util.confirm({
+					text: "开发板有更新，是否去更新？",
+					onConfirm: () => kenrobot.trigger("board", "show"),
+				})
+				return;
+			}
+		}, err => {
+			manual && util.message("开发板和库检查更新失败");
 		});
 	}
 
@@ -219,13 +249,11 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		kenrobot.reset();
 
 		kenrobot.trigger("app", "will-leave");
-		iframe.src = `${baseUrl}/${name}/index.html`;
+		iframe.src = `./${name}/index.html`;
 		iframe.addEventListener("load", () => {
 			mousetrap = Mousetrap(iframe.contentDocument);
 		}, false);
 		pace.restart();
-
-		kenrobot.viewName = name;
 	}
 
 	function onFullscreenChange(fullscreen) {
@@ -252,6 +280,10 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onSerialPortClose(portId) {
 		kenrobot.trigger("serialport", "close", portId);
+	}
+
+	function onLoadProject(result) {
+		kenrobot.trigger("project", "load", result);
 	}
 
 	function onBuildError(message, err) {

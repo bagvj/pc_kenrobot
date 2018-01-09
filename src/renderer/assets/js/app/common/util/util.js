@@ -44,6 +44,18 @@ define(['vendor/jquery'], function() {
 		messageDiv.dequeue("stay");
 	}
 
+	function error(text, title) {
+		message({text: text, title: title, type: "error"});
+	}
+
+	function warn(text, title) {
+		message({text: text, title: title, type: "warning"});
+	}
+
+	function success(text, title) {
+		message({text: text, title: title, type: "success"});
+	}
+
 	function onMessageHide(messageDiv) {
 		messages.splice(messages.indexOf(messageDiv), 1);
 		messageDiv.remove();
@@ -91,7 +103,7 @@ define(['vendor/jquery'], function() {
 			confirmDiv.dequeue("fadeOut");
 		};
 
-		$('.x-confirm-close').on('click', function() {
+		$('.x-confirm-close', confirmDiv).on('click', function() {
 			doClose(onCancel, true);
 		});
 
@@ -176,34 +188,35 @@ define(['vendor/jquery'], function() {
 		return dialogWin;
 	}
 
-	var maskConfig = {
-		stack: [],
-		index: -1,
-	}
-
 	function mask(dialog, show) {
-		var dialogLayer = $(".dialog-layer");
+		var $ = top.window.$;
+		var dialogLayer = $(".dialog-layer", top.document);
 		var dialogMask = dialogLayer.find("> .x-dialog-mask");
 
-		var stack = maskConfig.stack;
-		var index = maskConfig.index;
+		var stack = dialogLayer.data("stack") || [];
+		var index = dialogLayer.data("index");
+		index = index !== undefined ? index : -1;
+
 		if(show) {
 			dialogMask.css("z-index", index + 1);
 			dialog.css("z-index", index + 2);
 			stack.push(dialog);
-			maskConfig.index = index + 2;
+			index = index + 2;
 		} else {
 			stack.splice(stack.indexOf(dialog), 1);
 			if(parseInt(dialog.css("z-index")) == index) {
 				if(stack.length > 0) {
 					var topDialog = stack[stack.length - 1];
-					maskConfig.index = parseInt(topDialog.css("z-index"));
-					dialogMask.css("z-index", maskConfig.index - 1);
+					index = parseInt(topDialog.css("z-index"));
+					dialogMask.css("z-index", index - 1);
 				} else {
-					maskConfig.index = -1;
+					index = -1;
 				}
 			}
 		}
+
+		dialogLayer.data("stack", stack);
+		dialogLayer.data("index", index);
 	}
 
 	function toggleActive(target, collapseMode, cls) {
@@ -337,6 +350,9 @@ define(['vendor/jquery'], function() {
 
 	return {
 		message: message,
+		error: error,
+		warn: warn,
+		success: success,
 		confirm: confirm,
 		dialog: dialog,
 		toggleActive: toggleActive,

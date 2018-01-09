@@ -75,7 +75,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 			return promise;
 		}
 
-		kenrobot.postMessage("app:loadPackages").then(list => {
+		kenrobot.postMessage("app:loadPackages", false).then(list => {
 			installedPackages = list.map(p => {
 				return {
 					name: p.name,
@@ -215,7 +215,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		kenrobot.postMessage("app:download", p.url, {checksum: p.checksum}).then(result => {
 			item.find(".x-progress").removeClass("active").css("transform", "");
 			installBtn.val("安装中");
-			kenrobot.postMessage("app:unzipPackage", result.path).then(() => {
+			kenrobot.postMessage("app:unzipPackage", p.name, result.path).then(() => {
 				item.find(".x-progress").removeClass("active").css("transform", "");
 				_.pull(installedPackages, _.find(installedPackages, pack => pack.name == p.name));
 				installedPackages.push({

@@ -48,6 +48,9 @@ define(function() {
 				key: ["ctrl+c", "command+c"],
 				text: "Ctrl+C",
 			}
+		}, {
+			text: "导出代码",
+			action: "export"
 		}]
 	}, {
 		id: "example",

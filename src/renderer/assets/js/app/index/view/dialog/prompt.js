@@ -12,10 +12,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 		args = args || {}
 		var title = args.title || "提示";
 		var placeholder = args.placeholder || "";
+		var value = args.value || ""
 		callback = args.callback;
 
 		dialogWin.find(".x-dialog-title").text(title);
-		dialogWin.find(".input").attr("placeholder", placeholder);
+		dialogWin.find(".input").attr("placeholder", placeholder).val(value);
 
 		util.dialog({
 			selector: dialogWin,

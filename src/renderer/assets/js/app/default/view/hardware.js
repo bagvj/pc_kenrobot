@@ -102,18 +102,22 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		return data;
 	}
 
+	function getComponentConfig(name) {
+		return hardwareModel.getComponentConfig(name);
+	}
+
 	function reset() {
 
 	}
 
 	function updateComponents(components) {
 		var componentList = componentsWrap.find(".components").empty();
-		components.forEach(component => componentList.append(buildComponent(component)));
+		components.filter(component => component.package == "Arduino").forEach(component => componentList.append(buildComponent(component)));
 	}
 
 	function updatePackages(packages) {
 		var vendorList = componentsWrap.find(".vendor-components").empty();
-		packages.forEach(pkg => {
+		packages.filter(pkg => pkg.name != "Arduino").forEach(pkg => {
 			if(!pkg.components || pkg.components.length == 0) {
 				return
 			}
@@ -413,7 +417,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		util.toggleActive(li);
 
 		var category = li.data("category");
-		var componentList = category == "all" ? componentsWrap.find(".components") : componentsWrap.find(".vendor-components");
+		var componentList = category == "standard" ? componentsWrap.find(".components") : componentsWrap.find(".vendor-components");
 		util.toggleActive(componentList);
 
 		filterList.find(">li.active").click();
@@ -518,6 +522,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		setData: setData,
 		getBoardData: getBoardData,
 		getBlockData: getBlockData,
+		getComponentConfig: getComponentConfig,
+
 		reset: reset,
 	};
 });

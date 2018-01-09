@@ -8,14 +8,7 @@ define(function() {
 			arduinoDriver: "http://www.kenrobot.com/download/arduino-driver-x{BIT}.7z",
 			support: "http://www.arduino.cn/forum-101-1.html",
 			about: "http://www.kenrobot.com/index.php?app=square&mod=Index&act=help",
-			checkUpdate: "http://www.kenrobot.com/?app=api&mod=Download&act=checkupdate",
 			packages: "http://www.kenrobot.com/packages/packages.json",
-			login: "http://userver.kenrobot.com/sso/login",
-			logout: "http://userver.kenrobot.com/sso/logout",
-			loginQrcode: "http://userver.kenrobot.com/api/wechat/scanlogin/token",
-			register: "http://userver.kenrobot.com/api/user/register",
-			findPassword: "http://userver.kenrobot.com/password/email",
-			projectSync: "http://userver.kenrobot.com/api/project/sync"
 		},
 		arduinoDriver: {
 			checksum: {

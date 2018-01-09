@@ -16,13 +16,14 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			kenrobot.trigger("app-menu", "load", menu, "default");
 		});
 
-		kenrobot.postMessage("app:loadSetting").then(setting => {
-			var specSetting = setting[kenrobot.viewName];
-			for(var name in specSetting) {
-				emitor.trigger("setting", "change", name, specSetting[name]);
-			}
-		}, err => {
-
+		kenrobot.postMessage("app:getCache", "setting").then(setting => {
+			setting = setting || {}
+			Object.keys(setting).forEach(type => {
+				var specSettings = setting[type]
+				for(var name in specSettings) {
+					kenrobot.trigger("setting", "change", type, name, specSettings[name]);
+				}
+			})
 		});
 	}
 
@@ -95,14 +96,11 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			case "save-as-project":
 			case "toggle-comment":
 			case "copy":
+			case "export":
 				onShortcut(action);
 				break;
 			case "open-example":
-				kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(projectInfo => {
-					emitor.trigger("project", "open", projectInfo);
-				}, () => {
-					util.message("打开失败");
-				});
+				kenrobot.trigger("project", "open-example", extra);
 				break;
 		}
 	}
@@ -126,6 +124,9 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 				break;
 			case "copy":
 				emitor.trigger('code', 'copy');
+				break;
+			case "export":
+				emitor.trigger('code', 'export');
 				break;
 		}
 	}

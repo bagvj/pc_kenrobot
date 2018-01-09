@@ -79,6 +79,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var funcDeclareCode = '';
 		var varCode = '';
 		var setupCode = '';
+		var loopCode = '';
 		var funcImplementCode = '';
 		var tempCode;
 		var code;
@@ -151,7 +152,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 					if(pin) {
 						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pin && pin.tupleValue || pin.value || pin.name || "");
 					} else {
-						pinConfig.defaultValue && (tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue));
+						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue || "");
 					}
 				});
 				varCode += code.eval ? eval(tempCode) : tempCode;
@@ -178,6 +179,10 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				}
 				setupCode += tempCode;
 			}
+
+			if(code.loop) {
+				loopCode += code.loop.replace(nameReg, componentData.varName);
+			}
 		});
 		_.uniqBy(components, 'name').filter(componentData => componentData.code.const).forEach(componentData => {
 			constCode += componentData.code.const;
@@ -191,7 +196,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		codeInfo.const = constCode;
 		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
-		codeInfo.loop = codeInfo.loop;
+		codeInfo.loop = loopCode + codeInfo.loop;
 		codeInfo.end = funcImplementCode;
 
 		return codeInfo;
@@ -208,11 +213,20 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			var block = softwareModel.createBlock(blockData.name, true);
-			var li = $('<li>').data("filter", blockData.tags.concat());
-			blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
-			blockData.board && li.data("board", blockData.board);
-			blockList.append(li.append(block.dom));
+			var block;
+			try {
+				block = softwareModel.createBlock(blockData.name, true);
+			} catch(err) {
+				block = null;
+				kenrobot.trigger("app", "error", `error when create block ${blockData.name}:${blockData.uid}, message: ${err.message}, stack: ${err.stack}`);
+			}
+
+			if(block) {
+				var li = $('<li>').data("filter", blockData.tags.concat());
+				blockData.tags.indexOf("module") >= 0 && li.data("module", blockData.module);
+				blockData.board && li.data("board", blockData.board);
+				blockList.append(li.append(block.dom));
+			}
 		});
 
 		blockList.find("> li > .block").hover(onBlockHoverOver, onBlockHoverOut);

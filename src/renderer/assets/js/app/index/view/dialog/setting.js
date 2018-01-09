@@ -45,21 +45,21 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			dialogWin.find(`.left ul > li:eq(0)`).click();
 		}
 
-		kenrobot.postMessage("app:loadSetting").then(result => {
+		kenrobot.postMessage("app:getCache", "setting", {}).then(result => {
 			setting = result;
 
 			var editorSetting = setting.editor || {}
 			if(editorSetting) {
 				var editorTab = tabs.filter(".tab-editor");
-				editorTab.find(".font-size").val(ideSetting["font-size"] || 16);
-				editorTab.find(".line-height").val(ideSetting["line-height"] || 24);
-				editorTab.find(".tab-size").val(ideSetting["tab-size"] || 4);
+				editorTab.find(".font-size").val(editorSetting["font-size"] || 16);
+				editorTab.find(".line-height").val(editorSetting["line-height"] || 24);
+				editorTab.find(".tab-size").val(editorSetting["tab-size"] || 4);
 			}
 		});
 	}
 
 	function saveSetting() {
-		kenrobot.postMessage("app:saveSetting", setting);
+		kenrobot.postMessage("app:setCache", "setting", setting);
 	}
 
 	function applySetting(type, name, value) {

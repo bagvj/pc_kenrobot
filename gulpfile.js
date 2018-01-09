@@ -1,8 +1,8 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev gulp gulp-if gulp-ruby-sass gulp-clean-css gulp-autoprefixer gulp-requirejs-optimize gulp-minify-html fs-extra minimist run-sequence electron@1.6.15 electron-builder@19.26.2 gulp-sftp q hasha nconf globby isutf8 gulp-babel babel-core babel-preset-es2015 del asar 7zip-bin gulp-uglify browserify vinyl-source-stream vinyl-buffer
- * npm install --save electron-debug electron-is electron-log fs-extra minimist q glob 7zip-bin sudo-prompt hasha iconv-lite node-fetch jszip lodash serialport@6.0.4
- * npm install --global gulp node-gyp electron-rebuild electron@1.6.15
+ * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron@1.6.15 electron-builder@19.48.3 fs-extra globby gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-imagemin gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
+ * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra glob hasha iconv-lite is-online lodash node-fetch q serialport@6.0.4 sudo-prompt
+ * npm install --global  gulp node-gyp electron-rebuild electron@1.6.15
  */
 
 const gulp = require('gulp') //基础库
@@ -12,6 +12,7 @@ const cleanCSS = require('gulp-clean-css') //css压缩
 const autoprefixer = require('gulp-autoprefixer') //自动前缀
 const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
 const minifyHtml = require("gulp-minify-html") //html压缩
+const imagemin = require("gulp-imagemin") //图片压缩
 const sftp = require('gulp-sftp') //
 const Q = require('q')
 
@@ -77,9 +78,14 @@ gulp.task('clean-renderer', () => {
 	return del(APP + 'renderer')
 })
 
+gulp.task('clean-html', () => {
+	return del(APP + 'renderer/**/*.html')
+})
+
 gulp.task('clean-other', () => {
 	return del([
 		APP + 'renderer/**/*',
+		'!' + APP + "renderer/**/*.html",
 		'!' + APP + "renderer/index.js",
 		'!' + APP + "renderer/assets/**/*",
 	])
@@ -144,6 +150,7 @@ gulp.task('pack-assets-css', ['clean-assets-css'], () => {
 
 gulp.task('pack-assets-image', ['clean-assets-image'], () => {
 	return gulp.src(ASSETS_SRC + 'image/**/*')
+		// .pipe(gulpif(args.release, imagemin()))
 		.pipe(gulp.dest(ASSETS_DIST + 'image/'))
 })
 
@@ -154,9 +161,16 @@ gulp.task('pack-assets-font', ['clean-assets-font'], () => {
 
 gulp.task('pack-assets', ['pack-assets-image', 'pack-assets-font', 'pack-assets-css', 'pack-assets-js'])
 
+gulp.task('pack-html', ['clean-html'], () => {
+	return gulp.src(SRC + 'renderer/**/*.html')
+		.pipe(gulpif(args.release, minifyHtml()))
+		.pipe(gulp.dest(APP + 'renderer/'))
+})
+
 gulp.task('pack-other', ['clean-other'], () => {
 	return gulp.src([
 		SRC + 'renderer/**/*',
+		'!' + SRC + "renderer/**/*.html",
 		'!' + SRC + "renderer/index.js",
 		'!' + SRC + "renderer/assets/**/*",
 	]).pipe(gulp.dest(APP + 'renderer/'))
@@ -202,7 +216,7 @@ gulp.task('pack-renderer-js', ['clean-renderer-js'], () => {
 })
 
 gulp.task('pack-renderer', ['clean-renderer'], callback => {
-	runSequence(['pack-renderer-js', 'pack-assets', 'pack-other'], callback)
+	runSequence(['pack-renderer-js', 'pack-assets', 'pack-html', 'pack-other'], callback)
 })
 
 gulp.task('pack', ['pack-main', 'pack-renderer'])

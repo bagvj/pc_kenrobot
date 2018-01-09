@@ -1,15 +1,19 @@
 define(function() {
-	var debug;
 
-	function init(_debug) {
-		debug = _debug;
-		window.onerror = onAppError;
+	function init() {
+		window.onerror = onError;
+
+		kenrobot.on("app", "error", onAppError);
 	}
 
-	function onAppError(message, src, line, col, err) {
+	function onAppError(message) {
+		kenrobot.postMessage("app:errorReport", message, "AppError");
+	}
+
+	function onError(message, src, line, col, err) {
 		var key = message + "-" + src + "-" + line + "-" + col;
-		debug && err && console.error(err.stack);
-		
+		kenrobot.appInfo.dev && err && console.error(err.stack);
+
 		var error = {
 			message: message,
 			src: src,
@@ -18,7 +22,9 @@ define(function() {
 			stack: err.stack || ""
 		};
 
-		kenrobot.postMessage("app:errorReport", error);
+		message = `------ error message ------\n${err.message}(${err.src} at line ${err.line}:${err.col})\n${err.stack}`
+
+		kenrobot.postMessage("app:errorReport", message, "SystemError");
 
 		return true;
 	}

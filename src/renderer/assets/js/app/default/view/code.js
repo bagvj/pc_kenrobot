@@ -3,6 +3,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 	var region;
 	var toolbar;
 	var mode;
+	var container;
 
 	function init() {
 		mode = "block";
@@ -10,7 +11,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		region = $('.content-region .code-region')
 		toolbar = region.find(".toolbar").on('click', ".hover-button", onButtonClick);
 
-		var container = $(".code-container", region);
+		container = $(".code-container", region);
 		codeModel.init(container[0]);
 
 		emitor.on("code", "start-refresh", onStartRefresh)
@@ -21,6 +22,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 			.on("ui", "lock", onUILock)
 			.on('progress', "check", onCheckProgress)
 			.on("progress", "upload", onUploadProgress);
+
+		kenrobot.on("setting", "change", onSettingChange);
 	}
 
 	function getData() {
@@ -102,14 +105,14 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 				break;
 			case "edit":
 				util.confirm({
-					text: "ÎÄ±¾Ä£Ê½ÓëÍ¼ÐÎÄ£Ê½²»¼æÈÝ£¬ÎÄ±¾±à³ÌÄ£Ê½ÏÂÔÝÊ±ÎÞ·¨×ª»»ÎªÍ¼ÐÎ´úÂë¡£",
-					confirmLabel: "ÎÄ±¾±à³Ì£¬ÎÒÒÑÁË½âºó¹û",
+					text: "æ–‡æœ¬æ¨¡å¼ä¸Žå›¾å½¢æ¨¡å¼ä¸å…¼å®¹ï¼Œæ–‡æœ¬ç¼–ç¨‹æ¨¡å¼ä¸‹æš‚æ—¶æ— æ³•è½¬æ¢ä¸ºå›¾å½¢ä»£ç ã€‚",
+					confirmLabel: "æ–‡æœ¬ç¼–ç¨‹ï¼Œæˆ‘å·²äº†è§£åŽæžœ",
 					onConfirm: () => setMode("text")
 				});
 				break;
 			case "back":
 				util.confirm({
-					text: "·ÅÆúËùÓÐÎÄ±¾Ä£Ê½ÏÂµÄÐÞ¸Ä£¬·µ»ØÍ¼ÐÎÄ£Ê½£¿",
+					text: "æ”¾å¼ƒæ‰€æœ‰æ–‡æœ¬æ¨¡å¼ä¸‹çš„ä¿®æ”¹ï¼Œè¿”å›žå›¾å½¢æ¨¡å¼ï¼Ÿ",
 					onConfirm: () => setMode("block")
 				});
 				break;
@@ -164,6 +167,21 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		toolbar.find(".upload .x-progress").show().css({
 			left: "-" + (100 - value) + "%"
 		});
+	}
+
+	function onSettingChange(type, name, value) {
+		if(type != "editor") {
+			return;
+		}
+
+		switch(name) {
+			case "line-height":
+				container.css("line-height", `${value}px`);
+				break;
+			case "font-size":
+				container.css("font-size", `${value}px`);
+				break;
+		}
 	}
 
 	return {

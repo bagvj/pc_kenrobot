@@ -1,0 +1,49 @@
+.lcd {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	.x-float-close {
+		top: 0;
+		right: -24px;
+		position: absolute;
+		font-size: 24px;
+		line-height: 24px;
+		width: 24px;
+		height: 24px;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.3);
+		transition: background-color 0.2s;
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.6);
+		}
+	}
+
+	.canvas-wrap {
+		background-color: #ccc;
+		min-width: 300px;
+		min-height: 180px;
+	}
+
+	.canvas {
+		image-rendering: pixelated;
+		display: none;
+
+
+		&.active {
+			display: block;
+		}
+
+		&.ssd1306 {
+			width: 480px;
+			height: 240px;
+		}
+
+		&.nokia5110 {
+			width: 315px;
+			height: 180px;
+		}
+	}
+}

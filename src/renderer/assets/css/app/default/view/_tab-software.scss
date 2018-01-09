@@ -1,10 +1,10 @@
 $module-color: #ec6e68;
-$data-color: #20b5f9;
-$variable-color: #eeca24;
-$function-color: #f69023;
+$data-color: #4C97FF;
+$variable-color: #FF8C1A;
+$function-color: #5CB1D6;
 $logic-color: #d764ae;
 $operation-color: #0b75d2;
-$code-color: #a3ce47;
+$code-color: #59C059;
 $time-color: #47c5ca;
 
 $focus-color: #f1cb33;
@@ -161,7 +161,7 @@ $focus-color: #f1cb33;
 			bottom: 0;
 			display: none;
 			padding-top: 20px;
-			padding-right: 28px;
+			// padding-right: 28px;
 			background-color: rgba(30, 30, 30, 0.94);
 
 			&.active {
@@ -205,7 +205,7 @@ $focus-color: #f1cb33;
 			.toolbar {
 				position: absolute;
 				top: 10px;
-				right: 10px;
+				right: 26px;
 				display: flex;
 				flex-direction: row-reverse;
 			}

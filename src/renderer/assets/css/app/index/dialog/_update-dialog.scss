@@ -1,16 +1,40 @@
+//x-fadeIn
+@include keyframes('x-into-front') {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+//x-fadeOut
+@include keyframes('x-into-background') {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
 .update-dialog {
 	background-color: white;
-	width: 420px;
-    height: 224px;
-    padding: 30px;
+	width: 600px;
+    height: 425px;
+    padding: 20px;
 
     .x-dialog-close {
-        top: 10px;
-        right: 10px;
-        width: 18px;
-        height: 18px;
-        line-height: 18px;
-        font-size: 18px;
+        top: 20px;
+        right: 20px;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 25px;
         color: #ccc;
 
         &:hover {
@@ -19,66 +43,115 @@
     }
 
     .x-dialog-title {
-        height: 18px;
+        height: 25px;
     	font-size: 18px;
-    	line-height: 18px;
+    	line-height: 25px;
     	color: #666;
     	text-align: left;
     }
 
     .x-dialog-content {
-        margin-top: 30px;
-        margin-bottom: 20px;
-        line-height: 20px;
-        font-size: 14px;
-        height: 60px;
-    }
+        height: 260px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border: 1px solid #f3f3f3;
+        padding: 10px;
+        overflow-y: auto;
+        font-size: 12px;
+        line-height: 18px;
 
-    .btn-wrap {
-        height: 36px;
-
-        .cancel {
-            float: right;
-            background-color: #ddd;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            width: 80px;
-            height: 36px;
+        .message {
             color: #666;
-            font-size: 14px;
-            line-height: 36px;
-
-            &:hover {
-                background-color: #ccc;
-            }
         }
 
-        .download {
-            margin-left: 18px;
-            float: right;
-            background-color: #20a0ff;
-            border: 1px solid #0088ff;
-            border-radius: 3px;
-            width: 80px;
-            height: 36px;
-            font-size: 14px;
-            color: white;
-            line-height: 36px;
+        .change-content {
+            margin-top: 10px;
+            display: none;
 
-            &:hover {
-                background-color: #0088ff;
+            &.active {
+                display: block;
             }
 
-            &[disabled] {
-                color: #666;
-                background-color: #ccc;
-                border-color: #ddd;
+            .type {
+                letter-spacing: 1px;
+                color: #3c6df0;
+                height: 18px;
+            }
 
-                &:hover {
-                    background-color: #ccc;
+            .list {
+                margin-top: 10px;
+                list-style: circle;
+
+                li {
+                    color: #666;
+                    margin-left: 36px;
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        width: 4px;
+                        height: 4px;
+                        display: block;
+                        position: absolute;
+                        background-color: #666;
+                        border-radius: 50%;
+                        top: 7px;
+                        left: -23px;
+                    }
                 }
             }
         }
     }
-    
+
+    .btn-wrap {
+        height: 40px;
+        display: flex;
+        justify-content: flex-end;
+
+        .thanks {
+            background-color: white;
+            border: 1px solid #638af3;
+            border-radius: 5px;
+            width: 106px;
+            height: 40px;
+            color: #638af3;
+            font-size: 14px;
+            line-height: 40px;
+            opacity: 1;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .download {
+            margin-left: 20px;
+            background-color: #3c6df0;
+            border-radius: 5px;
+            width: 106px;
+            height: 40px;
+            font-size: 14px;
+            color: white;
+            line-height: 40px;
+            opacity: 1;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    &.x-into-front {
+        &.x-fadeIn {
+            @include animation('x-into-front' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+        }
+    }
+
+    &.x-into-background {
+        &.x-fadeOut {
+            @include animation('x-into-background' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+        }
+    }
 }
