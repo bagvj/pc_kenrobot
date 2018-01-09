@@ -16,7 +16,7 @@ const _ = require('lodash')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
-const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', '..', 'package.json'))
+const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
