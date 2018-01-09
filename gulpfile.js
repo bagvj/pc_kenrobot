@@ -273,15 +273,15 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 
 	if (args.standalone) {
 		var extraFiles = [
-			`./arduino-${platform}/**/*`,
-			"./scripts/**/*",
-			`!./scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
-			"./examples/**/*",
-			"./packages/packages.json",
-			"./libraries/libraries.json",
+			`./data/arduino-${platform}/**/*`,
+			"./data/scripts/**/*",
+			`!./data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
+			"./data/examples/**/*",
+			"./data/packages/packages.json",
+			"./data/libraries/libraries.json",
 		]
 
-		packageNames.length > 0 && extraFiles.push(`./packages/@(${packageNames.join('|')})*${platform}.7z`)
+		packageNames.length > 0 && extraFiles.push(`./data/packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = () => {
@@ -388,15 +388,15 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		})
 	} else {
 		var extraFiles = [
-			`arduino-${platform}`,
-			"scripts",
-			`!scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
-			"examples",
-			"packages/packages.json",
-			"libraries/libraries.json",
+			`data/arduino-${platform}`,
+			"data/scripts",
+			`!data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
+			"data/examples",
+			"data/packages/packages.json",
+			"data/libraries/libraries.json",
 		]
 
-		packageNames.length > 0 && extraFiles.push(`packages/@(${packageNames.join('|')})*${platform}.7z`)
+		packageNames.length > 0 && extraFiles.push(`data/packages/@(${packageNames.join('|')})*${platform}.7z`)
 
 		builder.build({
 			targets: targets,
@@ -474,7 +474,7 @@ gulp.task('packages', callback => {
 	var packages = []
 
 	var platform = args.platform || "win"
-	globby.sync(`packages/*${platform}.7z`).forEach(p => {
+	globby.sync(`data/packages/*${platform}.7z`).forEach(p => {
 		var name = path.basename(p)
 		reg.lastIndex = 0
 		var match = reg.exec(name)
@@ -492,7 +492,7 @@ gulp.task('packages', callback => {
 			}),
 		})
 	})
-	fs.writeJsonSync("packages/packages.json", packages)
+	fs.writeJsonSync("data/packages/packages.json", packages)
 
 	callback()
 })
