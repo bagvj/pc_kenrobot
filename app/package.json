@@ -11,7 +11,7 @@
     "name": "Kenrobot",
     "email": "support@kenrobot.com"
   },
-  "copyright": "©2017 KenRobot",
+  "copyright": "©2018 KenRobot",
   "homepage": "http://www.kenrobot.com",
   "dependencies": {
     "7zip-bin": "^2.3.4",
