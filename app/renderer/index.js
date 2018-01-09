@@ -1,1 +1,171 @@
-"use strict";!function(e,r){function t(e,r,t){var n=u[r];if(n){var o;"notify"==t?o=n.notify:(delete u[r],o=t?n.resolve:n.reject);for(var i=arguments.length,a=Array(i>3?i-3:0),s=3;s<i;s++)a[s-3]=arguments[s];o.apply(this,a)}}function n(e,r){return e+"_"+r}function o(e,r){var t=n(e,r),o=f[t];if(!o)return this;o=o.concat().sort(function(e,r){return r.options.priority-e.options.priority});for(var i=arguments.length,a=Array(i>2?i-2:0),s=2;s<i;s++)a[s-2]=arguments[s];for(var c=0;c<o.length;c++){o[c].callback.apply(this,a)}return this}var i=require("path"),a=process.defaultApp||/[\\/]electron-prebuilt[\\/]/.test(process.execPath)||/[\\/]electron[\\/]/.test(process.execPath);module.paths.push(a?i.resolve("app","node_modules"):i.resolve(__dirname,"..","..","app.asar","node_modules"));var s=require("electron").ipcRenderer,c=require("q"),l=[],u={},p=0,f={},h={},v={};r.postMessage=function(e){l.indexOf(e)<0&&(s.on(e,t),l.push(e));var r=c.defer();u[++p]=r;for(var n=arguments.length,o=Array(n>1?n-1:0),i=1;i<n;i++)o[i-1]=arguments[i];return s.send.apply(this,[e,p].concat(o)),r.promise},r.listenMessage=function(e,r){var t=this;return s.on(e,function(e,n){r.apply(t,n)}),this},r.on=function(e,r,t,o){(o=o||{}).priority=o.priority||0,o.canReset=!1!==o.canReset;var i=n(e,r),a=f[i];return a||(a=[],f[i]=a),a.push({callback:t,options:o}),this},r.off=function(e,r,t){var o=n(e,r),i=f[o];if(!i)return this;for(var a=0;a<i.length;a++)if(i[a].callback==t){i.splice(a,1);break}return this},r.trigger=o,r.delayTrigger=function(e,r,t){for(var i=arguments.length,a=Array(i>3?i-3:0),s=3;s<i;s++)a[s-3]=arguments[s];var c=this,l=n(r,t),u=h[l];return u&&clearTimeout(u),u=setTimeout(function(){delete h[l],o.apply(c,[r,t].concat(a))},e),h[l]=u,this},r.reset=function(){for(var e in f){for(var r=f[e],t=r.length-1;t>=0;t--)r[t].options.canReset&&r.splice(t,1);0==r.length&&delete f[e]}for(var e in h){var n=h[e];n&&clearTimeout(n),delete h[e]}return h={},Object.keys(v).forEach(function(e){delete v[e]}),this},r.view=v,r.isPC=!0}(window,window.kenrobot||(window.kenrobot={}));
+(function(global, exports) {
+	const path = require('path')
+
+	const isDev = process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)
+	module.paths.push(isDev ? path.resolve('app', 'node_modules') : path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'))
+	
+	const {ipcRenderer} = require('electron')
+	const Q = require('q')
+
+	var registeredEvents = []
+	var defers = {}
+	var deferAutoId = 0
+
+	function onMessage(e, deferId, type, ...args) {
+		var deferred = defers[deferId]
+		if(!deferred) {
+			return
+		}
+
+		var callback
+		if(type == "notify") {
+			callback = deferred.notify
+		} else {
+			delete defers[deferId]
+			callback = type ? deferred.resolve : deferred.reject
+		}
+		callback.apply(this, args)
+	}
+	
+	function postMessage(name, ...args) {
+		if(registeredEvents.indexOf(name) < 0) {
+			ipcRenderer.on(name, onMessage)
+			registeredEvents.push(name)
+		}
+
+		var deferred = Q.defer()
+		deferAutoId++
+		defers[deferAutoId] = deferred
+
+		ipcRenderer.send.apply(this, [name, deferAutoId].concat(args))
+
+		return deferred.promise
+	}
+
+	function listenMessage(name, callback) {
+		ipcRenderer.on(name, (e, args) => {
+			callback.apply(this, args)
+		})
+
+		return this
+	}
+
+	var hanlderMap = {}
+	var delayTimers = {}
+
+	function getEventName(target, type) {
+		return target + "_" + type
+	}
+
+	function on(target, type, callback, options) {
+		options = options || {}
+		options.priority = options.priority || 0
+		options.canReset = options.canReset !== false
+
+		var name = getEventName(target, type)
+		var hanlders = hanlderMap[name]
+		if(!hanlders) {
+			hanlders = []
+			hanlderMap[name] = hanlders
+		}
+		hanlders.push({
+			callback: callback,
+			options: options,
+		})
+
+		return this
+	}
+
+	function off(target, type, callback) {
+		var name = getEventName(target, type)
+		var hanlders = hanlderMap[name]
+		if(!hanlders) {
+			return this
+		}
+
+		for(var i = 0; i < hanlders.length; i++) {
+			var handler = hanlders[i]
+			if(handler.callback == callback) {
+				hanlders.splice(i, 1)
+				break
+			}
+		}
+
+		return this
+	}
+
+	function trigger(target, type, ...args) {
+		var name = getEventName(target, type)
+		var hanlders = hanlderMap[name]
+		if(!hanlders) {
+			return this
+		}
+
+		hanlders = hanlders.concat().sort(function(a, b) {
+			return b.options.priority - a.options.priority
+		})
+
+		for(var i = 0; i < hanlders.length; i++) {
+			var handler = hanlders[i]
+			handler.callback.apply(this, args)
+		}
+
+		return this
+	}
+
+	function delayTrigger(time, target, type, ...args) {
+		var self = this
+		var name = getEventName(target, type)
+		var timerId = delayTimers[name]
+		timerId && clearTimeout(timerId)
+		timerId = setTimeout(function() {
+			delete delayTimers[name]
+			trigger.apply(self, [target, type].concat(args))
+		}, time)
+		delayTimers[name] = timerId
+
+		return this
+	}
+
+	var view = {}
+
+	function reset() {
+		for(var key in hanlderMap) {
+			var hanlders = hanlderMap[key]
+			for(var i = hanlders.length - 1; i >= 0; i--) {
+				var hanlder = hanlders[i]
+				if(hanlder.options.canReset) {
+					hanlders.splice(i, 1)
+				}
+			}
+			if(hanlders.length == 0) {
+				delete hanlderMap[key]
+			}
+		}
+		for(var key in delayTimers) {
+			var timerId = delayTimers[key]
+			timerId && clearTimeout(timerId)
+			delete delayTimers[key]
+		}
+		delayTimers = {}
+
+		Object.keys(view).forEach(key => {
+			delete view[key]
+		})
+
+		return this
+	}
+
+	exports.postMessage = postMessage
+	exports.listenMessage = listenMessage
+
+	exports.on = on
+	exports.off = off
+
+	exports.trigger = trigger
+	exports.delayTrigger = delayTrigger
+
+	exports.reset = reset
+	exports.view = view
+	exports.isPC = true
+})(window, window.kenrobot || (window.kenrobot = {}))

@@ -1,1 +1,1169 @@
-"use strict";var _slicedToArray=function(){return function(e,r){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return function(e,r){var t=[],n=!0,o=!1,i=void 0;try{for(var a,u=e[Symbol.iterator]();!(n=(a=u.next()).done)&&(t.push(a.value),!r||t.length!==r);n=!0);}catch(e){o=!0,i=e}finally{try{!n&&u.return&&u.return()}finally{if(o)throw i}}return t}(e,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();!function e(r,t,n){function o(a,u){if(!t[a]){if(!r[a]){var c="function"==typeof require&&require;if(!u&&c)return c(a,!0);if(i)return i(a,!0);var s=new Error("Cannot find module '"+a+"'");throw s.code="MODULE_NOT_FOUND",s}var f=t[a]={exports:{}};r[a][0].call(f.exports,function(e){var t=r[a][1][e];return o(t||e)},f,f.exports,e,r,t,n)}return t[a].exports}for(var i="function"==typeof require&&require,a=0;a<n.length;a++)o(n[a]);return o}({1:[function(e,r,t){r.exports={default:{build:{fqbn:"arduino:avr:uno:cpu=atmega328p",prefs:{"runtime.tools.avr-gcc.path":'"ARDUINO_PATH/hardware/tools/avr"',"runtime.tools.avrdude.path":'"ARDUINO_PATH/hardware/tools/avr"',"build.warn_data_percentage":"75"},target_type:"hex",command:'"ARDUINO_PATH/arduino-builder" -compile -logger=machine -hardware="ARDUINO_PATH/hardware" -hardware="ARDUINO_PATH/packages" -tools="ARDUINO_PATH/tools-builder" -tools="ARDUINO_PATH/hardware/tools/avr" -tools="ARDUINO_PATH/packages" -built-in-libraries="ARDUINO_PATH/libraries" -ide-version=10612 -warnings=none BUILD_SPECS -build-path="PROJECT_BUILD_PATH" "PROJECT_ARDUINO_FILE"'},upload:{target_type:"hex",mcu:"atmega328p",baudrate:"115200",programer:"arduino",command:'"ARDUINO_PATH/hardware/tools/avr/bin/avrdude" -C "ARDUINO_PATH/hardware/tools/avr/etc/avrdude.conf" -v -p ARDUINO_MCU -c ARDUINO_PROGRAMMER -b ARDUINO_BURNRATE -P ARDUINO_COMPORT -D -U "flash:w:TARGET_PATH:i"'}},librariesPath:[]}},{}],2:[function(e,r,t){r.exports={UperEnergy:100,Intel:101,KenBlock:102}},{}],3:[function(e,r,t){r.exports={SUCCESS:0,INVALID_PARAM:1,SYSTEM_ERROR:100,LOGIN_REQUIRED:200,PERMISSION_DENIED:201,INVALID_USER_TOKEN_SIGN:202,USER_TOKEN_EXPIRED:203,USER_NOT_EXITS:204,API_ERROR:300,INVALID_SSO_TICKET:301,INVALID_SSO_SESSION:302,INVALID_SSO_BROKER:303,INVLAID_SSO_SIGN:304}},{}],4:[function(e,r,t){r.exports={CHECK_UPDATE:"http://www.kenrobot.com/downloads/checkupdate",REPORT:"http://userver.kenrobot.com/statistics/report",REGISTER:"http://server.kenrobot.com/register",FIND_PASSWORD:"http://server.kenrobot.com/password/email",LOGIN:"http://server.kenrobot.com/api/auth/login",LOGOUT:"http://server.kenrobot.com/api/auth/logout",WEIXIN_QRCODE:"http://server.kenrobot.com/api/auth/weixin/token",WEIXIN_LOGIN:"http://server.kenrobot.com/api/auth/weixin/login",VERIFY:"http://server.kenrobot.com/api/auth/verify",PROJECT_SYNC_LIST:"http://server.kenrobot.com/api/project/sync/list",PROJECT_SYNC_CREATE:"http://server.kenrobot.com/api/project/sync/create",PROJECT_SYNC_DELETE:"http://server.kenrobot.com/api/project/sync/delete",PROJECT_SYNC_UPLOAD:"http://server.kenrobot.com/api/project/sync/upload",PROJECT_SYNC_DOWNLOAD:"http://server.kenrobot.com/api/project/sync/download",PROJECT_SYNC_ITEM:"http://server.kenrobot.com/api/project/sync/item"}},{}],5:[function(e,r,t){function n(){N.debug("app ready"),T.dev()&&Q.devTool&&R({showDevTools:!0}),Q.project&&(y=Q.project),o(),h(),function(){if(T.dev()||b.version==L.getVersion())return;b.version=L.getVersion(),b.reportInstall=!1,x=!0,j.setItem(W,b)}(),function(){T.dev()||b.reportInstall||c(null,"installations").then(function(){b.reportInstall=!0,j.setItem(W,b)});c(null,"open")}()}function o(){P=new S({width:1200,height:720,minWidth:1200,minHeight:720,frame:!1,show:!1,webPreferences:{webSecurity:!1}}),Q.fullscreen?P.setFullScreen(!0):Q.maximize&&P.maximize(),P.on("closed",function(){return P=null}).once("ready-to-show",function(){return P.show()}).on("enter-full-screen",function(){return L.postMessage("app:onFullscreenChange",!0)}).on("leave-full-screen",function(){return L.postMessage("app:onFullscreenChange",!1)}),P.webContents.on("will-navigate",function(e){return e.preventDefault()}).on("devtools-reload-page",function(){return B.closeAllSerialPort()}),P.webContents.session.on("will-download",f),P.loadURL("file://"+__dirname+"/../renderer/index.html"),P.focus()}function i(e,r){e.preventDefault(),y=z.check(r),w&&g().then(function(e){L.postMessage("app:onLoadProject",e)},function(e){e&&N.error(e)})}function a(e){e.preventDefault(),L.postMessage("app:onBeforeQuit")}function u(e){return B.closeAllSerialPort(),L.removeFile(D.join(L.getAppPath("appData"),"temp"),!0),!0}function c(e,r){var t=k.defer(),n=L.getAppInfo(),o={version:n.version,platform:n.platform,bit:n.appBit,ext:n.ext,branch:n.branch,feature:n.feature};return e=q.merge({},e,o),r=r||"log",L.request(M.REPORT,{method:"post",data:{data:JSON.stringify(e),type:r}}).then(function(){t.resolve()},function(n){N.error("report error: type: "+r+", "+JSON.stringify(e)),n&&N.error(n),t.reject(n)}),t.promise}function s(e){var r=k.defer();return e=0!=e,H.load(e).then(function(e){e.forEach(function(e){var r=D.join(L.getAppPath("packages"),e.name,e.libraries||"src");C.existsSync(r)&&!J.librariesPath.includes(r)&&J.librariesPath.push(r)}),r.resolve(e)},function(e){e&&N.error(e),r.reject(e)}),r.promise}function f(e,r,t){var n=r.getURL(),o=n.lastIndexOf("#"),i=E.parse(n.substring(o+1));n=n.substring(0,o);var a=i.deferId,u=D.join(L.getAppPath("appData"),"download",r.getFilename());if(i.checksum&&C.existsSync(u)){o=i.checksum.indexOf(":");var c=i.checksum.substring(0,o).replace("-","").toLowerCase();if(i.checksum.substring(o+1)==F.fromFileSync(u,{algorithm:c}))return r.cancel(),N.debug("download cancel, "+n+" has cache"),void L.callDefer(a,!0,{path:u})}r.setSavePath(u);var s=r.getTotalBytes();r.on("updated",function(e,t){"interrupted"==t?(N.debug("download interrupted: "+n),L.callDefer(a,!1,{path:u})):"progressing"===t&&(r.isPaused()?(N.debug("download paused: "+n),L.callDefer(a,!1,{path:u})):L.callDefer(a,"notify",{path:u,totalSize:s,size:r.getReceivedBytes()}))}),r.once("done",function(e,r){"completed"==r?(N.debug("download success: "+n+", at "+u),L.callDefer(a,!0,{path:u})):(N.debug("download fail: "+n),L.callDefer(a,!1,{path:u}))})}function p(e,r){L.postMessage("app:onSerialPortError",e,r)}function l(e,r){L.postMessage("app:onSerialPortData",e,r)}function d(e){L.postMessage("app:onSerialPortClose",e)}function m(){var e=k.defer();return B.listSerialPort().then(function(r){var t=function(e){var r=/(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/;return e.filter(function(e){return r.test(e.comName)})}(r);0!=t.length?function(e){var r=k.defer();return N.debug("matchBoardNames"),h().then(function(t){e.forEach(function(e){if(e.productId&&e.vendorId){var r=b.boardNames[e.productId+"_"+e.vendorId];r&&(e.boardName=r.name)}}),r.resolve(e)},function(e){e&&N.error(e),r.reject(e)}),r.promise}(t).then(function(){N.debug(t.map(function(e){return e.comName+", pid: "+e.productId+", vid: "+e.vendorId+", boardName: "+(e.boardName||"")}).join("\n")),e.resolve(t)},function(r){r&&N.error(r),e.reject(r)}):e.reject({status:"NO_ARDUINO_PORT",ports:r})},function(r){r&&N.error(r),e.reject(r)}),e.promise}function v(e,r,t){var n=k.defer();return function(e,r,t){var n=k.defer();N.debug("pre upload firmware");var o=q.merge({},J.default.upload,r.upload),i=L.getAppPath("command","upload"),a=L.handleQuotes(o.command);return a=a.replace(/ARDUINO_PATH/g,L.getAppPath("arduino")).replace("ARDUINO_MCU",o.mcu).replace("ARDUINO_BURNRATE",o.baudrate).replace("ARDUINO_PROGRAMMER",o.programer).replace("ARDUINO_COMPORT",t).replace("TARGET_PATH",e),L.writeFile(i,a).then(function(){B.resetSerialPort(t).then(function(){n.resolve(i)},function(e){e&&N.error(e),n.reject(e)})},function(e){e&&N.error(e),n.reject(e)}),n.promise}(e,r,t).then(function(r){N.debug("upload firmware: "+e+", "+t+", command path: "+r);var o=L.getAppPath("script","call");L.spawnCommand('"'+o+'"',['"'+r+'"'],{shell:!0}).then(function(){n.resolve()},function(e){e&&N.error(e),n.reject(e)},function(e){n.notify(e)})},function(e){e&&N.error(e),n.reject(e)}),n.promise}function h(e){var r=k.defer();if(b.boardNames&&!e)return N.debug("skip loadBoards"),setTimeout(function(){r.resolve(b.boardNames)},10),r.promise;N.debug("loadBoards");var t={},n=/\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g,o=/\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g,i=/\n([^\.\n]+)\.name=([^\r\n]+)/g,a="arduino-"+L.getPlatform();return L.searchFiles(a+"/**/boards.txt").then(function(e){k.all(e.map(function(e){var r=k.defer();return L.readFile(e).then(function(e){var r=e.match(n),a=e.match(o),u=[];e.match(i).forEach(function(e){var r=e.substring(0,e.indexOf(".name")).trim(),t=e.substring(e.indexOf("=")+1).trim();u[r]=t});var c=r.map(function(e){return e.substring(0,e.indexOf(".pid")).trim()});r=r.map(function(e){return e.substring(e.indexOf("=")+3)}),a=a.map(function(e){return e.substring(e.indexOf("=")+3)}),r.forEach(function(e,r){t[e+"_"+a[r]]={pid:e,vid:a[r],type:c[r],name:u[c[r]]}})}).fin(function(){r.resolve()}),r.promise})).then(function(){b.boardNames=t,j.setItem(W,b),r.resolve(b.boardNames)})},function(e){e&&N.error(e),r.reject(e)}),r.promise}function g(){if(w=!0,y){N.debug("loadOpenProject: "+y);var e=y;return y=null,z.read(e)}return L.rejectPromise()}var j,b,P,x,y,w,A=e("electron"),I=A.app,S=A.BrowserWindow,_=(A.ipcMain,A.shell),O=A.clipboard,D=e("path"),E=e("querystring"),T=e("electron-is"),R=e("electron-debug"),N=e("electron-log"),k=e("q"),C=e("fs-extra"),U=e("command-line-args"),F=e("hasha"),q=e("lodash"),L=e("./util/util"),B=e("./model/serialPort"),J=e("./config/arduinoOptions"),M=e("./config/url"),z=(e("./model/token"),e("./model/project")),G=e("./model/user"),H=e("./model/package"),V=e("./util/cache"),W="config",K=L.listenMessage,Y=[{name:"debug-brk",type:Number,defaultValue:!1},{name:"dev",alias:"d",type:Boolean,defaultValue:!1},{name:"devTool",alias:"t",type:Boolean,defaultValue:!1},{name:"fullscreen",alias:"f",type:Boolean,defaultValue:!1},{name:"maximize",alias:"m",type:Boolean,defaultValue:!1},{name:"project",alias:"p",type:z.check,defaultOption:!0}],Q=U(Y,{argv:process.argv.slice(1),partial:!0});process.on("uncaughtException",function(e){var r=e.stack||e.name+": "+e.message;N.error(r),I.quit()}),N.transports.file.format="[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}",T.dev()&&Q.dev?N.transports.file.level="debug":(N.transports.console=!1,N.transports.file.level="error"),j=new V(W),b=j.getItem(W,{}),L.removeFile(D.join(L.getAppPath("appData"),"config.json"),!0),I.makeSingleInstance(function(e,r){if(P){P.isMinimized()&&P.restore(),P.focus();var t=U(Y,{argv:e.slice(1),partial:!0});t.project&&(y=t.project),N.debug("app second run"),g().then(function(e){L.postMessage("app:onLoadProject",e)},function(e){e&&N.error(e)})}})&&I.quit(),I.on("ready",n).on("window-all-closed",function(){return"darwin"!==process.platform&&I.quit()}).on("activate",function(){return null===P&&o()}).on("before-quit",a).on("will-quit",u).on("quit",function(){return N.debug("app quit")}),T.macOS()&&I.on("open-file",i),K("getAppInfo",function(){return L.resolvePromise(L.getAppInfo())}),K("execFile",function(e){return L.execFile(e)}),K("execCommand",function(e,r){return L.execCommand(e,r)}),K("spawnCommand",function(e,r,t){return L.spawnCommand(e,r,t)}),K("readFile",function(e,r){return L.readFile(e,r)}),K("writeFile",function(e,r){return L.writeFile(e,r)}),K("saveFile",function(e,r,t){return L.saveFile(e,r,t)}),K("moveFile",function(e,r,t){return L.moveFile(e,r,t)}),K("removeFile",function(e){return L.removeFile(e)}),K("readJson",function(e,r){return L.readJson(e,r)}),K("writeJson",function(e,r,t,n){return L.writeJson(e,r,t,n)}),K("showOpenDialog",function(e){return L.showOpenDialog(e)}),K("showSaveDialog",function(e){return L.showSaveDialog(e)}),K("request",function(e,r,t){return L.request(e,r,t)}),K("showItemInFolder",function(e){return _.showItemInFolder(D.normalize(e))}),K("openUrl",function(e){return L.resolvePromise(e&&_.openExternal(e))}),K("listSerialPort",function(){return m()}),K("openSerialPort",function(e,r){return function(e,r){return B.openSerialPort(e,r,{onError:p,onData:l,onClose:d})}(e,r)}),K("writeSerialPort",function(e,r){return B.writeSerialPort(e,r)}),K("closeSerialPort",function(e){return B.closeSerialPort(e)}),K("updateSerialPort",function(e,r){return B.updateSerialPort(e,r)}),K("flushSerialPort",function(e){return B.flushSerialPort(e)}),K("buildProject",function(e,r){return function(e,r){var t=k.defer();return function(e,r){var t=k.defer();N.debug("pre-build");var n=D.join(e,"cache"),o=D.join(n,"build");return C.ensureDirSync(o),L.removeFile(D.join(o,"sketch","build"),!0),L.removeFile(D.join(e,"build"),!0),z.read(e).then(function(e){var i=e.data,a=D.join(n,i.project_name+".ino");L.writeFile(a,i.project_data.code).then(function(){var e=[],n=q.merge({},J.default.build,r.build),i=L.getAppPath("packages");C.existsSync(i)&&e.push("-hardware="+i),e.push("-fqbn="+n.fqbn);var u=L.getAppPath("arduino");Object.keys(n.prefs).forEach(function(r){var t=L.handleQuotes(n.prefs[r]);t=t.replace(/ARDUINO_PATH/g,u),e.push("-prefs="+r+"="+t)});var c=L.getAppPath("libraries");C.existsSync(c)&&e.push('-libraries="'+c+'"'),J.librariesPath.forEach(function(r){e.push('-libraries="'+r+'"')});var s=L.getAppPath("command","build"),f=L.handleQuotes(n.command);f=f.replace(/ARDUINO_PATH/g,L.getAppPath("arduino")).replace("BUILD_SPECS",e.join(" ")).replace("PROJECT_BUILD_PATH",o).replace("PROJECT_ARDUINO_FILE",a),L.writeFile(s,f).then(function(){var e=D.join(o,"build.options.json");if(!C.existsSync(e))return setTimeout(function(){return t.resolve(s)},10),t.promise;L.readJson(e).then(function(e){n.fqbn!=e.fqbn?L.removeFile(o).fin(function(){C.ensureDirSync(o),t.resolve(s)}):t.resolve(s)},function(e){e&&N.error(e),t.resolve(s)})},function(e){e&&N.error(e),t.reject()})},function(e){e&&N.error(e),t.reject()})},function(e){e&&N.error(e),t.reject()}),t.promise}(e,r.build).then(function(n){N.debug("buildProject: "+e+", command path: "+n);var o=L.getAppPath("script","call");L.spawnCommand('"'+o+'"',['"'+n+'"'],{shell:!0}).then(function(){var n=q.merge({},J.default,r),o=D.join(e,"cache","build",D.basename(e)+".ino."+n.upload.target_type);t.resolve(o)},function(e){e&&N.error(e),t.reject(e)},function(e){t.notify(e)})},function(e){e&&N.error(e),t.reject(e)}),t.promise}(e,r)}),K("uploadFirmware",function(e,r,t){return function(e,r,t){if(!t){var n=k.defer();return m().then(function(t){1==t.length?v(e,r,t[0].comName).then(function(){n.resolve()},function(e){n.reject(e)},function(e){n.notify(e)}):n.reject({status:"SELECT_PORT",ports:t})},function(e){e&&"NO_ARDUINO_PORT"===e.status?n.reject(e):n.reject({status:"PORT_NOT_FOUND"})}),n.promise}return v(e,r,t)}(e,r,t)}),K("download",function(e,r){return function(e,r){var t=k.defer(),n=L.getDefer(),o=n.deferId,i=n.promise;r.deferId=o;var a=E.stringify(r);return N.debug("download "+e+", options: "+a),i.then(function(e){t.resolve(e)},function(e){e&&N.error(e),t.reject(e)},function(e){t.notify(e)}),P.webContents.downloadURL(e+"#"+a),t.promise}(e,r)}),K("installDriver",function(e){return function(e){var r=k.defer();N.debug("installDriver: "+e);var t=D.join(L.getAppPath("appData"),"temp");return L.uncompress(e,t).then(function(){var n=D.join(t,D.basename(e,D.extname(e)),"setup.exe");L.execFile(n).then(function(){r.resolve()})},function(e){e&&N.error(e),r.reject(e)}),r.promise}(e)}),K("loadExamples",function(){return function(){var e=k.defer(),r=[];return N.debug("loadExamples"),L.readJson(D.join(L.getAppPath("appResource"),"examples","examples.json")).then(function(t){r.push({name:"built-in",groups:t});var n=L.getAppPath("packages");L.searchFiles(n+"/*/examples/examples.json").then(function(t){k.all(t.map(function(e){var t=k.defer();return L.readJson(e).then(function(t){r.push({name:D.basename(D.dirname(D.dirname(e))),groups:t})}).fin(function(){t.resolve()}),t.promise})).then(function(){e.resolve(r)})},function(r){r&&N.error(r),e.reject(r)})},function(r){r&&N.error(r),e.reject(r)}),e.promise}()}),K("openExample",function(e,r,t){return function(e,r,t){var n,o=k.defer();return n="built-in"==(t=t||"built-in")?D.join(L.getAppPath("appResource"),"examples",e,r):D.join(L.getAppPath("packages"),t,"examples",e,r),N.debug("openExample: "+n),z.read(n).then(function(e){e.path=null,o.resolve(e)},function(e){e&&N.error(e),o.reject(e)}),o.promise}(e,r,t)}),K("unzipPackage",function(e,r,t){return H.unzip(e,r,t)}),K("deletePackage",function(e){return H.remove(e)}),K("unzipPackages",function(e){return function(e){var r=k.defer();return e=!1===e&&T.dev(),H.unzipAll(b.packages,e,x).then(function(e){T.dev()?r.resolve():(b.packages=e,j.setItem(W,b),r.resolve())},function(e){e&&N.error(e),r.reject(e)},function(e){return r.notify(e)}),r.promise}(e)}),K("loadPackages",function(e){return s(e)}),K("getInstalledLibraries",function(){return function(){var e=k.defer(),r=/^([^=]+)=(.*)$/gm;return L.searchFiles(L.getAppPath("libraries")+"/**/library.properties").then(function(t){var n=[];k.all(t.map(function(e){var t=k.defer();return L.readFile(e).then(function(e){var t=e.match(r);if(!(t.length<0)){var o={};t.map(function(e){return e.split("=")}).forEach(function(e){o[e[0]]=e[1]}),o.name&&o.version&&n.push(o)}}).fin(function(){t.resolve()}),t.promise})).then(function(){e.resolve(n)})},function(r){r&&N.error(r),e.reject(r)}),e.promise}()}),K("loadLibraries",function(){return function(){var e=k.defer();return L.readJson(D.join(L.getAppPath("appResource"),"libraries","libraries.json")).then(function(r){e.resolve(r.libraries)},function(r){r&&N.error(r),e.reject(r)}),e.promise}()}),K("unzipLibrary",function(e,r){return function(e,r){var t=k.defer(),n=L.getAppPath("libraries"),o=D.basename(r,D.extname(r));return L.uncompress(r,n,!0).then(function(){L.moveFile(D.join(n,o),D.join(n,e)).then(function(){t.resolve()},function(e){e&&N.error(e),t.reject(e)})},function(e){e&&N.error(e),t.reject(e)},function(e){t.notify(e)}),t.promise}(e,r)}),K("deleteLibrary",function(e){return function(e){var r=k.defer();return N.debug("deleteLibrary: "+e),L.removeFile(D.join(L.getAppPath("libraries"),e)).then(function(){r.resolve()},function(e){e&&N.error(e),r.reject(e)}),r.promise}(e)}),K("checkUpdate",function(e){return function(){var e=k.defer(),r=L.getAppInfo(),t=r.feature?r.feature+","+r.arch:r.arch,n=M.CHECK_UPDATE+"?appname="+r.name+"&release_version="+r.branch+"&version="+r.version+"&platform="+r.platform+"&ext="+r.ext+"&features="+t;return N.debug("checkUpdate: "+n),L.request(n).then(function(r){e.resolve(r)},function(r){r&&N.error(r),e.reject(r)}),e.promise}()}),K("checkPackageLibraryUpdate",function(e){return function(e){var r=k.defer();return k.all([s(!1),L.request(e)]).then(function(e){var t=e[0],n=e[1],o=[];t.forEach(function(e){var r=n.find(function(r){return r.name==e.name&&L.versionCompare(r.version,e.version)>0});r&&o.push(r)});var i=0;o.length>0&&(i=1),r.resolve({status:i})},function(e){e&&N.error(e),r.reject(e)}),r.promise}(e)}),K("removeOldVersions",function(e){return function(e){var r=k.defer(),t=L.getAppInfo(),n=D.join(L.getAppPath("appData"),"download");return L.searchFiles(n+"/"+t.name+"-*."+t.ext).then(function(t){var o=/\d+\.\d+\.\d+/;t.map(function(e){return D.basename(e)}).filter(function(r){var t=r.match(o);return!!t&&L.versionCompare(t[0],e)<0}).forEach(function(e){L.removeFile(D.join(n,e),!0)}),r.resolve()},function(e){e&&N.error(e),r.reject(e)}),r.promise}(e)}),K("reportToServer",function(e,r){return c(e,r)}),K("loadToken",function(){return G.loadToken()}),K("login",function(e,r){return G.login(e,r)}),K("logout",function(){return G.logout()}),K("weixinLogin",function(e){return G.weixinLogin(e)}),K("weixinQrcode",function(){return G.weixinQrcode()}),K("register",function(e){return G.register(e)}),K("resetPassword",function(e){return G.resetPassword(e)}),K("setCache",function(e,r){return e!==W?j.setItem(e,r):L.rejectPromise()}),K("getCache",function(e,r){return e!==W?L.resolvePromise(j.getItem(e,r)):L.rejectPromise()}),K("loadOpenOrRecentProject",function(){return function(){var e=k.defer();return g().then(function(r){e.resolve(r)},function(){var r=j.getItem("recentProject");r?z.read(r).then(function(r){e.resolve(r)},function(r){e.reject(r)}):L.rejectPromise(null,e)}),e.promise}()}),K("projectRead",function(e){return z.read(e)}),K("projectOpen",function(e){return z.open(e)}),K("projectSave",function(e,r,t){return z.save(e,r,t)}),K("projectSaveAs",function(e,r,t){return z.saveAs(e,r,t)}),K("projectSync",function(){return z.sync()}),K("projectList",function(){return z.list()}),T.dev()&&(K("projectCreate",function(e){return z.create(e)}),K("projectUpload",function(e,r){return z.upload(e,r)}),K("projectDelete",function(e,r){return z.remove(e,r)}),K("projectDownload",function(e,r){return z.download(e,r)})),K("log",function(e,r){return(N[r]||N.debug).bind(N).call(e)}),K("copy",function(e,r){return O.writeText(e,r)}),K("quit",function(){return I.quit()}),K("exit",function(){return u()&&I.exit(0)}),K("reload",function(){return P.reload()}),K("relaunch",function(){return I.relaunch({args:process.argv.slice(1).concat(["--relaunch"])}),void I.exit(0)}),K("fullscreen",function(){return P.setFullScreen(!P.isFullScreen())}),K("min",function(){return P.minimize()}),K("max",function(){P.isFullScreen()?P.setFullScreen(!1):P.isMaximized()?P.unmaximize():P.maximize()}),K("errorReport",function(e){return function(e){N.error(e)}(e)}),N.debug("app "+I.getName()+" start, version "+L.getVersion())},{"./config/arduinoOptions":1,"./config/url":4,"./model/package":6,"./model/project":7,"./model/serialPort":8,"./model/token":9,"./model/user":10,"./util/cache":11,"./util/util":12,"command-line-args":void 0,electron:void 0,"electron-debug":void 0,"electron-is":void 0,"electron-log":void 0,"fs-extra":void 0,hasha:void 0,lodash:void 0,path:void 0,q:void 0,querystring:void 0}],6:[function(e,r,t){function n(e){var r=a.defer();return u.debug("deletePackage: "+e),s.removeFile(o.join(s.getAppPath("packages"),e)).then(function(){r.resolve()},function(e){e&&u.error(e),r.reject(e)}),r.promise}var o=e("path"),i=e("fs-extra"),a=e("q"),u=e("electron-log"),c=e("electron-is"),s=e("../util/util"),f=e("../config/packageOrders");r.exports.unzip=function(e,r,t){var i=a.defer(),f=function(){s.uncompress(r,s.getAppPath("packages"),!0).then(function(){var e=o.basename(r);e=e.substring(0,e.indexOf("-"));var t=c.windows()?"bat":"sh";s.searchFiles(o.join(s.getAppPath("packages"),e)+"/**/post_install."+t).then(function(e){if(0!=e.length){var r=e[0];s.execCommand('"'+r+'"',{cwd:o.dirname(r)}).then(function(){i.resolve()},function(e){e&&u.error(e),i.reject(e)})}else i.resolve()},function(e){e&&u.error(e),i.reject(e)})},function(e){e&&u.error(e),i.reject(e)},function(e){i.notify(e)})};return(t=!1!==t)?n(e).then(function(){return f()},function(e){e&&u.error(e),i.reject(e)}):f(),i.promise},r.exports.unzipAll=function(e,r,t){var n=a.defer();if(e=e||[],r)return u.debug("skip unzip packages"),setTimeout(function(){return n.resolve()},10),n.promise;u.debug("unzip packages");var c=o.join(s.getAppPath("appResource"),"packages");return s.readJson(o.join(c,"packages.json")).then(function(r){var a=r.filter(function(r){return!!t||!!e.find(function(e){return e.name==r.name&&e.checksum!=r.checksum})||!i.existsSync(o.join(s.getAppPath("packages"),r.name,"package.json"))}),u=a.length;!function r(){if(0!=a.length){var t=a.pop();s.uncompress(o.join(c,t.archiveName),s.getAppPath("packages"),!0).then(function(){var r=e.findIndex(function(e){return e.name==t.name});r>=0?e.splice(r,1,t):e.push(t)},function(e){},function(e){n.notify({progress:e,name:t.name,version:t.version,count:u-a.length,total:u})}).fin(function(){return r()})}else n.resolve(e)}()},function(e){e&&u.error(e),n.resolve()}),n.promise},r.exports.load=function(e){var r=a.defer();e=!1!==e;var t=[],n=s.getAppPath("packages");return u.debug("loadPackages: "+n),s.searchFiles(n+"/*/package.json").then(function(i){a.all(i.map(function(r){var i=a.defer();return e?s.readJson(r).then(function(e){e.order=f[e.name]||0,e.path=o.dirname(r),e.protocol=n.startsWith("/")?"file://":"file:///",e.boards&&e.boards.forEach(function(r){r.build&&r.build.prefs&&Object.keys(r.build.prefs).forEach(function(t){r.build.prefs[t]=r.build.prefs[t].replace("PACKAGE_PATH",e.path)}),r.upload&&r.upload.command&&(r.upload.command=r.upload.command.replace(/PACKAGE_PATH/g,e.path))}),t.push(e)}).fin(function(){i.resolve()}):s.readJson(r).then(function(e){return t.push(e)}).fin(function(){return i.resolve()}),i.promise})).then(function(){r.resolve(t)})},function(e){e&&u.error(e),r.reject(e)}),r.promise},r.exports.remove=n},{"../config/packageOrders":2,"../util/util":12,"electron-is":void 0,"electron-log":void 0,"fs-extra":void 0,path:void 0,q:void 0}],7:[function(e,r,t){function n(e){return e&&j.extname(e)==S&&b.existsSync(e)?e:null}function o(e,r){var t,o=P.defer();if(n(e))t=e;else{var i=j.basename(e);if(t=j.join(e,i+S),b.existsSync(t)||(t=j.join(e,"project.json")),!b.existsSync(t))return w.rejectPromise(null,o)}return w.readJson(t).then(function(e){o.resolve({path:j.dirname(t),project_type:r||e.project_type,data:e})},function(e){e&&y.error(e),o.reject(e)}),o.promise}function i(e,r,t,n){var o=P.defer(),i=function(e,t){p(e,t,r).then(function(){o.resolve({project_name:r.project_name,project_type:r.project_type,updated_at:r.updated_at,path:e})},function(e){e&&y.error(e),o.reject(e)})};return t?(n=j.join(w.getAppPath("temp"),"build","sketch_"+w.stamp()),i(n,j.basename(n))):n?i(j.join(j.dirname(n),e),e):w.showSaveDialog({defaultPath:function(){var e=new Date,r=O[e.getMonth()],t=(100+e.getDate()).toString().substring(1),n=(D++,String.fromCharCode(D<=122?D:D=97));return"sketch_"+r+t+n}()}).then(function(e){i(e,j.basename(e))},function(e){e&&y.error(e),o.reject(e)}),o.promise}function a(){var e=P.defer();return y.debug("project sync"),P.all([u(),l()]).then(function(r){var t=_slicedToArray(r,2);(function(e,r){var t=P.defer(),o=function(e,r){var t={},o={};e.forEach(function(e){t[""+e.name]=e}),r.forEach(function(e){o[""+e.name]=e});var i=[],a=[],u=[];return e.forEach(function(e){var r=o[e.name];!r||!r.modify_time||r.modify_time<e.modify_time?i.push(e):n(j.join(h(),e.name,e.name+S))||i.push(e)}),r.forEach(function(e){var r=t[e.name];r?r.modify_time<e.modify_time&&a.push(e):(u.push(e),a.push(e))}),[u,i,a]}(e,r),i=_slicedToArray(o,3),a=i[0],u=i[1],p=i[2];y.debug("doSync: createList:"+a.length+", downloadList:"+u.length+", uploadList:"+p.length);var l=a.length+u.length+p.length,d=0,m=function(e,r){d++,t.notify({total:l,count:d,name:e,action:r})};return function(e,r){var t,n=P.defer();return(t=function(){if(0==e.length)return w.resolvePromise(!0,n);var o=e.shift();f(o.name,o.hash).then(function(){r(o.name,"download"),0==e.length?n.resolve():setTimeout(function(){return t()},100)},function(e){e&&y.error(e),n.reject(e)})})(),n.promise}(u,m).then(function(){(function(e,r){var t,n=P.defer();return(t=function(){if(0==e.length)return w.resolvePromise(!0,n);var o=e.shift();c(o.name).then(function(i){o.hash=i.hash,r(o.name,"create"),0==e.length?n.resolve():setTimeout(function(){return t()},100)},function(e){e&&y.error(e),n.reject(e)})})(),n.promise})(a,m).then(function(){(function(e,r){var t,n=P.defer();return(t=function(){if(0==e.length)return w.resolvePromise(!0,n);var o=e.shift();s(o.name,o.hash).then(function(){r(o.name,"upload"),0==e.length?n.resolve():setTimeout(function(){return t()},100)},function(e){e&&y.error(e),n.reject(e)})})(),n.promise})(p,m).then(function(){t.resolve()},function(e){e&&y.error(e),t.reject(e)})},function(e){e&&y.error(e),t.reject(e)})},function(e){e&&y.error(e),t.reject(e)}),t.promise})(t[0],t[1]).then(function(){y.debug("project sync success"),e.resolve()},function(r){y.debug("project sync fail"),r&&y.error(r),e.reject(r)},function(r){e.notify(r)})},function(r){r&&y.error(r),e.reject(r)}),e.promise}function u(){var e=P.defer();return y.debug("project list"),A.request(I.PROJECT_SYNC_LIST,{method:"post"}).then(function(r){0==r.status?e.resolve(r.data):e.reject(r.message)},function(r){r&&y.error(r),e.reject(r)}),e.promise}function c(e){var r=P.defer();return y.debug("project create: "+e),A.request(I.PROJECT_SYNC_CREATE,{method:"post",data:{name:e,type:_}}).then(function(t){if(0==t.status){var n=t.data;m(n.name,n.modify_time,n.hash).then(function(){y.debug("project create success: "+e+" "+n.hash),r.resolve(n)},function(e){e&&y.error(e),r.reject(e)})}else r.reject(t.message)},function(e){e&&y.error(e),r.reject(e)}),r.promise}function s(e,r){var t=P.defer();return y.debug("project upload: "+e+": "+r),function(e,r){var t=P.defer(),n=j.join(w.getAppPath("appData"),"temp",w.uuid(6)+".7z"),o=[r+"/"+r+S];return w.compress(e,o,n).then(function(){t.resolve(n)},function(e){e&&y.error(e),t.reject(e)}),t.promise}(h(),e).then(function(n){var o=I.PROJECT_SYNC_UPLOAD+"/"+r;A.request(o,{method:"post",body:b.createReadStream(n)}).then(function(n){if(0==n.status){var o=n.data;m(e,o.modify_time,r).then(function(){y.debug("project upload success: "+e),t.resolve(o)},function(e){e&&y.error(e),t.reject(e)})}else t.reject(n.message)},function(e){e&&y.error(e),t.reject(e)})},function(e){e&&y.error(e),t.reject(e)}),t.promise}function f(e,r){var t=P.defer();y.debug("project download: "+r);var n=I.PROJECT_SYNC_DOWNLOAD+"/"+r;return A.request(n,{method:"post"},!1).then(function(n){var o=j.join(w.getAppPath("appData"),"temp",w.uuid(6)+".7z");b.ensureDirSync(j.dirname(o));var i=b.createWriteStream(o);n.body.pipe(i),n.body.on("end",function(){w.uncompress(o,h()).then(function(){m(e,null,r).then(function(){y.debug("project download success: "+e),t.resolve()},function(e){e&&y.error(e),t.reject(e)})},function(e){e&&y.error(e),t.reject(e)})}).on("error",function(e){e&&y.error(e),t.reject(e)})},function(e){e&&y.error(e),t.reject(e)}),t.promise}function p(e,r,t,n){t.project_name=r,t.project_type=n||"local",t.updated_at=new Date;var o=j.join(e,r+S);return y.debug("project save: "+o),P.all([w.writeJson(o,t),w.removeFile(j.join(e,r+".ino")),w.removeFile(j.join(e,"project.json"))])}function l(){var e=P.defer();if(!A.getUser())return w.rejectPromise(null,e);var r=v();return b.existsSync(r)?w.readJson(r):w.resolvePromise([],e)}function d(e){return A.getUser()?w.writeJson(v(),e):w.rejectPromise()}function m(e,r,t){var n=P.defer();return r=r||w.stamp(),l().then(function(o){var i=o.find(function(r){return t&&r.hash==t||r.name==e});i?(e&&(i.name=e),t&&(i.hash=t),i.modify_time=r):o.push({name:e,hash:t,modify_time:r}),d(o).then(function(){n.resolve()},function(e){e&&y.error(e),n.reject(e)})},function(e){e&&y.error(e),n.reject(e)}),n.promise}function v(){var e=A.getUserId();return e?j.join(w.getAppPath("appData"),"projects",g(e,1),"list.json"):null}function h(){var e=A.getUserId();return e?j.join(w.getAppPath("appDocuments"),"projects",g(e)):null}function g(e,r){return r=r||0,x(""+e,{algorithm:"md5"}).substring(8*r,8*(r+1))}var j=e("path"),b=e("fs-extra"),P=e("q"),x=e("hasha"),y=e("electron-log"),w=e("../util/util"),A=e("./token"),I=e("../config/url"),S=".krb",_="krobot",O=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],D=96,E=w.throttle(a,3e3);r.exports.check=n,r.exports.read=o,r.exports.open=function(e){var r=P.defer(),t=function(e){o(e).then(function(e){r.resolve(e)},function(e){e&&y.error(e),r.reject(e)})};if(e)return A.getUser()?(t(j.join(h(),e)),r.promise):w.rejectPromise(null,r);var n={};return n.defaultPath=A.getUser()?h():w.getAppPath("documents"),n.properties=["openDirectory"],w.showOpenDialog(n).then(function(e){t(e)},function(e){e&&y.error(e),r.reject(e)}),r.promise},r.exports.save=function(e,r,t){var n=P.defer();if(!A.getUser()){var o=j.join(w.getAppPath("appDocuments"),"projects");return t&&t.startsWith(o)&&(t=null),i(e,r,!1,t)}return t=j.join(h(),e),p(t,e,r,"cloud").then(function(){m(e).then(function(){E(),n.resolve({project_name:r.project_name,project_type:r.project_type,updated_at:r.updated_at,path:t})},function(e){e&&y.error(e),n.reject(e)})},function(e){e&&y.error(e),n.reject(e)}),n.promise},r.exports.saveAs=i,r.exports.sync=a,r.exports.list=u,r.exports.create=c,r.exports.remove=function(e,r){var t=P.defer();return y.debug("project remove: "+r),A.request(I.PROJECT_SYNC_DELETE,{method:"post",data:{hash:r}}).then(function(n){0==n.status?P.all([w.removeFile(j.join(h(),e)),function(e){var r=P.defer();return l().then(function(t){var n=t.findIndex(function(r){return r.hash==e});n<0?r.resolve():(t.splice(n,1),d(t).then(function(){r.resolve()},function(e){e&&y.error(e),r.reject(e)}))},function(e){e&&y.error(e),r.reject(e)}),r.promise}(r)]).then(function(){y.debug("project remove success: "+e),t.resolve()},function(e){e&&y.error(e),t.reject(e)}):t.reject(n.message)},function(e){e&&y.error(e),t.reject(e)}),t.promise},r.exports.upload=s,r.exports.download=f},{"../config/url":4,"../util/util":12,"./token":9,"electron-log":void 0,"fs-extra":void 0,hasha:void 0,path:void 0,q:void 0}],8:[function(e,r,t){e("path");var n=e("electron-log"),o=e("q"),i=e("serialport"),a=i.parsers.Delimiter,u={autoPortId:0,ports:{}};r.exports.listSerialPort=function(){var e=o.defer();return n.debug("listSerialPort"),i.list(function(r,t){if(r)return n.error(r),void e.reject(r);0!=t.length?e.resolve(t):e.reject()}),e.promise},r.exports.openSerialPort=function(e,r,t){var c=o.defer();n.debug("openSerialPort: "+e+", options: "+JSON.stringify(r)),r.autoOpen=!1;var s=new i(e,r);return s.open(function(e){if(e)return n.error(e),void c.reject(e);var o=++u.autoPortId;u.ports[o]=s,s.on("error",function(e){t&&t.onError&&t.onError(o,e)}),s.on("close",function(){delete u.ports[o],t&&t.onClose&&t.onClose(o)});var i="raw"==r.parser?s:s.pipe(new a({delimiter:Buffer.from(r.parser)}));i.on("readable",function(){var e=i.read();e&&t&&t.onData&&t.onData(o,e)}),s.flush(function(){c.resolve(o)})}),c.promise},r.exports.writeSerialPort=function(e,r){var t=o.defer();n.debug("writeSerialPort: "+e+", "+r);var i=u.ports[e];return i?(i.write(Buffer.from(r),function(e){if(e)return n.error(e),void t.reject(e);i.drain(function(){t.resolve()})}),t.promise):(setTimeout(function(){return t.reject()},10),t.promise)},r.exports.closeSerialPort=function(e){var r=o.defer();n.debug("closeSerialPort, portId: "+e);var t=u.ports[e];return t?(t.close(function(){r.resolve()}),r.promise):(setTimeout(function(){return r.reject()},10),r.promise)},r.exports.closeAllSerialPort=function(){n.debug("closeAllSerialPort");for(var e in u.ports)u.ports[e].close();u.ports={}},r.exports.updateSerialPort=function(e,r){var t=o.defer();n.debug("updateSerialPort, portId: "+e);var i=u.ports[e];return i?(i.update(r,function(){t.resolve()}),t.promise):(setTimeout(function(){return t.reject()},10),t.promise)},r.exports.flushSerialPort=function(e,r){var t=o.defer();n.debug("flushSerialPort, portId: "+e);var i=u.ports[e];return i?(i.flush(function(){t.resolve()}),t.promise):(setTimeout(function(){return t.reject()},10),t.promise)},r.exports.resetSerialPort=function(e){var r=o.defer(),t=new i(e,{baudRate:1200});return t.on("open",function(){t.set({rts:!0,dtr:!1}),setTimeout(function(){t.close(function(){return r.resolve()})},650)}).on("error",function(e){n.error(e),t.close(function(){r.reject(e)})}),r.promise}},{"electron-log":void 0,path:void 0,q:void 0,serialport:void 0}],9:[function(e,r,t){function n(){u=null,i().removeItem("key",!1),i().removeItem("value",!1),i().save()}function o(e,r,t){if(!u)return l.rejectPromise();var n=l.getAppInfo(),o=r.headers||{};return o.Authorization="Bearer "+u.api_token,o["X-Ken-App-Version"]=n.name+"-"+n.version+"-"+n.branch+"-"+n.platform+"-"+n.appBit,r.headers=o,l.request(e,r,t)}function i(){return a||(a=new v("token")),a}e("path");var a,u,c=e("crypto"),s=e("q"),f=(e("fs-extra"),e("electron-log")),p=e("is-online"),l=e("../util/util"),d=e("../config/url"),m=e("../config/status"),v=e("../util/cache");r.exports.getUser=function(){return u&&u.user?u.user:null},r.exports.getUserId=function(){return u&&u.user?u.user.id:0},r.exports.load=function(){var e=s.defer(),r=i().getItem("key"),t=i().getItem("value");if(!r||!t)return l.rejectPromise(null,e);try{var a=l.decrypt(t,Buffer.from(r,"hex"));u=JSON.parse(a),function(){var e=s.defer();return o(d.VERIFY,{method:"post"}).then(function(r){r.status==m.SUCCESS?e.resolve():e.reject(r.message)},function(r){r&&f.error(r),e.reject(r)}),e.promise}().then(function(){e.resolve(u)},function(r){p().then(function(){return n()}).fin(function(){r&&f.error(r),e.reject(r)})})}catch(r){e.reject()}return e.promise},r.exports.save=function(e){try{var r=c.randomBytes(128);return i().setItem("key",r.toString("hex"),!1),i().setItem("value",l.encrypt(JSON.stringify(e),r),!1),i().save(),u=e,l.resolvePromise()}catch(e){return l.rejectPromise(e)}},r.exports.remove=n,r.exports.request=o},{"../config/status":3,"../config/url":4,"../util/cache":11,"../util/util":12,crypto:void 0,"electron-log":void 0,"fs-extra":void 0,"is-online":void 0,path:void 0,q:void 0}],10:[function(e,r,t){var n=e("q"),o=e("electron-log"),i=e("../util/util"),a=e("./token"),u=e("../config/url"),c=(e("../config/status"),/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/);r.exports.loadToken=function(){var e=n.defer();return a.load().then(function(r){e.resolve(r.user)},function(r){r&&o.error(er),e.reject(r)}),e.promise},r.exports.login=function(e,r,t){var s=n.defer(),f={};return c.test(e)?f.email=e:f.username=e,f.password=r,i.request(u.LOGIN,{method:"POST",data:f}).then(function(e){0==e.status?a.save(e.data).fin(function(){s.resolve(e)}):s.resolve(e)},function(e){e&&o.error(er),s.reject(e)}),s.promise},r.exports.logout=function(){var e=n.defer();return a.remove(),i.request(u.LOGOUT).then(function(){e.resolve()},function(r){r&&o.error(r),e.reject(r)}),e.promise},r.exports.weixinLogin=function(e){var r=n.defer();return i.request(u.WEIXIN_LOGIN,{method:"POST",data:{auth_key:e}}).then(function(e){0==e.status||1==e.status?a.save(e.data).fin(function(){r.resolve(e)}):r.resolve(e)},function(e){e&&o.error(e),r.reject(e)}),r.promise},r.exports.weixinQrcode=function(){var e=n.defer();return i.request(u.WEIXIN_QRCODE).then(function(r){e.resolve(r)},function(r){r&&o.error(r),e.reject(r)}),e.promise},r.exports.register=function(e){var r=n.defer();return i.request(u.REGISTER,{method:"POST",data:{email:e.email,username:e.username,password:e.password,login:!0}}).then(function(e){r.resolve(e)},function(e){e&&o.error(e),r.reject(e)}),r.promise},r.exports.resetPassword=function(e){var r=n.defer();return i.request(u.FIND_PASSWORD,{method:"POST",data:{email:e}}).then(function(e){r.resolve(e)},function(e){e&&o.error(e),r.reject(e)}),r.promise}},{"../config/status":3,"../config/url":4,"../util/util":12,"./token":9,"electron-log":void 0,q:void 0}],11:[function(e,r,t){function n(e){if(a[e])return a[e];this.name=e,this._cache=o.load(e,i.getAppPath("appData")),a[e]=this}e("path"),e("crypto"),e("q"),e("fs-extra"),e("electron-log");var o=e("flat-cache"),i=e("./util"),a={};n.prototype.getItem=function(e,r){var t=this._cache.getKey(e);return void 0!==t?t:r},n.prototype.setItem=function(e,r,t){t=!1!==t,this._cache.setKey(e,r),t&&this._cache.save(!0)},n.prototype.removeItem=function(e,r){r=!1!==r,this._cache.removeKey(e),r&&this._cache.save(!0)},n.prototype.save=function(){this._cache.save(!0)},r.exports=n},{"./util":12,crypto:void 0,"electron-log":void 0,"flat-cache":void 0,"fs-extra":void 0,path:void 0,q:void 0}],12:[function(e,r,t){function n(){if(w.windows())return"win";if(w.macOS())return"mac";return d.arch().indexOf("arm")>=0?"arm":"linux"}function o(){return w.dev()?T.version:j.getVersion()}function i(e,r){switch(e){case"appData":return v.join(j.getPath("appData"),j.getName());case"appResource":return w.dev()?v.resolve("."):v.resolve(j.getAppPath(),"..","..");case"appDocuments":return v.join(j.getPath("documents"),j.getName());case"script":return v.join(i("appResource"),"scripts",r+"."+(w.windows()?"bat":"sh"));case"command":return v.join(i("appData"),"temp",""+a(6));case"libraries":return v.join(i("appDocuments"),"libraries");case"packages":return v.join(i("appDocuments"),"packages");case"arduino":return v.join(i("appResource"),"arduino-"+n());default:return j.getPath(e)}}function a(e,r){var t,n="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""),o=[];if(r=r||n.length,e)for(t=0;t<e;t++)o[t]=n[0|Math.random()*r];else{var i;for(o[8]=o[13]=o[18]=o[23]="-",o[14]="4",t=0;t<36;t++)o[t]||(i=0|16*Math.random(),o[t]=n[19==t?3&i|8:i])}return o.join("")}function u(){return parseInt(Date.now()/1e3)}function c(e,r){return r=r||A.defer(),setTimeout(function(){return r.resolve(e)},10),r.promise}function s(e,r,t){var n=A.defer();return r=r||{},t=t||!1,y.debug("execCommand:"+e+", options: "+JSON.stringify(r)+", useSudo: "+t),t?_.exec(e,{name:"kenrobot"},function(e,r,t){if(r=r||"",t=t||"",r=w.windows()?O.decode(Buffer.from(r),"win1252"):r,t=w.windows()?O.decode(Buffer.from(t),"win1252"):t,e)return y.error(e),r&&y.error(r),t&&y.error(t),void n.reject(t||r||e);w.dev()&&r&&y.debug(r),n.resolve(r)}):m.exec(e,r,function(e,r,t){if(r=r||"",t=t||"",r=w.windows()?O.decode(Buffer.from(r),"win1252"):r,t=w.windows()?O.decode(Buffer.from(t),"win1252"):t,e)return y.error(e),r&&y.error(r),t&&y.error(t),void n.reject(t||r||e);w.dev()&&r&&y.debug(r),n.resolve(r)}),n.promise}function f(e,r,t){var n=A.defer(),o=m.spawn(e,r,t),i="",a="";return o.stdout.on("data",function(e){var r=w.windows()?O.decode(e,"win1252"):e.toString();w.dev()&&r&&y.debug(r),i+=r,n.notify({type:"stdout",data:r})}),o.stderr.on("data",function(e){var r=w.windows()?O.decode(e,"win1252"):e.toString();w.dev()&&r&&y.debug(r),a+=r,n.notify({type:"stderr",data:r})}),o.on("close",function(e){0==e?n.resolve(i):n.reject(a)}),n.promise}function p(e,r,t,n){if(!n){var o=A.defer();return I.outputFile(e,r,t,function(e){if(e)return y.error(e),void o.reject(e);o.resolve()}),o.promise}I.outputFileSync(e,r,t)}function l(e,r){var t=A.defer();return e=e||{},e.title="保存",e.defaultPath=e.defaultPath&&v.isAbsolute(e.defaultPath)?e.defaultPath:v.join(i("documents"),e.defaultPath||"untitled"),e.buttonLabel="保存",r=r||x.getAllWindows()[0],P.showSaveDialog(r,e,function(e){e?t.resolve(e):t.reject()}),t.promise}var d=e("os"),m=e("child_process"),v=e("path"),h=e("crypto"),g=e("electron"),j=g.app,b=g.ipcMain,P=g.dialog,x=g.BrowserWindow,y=e("electron-log"),w=e("electron-is"),A=e("q"),I=e("fs-extra"),S=e("glob"),_=e("sudo-prompt"),O=e("iconv-lite"),D=(e("lodash"),e("7zip-bin").path7za.replace("app.asar","app.asar.unpacked")),E=e("node-fetch"),T=e(w.dev()?v.resolve("app","package.json"):v.resolve(__dirname,"..","..","app.asar","package.json")),R="-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6\nuHt34Sac1Arm6F2QUzsdUEUmvGyLIOIGcdb+F6pTdx4ftY+wZi7Aomp4k3vNqXmX\nT0mE0vpQlCmsPUcMHXuUi93XTGPxLXIv9NXxCJZXSYI0JeyuhT9/ithrYlbMlyNc\nwKB/BwSpp+Py2MTT2wIDAQAB\n-----END PUBLIC KEY-----\n";w.dev()&&j.setName(T.productName);var N={},k=0;r.exports.getPlatform=n,r.exports.getVersion=o,r.exports.getAppInfo=function(){var e={bit:"x64"===process.arch||process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432")?64:32,arch:process.arch,platform:n(),version:o(),name:j.getName(),buildNumber:T.buildNumber,dev:w.dev()};return w.dev()?(e.ext=v.extname(i("exe")).replace(".",""),e.branch="beta",e.feature="",e.date=u(),e.appBit=e.bit):(e.ext=T.buildInfo.ext,e.branch=T.buildInfo.branch,e.feature=T.buildInfo.feature,e.date=T.buildInfo.date,e.appBit=T.buildInfo.appBit),e},r.exports.getAppPath=i,r.exports.versionCompare=function(e,r){for(var t=/(\d+)\.(\d+)\.(\d+)/,n=t.exec(e),o=t.exec(r),i=[parseInt(n[1]),parseInt(n[2]),parseInt(n[3])],a=[parseInt(o[1]),parseInt(o[2]),parseInt(o[3])],u=0;u<=2;u++)if(i[u]!=a[u])return i[u]>a[u]?1:-1;return 0},r.exports.postMessage=function(e){for(var r=arguments.length,t=Array(r>1?r-1:0),n=1;n<r;n++)t[n-1]=arguments[n];y.debug("postMessage: "+e+", "+t.join(", "));var o=x.getAllWindows();o&&o.length&&o[0].webContents.send(e,t)},r.exports.listenMessage=function(e,r){var t=this,n="app:"+e;b.on(n,function(e,o){for(var i=arguments.length,a=Array(i>2?i-2:0),u=2;u<i;u++)a[u-2]=arguments[u];(r.apply(t,a)||c()).then(function(r){e.sender.send(n,o,!0,r)},function(r){e.sender.send(n,o,!1,r)},function(r){e.sender.send(n,o,"notify",r)})})},r.exports.getDefer=function(){var e=A.defer(),r=k++;return N[r]=e,{deferId:r,promise:e.promise}},r.exports.callDefer=function(e,r){var t=N[e];if(t){var n;"notify"==r?n=t.notify:(delete N[e],n=r?t.resolve:t.reject);for(var o=arguments.length,i=Array(o>2?o-2:0),a=2;a<o;a++)i[a-2]=arguments[a];n.apply(this,i)}},r.exports.handleQuotes=function(e){return w.windows()?e:e.replace(/"/g,"")},r.exports.uuid=a,r.exports.stamp=u,r.exports.throttle=function(e,r){var t;return function(){t&&clearTimeout(t),t=setTimeout(function(){e(),clearTimeout(t),t=null},r)}},r.exports.encrypt=function(e,r,t){t=t||"aes-128-cbc";var n=h.createCipher(t,r),o=n.update(e,"utf8","binary");return o+=n.final("binary"),o=new Buffer(o,"binary").toString("base64")},r.exports.decrypt=function(e,r,t){t=t||"aes-128-cbc",e=new Buffer(e,"base64").toString("binary");var n=h.createDecipher(t,r),o=n.update(e,"binary","utf8");return o+=n.final("utf8")},r.exports.rsa_encrypt=function(e,r){r=r||R;var t=new Buffer(e);return h.publicEncrypt({key:r,padding:h.constants.RSA_PKCS1_PADDING},t).toString("base64")},r.exports.rsa_decrypt=function(e,r){var t=new Buffer(e,"base64");return h.privateDecrypt({key:r,padding:h.constants.RSA_PKCS1_PADDING},t).toString("utf8")},r.exports.resolvePromise=c,r.exports.rejectPromise=function(e,r){return r=r||A.defer(),setTimeout(function(){return r.reject(e)},10),r.promise},r.exports.execFile=function(e){var r=A.defer();y.debug("execFile: "+e);var t;return t=w.windows()?"start /WAIT "+e:""+e,s(t,null,!0).fin(function(){r.resolve()}),r.promise},r.exports.execCommand=s,r.exports.spawnCommand=f,r.exports.readFile=function(e,r,t){if(t)return I.readFileSync(e,r);var n=A.defer();return r=r||"utf8",I.readFile(e,r,function(e,r){if(e)return y.error(e),void n.reject(e);n.resolve(r)}),n.promise},r.exports.writeFile=p,r.exports.saveFile=function(e,r,t){var n=A.defer();return t=t||{},e&&(t.defaultPath=e),l(t).then(function(e){p(e,r,t).then(function(){n.resolve()},function(e){e&&y.error(e),n.reject(e)})},function(e){e&&y.error(e),n.reject(e)}),n.promise},r.exports.moveFile=function(e,r,t){var n=A.defer();return t=t||{overwrite:!0},I.move(e,r,t,function(e){if(e)return y.error(e),void n.reject(e);n.resolve()}),n.promise},r.exports.removeFile=function(e,r){if(!r){var t=A.defer();return I.remove(e,function(e){if(e)return y.error(e),void t.reject(e);t.resolve()}),t.promise}I.removeSync(e)},r.exports.readJson=function(e,r){var t=A.defer();return r=r||{},I.readJson(e,r,function(e,r){if(e)return y.error(e),void t.reject(e);t.resolve(r)}),t.promise},r.exports.writeJson=function(e,r,t,n){if(!n){var o=A.defer();return t=t||{},I.outputJson(e,r,t,function(e){if(e)return y.error(e),void o.reject(e);o.resolve()}),o.promise}I.outputJsonSync(e,r,t)},r.exports.searchFiles=function(e){var r=A.defer();return y.debug("searchFiles: "+e),S(e,{},function(e,t){return e?(y.error(e),void r.reject(e)):r.resolve(t)}),r.promise},r.exports.compress=function(e,r,t,n){var o=A.defer();return r=r||[r],n=n||"7z",y.debug("compress: "+e+": "+r.length+" => "+t+": "+n),s("cd "+(w.windows()?"/d ":"")+e+' && "'+D+'" a -t'+n+' -r "'+t+'" '+r.join(" ")).then(function(){o.resolve()},function(e){e&&y.error(e),o.reject(e)}),o.promise},r.exports.uncompress=function(e,r,t){var n=A.defer(),o=/([\d]+)% \d+ - .*\r?/g;return y.debug("uncompress: "+e+" => "+r),t?f('"'+D+'"',["x",'"'+e+'"',"-bsp1","-y",'-o"'+r+'"'],{shell:!0}).then(function(e){n.resolve(e)},function(e){e&&y.error(e),n.reject(e)},function(e){if(o.lastIndex=0,o.test(e.data)){var r,t=o.exec(e.data);do{r=t,t=o.exec(e.data)}while(t);n.notify(parseInt(r[1]))}}):s('"'+D+'" x "'+e+'" -y -o"'+r+'"').then(function(){n.resolve()},function(e){e&&y.error(e),n.reject(e)}),n.promise},r.exports.showOpenDialog=function(e,r){var t=A.defer();return e=e||{},e.title="打开",e.defaultPath=e.defaultPath||i("documents"),e.buttonLabel="打开",r=r||x.getAllWindows()[0],P.showOpenDialog(r,e,function(e){e?t.resolve(e[0]):t.reject()}),t.promise},r.exports.showSaveDialog=l,r.exports.request=function(e,r,t){var n=A.defer();if(r=r||{},t=!1!==t,r.method=r.method||"GET",t&&r.data){r.body=JSON.stringify(r.data);var o=r.headers||(r.headers={});o["Content-Type"]="application/json",o.Accept="application/json",delete r.data}return E(e,r).then(function(e){if(e.ok)return t?e.json():e;var r=new Error(e.statusText);throw r.status=e.status,r}).then(function(e){n.resolve(e)}).catch(function(e){e&&y.error(e),n.reject(e)}),n.promise}},{"7zip-bin":void 0,child_process:void 0,crypto:void 0,electron:void 0,"electron-is":void 0,"electron-log":void 0,"fs-extra":void 0,glob:void 0,"iconv-lite":void 0,lodash:void 0,"node-fetch":void 0,os:void 0,path:void 0,q:void 0,"sudo-prompt":void 0}]},{},[5]);
+const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
+
+const path = require('path')
+const querystring = require('querystring')
+
+const is = require('electron-is')
+const debug = require('electron-debug')
+const log = require('electron-log')
+const Q = require('q')
+const fs = require('fs-extra')
+const commandLineArgs = require('command-line-args') //命令行参数解析
+const hasha = require('hasha') //计算hash
+const _ = require('lodash')
+
+const util = require('./util/util')
+const SerialPort = require('./model/serialPort') //串口
+const ArduinoOptions = require('./config/arduinoOptions')
+const Url = require('./config/url')
+
+const Token = require('./model/token')
+const Project = require('./model/project') //同步
+const User = require('./model/user')
+const Package = require('./model/package')
+const Cache = require('./util/cache')
+
+const CONFIG_KEY = "config"
+
+const listenMessage = util.listenMessage
+
+const optionDefinitions = [
+	{ name: 'debug-brk', type: Number, defaultValue: false },
+	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
+	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
+	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
+	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
+	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
+]
+
+var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
+
+var cache
+var config
+
+var mainWindow
+var firstRun
+var projectToLoad
+var isLoadReady
+
+init()
+
+/**
+ * 初始化
+ */
+function init() {
+	process.on('uncaughtException', err => {
+		var stack = err.stack || (err.name + ': ' + err.message)
+		log.error(stack)
+		app.quit()
+	})
+
+	initLog()
+
+	cache = new Cache(CONFIG_KEY)
+	config = cache.getItem(CONFIG_KEY, {})
+	util.removeFile(path.join(util.getAppPath("appData"), "config.json"), true)
+
+	if(app.makeSingleInstance((argv, workingDirectory) => {
+		if(mainWindow) {
+			mainWindow.isMinimized() && mainWindow.restore()
+			mainWindow.focus()
+
+			var secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+			secondArgs.project && (projectToLoad = secondArgs.project)
+			log.debug("app second run")
+			// log.debug(secondArgs)
+
+			loadOpenProject().then(result => {
+				util.postMessage("app:onLoadProject", result)
+			}, err => {
+				err && log.error(err)
+			})
+		}
+	})) {
+		app.quit()
+	}
+
+	listenEvents()
+	listenMessages()
+
+	log.debug(`app ${app.getName()} start, version ${util.getVersion()}`)
+	// log.debug(args)
+	// log.debug(process.argv.join(" "))
+}
+
+function initLog() {
+	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
+	if(is.dev() && args.dev) {
+		//非debug模式，禁用控制台输出
+		log.transports.file.level = 'debug'
+	} else {
+		log.transports.console = false
+		log.transports.file.level = 'error'
+	}
+}
+
+/**
+ * 监听事件
+ */
+function listenEvents() {
+	app.on('ready', onAppReady)
+	.on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
+	.on('activate', () => mainWindow === null && createWindow())
+	.on('before-quit', onAppBeforeQuit)
+	.on('will-quit', onAppWillQuit)
+	.on('quit', () => log.debug('app quit'))
+
+	is.macOS() && app.on('open-file', onAppOpenFile)
+}
+
+/**
+ * 监听消息
+ */
+function listenMessages() {
+	listenMessage("getAppInfo", () => util.resolvePromise(util.getAppInfo()))
+
+	listenMessage("execFile", exePath => util.execFile(exePath))
+	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
+	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
+	listenMessage("readFile", (filePath, options) => util.readFile(filePath, options))
+	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
+	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
+	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
+	listenMessage("removeFile", filePath => util.removeFile(filePath))
+	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
+	listenMessage("writeJson", (filePath, data, options, sync) => util.writeJson(filePath, data, options, sync))
+	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
+	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
+	listenMessage("request", (url, options, json) => util.request(url, options, json))
+	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
+	listenMessage("openUrl", url => util.resolvePromise(url && shell.openExternal(url)))
+
+	listenMessage("listSerialPort", () => listSerialPort())
+	listenMessage("openSerialPort", (comName, options) => openSerialPort(comName, options))
+	listenMessage("writeSerialPort", (portId, content) => SerialPort.writeSerialPort(portId, content))
+	listenMessage("closeSerialPort", portId => SerialPort.closeSerialPort(portId))
+	listenMessage("updateSerialPort", (portId, options) => SerialPort.updateSerialPort(portId, options))
+	listenMessage("flushSerialPort", portId => SerialPort.flushSerialPort(portId))
+
+	listenMessage("buildProject", (projectPath, options) => buildProject(projectPath, options))
+	listenMessage("uploadFirmware", (targetPath, options, comName) => uploadFirmware(targetPath, options, comName))
+
+	listenMessage("download", (url, options) => download(url, options))
+	listenMessage("installDriver", driverPath => installDriver(driverPath))
+	listenMessage("loadExamples", () => loadExamples())
+	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
+
+	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
+	listenMessage("deletePackage", name => Package.remove(name))
+	listenMessage("unzipPackages", skip => unzipPackages(skip))
+	listenMessage("loadPackages", (extra) => loadPackages(extra))
+
+	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
+	listenMessage("loadLibraries", () => loadLibraries())
+	listenMessage("unzipLibrary", (name, libraryPath) => unzipLibrary(name, libraryPath))
+	listenMessage("deleteLibrary", name => deleteLibrary(name))
+
+	listenMessage("checkUpdate", checkUrl => checkUpdate())
+	listenMessage("checkPackageLibraryUpdate", packagesUrl => checkPackageLibraryUpdate(packagesUrl))
+	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
+	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
+
+	listenMessage("loadToken", () => User.loadToken())
+	listenMessage("login", (username, password) => User.login(username, password))
+	listenMessage("logout", () => User.logout())
+	listenMessage("weixinLogin", key => User.weixinLogin(key))
+	listenMessage("weixinQrcode", () => User.weixinQrcode())
+	listenMessage("register", fields => User.register(fields))
+	listenMessage("resetPassword", email => User.resetPassword(email))
+
+	listenMessage("setCache", (key, value) => key !== CONFIG_KEY ? cache.setItem(key, value) : util.rejectPromise())
+	listenMessage("getCache", (key, defaultValue) => key !== CONFIG_KEY ? util.resolvePromise(cache.getItem(key, defaultValue)) : util.rejectPromise())
+
+	listenMessage("loadOpenOrRecentProject", () => loadOpenOrRecentProject())
+
+	listenMessage("projectRead", projectPath => Project.read(projectPath))
+	listenMessage("projectOpen", name => Project.open(name))
+	listenMessage("projectSave", (name, data, savePath) => Project.save(name, data, savePath))
+	listenMessage("projectSaveAs", (name, data, isTemp) => Project.saveAs(name, data, isTemp))
+
+	listenMessage("projectSync", () => Project.sync())
+	listenMessage("projectList", () => Project.list())
+
+	if(is.dev()) {
+		listenMessage("projectCreate", name => Project.create(name))
+		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
+		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
+		listenMessage("projectDownload", (name, hash) => Project.download(name, hash))
+	}
+
+	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
+	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
+	listenMessage("quit", () => app.quit())
+	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
+	listenMessage("reload", () => mainWindow.reload())
+	listenMessage("relaunch", () => onAppRelaunch())
+	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
+	listenMessage("min", () => mainWindow.minimize())
+	listenMessage("max", () => onAppToggleMax())
+	listenMessage("errorReport", message => onAppErrorReport(message))
+}
+
+function onAppReady() {
+	log.debug('app ready')
+
+	is.dev() && args.devTool && debug({showDevTools: true})
+	args.project && (projectToLoad = args.project)
+
+	createWindow()
+	loadBoards()
+	checkIfFirstRun()
+	doReports()
+}
+
+/**
+ * 创建窗口
+ */
+function createWindow() {
+	mainWindow = new BrowserWindow({
+		width: 1200,
+		height: 720,
+		minWidth: 1200,
+		minHeight: 720,
+		frame: false,
+		show: false,
+		webPreferences: {
+			webSecurity: false,
+		}
+	})
+
+	if(args.fullscreen) {
+		mainWindow.setFullScreen(true)
+	} else if(args.maximize) {
+		mainWindow.maximize()
+	}
+
+	mainWindow.on('closed', () => (mainWindow = null))
+		.once('ready-to-show', () => mainWindow.show())
+		.on('enter-full-screen', () => util.postMessage("app:onFullscreenChange", true))
+		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
+
+	mainWindow.webContents.on('will-navigate', e => e.preventDefault())
+		.on('devtools-reload-page', () => SerialPort.closeAllSerialPort())
+
+	mainWindow.webContents.session.on('will-download', onDownload)
+
+	mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+	mainWindow.focus()
+}
+
+function onAppOpenFile(e, filePath) {
+	e.preventDefault()
+
+	projectToLoad = Project.check(filePath)
+	if(isLoadReady){
+		loadOpenProject().then(result => {
+			util.postMessage("app:onLoadProject", result)
+		}, err => {
+			err && log.error(err)
+		})
+	}
+}
+
+function onAppBeforeQuit(e) {
+	e.preventDefault()
+	util.postMessage("app:onBeforeQuit")
+}
+
+function onAppWillQuit(e) {
+	SerialPort.closeAllSerialPort()
+	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
+	return true
+}
+
+function onAppToggleMax() {
+	if(mainWindow.isFullScreen()) {
+		mainWindow.setFullScreen(false)
+	} else {
+		mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+	}
+}
+
+function onAppRelaunch() {
+	app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+	app.exit(0)
+}
+
+function onAppErrorReport(message) {
+	log.error(message)
+}
+
+function checkIfFirstRun() {
+	if(is.dev() || config.version == util.getVersion()) {
+		return
+	}
+
+	config.version = util.getVersion()
+	config.reportInstall = false
+	firstRun = true
+	cache.setItem(CONFIG_KEY, config)
+}
+
+function doReports() {
+	if(!is.dev() && !config.reportInstall) {
+		//安装report
+		reportToServer(null, "installations").then(() => {
+			config.reportInstall = true
+			cache.setItem(CONFIG_KEY, config)
+		})
+	}
+
+	//打开report
+	reportToServer(null, "open")
+}
+
+function reportToServer(data, type) {
+	var deferred = Q.defer()
+
+	var appInfo = util.getAppInfo()
+	var baseInfo = {
+		version: appInfo.version,
+		platform: appInfo.platform,
+		bit: appInfo.appBit,
+		ext: appInfo.ext,
+		branch: appInfo.branch,
+		feature: appInfo.feature,
+	}
+
+	data = _.merge({}, data, baseInfo)
+	type = type || 'log'
+
+	util.request(Url.REPORT, {
+		method: "post",
+		data: {
+			data: JSON.stringify(data),
+			type: type,
+		}
+	}).then(() => {
+		deferred.resolve()
+	}, err => {
+		log.error(`report error: type: ${type}, ${JSON.stringify(data)}`)
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 检查更新
+ * @param {*} checkUrl
+ */
+function checkUpdate() {
+	var deferred = Q.defer()
+
+	var info = util.getAppInfo()
+	var features = info.feature ? `${info.feature},${info.arch}` : info.arch
+	var url = `${Url.CHECK_UPDATE}?appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&ext=${info.ext}&features=${features}`
+	log.debug(`checkUpdate: ${url}`)
+
+	util.request(url).then(result => {
+		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 检查package和library更新
+ * @param {*} checkUrl
+ */
+function checkPackageLibraryUpdate(packagesUrl) {
+	var deferred = Q.defer()
+
+	Q.all([
+		loadPackages(false),
+		util.request(packagesUrl)
+	]).then(result => {
+		var installedPackages = result[0]
+		var allPackages = result[1]
+
+		var canUpdatePackages = []
+		installedPackages.forEach(pkg => {
+			var newPkg = allPackages.find(p => p.name == pkg.name && util.versionCompare(p.version, pkg.version) > 0)
+			newPkg && canUpdatePackages.push(newPkg)
+		})
+
+		var status = 0
+		if(canUpdatePackages.length > 0) {
+			status = 1
+		}
+		deferred.resolve({
+			status: status
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 删除旧版本
+ */
+function removeOldVersions(newVersion) {
+	var deferred = Q.defer()
+
+	var info = util.getAppInfo()
+	var downloadPath = path.join(util.getAppPath("appData"), "download")
+	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
+		var versionReg = /\d+\.\d+\.\d+/
+		files.map(f => path.basename(f)).filter(name => {
+			var match = name.match(versionReg)
+			if(!match) {
+				return false
+			}
+
+			return util.versionCompare(match[0], newVersion) < 0
+		}).forEach(name => {
+			util.removeFile(path.join(downloadPath, name), true)
+		})
+		deferred.resolve()
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 解压资源包
+ */
+function unzipPackages(skip) {
+	var deferred = Q.defer()
+	skip = skip !== false ? false : is.dev()
+
+	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
+		if(is.dev()) {
+			deferred.resolve()
+			return
+		}
+
+		config.packages = packages
+		cache.setItem(CONFIG_KEY, config)
+		deferred.resolve()
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	}, progress => deferred.notify(progress))
+
+	return deferred.promise
+}
+
+/**
+ * 加载所有包
+ */
+function loadPackages(extra) {
+	var deferred = Q.defer()
+	extra = extra != false;
+
+	Package.load(extra).then(packages => {
+		packages.forEach(pkg => {
+			var srcPath = path.join(util.getAppPath("packages"), pkg.name, pkg.libraries || "src")
+			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
+				ArduinoOptions.librariesPath.push(srcPath)
+			}
+		})
+		deferred.resolve(packages)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 打开示例
+ * @param {*} category 分类
+ * @param {*} name 名字
+ */
+function openExample(category, name, pkg) {
+	var deferred = Q.defer()
+	pkg = pkg || "built-in"
+
+	var examplePath
+	if(pkg == "built-in") {
+		examplePath = path.join(util.getAppPath("appResource"), "examples", category, name)
+	} else {
+		examplePath = path.join(util.getAppPath("packages"), pkg, "examples", category, name)
+	}
+
+	log.debug(`openExample: ${examplePath}`)
+	Project.read(examplePath).then(result => {
+		result.path = null
+		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 加载示例
+ */
+function loadExamples() {
+	var deferred = Q.defer()
+
+	var examples = []
+	log.debug('loadExamples')
+
+	util.readJson(path.join(util.getAppPath("appResource"), "examples", "examples.json")).then(exampleGroups => {
+		examples.push({
+			name: "built-in",
+			groups: exampleGroups
+		})
+
+		var packagesPath = util.getAppPath("packages")
+		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
+			Q.all(pathList.map(p => {
+				var d = Q.defer()
+				util.readJson(p).then(groups => {
+					examples.push({
+						name: path.basename(path.dirname(path.dirname(p))),
+						groups: groups,
+					})
+				})
+				.fin(() => {
+					d.resolve()
+				})
+				return d.promise
+			}))
+			.then(() => {
+				deferred.resolve(examples)
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function getInstalledLibraries() {
+	var deferred = Q.defer()
+
+	var reg = /^([^=]+)=(.*)$/gm
+	util.searchFiles(`${util.getAppPath("libraries")}/**/library.properties`).then(pathList => {
+		var libraries = []
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			util.readFile(p).then(content => {
+				var matches = content.match(reg)
+				if(matches.length < 0) {
+					return
+				}
+
+				var library = {}
+				matches.map(match => match.split('=')).forEach(match => {
+					library[match[0]] = match[1]
+				})
+				if(!library.name || !library.version) {
+					return
+				}
+
+				libraries.push(library)
+			})
+			.fin(() => {
+				d.resolve()
+			})
+			return d.promise
+		}))
+		.then(() => {
+			deferred.resolve(libraries)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function loadLibraries() {
+	var deferred = Q.defer()
+
+	util.readJson(path.join(util.getAppPath("appResource"), "libraries", "libraries.json")).then(result => {
+		deferred.resolve(result.libraries)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 解压单个资源包
+ */
+function unzipLibrary(name, libraryPath) {
+	var deferred = Q.defer()
+
+	var librariesPath = util.getAppPath("libraries")
+	var outputName = path.basename(libraryPath, path.extname(libraryPath))
+	util.uncompress(libraryPath, librariesPath, true).then(() => {
+		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
+			deferred.resolve()
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	}, progress => {
+		deferred.notify(progress)
+	})
+
+	return deferred.promise
+}
+
+function deleteLibrary(name) {
+	var deferred = Q.defer()
+
+	log.debug(`deleteLibrary: ${name}`)
+	util.removeFile(path.join(util.getAppPath("libraries"), name)).then(() => {
+		deferred.resolve()
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function onDownload(e, item, webContent) {
+	var url = item.getURL()
+	var pos = url.lastIndexOf("#")
+	var query = querystring.parse(url.substring(pos + 1))
+	url = url.substring(0, pos)
+
+	var deferId = query.deferId
+	var savePath = path.join(util.getAppPath("appData"), 'download', item.getFilename())
+	if(query.checksum && fs.existsSync(savePath)) {
+		pos = query.checksum.indexOf(":")
+		var algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
+		var hash = query.checksum.substring(pos + 1)
+		if(hash == hasha.fromFileSync(savePath, {algorithm: algorithm})) {
+			item.cancel()
+			log.debug(`download cancel, ${url} has cache`)
+			util.callDefer(deferId, true, {
+				path: savePath,
+			})
+			return
+		}
+	}
+
+	item.setSavePath(savePath)
+
+	var totalSize = item.getTotalBytes()
+	item.on('updated', (evt, state) => {
+		if(state == "interrupted") {
+			log.debug(`download interrupted: ${url}`)
+			util.callDefer(deferId, false, {
+				path: savePath,
+			})
+		} else if(state === 'progressing') {
+			if(item.isPaused()) {
+				log.debug(`download paused: ${url}`)
+				util.callDefer(deferId, false, {
+					path: savePath,
+				})
+			} else {
+				util.callDefer(deferId, "notify", {
+					path: savePath,
+					totalSize: totalSize,
+					size: item.getReceivedBytes(),
+				})
+			}
+		}
+	})
+
+	item.once('done', (evt, state) => {
+		if(state == "completed") {
+			log.debug(`download success: ${url}, at ${savePath}`)
+			util.callDefer(deferId, true, {
+				path: savePath,
+			})
+		} else {
+			log.debug(`download fail: ${url}`)
+			util.callDefer(deferId, false, {
+				path: savePath,
+			})
+		}
+	})
+}
+
+function download(url, options) {
+	var deferred = Q.defer()
+
+	var {deferId, promise} = util.getDefer()
+	options.deferId = deferId
+
+	var query = querystring.stringify(options)
+	log.debug(`download ${url}, options: ${query}`)
+
+	promise.then(result => {
+		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	}, progress => {
+		deferred.notify(progress)
+	})
+
+	mainWindow.webContents.downloadURL(`${url}#${query}`)
+
+	return deferred.promise
+}
+
+/**
+ * 安装驱动
+ * @param {*} driverPath
+ */
+function installDriver(driverPath) {
+	var deferred = Q.defer()
+
+	log.debug(`installDriver: ${driverPath}`)
+	var dir = path.join(util.getAppPath("appData"), "temp")
+	util.uncompress(driverPath, dir).then(() => {
+		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
+		util.execFile(exePath).then(() => {
+			deferred.resolve()
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 打开串口
+ * @param {*} comName 端口路径
+ * @param {*} options
+ */
+function openSerialPort(comName, options) {
+	return SerialPort.openSerialPort(comName, options, {
+		onError: onSerialPortError,
+		onData: onSerialPortData,
+		onClose: onSerialPortClose,
+	})
+}
+
+function onSerialPortError(portId, err) {
+	util.postMessage("app:onSerialPortError", portId, err)
+}
+
+function onSerialPortData(portId, data) {
+	util.postMessage("app:onSerialPortData", portId, data)
+}
+
+function onSerialPortClose(portId) {
+	util.postMessage("app:onSerialPortClose", portId)
+}
+
+/**
+ * 查询串口
+ */
+function listSerialPort() {
+	var deferred = Q.defer()
+
+	SerialPort.listSerialPort().then(ports => {
+		var arduinoPorts = filterArduinoPorts(ports)
+
+		if(arduinoPorts.length == 0) {
+			deferred.reject({
+				status: "NO_ARDUINO_PORT",
+				ports: ports,
+			})
+			return
+		}
+
+		matchBoardNames(arduinoPorts).then(() => {
+			log.debug(arduinoPorts.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
+			deferred.resolve(arduinoPorts)
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 筛选arduino串口
+ * @param {*} ports 串口列表
+ */
+function filterArduinoPorts(ports) {
+	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
+	return ports.filter(p => reg.test(p.comName))
+}
+
+/**
+ * 编译项目
+ * @param {*} projectPath 项目路径
+ * @param {*} options 编译选项
+ */
+function buildProject(projectPath, options) {
+	var deferred = Q.defer()
+
+	preBuild(projectPath, options.build).then(commandPath => {
+		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
+		var scriptPath = util.getAppPath("script", "call")
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
+			var targetOptions = _.merge({}, ArduinoOptions.default, options)
+			var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${targetOptions.upload.target_type}`)
+			deferred.resolve(targetPath)
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		}, progress => {
+			deferred.notify(progress)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function preBuild(projectPath, options) {
+	var deferred = Q.defer()
+
+	log.debug('pre-build')
+
+	var cachePath = path.join(projectPath, 'cache')
+	var buildPath = path.join(cachePath, 'build')
+	fs.ensureDirSync(buildPath)
+	util.removeFile(path.join(buildPath, "sketch", "build"), true)
+	util.removeFile(path.join(projectPath, "build"), true)
+
+	Project.read(projectPath).then(result => {
+		var projectInfo = result.data
+		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
+
+		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
+			var buildSpecs = []
+			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
+
+			var packagesPath = util.getAppPath("packages")
+			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
+
+			buildSpecs.push(`-fqbn=${buildOptions.fqbn}`)
+			var arduinoPath = util.getAppPath("arduino")
+			Object.keys(buildOptions.prefs).forEach(key => {
+				var value = util.handleQuotes(buildOptions.prefs[key])
+				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
+				buildSpecs.push(`-prefs=${key}=${value}`)
+			})
+
+			var librariesPath = util.getAppPath("libraries")
+			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
+
+			ArduinoOptions.librariesPath.forEach(libraryPath => {
+				buildSpecs.push(`-libraries="${libraryPath}"`)
+			})
+
+			var commandPath = util.getAppPath("command", "build")
+			var command = util.handleQuotes(buildOptions.command)
+			command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
+				.replace("BUILD_SPECS", buildSpecs.join(' '))
+				.replace("PROJECT_BUILD_PATH", buildPath)
+				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
+
+			util.writeFile(commandPath, command).then(() => {
+				var optionPath = path.join(buildPath, 'build.options.json')
+				if(!fs.existsSync(optionPath)) {
+					setTimeout(() => deferred.resolve(commandPath), 10)
+					return deferred.promise
+				}
+
+				util.readJson(optionPath).then(opt => {
+					if(buildOptions.fqbn == opt.fqbn) {
+						deferred.resolve(commandPath)
+						return
+					}
+
+					util.removeFile(buildPath).fin(() => {
+						fs.ensureDirSync(buildPath)
+						deferred.resolve(commandPath)
+					})
+				}, err => {
+					err && log.error(err)
+					deferred.resolve(commandPath)
+				})
+			}, err => {
+				err && log.error(err)
+				deferred.reject()
+			})
+		}, err => {
+			err && log.error(err)
+			deferred.reject()
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject()
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 上传固件
+ * @param {*} targetPath 固件路径
+ * @param {*} options 选项
+ */
+function uploadFirmware(targetPath, options, comName) {
+	if(!comName) {
+		var deferred = Q.defer()
+		listSerialPort().then(ports => {
+			if(ports.length == 1) {
+				doUploadFirmware(targetPath, options, ports[0].comName).then(() => {
+					deferred.resolve()
+				}, err => {
+					deferred.reject(err)
+				}, progress => {
+					deferred.notify(progress)
+				})
+			} else {
+				deferred.reject({
+					status: "SELECT_PORT",
+					ports: ports,
+				})
+			}
+		}, err => {
+			if(err && err.status === "NO_ARDUINO_PORT") {
+				deferred.reject(err)
+			} else {
+				deferred.reject({
+					status: "PORT_NOT_FOUND"
+				})
+			}
+		})
+
+		return deferred.promise
+	}
+
+	return doUploadFirmware(targetPath, options, comName)
+}
+
+/**
+ * 上传固件
+ * @param {*} targetPath 固件路径
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
+ */
+function doUploadFirmware(targetPath, options, comName) {
+	var deferred = Q.defer()
+
+	preUploadFirmware(targetPath, options, comName).then(commandPath => {
+		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
+		var scriptPath = util.getAppPath("script", "call")
+		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
+			deferred.resolve()
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		}, progress => {
+			deferred.notify(progress)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 上传预处理
+ * @param {*} targetPath 固件路径
+ * @param {*} comName 串口路径
+ * @param {*} options 选项
+ */
+function preUploadFirmware(targetPath, options, comName) {
+	var deferred = Q.defer()
+
+	log.debug("pre upload firmware")
+	var uploadOptions = _.merge({}, ArduinoOptions.default.upload, options.upload)
+
+	var commandPath = util.getAppPath("command", "upload")
+	var command = util.handleQuotes(uploadOptions.command)
+	command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
+		.replace("ARDUINO_MCU", uploadOptions.mcu)
+		.replace("ARDUINO_BURNRATE", uploadOptions.baudrate)
+		.replace("ARDUINO_PROGRAMMER", uploadOptions.programer)
+		.replace("ARDUINO_COMPORT", comName)
+		.replace("TARGET_PATH", targetPath)
+
+	util.writeFile(commandPath, command).then(() => {
+		SerialPort.resetSerialPort(comName).then(() => {
+			deferred.resolve(commandPath)
+		}, err => {
+			err && log.error(err)
+			deferred.reject(err)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 加载主板
+ * @param {*} forceReload
+ */
+function loadBoards(forceReload) {
+	var deferred = Q.defer()
+
+	if(config.boardNames && !forceReload) {
+		log.debug("skip loadBoards")
+		setTimeout(() => {
+			deferred.resolve(config.boardNames)
+		}, 10)
+
+		return deferred.promise
+	}
+
+	log.debug("loadBoards")
+	var boardNames = {}
+	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
+	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
+	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
+
+	var searchPath = 'arduino-' + util.getPlatform()
+	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
+		Q.all(pathList.map(p => {
+			var d = Q.defer()
+			util.readFile(p).then(content => {
+				var pidList = content.match(pidReg)
+				var vidList = content.match(vidReg)
+				var nameList = content.match(nameReg)
+				var names = []
+				nameList.forEach(n => {
+					var type = n.substring(0, n.indexOf(".name")).trim()
+					var name = n.substring(n.indexOf("=") + 1).trim()
+					names[type] = name
+				})
+
+				var types = pidList.map(pid => pid.substring(0, pid.indexOf('.pid')).trim())
+				pidList = pidList.map(pid => pid.substring(pid.indexOf('=') + 3))
+				vidList = vidList.map(vid => vid.substring(vid.indexOf('=') + 3))
+
+				pidList.forEach((v, i) => {
+					boardNames[v + "_" + vidList[i]] = {
+						pid: v,
+						vid: vidList[i],
+						type: types[i],
+						name: names[types[i]]
+					}
+				})
+			})
+			.fin(() => {
+				d.resolve()
+			})
+			return d.promise
+		})).then(() => {
+			config.boardNames = boardNames
+			cache.setItem(CONFIG_KEY, config)
+
+			deferred.resolve(config.boardNames)
+		})
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 匹配主板名
+ * @param {*} ports
+ */
+function matchBoardNames(ports) {
+	var deferred = Q.defer()
+
+	log.debug("matchBoardNames")
+	loadBoards().then(names => {
+		ports.forEach(p => {
+			if(p.productId && p.vendorId) {
+				var board = config.boardNames[p.productId + "_" + p.vendorId]
+				if(board) {
+					p.boardName = board.name
+				}
+			}
+		})
+		deferred.resolve(ports)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function loadOpenProject() {
+	isLoadReady = true
+
+	if(projectToLoad) {
+		log.debug(`loadOpenProject: ${projectToLoad}`)
+		var projectPath = projectToLoad
+		projectToLoad = null
+
+		return Project.read(projectPath)
+	}
+
+	return util.rejectPromise()
+}
+
+function loadOpenOrRecentProject() {
+	var deferred = Q.defer()
+
+	loadOpenProject().then(result => {
+		deferred.resolve(result)
+	}, () => {
+		var projectPath = cache.getItem("recentProject")
+		if(!projectPath) {
+			util.rejectPromise(null, deferred)
+			return
+		}
+		Project.read(projectPath).then(result => {
+			deferred.resolve(result)
+		}, err => {
+			deferred.reject(err)
+		})
+	})
+
+	return deferred.promise
+}
