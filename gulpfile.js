@@ -408,7 +408,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 				companyName: packageConfig.companyName,
 			}
 		}).then(result => {
-			var output = result[0]
+			var output = result[1]
 			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
 			var file = path.join(path.dirname(output), name)
 

@@ -20,6 +20,7 @@
       "!node_modules/**/*appveyor.yml*",
       "!node_modules/**/.*"
     ],
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
     "win": {
       "publisherName": "KenRobot"
     },
@@ -29,7 +30,6 @@
       "allowToChangeInstallationDirectory": true,
       "warningsAsErrors": false,
       "menuCategory": true,
-      "artifactName": "${productName}-${version}-${arch}.${ext}",
       "language": "2052",
       "shortcutName": "KRobot"
     },
@@ -50,8 +50,7 @@
         }
       ],
       "iconSize": 128,
-      "title": "KRobot",
-      "artifactName": "${productName}-${version}-${arch}.${ext}"
+      "title": "KRobot"
     },
     "linux": {
       "category": "Education",
