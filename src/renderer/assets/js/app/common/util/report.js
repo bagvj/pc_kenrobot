@@ -3,7 +3,7 @@ define(function() {
 	function init() {
 		window.onerror = onError;
 
-		kenrobot.on("app", "error", onAppError);
+		kenrobot.on("app", "error", onAppError, {canReset: false});
 	}
 
 	function onAppError(message) {

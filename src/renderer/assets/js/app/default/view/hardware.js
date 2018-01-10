@@ -62,8 +62,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		hardwareModel.loadSchema(schema);
 
 		updateBoards(schema.boards);
-		updateComponents(schema.components);
-		updatePackages(schema.packages);
+		updateComponents(schema.packages.find(pkg => pkg.builtIn));
+		updatePackages(schema.packages.filter(pkg => !pkg.builtIn));
 
 		Array.from(componentsWrap[0].querySelectorAll(".component-item .image")).forEach(imageDom => {
 			imageDom.addEventListener("mousedown", onComponentMouseDown);
@@ -110,14 +110,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	}
 
-	function updateComponents(components) {
+	function updateComponents(standardPackage) {
 		var componentList = componentsWrap.find(".components").empty();
-		components.filter(component => component.package == "Arduino").forEach(component => componentList.append(buildComponent(component)));
+		standardPackage.components.forEach(component => componentList.append(buildComponent(component)));
 	}
 
-	function updatePackages(packages) {
+	function updatePackages(vendorPackages) {
 		var vendorList = componentsWrap.find(".vendor-components").empty();
-		packages.filter(pkg => pkg.name != "Arduino").forEach(pkg => {
+		vendorPackages.forEach(pkg => {
 			if(!pkg.components || pkg.components.length == 0) {
 				return
 			}
@@ -139,7 +139,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function buildComponent(component) {
 		return componentTemplate.replace(/\{\{name\}\}/g, component.name)
-			.replace(/\{\{src\}\}/, component.imageUrl)
+			.replace(/\{\{src\}\}/, encodeURI(component.imageUrl))
 			.replace(/\{\{label\}\}/, component.label)
 			.replace(/\{\{width\}\}/, component.width)
 			.replace(/\{\{height\}\}/, component.height);
@@ -434,9 +434,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var list = componentList.find('.component-item').filter((index, componentDom) => {
 			var name = componentDom.dataset.name;
 			var componentConfig = hardwareModel.getComponentConfig(name);
-			if(_.intersection(componentConfig.boards, boardTags).length == 0) {
-				return false;
-			}
+			// if(_.intersection(componentConfig.boards, boardTags).length == 0) {
+			// 	return false;
+			// }
 
 			return filter == "all" ? true : componentConfig.category == filter;
 		});
@@ -487,7 +487,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		boards.forEach(function(board) {
 			var li = boardTemplate.replace(/\{\{name\}\}/g, board.name)
 				.replace(/\{\{label\}\}/g, board.label)
-				.replace(/\{\{src\}\}/, board.imageUrl);
+				.replace(/\{\{src\}\}/, encodeURI(board.imageUrl));
 			ul.append(li);
 		});
 		var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';

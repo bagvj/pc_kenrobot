@@ -9,14 +9,14 @@ const is = require('electron-is')
 
 const Q = require('q')
 const fs = require('fs-extra')
-const glob = require('glob')
+const globby = require('globby')
 const sudo = require('sudo-prompt')
 const iconv = require('iconv-lite')
 const _ = require('lodash')
 const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
 const fetch = require('node-fetch')
 
-const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', '..', 'app.asar', 'package.json'))
+const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
@@ -94,7 +94,7 @@ function getAppPath(name, extra) {
 		case "appData":
 			return path.join(app.getPath("appData"), app.getName())
 		case "appResource":
-			return is.dev() ? path.resolve(".") : path.resolve(app.getAppPath(), "..", "..")
+			return is.dev() ? path.resolve("data") : path.resolve(app.getAppPath(), "..", "..", "data")
 		case "appDocuments":
 			return path.join(app.getPath("documents"), app.getName())
 		case "script":
@@ -573,14 +573,11 @@ function searchFiles(pattern) {
 	var deferred = Q.defer()
 
 	log.debug(`searchFiles: ${pattern}`)
-	glob(pattern, {}, (err, pathList) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		return deferred.resolve(pathList)
+	globby(pattern).then(result => {
+		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
 	})
 
 	return deferred.promise
