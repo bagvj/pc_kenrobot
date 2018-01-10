@@ -139,7 +139,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function buildComponent(component) {
 		return componentTemplate.replace(/\{\{name\}\}/g, component.name)
-			.replace(/\{\{src\}\}/, component.imageUrl)
+			.replace(/\{\{src\}\}/, encodeURI(component.imageUrl))
 			.replace(/\{\{label\}\}/, component.label)
 			.replace(/\{\{width\}\}/, component.width)
 			.replace(/\{\{height\}\}/, component.height);
@@ -487,7 +487,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		boards.forEach(function(board) {
 			var li = boardTemplate.replace(/\{\{name\}\}/g, board.name)
 				.replace(/\{\{label\}\}/g, board.label)
-				.replace(/\{\{src\}\}/, board.imageUrl);
+				.replace(/\{\{src\}\}/, encodeURI(board.imageUrl));
 			ul.append(li);
 		});
 		var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';
