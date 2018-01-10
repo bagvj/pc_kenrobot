@@ -35,48 +35,68 @@ define(['vendor/jquery', 'vendor/mousetrap', 'vendor/lodash', 'app/common/util/u
 		var promise = $.Deferred();
 
 		kenrobot.postMessage("app:loadExamples").then(examples => {
-			var exampleMenu = [];
-			examples.forEach(exampleGroup => {
-				var groupMenu
-				if(exampleGroup.builtIn) {
-					groupMenu = {
-						id: "built-in-examples",
-						placeholder: "内置示例",
-						arrow: true,
-						menuCls: "example-built-in",
-					}
-					exampleMenu.push(groupMenu)
-					exampleMenu.push("_");
-				} else {
-					groupMenu = {
-						id: `${exampleGroup.package}-examples`,
-						placeholder: `${exampleGroup.package}示例`,
-						arrow: true,
-						menuCls: "example-third-party",
-					}
-					exampleMenu.push(groupMenu)
-				}
-
-				var groups = _.groupBy(exampleGroup.examples, "category");
-				groupMenu.menu = Object.keys(groups).map(category => {
-					return {
-						placeholder: category,
-						arrow: true,
-						menu: groups[category].map(example => {
-							return {
-								text: example.name,
-								action: "open-example",
-								extra: {
-									name: example.name,
-									path: example.path,
-								}
-							};
-						}),
-					};
-				});
+			var exampleGroup = examples[0];
+			var groups = _.groupBy(exampleGroup.examples, "category");
+			var exampleMenu = Object.keys(groups).map(category => {
+				return {
+					placeholder: category,
+					arrow: true,
+					menu: groups[category].map(example => {
+						return {
+							text: example.name,
+							action: "open-example",
+							extra: {
+								name: example.name,
+								path: example.path,
+							}
+						};
+					}),
+				};
 			});
 
 			promise.resolve(exampleMenu);
+			// var exampleMenu = [];
+			// examples.forEach(exampleGroup => {
+			// 	var groupMenu
+			// 	if(exampleGroup.builtIn) {
+			// 		groupMenu = {
+			// 			id: "built-in-examples",
+			// 			placeholder: "内置示例",
+			// 			arrow: true,
+			// 			menuCls: "example-built-in",
+			// 		}
+			// 		exampleMenu.push(groupMenu)
+			// 		exampleMenu.push("_");
+			// 	} else {
+			// 		groupMenu = {
+			// 			id: `${exampleGroup.package}-examples`,
+			// 			placeholder: `${exampleGroup.package}示例`,
+			// 			arrow: true,
+			// 			menuCls: "example-third-party",
+			// 		}
+			// 		exampleMenu.push(groupMenu)
+			// 	}
+
+			// 	var groups = _.groupBy(exampleGroup.examples, "category");
+			// 	groupMenu.menu = Object.keys(groups).map(category => {
+			// 		return {
+			// 			placeholder: category,
+			// 			arrow: true,
+			// 			menu: groups[category].map(example => {
+			// 				return {
+			// 					text: example.name,
+			// 					action: "open-example",
+			// 					extra: {
+			// 						name: example.name,
+			// 						path: example.path,
+			// 					}
+			// 				};
+			// 			}),
+			// 		};
+			// 	});
+			// });
+
+			// promise.resolve(exampleMenu);
 		}, function(err) {
 			promise.resolve([]);
 			util.message({

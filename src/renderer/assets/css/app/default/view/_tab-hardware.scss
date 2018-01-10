@@ -111,7 +111,8 @@
 	}
 
 	.categories {
-		display: flex;
+		// display: flex;
+		display: none;
 
 		li {
 			flex: 1;
@@ -328,6 +329,7 @@
 	.boards-region {
 		margin-left: 20px;
 		float: left;
+		display: none;
 
 		.boards {
 			width: 230px;

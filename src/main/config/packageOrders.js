@@ -8,5 +8,5 @@ module.exports = {
 	Kenblock: 30,
 	UperEnergy: 40,
 
-	standardPackage: "Arduino",
+	standardPackage: "UperEnergy",
 }

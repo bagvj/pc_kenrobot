@@ -70,9 +70,6 @@ define(function() {
 		id: "options",
 		placeholder: "选项",
 		menu: [{
-			text: "开发板管理",
-			action: "show-board-dialog",
-		}, {
 			text: "库管理",
 			action: "show-library-dialog",
 		}, "_", {

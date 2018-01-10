@@ -1,0 +1,3925 @@
+{
+	"name": "UperEnergy",
+	"company": "吖扑科学",
+	"version": "0.3.0",
+	"author": "Uper",
+	"category": "third-party",
+	"help": "http://www.uper.cc/",
+	"logo": "assets/image/logo.png",
+	"boards": [{
+		"label": "upDuino",
+		"name": "upDuino",
+		"type": "uno",
+		"tags": ["upDuino"],
+		"pins": [{
+			"x": 0.123,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 12,
+			"name": "13",
+			"uid": "4LGyIn",
+			"label": "D13",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital"],
+			"value": "13"
+		}, {
+			"x": 0.123,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 12,
+			"name": "12",
+			"uid": "2JNRao",
+			"label": "D12",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital"],
+			"value": "12"
+		}, {
+			"x": 0.27,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 12,
+			"name": "11",
+			"uid": "KLvS9N",
+			"label": "D11",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out"],
+			"value": "11"
+		}, {
+			"x": 0.27,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 12,
+			"name": "10",
+			"uid": "vAMZeg",
+			"label": "D10",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out"],
+			"value": "10"
+		}, {
+			"x": 0.415,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "9",
+			"uid": "lA7QMs",
+			"label": "D9",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out"],
+			"value": "9"
+		}, {
+			"x": 0.415,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "8",
+			"uid": "eI5FH7",
+			"label": "D8",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital"],
+			"value": "8"
+		}, {
+			"x": 0.558,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "7",
+			"uid": "otVL3e",
+			"label": "D7",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital"],
+			"value": "7"
+		}, {
+			"x": 0.558,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "6",
+			"uid": "28rYEk",
+			"label": "D6",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out"],
+			"value": "6"
+		}, {
+			"x": 0.71,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "5",
+			"uid": "SSohOO",
+			"label": "D5",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out"],
+			"value": "5"
+		}, {
+			"x": 0.71,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "4",
+			"uid": "QBXO26",
+			"label": "D4",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital"],
+			"value": "4"
+		}, {
+			"x": 0.858,
+			"y": 0.09,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "3",
+			"uid": "Tgpjbj",
+			"label": "D3",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "analog-out", "init"],
+			"value": "3"
+		}, {
+			"x": 0.858,
+			"y": 0.151,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "2",
+			"uid": "EUMoPE",
+			"label": "D2",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "init"],
+			"value": "2"
+		}, {
+			"x": 0.12,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A0",
+			"uid": "Rxz2N7",
+			"label": "A0",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A0"
+		}, {
+			"x": 0.27,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A1",
+			"uid": "QDT6MT",
+			"label": "A1",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A1"
+		}, {
+			"x": 0.415,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A2",
+			"uid": "g7yR5i",
+			"label": "A2",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A2"
+		}, {
+			"x": 0.563,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A3",
+			"uid": "IAliAW",
+			"label": "A3",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A3"
+		}, {
+			"x": 0.71,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A4",
+			"uid": "PxEdDf",
+			"label": "A4",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A4"
+		}, {
+			"x": 0.858,
+			"y": 0.878,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "A5",
+			"uid": "vwsNFr",
+			"label": "A5",
+			"rotate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["analog-in"],
+			"value": "A5"
+		}, {
+			"x": 0.89,
+			"y": 0.273,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "1",
+			"uid": "rBdmoP",
+			"value": "1",
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "serial-rx"],
+			"label": "RX"
+		}, {
+			"x": 0.93,
+			"y": 0.273,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "0",
+			"uid": "dvQ4VK",
+			"value": "0",
+			"overlay": [0.5, -1.5],
+			"tags": ["digital", "serial-tx"],
+			"label": "TX"
+		}, {
+			"x": 0.893,
+			"y": 0.486,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "sda",
+			"uid": "Je80id",
+			"value": "A4",
+			"overlay": [0.5, -1.5],
+			"tags": ["sda", "iic"],
+			"label": "sda"
+		}, {
+			"x": 0.933,
+			"y": 0.486,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 12,
+			"name": "scl",
+			"uid": "rMyrVW",
+			"value": "A5",
+			"overlay": [0.5, -1.5],
+			"tags": ["scl", "iic"],
+			"label": "scl"
+		}, {
+			"width": 24,
+			"height": 48,
+			"x": 0.03,
+			"y": 0.353,
+			"name": "Serial",
+			"tags": ["serial"],
+			"uid": "QHuvs3",
+			"overlay": [-1.5, 0.5],
+			"shape": "Rectangle",
+			"rotate": false,
+			"label": "Serial",
+			"value": "Serial"
+		}, {
+			"x": 0.27,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "OlPrdy",
+			"rotate": false,
+			"tags": ["uper-motor"],
+			"name": "MOTOR_MD",
+			"value": "MOTOR_MD",
+			"hide": true,
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.415,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "ds66fn",
+			"rotate": false,
+			"tags": ["uper-motor"],
+			"name": "MOTOR_MC",
+			"value": "MOTOR_MC",
+			"hide": true,
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.71,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "WXWSeb",
+			"rotate": false,
+			"tags": ["uper-motor"],
+			"name": "MOTOR_MB",
+			"value": "MOTOR_MB",
+			"hide": true,
+			"tuple": true,
+			"members": ["4", "5"]
+		}, {
+			"x": 0.858,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "DSSGIs",
+			"rotate": false,
+			"tags": ["uper-motor"],
+			"name": "MOTOR_MA",
+			"value": "MOTOR_MA",
+			"hide": true,
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.27,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "eKpRrb",
+			"rotate": false,
+			"tags": ["uper-fan"],
+			"name": "FAN_D",
+			"value": "FAN_D",
+			"hide": true,
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.415,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "7fkKsP",
+			"rotate": false,
+			"tags": ["uper-fan"],
+			"name": "FAN_C",
+			"value": "FAN_C",
+			"hide": true,
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.71,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "O68g7X",
+			"rotate": false,
+			"tags": ["uper-fan"],
+			"name": "FAN_B",
+			"value": "FAN_B",
+			"hide": true,
+			"tuple": true,
+			"members": ["4", "5"]
+		}, {
+			"x": 0.858,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "VZL66p",
+			"rotate": false,
+			"tags": ["uper-fan"],
+			"name": "FAN_A",
+			"value": "FAN_A",
+			"hide": true,
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.123,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "zZXSJN",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD0",
+			"value": "PD0",
+			"hide": true,
+			"tuple": true,
+			"members": ["12", "13"]
+		}, {
+			"x": 0.27,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "4dP45n",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD1",
+			"value": "PD1",
+			"hide": true,
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.415,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "YkZ8z3",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD2",
+			"value": "PD2",
+			"hide": true,
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.558,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "EsIgeG",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD3",
+			"value": "PD3",
+			"hide": true,
+			"tuple": true,
+			"members": ["6", "7"]
+		}, {
+			"x": 0.71,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "aa4rTX",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD4",
+			"value": "PD4",
+			"hide": true,
+			"tuple": true,
+			"members": ["4", "5"]
+		}, {
+			"x": 0.858,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "1ovdn3",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD5",
+			"value": "PD5",
+			"hide": true,
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.911,
+			"y": 0.273,
+			"shape": "Rectangle",
+			"width": 29,
+			"height": 12,
+			"uid": "DpAoTG",
+			"rotate": false,
+			"tags": ["uper-2P-digital"],
+			"name": "PD6",
+			"value": "PD6",
+			"hide": true,
+			"tuple": true,
+			"members": ["0", "1"]
+		}, {
+			"x": 0.911,
+			"y": 0.486,
+			"shape": "Rectangle",
+			"width": 29,
+			"height": 12,
+			"uid": "kLuMO5",
+			"rotate": false,
+			"tags": ["uper-iic"],
+			"name": "iic",
+			"hide": true,
+			"tuple": true,
+			"members": ["scl", "sda"]
+		}],
+		"uid": "RYIpjB",
+		"imageUrl": "assets/image/boards/upDuino.svg",
+		"width": 400,
+		"height": 278,
+		"module": "uper",
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_iic",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "xcjH17"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置IIC"
+			}, {
+				"blockInputId": "IIC",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "xcjH17"
+			}, {
+				"type": "text",
+				"value": "设备地址"
+			}, {
+				"id": "ADDRESS",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "SDA端口为"
+			}, {
+				"id": "SDA",
+				"type": "static-select",
+				"options": [{
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "8",
+					"value": "8"
+				}, {
+					"label": "10",
+					"value": "10"
+				}, {
+					"label": "12",
+					"value": "12"
+				}]
+			}, {
+				"type": "text",
+				"value": "SCL端口为"
+			}, {
+				"id": "SCL",
+				"type": "static-select",
+				"options": [{
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "9",
+					"value": "9"
+				}, {
+					"label": "11",
+					"value": "11"
+				}, {
+					"label": "13",
+					"value": "13"
+				}]
+			}],
+			"code": "",
+			"tags": ["module"],
+			"module": "uper_iic",
+			"board": "uper",
+			"uid": "8H4DlJ"
+		}]
+	}],
+	"components": [{
+		"uid": "YKlrd3",
+		"name": "uper_buzzer",
+		"label": "蜂鸣器",
+		"type": "uper_buzzer",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_buzzerTone",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "uper_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出音阶"
+			}, {
+				"id": "NOTE",
+				"type": "static-select",
+				"options": [{
+					"label": "Do",
+					"value": "532"
+				}, {
+					"label": "Re",
+					"value": "587"
+				}, {
+					"label": "Mi",
+					"value": "659"
+				}, {
+					"label": "Fa",
+					"value": "698"
+				}, {
+					"label": "Sol",
+					"value": "784"
+				}, {
+					"label": "La",
+					"value": "880"
+				}, {
+					"label": "Si",
+					"value": "988"
+				}]
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"id": "SECONDS",
+				"type": "number-input",
+				"value": 2000
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
+			"tags": ["module"],
+			"module": "uper_buzzer",
+			"uid": "9ztgoQ"
+		}, {
+			"type": "statement",
+			"name": "uper_buzzerTone2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "r3royi"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "vFwZyO"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "uper_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出频率"
+			}, {
+				"blockInputId": "NOTE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "r3royi"
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"blockInputId": "SECONDS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "vFwZyO"
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
+			"tags": ["module"],
+			"module": "uper_buzzer",
+			"uid": "Ctg32s"
+		}, {
+			"type": "statement",
+			"name": "uper_buzzerClose",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "open"
+				}, {
+					"label": "关闭",
+					"value": "close"
+				}]
+			}, {
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "uper_buzzers"
+			}],
+			"eval": true,
+			"code": "'{OP}' === 'open' ? 'digitalWrite({BUZZER}, HIGH);' : 'noTone({BUZZER});'",
+			"tags": ["module"],
+			"module": "uper_buzzer",
+			"uid": "RaPzyN"
+		}, {
+			"type": "statement",
+			"name": "uper_buzzerAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "HFJZzW"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Kg6QCA"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "MegSeu"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"blockInputId": "BUZZER",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "HFJZzW"
+			}, {
+				"type": "text",
+				"value": "发出频率"
+			}, {
+				"blockInputId": "NOTE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Kg6QCA"
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"blockInputId": "SECONDS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "MegSeu"
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "tone({BUZZER},{NOTE},{SECONDS});\ndelay({SECONDS});",
+			"tags": ["module", "advanced"],
+			"module": "uper_buzzer",
+			"uid": "sMpE4N"
+		}],
+		"imageUrl": "assets/image/components/buzzer.svg"
+	}, {
+		"uid": "jHLQZ0",
+		"name": "uper_led",
+		"label": "LED",
+		"type": "led",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/led.svg"
+	}, {
+		"uid": "PT4KdI",
+		"name": "uper_rgb",
+		"label": "RGB",
+		"type": "uper_rgb",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 250,
+		"height": 30,
+		"pins": [{
+			"name": "s",
+			"anchor": [0, 0.5],
+			"tags": ["digital", "analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_Adafruit_NeoPixel.h>",
+			"var": "Adafruit_NeoPixel {NAME}(100, {s});",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_rgbSetPixelColor",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "fwESxJ"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "RGB"
+			}, {
+				"id": "RGB",
+				"type": "dynamic-select",
+				"options": "uper_rgbs"
+			}, {
+				"type": "text",
+				"value": "设置第"
+			}, {
+				"blockInputId": "INDEX",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "fwESxJ"
+			}, {
+				"type": "text",
+				"value": "个灯的颜色，红"
+			}, {
+				"id": "RED",
+				"type": "number-input"
+			}, {
+				"type": "text",
+				"value": "绿"
+			}, {
+				"id": "BLUE",
+				"type": "number-input"
+			}, {
+				"type": "text",
+				"value": "蓝"
+			}, {
+				"id": "GREEN",
+				"type": "number-input"
+			}],
+			"code": "{RGB}.setPixelColor({INDEX}, {RED}, {BLUE}, {GREEN});",
+			"tags": ["module"],
+			"module": "uper_rgb",
+			"uid": "llAXwR"
+		}, {
+			"type": "statement",
+			"name": "uper_rgbSetPixelColorAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "6rGDrP"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Z4TYHQ"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "wgMiBL"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "B8JxQe"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "RGB"
+			}, {
+				"id": "RGB",
+				"type": "dynamic-select",
+				"options": "uper_rgbs"
+			}, {
+				"type": "text",
+				"value": "设置第"
+			}, {
+				"blockInputId": "INDEX",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "6rGDrP"
+			}, {
+				"type": "text",
+				"value": "个灯的颜色，红"
+			}, {
+				"blockInputId": "RED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Z4TYHQ"
+			}, {
+				"type": "text",
+				"value": "绿"
+			}, {
+				"blockInputId": "BLUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "wgMiBL"
+			}, {
+				"type": "text",
+				"value": "蓝"
+			}, {
+				"blockInputId": "GREEN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "B8JxQe"
+			}],
+			"code": "{RGB}.setPixelColor({INDEX}, {RED}, {BLUE}, {GREEN});",
+			"tags": ["module", "advanced"],
+			"module": "uper_rgb",
+			"uid": "PI9vMr"
+		}, {
+			"type": "statement",
+			"name": "uper_rgbShow",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "RGB"
+			}, {
+				"id": "RGB",
+				"type": "dynamic-select",
+				"options": "uper_rgbs"
+			}, {
+				"type": "text",
+				"value": "显示"
+			}],
+			"code": "{RGB}.show();",
+			"tags": ["module"],
+			"module": "uper_rgb",
+			"uid": "Q5IdYa"
+		}],
+		"imageUrl": "assets/image/components/rgb.svg"
+	}, {
+		"uid": "9quFpw",
+		"name": "uper_button",
+		"label": "按钮",
+		"type": "button",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/button.svg"
+	}, {
+		"uid": "zFZ90G",
+		"name": "uper_relay",
+		"label": "继电器",
+		"type": "uper_relay",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 50,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_relay",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "继电器"
+			}, {
+				"id": "RELAY",
+				"type": "dynamic-select",
+				"options": "uper_relays"
+			}],
+			"code": "digitalWrite({RELAY},{STATE});",
+			"tags": ["module"],
+			"module": "uper_relay",
+			"uid": "BsgV2P"
+		}, {
+			"type": "statement",
+			"name": "uper_relayAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "gvODM6"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "继电器"
+			}, {
+				"blockInputId": "RELAY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "gvODM6"
+			}],
+			"code": "digitalWrite({RELAY},{STATE});",
+			"tags": ["module", "advanced"],
+			"module": "uper_relay",
+			"uid": "WpG76s"
+		}],
+		"imageUrl": "assets/image/components/relay.svg"
+	}, {
+		"uid": "ND9dNw",
+		"name": "uper_bump",
+		"label": "电机转接板",
+		"type": "uper_bump",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_bump",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "BUMP",
+				"type": "dynamic-select",
+				"options": "uper_bumps"
+			}],
+			"code": "digitalWrite({BUMP},{STATE});",
+			"tags": ["module"],
+			"module": "uper_bump",
+			"uid": "N0hSt1"
+		}, {
+			"type": "statement",
+			"name": "uper_bumpAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PqtNh6"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "电机"
+			}, {
+				"blockInputId": "BUMP",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PqtNh6"
+			}],
+			"code": "digitalWrite({BUMP},{STATE});",
+			"tags": ["module", "advanced"],
+			"module": "uper_bump",
+			"uid": "TuQoYf"
+		}],
+		"imageUrl": "assets/image/components/bump.svg"
+	}, {
+		"uid": "HDkAOv",
+		"name": "uper_lightSensor",
+		"label": "光敏传感器",
+		"type": "uper_lightSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/lightSensor.svg"
+	}, {
+		"uid": "3YN9DV",
+		"name": "uper_rainSensor",
+		"label": "雨水传感器",
+		"type": "uper_rainSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 200,
+		"height": 75,
+		"pins": [{
+			"name": "s",
+			"anchor": [1, 0.5],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/rainSensor.svg"
+	}, {
+		"uid": "ABO53J",
+		"name": "uper_moistureSensor",
+		"label": "土壤湿度传感器",
+		"type": "uper_moistureSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 40,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/moistureSensor.svg"
+	}, {
+		"uid": "dfNt0A",
+		"name": "uper_grayscaleSensor",
+		"label": "巡线传感器",
+		"type": "uper_grayscaleSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 72,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/grayscaleSensor.svg"
+	}, {
+		"uid": "Fduxx1",
+		"name": "uper_graySensor",
+		"label": "灰度传感器",
+		"type": "uper_graySensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/graySensor.svg"
+	}, {
+		"uid": "ZmkEJf",
+		"name": "uper_flameSensor",
+		"label": "火焰传感器",
+		"type": "uper_flameSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/flameSensor.svg"
+	}, {
+		"uid": "c58OhU",
+		"name": "uper_gasSensor",
+		"label": "MQ5危险气体传感器",
+		"type": "uper_gasSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 50,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/gasSensor.svg"
+	}, {
+		"uid": "JsXGCU",
+		"name": "uper_touch",
+		"label": "触摸开关",
+		"type": "uper_touch",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/touch.svg"
+	}, {
+		"uid": "8ocH5i",
+		"name": "uper_hall",
+		"label": "磁力传感器",
+		"type": "uper_hall",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/hall.svg"
+	}, {
+		"uid": "hxPPzq",
+		"name": "uper_ultrasonic",
+		"label": "超声波",
+		"type": "ultrasound",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 120,
+		"height": 75,
+		"pins": [{
+			"name": "tri",
+			"anchor": [0.333, 1],
+			"tags": ["digital"],
+			"label": "tri",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "ech",
+			"anchor": [0.667, 1],
+			"tags": ["digital"],
+			"label": "ech",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <SR04.h>",
+			"var": "SR04 {NAME}({ech}, {tri});"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/ultrasonic.svg"
+	}, {
+		"uid": "L2JP3J",
+		"name": "uper_dht11",
+		"label": "温湿度传感器",
+		"type": "uper_dht11",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_DHT11.h>",
+			"var": "DHT11 {NAME}({s});"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "output",
+			"name": "uper_dht11Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "温湿度传感器"
+			}, {
+				"id": "DHT",
+				"type": "dynamic-select",
+				"options": "uper_dht11s"
+			}, {
+				"type": "text",
+				"value": "准备读取"
+			}],
+			"code": "{DHT}.read()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "uper_dht11",
+			"uid": "LatVOW"
+		}, {
+			"type": "output",
+			"name": "uper_dht11Get",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "温湿度传感器"
+			}, {
+				"id": "DHT",
+				"type": "dynamic-select",
+				"options": "uper_dht11s"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "立即读取",
+					"value": "true"
+				}, {
+					"label": "读取",
+					"value": "false"
+				}]
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "温度",
+					"value": "getTemperature"
+				}, {
+					"label": "湿度",
+					"value": "getHumidity"
+				}]
+			}],
+			"code": "{DHT}.{OP}({TYPE})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "uper_dht11",
+			"uid": "kbxWF8"
+		}],
+		"imageUrl": "assets/image/components/dht11.svg"
+	}, {
+		"uid": "lFkYsh",
+		"name": "uper_pressure",
+		"label": "压力传感器",
+		"type": "uper_pressure",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 200,
+		"height": 75,
+		"pins": [{
+			"name": "sck",
+			"anchor": [0.333, 1],
+			"tags": ["digital"],
+			"label": "sck",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "dt",
+			"anchor": [0.667, 1],
+			"tags": ["digital"],
+			"label": "dt",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <uper_HX711.h>",
+			"var": "HX711 {NAME}({sck}, {dt});",
+			"setup": "{NAME}.getMaopi();"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "output",
+			"name": "uper_pressureGetWeight",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "压力传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_pressures"
+			}, {
+				"type": "text",
+				"value": "获得物体质量(g)"
+			}],
+			"code": "{SENSOR}.getWeight()",
+			"returnType": {
+				"type": "simple",
+				"value": "unsigned int"
+			},
+			"tags": ["module"],
+			"module": "uper_pressure",
+			"uid": "KYzJeL"
+		}],
+		"imageUrl": "assets/image/components/pressure.svg"
+	}, {
+		"uid": "T5przr",
+		"name": "uper_temperature",
+		"label": "18B20温度传感器",
+		"type": "uper_temperature",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <OneWire.h>\n#include <DallasTemperature.h>",
+			"var": "OneWire {NAME}_oneWire({s});\nDallasTemperature {NAME}(&{NAME}_oneWire);",
+			"setup": "{NAME}.begin();"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_temperatureBeginRead",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "18B20温度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_temperatures"
+			}, {
+				"type": "text",
+				"value": "刷新"
+			}],
+			"code": "{SENSOR}.requestTemperatures();",
+			"tags": ["module"],
+			"module": "uper_temperature",
+			"uid": "yZGA4v"
+		}, {
+			"type": "output",
+			"name": "uper_temperatureRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "18B20温度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_temperatures"
+			}, {
+				"type": "text",
+				"value": "读取"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "摄氏",
+					"value": "getTempC"
+				}, {
+					"label": "华氏",
+					"value": "getTempF"
+				}]
+			}, {
+				"type": "text",
+				"value": "温度"
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "uper_temperature",
+			"uid": "6IcaG6"
+		}],
+		"imageUrl": "assets/image/components/temperature.svg"
+	}, {
+		"uid": "9WC8Gk",
+		"name": "uper_pulseSensor",
+		"label": "心率传感器",
+		"type": "uper_pulseSensor",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/pulseSensor.svg"
+	}, {
+		"uid": "wx7PjC",
+		"name": "uper_sound",
+		"label": "声音传感器",
+		"type": "uper_sound",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/sound.svg"
+	}, {
+		"uid": "dU7WLf",
+		"name": "uper_soundIntensity",
+		"label": "声强传感器",
+		"type": "uper_soundIntensity",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/soundIntensity.svg"
+	}, {
+		"uid": "Dn8G5U",
+		"name": "uper_pot",
+		"label": "旋转电位器",
+		"type": "uper_pot",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 57,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/pot.svg"
+	}, {
+		"uid": "5FdvLM",
+		"name": "uper_rtc",
+		"label": "时钟模块",
+		"type": "uper_rtc",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 120,
+		"height": 120,
+		"pins": [{
+			"name": "sda",
+			"anchor": [0.33, 1],
+			"tags": ["sda"],
+			"spec": ["tag", "sda"],
+			"label": "sda",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1],
+			"color": "red"
+		}, {
+			"name": "scl",
+			"anchor": [0.67, 1],
+			"tags": ["scl"],
+			"spec": ["tag", "scl"],
+			"label": "scl",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1],
+			"color": "blue"
+		}],
+		"code": {
+			"include": "#include <uper_ds1307.h>",
+			"var": "RTC {NAME};",
+			"setup": "{NAME}.ds1307Setup({scl}, {sda});"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_rtcFillByYMD",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "JsnpK5"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "WEzd4U"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "wPK1XY"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "时钟模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rtcs"
+			}, {
+				"type": "text",
+				"value": "设置年"
+			}, {
+				"blockInputId": "YEAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "JsnpK5"
+			}, {
+				"type": "text",
+				"value": "月"
+			}, {
+				"blockInputId": "MONTH",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "WEzd4U"
+			}, {
+				"type": "text",
+				"value": "日"
+			}, {
+				"blockInputId": "DAY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "wPK1XY"
+			}],
+			"code": "{SENSOR}.fillByYMD({YEAR}, {MONTH}, {DAY});",
+			"tags": ["module"],
+			"module": "uper_rtc",
+			"uid": "dZyYwG"
+		}, {
+			"type": "statement",
+			"name": "uper_rtcFillByHMS",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "3zj8Q4"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "haMl4O"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "IVQPN1"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "时钟模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rtcs"
+			}, {
+				"type": "text",
+				"value": "设置时"
+			}, {
+				"blockInputId": "HOUR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "3zj8Q4"
+			}, {
+				"type": "text",
+				"value": "分"
+			}, {
+				"blockInputId": "MINUTE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "haMl4O"
+			}, {
+				"type": "text",
+				"value": "秒"
+			}, {
+				"blockInputId": "SECOND",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "IVQPN1"
+			}],
+			"code": "{SENSOR}.fillByHMS({HOUR}, {MINUTE}, {SECOND});",
+			"tags": ["module"],
+			"module": "uper_rtc",
+			"uid": "0d9Twp"
+		}, {
+			"type": "statement",
+			"name": "uper_rtcFillByWeek",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "71LjkP"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "时钟模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rtcs"
+			}, {
+				"type": "text",
+				"value": "设置星期几"
+			}, {
+				"blockInputId": "WEEK",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "71LjkP"
+			}],
+			"code": "{SENSOR}.fillByWeek({WEEK});",
+			"tags": ["module"],
+			"module": "uper_rtc",
+			"uid": "6Be6kd"
+		}, {
+			"type": "output",
+			"name": "uper_rtcGet",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "时钟模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rtcs"
+			}, {
+				"type": "text",
+				"value": "获取"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "年",
+					"value": "getYear"
+				}, {
+					"label": "月",
+					"value": "getMonth"
+				}, {
+					"label": "日",
+					"value": "getDay"
+				}, {
+					"label": "时",
+					"value": "getHour"
+				}, {
+					"label": "分",
+					"value": "getMinute"
+				}, {
+					"label": "秒",
+					"value": "getSecond"
+				}, {
+					"label": "星期",
+					"value": "getWeek"
+				}]
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "simple",
+				"value": "uint8_t"
+			},
+			"tags": ["module"],
+			"module": "uper_rtc",
+			"uid": "N0FxNK"
+		}],
+		"imageUrl": "assets/image/components/rtc.svg"
+	}, {
+		"uid": "6ldGVK",
+		"name": "uper_lcd",
+		"label": "1602液晶显示屏",
+		"defaultVarName": "lcd",
+		"type": "uper_lcd",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 122,
+		"height": 60,
+		"pins": [{
+			"name": "sda",
+			"anchor": [0.33, 0],
+			"tags": ["analog-in", "sda"],
+			"spec": ["tag", "sda"],
+			"label": "sda",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "red",
+			"overlay": [0.5, -1]
+		}, {
+			"name": "scl",
+			"anchor": [0.67, 0],
+			"tags": ["analog-in", "scl"],
+			"spec": ["tag", "scl"],
+			"label": "scl",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "blue",
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <uper_SoftI2CMaster.h>\n#include <uper_LiquidCrystal_SoftI2C.h>",
+			"var": "uper_LiquidCrystal_SoftI2C {NAME}(0x20, 16, 2, {sda}, {scl});",
+			"setup": "{NAME}.init();{NAME}.backlight();"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_lcdSetAddress",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "1FuUUK"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "HN6KvS"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PzOwid"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "初始化1602"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "uper_lcds"
+			}, {
+				"type": "text",
+				"value": "设备地址"
+			}, {
+				"blockInputId": "ADDR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "1FuUUK"
+			}, {
+				"type": "text",
+				"value": "SCL"
+			}, {
+				"blockInputId": "SCL",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "HN6KvS"
+			}, {
+				"type": "text",
+				"value": "SDA"
+			}, {
+				"blockInputId": "SDA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PzOwid"
+			}],
+			"code": "{LCD}.setAddress({ADDR}, {SCL}, {SDA});",
+			"tags": ["module"],
+			"module": "uper_lcd",
+			"uid": "cYD9sq"
+		}, {
+			"type": "statement",
+			"name": "uper_lcdPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "f1D95K"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "0PVWb3"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "JkQfkY"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "1602"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "uper_lcds"
+			}, {
+				"type": "text",
+				"value": "在第"
+			}, {
+				"blockInputId": "ROW",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "f1D95K"
+			}, {
+				"type": "text",
+				"value": "行第"
+			}, {
+				"blockInputId": "COL",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "0PVWb3"
+			}, {
+				"type": "text",
+				"value": "列打印"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "JkQfkY"
+			}],
+			"code": "{LCD}.setCursor({ROW}, {COL});{LCD}.print({DATA});",
+			"tags": ["module"],
+			"module": "uper_lcd",
+			"uid": "IPUP5l"
+		}, {
+			"type": "statement",
+			"name": "uper_lcdRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "1602"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "uper_lcds"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "清屏",
+					"value": "clear"
+				}, {
+					"label": "显示",
+					"value": "display"
+				}, {
+					"label": "不显示",
+					"value": "noDisplay"
+				}, {
+					"label": "闪烁",
+					"value": "blink"
+				}, {
+					"label": "不闪烁",
+					"value": "noBlink"
+				}, {
+					"label": "有光标",
+					"value": "curosr"
+				}, {
+					"label": "无光标",
+					"value": "noCursor"
+				}]
+			}],
+			"code": "{LCD}.{OP}();",
+			"tags": ["module"],
+			"module": "uper_lcd",
+			"uid": "HX5Yqi"
+		}],
+		"imageUrl": "assets/image/components/lcd.svg"
+	}, {
+		"uid": "fPSrsc",
+		"name": "uper_ir",
+		"label": "红外接收模块",
+		"type": "uper_ir",
+		"category": "function",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_IRSendRev.h>",
+			"var": "IRSendRev {NAME};",
+			"setup": "{NAME}.begin({s});"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "uper_irAvailable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外接收"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_irs"
+			}, {
+				"type": "text",
+				"value": "有信号"
+			}],
+			"code": "{SENSOR}.available()",
+			"returnType": {
+				"type": "simple",
+				"value": "unsigned char"
+			},
+			"tags": ["module"],
+			"module": "uper_ir",
+			"uid": "WVnBEM"
+		}, {
+			"type": "output",
+			"name": "uper_irRecv",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外接收"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_irs"
+			}, {
+				"type": "text",
+				"value": "读取按键值"
+			}],
+			"code": "{SENSOR}.recv()",
+			"returnType": {
+				"type": "simple",
+				"value": "unsigned char"
+			},
+			"tags": ["module"],
+			"module": "uper_ir",
+			"uid": "dHkBA6"
+		}],
+		"imageUrl": "assets/image/components/ir.svg"
+	}, {
+		"uid": "ReWEyK",
+		"name": "uper_bluetooth",
+		"label": "蓝牙模块",
+		"type": "serial",
+		"category": "function",
+		"boards": ["upDuino"],
+		"width": 50,
+		"height": 120,
+		"pins": [{
+			"name": "rxd",
+			"anchor": [0.33, 0],
+			"tags": ["digital", "analog-in"],
+			"label": "rxd",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "#4fb982",
+			"overlay": [0.5, -1]
+		}, {
+			"name": "txd",
+			"anchor": [0.67, 0],
+			"tags": ["digital", "analog-in"],
+			"label": "txd",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "#a05aa0",
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"blocks": [],
+		"imageUrl": "assets/image/components/bluetooth.svg"
+	}, {
+		"uid": "rR88an",
+		"name": "uper_motor",
+		"label": "电机控制板",
+		"type": "uper_motor",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 150,
+		"height": 100,
+		"pins": [{
+			"name": "MA",
+			"anchor": [0, 0.33],
+			"tags": ["uper-motor"],
+			"label": "MA",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1],
+			"defaultValue": "MOTOR_UN_USE"
+		}, {
+			"name": "MB",
+			"anchor": [0, 0.67],
+			"tags": ["uper-motor"],
+			"label": "MB",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1],
+			"defaultValue": "MOTOR_UN_USE"
+		}],
+		"code": {
+			"include": "#include <uper_Motor.h>",
+			"var": "Motor {NAME}({MA}, {MB});",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_motorRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机控制板"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "uper_motors"
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机转向"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "true"
+				}, {
+					"label": "反转",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "转速"
+			}, {
+				"id": "SPEED",
+				"type": "number-input"
+			}],
+			"code": "{MOTOR}.run({INDEX}, {SPEED}, {DIRECTION});",
+			"tags": ["module"],
+			"module": "uper_motor",
+			"uid": "0hJwlu"
+		}, {
+			"type": "statement",
+			"name": "uper_motorRunAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "acuBb4"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机控制板"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "uper_motors"
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}]
+			}, {
+				"type": "text",
+				"value": "号电机转向"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "true"
+				}, {
+					"label": "反转",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "转速"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "acuBb4"
+			}],
+			"code": "{MOTOR}.run({INDEX}, {SPEED}, {DIRECTION});",
+			"tags": ["module", "advanced"],
+			"module": "uper_motor",
+			"uid": "pPLkOm"
+		}],
+		"imageUrl": "assets/image/components/motor.svg"
+	}, {
+		"uid": "ld3XJ9",
+		"name": "uper_servo",
+		"label": "舵机",
+		"type": "servo",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 150,
+		"height": 75,
+		"pins": [{
+			"name": "s",
+			"anchor": [1, 0.9],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Servo.h>",
+			"var": "Servo {NAME};",
+			"setup": "{NAME}.attach({s});"
+		},
+		"blocks": [],
+		"imageUrl": "assets/image/components/servo.svg"
+	}, {
+		"uid": "Tm7rxx",
+		"name": "uper_servoBoard",
+		"label": "舵机控制板",
+		"type": "uper_servoBoard",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 150,
+		"height": 120,
+		"pins": [{
+			"name": "rxd",
+			"anchor": [0.33, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "rxd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "txd",
+			"anchor": [0.67, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "txd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <uper_Servo.h>",
+			"var": "Servo {NAME};",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_servoBoardRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "舵机控制板"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "uper_servoBoards"
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}]
+			}, {
+				"type": "text",
+				"value": "号舵机角度为"
+			}, {
+				"id": "ANGLE",
+				"type": "number-input"
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{SERVO}.run({INDEX}, {ANGLE});",
+			"tags": ["module"],
+			"module": "uper_servoBoard",
+			"uid": "EOSHpH"
+		}, {
+			"type": "statement",
+			"name": "uper_servoBoardRunAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Em890a"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "舵机控制板"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "uper_servoBoards"
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}]
+			}, {
+				"type": "text",
+				"value": "号舵机角度为"
+			}, {
+				"blockInputId": "ANGLE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Em890a"
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{SERVO}.run({INDEX}, {ANGLE});",
+			"tags": ["module", "advanced"],
+			"module": "uper_servoBoards",
+			"uid": "3ghw2a"
+		}],
+		"imageUrl": "assets/image/components/servoBoard.svg"
+	}, {
+		"uid": "QfDka8",
+		"name": "uper_fan",
+		"label": "风扇模块",
+		"type": "uper_fan",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 120,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-fan"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <uper_Fan.h>",
+			"var": "Fan {NAME}({s});",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_fanRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "风扇模块"
+			}, {
+				"id": "FAN",
+				"type": "dynamic-select",
+				"options": "uper_fans"
+			}, {
+				"type": "text",
+				"value": "转向"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "true"
+				}, {
+					"label": "反转",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "转速"
+			}, {
+				"id": "SPEED",
+				"type": "number-input"
+			}],
+			"code": "{FAN}.run({SPEED}, {DIRECTION});",
+			"tags": ["module"],
+			"module": "uper_fan",
+			"uid": "iQzIfG"
+		}, {
+			"type": "statement",
+			"name": "uper_fanRunAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "VBZie4"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "风扇模块"
+			}, {
+				"id": "FAN",
+				"type": "dynamic-select",
+				"options": "uper_fans"
+			}, {
+				"type": "text",
+				"value": "转向"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "true"
+				}, {
+					"label": "反转",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "转速"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "VBZie4"
+			}],
+			"code": "{FAN}.run({SPEED}, {DIRECTION});",
+			"tags": ["module", "advanced"],
+			"module": "uper_fan",
+			"uid": "pyod7f"
+		}],
+		"imageUrl": "assets/image/components/fan.svg"
+	}, {
+		"uid": "pCqK2R",
+		"name": "uper_rfid",
+		"label": "RFID",
+		"type": "uper_rfid",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 120,
+		"height": 100,
+		"pins": [{
+			"name": "sda",
+			"anchor": [1, 0.33],
+			"tags": ["analog-in", "sda"],
+			"label": "sda",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "red",
+			"spec": ["tag", "sda"],
+			"overlay": [0.5, -1]
+		}, {
+			"name": "scl",
+			"anchor": [1, 0.67],
+			"tags": ["analog-in", "scl"],
+			"label": "scl",
+			"shape": "Dot",
+			"rotate": false,
+			"color": "blue",
+			"spec": ["tag", "scl"],
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <uper_nfc.h>",
+			"var": "NFC_Module {NAME};",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_rfidConfig",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "初始化RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}],
+			"code": "{SENSOR}.SAMConfiguration();",
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "uM2n1r"
+		}, {
+			"type": "output",
+			"name": "uper_rfidGetVersion",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "版本信息"
+			}],
+			"code": "{SENSOR}.get_version()",
+			"returnType": {
+				"type": "simple",
+				"value": "uint32_t"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "fRPBLc"
+		}, {
+			"type": "output",
+			"name": "uper_rfidGetStorage",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "存储信息"
+			}],
+			"code": "{SENSOR}.get_version()",
+			"returnType": {
+				"type": "simple",
+				"value": "uint32_t"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "fRPBLc"
+		}, {
+			"type": "output",
+			"name": "uper_rfidReadBlock",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Dw7FpE"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "uONNBn"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "读取"
+			}, {
+				"type": "text",
+				"value": "数据块"
+			}, {
+				"blockInputId": "BLOCK",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Dw7FpE"
+			}, {
+				"type": "text",
+				"value": "的数据"
+			}, {
+				"blockInputId": "BUF",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "uONNBn"
+			}],
+			"code": "{SENSOR}.MifareReadBlock({BLOCK}, {BUF})",
+			"returnType": {
+				"type": "simple",
+				"value": "u8"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "6ygI90"
+		}, {
+			"type": "output",
+			"name": "uper_rfidWriteBlock",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "3dgmw6"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "MNq5cg"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "写卡"
+			}, {
+				"type": "text",
+				"value": "数据块"
+			}, {
+				"blockInputId": "BLOCK",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "3dgmw6"
+			}, {
+				"type": "text",
+				"value": "写入数据"
+			}, {
+				"blockInputId": "BUF",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "MNq5cg"
+			}],
+			"code": "{SENSOR}.MifareWriteBlock({BLOCK}, {BUF})",
+			"returnType": {
+				"type": "simple",
+				"value": "u8"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "bICzTs"
+		}, {
+			"type": "statement-input",
+			"name": "uper_rfidLengthIf",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "WOpnGR"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "有"
+			}, {
+				"blockInputId": "LENGTH",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "WOpnGR",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "4"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "个块"
+			}],
+			"code": "if({SENSOR}.length == {LENGTH}) {{STATEMENTS}}",
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "YkL0o8"
+		}],
+		"imageUrl": "assets/image/components/rfid.svg"
+	}, {
+		"uid": "U5SkiJ",
+		"name": "uper_nfc",
+		"label": "NFC",
+		"type": "uper_nfc",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 180,
+		"height": 100,
+		"pins": [{
+			"name": "sda",
+			"anchor": [0.33, 0],
+			"tags": ["sda"],
+			"spec": ["tag", "sda"],
+			"label": "rxd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "scl",
+			"anchor": [0.67, 0],
+			"tags": ["scl"],
+			"spec": ["tag", "scl"],
+			"label": "txd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <PN532_I2C.h>\n#include <PN532.h>\n#include <NfcAdapter.h>",
+			"var": "PN532_I2C {NAME}_i2c(Wire);\nNfcAdapter {NAME} = NfcAdapter({NAME}_i2c);",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "uper_nfcRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "读取标记"
+			}],
+			"code": "{SENSOR}.read()",
+			"returnType": {
+				"type": "simple",
+				"value": "NfcTag"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "pjrILs"
+		}, {
+			"type": "output",
+			"name": "uper_nfcWrite",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "rXnIQc"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "写入信息"
+			}, {
+				"blockInputId": "MESSAGE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "rXnIQc"
+			}],
+			"code": "{SENSOR}.write({MESSAGE})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "VFxOyt"
+		}, {
+			"type": "output",
+			"name": "uper_nfcErase",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "擦除"
+			}],
+			"code": "{SENSOR}.earse()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "CFEIa5"
+		}, {
+			"type": "output",
+			"name": "uper_nfcFormat",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "格式化"
+			}],
+			"code": "{SENSOR}.format()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "2EZEkm"
+		}, {
+			"type": "output",
+			"name": "uper_nfcClean",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "重置"
+			}],
+			"code": "{SENSOR}.clean()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "f9EfbF"
+		}, {
+			"type": "output",
+			"name": "uper_nfcTagPresent",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "标记可用"
+			}],
+			"code": "{SENSOR}.tagPresent()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "eiQ8di"
+		}, {
+			"type": "output",
+			"name": "uper_nfcTagPresentAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "QPkZAq"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_nfcs"
+			}, {
+				"type": "text",
+				"value": "标记可用，等待时间"
+			}, {
+				"blockInputId": "TIME",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "QPkZAq"
+			}],
+			"code": "{SENSOR}.tagPresent({TIME})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module", "advanced"],
+			"module": "uper_nfc",
+			"uid": "fV0DPn"
+		}, {
+			"type": "statement",
+			"name": "uper_nfcTagPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "2q0Xzs"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "NFC标记"
+			}, {
+				"blockInputId": "TAG",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "2q0Xzs"
+			}, {
+				"type": "text",
+				"value": "打印"
+			}],
+			"code": "{TAG}.print();",
+			"tags": ["module"],
+			"module": "uper_nfc",
+			"uid": "HZEUKu"
+		}],
+		"imageUrl": "assets/image/components/nfc.svg"
+	}, {
+		"uid": "omV6kr",
+		"name": "uper_matrix",
+		"label": "点阵屏",
+		"type": "uper_matrix",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 86,
+		"height": 100,
+		"pins": [{
+			"name": "rxd",
+			"anchor": [0.33, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "rxd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "txd",
+			"anchor": [0.67, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "txd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {},
+		"blocks": [],
+		"imageUrl": "assets/image/components/martix.svg"
+	}, {
+		"uid": "w1l1fP",
+		"name": "uper_record",
+		"label": "录音模块",
+		"type": "uper_record",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 192,
+		"height": 80,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.77, 1],
+			"tags": ["uper-2P-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_Record.h>",
+			"var": "Record {NAME}({s});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_recordPlay",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "录音模块"
+			}, {
+				"id": "RECORD",
+				"type": "dynamic-select",
+				"options": "uper_records"
+			}, {
+				"type": "text",
+				"value": "播放一次"
+			}],
+			"code": "{RECORD}.play();",
+			"tags": ["module"],
+			"module": "uper_record",
+			"uid": "OX0TMH"
+		}, {
+			"type": "statement",
+			"name": "uper_recordLoop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "录音模块"
+			}, {
+				"id": "RECORD",
+				"type": "dynamic-select",
+				"options": "uper_records"
+			}, {
+				"type": "text",
+				"value": "循环播放"
+			}],
+			"code": "{RECORD}.loop();",
+			"tags": ["module"],
+			"module": "uper_record",
+			"uid": "QoIZex"
+		}, {
+			"type": "statement",
+			"name": "uper_recordStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "录音模块"
+			}, {
+				"id": "RECORD",
+				"type": "dynamic-select",
+				"options": "uper_records"
+			}, {
+				"type": "text",
+				"value": "停止播放"
+			}],
+			"code": "{RECORD}.stop();",
+			"tags": ["module"],
+			"module": "uper_record",
+			"uid": "1SUBmp"
+		}],
+		"imageUrl": "assets/image/components/record.svg"
+	}, {
+		"uid": "Jq2y0z",
+		"name": "uper_step",
+		"label": "计步传感器",
+		"type": "uper_step",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 58,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["init"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_Step.h>",
+			"var": "Step {NAME}({s}, &{NAME}_ISR);",
+			"funcDeclare": "void {NAME}_ISR();\n",
+			"funcImplement": "void {NAME}_ISR() {{NAME}.doCount();}\n"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_stepBegin",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "计步传感器"
+			}, {
+				"id": "STEP",
+				"type": "dynamic-select",
+				"options": "uper_steps"
+			}, {
+				"type": "text",
+				"value": "开始计数"
+			}],
+			"code": "{STEP}.begin();",
+			"tags": ["module"],
+			"module": "uper_step",
+			"uid": "jAVGvL"
+		}, {
+			"type": "statement",
+			"name": "uper_stepStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "计步传感器"
+			}, {
+				"id": "STEP",
+				"type": "dynamic-select",
+				"options": "uper_steps"
+			}, {
+				"type": "text",
+				"value": "停止计数"
+			}],
+			"code": "{STEP}.stop();",
+			"tags": ["module"],
+			"module": "uper_step",
+			"uid": "Xd5YCV"
+		}, {
+			"type": "output",
+			"name": "uper_stepOutput",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取计步传感器"
+			}, {
+				"id": "STEP",
+				"type": "dynamic-select",
+				"options": "uper_steps"
+			}, {
+				"type": "text",
+				"value": "计数"
+			}],
+			"code": "{STEP}.getCount()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "uper_step",
+			"uid": "e7VDal"
+		}],
+		"imageUrl": "assets/image/components/step.svg"
+	}, {
+		"uid": "kKfJa3",
+		"name": "uper_colorSensor",
+		"defaultVarName": "tcs",
+		"label": "颜色传感器",
+		"type": "uper_colorSensor",
+		"category": "sensor",
+		"boards": ["upDuino"],
+		"width": 53,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-iic"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_TCS34725.h>",
+			"var": "DFRobot_TCS34725 {NAME} = DFRobot_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_colorSensorGetRGB",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "c7mQb5"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "CMoZ9X"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Fr2BHB"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "9FXKO5"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "颜色传感器"
+			}, {
+				"id": "COLOR",
+				"type": "dynamic-select",
+				"options": "uper_colorSensors"
+			}, {
+				"type": "text",
+				"value": "获取RGB值"
+			}, {
+				"type": "text",
+				"value": "R"
+			}, {
+				"blockInputId": "RED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "c7mQb5"
+			}, {
+				"type": "text",
+				"value": "G"
+			}, {
+				"blockInputId": "GREEN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "CMoZ9X"
+			}, {
+				"type": "text",
+				"value": "B"
+			}, {
+				"blockInputId": "BLUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Fr2BHB"
+			}, {
+				"type": "text",
+				"value": "C"
+			}, {
+				"blockInputId": "CLEAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "9FXKO5"
+			}],
+			"code": "{COLOR}.getRGBC(&{RED}, &{GREEN}, &{BLUE}, &{CLEAR});",
+			"tags": ["module"],
+			"module": "uper_colorSensor",
+			"board": "uper",
+			"uid": "iGo8GH"
+		}],
+		"imageUrl": "assets/image/components/colorSensor.svg"
+	}, {
+		"uid": "ivIafd",
+		"name": "uper_u8g",
+		"defaultVarName": "u8g",
+		"label": "OLED",
+		"type": "uper_u8g",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 100,
+		"height": 94,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-iic"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_U8glib.h>",
+			"var": "U8GLIB_SSD1306_128X64 {NAME}(U8G_I2C_OPT_NONE);",
+			"const": "char u8g_buffer[32];\nchar* itostr(char *str, int i) \n{\n    sprintf(str, \"%d\", i);\n    return str;\n}"
+		},
+		"blocks": [{
+			"type": "statement-input",
+			"name": "uper_u8gLoop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "uper_u8gs"
+			}, {
+				"type": "text",
+				"value": "开始显示"
+			}],
+			"code": "{U8G}.firstPage();do{{STATEMENTS}}while({U8G}.nextPage());",
+			"tags": ["module"],
+			"module": "uper_u8g",
+			"uid": "4R1Wxk"
+		}, {
+			"type": "statement",
+			"name": "uper_u8gSetFont",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "uper_u8gs"
+			}, {
+				"type": "text",
+				"value": "设置字体"
+			}, {
+				"id": "FONT",
+				"type": "static-select",
+				"options": [{
+					"label": "u8g_font_gdr9r",
+					"value": "u8g_font_gdr9r"
+				}, {
+					"label": "u8g_font_gdr10r",
+					"value": "u8g_font_gdr10r"
+				}, {
+					"label": "u8g_font_gdr11r",
+					"value": "u8g_font_gdr11r"
+				}, {
+					"label": "u8g_font_gdr12r",
+					"value": "u8g_font_gdr12r"
+				}, {
+					"label": "u8g_font_gdr13r",
+					"value": "u8g_font_gdr13r"
+				}, {
+					"label": "u8g_font_gdr14r",
+					"value": "u8g_font_gdr14r"
+				}, {
+					"label": "u8g_font_gdr15r",
+					"value": "u8g_font_gdr15r"
+				}, {
+					"label": "u8g_font_gdr16r",
+					"value": "u8g_font_gdr16r"
+				}, {
+					"label": "u8g_font_gdr17r",
+					"value": "u8g_font_gdr17r"
+				}, {
+					"label": "u8g_font_gdr18r",
+					"value": "u8g_font_gdr18r"
+				}, {
+					"label": "u8g_font_gdr19r",
+					"value": "u8g_font_gdr19r"
+				}, {
+					"label": "u8g_font_gdr20r",
+					"value": "u8g_font_gdr20r"
+				}, {
+					"label": "u8g_font_gdr21r",
+					"value": "u8g_font_gdr21r"
+				}, {
+					"label": "u8g_font_gdr22r",
+					"value": "u8g_font_gdr22r"
+				}, {
+					"label": "u8g_font_gdr23r",
+					"value": "u8g_font_gdr23r"
+				}, {
+					"label": "u8g_font_gdr24r",
+					"value": "u8g_font_gdr24r"
+				}, {
+					"label": "u8g_font_gdr25r",
+					"value": "u8g_font_gdr25r"
+				}, {
+					"label": "u8g_font_gdr26r",
+					"value": "u8g_font_gdr26r"
+				}, {
+					"label": "u8g_font_gdr27r",
+					"value": "u8g_font_gdr27r"
+				}, {
+					"label": "u8g_font_gdr28r",
+					"value": "u8g_font_gdr28r"
+				}, {
+					"label": "u8g_font_gdr29r",
+					"value": "u8g_font_gdr29r"
+				}, {
+					"label": "u8g_font_gdr30r",
+					"value": "u8g_font_gdr30r"
+				}]
+			}],
+			"code": "{U8G}.setFont({FONT});",
+			"tags": ["module"],
+			"module": "uper_u8g",
+			"uid": "R7fVmH"
+		}, {
+			"type": "statement",
+			"name": "uper_u8gDisplay",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "H4kaTg"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "b5U3Zr"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ch5NSR"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "uper_u8gs"
+			}, {
+				"type": "text",
+				"value": "显示"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "字符串",
+					"value": "string"
+				}, {
+					"label": "数字",
+					"value": "number"
+				}]
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "H4kaTg"
+			}, {
+				"type": "text",
+				"value": "X值"
+			}, {
+				"blockInputId": "XPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "b5U3Zr"
+			}, {
+				"type": "text",
+				"value": "Y值"
+			}, {
+				"blockInputId": "YPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ch5NSR"
+			}],
+			"eval": true,
+			"code": "'{TYPE}' === 'string' ? '{U8G}.drawStr({XPOS}, {YPOS}, {VALUE});' : '{U8G}.drawStr({XPOS}, {YPOS}, itostr(u8g_buffer, {VALUE}));'",
+			"tags": ["module"],
+			"module": "uper_u8g",
+			"uid": "SgtLXs"
+		}],
+		"imageUrl": "assets/image/components/u8g.svg"
+	}]
+}

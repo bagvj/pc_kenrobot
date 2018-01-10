@@ -66,7 +66,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				//app启动后自动检查更新，并且如果检查失败或者没有更新，不提示
 				setTimeout(() => {
 					onCheckUpdate(false).then(status => {
-						status > 0 && onCheckPackageLibraryUpdate(false);
+						// status > 0 && onCheckPackageLibraryUpdate(false);
 					});
 
 					inSync = false;

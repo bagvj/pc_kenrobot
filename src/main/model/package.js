@@ -135,7 +135,7 @@ function loadAll(extra) {
 	var packages = []
 	var pattern = [
 		`${util.getAppPath("appResource")}/packages/*/package.json`,
-		`${util.getAppPath("packages")}/*/package.json`,
+		// `${util.getAppPath("packages")}/*/package.json`,
 	]
 	log.debug(`loadPackages: ${pattern.join(',')}`)
 
@@ -227,7 +227,7 @@ function loadExamples() {
 	var examples = []
 	var pattern = [
 		`${util.getAppPath("appResource")}/packages/*/examples/examples.json`,
-		`${util.getAppPath("packages")}/*/examples/examples.json`,
+		// `${util.getAppPath("packages")}/*/examples/examples.json`,
 	]
 
 	log.debug(`loadExamples: ${pattern.join(',')}`)
