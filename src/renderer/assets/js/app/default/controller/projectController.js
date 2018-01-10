@@ -38,8 +38,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			packages: [],
 			boards: [],
 			components: [],
-			blocks: [],
+			blocks: blocks.concat(),
 		};
+
 		kenrobot.postMessage("app:loadPackages").then(pkgs => {
 			schema.packages = pkgs;
 			schema.packages.forEach(pkg => {

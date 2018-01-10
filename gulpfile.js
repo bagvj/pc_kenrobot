@@ -270,6 +270,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	nconf.save()
 
 	var packageNames = args.packages ? args.packages.split(',') : []
+	var standardPackage = args.standardPackage || "Arduino"
 
 	if (args.standalone) {
 		var extraFiles = [
@@ -277,8 +278,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"./data/scripts/**/*",
 			`!./data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./data/examples/**/*",
-			"./data/packages/packages.json",
 			"./data/libraries/libraries.json",
+			"./data/packages/packages.json",
+			"./data/packages/${standardPackage}/**/*",
 		]
 
 		packageNames.length > 0 && extraFiles.push(`./data/packages/@(${packageNames.join('|')})*${platform}.7z`)
@@ -392,8 +394,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"data/scripts",
 			`!data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"data/examples",
-			"data/packages/packages.json",
 			"data/libraries/libraries.json",
+			"data/packages/packages.json",
+			`data/packages/${standardPackage}`
 		]
 
 		packageNames.length > 0 && extraFiles.push(`data/packages/@(${packageNames.join('|')})*${platform}.7z`)

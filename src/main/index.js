@@ -207,7 +207,7 @@ function listenMessages() {
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
 	listenMessage("min", () => mainWindow.minimize())
 	listenMessage("max", () => onAppToggleMax())
-	listenMessage("errorReport", message => onAppErrorReport(message))
+	listenMessage("errorReport", (message, type) => onAppErrorReport(message, type))
 }
 
 function onAppReady() {
@@ -295,8 +295,8 @@ function onAppRelaunch() {
 	app.exit(0)
 }
 
-function onAppErrorReport(message) {
-	log.error(message)
+function onAppErrorReport(message, type) {
+	log.error(`${type}: ${message}`)
 }
 
 function checkIfFirstRun() {
