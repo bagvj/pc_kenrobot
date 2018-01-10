@@ -1,6 +1,6 @@
-[{
-  "category": "01Basic",
-  "list": [{
+{
+  "package": "Arduino",
+  "examples": [{
     "name": "AnalogReadSerial",
     "category": "01Basic"
   }, {
@@ -9,10 +9,7 @@
   }, {
     "name": "ReadAnalogVoltage",
     "category": "01Basic"
-  }]
-}, {
-  "category": "02Digital",
-  "list": [{
+  }, {
     "name": "Button",
     "category": "02Digital"
   }, {
@@ -27,10 +24,7 @@
   }, {
     "name": "toneLittleStar",
     "category": "02Digital"
-  }]
-}, {
-  "category": "03Analog",
-  "list": [{
+  }, {
     "name": "AnalogInput",
     "category": "03Analog"
   }, {
@@ -39,38 +33,23 @@
   }, {
     "name": "Fading",
     "category": "03Analog"
-  }]
-}, {
-  "category": "04Communication",
-  "list": [{
+  }, {
     "name": "SerialCallResponse",
     "category": "04Communication"
-  }]
-}, {
-  "category": "05Control",
-  "list": [{
+  }, {
     "name": "switchCase",
     "category": "05Control"
-  }]
-}, {
-  "category": "06Sensors",
-  "list": [{
+  }, {
     "name": "Ping",
     "category": "06Sensors"
-  }]
-}, {
-  "category": "07Display",
-  "list": [{
+  }, {
     "name": "lcd1602",
     "category": "07Display"
   }, {
     "name": "OLED",
     "category": "07Display"
-  }]
-}, {
-  "category": "08Strings",
-  "list": [{
+  }, {
     "name": "StringLength",
     "category": "08Strings"
   }]
-}]
+}

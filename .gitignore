@@ -11,4 +11,5 @@ build/bin
 build/output
 build/upload.json
 app/mac.txt
-/data/packages
+/data/packages/packages.json
+/data/packages/*.7z

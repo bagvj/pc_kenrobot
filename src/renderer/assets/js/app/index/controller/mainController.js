@@ -227,7 +227,7 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	function onCheckPackageLibraryUpdate(manual) {
 		manual = manual !== false;
 
-		kenrobot.postMessage("app:checkPackageLibraryUpdate", config.url.packages).then(result => {
+		kenrobot.postMessage("app:checkPackageLibraryUpdate").then(result => {
 			if(result.status == 0) {
 				manual && util.message("开发板和库已经是最新版本了");
 				return;

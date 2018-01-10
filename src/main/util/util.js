@@ -9,7 +9,7 @@ const is = require('electron-is')
 
 const Q = require('q')
 const fs = require('fs-extra')
-const glob = require('glob')
+const globby = require('globby')
 const sudo = require('sudo-prompt')
 const iconv = require('iconv-lite')
 const _ = require('lodash')
@@ -573,14 +573,11 @@ function searchFiles(pattern) {
 	var deferred = Q.defer()
 
 	log.debug(`searchFiles: ${pattern}`)
-	glob(pattern, {}, (err, pathList) => {
-		if(err) {
-			log.error(err)
-			deferred.reject(err)
-			return
-		}
-
-		return deferred.resolve(pathList)
+	globby(pattern).then(result => {
+		deferred.resolve(result)
+	}, err => {
+		err && log.error(err)
+		deferred.reject(err)
 	})
 
 	return deferred.promise

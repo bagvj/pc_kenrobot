@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, util, emitor, config, menu) {
+define(['vendor/jquery', 'vendor/mousetrap', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, _, util, emitor, config, menu) {
 	function init() {
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 
@@ -38,7 +38,7 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 			var exampleMenu = [];
 			examples.forEach(exampleGroup => {
 				var groupMenu
-				if(exampleGroup.name == "built-in") {
+				if(exampleGroup.builtIn) {
 					groupMenu = {
 						id: "built-in-examples",
 						placeholder: "内置示例",
@@ -49,27 +49,27 @@ define(['vendor/jquery', 'vendor/mousetrap', 'app/common/util/util', 'app/common
 					exampleMenu.push("_");
 				} else {
 					groupMenu = {
-						id: `${exampleGroup.name}-examples`,
-						placeholder: `${exampleGroup.name}示例`,
+						id: `${exampleGroup.package}-examples`,
+						placeholder: `${exampleGroup.package}示例`,
 						arrow: true,
 						menuCls: "example-third-party",
 					}
 					exampleMenu.push(groupMenu)
 				}
 
-				groupMenu.menu = exampleGroup.groups.map(ca => {
+				var groups = _.groupBy(exampleGroup.examples, "category");
+				groupMenu.menu = Object.keys(groups).map(category => {
 					return {
-						placeholder: ca.category,
+						placeholder: category,
 						arrow: true,
-						menu: ca.list.map(example => {
+						menu: groups[category].map(example => {
 							return {
 								text: example.name,
 								action: "open-example",
 								extra: {
-									package: exampleGroup.name,
 									name: example.name,
-									category: example.category,
-								},
+									path: example.path,
+								}
 							};
 						}),
 					};

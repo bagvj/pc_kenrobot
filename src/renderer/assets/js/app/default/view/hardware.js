@@ -62,8 +62,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		hardwareModel.loadSchema(schema);
 
 		updateBoards(schema.boards);
-		updateComponents(schema.components);
-		updatePackages(schema.packages);
+		updateComponents(schema.packages.find(pkg => pkg.builtIn));
+		updatePackages(schema.packages.filter(pkg => !pkg.builtIn));
 
 		Array.from(componentsWrap[0].querySelectorAll(".component-item .image")).forEach(imageDom => {
 			imageDom.addEventListener("mousedown", onComponentMouseDown);
@@ -110,14 +110,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	}
 
-	function updateComponents(components) {
+	function updateComponents(standardPackage) {
 		var componentList = componentsWrap.find(".components").empty();
-		components.filter(component => component.package == "Arduino").forEach(component => componentList.append(buildComponent(component)));
+		standardPackage.components.forEach(component => componentList.append(buildComponent(component)));
 	}
 
-	function updatePackages(packages) {
+	function updatePackages(vendorPackages) {
 		var vendorList = componentsWrap.find(".vendor-components").empty();
-		packages.filter(pkg => pkg.name != "Arduino").forEach(pkg => {
+		vendorPackages.forEach(pkg => {
 			if(!pkg.components || pkg.components.length == 0) {
 				return
 			}

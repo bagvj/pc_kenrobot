@@ -41,7 +41,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	}
 
 	function onDialogShow() {
-		$.when(loadPackages(), getInstalledPackages()).then(() => update(), err => {
+		$.when(loadRemotePackages(), getInstalledPackages()).then(() => update(), err => {
 			util.message("加载包配置失败");
 		});
 	}
@@ -69,9 +69,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 	function getInstalledPackages() {
 		var promise = $.Deferred();
 		if(installedPackages) {
-			setTimeout(() => {
-				promise.resolve(installedPackages);
-			}, 10);
+			setTimeout(() => promise.resolve(), 10);
 			return promise;
 		}
 
@@ -82,7 +80,7 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					version: p.version,
 				}
 			});
-			promise.resolve(installedPackages);
+			promise.resolve();
 		}, err => {
 			installedPackages = [];
 			promise.resolve();
@@ -91,19 +89,16 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 		return promise;
 	}
 
-	function loadPackages() {
+	function loadRemotePackages() {
 		var promise = $.Deferred();
 		if(packages) {
-			setTimeout(() => {
-				promise.resolve(packages);
-			}, 10);
+			setTimeout(() => promise.resolve(), 10);
 			return promise;
 		}
 
-		kenrobot.postMessage("app:request", config.url.packages).then(_packages => {
-			var info = kenrobot.appInfo;
-			packages = _packages.filter(p => p.platform == info.platform);
-			promise.resolve(packages);
+		kenrobot.postMessage("app:loadRemotePackages").then(result => {
+			packages = result;
+			promise.resolve();
 		}, err => {
 			promise.reject(err);
 		});

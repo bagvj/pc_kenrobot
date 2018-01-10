@@ -24,7 +24,7 @@ function check(projectPath) {
 	return projectPath
 }
 
-function read(filePath, projectType) {
+function read(filePath) {
 	var deferred = Q.defer()
 
 	var projectPath
@@ -44,7 +44,7 @@ function read(filePath, projectType) {
 	util.readJson(projectPath).then(projectInfo => {
 		deferred.resolve({
 			path: path.dirname(projectPath),
-			project_type: projectType || projectInfo.project_type,
+			project_type: projectInfo.project_type || "local",
 			data: projectInfo,
 		})
 	}, err => {

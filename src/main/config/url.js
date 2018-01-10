@@ -14,6 +14,8 @@ module.exports = {
 
 	VERIFY: 'http://server.kenrobot.com/api/auth/verify',
 
+	PACKAGE: "http://www.kenrobot.com/packages/packages.json",
+
 	PROJECT_SYNC_LIST: "http://server.kenrobot.com/api/project/sync/list",
 	PROJECT_SYNC_CREATE: "http://server.kenrobot.com/api/project/sync/create",
 	PROJECT_SYNC_DELETE: "http://server.kenrobot.com/api/project/sync/delete",

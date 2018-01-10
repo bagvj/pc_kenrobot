@@ -151,21 +151,22 @@ function listenMessages() {
 
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
-	listenMessage("loadExamples", () => loadExamples())
-	listenMessage("openExample", (category, name, pkg) => openExample(category, name, pkg))
+	listenMessage("loadExamples", () => Package.loadExamples())
+	listenMessage("openExample", examplePath => openExample(examplePath))
 
 	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
 	listenMessage("deletePackage", name => Package.remove(name))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
-	listenMessage("loadPackages", (extra) => loadPackages(extra))
+	listenMessage("loadPackages", extra => loadPackages(extra))
+	listenMessage("loadRemotePackages",() => Package.loadRemote())
 
 	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
 	listenMessage("loadLibraries", () => loadLibraries())
 	listenMessage("unzipLibrary", (name, libraryPath) => unzipLibrary(name, libraryPath))
 	listenMessage("deleteLibrary", name => deleteLibrary(name))
 
-	listenMessage("checkUpdate", checkUrl => checkUpdate())
-	listenMessage("checkPackageLibraryUpdate", packagesUrl => checkPackageLibraryUpdate(packagesUrl))
+	listenMessage("checkUpdate", () => checkUpdate())
+	listenMessage("checkPackageLibraryUpdate", () => checkPackageLibraryUpdate())
 	listenMessage("removeOldVersions", newVersion => removeOldVersions(newVersion))
 	listenMessage("reportToServer", (data, type) => reportToServer(data, type))
 
@@ -381,12 +382,12 @@ function checkUpdate() {
  * 检查package和library更新
  * @param {*} checkUrl
  */
-function checkPackageLibraryUpdate(packagesUrl) {
+function checkPackageLibraryUpdate() {
 	var deferred = Q.defer()
 
 	Q.all([
 		loadPackages(false),
-		util.request(packagesUrl)
+		Package.loadRemote()
 	]).then(result => {
 		var installedPackages = result[0]
 		var allPackages = result[1]
@@ -472,7 +473,7 @@ function loadPackages(extra) {
 	var deferred = Q.defer()
 	extra = extra != false;
 
-	Package.load(extra).then(packages => {
+	Package.loadAll(extra).then(packages => {
 		packages.forEach(pkg => {
 			var srcPath = path.join(util.getAppPath("packages"), pkg.name, pkg.libraries || "src")
 			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
@@ -493,66 +494,13 @@ function loadPackages(extra) {
  * @param {*} category 分类
  * @param {*} name 名字
  */
-function openExample(category, name, pkg) {
+function openExample(examplePath) {
 	var deferred = Q.defer()
-	pkg = pkg || "built-in"
-
-	var examplePath
-	if(pkg == "built-in") {
-		examplePath = path.join(util.getAppPath("appResource"), "examples", category, name)
-	} else {
-		examplePath = path.join(util.getAppPath("packages"), pkg, "examples", category, name)
-	}
 
 	log.debug(`openExample: ${examplePath}`)
 	Project.read(examplePath).then(result => {
 		result.path = null
 		deferred.resolve(result)
-	}, err => {
-		err && log.error(err)
-		deferred.reject(err)
-	})
-
-	return deferred.promise
-}
-
-/**
- * 加载示例
- */
-function loadExamples() {
-	var deferred = Q.defer()
-
-	var examples = []
-	log.debug('loadExamples')
-
-	util.readJson(path.join(util.getAppPath("appResource"), "examples", "examples.json")).then(exampleGroups => {
-		examples.push({
-			name: "built-in",
-			groups: exampleGroups
-		})
-
-		var packagesPath = util.getAppPath("packages")
-		util.searchFiles(`${packagesPath}/*/examples/examples.json`).then(pathList => {
-			Q.all(pathList.map(p => {
-				var d = Q.defer()
-				util.readJson(p).then(groups => {
-					examples.push({
-						name: path.basename(path.dirname(path.dirname(p))),
-						groups: groups,
-					})
-				})
-				.fin(() => {
-					d.resolve()
-				})
-				return d.promise
-			}))
-			.then(() => {
-				deferred.resolve(examples)
-			})
-		}, err => {
-			err && log.error(err)
-			deferred.reject(err)
-		})
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)
