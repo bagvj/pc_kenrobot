@@ -196,7 +196,7 @@ function list() {
 			deferred.reject(result.message)
 			return
 		}
-		deferred.resolve(result.data)
+		deferred.resolve(result.data.filter(p => p.type == PROJECT_TYPE))
 	}, err => {
 		err && log.error(err)
 		deferred.reject(err)

@@ -475,7 +475,7 @@ function loadPackages(extra) {
 
 	Package.loadAll(extra).then(packages => {
 		packages.forEach(pkg => {
-			var srcPath = path.join(util.getAppPath("packages"), pkg.name, pkg.libraries || "src")
+			var srcPath = path.join(pkg.path, pkg.libraries || "src")
 			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
 				ArduinoOptions.librariesPath.push(srcPath)
 			}

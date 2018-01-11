@@ -9319,6 +9319,264 @@
 		}],
 		"imageUrl": "assets/image/components/rtc.svg"
 	}, {
+		"uid": "ZSysTK",
+		"name": "tm1637",
+		"defaultVarName": "display",
+		"label": "数码管",
+		"type": "tm1637",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 120,
+		"height": 43,
+		"pins": [{
+			"name": "CLK",
+			"anchor": [0.33, 0],
+			"tags": ["digital", "analog-in"],
+			"label": "CLK",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "DIO",
+			"anchor": [0.67, 0],
+			"tags": ["digital", "analog-in"],
+			"label": "DIO",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <TM1637Display.h>",
+			"var": "TM1637Display {NAME}({CLK}, {DIO});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "tm1637SetBrightness",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "tm1637s"
+			}, {
+				"type": "text",
+				"value": "设置亮度为"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}],
+				"value": "7"
+			}],
+			"code": "{DISPLAY}.setBrightness({INDEX});",
+			"tags": ["module"],
+			"module": "tm1637",
+			"uid": "Ucvl5K"
+		}, {
+			"type": "statement",
+			"name": "tm1637Clear",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "tm1637s"
+			}, {
+				"type": "text",
+				"value": "清屏"
+			}],
+			"code": "{DISPLAY}.clear();",
+			"tags": ["module"],
+			"module": "tm1637",
+			"uid": "ypocnD"
+		}, {
+			"type": "statement",
+			"name": "tm1637Show",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "tm1637s"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "显示",
+					"value": "true"
+				}, {
+					"label": "隐藏",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "内容"
+			}],
+			"code": "{DISPLAY}.show({VALUE});",
+			"tags": ["module"],
+			"module": "tm1637",
+			"uid": "zpQZAM"
+		}, {
+			"type": "statement",
+			"name": "tm1637Display",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "xQTkJx"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "tm1637s"
+			}, {
+				"type": "text",
+				"value": "显示内容"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "xQTkJx"
+			}],
+			"code": "{DISPLAY}.setSegments({DATA});",
+			"tags": ["module"],
+			"module": "tm1637",
+			"uid": "3k1n19"
+		}, {
+			"type": "statement",
+			"name": "tm1637DisplayTwo",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "26vQK4"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "GutZbI"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "tm1637s"
+			}, {
+				"type": "text",
+				"value": "显示"
+			}, {
+				"blockInputId": "NUM1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "26vQK4",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0",
+						"placeholder": "数字"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": ":"
+			}, {
+				"blockInputId": "NUM2",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "GutZbI",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0",
+						"placeholder": "数字"
+					}],
+					"name": "number"
+				}
+			}, {
+				"id": "POINT",
+				"type": "static-select",
+				"options": [{
+					"label": "有冒号",
+					"value": "true"
+				}, {
+					"label": "无冒号",
+					"value": "false"
+				}]
+			}],
+			"code": "{DISPLAY}.showTwoNumberDec({NUM1}, {NUM2}, {POINT});",
+			"tags": ["module"],
+			"module": "tm1637",
+			"uid": "PmCQqO"
+		}],
+		"imageUrl": "assets/image/components/tm1637.svg"
+	}, {
 		"uid": "hr5P4L",
 		"name": "serial",
 		"label": "串口模块",

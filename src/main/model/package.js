@@ -169,7 +169,10 @@ function loadAll(extra) {
 					d.resolve()
 				})
 			} else {
-				util.readJson(p).then(packageConfig => packages.push(packageConfig)).fin(() => d.resolve())
+				util.readJson(p).then(packageConfig => {
+					packageConfig.path = path.dirname(p)
+					packages.push(packageConfig)
+				}).fin(() => d.resolve())
 			}
 			return d.promise
 		}))
