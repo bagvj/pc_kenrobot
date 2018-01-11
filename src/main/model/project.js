@@ -8,8 +8,8 @@ const util = require('../util/util')
 const Token = require('./token')
 const Url = require('../config/url')
 
-const PROJECT_EXT = ".krb"
-const PROJECT_TYPE = "krobot"
+const PROJECT_EXT = ".upr"
+const PROJECT_TYPE = "uper"
 
 const months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]
 
