@@ -215,7 +215,9 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		}
 
 		boardDom.classList.add(boardData.name);
-		boardDom.style.backgroundImage = `url(${encodeURI(boardData.imageUrl)})`;
+		var imageUrl = encodeURI(boardData.imageUrl).replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+		boardDom.style.backgroundImage = `url(${imageUrl})`;
+
 		boardDom.style.width = `${boardData.width}px`;
 		boardDom.style.height = `${boardData.height}px`;
 		boardData.pins.forEach(pin => {

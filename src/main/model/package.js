@@ -151,7 +151,7 @@ function loadAll(extra) {
 						packageConfig.builtIn = true
 					}
 
-					packageConfig.path = path.dirname(p)
+					packageConfig.path = path.dirname(p).replace(/\\/g, '/')
 					packageConfig.protocol = p.startsWith("/") ? "file://" : "file:///"
 					packageConfig.boards && packageConfig.boards.forEach(board => {
 						board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
@@ -170,7 +170,7 @@ function loadAll(extra) {
 				})
 			} else {
 				util.readJson(p).then(packageConfig => {
-					packageConfig.path = path.dirname(p)
+					packageConfig.path = path.dirname(p).replace(/\\/g, '/')
 					packages.push(packageConfig)
 				}).fin(() => d.resolve())
 			}
@@ -246,7 +246,7 @@ function loadExamples() {
 					exampleConfig.builtIn = true
 				}
 				exampleConfig.examples.forEach(e => {
-					e.path = path.join(path.dirname(p), e.category, e.name)
+					e.path = path.join(path.dirname(p).replace(/\\/g, '/'), e.category, e.name)
 				})
 				examples.push(exampleConfig)
 			}).fin(() => d.resolve())
