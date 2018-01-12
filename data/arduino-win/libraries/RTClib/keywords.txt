@@ -7,14 +7,9 @@
 #######################################
 
 DateTime	KEYWORD1
-TimeDelta KEYWORD1
-DS1302  KEYWORD1
-DS1307	KEYWORD1
-DS3231  KEYWORD1
+RTC_DS1307	KEYWORD1
 RTC_Millis	KEYWORD1
-PCF8583	KEYWORD1
-PCF8563	KEYWORD1
-
+Ds1307SqwPinMode	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -33,7 +28,8 @@ begin	KEYWORD2
 adjust	KEYWORD2
 isrunning	KEYWORD2
 now	KEYWORD2
-format KEYWORD2
+readSqwPinMode	KEYWORD2
+writeSqwPinMode	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

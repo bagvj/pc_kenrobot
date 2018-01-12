@@ -14,7 +14,7 @@ function loadToken() {
 	Token.load().then(result => {
 		deferred.resolve(result.user)
 	}, err => {
-		err && log.error(er)
+		err && log.info(er)
 		deferred.reject(err)
 	})
 
@@ -45,7 +45,7 @@ function login(username, password, autoLogin) {
 			deferred.resolve(result)
 		})
 	}, err => {
-		err && log.error(er)
+		err && log.info(er)
 		deferred.reject(err)
 	})
 
@@ -59,7 +59,7 @@ function logout() {
 	util.request(Url.LOGOUT).then(() => {
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -84,7 +84,7 @@ function weixinLogin(key) {
 			deferred.resolve(result)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -97,7 +97,7 @@ function weixinQrcode() {
 	util.request(Url.WEIXIN_QRCODE).then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -118,7 +118,7 @@ function register(fields) {
 	}).then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -136,7 +136,7 @@ function resetPassword(email) {
 	}).then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 

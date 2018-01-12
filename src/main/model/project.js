@@ -48,7 +48,7 @@ function read(filePath) {
 			data: projectInfo,
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -62,7 +62,7 @@ function open(name) {
 		read(projectPath).then(result => {
 			deferred.resolve(result)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -83,7 +83,7 @@ function open(name) {
 		util.showOpenDialog(options).then(openPath => {
 			doOpen(openPath)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 
@@ -113,11 +113,11 @@ function save(projectName, projectInfo, savePath) {
 				path: savePath,
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -136,7 +136,7 @@ function saveAs(projectName, projectInfo, isTemp, savePath) {
 				path: _savePath,
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -150,7 +150,7 @@ function saveAs(projectName, projectInfo, isTemp, savePath) {
 		util.showSaveDialog({defaultPath: getDefaultName()}).then(savePath => {
 			_doSave(savePath, path.basename(savePath))
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -173,13 +173,13 @@ function sync() {
 			deferred.resolve()
 		}, err => {
 			log.debug(`project sync fail`)
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progress => {
 			deferred.notify(progress)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -198,7 +198,7 @@ function list() {
 		}
 		deferred.resolve(result.data.filter(p => p.type == PROJECT_TYPE))
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -227,11 +227,11 @@ function create(name) {
 			log.debug(`project create success: ${name} ${item.hash}`)
 			deferred.resolve(item)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -261,11 +261,11 @@ function remove(name, hash) {
 			log.debug(`project remove success: ${name}`)
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -293,15 +293,15 @@ function upload(name, hash) {
 				log.debug(`project upload success: ${name}`)
 				deferred.resolve(item)
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -326,19 +326,19 @@ function download(name, hash) {
 					log.debug(`project download success: ${name}`)
 					deferred.resolve()
 				}, err => {
-					err && log.error(err)
+					err && log.info(err)
 					deferred.reject(err)
 				})
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		}).on("error", err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -353,7 +353,7 @@ function compress(projectsDir, name) {
 	util.compress(projectsDir, files, outputPath).then(() => {
 		deferred.resolve(outputPath)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -398,15 +398,15 @@ function doSync(remoteList, localList) {
 			uploadSync(uploadList, notify).then(() => {
 				deferred.resolve()
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -466,7 +466,7 @@ function createSync(createList, notify) {
 				setTimeout(() => worker(), 100)
 			}
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -493,7 +493,7 @@ function uploadSync(uploadList, notify) {
 				setTimeout(() => worker(), 100)
 			}
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -520,7 +520,7 @@ function downloadSync(downloadList, notify) {
 				setTimeout(() => worker(), 100)
 			}
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -573,11 +573,11 @@ function updateLocalItem(name, modify_time, hash) {
 		saveLocalList(localList).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -598,11 +598,11 @@ function removeLocalItem(hash) {
 		saveLocalList(localList).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 

@@ -19,7 +19,7 @@ function listSerialPort() {
 	log.debug("listSerialPort")
 	SerialPort.list((err, ports) => {
 		if(err) {
-			log.error(err)
+			log.info(err)
 			deferred.reject(err)
 			return
 		}
@@ -51,7 +51,7 @@ function openSerialPort(comName, options, callbacks) {
 	var port = new SerialPort(comName, options)
 	port.open(err => {
 		if(err) {
-			log.error(err)
+			log.info(err)
 			deferred.reject(err)
 			return
 		}
@@ -98,7 +98,7 @@ function writeSerialPort(portId, content) {
 
 	port.write(Buffer.from(content), err => {
 		if(err) {
-			log.error(err)
+			log.info(err)
 			deferred.reject(err)
 			return
 		}
@@ -203,7 +203,7 @@ function resetSerialPort(comName) {
 			serialPort.close(() => deferred.resolve())
 		}, 650)
 	}).on('error', err => {
-		log.error(err)
+		log.info(err)
 		serialPort.close(() => {
 			deferred.reject(err)
 		})

@@ -9049,41 +9049,35 @@
 		"uid": "siuztb",
 		"name": "rtc",
 		"defaultVarName": "rtc",
-		"label": "时钟模块",
+		"label": "时钟模块(1307)",
 		"type": "rtc",
 		"category": "sensor",
 		"boards": ["Arduino"],
 		"width": 90,
 		"height": 90,
 		"pins": [{
-			"name": "RST",
-			"anchor": [0.25, 0],
-			"tags": ["digital", "analog-in"],
-			"label": "RST",
+			"name": "sda",
+			"anchor": [0.33, 0],
+			"tags": ["analog-in", "sda"],
+			"spec": ["tag", "sda"],
+			"label": "sda",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
 		}, {
-			"name": "CLK",
-			"anchor": [0.5, 0],
-			"tags": ["digital", "analog-in"],
-			"label": "CLK",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "DAT",
-			"anchor": [0.75, 0],
-			"tags": ["digital", "analog-in"],
-			"label": "DAT",
+			"name": "scl",
+			"anchor": [0.67, 0],
+			"tags": ["analog-in", "scl"],
+			"spec": ["tag", "scl"],
+			"label": "scl",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
 		}],
 		"code": {
 			"include": "#include <Wire.h>\n#include <RTClib.h>",
-			"var": "DS1302 {NAME}({RST}, {CLK}, {DAT});",
-			"setup": "Wire.begin();\n{NAME}.begin();\nif(!{NAME}.isrunning())\n{{NAME}.adjust(DateTime(__DATE__, __TIME__));\n}"
+			"var": "RTC_DS1307 {NAME};",
+			"setup": "{NAME}.begin();\nif(!{NAME}.isrunning())\n{{NAME}.adjust(DateTime(F(__DATE__), F(__TIME__)));\n}"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -9097,7 +9091,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "设置RTC"
+				"value": "设置时钟模块(1307)"
 			}, {
 				"id": "RTC",
 				"type": "dynamic-select",
@@ -9106,7 +9100,7 @@
 				"type": "text",
 				"value": "时间为系统时间"
 			}],
-			"code": "{RTC}.adjust(DateTime(__DATE__, __TIME__));",
+			"code": "{RTC}.adjust(DateTime(F(__DATE__), F(__TIME__)));",
 			"tags": ["module"],
 			"module": "rtc",
 			"uid": "llRGTy"
@@ -9152,7 +9146,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "设置RTC"
+				"value": "设置时钟模块(1307)"
 			}, {
 				"id": "RTC",
 				"type": "dynamic-select",
@@ -9267,7 +9261,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "获取"
+				"value": "获取时钟模块(1307)"
 			}, {
 				"id": "RTC",
 				"type": "dynamic-select",
@@ -9319,10 +9313,283 @@
 		}],
 		"imageUrl": "assets/image/components/rtc.svg"
 	}, {
+		"uid": "ZKFQyW",
+		"name": "rtc1302",
+		"defaultVarName": "rtc",
+		"label": "时钟模块(1302)",
+		"type": "rtc1302",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 90,
+		"pins": [{
+			"name": "CE",
+			"anchor": [0.25, 0],
+			"tags": ["digital"],
+			"label": "CE",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "IO",
+			"anchor": [0.5, 0],
+			"tags": ["digital"],
+			"label": "IO",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "CLK",
+			"anchor": [0.75, 0],
+			"tags": ["digital"],
+			"label": "CLK",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <DS1302.h>",
+			"var": "DS1302 {NAME}({CE}, {IO}, {CLK});",
+			"setup": "{NAME}.writeProtect(false);\n{NAME}.halt(false);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "rtc1302SetTime",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "n2LKHj"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "RTk16D"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "m8Ki3p"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "RHPyaS"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "8SBTMO"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ffGE9G"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置时钟模块(1302)"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "rtc1302s"
+			}, {
+				"type": "text",
+				"value": "时间为 年"
+			}, {
+				"blockInputId": "YEAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "n2LKHj",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "2018"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "/月"
+			}, {
+				"blockInputId": "MONTH",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "RTk16D",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "/日"
+			}, {
+				"blockInputId": "DAY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "m8Ki3p",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "时"
+			}, {
+				"blockInputId": "HOUR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "RHPyaS",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "12"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": ":分"
+			}, {
+				"blockInputId": "MIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "8SBTMO",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": ":秒"
+			}, {
+				"blockInputId": "SEC",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ffGE9G",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"id": "WEEKDAY",
+				"type": "static-select",
+				"options": [{
+					"label": "星期一",
+					"value": "Time::kMonday"
+				}, {
+					"label": "星期二",
+					"value": "Time::kTuesday"
+				}, {
+					"label": "星期三",
+					"value": "Time::kWednesday"
+				}, {
+					"label": "星期四",
+					"value": "Time::kThursday"
+				}, {
+					"label": "星期五",
+					"value": "Time::kFriday"
+				}, {
+					"label": "星期六",
+					"value": "Time::kSaturday"
+				}, {
+					"label": "星期日",
+					"value": "Time::kSunday"
+				}]
+			}],
+			"code": "{RTC}.time(Time({YEAR}, {MONTH}, {DAY}, {HOUR}, {MIN}, {SEC}, {WEEKDAY}));",
+			"tags": ["module"],
+			"module": "rtc1302",
+			"uid": "CwRQN6"
+		}, {
+			"type": "output",
+			"name": "rtc1302GetTime",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取时钟模块(1302)"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "rtc1302s"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "年",
+					"value": "yr",
+					"type": "uint16_t"
+				}, {
+					"label": "月",
+					"value": "mon",
+					"type": "uint8_t"
+				}, {
+					"label": "日",
+					"value": "date",
+					"type": "uint8_t"
+				}, {
+					"label": "星期几",
+					"value": "getDayOfTheWeek",
+					"type": "uint8_t"
+				}, {
+					"label": "时",
+					"value": "hr",
+					"type": "uint8_t"
+				}, {
+					"label": "分",
+					"value": "min",
+					"type": "uint8_t"
+				}, {
+					"label": "秒",
+					"value": "sec",
+					"type": "uint8_t"
+				}]
+			}],
+			"code": "{RTC}.time().{OP}",
+			"returnType": {
+				"type": "fromSelect",
+				"id": "OP"
+			},
+			"tags": ["module"],
+			"module": "rtc1302",
+			"uid": "Gpc877"
+		}],
+		"imageUrl": "assets/image/components/rtc1302.svg"
+	}, {
 		"uid": "ZSysTK",
 		"name": "tm1637",
 		"defaultVarName": "display",
-		"label": "数码管",
+		"label": "共阳数码管",
 		"type": "tm1637",
 		"category": "action",
 		"boards": ["Arduino"],
@@ -9330,7 +9597,7 @@
 		"height": 43,
 		"pins": [{
 			"name": "CLK",
-			"anchor": [0.33, 0],
+			"anchor": [0.33, 1],
 			"tags": ["digital", "analog-in"],
 			"label": "CLK",
 			"shape": "Dot",
@@ -9338,7 +9605,7 @@
 			"overlay": [0.5, -1]
 		}, {
 			"name": "DIO",
-			"anchor": [0.67, 0],
+			"anchor": [0.67, 1],
 			"tags": ["digital", "analog-in"],
 			"label": "DIO",
 			"shape": "Dot",
@@ -9361,7 +9628,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数码管"
+				"value": "共阳数码管"
 			}, {
 				"id": "DISPLAY",
 				"type": "dynamic-select",
@@ -9415,7 +9682,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数码管"
+				"value": "共阳数码管"
 			}, {
 				"id": "DISPLAY",
 				"type": "dynamic-select",
@@ -9440,7 +9707,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数码管"
+				"value": "共阳数码管"
 			}, {
 				"id": "DISPLAY",
 				"type": "dynamic-select",
@@ -9480,7 +9747,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数码管"
+				"value": "共阳数码管"
 			}, {
 				"id": "DISPLAY",
 				"type": "dynamic-select",
@@ -9520,7 +9787,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "数码管"
+				"value": "共阳数码管"
 			}, {
 				"id": "DISPLAY",
 				"type": "dynamic-select",

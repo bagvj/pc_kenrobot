@@ -69,7 +69,7 @@ function unzipAll(packages, skip, firstRun) {
 
 		doUnzip()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.resolve()
 	})
 
@@ -98,15 +98,15 @@ function unzip(name, packagePath, removeOld) {
 				util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
 					deferred.resolve()
 				}, err => {
-					err && log.error(err)
+					err && log.info(err)
 					deferred.reject(err)
 				})
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progress => {
 			deferred.notify(progress)
@@ -115,7 +115,7 @@ function unzip(name, packagePath, removeOld) {
 
 	if(removeOld) {
 		remove(name).then(() => doUnzip(), err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	} else {
@@ -180,7 +180,7 @@ function loadAll(extra) {
 			deferred.resolve(_.sortBy(packages, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -203,7 +203,7 @@ function loadRemote() {
 		})
 		deferred.resolve(_.sortBy(packages, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -217,7 +217,7 @@ function remove(name) {
 	util.removeFile(path.join(util.getAppPath("packages"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -257,7 +257,7 @@ function loadExamples() {
 			deferred.resolve(_.sortBy(examples, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
