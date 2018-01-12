@@ -783,7 +783,7 @@ function filterArduinoPorts(ports) {
 function buildProject(projectPath, options) {
 	var deferred = Q.defer()
 
-	preBuild(projectPath, options.build).then(commandPath => {
+	preBuild(projectPath, options).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
 		var scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
