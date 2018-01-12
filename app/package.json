@@ -1,10 +1,10 @@
 {
   "private": true,
   "main": "main/index.js",
-  "name": "upDuino",
+  "name": "upduino",
   "productName": "upDuino",
   "version": "0.3.0",
-  "buildNumber": 4,
+  "buildNumber": 5,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
