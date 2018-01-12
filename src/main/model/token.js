@@ -40,7 +40,7 @@ function load() {
 			deferred.resolve(token)
 		}, err => {
 			isOnline().then(() => remove()).fin(() => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		})
@@ -105,7 +105,7 @@ function verify() {
 
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 

@@ -54,7 +54,7 @@ init()
 function init() {
 	process.on('uncaughtException', err => {
 		var stack = err.stack || (err.name + ': ' + err.message)
-		log.error(stack)
+		log.info(stack)
 		app.quit()
 	})
 
@@ -77,7 +77,7 @@ function init() {
 			loadOpenProject().then(result => {
 				util.postMessage("app:onLoadProject", result)
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 			})
 		}
 	})) {
@@ -93,13 +93,14 @@ function init() {
 }
 
 function initLog() {
-	log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 	if(is.dev() && args.dev) {
-		//非debug模式，禁用控制台输出
-		log.transports.file.level = 'debug'
+		log.transports.console.level = "debug"
+		log.transports.file = false
 	} else {
+		//非debug模式，禁用控制台输出
 		log.transports.console = false
-		log.transports.file.level = 'error'
+		log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
+		log.transports.file.level = 'info'
 	}
 }
 
@@ -266,7 +267,7 @@ function onAppOpenFile(e, filePath) {
 		loadOpenProject().then(result => {
 			util.postMessage("app:onLoadProject", result)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 		})
 	}
 }
@@ -296,7 +297,7 @@ function onAppRelaunch() {
 }
 
 function onAppErrorReport(message, type) {
-	log.error(`${type}: ${message}`)
+	log.info(`${type}: ${message}`)
 }
 
 function checkIfFirstRun() {
@@ -348,8 +349,8 @@ function reportToServer(data, type) {
 	}).then(() => {
 		deferred.resolve()
 	}, err => {
-		log.error(`report error: type: ${type}, ${JSON.stringify(data)}`)
-		err && log.error(err)
+		log.info(`report error: type: ${type}, ${JSON.stringify(data)}`)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -371,7 +372,7 @@ function checkUpdate() {
 	util.request(url).then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -406,7 +407,7 @@ function checkPackageLibraryUpdate() {
 			status: status
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -435,7 +436,7 @@ function removeOldVersions(newVersion) {
 		})
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -459,7 +460,7 @@ function unzipPackages(skip) {
 		cache.setItem(CONFIG_KEY, config)
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	}, progress => deferred.notify(progress))
 
@@ -475,14 +476,14 @@ function loadPackages(extra) {
 
 	Package.loadAll(extra).then(packages => {
 		packages.forEach(pkg => {
-			var srcPath = path.join(util.getAppPath("packages"), pkg.name, pkg.libraries || "src")
+			var srcPath = path.join(pkg.path, pkg.libraries || "src")
 			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
 				ArduinoOptions.librariesPath.push(srcPath)
 			}
 		})
 		deferred.resolve(packages)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -502,7 +503,7 @@ function openExample(examplePath) {
 		result.path = null
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -542,7 +543,7 @@ function getInstalledLibraries() {
 			deferred.resolve(libraries)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -555,7 +556,7 @@ function loadLibraries() {
 	util.readJson(path.join(util.getAppPath("appResource"), "libraries", "libraries.json")).then(result => {
 		deferred.resolve(result.libraries)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -574,11 +575,11 @@ function unzipLibrary(name, libraryPath) {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	}, progress => {
 		deferred.notify(progress)
@@ -594,7 +595,7 @@ function deleteLibrary(name) {
 	util.removeFile(path.join(util.getAppPath("libraries"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -675,7 +676,7 @@ function download(url, options) {
 	promise.then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	}, progress => {
 		deferred.notify(progress)
@@ -701,7 +702,7 @@ function installDriver(driverPath) {
 			deferred.resolve()
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -754,11 +755,11 @@ function listSerialPort() {
 			log.debug(arduinoPorts.map(p => `${p.comName}, pid: ${p.productId}, vid: ${p.vendorId}, boardName: ${p.boardName || ""}`).join('\n'))
 			deferred.resolve(arduinoPorts)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -790,13 +791,13 @@ function buildProject(projectPath, options) {
 			var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${targetOptions.upload.target_type}`)
 			deferred.resolve(targetPath)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progress => {
 			deferred.notify(progress)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -865,19 +866,19 @@ function preBuild(projectPath, options) {
 						deferred.resolve(commandPath)
 					})
 				}, err => {
-					err && log.error(err)
+					err && log.info(err)
 					deferred.resolve(commandPath)
 				})
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject()
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject()
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject()
 	})
 
@@ -938,13 +939,13 @@ function doUploadFirmware(targetPath, options, comName) {
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progress => {
 			deferred.notify(progress)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -976,11 +977,11 @@ function preUploadFirmware(targetPath, options, comName) {
 		SerialPort.resetSerialPort(comName).then(() => {
 			deferred.resolve(commandPath)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -1048,7 +1049,7 @@ function loadBoards(forceReload) {
 			deferred.resolve(config.boardNames)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -1074,7 +1075,7 @@ function matchBoardNames(ports) {
 		})
 		deferred.resolve(ports)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 

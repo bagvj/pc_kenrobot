@@ -330,9 +330,9 @@ function execCommand(command, options, useSudo) {
 			stdout = is.windows() ? iconv.decode(Buffer.from(stdout), 'win1252') : stdout
 			stderr = is.windows() ? iconv.decode(Buffer.from(stderr), 'win1252') : stderr
 			if(err) {
-				log.error(err)
-				stdout && log.error(stdout)
-				stderr && log.error(stderr)
+				log.info(err)
+				stdout && log.info(stdout)
+				stderr && log.info(stderr)
 				deferred.reject(stderr || stdout || err)
 				return
 			}
@@ -347,9 +347,9 @@ function execCommand(command, options, useSudo) {
 			stdout = is.windows() ? iconv.decode(Buffer.from(stdout), 'win1252') : stdout
 			stderr = is.windows() ? iconv.decode(Buffer.from(stderr), 'win1252') : stderr
 			if(err) {
-				log.error(err)
-				stdout && log.error(stdout)
-				stderr && log.error(stderr)
+				log.info(err)
+				stdout && log.info(stdout)
+				stderr && log.info(stderr)
 				deferred.reject(stderr || stdout || err)
 				return
 			}
@@ -412,7 +412,7 @@ function readFile(filePath, options, sync) {
 
 		fs.readFile(filePath, options, (err, data) => {
 			if(err) {
-				log.error(err)
+				log.info(err)
 				deferred.reject(err)
 				return
 			}
@@ -437,7 +437,7 @@ function writeFile(filePath, data, options, sync) {
 
 		fs.outputFile(filePath, data, options, err => {
 			if(err) {
-				log.error(err)
+				log.info(err)
 				deferred.reject(err)
 				return
 			}
@@ -464,11 +464,11 @@ function saveFile(filePath, data, options) {
 		writeFile(savePath, data, options).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -481,7 +481,7 @@ function moveFile(src, dst, options) {
 
 	fs.move(src, dst, options, err => {
 		if(err) {
-			log.error(err)
+			log.info(err)
 			deferred.reject(err)
 			return
 		}
@@ -504,7 +504,7 @@ function removeFile(filePath, sync) {
 
 		fs.remove(filePath, err => {
 			if(err) {
-				log.error(err)
+				log.info(err)
 				deferred.reject(err)
 				return
 			}
@@ -527,7 +527,7 @@ function readJson(filePath, options) {
 
 	fs.readJson(filePath, options, (err, data) => {
 		if(err) {
-			log.error(err)
+			log.info(err)
 			deferred.reject(err)
 			return
 		}
@@ -553,7 +553,7 @@ function writeJson(filePath, data, options, sync) {
 
 		fs.outputJson(filePath, data, options, err => {
 			if(err) {
-				log.error(err)
+				log.info(err)
 				deferred.reject(err)
 				return
 			}
@@ -576,7 +576,7 @@ function searchFiles(pattern) {
 	globby(pattern).then(result => {
 		deferred.resolve(result)
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -599,7 +599,7 @@ function uncompress(filePath, dist, spawn) {
 		spawnCommand(`"${path7za}"`, ["x", `"${filePath}"`, "-bsp1", "-y", `-o"${dist}"`], {shell: true}).then(result => {
 			deferred.resolve(result)
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progess => {
 			reg.lastIndex = 0
@@ -620,7 +620,7 @@ function uncompress(filePath, dist, spawn) {
 		execCommand(`"${path7za}" x "${filePath}" -y -o"${dist}"`).then(() => {
 			deferred.resolve()
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	}
@@ -638,7 +638,7 @@ function compress(dir, files, dist, type) {
 	execCommand(`cd ${is.windows() ? "/d " : ""}${dir} && "${path7za}" a -t${type} -r "${dist}" ${files.join(' ')}`).then(() => {
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -723,7 +723,7 @@ function request(url, options, json) {
 	}).then(result => {
 		deferred.resolve(result)
 	}).catch(err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
