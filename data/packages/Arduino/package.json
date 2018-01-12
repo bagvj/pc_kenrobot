@@ -9286,7 +9286,7 @@
 					"type": "uint8_t"
 				}, {
 					"label": "星期几",
-					"value": "getDayOfTheWeek",
+					"value": "dayOfTheWeek",
 					"type": "uint8_t"
 				}, {
 					"label": "时",
@@ -9559,7 +9559,7 @@
 					"type": "uint8_t"
 				}, {
 					"label": "星期几",
-					"value": "getDayOfTheWeek",
+					"value": "day",
 					"type": "uint8_t"
 				}, {
 					"label": "时",
