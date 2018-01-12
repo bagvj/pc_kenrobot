@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/schema', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, schema, hardware, software, code) {
+define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/blocks', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, blocks, hardware, software, code) {
 	var currentProject;
 	var savePath;
 	var hasShowSave;
@@ -23,7 +23,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onAppStart() {
-		loadPackages().then(() => {
+		loadPackages().then(schema => {
 			hardware.loadSchema(schema);
 			software.loadSchema(schema);
 
@@ -34,16 +34,22 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	function loadPackages() {
 		var promise = $.Deferred();
 
-		kenrobot.postMessage("app:loadPackages").then(pkgs => {
-			schema.packages = _.sortBy(schema.packages.concat(pkgs), ["order"]);
+		var schema = {
+			packages: [],
+			boards: [],
+			components: [],
+			blocks: blocks.concat(),
+		};
 
+		kenrobot.postMessage("app:loadPackages").then(pkgs => {
+			schema.packages = pkgs;
 			schema.packages.forEach(pkg => {
 				pkg.logo = pkg.logo ? `${pkg.protocol}${pkg.path}/${pkg.logo}` : "../assets/image/default-vendor-logo.png";
 				pkg.boards && pkg.boards.forEach(board => {
 					board.imageUrl = `${pkg.protocol}${pkg.path}/${board.imageUrl}`;
 					schema.boards.push(board);
 
-					board.blocks && board.blocks.forEach(block => schema.blocks.push(block));
+					board.blocks && (schema.blocks = schema.blocks.concat(board.blocks));
 				});
 
 				pkg.components && pkg.components.forEach(component => {
@@ -51,15 +57,12 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 					component.imageUrl = `${pkg.protocol}${pkg.path}/${component.imageUrl}`;
 					schema.components.push(component);
 
-					component.blocks && component.blocks.forEach(block => schema.blocks.push(block));
+					component.blocks && (schema.blocks = schema.blocks.concat(component.blocks));
 				});
 
-				pkg.blocks && pkg.blocks.forEach(block => schema.blocks.push(block));
+				pkg.blocks && (schema.blocks = schema.blocks.concat(pkg.blocks));
 			});
-		})
-		.fin(() => {
-			promise.resolve()
-		});
+		}).fin(() => promise.resolve(schema));
 
 		return promise
 	}
@@ -140,9 +143,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 	function onProjectOpenExample(extra) {
 		var doOpenExample = () => {
-			kenrobot.postMessage("app:openExample", extra.category, extra.name, extra.package).then(result => {
-				kenrobot.trigger("project", "load", result);
-			}, () => {
+			kenrobot.postMessage("app:openExample", extra.path).then(onProjectLoad, () => {
 				util.message("打开失败");
 			});
 		}

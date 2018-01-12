@@ -1,3 +1,27 @@
+//x-fadeIn
+@include keyframes('x-into-front') {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+//x-fadeOut
+@include keyframes('x-into-background') {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
 .update-dialog {
 	background-color: white;
 	width: 600px;
@@ -84,7 +108,7 @@
         display: flex;
         justify-content: flex-end;
 
-        .cancel {
+        .thanks {
             background-color: white;
             border: 1px solid #638af3;
             border-radius: 5px;
@@ -116,17 +140,18 @@
             &:hover {
                 opacity: 0.8;
             }
-
-            // &[disabled] {
-            //     color: #666;
-            //     background-color: #ccc;
-            //     border-color: #ddd;
-
-            //     &:hover {
-            //         background-color: #ccc;
-            //     }
-            // }
         }
     }
 
+    &.x-into-front {
+        &.x-fadeIn {
+            @include animation('x-into-front' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) forwards);
+        }
+    }
+
+    &.x-into-background {
+        &.x-fadeOut {
+            @include animation('x-into-background' 0.3s cubic-bezier(0.18, 0.9, 0.32, 1) both);
+        }
+    }
 }

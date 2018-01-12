@@ -44,6 +44,18 @@ define(['vendor/jquery'], function() {
 		messageDiv.dequeue("stay");
 	}
 
+	function error(text, title) {
+		message({text: text, title: title, type: "error"});
+	}
+
+	function warn(text, title) {
+		message({text: text, title: title, type: "warning"});
+	}
+
+	function success(text, title) {
+		message({text: text, title: title, type: "success"});
+	}
+
 	function onMessageHide(messageDiv) {
 		messages.splice(messages.indexOf(messageDiv), 1);
 		messageDiv.remove();
@@ -338,6 +350,9 @@ define(['vendor/jquery'], function() {
 
 	return {
 		message: message,
+		error: error,
+		warn: warn,
+		success: success,
 		confirm: confirm,
 		dialog: dialog,
 		toggleActive: toggleActive,

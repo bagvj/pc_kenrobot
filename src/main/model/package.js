@@ -3,9 +3,11 @@ const fs = require('fs-extra')
 const Q = require('q')
 const log = require('electron-log')
 const is = require('electron-is')
+const _ = require('lodash')
 
 const util = require('../util/util')
 const packageOrders = require('../config/packageOrders') //包优先级
+const Url = require('../config/url')
 
 /**
  * 解压资源包
@@ -67,7 +69,7 @@ function unzipAll(packages, skip, firstRun) {
 
 		doUnzip()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
 		deferred.resolve()
 	})
 
@@ -96,15 +98,15 @@ function unzip(name, packagePath, removeOld) {
 				util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
 					deferred.resolve()
 				}, err => {
-					err && log.error(err)
+					err && log.info(err)
 					deferred.reject(err)
 				})
 			}, err => {
-				err && log.error(err)
+				err && log.info(err)
 				deferred.reject(err)
 			})
 		}, err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		}, progress => {
 			deferred.notify(progress)
@@ -113,7 +115,7 @@ function unzip(name, packagePath, removeOld) {
 
 	if(removeOld) {
 		remove(name).then(() => doUnzip(), err => {
-			err && log.error(err)
+			err && log.info(err)
 			deferred.reject(err)
 		})
 	} else {
@@ -126,22 +128,31 @@ function unzip(name, packagePath, removeOld) {
 /**
  * 加载所有包
  */
-function load(extra) {
+function loadAll(extra) {
 	var deferred = Q.defer()
 	extra = extra !== false;
 
 	var packages = []
-	var packagesPath = util.getAppPath("packages")
-	log.debug(`loadPackages: ${packagesPath}`)
+	var pattern = [
+		`${util.getAppPath("appResource")}/packages/*/package.json`,
+		`${util.getAppPath("packages")}/*/package.json`,
+	]
+	log.debug(`loadPackages: ${pattern.join(',')}`)
 
-	util.searchFiles(`${packagesPath}/*/package.json`).then(pathList => {
+	util.searchFiles(pattern, {absolute: true}).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
 			if(extra) {
 				util.readJson(p).then(packageConfig => {
-					packageConfig.order = packageOrders[packageConfig.name] || 0
+					if(packageOrders[packageConfig.name]) {
+						packageConfig.order = packageOrders[packageConfig.name]
+					}
+					if(packageConfig.name == packageOrders.standardPackage) {
+						packageConfig.builtIn = true
+					}
+
 					packageConfig.path = path.dirname(p)
-					packageConfig.protocol = packagesPath.startsWith("/") ? "file://" : "file:///"
+					packageConfig.protocol = p.startsWith("/") ? "file://" : "file:///"
 					packageConfig.boards && packageConfig.boards.forEach(board => {
 						board.build && board.build.prefs && Object.keys(board.build.prefs).forEach(key => {
 							board.build.prefs[key] = board.build.prefs[key].replace("PACKAGE_PATH", packageConfig.path)
@@ -158,15 +169,41 @@ function load(extra) {
 					d.resolve()
 				})
 			} else {
-				util.readJson(p).then(packageConfig => packages.push(packageConfig)).fin(() => d.resolve())
+				util.readJson(p).then(packageConfig => {
+					packageConfig.path = path.dirname(p)
+					packages.push(packageConfig)
+				}).fin(() => d.resolve())
 			}
 			return d.promise
 		}))
 		.then(() => {
-			deferred.resolve(packages)
+			deferred.resolve(_.sortBy(packages, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
 		})
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function loadRemote() {
+	var deferred = Q.defer()
+
+	var appInfo = util.getAppInfo()
+	util.request(Url.PACKAGE).then(result => {
+		var packages = result.filter(p => p.platform == appInfo.platform)
+		packages.forEach(packageConfig => {
+			if(packageOrders[packageConfig.name]) {
+				packageConfig.order = packageOrders[packageConfig.name]
+			}
+			if(packageConfig.name == packageOrders.standardPackage) {
+				packageConfig.builtIn = true
+			}
+		})
+		deferred.resolve(_.sortBy(packages, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
+	}, err => {
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -180,7 +217,47 @@ function remove(name) {
 	util.removeFile(path.join(util.getAppPath("packages"), name)).then(() => {
 		deferred.resolve()
 	}, err => {
-		err && log.error(err)
+		err && log.info(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
+}
+
+function loadExamples() {
+	var deferred = Q.defer()
+
+	var examples = []
+	var pattern = [
+		`${util.getAppPath("appResource")}/packages/*/examples/examples.json`,
+		`${util.getAppPath("packages")}/*/examples/examples.json`,
+	]
+
+	log.debug(`loadExamples: ${pattern.join(',')}`)
+
+	util.searchFiles(pattern, {absolute: true}).then(files => {
+		Q.all(files.map(p => {
+			var d = Q.defer()
+			util.readJson(p).then(exampleConfig => {
+				if(packageOrders[exampleConfig.package]) {
+					exampleConfig.order = packageOrders[exampleConfig.package]
+				}
+				if(exampleConfig.package == packageOrders.standardPackage) {
+					exampleConfig.builtIn = true
+				}
+				exampleConfig.examples.forEach(e => {
+					e.path = path.join(path.dirname(p), e.category, e.name)
+				})
+				examples.push(exampleConfig)
+			}).fin(() => d.resolve())
+
+			return d.promise
+		}))
+		.then(() => {
+			deferred.resolve(_.sortBy(examples, ["builtIn", "order", "name"], ["asc", "asc", "asc"]))
+		})
+	}, err => {
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -190,5 +267,8 @@ function remove(name) {
 module.exports.unzip = unzip
 module.exports.unzipAll = unzipAll
 
-module.exports.load = load
+module.exports.loadAll = loadAll
+module.exports.loadRemote = loadRemote
 module.exports.remove = remove
+
+module.exports.loadExamples = loadExamples

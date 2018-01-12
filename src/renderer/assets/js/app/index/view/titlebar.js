@@ -9,7 +9,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			.on('click', '.window-btns li', onWindowBtnClick);
 		appMenu = $('.app-menu', region);
 
-		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate)
+		emitor.on("app", "fullscreenChange", onFullscreenChange).on("user", "update", onUserUpdate).on("update", "download", onUpdateDownload);
 		kenrobot.on("app-menu", "load", onAppMenuLoad, {canReset: false}).on("app", "setTitle", onAppSetTitle, {canReset: false});;
 	}
 
@@ -97,7 +97,6 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 
 				return li;
 			} else {
-				console.log("error config", menuItem);
 				return "";
 			}
 		});
@@ -152,8 +151,7 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 	}
 
 	function onFullscreenChange(fullscreen) {
-		var li = Array.from(appMenu.find("li")).find(li => $(li).data("id") == "fullscreen");
-		$(li).find(".text").text(fullscreen ? "退出全屏" : "全屏");
+		appMenu.find('[data-action="fullscreen"]').find(".text").text(fullscreen ? "退出全屏" : "全屏");
 	}
 
 	function onUserUpdate() {
@@ -169,6 +167,17 @@ define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/
 			loginWrap.find(".name").text("未登录");
 			var photo = loginWrap.find(".photo");
 			photo.attr("src", photo.data("defaultAvatar"));
+		}
+	}
+
+	function onUpdateDownload(value) {
+		var span = appMenu.find('[data-action="check-update"]').find(".text");
+		if(value === true) {
+			span.text("安装更新");
+		} else if(value === false) {
+			span.text("检查更新");
+		} else {
+			span.text(`更新下载中(${value}%)`);
 		}
 	}
 
