@@ -3533,7 +3533,7 @@
 		"code": {
 			"include": "#include <LiquidCrystal_I2C.h>",
 			"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
-			"setup": "{NAME}.begin();{NAME}.clear();"
+			"setup": "{NAME}.init();{NAME}.backlight();"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -3781,7 +3781,7 @@
 				"id": "ADDR",
 				"type": "number-input"
 			}],
-			"code": "{LCD}.setAddress({ADDR});{LCD}.begin();",
+			"code": "{LCD}.setAddress({ADDR});",
 			"tags": ["module", "advanced"],
 			"module": "lcd",
 			"uid": "nayhFh"
