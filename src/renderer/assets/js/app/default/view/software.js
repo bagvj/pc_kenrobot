@@ -295,7 +295,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			};
 
 			hardwareData.components.forEach(function(componentData) {
-				if (componentData.type == "serial") {
+				if (componentData.type == "serial" || componentData.serial) {
 					var pins = componentData.pins;
 					var rxd = pins.rxd;
 					var txd = pins.txd;

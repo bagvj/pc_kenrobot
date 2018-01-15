@@ -2297,6 +2297,383 @@
 		}],
 		"imageUrl": "assets/image/components/lcd.svg"
 	}, {
+		"uid": "w0PoUS",
+		"name": "uper_serial",
+		"label": "串口模块",
+		"type": "uper_serial",
+		"category": "function",
+		"serial": true,
+		"boards": ["upDuino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [1, 0.5],
+			"tags": ["serial"],
+			"spec": ["tag", "serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_serialSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "MMM9ii"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "发送"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "MMM9ii"
+			}, {
+				"id": "LN",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "print"
+				}, {
+					"label": "二进制",
+					"value": "write"
+				}]
+			}],
+			"code": "{SERIAL}.{LN}({DATA});",
+			"tags": ["always", "module"],
+			"module": "uper_serial",
+			"uid": "n1iYJZ"
+		}, {
+			"type": "statement",
+			"name": "uper_serialPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "tDHz9l"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "qNKNLU"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "发送"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "tDHz9l"
+			}, {
+				"type": "text",
+				"value": "格式"
+			}, {
+				"blockInputId": "FORMAT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "qNKNLU",
+				"value": {
+					"content": [{
+						"id": "FORMAT",
+						"type": "static-select",
+						"value": "DEC"
+					}],
+					"name": "dataFormat"
+				}
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "print"
+				}]
+			}],
+			"code": "{SERIAL}.{OP}({DATA}, {FORMAT});",
+			"tags": ["always", "module", "advanced"],
+			"module": "uper_serial",
+			"uid": "fsX8nj"
+		}, {
+			"type": "statement",
+			"name": "uper_serialSendAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "打印"
+			}, {
+				"id": "LN",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "write"
+				}]
+			}],
+			"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",
+			"tags": ["module", "advanced"],
+			"module": "uper_serial",
+			"uid": "ueuggu"
+		}, {
+			"type": "output",
+			"name": "uper_serialReceive",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "接收串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "的数据"
+			}],
+			"code": "{SERIAL}.read()",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": ["module"],
+			"module": "uper_serial",
+			"uid": "nCOcg4"
+		}, {
+			"type": "output",
+			"name": "uper_serialAvailable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "返回串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "可读数据长度"
+			}],
+			"code": "{SERIAL}.available()",
+			"returnType": {
+				"type": "simple",
+				"value": "bool"
+			},
+			"tags": ["module", "advanced"],
+			"module": "uper_serial",
+			"uid": "dSL2bh"
+		}, {
+			"type": "statement-input",
+			"name": "uper_serialIfAvailable",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "有数据可读"
+			}],
+			"code": "if({SERIAL}.available()){\n{STATEMENTS}\n}",
+			"tags": ["module"],
+			"module": "uper_serial",
+			"uid": "8m2Ifd"
+		}, {
+			"type": "statement",
+			"name": "uper_serialWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "XzB4H6"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "输出二进制流"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "XzB4H6"
+			}],
+			"code": "{SERIAL}.write({DATA});",
+			"tags": ["module", "advanced"],
+			"module": "uper_serial",
+			"uid": "8eRYpF"
+		}, {
+			"type": "statement",
+			"name": "uper_serialBeginAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口"
+			}, {
+				"id": "SERIAL",
+				"type": "dynamic-select",
+				"options": "uper_serials"
+			}, {
+				"type": "text",
+				"value": "设置波特率"
+			}, {
+				"id": "BAUDRATE",
+				"type": "static-select",
+				"options": [{
+					"label": "300",
+					"value": "300"
+				}, {
+					"label": "1200",
+					"value": "1200"
+				}, {
+					"label": "2400",
+					"value": "2400"
+				}, {
+					"label": "4800",
+					"value": "4800"
+				}, {
+					"label": "9600",
+					"value": "9600"
+				}, {
+					"label": "19200",
+					"value": "19200"
+				}, {
+					"label": "38400",
+					"value": "38400"
+				}, {
+					"label": "57600",
+					"value": "57600"
+				}, {
+					"label": "115200",
+					"value": "115200"
+				}],
+				"value": "9600"
+			}],
+			"code": "{SERIAL}.begin({BAUDRATE});",
+			"tags": ["module", "advanced"],
+			"module": "uper_serial",
+			"uid": "qxvWNd"
+		}],
+		"imageUrl": "assets/image/components/serial.svg"
+	}, {
+		"uid": "gcnTvC",
+		"name": "uper_softSerial",
+		"label": "软串口",
+		"type": "uper_serial",
+		"serial": true,
+		"category": "function",
+		"boards": ["upDuino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "rxd",
+			"anchor": [0.333, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "rxd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "txd",
+			"anchor": [0.667, 1],
+			"tags": ["digital", "analog-in"],
+			"label": "txd",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"blocks": [],
+		"imageUrl": "assets/image/components/serial.svg"
+	}, {
 		"uid": "fPSrsc",
 		"name": "uper_ir",
 		"label": "红外接收模块",

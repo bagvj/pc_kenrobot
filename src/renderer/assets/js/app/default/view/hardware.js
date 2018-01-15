@@ -466,7 +466,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function showComponentDialog(uid) {
 		var componentData = hardwareModel.getComponentData(uid);
-		if(componentData.type == "serial") {
+		if(componentData.type == "serial" || componentData.serial) {
 			hideComponentDialog();
 			return;
 		}
@@ -487,7 +487,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		boards.forEach(function(board) {
 			var li = boardTemplate.replace(/\{\{name\}\}/g, board.name)
 				.replace(/\{\{label\}\}/g, board.label)
-				.replace(/\{\{src\}\}/, encodeURI(board.imageUrl));
+				.replace(/\{\{src\}\}/, encodeURI(board.imageUrl).replace(/\(/g, "\\(").replace(/\)/g, "\\)"));
 			ul.append(li);
 		});
 		var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';
