@@ -850,7 +850,7 @@
 		"uid": "jHLQZ0",
 		"name": "uper_led",
 		"label": "LED",
-		"type": "led",
+		"type": "uper_led",
 		"category": "action",
 		"boards": ["upDuino"],
 		"width": 53,
@@ -868,7 +868,77 @@
 			"setup": "pinMode({NAME}, OUTPUT);"
 		},
 		"raw": true,
-		"blocks": [],
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_led",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "LED"
+			}, {
+				"id": "LED",
+				"type": "dynamic-select",
+				"options": "uper_leds"
+			}],
+			"code": "digitalWrite({LED},{STATE});",
+			"tags": ["module"],
+			"module": "uper_led",
+			"uid": "Bckw3h"
+		}, {
+			"type": "statement",
+			"name": "uper_ledAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "M5ooq0"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "LED"
+			}, {
+				"blockInputId": "LED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "M5ooq0"
+			}],
+			"code": "digitalWrite({LED},{STATE});",
+			"tags": ["module", "advanced"],
+			"module": "uper_led",
+			"uid": "bdcBHJ"
+		}],
 		"imageUrl": "assets/image/components/led.svg"
 	}, {
 		"uid": "PT4KdI",
@@ -1050,7 +1120,7 @@
 		"uid": "9quFpw",
 		"name": "uper_button",
 		"label": "按钮",
-		"type": "button",
+		"type": "uper_button",
 		"category": "sensor",
 		"boards": ["upDuino"],
 		"width": 53,
@@ -1478,7 +1548,7 @@
 		"uid": "hxPPzq",
 		"name": "uper_ultrasonic",
 		"label": "超声波",
-		"type": "ultrasound",
+		"type": "uper_ultrasound",
 		"category": "action",
 		"boards": ["upDuino"],
 		"width": 120,
@@ -1505,7 +1575,110 @@
 			"var": "SR04 {NAME}({ech}, {tri});"
 		},
 		"raw": true,
-		"blocks": [],
+		"blocks": [{
+			"type": "output",
+			"name": "uper_ultrasoundDistance",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "超声波"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_ultrasounds"
+			}, {
+				"type": "text",
+				"value": "测量距离"
+			}],
+			"code": "{SENSOR}.Distance()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "uper_ultrasound",
+			"uid": "Vs508Z"
+		}, {
+			"type": "output",
+			"name": "uper_ultrasoundDistanceAvg",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "超声波"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_ultrasounds"
+			}, {
+				"type": "text",
+				"value": "测量平均距离"
+			}],
+			"code": "{SENSOR}.DistanceAvg()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module", "advanced"],
+			"module": "uper_ultrasound",
+			"uid": "Y5ubgF"
+		}, {
+			"type": "statement",
+			"name": "uper_ultrasoundPing",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "超声波"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_ultrasounds"
+			}, {
+				"type": "text",
+				"value": "Ping"
+			}],
+			"code": "{SENSOR}.Ping();",
+			"tags": ["module", "advanced"],
+			"module": "uper_ultrasound",
+			"uid": "q8OGtk"
+		}, {
+			"type": "output",
+			"name": "uper_ultrasoundGetDistance",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取超声波"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_ultrasounds"
+			}, {
+				"type": "text",
+				"value": "上次测量的距离"
+			}],
+			"code": "{SENSOR}.getDistance()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module", "advanced"],
+			"module": "uper_ultrasound",
+			"uid": "u8Go4H"
+		}],
 		"imageUrl": "assets/image/components/ultrasonic.svg"
 	}, {
 		"uid": "L2JP3J",
@@ -2335,14 +2508,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "发送"
+				"value": "串口发送"
 			}, {
 				"blockInputId": "DATA",
 				"type": "block-input",
@@ -2362,7 +2528,7 @@
 					"value": "write"
 				}]
 			}],
-			"code": "{SERIAL}.{LN}({DATA});",
+			"code": "Serial.{LN}({DATA});",
 			"tags": ["always", "module"],
 			"module": "uper_serial",
 			"uid": "n1iYJZ"
@@ -2388,14 +2554,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "发送"
+				"value": "串口发送"
 			}, {
 				"blockInputId": "DATA",
 				"type": "block-input",
@@ -2428,7 +2587,7 @@
 					"value": "print"
 				}]
 			}],
-			"code": "{SERIAL}.{OP}({DATA}, {FORMAT});",
+			"code": "Serial.{OP}({DATA}, {FORMAT});",
 			"tags": ["always", "module", "advanced"],
 			"module": "uper_serial",
 			"uid": "fsX8nj"
@@ -2444,14 +2603,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "打印"
+				"value": "串口打印"
 			}, {
 				"id": "LN",
 				"type": "static-select",
@@ -2463,7 +2615,7 @@
 					"value": "write"
 				}]
 			}],
-			"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",
+			"code": "while(Serial.available() > 0) {\nSerial.{LN}(Serial.read());\n}",
 			"tags": ["module", "advanced"],
 			"module": "uper_serial",
 			"uid": "ueuggu"
@@ -2476,16 +2628,9 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "接收串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "的数据"
+				"value": "接收串口数据"
 			}],
-			"code": "{SERIAL}.read()",
+			"code": "Serial.read()",
 			"returnType": {
 				"type": "simple",
 				"value": "char"
@@ -2502,19 +2647,12 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "返回串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "可读数据长度"
+				"value": "返回串口可读数据长度"
 			}],
-			"code": "{SERIAL}.available()",
+			"code": "Serial.available()",
 			"returnType": {
 				"type": "simple",
-				"value": "bool"
+				"value": "int"
 			},
 			"tags": ["module", "advanced"],
 			"module": "uper_serial",
@@ -2534,16 +2672,9 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "如果串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "有数据可读"
+				"value": "如果串口有数据可读"
 			}],
-			"code": "if({SERIAL}.available()){\n{STATEMENTS}\n}",
+			"code": "if(Serial.available()){\n{STATEMENTS}\n}",
 			"tags": ["module"],
 			"module": "uper_serial",
 			"uid": "8m2Ifd"
@@ -2564,21 +2695,14 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "输出二进制流"
+				"value": "串口输出二进制流"
 			}, {
 				"blockInputId": "DATA",
 				"type": "block-input",
 				"acceptType": "all",
 				"name": "XzB4H6"
 			}],
-			"code": "{SERIAL}.write({DATA});",
+			"code": "Serial.write({DATA});",
 			"tags": ["module", "advanced"],
 			"module": "uper_serial",
 			"uid": "8eRYpF"
@@ -2594,14 +2718,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "串口"
-			}, {
-				"id": "SERIAL",
-				"type": "dynamic-select",
-				"options": "uper_serials"
-			}, {
-				"type": "text",
-				"value": "设置波特率"
+				"value": "设置串口波特率"
 			}, {
 				"id": "BAUDRATE",
 				"type": "static-select",
@@ -2635,7 +2752,7 @@
 				}],
 				"value": "9600"
 			}],
-			"code": "{SERIAL}.begin({BAUDRATE});",
+			"code": "Serial.begin({BAUDRATE});",
 			"tags": ["module", "advanced"],
 			"module": "uper_serial",
 			"uid": "qxvWNd"
@@ -2753,7 +2870,7 @@
 		"uid": "ReWEyK",
 		"name": "uper_bluetooth",
 		"label": "蓝牙模块",
-		"type": "serial",
+		"type": "uper_serial",
 		"category": "function",
 		"boards": ["upDuino"],
 		"width": 50,
@@ -2936,7 +3053,7 @@
 		"uid": "ld3XJ9",
 		"name": "uper_servo",
 		"label": "舵机",
-		"type": "servo",
+		"type": "uper_servo",
 		"category": "action",
 		"boards": ["upDuino"],
 		"width": 150,
@@ -2954,7 +3071,99 @@
 			"var": "Servo {NAME};",
 			"setup": "{NAME}.attach({s});"
 		},
-		"blocks": [],
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_servoNormal",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置舵机"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "uper_servos"
+			}, {
+				"type": "text",
+				"value": "角度为"
+			}, {
+				"id": "ANGLE",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "45",
+					"value": "45"
+				}, {
+					"label": "90",
+					"value": "90"
+				}, {
+					"label": "135",
+					"value": "135"
+				}, {
+					"label": "180",
+					"value": "180"
+				}],
+				"value": "90"
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{SERVO}.write({ANGLE});",
+			"tags": ["module"],
+			"module": "uper_servo",
+			"uid": "JcetPR"
+		}, {
+			"type": "statement",
+			"name": "uper_servoNormalAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "4Pfb7Z"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "UjshTr"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置舵机"
+			}, {
+				"blockInputId": "SERVO",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "4Pfb7Z"
+			}, {
+				"type": "text",
+				"value": "角度为"
+			}, {
+				"blockInputId": "POSITION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "UjshTr"
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{SERVO}.write({POSITION});",
+			"tags": ["module", "advanced"],
+			"module": "uper_servo",
+			"uid": "t1M4YS"
+		}],
 		"imageUrl": "assets/image/components/servo.svg"
 	}, {
 		"uid": "Tm7rxx",

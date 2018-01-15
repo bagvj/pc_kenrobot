@@ -466,7 +466,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 
 	function showComponentDialog(uid) {
 		var componentData = hardwareModel.getComponentData(uid);
-		if(componentData.type == "serial" || componentData.serial) {
+		var componentConfig = hardwareModel.getComponentConfig(componentData.name);
+		if(componentConfig.type == "serial" || componentConfig.serial) {
 			hideComponentDialog();
 			return;
 		}
