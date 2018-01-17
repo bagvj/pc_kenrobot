@@ -405,6 +405,10 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			targets: targets,
 			config: {
 				extraFiles: extraFiles,
+				win: args.sign ? {
+					certificateSubjectName: "911101083484411499",
+					certificateSha1: "CF853B3F7C8B5FFE9C40D48025EB348BBE360914",
+				}: undefined
 			},
 			appInfo: {
 				buildNumber: packageConfig.buildNumber,
