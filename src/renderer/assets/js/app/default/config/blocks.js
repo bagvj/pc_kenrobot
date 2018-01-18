@@ -2885,7 +2885,7 @@ define(function() {
 			"type": "comment-input",
 			"placeholder": "输入你的注释"
 		}],
-		"code": "/*\n{COMMENT}\n*/",
+		"code": "// {COMMENT}",
 		"tags": ["code"],
 		"uid": "iKZF8b"
 	}, {
