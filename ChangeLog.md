@@ -441,5 +441,6 @@
 #### fix bugs
 
 - [mac] 修复打开新版本时意外地弹出“保存项目提示”的bug
-- 修复DHT、LiquidCrystal_I2c等库编译失败的bug
+- [mac] 修复界面意外缩放的bug
+- 修复DHT、LiquidCrystal_I2C等库编译失败的bug
 - 修复RFID模块编程块代码生成错误的bug
