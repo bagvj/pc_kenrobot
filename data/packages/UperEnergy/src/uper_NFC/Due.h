@@ -1,6 +1,3 @@
-// redefine some stuff so code works on Due
-// http://arduino.cc/forum/index.php?&topic=153761.0
-
 #ifndef Due_h
 #define Due_h
 

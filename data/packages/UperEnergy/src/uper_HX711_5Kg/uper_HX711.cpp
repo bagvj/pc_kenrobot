@@ -1,9 +1,34 @@
+ /**
+ * \著作权 
+ * @名称：  uper_HX711.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL: 	http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ *
+ * \说明
+ * uper_Fan HX711称
+ *
+ * \公有方法列表
+ * 
+ * 		1.void HX711::getMaopi()
+ * 		2.unsigned int HX711::getWeight()
+ *		3.unsigned long HX711::read(void)
+ *		
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ *  
+ * 		1.uper_HX711.ino
+ */
 #include "uper_HX711.h"
 
 //****************************************************
 //初始化HX711
 //****************************************************
-HX711::HX711(int sck, int dt)
+UPER_HX711::UPER_HX711(int sck, int dt)
 {
 	sckPin = sck;
 	dtPin = dt;
@@ -19,7 +44,7 @@ HX711::HX711(int sck, int dt)
 //****************************************************
 //获取毛皮重量
 //****************************************************
-void HX711::getMaopi()
+void UPER_HX711::getMaopi()
 {
 	Buffer = read();
 	Weight_Maopi = Buffer/100;		
@@ -28,16 +53,10 @@ void HX711::getMaopi()
 //****************************************************
 //称重
 //****************************************************
-unsigned int HX711::getWeight()
+unsigned int UPER_HX711::getWeight()
 {
 	Buffer = read();
 	Buffer = Buffer/100;
-   Serial.print("串口数据：");
-	Serial.print(Buffer);
-	Serial.print("\n");
- Serial.print("毛皮质量：");
- Serial.print(Weight_Maopi);
- Serial.print("\n");
 	if(Buffer > Weight_Maopi)			
 	{
 		Weight_Shiwu = Buffer;
@@ -51,9 +70,9 @@ unsigned int HX711::getWeight()
 			//该数值一般在4.0-5.0之间。因传感器不同而定。
 			//+0.05是为了四舍五入百分位
 	}
- Serial.print("实际质量：");
- Serial.print(Weight_Shiwu);
- Serial.print("\n");
+ // Serial.print("实际质量：");
+ // Serial.print(Weight_Shiwu);
+ // Serial.print("\n");
 	if(Weight_Shiwu > 5000 || Buffer < Weight_Maopi - 30)
 	{
 		Serial.print("Error");
@@ -64,7 +83,7 @@ unsigned int HX711::getWeight()
 //****************************************************
 //读取HX711
 //****************************************************
-unsigned long HX711::read(void)	//增益128
+unsigned long UPER_HX711::read(void)	//增益128
 {
 	unsigned long count; 
 	unsigned char i;

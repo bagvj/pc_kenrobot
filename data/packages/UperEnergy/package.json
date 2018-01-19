@@ -1,7 +1,7 @@
 {
 	"name": "UperEnergy",
 	"company": "吖扑科学",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"author": "Uper",
 	"category": "third-party",
 	"help": "http://www.uper.cc/",
@@ -529,98 +529,124 @@
 			"hide": true,
 			"tuple": true,
 			"members": ["scl", "sda"]
+		}, {
+			"x": 0.123,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "J0XgSD",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-0",
+			"value": "12, 13",
+			"hide": true,
+			"tuple": true,
+			"members": ["12", "13"]
+		}, {
+			"x": 0.27,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 18,
+			"height": 29,
+			"uid": "PNu5pA",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-1",
+			"value": "10, 11",
+			"hide": true,
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.415,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "gAomBg",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-2",
+			"value": "8, 9",
+			"hide": true,
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.558,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "fGnlwi",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-3",
+			"value": "6, 7",
+			"hide": true,
+			"tuple": true,
+			"members": ["6", "7"]
+		}, {
+			"x": 0.71,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "MkqGcY",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-4",
+			"value": "4, 5",
+			"hide": true,
+			"tuple": true,
+			"members": ["4", "5"]
+		}, {
+			"x": 0.858,
+			"y": 0.121,
+			"shape": "Rectangle",
+			"width": 14,
+			"height": 29,
+			"uid": "FEmHvT",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-5",
+			"value": "2, 3",
+			"hide": true,
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.911,
+			"y": 0.273,
+			"shape": "Rectangle",
+			"width": 29,
+			"height": 12,
+			"uid": "mC7k77",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-6",
+			"value": "0, 1",
+			"hide": true,
+			"tuple": true,
+			"members": ["0", "1"]
+		}, {
+			"x": 0.911,
+			"y": 0.486,
+			"shape": "Rectangle",
+			"width": 29,
+			"height": 12,
+			"uid": "ZaZYm5",
+			"rotate": false,
+			"tags": ["uper-soft-iic"],
+			"name": "soft-iic-7",
+			"value": "A4, A5",
+			"hide": true,
+			"tuple": true,
+			"members": ["scl", "sda"]
 		}],
 		"uid": "RYIpjB",
 		"imageUrl": "assets/image/boards/upDuino.svg",
 		"width": 400,
 		"height": 278,
-		"module": "uper",
-		"blocks": [{
-			"type": "statement",
-			"name": "uper_iic",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "xcjH17"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "设置IIC"
-			}, {
-				"blockInputId": "IIC",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "xcjH17"
-			}, {
-				"type": "text",
-				"value": "设备地址"
-			}, {
-				"id": "ADDRESS",
-				"type": "string-input"
-			}, {
-				"type": "text",
-				"value": "SDA端口为"
-			}, {
-				"id": "SDA",
-				"type": "static-select",
-				"options": [{
-					"label": "2",
-					"value": "2"
-				}, {
-					"label": "4",
-					"value": "4"
-				}, {
-					"label": "6",
-					"value": "6"
-				}, {
-					"label": "8",
-					"value": "8"
-				}, {
-					"label": "10",
-					"value": "10"
-				}, {
-					"label": "12",
-					"value": "12"
-				}]
-			}, {
-				"type": "text",
-				"value": "SCL端口为"
-			}, {
-				"id": "SCL",
-				"type": "static-select",
-				"options": [{
-					"label": "3",
-					"value": "3"
-				}, {
-					"label": "5",
-					"value": "5"
-				}, {
-					"label": "7",
-					"value": "7"
-				}, {
-					"label": "9",
-					"value": "9"
-				}, {
-					"label": "11",
-					"value": "11"
-				}, {
-					"label": "13",
-					"value": "13"
-				}]
-			}],
-			"code": "",
-			"tags": ["module"],
-			"module": "uper_iic",
-			"board": "uper",
-			"uid": "8H4DlJ"
-		}]
+		"module": "uper"
 	}],
 	"components": [{
 		"uid": "YKlrd3",
@@ -952,15 +978,15 @@
 		"pins": [{
 			"name": "s",
 			"anchor": [0, 0.5],
-			"tags": ["digital", "analog-in"],
+			"tags": ["digital"],
 			"label": "s",
 			"shape": "Dot",
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <uper_Adafruit_NeoPixel.h>",
-			"var": "Adafruit_NeoPixel {NAME}(100, {s});",
-			"setup": "{NAME}.begin();"
+			"include": "#include <uper_Wire.h>\n#include <uper_RGB.h>",
+			"var": "uper_RGB {NAME}(100);",
+			"setup": "{NAME}.begin();{NAME}.setPin({s});"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -1554,25 +1580,16 @@
 		"width": 120,
 		"height": 75,
 		"pins": [{
-			"name": "tri",
-			"anchor": [0.333, 1],
-			"tags": ["digital"],
-			"label": "tri",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-2P-digital"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "ech",
-			"anchor": [0.667, 1],
-			"tags": ["digital"],
-			"label": "ech",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
-			"include": "#include <SR04.h>",
-			"var": "SR04 {NAME}({ech}, {tri});"
+			"include": "#include <SR04.h>\n#include <uper_Pin.h>",
+			"var": "SR04 {NAME}(Uper2PDigitalPort[{s}].d1, Uper2PDigitalPort[{s}].d2);"
 		},
 		"raw": true,
 		"blocks": [{
@@ -1699,7 +1716,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_DHT11.h>",
-			"var": "DHT11 {NAME}({s});"
+			"var": "UPER_DHT11 {NAME}({s});"
 		},
 		"raw": true,
 		"blocks": [{
@@ -1737,21 +1754,11 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "温湿度传感器"
+				"value": "读取温湿度传感器"
 			}, {
 				"id": "DHT",
 				"type": "dynamic-select",
 				"options": "uper_dht11s"
-			}, {
-				"id": "TYPE",
-				"type": "static-select",
-				"options": [{
-					"label": "立即读取",
-					"value": "true"
-				}, {
-					"label": "读取",
-					"value": "false"
-				}]
 			}, {
 				"id": "OP",
 				"type": "static-select",
@@ -1763,7 +1770,7 @@
 					"value": "getHumidity"
 				}]
 			}],
-			"code": "{DHT}.{OP}({TYPE})",
+			"code": "{DHT}.{OP}(true)",
 			"returnType": {
 				"type": "simple",
 				"value": "int"
@@ -1783,25 +1790,16 @@
 		"width": 200,
 		"height": 75,
 		"pins": [{
-			"name": "sck",
-			"anchor": [0.333, 1],
-			"tags": ["digital"],
-			"label": "sck",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-2P-digital"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "dt",
-			"anchor": [0.667, 1],
-			"tags": ["digital"],
-			"label": "dt",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
 			"include": "#include <uper_HX711.h>",
-			"var": "HX711 {NAME}({sck}, {dt});",
+			"var": "UPER_HX711 {NAME}(Uper2PDigitalPort[{s}].d1, Uper2PDigitalPort[{s}].d2);",
 			"setup": "{NAME}.getMaopi();"
 		},
 		"raw": true,
@@ -1925,6 +1923,7 @@
 	}, {
 		"uid": "9WC8Gk",
 		"name": "uper_pulseSensor",
+		"defaultVarName": "uper_heartrate",
 		"label": "心率传感器",
 		"type": "uper_pulseSensor",
 		"category": "action",
@@ -1934,14 +1933,78 @@
 		"pins": [{
 			"name": "s",
 			"anchor": [0.5, 1],
-			"tags": ["digital"],
+			"tags": ["digital", "analog-in"],
 			"label": "s",
 			"shape": "Dot",
 			"rotate": false
 		}],
-		"code": {},
+		"code": {
+			"include": "include <uper_Heartrate.h>",
+			"var": "int {NAME}_pin = {s};UPER_Heartrate {NAME};"
+		},
 		"raw": true,
-		"blocks": [],
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_pulseSensorSetMode",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置心率传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_pulseSensors"
+			}, {
+				"type": "text",
+				"value": "为"
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "数字模式",
+					"value": "DIGITAL_MODE"
+				}, {
+					"label": "模拟模式",
+					"value": "ANALOG_MODE"
+				}]
+			}],
+			"code": "{SENSOR}.setMode({MODE});",
+			"tags": ["module"],
+			"module": "uper_pulseSensor",
+			"uid": "CZdJmX"
+		}, {
+			"type": "output",
+			"name": "uper_pulseSensorRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取心率传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_pulseSensors"
+			}, {
+				"type": "text",
+				"value": "的当前心率值"
+			}],
+			"code": "{SENSOR}.getValue({SENSOR}_pin)",
+			"returnType": {
+				"type": "simple",
+				"value": "uint16_t"
+			},
+			"tags": ["module"],
+			"module": "uper_pulseSensor",
+			"uid": "Jcy9sU"
+		}],
 		"imageUrl": "assets/image/components/pulseSensor.svg"
 	}, {
 		"uid": "wx7PjC",
@@ -2025,30 +2088,17 @@
 		"width": 120,
 		"height": 120,
 		"pins": [{
-			"name": "sda",
-			"anchor": [0.33, 1],
-			"tags": ["sda"],
-			"spec": ["tag", "sda"],
-			"label": "sda",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-soft-iic"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1],
-			"color": "red"
-		}, {
-			"name": "scl",
-			"anchor": [0.67, 1],
-			"tags": ["scl"],
-			"spec": ["tag", "scl"],
-			"label": "scl",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1],
-			"color": "blue"
+			"rotate": false
 		}],
 		"code": {
 			"include": "#include <uper_ds1307.h>",
-			"var": "RTC {NAME};",
-			"setup": "{NAME}.ds1307Setup({scl}, {sda});"
+			"var": "uper_RTC {NAME};",
+			"setup": "{NAME}.ds1307Setup({s});"
 		},
 		"raw": true,
 		"blocks": [{
@@ -2230,31 +2280,38 @@
 				"type": "static-select",
 				"options": [{
 					"label": "年",
-					"value": "getYear"
+					"value": "getYear",
+					"type": "uint16_t"
 				}, {
 					"label": "月",
-					"value": "getMonth"
+					"value": "getMonth",
+					"type": "uint8_t"
 				}, {
 					"label": "日",
-					"value": "getDay"
+					"value": "getDay",
+					"type": "uint8_t"
 				}, {
 					"label": "时",
-					"value": "getHour"
+					"value": "getHour",
+					"type": "uint8_t"
 				}, {
 					"label": "分",
-					"value": "getMinute"
+					"value": "getMinute",
+					"type": "uint8_t"
 				}, {
 					"label": "秒",
-					"value": "getSecond"
+					"value": "getSecond",
+					"type": "uint8_t"
 				}, {
 					"label": "星期",
-					"value": "getWeek"
+					"value": "getWeek",
+					"type": "uint8_t"
 				}]
 			}],
 			"code": "{SENSOR}.{OP}()",
 			"returnType": {
-				"type": "simple",
-				"value": "uint8_t"
+				"type": "fromSelect",
+				"id": "OP"
 			},
 			"tags": ["module"],
 			"module": "uper_rtc",
@@ -2265,36 +2322,22 @@
 		"uid": "6ldGVK",
 		"name": "uper_lcd",
 		"label": "1602液晶显示屏",
-		"defaultVarName": "lcd",
 		"type": "uper_lcd",
 		"category": "action",
 		"boards": ["upDuino"],
 		"width": 122,
 		"height": 60,
 		"pins": [{
-			"name": "sda",
-			"anchor": [0.33, 0],
-			"tags": ["analog-in", "sda"],
-			"spec": ["tag", "sda"],
-			"label": "sda",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-soft-iic"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"color": "red",
-			"overlay": [0.5, -1]
-		}, {
-			"name": "scl",
-			"anchor": [0.67, 0],
-			"tags": ["analog-in", "scl"],
-			"spec": ["tag", "scl"],
-			"label": "scl",
-			"shape": "Dot",
-			"rotate": false,
-			"color": "blue",
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
-			"include": "#include <uper_SoftI2CMaster.h>\n#include <uper_LiquidCrystal_SoftI2C.h>",
-			"var": "uper_LiquidCrystal_SoftI2C {NAME}(0x20, 16, 2, {sda}, {scl});",
+			"include": "#include <uper_SoftI2CMaster.h>\n#include <uper_lcd_SoftI2C.h>",
+			"var": "uper_lcd_SoftI2C {NAME}(0x20, 16, 2, {s});",
 			"setup": "{NAME}.init();{NAME}.backlight();"
 		},
 		"raw": true,
@@ -2809,7 +2852,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_IRSendRev.h>",
-			"var": "IRSendRev {NAME};",
+			"var": "UPER_IRSendRev {NAME};",
 			"setup": "{NAME}.begin({s});"
 		},
 		"blocks": [{
@@ -2929,7 +2972,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_Motor.h>",
-			"var": "Motor {NAME}({MA}, {MB});",
+			"var": "UPER_Motor {NAME}({MA}, {MB});",
 			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
@@ -3175,25 +3218,16 @@
 		"width": 150,
 		"height": 120,
 		"pins": [{
-			"name": "rxd",
-			"anchor": [0.33, 1],
-			"tags": ["digital", "analog-in"],
-			"label": "rxd",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-2P-digital"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "txd",
-			"anchor": [0.67, 1],
-			"tags": ["digital", "analog-in"],
-			"label": "txd",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
 			"include": "#include <uper_Servo.h>",
-			"var": "Servo {NAME};",
+			"var": "uper_Servo {NAME};",
 			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
@@ -3331,7 +3365,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_Fan.h>",
-			"var": "Fan {NAME}({s});",
+			"var": "UPER_Fan {NAME}({s});",
 			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
@@ -3435,29 +3469,16 @@
 		"width": 120,
 		"height": 100,
 		"pins": [{
-			"name": "sda",
-			"anchor": [1, 0.33],
-			"tags": ["analog-in", "sda"],
-			"label": "sda",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-iic"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"color": "red",
-			"spec": ["tag", "sda"],
-			"overlay": [0.5, -1]
-		}, {
-			"name": "scl",
-			"anchor": [1, 0.67],
-			"tags": ["analog-in", "scl"],
-			"label": "scl",
-			"shape": "Dot",
-			"rotate": false,
-			"color": "blue",
-			"spec": ["tag", "scl"],
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
-			"include": "#include <uper_nfc.h>",
-			"var": "NFC_Module {NAME};",
+			"include": "#include <uper_RFID.h>",
+			"var": "UPER_RFID_Module {NAME};",
 			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
@@ -3699,23 +3720,12 @@
 		"width": 180,
 		"height": 100,
 		"pins": [{
-			"name": "sda",
-			"anchor": [0.33, 0],
-			"tags": ["sda"],
-			"spec": ["tag", "sda"],
-			"label": "rxd",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-iic"],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "scl",
-			"anchor": [0.67, 0],
-			"tags": ["scl"],
-			"spec": ["tag", "scl"],
-			"label": "txd",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
 		"code": {
 			"include": "#include <Wire.h>\n#include <PN532_I2C.h>\n#include <PN532.h>\n#include <NfcAdapter.h>",
@@ -3967,23 +3977,18 @@
 		"width": 86,
 		"height": 100,
 		"pins": [{
-			"name": "rxd",
-			"anchor": [0.33, 1],
-			"tags": ["digital", "analog-in"],
-			"label": "rxd",
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["uper-2P-digital"],
+			"spec": ["limit", ["PD0", "PD1"]],
+			"label": "s",
 			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "txd",
-			"anchor": [0.67, 1],
-			"tags": ["digital", "analog-in"],
-			"label": "txd",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
+			"rotate": false
 		}],
-		"code": {},
+		"code": {
+			"include": "#include <SPI.h>\n#include <uper_Adafruit_GFX.h>\n#include <uper_Max72xxPanel.h>",
+			"var": "UPER_Max72xxPanel {NAME} = UPER_Max72xxPanel();"
+		},
 		"blocks": [],
 		"imageUrl": "assets/image/components/martix.svg"
 	}, {
@@ -3997,7 +4002,7 @@
 		"height": 80,
 		"pins": [{
 			"name": "s",
-			"anchor": [0.77, 1],
+			"anchor": [0.5, 1],
 			"tags": ["uper-2P-digital"],
 			"label": "s",
 			"shape": "Dot",
@@ -4005,7 +4010,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_Record.h>",
-			"var": "Record {NAME}({s});"
+			"var": "UPER_Record {NAME}({s});"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -4103,7 +4108,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_Step.h>",
-			"var": "Step {NAME}({s}, &{NAME}_ISR);",
+			"var": "uper_Step {NAME}({s}, &{NAME}_ISR);",
 			"funcDeclare": "void {NAME}_ISR();\n",
 			"funcImplement": "void {NAME}_ISR() {{NAME}.doCount();}\n"
 		},
@@ -4204,8 +4209,9 @@
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <uper_TCS34725.h>",
-			"var": "DFRobot_TCS34725 {NAME} = DFRobot_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);"
+			"include": "#include <uper_Coloursensor.h>",
+			"var": "uper_Coloursensor {NAME} = uper_Coloursensor(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);",
+			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -4231,11 +4237,6 @@
 				"accept": "connector-output",
 				"acceptType": "all",
 				"name": "Fr2BHB"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "9FXKO5"
 			}],
 			"content": [{
 				"type": "text",
@@ -4271,19 +4272,10 @@
 				"type": "block-input",
 				"acceptType": "all",
 				"name": "Fr2BHB"
-			}, {
-				"type": "text",
-				"value": "C"
-			}, {
-				"blockInputId": "CLEAR",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "9FXKO5"
 			}],
-			"code": "{COLOR}.getRGBC(&{RED}, &{GREEN}, &{BLUE}, &{CLEAR});",
+			"code": "{COLOR}.getRGBC(&{RED}, &{GREEN}, &{BLUE});",
 			"tags": ["module"],
 			"module": "uper_colorSensor",
-			"board": "uper",
 			"uid": "iGo8GH"
 		}],
 		"imageUrl": "assets/image/components/colorSensor.svg"

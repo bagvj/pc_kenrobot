@@ -1,24 +1,24 @@
-/*
-  TwoWire.cpp - TWI/I2C library for Wiring & Arduino
-  Copyright (c) 2006 Nicholas Zambetti.  All right reserved.
+ /**
+ * \著作权 
+ * @名称：  uper_Wire.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL:    http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ *
+ * \说明
+ * 
+ *
+ * \公有方法列表
+ * 
 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
 
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- 
-  Modified 2012 by Todd Krein (todd@krein.org) to implement repeated starts
-*/
-
+ */
 extern "C" {
   #include <stdlib.h>
   #include <string.h>

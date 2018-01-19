@@ -2,7 +2,7 @@
 
 // 风扇接在(2,3)这个耳机孔上
 // 可用耳机孔：FAN_A、FAN_B、FAN_C、FAN_D
-Fan uper_fan(FAN_A);
+UPER_Fan uper_fan(FAN_A);
 
 void setup() {
 	//风扇初始化
@@ -15,6 +15,7 @@ void loop() {
 	delay(1000);
 	//风扇停止
 	uper_fan.run(0, true);
+	
 	delay(1000);
 
 	//风扇反转，速度100

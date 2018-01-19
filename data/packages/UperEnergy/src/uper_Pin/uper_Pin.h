@@ -1,5 +1,28 @@
-#ifndef UPER_PIN_H
-#define UPER_PIN_H
+/**
+ * \著作权 
+ * @名称：  uper_Pin.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL: 	http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ *
+ * \说明
+ * 数字管脚定义
+ *
+ * \公有方法列表
+ * 
+ * 		1.int DHT11::read()
+ * 		2.int DHT11::getHumidity(bool immediately)
+ * 		3.int DHT11::getTemperature(bool immediately)
+ *
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ */
+#ifndef UPER__PIN__H
+#define UPER__PIN__H
 
 #undef PD0
 #undef PD1
@@ -40,4 +63,4 @@ Uper2PDigitalDef Uper2PDigitalPort[7] = {
 	{12, 13}, {10, 11}, {8, 9}, {6, 7}, {4, 5}, {2, 3}, {0, 1}
 };
 
-#endif // UPER_PIN_H
+#endif /*UPER__PIN__H*/

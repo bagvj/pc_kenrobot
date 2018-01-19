@@ -1,14 +1,25 @@
-/*
- * SoftI2CMaster.cpp -- Multi-instance software I2C Master library
- * 
- * 
- * 2010-12 Tod E. Kurt, http://todbot.com/blog/
+ /**
+ * \著作权 
+ * @名称：  uper_SoftI2CMaster.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL:    http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ * @描述：  uper_SoftI2CMaster 软I2C驱动函数。
  *
- * This code takes some tricks from:
- *  http://codinglab.blogspot.com/2008/10/i2c-on-avr-using-bit-banging.html
+ * \说明
+ * uper_SoftI2CMaster 软I2C驱动函数
  *
- * 2014, by Testato: update library and examples for follow Wire’s API of Arduino IDE 1.x
+ * \公有方法列表
+ *      1.void setPins(uint8_t sclPin, uint8_t sdaPin, uint8_t usePullups);
  *
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ *  
+ *      1.uper_dht11.ino
  */
 
 #if (ARDUINO >= 100)

@@ -2,11 +2,11 @@
 
 unsigned int weight = 0;
 
-HX711 hx711(2, 3);
+UPER_HX711 uper_hx711(3, 2);
 
 void setup()
 {
-  hx711.getMaopi();
+  uper_hx711.getMaopi(); 
 
   Serial.begin(9600);
   Serial.print("Welcome to use!\n");   
@@ -14,7 +14,7 @@ void setup()
 
 void loop()
 {
-  weight = hx711.getWeight();
+  weight = uper_hx711.getWeight();
   Serial.print(weight);
   Serial.print(" g\n");
   Serial.print("\n");

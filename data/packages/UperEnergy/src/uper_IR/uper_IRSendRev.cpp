@@ -1,3 +1,28 @@
+ /**
+ * \著作权 
+ * @名称：  uper_IRsendRev.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL:    http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/20
+ *
+ * \说明
+ * 红外接收模块
+ *
+ * \公有方法列表
+ * 
+ *      1.void begin(int port)
+ *      2.unsigned char available()
+ *      3.unsigned char recv(void)
+ *
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ *  
+ *      1.uper_IRrecvDemo.ino
+ */
 #include "uper_IRSendRev.h"
 #include "uper_IRSendRevInt.h"
 
@@ -5,7 +30,7 @@
 #include <avr/interrupt.h>
 volatile irparams_t irparams;
 
-void IRSendRev::sendRaw(unsigned int buf[], int len, int hz)
+void UPER_IRSendRev::sendRaw(unsigned int buf[], int len, int hz)
 {
 	enableIROut(hz);
 
@@ -20,7 +45,7 @@ void IRSendRev::sendRaw(unsigned int buf[], int len, int hz)
   space(0); // Just to be sure
 }
 
-void IRSendRev::mark(int time) {
+void UPER_IRSendRev::mark(int time) {
   // Sends an IR mark for the specified number of microseconds.
   // The mark output is modulated at the PWM frequency.
   TIMER_ENABLE_PWM; // Enable pin 3 PWM output
@@ -28,14 +53,14 @@ void IRSendRev::mark(int time) {
 }
 
 /* Leave pin off for time (given in microseconds) */
-void IRSendRev::space(int time) {
+void UPER_IRSendRev::space(int time) {
   // Sends an IR space for the specified number of microseconds.
   // A space is no output, so the PWM output is disabled.
   TIMER_DISABLE_PWM; // Disable pin 3 PWM output
   delayMicroseconds(time);
 }
 
-void IRSendRev::enableIROut(int khz) {
+void UPER_IRSendRev::enableIROut(int khz) {
   // Enables IR output.  The khz value controls the modulation frequency in kilohertz.
   // The IR output will be on pin 3 (OC2B).
   // This routine is designed for 36-40KHz; if you use it for other values, it's up to you
@@ -57,7 +82,7 @@ void IRSendRev::enableIROut(int khz) {
   TIMER_ENABLE_PWM;
 
 }
-void IRSendRev::begin(int port)
+void UPER_IRSendRev::begin(int port)
 {
   switch(port)
   {
@@ -92,7 +117,7 @@ void IRSendRev::begin(int port)
     clear();
 }
 // initialization
-void IRSendRev::enableIRIn() {
+void UPER_IRSendRev::enableIRIn() {
   cli();
   // setup pulse clock timer interrupt
   //Prescale /8 (16M/8 = 0.5 microseconds per tick)
@@ -182,7 +207,7 @@ ISR(TIMER_INTR_NAME)
 
 }
 
-void IRSendRev::clear() {
+void UPER_IRSendRev::clear() {
   irparams.rcvstate = STATE_IDLE;
   irparams.rawlen = 0;
 }
@@ -190,7 +215,7 @@ void IRSendRev::clear() {
 // Decodes the received IR message
 // Returns 0 if no data ready, 1 if data ready.
 // Results of decoding are stored in results
-int IRSendRev::decode(decode_results *results) {
+int UPER_IRSendRev::decode(decode_results *results) {
   results->rawbuf = irparams.rawbuf;
   results->rawlen = irparams.rawlen;
   if (irparams.rcvstate != STATE_STOP) {
@@ -200,13 +225,13 @@ int IRSendRev::decode(decode_results *results) {
   clear();
   return 1;
 }
-unsigned char IRSendRev::recv(void)
+unsigned char UPER_IRSendRev::recv(void)
 {
   unsigned char revData[20];
   recv(revData);
   return *(revData+9);
 }
-unsigned char IRSendRev::recv(unsigned char *revData)
+unsigned char UPER_IRSendRev::recv(unsigned char *revData)
 {
     int count       = results.rawlen;
     int nshort      = 0;
@@ -279,7 +304,7 @@ unsigned char IRSendRev::recv(unsigned char *revData)
 }
 
 //if get some data from IR
-unsigned char IRSendRev::available()
+unsigned char UPER_IRSendRev::available()
 {
 
     if(decode(&results))
@@ -307,7 +332,7 @@ unsigned char IRSendRev::available()
 
 }
 
-void IRSendRev::send(unsigned char *idata, unsigned char ifreq)
+void UPER_IRSendRev::send(unsigned char *idata, unsigned char ifreq)
 {
     int len = idata[0];
     unsigned char start_high    = idata[1];

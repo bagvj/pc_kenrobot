@@ -2,7 +2,7 @@
 
 // 电机驱动板接在(2,3)和(4,5)这两个耳机孔上
 // 可用耳机孔：MOTOR_MA、MOTOR_MB、MOTOR_MC、MOTOR_MD
-Motor uper_motor(MOTOR_MA, MOTOR_MB);
+UPER_Motor uper_motor(MOTOR_MA, MOTOR_MB);
 
 void setup() {
 	//电机驱动板初始化

@@ -1,9 +1,6 @@
-#ifndef _NOVA_RTC_h_
-#define _NOVA_RTC_h_
+#ifndef UPER__RTC__H
+#define UPER__RTC__H
 #include "Arduino.h"
-
-//作者：Blue，QQ：52915531；2016/10/30
-
 
 #define DS1307ADDR 0XD0
 
@@ -17,7 +14,7 @@
 #define SUN 7
 
 
-class RTC
+class uper_RTC
 {
 private:
 	void getTime(void);
@@ -33,7 +30,7 @@ private:
 	uint8_t month;
 	uint16_t year;
 public:
-	RTC(void);
+	uper_RTC(void);
 	void ds1307Setup(uint8_t _scl, uint8_t _sda);
 	uint8_t getSecond(void);
 	uint8_t getMinute(void);
@@ -46,4 +43,4 @@ public:
 	void fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day);
 	void fillByWeek(uint8_t _week);
 };
-#endif
+#endif/*UPER__RTC__H*/

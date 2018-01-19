@@ -2,34 +2,34 @@
 
 void step_ISR();
 
-Step step(2, &step_ISR);
+uper_Step uper_step(2, &step_ISR);
 
 void setup() {
 	Serial.begin(9600);
 	//开始计数
-	step.begin();
+	uper_step.begin();
 }
 
 
 void loop() {
-	Serial.println(step.getCount());
+	Serial.println(uper_step.getCount());
 	delay(2000);
-	Serial.println(step.getCount());
+	Serial.println(uper_step.getCount());
 	delay(2000);
-	Serial.println(step.getCount());
+	Serial.println(uper_step.getCount());
 	//停止计数
-	step.stop();
-	Serial.println(step.getCount());
+	uper_step.stop();
+	Serial.println(uper_step.getCount());
 	delay(2000);
-	Serial.println(step.getCount());
+	Serial.println(uper_step.getCount());
 
-	step.begin();
-	Serial.println(step.getCount());
+	uper_step.begin();
+	Serial.println(uper_step.getCount());
 	delay(2000);
-	Serial.println(step.getCount());
-	step.stop();
+	Serial.println(uper_step.getCount());
+	uper_step.stop();
 }
 
 void step_ISR() {
-	step.doCount();
+	uper_step.doCount();
 }

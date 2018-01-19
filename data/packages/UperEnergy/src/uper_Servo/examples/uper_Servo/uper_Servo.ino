@@ -1,6 +1,6 @@
 #include "uper_Servo.h"
 
-Servo uper_servo;
+uper_Servo uper_servo;
 int i;
 
 void setup() {

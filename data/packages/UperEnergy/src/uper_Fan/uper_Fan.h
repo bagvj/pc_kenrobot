@@ -1,5 +1,5 @@
-#ifndef UPER_FAN_H
-#define UPER_FAN_H
+#ifndef UPER__FAN__H
+#define UPER__FAN__H
 
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include <Arduino.h>
@@ -21,10 +21,10 @@
 // 检查风扇引脚
 #define CHECK_FAN_PIN(pin) ((pin) >= FAN_A && (pin) <= FAN_D ? (pin) : FAN_UN_USE)
 
-class Fan {
+class UPER_Fan {
 public:
-	Fan(int fa);
-	~Fan();
+	UPER_Fan(int fa);
+	~UPER_Fan();
 
 	//风扇初始化
 	void begin();
@@ -37,4 +37,4 @@ private:
 	int _pin1, _pin2;
 };
 
-#endif // UPER_FAN_H
+#endif /*UPER__FAN__H*/

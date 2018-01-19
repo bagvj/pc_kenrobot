@@ -48,7 +48,7 @@ class decode_results
 };
 
 // main class for receiving IR
-class IRSendRev
+class UPER_IRSendRev
 {
 private:
     decode_results results;

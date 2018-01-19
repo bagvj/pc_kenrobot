@@ -1,5 +1,5 @@
-#ifndef UPER_STEP_H
-#define UPER_STEP_H
+#ifndef UPER__STEP__H
+#define UPER__STEP__H
 
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include <Arduino.h>
@@ -7,10 +7,10 @@
 #include <WProgram.h>
 #endif
 
-class Step {
+class uper_Step {
 public:
 	// pin: 中断引脚，
-	Step(int pin, void (*callback)(void));
+	uper_Step(int pin, void (*callback)(void));
 
 	//计数开始，type：触发方式，默认上升沿触发
 	void begin(int type = RISING);
@@ -32,4 +32,4 @@ private:
 	int _count;
 };
 
-#endif // UPER_STEP_H
+#endif /*UPER__STEP__H*/

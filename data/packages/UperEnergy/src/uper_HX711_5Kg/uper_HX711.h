@@ -1,11 +1,11 @@
-#ifndef __HX711__H__
-#define __HX711__H__
+#ifndef UPER__HX711__H__
+#define UPER__HX711__H__
 
 #include <Arduino.h>
 
-class HX711 {
+class UPER_HX711 {
 public:
-	HX711(int, int);
+	UPER_HX711(int, int);
 	void getMaopi();
 	unsigned int getWeight();
 	unsigned long read(void);
@@ -17,4 +17,4 @@ private:
 	unsigned int Weight_Shiwu;
 };
 
-#endif
+#endif/*UPER__HX711__H__*/

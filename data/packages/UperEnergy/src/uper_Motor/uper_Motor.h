@@ -1,5 +1,5 @@
-#ifndef UPER_MOTOR_H
-#define UPER_MOTOR_H
+#ifndef UPER__MOTOR__H
+#define UPER__MOTOR__H
 
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include <Arduino.h>
@@ -21,10 +21,10 @@
 // 检查电机引脚
 #define CHECK_MOTOR_PIN(pin) ((pin) >= MOTOR_MA && (pin) <= MOTOR_MD ? (pin) : MOTOR_UN_USE)
 
-class Motor {
+class UPER_Motor {
 public:
-	Motor(int ma, int mb);
-	~Motor();
+	UPER_Motor(int ma, int mb);
+	~UPER_Motor();
 
 	//电机驱动板初始化
 	void begin();
@@ -38,4 +38,4 @@ private:
 	int _mbPin1, _mbPin2;
 };
 
-#endif // UPER_MOTOR_H
+#endif /*UPER__MOTOR__H*/

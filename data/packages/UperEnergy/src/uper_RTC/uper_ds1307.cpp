@@ -1,35 +1,61 @@
+ /**
+ * \著作权 
+ * @名称：  uper_ds1307.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL:    http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ *
+ * \说明
+ * RTC时钟模块驱动
+ *
+ * \公有方法列表
+ * 
+ *    1.void ds1307Setup(uint8_t _scl, uint8_t _sda)
+ *    2.uint8_t getSecond(void)
+ *    3.uint8_t getMinute(void)
+ *    4.uint8_t getHour(void)
+ *    5.uint8_t getWeek(void)
+ *    6.uint8_t getDay(void)
+ *    7.uint8_t getMonth(void)
+ *    8.uint16_t getYear(void)
+ *
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ *  
+ *    1.uper_RTC.ino
+ */
 #include "uper_ds1307.h"
 #include "SoftIIC.h"
 #include "string.h"
-
-
-//作者：Blue，QQ：52915531；2016/10/30
-
 
 
 #define USE_SOFT_I2C 1
 
 SoftIIC ds1307;
 
-uint8_t RTC::decToBcd(uint8_t val)
+uint8_t uper_RTC::decToBcd(uint8_t val)
 {
 	return ( (val/10*16) + (val%10) );
 }
 
 //Convert binary coded decimal to normal decimal numbers
-uint8_t RTC::bcdToDec(uint8_t val)
+uint8_t uper_RTC::bcdToDec(uint8_t val)
 {
 	return ( (val/16*10) + (val%16) );
 }
 
-RTC::RTC()
+uper_RTC::uper_RTC()
 {
 	
 
     
 }
 
-void RTC::ds1307Setup(uint8_t _scl, uint8_t _sda)
+void uper_RTC::ds1307Setup(uint8_t _scl, uint8_t _sda)
 {
 
   ds1307.begin(_sda, _scl);
@@ -38,7 +64,7 @@ void RTC::ds1307Setup(uint8_t _scl, uint8_t _sda)
 /*
  * Read 'count' bytes from the DS1307 starting at 'address'
  */
-uint8_t RTC::readDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
+uint8_t uper_RTC::readDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
   // issue a start condition, send device address and write direction bit
   if (!ds1307.start(DS1307ADDR | I2C_WRITE)) return false;
 
@@ -63,7 +89,7 @@ uint8_t RTC::readDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
 /*
  * write 'count' bytes to DS1307 starting at 'address'
  */
-uint8_t RTC::writeDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
+uint8_t uper_RTC::writeDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
   // issue a start condition, send device address and write direction bit
   if (!ds1307.start(DS1307ADDR | I2C_WRITE)) return false;
 
@@ -82,7 +108,7 @@ uint8_t RTC::writeDS1307(uint8_t address, uint8_t *buf, uint8_t count) {
 
 /****************************************************************/
 /*Function: Read time and date from RTC	*/
-void RTC::getTime()
+void uper_RTC::getTime()
 {
     uint8_t r[8];
     
@@ -103,7 +129,7 @@ void RTC::getTime()
 /*******************************************************************/
 
 
-void RTC::fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second)
+void uper_RTC::fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second)
 {
     uint8_t r[3];
 	// assign variables
@@ -117,7 +143,7 @@ void RTC::fillByHMS(uint8_t _hour, uint8_t _minute, uint8_t _second)
     }
 }
 
-void RTC::fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day)
+void uper_RTC::fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day)
 { 
     uint8_t r[3];
 	// assign variables
@@ -131,7 +157,7 @@ void RTC::fillByYMD(uint16_t _year, uint8_t _month, uint8_t _day)
     }  
 }
 
-void RTC::fillByWeek(uint8_t _week)
+void uper_RTC::fillByWeek(uint8_t _week)
 {
     uint8_t r[1];
     
@@ -143,37 +169,37 @@ void RTC::fillByWeek(uint8_t _week)
     } 
 }
 
-uint8_t RTC::getSecond(void)
+uint8_t uper_RTC::getSecond(void)
 {
     getTime();
 	return second;
 }
-uint8_t RTC::getMinute(void)
+uint8_t uper_RTC::getMinute(void)
 {
     getTime();
 	return minute;
 }
-uint8_t RTC::getHour(void)
+uint8_t uper_RTC::getHour(void)
 {
     getTime();
 	return hour;
 }
-uint8_t RTC::getWeek(void)
+uint8_t uper_RTC::getWeek(void)
 {
     getTime();
 	return week;
 }
-uint8_t RTC::getDay(void)
+uint8_t uper_RTC::getDay(void)
 {
     getTime();
 	return day;
 }
-uint8_t RTC::getMonth(void)
+uint8_t uper_RTC::getMonth(void)
 {
     getTime();
 	return month;
 }
-uint16_t RTC::getYear(void)
+uint16_t uper_RTC::getYear(void)
 {
     getTime();
 	return year+2000;

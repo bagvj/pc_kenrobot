@@ -1,19 +1,41 @@
-//
-// www.uper.cc
-//
-
+ /**
+ * \著作权 
+ * @名称：  uper_DHT11.cpp
+ * @作者：  uper
+ * @版本：  v171213
+ * @URL: 	http://www.uper.cc
+ * @维护：  uper
+ * @时间：  2017/12/13
+ *
+ * \说明
+ * DTH11 温湿度传感器驱动函数 数字口模拟口都可以
+ *
+ * \公有方法列表
+ * 
+ * 		1.int DHT11::read()
+ * 		2.int DHT11::getHumidity(bool immediately)
+ * 		3.int DHT11::getTemperature(bool immediately)
+ *
+ * \修订历史
+ * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
+ *  
+ * \示例
+ *  
+ * 		1.uper_dht11.ino
+ */
 #include "uper_DHT11.h"
 
-DHT11::DHT11(int pin)
+UPER_DHT11::UPER_DHT11(int pin)
 {
 	_pin = pin;
 }
 
-// Return values:
-// DHTLIB_OK
-// DHTLIB_ERROR_CHECKSUM
-// DHTLIB_ERROR_TIMEOUT
-int DHT11::read()
+ /*Return values:
+ *DHTLIB_OK
+ *DHTLIB_ERROR_CHECKSUM
+ *DHTLIB_ERROR_TIMEOUT
+ */
+int UPER_DHT11::read()
 {
 	// BUFFER TO RECEIVE
 	uint8_t bits[5];
@@ -73,13 +95,13 @@ int DHT11::read()
 	return DHTLIB_OK;
 }
 
-int DHT11::getHumidity(bool immediately)
+int UPER_DHT11::getHumidity(bool immediately)
 {
 	immediately && read();
 	return _humidity;
 }
 
-int DHT11::getTemperature(bool immediately)
+int UPER_DHT11::getTemperature(bool immediately)
 {
 	immediately && read();
 	return _temperature;
