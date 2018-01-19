@@ -137,7 +137,7 @@ function listenMessages() {
 	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
 	listenMessage("showSaveDialog", options => util.showSaveDialog(options))
 	listenMessage("request", (url, options, json) => util.request(url, options, json))
-	listenMessage("showItemInFolder", filePath => shell.showItemInFolder(path.normalize(filePath)))
+	listenMessage("showItemInFolder", filePath => util.resolvePromise(shell.showItemInFolder(path.normalize(filePath))))
 	listenMessage("openUrl", url => util.resolvePromise(url && shell.openExternal(url)))
 
 	listenMessage("listSerialPort", () => listSerialPort())

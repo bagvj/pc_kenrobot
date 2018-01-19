@@ -2885,6 +2885,83 @@
 		}],
 		"imageUrl": "assets/image/components/soilHumidity.svg"
 	}, {
+		"uid": "u5vJkI",
+		"name": "joystick",
+		"label": "摇杆模块",
+		"type": "joystick",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 90,
+		"pins": [{
+			"name": "X",
+			"anchor": [0.33, 1],
+			"tags": ["analog-in"],
+			"label": "X",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "Y",
+			"anchor": [0.67, 1],
+			"tags": ["analog-in"],
+			"label": "Y",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "Z",
+			"anchor": [0.5, 0],
+			"tags": ["digital"],
+			"label": "Z",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME}_X = {X};int {NAME}_Y = {Y};int {NAME}_Z = {Z};",
+			"setup": "pinMode({NAME}_Z, INPUT);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "joystickRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取摇杆模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "joysticks"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "X值",
+					"value": "X"
+				}, {
+					"label": "Y值",
+					"value": "Y"
+				}, {
+					"label": "Z值",
+					"value": "Z"
+				}]
+			}],
+			"eval": true,
+			"code": "('{OP}' === 'Z' ? 'digitalRead' : 'analogRead') + '({SENSOR}_{OP})'",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "joystick",
+			"uid": "0qyT8P"
+		}],
+		"imageUrl": "assets/image/components/joystick.svg"
+	}, {
 		"uid": "E2ZSBW",
 		"name": "led",
 		"label": "LED",
@@ -8836,7 +8913,7 @@
 		"imageUrl": "assets/image/components/nokia5110.svg"
 	}, {
 		"uid": "QQoXzM",
-		"name": "rfid",
+		"name": "mfrc522",
 		"label": "RFID模块",
 		"type": "mfrc522",
 		"category": "action",
@@ -8876,7 +8953,7 @@
 				"type": "text",
 				"value": "RFID"
 			}, {
-				"id": "{RFID}",
+				"id": "RFID",
 				"type": "dynamic-select",
 				"options": "mfrc522s"
 			}, {
@@ -8902,7 +8979,7 @@
 				"type": "text",
 				"value": "RFID"
 			}, {
-				"id": "{RFID}",
+				"id": "RFID",
 				"type": "dynamic-select",
 				"options": "mfrc522s"
 			}, {
@@ -8928,7 +9005,7 @@
 				"type": "text",
 				"value": "RFID"
 			}, {
-				"id": "{RFID}",
+				"id": "RFID",
 				"type": "dynamic-select",
 				"options": "mfrc522s"
 			}, {
@@ -9584,7 +9661,7 @@
 			"module": "rtc1302",
 			"uid": "Gpc877"
 		}],
-		"imageUrl": "assets/image/components/rtc1302.svg"
+		"imageUrl": "assets/image/components/ds1302.svg"
 	}, {
 		"uid": "ZSysTK",
 		"name": "tm1637",
