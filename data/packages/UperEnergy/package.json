@@ -1702,7 +1702,7 @@
 		"name": "uper_dht11",
 		"label": "温湿度传感器",
 		"type": "uper_dht11",
-		"category": "action",
+		"category": "sensor",
 		"boards": ["upDuino"],
 		"width": 53,
 		"height": 90,
@@ -1939,7 +1939,7 @@
 			"rotate": false
 		}],
 		"code": {
-			"include": "include <uper_Heartrate.h>",
+			"include": "#include <uper_Heartrate.h>",
 			"var": "int {NAME}_pin = {s};UPER_Heartrate {NAME};"
 		},
 		"raw": true,
@@ -3478,7 +3478,7 @@
 		}],
 		"code": {
 			"include": "#include <uper_RFID.h>",
-			"var": "UPER_RFID_Module {NAME};",
+			"var": "u8 {NAME}_buff[32];\nUPER_RFID_Module {NAME};",
 			"setup": "{NAME}.begin();"
 		},
 		"blocks": [{
@@ -3708,6 +3708,124 @@
 			"tags": ["module"],
 			"module": "uper_rfid",
 			"uid": "YkL0o8"
+		}, {
+			"type": "output",
+			"name": "uper_rfidWriteData",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "wAmrdi"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "向RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "写入字符串"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "wAmrdi",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "uper"
+					}],
+					"name": "string"
+				}
+			}, {
+				"type": "text",
+				"value": "到块"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}]
+			}],
+			"code": "{SENSOR}.MifareWriteBlock({INDEX}, strcpy({SENSOR}_buff, {DATA}))",
+			"returnType": {
+				"type": "simple",
+				"value": "u8"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "dsm2GP"
+		}, {
+			"type": "output",
+			"name": "uper_rfidReadData",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Jty6YJ"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取RFID"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "uper_rfids"
+			}, {
+				"type": "text",
+				"value": "块"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}]
+			}, {
+				"type": "text",
+				"value": "的值到变量"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Jty6YJ"
+			}],
+			"code": "{SENSOR}.MifareReadBlock({INDEX}, {DATA})",
+			"returnType": {
+				"type": "simple",
+				"value": "u8"
+			},
+			"tags": ["module"],
+			"module": "uper_rfid",
+			"uid": "5WGrYD"
 		}],
 		"imageUrl": "assets/image/components/rfid.svg"
 	}, {
@@ -3977,19 +4095,64 @@
 		"width": 86,
 		"height": 100,
 		"pins": [{
-			"name": "s",
-			"anchor": [0.5, 1],
+			"name": "a",
+			"anchor": [0.33, 1],
 			"tags": ["uper-2P-digital"],
-			"spec": ["limit", ["PD0", "PD1"]],
-			"label": "s",
+			"spec": ["name", "PD0"],
+			"limit": ["PD0", "PD1"],
+			"label": "a",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "b",
+			"anchor": [0.67, 1],
+			"tags": ["uper-2P-digital"],
+			"spec": ["name", "PD1"],
+			"limit": ["PD0", "PD1"],
+			"label": "b",
 			"shape": "Dot",
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <SPI.h>\n#include <uper_Adafruit_GFX.h>\n#include <uper_Max72xxPanel.h>",
-			"var": "UPER_Max72xxPanel {NAME} = UPER_Max72xxPanel();"
+			"include": "#include <uper_Pin.h>\n#include <SPI.h>\n#include <uper_Adafruit_GFX.h>\n#include <uper_Max72xxPanel.h>",
+			"var": "UPER_Max72xxPanel {NAME} = UPER_Max72xxPanel(Uper2PDigitalPort[{a}].d1);"
 		},
-		"blocks": [],
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_matrixPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "cstSR6"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵屏"
+			}, {
+				"id": "MATRIX",
+				"type": "dynamic-select",
+				"options": "uper_matrixs"
+			}, {
+				"type": "text",
+				"value": "显示字符串"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "cstSR6"
+			}],
+			"code": "{MATRIX}.print({DATA});",
+			"tags": ["module"],
+			"module": "uper_matrix",
+			"uid": "LCgmcn"
+		}],
 		"imageUrl": "assets/image/components/martix.svg"
 	}, {
 		"uid": "w1l1fP",
@@ -4110,7 +4273,7 @@
 			"include": "#include <uper_Step.h>",
 			"var": "uper_Step {NAME}({s}, &{NAME}_ISR);",
 			"funcDeclare": "void {NAME}_ISR();\n",
-			"funcImplement": "void {NAME}_ISR() {{NAME}.doCount();}\n"
+			"funcImplement": "void {NAME}_ISR() {\n{NAME}.doCount();\n}\n"
 		},
 		"blocks": [{
 			"type": "statement",

@@ -373,7 +373,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 			var boardPin;
 			if(spec[0] == "name") {
-				boardPin = boardData.pins.find(p => p.name == name)
+				boardPin = boardData.pins.find(p => p.name == spec[1])
 			} else if(spec[0] == "tag") {
 				boardPin = boardData.pins.find(p => p.tags.includes(spec[1]))
 			}
@@ -505,10 +505,9 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		}
 
 		var sourcePin = drag.el._jsPlumb.getParameter("pin");
-		if(sourcePin.spec && sourcePin.spec[0] == "limit") {
-			var list = sourcePin.spec[1];
+		if(sourcePin.limit) {
 			var targetPin = this.el._jsPlumb.getParameter("pin");
-			return list.indexOf(targetPin.name) >= 0;
+			return sourcePin.limit.indexOf(targetPin.name) >= 0;
 		}
 
 		return true;
