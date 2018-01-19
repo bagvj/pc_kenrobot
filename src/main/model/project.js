@@ -3,7 +3,6 @@ const fs = require('fs-extra')
 const Q = require('q')
 const hasha = require('hasha')
 const log = require('electron-log')
-const _ = require('lodash')
 
 const util = require('../util/util')
 const Token = require('./token')

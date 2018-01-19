@@ -3,13 +3,17 @@
 
 	const isDev = process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)
 	module.paths.push(isDev ? path.resolve('app', 'node_modules') : path.resolve(__dirname, '..', '..', 'app.asar', 'node_modules'))
-	
-	const {ipcRenderer} = require('electron')
+
+	const {ipcRenderer, webFrame} = require('electron')
 	const Q = require('q')
 
 	var registeredEvents = []
 	var defers = {}
 	var deferAutoId = 0
+
+	webFrame.setZoomFactor(1)
+	webFrame.setVisualZoomLevelLimits(1, 1)
+	webFrame.setLayoutZoomLevelLimits(0, 0)
 
 	function onMessage(e, deferId, type, ...args) {
 		var deferred = defers[deferId]
@@ -26,7 +30,7 @@
 		}
 		callback.apply(this, args)
 	}
-	
+
 	function postMessage(name, ...args) {
 		if(registeredEvents.indexOf(name) < 0) {
 			ipcRenderer.on(name, onMessage)
