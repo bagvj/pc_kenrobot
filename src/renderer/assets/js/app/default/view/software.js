@@ -295,7 +295,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			};
 
 			hardwareData.components.forEach(function(componentData) {
-				if (componentData.type == "serial") {
+				var componentConfig = hardwareModel.getComponentConfig(componentData.name);
+				if (componentConfig.type == "serial" || componentConfig.serial) {
 					var pins = componentData.pins;
 					var rxd = pins.rxd;
 					var txd = pins.txd;
@@ -328,7 +329,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 					name: componentData.varName,
 				});
 
-				var componentConfig = hardwareModel.getComponentConfig(componentData.name);
 				if (componentConfig.raw) {
 					raw.group.push({
 						id: componentData.uid,

@@ -988,6 +988,39 @@ define(function() {
 		"tags": ["variable"],
 		"uid": "UUlc76"
 	}, {
+		"type": "statement",
+		"name": "declareVariableAdvanced2",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "定义变量"
+		}, {
+			"id": "NAME",
+			"type": "var-input",
+			"value": ""
+		}, {
+			"type": "text",
+			"value": "类型为"
+		}, {
+			"id": "TYPE",
+			"type": "string-input",
+			"value": "int"
+		}],
+		"returnType": {
+			"type": "fromInput",
+			"blockInputId": "TYPE"
+		},
+		"createDynamicContent": "vars",
+		"code": "{TYPE} {NAME};",
+		"tags": ["variable"],
+		"uid": "usQLfY"
+	}, {
 		"type": "output",
 		"name": "selectVariable",
 		"connectors": [{

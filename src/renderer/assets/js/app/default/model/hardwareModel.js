@@ -373,8 +373,8 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 			var boardPin;
 			if(spec[0] == "name") {
-				boardPin = boardData.pins.find(p => p.name == name)
-			} else {
+				boardPin = boardData.pins.find(p => p.name == spec[1])
+			} else if(spec[0] == "tag") {
 				boardPin = boardData.pins.find(p => p.tags.includes(spec[1]))
 			}
 			if(!boardPin) {
@@ -500,7 +500,17 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	}
 
 	function onCanDrop(drag) {
-		return this.el._jsPlumb.isEnabled() && drag.isEnabled();
+		if(!this.el._jsPlumb.isEnabled() || !drag.isEnabled()) {
+			return false;
+		}
+
+		var sourcePin = drag.el._jsPlumb.getParameter("pin");
+		if(sourcePin.limit) {
+			var targetPin = this.el._jsPlumb.getParameter("pin");
+			return sourcePin.limit.indexOf(targetPin.name) >= 0;
+		}
+
+		return true;
 	}
 
 	function onConnection(info) {
