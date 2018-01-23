@@ -3,8 +3,8 @@
   "main": "main/index.js",
   "name": "upduino",
   "productName": "upDuino",
-  "version": "0.3.0",
-  "buildNumber": 10,
+  "version": "0.3.1",
+  "buildNumber": 11,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
