@@ -1,19 +1,19 @@
-const path = require('path')
-const fs = require('fs-extra')
-const Q = require('q')
-const log = require('electron-log')
-const is = require('electron-is')
-const _ = require('lodash')
+import path from 'path'
+import fs from 'fs-extra'
+import Q from 'q'
+import log from 'electron-log'
+import is from 'electron-is'
+import _ from 'lodash'
 
-const util = require('../util/util')
-const packageOrders = require('../config/packageOrders') //包优先级
-const Url = require('../config/url')
+import util from '../util/util'
+import packageOrders from '../config/packageOrders' //包优先级
+import Url from '../config/url'
 
 /**
  * 解压资源包
  */
 function unzipAll(packages, skip, firstRun) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	packages = packages || []
 	if(skip) {
@@ -24,44 +24,44 @@ function unzipAll(packages, skip, firstRun) {
 	}
 
 	log.debug("unzip packages")
-	var packagesPath = path.join(util.getAppPath("appResource"), "packages")
+	let packagesPath = path.join(util.getAppPath("appResource"), "packages")
 	util.readJson(path.join(packagesPath, "packages.json")).then(pkgs => {
-		var list = pkgs.filter(p => {
+		let list = pkgs.filter(p => {
 			if(firstRun) {
 				return true
 			}
 
-			if(packages.find(o => o.name == p.name && o.checksum != p.checksum)) {
+			if(packages.find(o => o.name === p.name && o.checksum !== p.checksum)) {
 				return true
 			}
 
 			return !fs.existsSync(path.join(util.getAppPath("packages"), p.name, "package.json"))
 		})
 
-		var total = list.length
-		var doUnzip = () => {
-			if(list.length == 0) {
+		let total = list.length
+		let doUnzip = () => {
+			if(list.length === 0) {
 				deferred.resolve(packages)
 				return
 			}
 
-			var p = list.pop()
+			let p = list.pop()
 			util.uncompress(path.join(packagesPath, p.archiveName), util.getAppPath("packages"), true).then(() => {
-				var index = packages.findIndex(o => o.name == p.name)
+				let index = packages.findIndex(o => o.name === p.name)
 				if(index >= 0) {
 					packages.splice(index, 1, p)
 				} else {
 					packages.push(p)
 				}
-			}, err => {
+			}, () => {
 
 			}, progress => {
 				deferred.notify({
-					progress: progress,
+					progress,
 					name: p.name,
 					version: p.version,
 					count: total - list.length,
-					total: total,
+					total,
 				})
 			})
 			.fin(() => doUnzip())
@@ -80,21 +80,21 @@ function unzipAll(packages, skip, firstRun) {
  * 解压单个资源包
  */
 function unzip(name, packagePath, removeOld) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	removeOld = removeOld !== false
 
-	var doUnzip = () => {
+	let doUnzip = () => {
 		util.uncompress(packagePath, util.getAppPath("packages"), true).then(() => {
-			var name = path.basename(packagePath)
-			name = name.substring(0, name.indexOf("-"))
-			var ext = is.windows() ? "bat" : "sh"
-			util.searchFiles(path.join(util.getAppPath("packages"), name) + `/**/post_install.${ext}`).then(scripts => {
-				if(scripts.length == 0) {
+			let packageName = path.basename(packagePath)
+			packageName = packageName.substring(0, packageName.indexOf("-"))
+			let ext = is.windows() ? "bat" : "sh"
+			util.searchFiles(`${path.join(util.getAppPath("packages"), packageName)}/**/post_install.${ext}`).then(scripts => {
+				if(scripts.length === 0) {
 					deferred.resolve()
 					return
 				}
 
-				var scriptPath = scripts[0]
+				let scriptPath = scripts[0]
 				util.execCommand(`"${scriptPath}"`, {cwd: path.dirname(scriptPath)}).then(() => {
 					deferred.resolve()
 				}, err => {
@@ -129,11 +129,11 @@ function unzip(name, packagePath, removeOld) {
  * 加载所有包
  */
 function loadAll(extra) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	extra = extra !== false;
 
-	var packages = []
-	var pattern = [
+	let packages = []
+	let pattern = [
 		`${util.getAppPath("appResource")}/packages/*/package.json`,
 		`${util.getAppPath("packages")}/*/package.json`,
 	]
@@ -141,13 +141,13 @@ function loadAll(extra) {
 
 	util.searchFiles(pattern, {absolute: true}).then(pathList => {
 		Q.all(pathList.map(p => {
-			var d = Q.defer()
+			let d = Q.defer()
 			if(extra) {
 				util.readJson(p).then(packageConfig => {
 					if(packageOrders[packageConfig.name]) {
 						packageConfig.order = packageOrders[packageConfig.name]
 					}
-					if(packageConfig.name == packageOrders.standardPackage) {
+					if(packageConfig.name === packageOrders.standardPackage) {
 						packageConfig.builtIn = true
 					}
 
@@ -188,16 +188,16 @@ function loadAll(extra) {
 }
 
 function loadRemote() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var appInfo = util.getAppInfo()
+	let appInfo = util.getAppInfo()
 	util.request(Url.PACKAGE).then(result => {
-		var packages = result.filter(p => p.platform == appInfo.platform)
+		let packages = result.filter(p => p.platform === appInfo.platform)
 		packages.forEach(packageConfig => {
 			if(packageOrders[packageConfig.name]) {
 				packageConfig.order = packageOrders[packageConfig.name]
 			}
-			if(packageConfig.name == packageOrders.standardPackage) {
+			if(packageConfig.name === packageOrders.standardPackage) {
 				packageConfig.builtIn = true
 			}
 		})
@@ -211,7 +211,7 @@ function loadRemote() {
 }
 
 function remove(name) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`deletePackage: ${name}`)
 	util.removeFile(path.join(util.getAppPath("packages"), name)).then(() => {
@@ -225,10 +225,10 @@ function remove(name) {
 }
 
 function loadExamples() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var examples = []
-	var pattern = [
+	let examples = []
+	let pattern = [
 		`${util.getAppPath("appResource")}/packages/*/examples/examples.json`,
 		`${util.getAppPath("packages")}/*/examples/examples.json`,
 	]
@@ -237,12 +237,12 @@ function loadExamples() {
 
 	util.searchFiles(pattern, {absolute: true}).then(files => {
 		Q.all(files.map(p => {
-			var d = Q.defer()
+			let d = Q.defer()
 			util.readJson(p).then(exampleConfig => {
 				if(packageOrders[exampleConfig.package]) {
 					exampleConfig.order = packageOrders[exampleConfig.package]
 				}
-				if(exampleConfig.package == packageOrders.standardPackage) {
+				if(exampleConfig.package === packageOrders.standardPackage) {
 					exampleConfig.builtIn = true
 				}
 				exampleConfig.examples.forEach(e => {

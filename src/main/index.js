@@ -1,31 +1,39 @@
-const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
+/**
+ * This module executes inside of electron's main process. You can start
+ * electron renderer process from here and communicate with the other processes
+ * through IPC.
+ *
+ * When running `npm run build` or `npm run build-main`, this file is compiled to
+ * `./app/main.prod.js` using webpack. This gives us some performance wins.
+ */
 
-const path = require('path')
-const querystring = require('querystring')
+import {app, BrowserWindow, shell, clipboard} from 'electron'
 
-const is = require('electron-is')
-const debug = require('electron-debug')
-const log = require('electron-log')
-const Q = require('q')
-const fs = require('fs-extra')
-const commandLineArgs = require('command-line-args') //命令行参数解析
-const hasha = require('hasha') //计算hash
-const _ = require('lodash')
+import path from 'path'
+import querystring from 'querystring'
 
-const util = require('./util/util')
-const SerialPort = require('./model/serialPort') //串口
-const ArduinoOptions = require('./config/arduinoOptions')
-const Url = require('./config/url')
+import is from 'electron-is'
+import log from 'electron-log'
+import Q from 'q'
+import fs from 'fs-extra'
+import commandLineArgs from 'command-line-args' //命令行参数解析
+import hasha from 'hasha' //计算hash
+import _ from 'lodash'
 
-const Token = require('./model/token')
-const Project = require('./model/project') //同步
-const User = require('./model/user')
-const Package = require('./model/package')
-const Cache = require('./util/cache')
+import util, {listenMessage} from './util/util'
+import SerialPort from './model/serialPort' //串口
+import ArduinoOptions from './config/arduinoOptions'
+import Url from './config/url'
+
+import Project from './model/project' //同步
+import User from './model/user'
+import Package from './model/package'
+import Cache from './util/cache'
 
 const CONFIG_KEY = "config"
 
-const listenMessage = util.listenMessage
+const DEV = process.env.NODE_ENV === "development"
+const DEBUG = process.env.DEBUG_PROD === "true"
 
 const optionDefinitions = [
 	{ name: 'debug-brk', type: Number, defaultValue: false },
@@ -36,15 +44,16 @@ const optionDefinitions = [
 	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
 ]
 
-var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
+let args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
+// let args = {}
 
-var cache
-var config
+let cache
+let config
 
-var mainWindow
-var firstRun
-var projectToLoad
-var isLoadReady
+let mainWindow
+let firstRun
+let projectToLoad
+let isLoadReady
 
 init()
 
@@ -53,10 +62,18 @@ init()
  */
 function init() {
 	process.on('uncaughtException', err => {
-		var stack = err.stack || (err.name + ': ' + err.message)
+		let stack = err.stack || `${err.name}: ${err.message}`
 		log.info(stack)
 		app.quit()
-	})
+  })
+
+  if (!DEV) {
+    require('source-map-support').install() // eslint-disable-line global-require
+  }
+
+  if (DEV || DEBUG) {
+    require('electron-debug')({enabled: true}) // eslint-disable-line global-require
+  }
 
 	initLog()
 
@@ -64,19 +81,21 @@ function init() {
 	config = cache.getItem(CONFIG_KEY, {})
 	util.removeFile(path.join(util.getAppPath("appData"), "config.json"), true)
 
-	if(app.makeSingleInstance((argv, workingDirectory) => {
+	if(app.makeSingleInstance(argv => {
 		if(mainWindow) {
 			mainWindow.isMinimized() && mainWindow.restore()
 			mainWindow.focus()
 
-			var secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+      let secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+      // let secondArgs = {}
 			secondArgs.project && (projectToLoad = secondArgs.project)
 			log.debug("app second run")
 			// log.debug(secondArgs)
 
 			loadOpenProject().then(result => {
 				util.postMessage("app:onLoadProject", result)
-			}, err => {
+				return true
+			}).catch(err => {
 				err && log.info(err)
 			})
 		}
@@ -93,7 +112,7 @@ function init() {
 }
 
 function initLog() {
-	if(is.dev() && args.dev) {
+	if(DEV) {
 		log.transports.console.level = "debug"
 		log.transports.file = false
 	} else {
@@ -102,6 +121,19 @@ function initLog() {
 		log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 		log.transports.file.level = 'info'
 	}
+}
+
+async function installExtensions() {
+  const installer = require('electron-devtools-installer') // eslint-disable-line global-require
+  const forceDownload = !!process.env.UPGRADE_EXTENSIONS
+  const extensions = [
+    'REACT_DEVELOPER_TOOLS',
+    'REDUX_DEVTOOLS'
+  ]
+
+  return Promise
+    .all(extensions.map(name => installer.default(installer[name], forceDownload)))
+    .catch(console.log)
 }
 
 /**
@@ -126,7 +158,7 @@ function listenMessages() {
 
 	listenMessage("execFile", exePath => util.execFile(exePath))
 	listenMessage("execCommand", (command, options) => util.execCommand(command, options))
-	listenMessage("spawnCommand", (command, args, options) => util.spawnCommand(command, args, options))
+	listenMessage("spawnCommand", (command, params, options) => util.spawnCommand(command, params, options))
 	listenMessage("readFile", (filePath, options) => util.readFile(filePath, options))
 	listenMessage("writeFile", (filePath, data) => util.writeFile(filePath, data))
 	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
@@ -159,7 +191,7 @@ function listenMessages() {
 	listenMessage("deletePackage", name => Package.remove(name))
 	listenMessage("unzipPackages", skip => unzipPackages(skip))
 	listenMessage("loadPackages", extra => loadPackages(extra))
-	listenMessage("loadRemotePackages",() => Package.loadRemote())
+	listenMessage("loadRemotePackages", () => Package.loadRemote())
 
 	listenMessage("getInstalledLibraries", () => getInstalledLibraries())
 	listenMessage("loadLibraries", () => loadLibraries())
@@ -179,8 +211,8 @@ function listenMessages() {
 	listenMessage("register", fields => User.register(fields))
 	listenMessage("resetPassword", email => User.resetPassword(email))
 
-	listenMessage("setCache", (key, value) => key !== CONFIG_KEY ? cache.setItem(key, value) : util.rejectPromise())
-	listenMessage("getCache", (key, defaultValue) => key !== CONFIG_KEY ? util.resolvePromise(cache.getItem(key, defaultValue)) : util.rejectPromise())
+	listenMessage("setCache", (key, value) => (key !== CONFIG_KEY ? cache.setItem(key, value) : util.rejectPromise()))
+	listenMessage("getCache", (key, defaultValue) => (key !== CONFIG_KEY ? util.resolvePromise(cache.getItem(key, defaultValue)) : util.rejectPromise()))
 
 	listenMessage("loadOpenOrRecentProject", () => loadOpenOrRecentProject())
 
@@ -192,7 +224,7 @@ function listenMessages() {
 	listenMessage("projectSync", () => Project.sync())
 	listenMessage("projectList", () => Project.list())
 
-	if(is.dev()) {
+	if(DEV) {
 		listenMessage("projectCreate", name => Project.create(name))
 		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
 		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
@@ -203,19 +235,22 @@ function listenMessages() {
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", () => app.quit())
 	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
-	listenMessage("reload", () => mainWindow.reload())
+	listenMessage("reload", () => mainWindow && mainWindow.reload())
 	listenMessage("relaunch", () => onAppRelaunch())
-	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
-	listenMessage("min", () => mainWindow.minimize())
+	listenMessage("fullscreen", () => mainWindow && mainWindow.setFullScreen(!mainWindow.isFullScreen()))
+	listenMessage("min", () => mainWindow && mainWindow.minimize())
 	listenMessage("max", () => onAppToggleMax())
 	listenMessage("errorReport", (message, type) => onAppErrorReport(message, type))
 }
 
-function onAppReady() {
+async function onAppReady() {
 	log.debug('app ready')
 
-	is.dev() && args.devTool && debug({showDevTools: true})
-	args.project && (projectToLoad = args.project)
+  args.project && (projectToLoad = args.project)
+
+  if (DEV || DEBUG) {
+    await installExtensions()
+  }
 
 	createWindow()
 	loadBoards()
@@ -232,7 +267,7 @@ function createWindow() {
 		height: 720,
 		minWidth: 1200,
 		minHeight: 720,
-		frame: false,
+		// frame: false,
 		show: false,
 		webPreferences: {
 			webSecurity: false,
@@ -246,7 +281,7 @@ function createWindow() {
 	}
 
 	mainWindow.on('closed', () => (mainWindow = null))
-		.once('ready-to-show', () => mainWindow.show())
+		.once('ready-to-show', () => mainWindow && mainWindow.show())
 		.on('enter-full-screen', () => util.postMessage("app:onFullscreenChange", true))
 		.on('leave-full-screen', () => util.postMessage("app:onFullscreenChange", false))
 
@@ -277,13 +312,16 @@ function onAppBeforeQuit(e) {
 	util.postMessage("app:onBeforeQuit")
 }
 
-function onAppWillQuit(e) {
+function onAppWillQuit() {
 	SerialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
 	return true
 }
 
 function onAppToggleMax() {
+	if(!mainWindow) {
+		return
+	}
 	if(mainWindow.isFullScreen()) {
 		mainWindow.setFullScreen(false)
 	} else {
@@ -301,7 +339,7 @@ function onAppErrorReport(message, type) {
 }
 
 function checkIfFirstRun() {
-	if(is.dev() || config.version == util.getVersion()) {
+	if(DEV || config.version === util.getVersion()) {
 		return
 	}
 
@@ -312,7 +350,7 @@ function checkIfFirstRun() {
 }
 
 function doReports() {
-	if(!is.dev() && !config.reportInstall) {
+	if(!DEV && !config.reportInstall) {
 		//安装report
 		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
@@ -325,10 +363,10 @@ function doReports() {
 }
 
 function reportToServer(data, type) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var appInfo = util.getAppInfo()
-	var baseInfo = {
+	let appInfo = util.getAppInfo()
+	let baseInfo = {
 		version: appInfo.version,
 		platform: appInfo.platform,
 		bit: appInfo.appBit,
@@ -344,7 +382,7 @@ function reportToServer(data, type) {
 		method: "post",
 		data: {
 			data: JSON.stringify(data),
-			type: type,
+			type,
 		}
 	}).then(() => {
 		deferred.resolve()
@@ -362,11 +400,11 @@ function reportToServer(data, type) {
  * @param {*} checkUrl
  */
 function checkUpdate() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var info = util.getAppInfo()
-	var features = info.feature ? `${info.feature},${info.arch}` : info.arch
-	var url = `${Url.CHECK_UPDATE}?appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&ext=${info.ext}&features=${features}`
+	let info = util.getAppInfo()
+	let features = info.feature ? `${info.feature},${info.arch}` : info.arch
+	let url = `${Url.CHECK_UPDATE}?appname=${info.name}&release_version=${info.branch}&version=${info.version}&platform=${info.platform}&ext=${info.ext}&features=${features}`
 	log.debug(`checkUpdate: ${url}`)
 
 	util.request(url).then(result => {
@@ -384,28 +422,26 @@ function checkUpdate() {
  * @param {*} checkUrl
  */
 function checkPackageLibraryUpdate() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	Q.all([
 		loadPackages(false),
 		Package.loadRemote()
 	]).then(result => {
-		var installedPackages = result[0]
-		var allPackages = result[1]
+		let installedPackages = result[0]
+		let allPackages = result[1]
 
-		var canUpdatePackages = []
+		let canUpdatePackages = []
 		installedPackages.forEach(pkg => {
-			var newPkg = allPackages.find(p => p.name == pkg.name && util.versionCompare(p.version, pkg.version) > 0)
+			let newPkg = allPackages.find(p => p.name === pkg.name && util.versionCompare(p.version, pkg.version) > 0)
 			newPkg && canUpdatePackages.push(newPkg)
 		})
 
-		var status = 0
+		let status = 0
 		if(canUpdatePackages.length > 0) {
 			status = 1
 		}
-		deferred.resolve({
-			status: status
-		})
+		deferred.resolve({status})
 	}, err => {
 		err && log.info(err)
 		deferred.reject(err)
@@ -418,14 +454,14 @@ function checkPackageLibraryUpdate() {
  * 删除旧版本
  */
 function removeOldVersions(newVersion) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var info = util.getAppInfo()
-	var downloadPath = path.join(util.getAppPath("appData"), "download")
+	let info = util.getAppInfo()
+	let downloadPath = path.join(util.getAppPath("appData"), "download")
 	util.searchFiles(`${downloadPath}/${info.name}-*.${info.ext}`).then(files => {
-		var versionReg = /\d+\.\d+\.\d+/
+		let versionReg = /\d+\.\d+\.\d+/
 		files.map(f => path.basename(f)).filter(name => {
-			var match = name.match(versionReg)
+			let match = name.match(versionReg)
 			if(!match) {
 				return false
 			}
@@ -447,11 +483,11 @@ function removeOldVersions(newVersion) {
  * 解压资源包
  */
 function unzipPackages(skip) {
-	var deferred = Q.defer()
-	skip = skip !== false ? false : is.dev()
+	let deferred = Q.defer()
+	skip = skip !== false ? false : DEV
 
 	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
-		if(is.dev()) {
+		if(DEV) {
 			deferred.resolve()
 			return
 		}
@@ -471,12 +507,12 @@ function unzipPackages(skip) {
  * 加载所有包
  */
 function loadPackages(extra) {
-	var deferred = Q.defer()
-	extra = extra != false;
+	let deferred = Q.defer()
+	extra = extra !== false
 
 	Package.loadAll(extra).then(packages => {
 		packages.forEach(pkg => {
-			var srcPath = path.join(pkg.path, pkg.libraries || "src")
+			let srcPath = path.join(pkg.path, pkg.libraries || "src")
 			if(fs.existsSync(srcPath) && !ArduinoOptions.librariesPath.includes(srcPath)) {
 				ArduinoOptions.librariesPath.push(srcPath)
 			}
@@ -496,7 +532,7 @@ function loadPackages(extra) {
  * @param {*} name 名字
  */
 function openExample(examplePath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`openExample: ${examplePath}`)
 	Project.read(examplePath).then(result => {
@@ -511,20 +547,20 @@ function openExample(examplePath) {
 }
 
 function getInstalledLibraries() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var reg = /^([^=]+)=(.*)$/gm
+	let reg = /^([^=]+)=(.*)$/gm
 	util.searchFiles(`${util.getAppPath("libraries")}/**/library.properties`).then(pathList => {
-		var libraries = []
+		let libraries = []
 		Q.all(pathList.map(p => {
-			var d = Q.defer()
+			let d = Q.defer()
 			util.readFile(p).then(content => {
-				var matches = content.match(reg)
+				let matches = content.match(reg)
 				if(matches.length < 0) {
 					return
 				}
 
-				var library = {}
+				let library = {}
 				matches.map(match => match.split('=')).forEach(match => {
 					library[match[0]] = match[1]
 				})
@@ -551,7 +587,7 @@ function getInstalledLibraries() {
 }
 
 function loadLibraries() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	util.readJson(path.join(util.getAppPath("appResource"), "libraries", "libraries.json")).then(result => {
 		deferred.resolve(result.libraries)
@@ -567,10 +603,10 @@ function loadLibraries() {
  * 解压单个资源包
  */
 function unzipLibrary(name, libraryPath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var librariesPath = util.getAppPath("libraries")
-	var outputName = path.basename(libraryPath, path.extname(libraryPath))
+	let librariesPath = util.getAppPath("libraries")
+	let outputName = path.basename(libraryPath, path.extname(libraryPath))
 	util.uncompress(libraryPath, librariesPath, true).then(() => {
 		util.moveFile(path.join(librariesPath, outputName), path.join(librariesPath, name)).then(() => {
 			deferred.resolve()
@@ -589,7 +625,7 @@ function unzipLibrary(name, libraryPath) {
 }
 
 function deleteLibrary(name) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`deleteLibrary: ${name}`)
 	util.removeFile(path.join(util.getAppPath("libraries"), name)).then(() => {
@@ -602,19 +638,19 @@ function deleteLibrary(name) {
 	return deferred.promise
 }
 
-function onDownload(e, item, webContent) {
-	var url = item.getURL()
-	var pos = url.lastIndexOf("#")
-	var query = querystring.parse(url.substring(pos + 1))
+function onDownload(e, item) {
+	let url = item.getURL()
+	let pos = url.lastIndexOf("#")
+	let query = querystring.parse(url.substring(pos + 1))
 	url = url.substring(0, pos)
 
-	var deferId = query.deferId
-	var savePath = path.join(util.getAppPath("appData"), 'download', item.getFilename())
+	let {deferId} = query
+	let savePath = path.join(util.getAppPath("appData"), 'download', item.getFilename())
 	if(query.checksum && fs.existsSync(savePath)) {
 		pos = query.checksum.indexOf(":")
-		var algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
-		var hash = query.checksum.substring(pos + 1)
-		if(hash == hasha.fromFileSync(savePath, {algorithm: algorithm})) {
+		let algorithm = query.checksum.substring(0, pos).replace("-", "").toLowerCase()
+		let hash = query.checksum.substring(pos + 1)
+		if(hash === hasha.fromFileSync(savePath, {algorithm})) {
 			item.cancel()
 			log.debug(`download cancel, ${url} has cache`)
 			util.callDefer(deferId, true, {
@@ -626,9 +662,9 @@ function onDownload(e, item, webContent) {
 
 	item.setSavePath(savePath)
 
-	var totalSize = item.getTotalBytes()
+	let totalSize = item.getTotalBytes()
 	item.on('updated', (evt, state) => {
-		if(state == "interrupted") {
+		if(state === "interrupted") {
 			log.debug(`download interrupted: ${url}`)
 			util.callDefer(deferId, false, {
 				path: savePath,
@@ -642,7 +678,7 @@ function onDownload(e, item, webContent) {
 			} else {
 				util.callDefer(deferId, "notify", {
 					path: savePath,
-					totalSize: totalSize,
+					totalSize,
 					size: item.getReceivedBytes(),
 				})
 			}
@@ -650,7 +686,7 @@ function onDownload(e, item, webContent) {
 	})
 
 	item.once('done', (evt, state) => {
-		if(state == "completed") {
+		if(state === "completed") {
 			log.debug(`download success: ${url}, at ${savePath}`)
 			util.callDefer(deferId, true, {
 				path: savePath,
@@ -665,12 +701,12 @@ function onDownload(e, item, webContent) {
 }
 
 function download(url, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var {deferId, promise} = util.getDefer()
+	let {deferId, promise} = util.getDefer()
 	options.deferId = deferId
 
-	var query = querystring.stringify(options)
+	let query = querystring.stringify(options)
 	log.debug(`download ${url}, options: ${query}`)
 
 	promise.then(result => {
@@ -692,12 +728,12 @@ function download(url, options) {
  * @param {*} driverPath
  */
 function installDriver(driverPath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.join(util.getAppPath("appData"), "temp")
+	let dir = path.join(util.getAppPath("appData"), "temp")
 	util.uncompress(driverPath, dir).then(() => {
-		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
+		let exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
 		util.execFile(exePath).then(() => {
 			deferred.resolve()
 		})
@@ -738,15 +774,15 @@ function onSerialPortClose(portId) {
  * 查询串口
  */
 function listSerialPort() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	SerialPort.listSerialPort().then(ports => {
-		var arduinoPorts = filterArduinoPorts(ports)
+		let arduinoPorts = filterArduinoPorts(ports)
 
-		if(arduinoPorts.length == 0) {
+		if(arduinoPorts.length === 0) {
 			deferred.reject({
 				status: "NO_ARDUINO_PORT",
-				ports: ports,
+				ports,
 			})
 			return
 		}
@@ -771,7 +807,7 @@ function listSerialPort() {
  * @param {*} ports 串口列表
  */
 function filterArduinoPorts(ports) {
-	var reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
+	let reg = /(COM\d+)|(usb-serial)|(arduino)|(\/dev\/cu\.usbmodem)|(\/dev\/tty\.)|(\/dev\/(ttyUSB|ttyACM|ttyAMA))/
 	return ports.filter(p => reg.test(p.comName))
 }
 
@@ -781,14 +817,14 @@ function filterArduinoPorts(ports) {
  * @param {*} options 编译选项
  */
 function buildProject(projectPath, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	preBuild(projectPath, options).then(commandPath => {
+	preBuild(projectPath, options.build).then(commandPath => {
 		log.debug(`buildProject: ${projectPath}, command path: ${commandPath}`)
-		var scriptPath = util.getAppPath("script", "call")
+		let scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
-			var targetOptions = _.merge({}, ArduinoOptions.default, options)
-			var targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${targetOptions.upload.target_type}`)
+			let targetOptions = _.merge({}, ArduinoOptions.default, options)
+			let targetPath = path.join(projectPath, "cache", 'build', `${path.basename(projectPath)}.ino.${targetOptions.upload.target_type}`)
 			deferred.resolve(targetPath)
 		}, err => {
 			err && log.info(err)
@@ -805,58 +841,58 @@ function buildProject(projectPath, options) {
 }
 
 function preBuild(projectPath, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug('pre-build')
 
-	var cachePath = path.join(projectPath, 'cache')
-	var buildPath = path.join(cachePath, 'build')
+	let cachePath = path.join(projectPath, 'cache')
+	let buildPath = path.join(cachePath, 'build')
 	fs.ensureDirSync(buildPath)
 	util.removeFile(path.join(buildPath, "sketch", "build"), true)
 	util.removeFile(path.join(projectPath, "build"), true)
 
 	Project.read(projectPath).then(result => {
-		var projectInfo = result.data
-		var arduinoFilePath = path.join(cachePath, projectInfo.project_name + ".ino")
+		let projectInfo = result.data
+		let arduinoFilePath = path.join(cachePath, `${projectInfo.project_name}.ino`)
 
 		util.writeFile(arduinoFilePath, projectInfo.project_data.code).then(() => {
-			var buildSpecs = []
-			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
+			let buildSpecs = []
+			let buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
 
-			var packagesPath = util.getAppPath("packages")
+			let packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 			buildSpecs.push(`-fqbn=${buildOptions.fqbn}`)
-			var arduinoPath = util.getAppPath("arduino")
+			let arduinoPath = util.getAppPath("arduino")
 			Object.keys(buildOptions.prefs).forEach(key => {
-				var value = util.handleQuotes(buildOptions.prefs[key])
+				let value = util.handleQuotes(buildOptions.prefs[key])
 				value = value.replace(/ARDUINO_PATH/g, arduinoPath)
 				buildSpecs.push(`-prefs=${key}=${value}`)
 			})
 
-			var librariesPath = util.getAppPath("libraries")
+			let librariesPath = util.getAppPath("libraries")
 			fs.existsSync(librariesPath) && buildSpecs.push(`-libraries="${librariesPath}"`)
 
 			ArduinoOptions.librariesPath.forEach(libraryPath => {
 				buildSpecs.push(`-libraries="${libraryPath}"`)
 			})
 
-			var commandPath = util.getAppPath("command", "build")
-			var command = util.handleQuotes(buildOptions.command)
+			let commandPath = util.getAppPath("command", "build")
+			let command = util.handleQuotes(buildOptions.command)
 			command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 				.replace("BUILD_SPECS", buildSpecs.join(' '))
 				.replace("PROJECT_BUILD_PATH", buildPath)
 				.replace("PROJECT_ARDUINO_FILE", arduinoFilePath)
 
 			util.writeFile(commandPath, command).then(() => {
-				var optionPath = path.join(buildPath, 'build.options.json')
+				let optionPath = path.join(buildPath, 'build.options.json')
 				if(!fs.existsSync(optionPath)) {
 					setTimeout(() => deferred.resolve(commandPath), 10)
 					return deferred.promise
 				}
 
 				util.readJson(optionPath).then(opt => {
-					if(buildOptions.fqbn == opt.fqbn) {
+					if(buildOptions.fqbn === opt.fqbn) {
 						deferred.resolve(commandPath)
 						return
 					}
@@ -892,9 +928,9 @@ function preBuild(projectPath, options) {
  */
 function uploadFirmware(targetPath, options, comName) {
 	if(!comName) {
-		var deferred = Q.defer()
+		let deferred = Q.defer()
 		listSerialPort().then(ports => {
-			if(ports.length == 1) {
+			if(ports.length === 1) {
 				doUploadFirmware(targetPath, options, ports[0].comName).then(() => {
 					deferred.resolve()
 				}, err => {
@@ -905,7 +941,7 @@ function uploadFirmware(targetPath, options, comName) {
 			} else {
 				deferred.reject({
 					status: "SELECT_PORT",
-					ports: ports,
+					ports,
 				})
 			}
 		}, err => {
@@ -931,11 +967,11 @@ function uploadFirmware(targetPath, options, comName) {
  * @param {*} options 选项
  */
 function doUploadFirmware(targetPath, options, comName) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	preUploadFirmware(targetPath, options, comName).then(commandPath => {
 		log.debug(`upload firmware: ${targetPath}, ${comName}, command path: ${commandPath}`)
-		var scriptPath = util.getAppPath("script", "call")
+		let scriptPath = util.getAppPath("script", "call")
 		util.spawnCommand(`"${scriptPath}"`, [`"${commandPath}"`], {shell: true}).then(() => {
 			deferred.resolve()
 		}, err => {
@@ -959,13 +995,13 @@ function doUploadFirmware(targetPath, options, comName) {
  * @param {*} options 选项
  */
 function preUploadFirmware(targetPath, options, comName) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug("pre upload firmware")
-	var uploadOptions = _.merge({}, ArduinoOptions.default.upload, options.upload)
+	let uploadOptions = _.merge({}, ArduinoOptions.default.upload, options.upload)
 
-	var commandPath = util.getAppPath("command", "upload")
-	var command = util.handleQuotes(uploadOptions.command)
+	let commandPath = util.getAppPath("command", "upload")
+	let command = util.handleQuotes(uploadOptions.command)
 	command = command.replace(/ARDUINO_PATH/g, util.getAppPath("arduino"))
 		.replace("ARDUINO_MCU", uploadOptions.mcu)
 		.replace("ARDUINO_BURNRATE", uploadOptions.baudrate)
@@ -993,7 +1029,7 @@ function preUploadFirmware(targetPath, options, comName) {
  * @param {*} forceReload
  */
 function loadBoards(forceReload) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	if(config.boardNames && !forceReload) {
 		log.debug("skip loadBoards")
@@ -1005,32 +1041,32 @@ function loadBoards(forceReload) {
 	}
 
 	log.debug("loadBoards")
-	var boardNames = {}
-	var pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
-	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
-	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
+	let boardNames = {}
+	let pidReg = /\n(([^\.\n]+)\.pid(\.\d)?)=([^\r\n]+)/g
+	let vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
+	let nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 
-	var searchPath = 'arduino-' + util.getPlatform()
+	let searchPath = `arduino-${util.getPlatform()}`
 	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		Q.all(pathList.map(p => {
-			var d = Q.defer()
+			let d = Q.defer()
 			util.readFile(p).then(content => {
-				var pidList = content.match(pidReg)
-				var vidList = content.match(vidReg)
-				var nameList = content.match(nameReg)
-				var names = []
+				let pidList = content.match(pidReg)
+				let vidList = content.match(vidReg)
+				let nameList = content.match(nameReg)
+				let names = []
 				nameList.forEach(n => {
-					var type = n.substring(0, n.indexOf(".name")).trim()
-					var name = n.substring(n.indexOf("=") + 1).trim()
+					let type = n.substring(0, n.indexOf(".name")).trim()
+					let name = n.substring(n.indexOf("=") + 1).trim()
 					names[type] = name
 				})
 
-				var types = pidList.map(pid => pid.substring(0, pid.indexOf('.pid')).trim())
+				let types = pidList.map(pid => pid.substring(0, pid.indexOf('.pid')).trim())
 				pidList = pidList.map(pid => pid.substring(pid.indexOf('=') + 3))
 				vidList = vidList.map(vid => vid.substring(vid.indexOf('=') + 3))
 
 				pidList.forEach((v, i) => {
-					boardNames[v + "_" + vidList[i]] = {
+					boardNames[`${v}_${vidList[i]}`] = {
 						pid: v,
 						vid: vidList[i],
 						type: types[i],
@@ -1061,13 +1097,13 @@ function loadBoards(forceReload) {
  * @param {*} ports
  */
 function matchBoardNames(ports) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug("matchBoardNames")
-	loadBoards().then(names => {
+	loadBoards().then(() => {
 		ports.forEach(p => {
 			if(p.productId && p.vendorId) {
-				var board = config.boardNames[p.productId + "_" + p.vendorId]
+				let board = config.boardNames[`${p.productId}_${p.vendorId}`]
 				if(board) {
 					p.boardName = board.name
 				}
@@ -1087,7 +1123,7 @@ function loadOpenProject() {
 
 	if(projectToLoad) {
 		log.debug(`loadOpenProject: ${projectToLoad}`)
-		var projectPath = projectToLoad
+		let projectPath = projectToLoad
 		projectToLoad = null
 
 		return Project.read(projectPath)
@@ -1097,12 +1133,12 @@ function loadOpenProject() {
 }
 
 function loadOpenOrRecentProject() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	loadOpenProject().then(result => {
 		deferred.resolve(result)
 	}, () => {
-		var projectPath = cache.getItem("recentProject")
+		let projectPath = cache.getItem("recentProject")
 		if(!projectPath) {
 			util.rejectPromise(null, deferred)
 			return

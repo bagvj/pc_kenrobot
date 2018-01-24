@@ -1,22 +1,25 @@
-const os = require('os')
-const child_process = require('child_process')
-const path = require('path')
-const crypto = require('crypto')
+import os from 'os'
+import child_process from 'child_process'
+import path from 'path'
+import crypto from 'crypto'
 
-const {app, ipcMain, dialog, BrowserWindow} = require('electron')
-const log = require('electron-log')
-const is = require('electron-is')
+import {app, ipcMain, dialog, BrowserWindow} from 'electron'
+import log from 'electron-log'
+import is from 'electron-is'
 
-const Q = require('q')
-const fs = require('fs-extra')
-const globby = require('globby')
-const sudo = require('sudo-prompt')
-const iconv = require('iconv-lite')
-const _ = require('lodash')
-const path7za = require('7zip-bin').path7za.replace("app.asar", "app.asar.unpacked")
-const fetch = require('node-fetch')
+import Q from 'q'
+import fs from 'fs-extra'
+import globby from 'globby'
+import sudo from 'sudo-prompt'
+import iconv from 'iconv-lite'
+import _ from 'lodash'
+import Path7za from '7zip-bin'
+import fetch from 'node-fetch'
 
-const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
+let path7za = Path7za.path7za.replace("app.asar", "app.asar.unpacked")
+
+const PACKAGE = fs.readJsonSync(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
+// const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
 
 const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
@@ -29,7 +32,7 @@ wKB/BwSpp+Py2MTT2wIDAQAB
 is.dev() && app.setName(PACKAGE.productName)
 
 const defers = {}
-var deferAutoId = 0
+let deferAutoId = 0
 
 /**
  * 获取平台名字
@@ -40,7 +43,7 @@ function getPlatform() {
 	} else if(is.macOS()) {
 		return "mac"
 	} else {
-		var arch = os.arch()
+		let arch = os.arch()
 		if(arch.indexOf('arm') >= 0) {
 			return "arm"
 		} else {
@@ -60,9 +63,9 @@ function getVersion() {
  * 获取系统信息
  */
 function getAppInfo() {
-	var isX64 = process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432')
+	let isX64 = process.arch === 'x64' || Object.prototype.hasOwnProperty.call(process.env, 'PROCESSOR_ARCHITEW6432')
 
-	var info = {
+	let info = {
 		bit: isX64 ? 64 : 32,
 		arch: process.arch,
 		platform: getPlatform(),
@@ -113,23 +116,23 @@ function getAppPath(name, extra) {
 }
 
 function versionCompare(versionA, versionB) {
-	var reg = /(\d+)\.(\d+)\.(\d+)/
-	var matchA = reg.exec(versionA)
-	var matchB = reg.exec(versionB)
+	let reg = /(\d+)\.(\d+)\.(\d+)/
+	let matchA = reg.exec(versionA)
+	let matchB = reg.exec(versionB)
 
-	var versionsA = [
+	let versionsA = [
 		parseInt(matchA[1]),
 		parseInt(matchA[2]),
 		parseInt(matchA[3]),
 	]
-	var versionsB = [
+	let versionsB = [
 		parseInt(matchB[1]),
 		parseInt(matchB[2]),
 		parseInt(matchB[3]),
 	]
 
-	for(var i = 0; i <= 2; i++) {
-		if(versionsA[i] != versionsB[i]) {
+	for(let i = 0; i <= 2; i++) {
+		if(versionsA[i] !== versionsB[i]) {
 			return versionsA[i] > versionsB[i] ? 1 : -1
 		}
 	}
@@ -143,14 +146,14 @@ function versionCompare(versionA, versionB) {
  */
 function postMessage(name, ...args) {
 	log.debug(`postMessage: ${name}, ${args.join(", ")}`)
-	var wins = BrowserWindow.getAllWindows()
+	let wins = BrowserWindow.getAllWindows()
 	wins && wins.length && wins[0].webContents.send(name, args)
 }
 
 function listenMessage(name, callback) {
-	var eventName = `app:${name}`
+	let eventName = `app:${name}`
 	ipcMain.on(eventName, (e, deferId, ...args) => {
-		var promise = callback.apply(this, args) || resolvePromise()
+		let promise = callback.apply(this, args) || resolvePromise()
 		promise.then(result => {
 			e.sender.send(eventName, deferId, true, result)
 		}, err => {
@@ -162,24 +165,24 @@ function listenMessage(name, callback) {
 }
 
 function getDefer() {
-	var deferred = Q.defer()
-	var deferId = deferAutoId++
+	let deferred = Q.defer()
+	let deferId = deferAutoId++
 	defers[deferId] = deferred
 
 	return {
-		deferId: deferId,
+		deferId,
 		promise: deferred.promise
 	}
 }
 
 function callDefer(deferId, type, ...args) {
-	var deferred = defers[deferId]
+	let deferred = defers[deferId]
 	if(!deferred) {
 		return
 	}
 
-	var callback
-	if(type == "notify") {
+	let callback
+	if(type === "notify") {
 		callback = deferred.notify
 	} else {
 		delete defers[deferId]
@@ -197,16 +200,17 @@ function handleQuotes(p) {
 }
 
 function uuid(len, radix) {
-	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
-	var result = [], i
+	let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
+	let result = []
+	let i
 	radix = radix || chars.length
 
 	if (len) {
 		// Compact form
-		for (i = 0; i < len; i++) result[i] = chars[0 | Math.random()*radix]
+		for (i = 0; i < len; i++) result[i] = chars[0 | Math.random() * radix]
 	} else {
 		// rfc4122, version 4 form
-		var r
+		let r
 
 		// rfc4122 requires these characters
 		result[8] = result[13] = result[18] = result[23] = '-'
@@ -216,8 +220,8 @@ function uuid(len, radix) {
 		// per rfc4122, sec. 4.1.5
 		for (i = 0; i < 36; i++) {
 			if (!result[i]) {
-				r = 0 | Math.random()*16
-				result[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r]
+				r = 0 | Math.random() * 16
+				result[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r]
 			}
 		}
 	}
@@ -230,7 +234,7 @@ function stamp() {
 }
 
 function throttle(fn, delay) {
-	var timerId
+	let timerId
 	return () => {
 		timerId && clearTimeout(timerId)
 		timerId = setTimeout(() => {
@@ -243,19 +247,19 @@ function throttle(fn, delay) {
 
 function encrypt(plainText, key, algorithm) {
 	algorithm = algorithm || "aes-128-cbc"
-	var cipher = crypto.createCipher(algorithm, key)
-	var cryptedText = cipher.update(plainText, 'utf8', 'binary')
+	let cipher = crypto.createCipher(algorithm, key)
+	let cryptedText = cipher.update(plainText, 'utf8', 'binary')
 	cryptedText += cipher.final('binary')
-	cryptedText = new Buffer(cryptedText, 'binary').toString('base64')
+	cryptedText = Buffer.from(cryptedText, 'binary').toString('base64')
 
 	return cryptedText
 }
 
 function decrypt(cryptedText, key, algorithm) {
 	algorithm = algorithm || "aes-128-cbc"
-	cryptedText = new Buffer(cryptedText, 'base64').toString('binary')
-	var decipher = crypto.createDecipher(algorithm, key)
-	var plainText = decipher.update(cryptedText, 'binary', 'utf8')
+	cryptedText = Buffer.from(cryptedText, 'base64').toString('binary')
+	let decipher = crypto.createDecipher(algorithm, key)
+	let plainText = decipher.update(cryptedText, 'binary', 'utf8')
 	plainText += decipher.final('utf8')
 
 	return plainText
@@ -263,14 +267,14 @@ function decrypt(cryptedText, key, algorithm) {
 
 function rsa_encrypt(plain, key) {
 	key = key || PUBLIC_KEY
-    var buffer = new Buffer(plain)
-    var encrypted = crypto.publicEncrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
+    let buffer = Buffer.from(plain)
+    let encrypted = crypto.publicEncrypt({key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
     return encrypted.toString("base64")
 }
 
 function rsa_decrypt(encrypted, key) {
-    var buffer = new Buffer(encrypted, "base64")
-    var decrypted = crypto.privateDecrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
+    let buffer = Buffer.from(encrypted, "base64")
+    let decrypted = crypto.privateDecrypt({key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
     return decrypted.toString("utf8")
 }
 
@@ -295,10 +299,10 @@ function rejectPromise(result, deferred) {
  * @param {*} driverPath
  */
 function execFile(exePath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`execFile: ${exePath}`)
-	var command
+	let command
 	if(is.windows()) {
 		command = `start /WAIT ${exePath}`
 	} else {
@@ -318,7 +322,7 @@ function execFile(exePath) {
  * @param {*} useSudo 用sudo执行
  */
 function execCommand(command, options, useSudo) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	options = options || {}
 	useSudo = useSudo || false
 
@@ -369,12 +373,12 @@ function execCommand(command, options, useSudo) {
  * @param {*} options 选项
  */
 function spawnCommand(command, args, options) {
-	var deferred = Q.defer()
-	var child = child_process.spawn(command, args, options)
-	var stdout = ''
-	var stderr = ''
+	let deferred = Q.defer()
+	let child = child_process.spawn(command, args, options)
+	let stdout = ''
+	let stderr = ''
 	child.stdout.on('data', data => {
-		var str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
+		let str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
 		is.dev() && str && log.debug(str)
 		stdout += str
 		deferred.notify({
@@ -383,7 +387,7 @@ function spawnCommand(command, args, options) {
 		})
 	})
 	child.stderr.on('data', data => {
-		var str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
+		let str = is.windows() ? iconv.decode(data, 'win1252') : data.toString()
 		is.dev() && str && log.debug(str)
 		stderr += str
 		deferred.notify({
@@ -392,7 +396,7 @@ function spawnCommand(command, args, options) {
 		})
 	})
 	child.on('close', code => {
-		code == 0 ? deferred.resolve(stdout) : deferred.reject(stderr)
+		code === 0 ? deferred.resolve(stdout) : deferred.reject(stderr)
 	})
 
 	return deferred.promise
@@ -407,7 +411,7 @@ function readFile(filePath, options, sync) {
 	if(sync) {
 		return fs.readFileSync(filePath, options)
 	} else {
-		var deferred = Q.defer()
+		let deferred = Q.defer()
 		options = options || "utf8"
 
 		fs.readFile(filePath, options, (err, data) => {
@@ -433,7 +437,7 @@ function writeFile(filePath, data, options, sync) {
 	if(sync) {
 		fs.outputFileSync(filePath, data, options)
 	} else {
-		var deferred = Q.defer()
+		let deferred = Q.defer()
 
 		fs.outputFile(filePath, data, options, err => {
 			if(err) {
@@ -455,7 +459,7 @@ function writeFile(filePath, data, options, sync) {
  * @param {*} data 数据
  */
 function saveFile(filePath, data, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	options = options || {}
 	filePath && (options.defaultPath = filePath)
@@ -476,7 +480,7 @@ function saveFile(filePath, data, options) {
 }
 
 function moveFile(src, dst, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	options = options || {overwrite: true}
 
 	fs.move(src, dst, options, err => {
@@ -500,7 +504,7 @@ function removeFile(filePath, sync) {
 	if(sync) {
 		fs.removeSync(filePath)
 	} else {
-		var deferred = Q.defer()
+		let deferred = Q.defer()
 
 		fs.remove(filePath, err => {
 			if(err) {
@@ -522,7 +526,7 @@ function removeFile(filePath, sync) {
  * @param {*} options 选项
  */
 function readJson(filePath, options) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	options = options || {}
 
 	fs.readJson(filePath, options, (err, data) => {
@@ -548,7 +552,7 @@ function writeJson(filePath, data, options, sync) {
 	if(sync) {
 		fs.outputJsonSync(filePath, data, options)
 	} else {
-		var deferred = Q.defer()
+		let deferred = Q.defer()
 		options = options || {}
 
 		fs.outputJson(filePath, data, options, err => {
@@ -570,7 +574,7 @@ function writeJson(filePath, data, options, sync) {
  * @param {*} pattern 模式
  */
 function searchFiles(pattern) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`searchFiles: ${pattern}`)
 	globby(pattern).then(result => {
@@ -590,8 +594,8 @@ function searchFiles(pattern) {
  * @param {*} spawn 是否用spawn, 默认为false
  */
 function uncompress(filePath, dist, spawn) {
-	var deferred = Q.defer()
-	var reg = /([\d]+)% \d+ - .*\r?/g
+	let deferred = Q.defer()
+	let reg = /([\d]+)% \d+ - .*\r?/g
 
 	log.debug(`uncompress: ${filePath} => ${dist}`)
 
@@ -607,8 +611,8 @@ function uncompress(filePath, dist, spawn) {
 				return
 			}
 
-			var match
-			var temp = reg.exec(progess.data)
+			let match
+			let temp = reg.exec(progess.data)
 			do {
 				match = temp
 				temp = reg.exec(progess.data)
@@ -629,9 +633,9 @@ function uncompress(filePath, dist, spawn) {
 }
 
 function compress(dir, files, dist, type) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	files = files  ? files : [files]
+	files = _.isArray(files) ? files : [files]
 	type = type || "7z"
 	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
 
@@ -650,7 +654,7 @@ function compress(dir, files, dist, type) {
  * @param {*} options 选项
  */
 function showOpenDialog(options, win) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	options = options || {}
 	options.title = "打开"
@@ -677,7 +681,7 @@ function showOpenDialog(options, win) {
  * @param {*} options 选项
  */
 function showSaveDialog(options, win) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	options = options || {}
 	options.title = "保存"
@@ -699,16 +703,16 @@ function showSaveDialog(options, win) {
 }
 
 function request(url, options, json) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	options = options || {}
 	json = json !== false
 	options.method = options.method || "GET"
 	if(json && options.data) {
 		options.body = JSON.stringify(options.data)
-		var headers = options.headers || (options.headers = {})
+		let headers = options.headers || (options.headers = {})
 		headers['Content-Type'] = 'application/json'
-		headers['Accept'] = 'application/json'
+		headers.Accept = 'application/json'
 		delete options.data
 	}
 
@@ -716,7 +720,7 @@ function request(url, options, json) {
 		if(res.ok) {
 			return json ? res.json() : res
 		} else {
-			var error = new Error(res.statusText)
+			let error = new Error(res.statusText)
 			error.status = res.status
 			throw error
 		}

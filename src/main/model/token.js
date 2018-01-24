@@ -1,18 +1,16 @@
-const path = require('path')
-const crypto = require('crypto')
-const Q = require('q')
-const fs = require('fs-extra')
-const log = require('electron-log')
-const isOnline = require('is-online')
+import crypto from 'crypto'
+import Q from 'q'
+import log from 'electron-log'
+import isOnline from 'is-online'
 
-const util = require('../util/util')
-const Url = require('../config/url')
-const Status = require('../config/status')
+import util from '../util/util'
+import Url from '../config/url'
+import Status from '../config/status'
 
-const Cache = require('../util/cache')
+import Cache from '../util/cache'
 
-var cache
-var token
+let cache
+let token
 
 function getUserId() {
 	return token && token.user ? token.user.id : 0
@@ -23,17 +21,17 @@ function getUser() {
 }
 
 function load() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var key = getCache().getItem("key")
-	var value = getCache().getItem("value")
+	let key = getCache().getItem("key")
+	let value = getCache().getItem("value")
 
 	if(!key || !value) {
 		return util.rejectPromise(null, deferred)
 	}
 
 	try {
-		var plainText = util.decrypt(value, Buffer.from(key, "hex"))
+		let plainText = util.decrypt(value, Buffer.from(key, "hex"))
 		token = JSON.parse(plainText)
 
 		verify().then(() => {
@@ -53,7 +51,7 @@ function load() {
 
 function save(value) {
 	try {
-		var key = crypto.randomBytes(128)
+		let key = crypto.randomBytes(128)
 
 		getCache().setItem("key", key.toString("hex"), false)
 		getCache().setItem("value", util.encrypt(JSON.stringify(value), key), false)
@@ -63,7 +61,6 @@ function save(value) {
 
 		return util.resolvePromise()
 	} catch (ex) {
-
 		return util.rejectPromise(ex)
 	}
 }
@@ -83,10 +80,10 @@ function request(url, options, json) {
 		return util.rejectPromise()
 	}
 
-	var appInfo = util.getAppInfo()
+	let appInfo = util.getAppInfo()
 
-	var headers = options.headers || {}
-	headers['Authorization'] = `Bearer ${token.api_token}`
+	let headers = options.headers || {}
+	headers.Authorization = `Bearer ${token.api_token}`
 	headers['X-Ken-App-Version'] = `${appInfo.name}-${appInfo.version}-${appInfo.branch}-${appInfo.platform}-${appInfo.appBit}`
 
 	options.headers = headers
@@ -95,10 +92,10 @@ function request(url, options, json) {
 }
 
 function verify() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	request(Url.VERIFY, {method: "post"}).then(result => {
-		if(result.status != Status.SUCCESS) {
+		if(result.status !== Status.SUCCESS) {
 			deferred.reject(result.message)
 			return
 		}

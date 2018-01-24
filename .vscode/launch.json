@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Electron Main",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "program": "${workspaceFolder}/app/main/index.js",
+            "protocol": "inspector",
+            "args": [
+              "-dmt"
+            ],
+            "env": {
+              "NODE_ENV": "production",
+              "DEBUG_PROD": "true",
+
+              // "NODE_ENV": "development",
+              // "HOT": "true",
+            },
+        }
+    ]
+}

@@ -1,30 +1,29 @@
-const Q = require('q')
-const log = require('electron-log')
+import Q from 'q'
+import log from 'electron-log'
 
-const util = require('../util/util')
-const Token = require('./token')
-const Url = require('../config/url')
-const Status = require('../config/status')
+import util from '../util/util'
+import Token from './token'
+import Url from '../config/url'
 
-var emailReg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+let emailReg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
 
 function loadToken() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	Token.load().then(result => {
 		deferred.resolve(result.user)
 	}, err => {
-		err && log.info(er)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
 	return deferred.promise
 }
 
-function login(username, password, autoLogin) {
-	var deferred = Q.defer()
+function login(username, password) {
+	let deferred = Q.defer()
 
-	var data = {}
+	let data = {}
 	if(emailReg.test(username)) {
 		data.email = username
 	} else {
@@ -34,9 +33,9 @@ function login(username, password, autoLogin) {
 
 	util.request(Url.LOGIN, {
 		method: "POST",
-		data: data,
+		data,
 	}).then(result => {
-		if(result.status != 0) {
+		if(result.status !== 0) {
 			deferred.resolve(result)
 			return
 		}
@@ -45,7 +44,7 @@ function login(username, password, autoLogin) {
 			deferred.resolve(result)
 		})
 	}, err => {
-		err && log.info(er)
+		err && log.info(err)
 		deferred.reject(err)
 	})
 
@@ -53,7 +52,7 @@ function login(username, password, autoLogin) {
 }
 
 function logout() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	Token.remove()
 	util.request(Url.LOGOUT).then(() => {
@@ -67,15 +66,15 @@ function logout() {
 }
 
 function weixinLogin(key) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	util.request(Url.WEIXIN_LOGIN, {
 		method: "POST",
 		data: {
-			auth_key : key,
+			auth_key: key,
 		},
 	}).then(result => {
-		if(result.status != 0 && result.status != 1) {
+		if(result.status !== 0 && result.status !== 1) {
 			deferred.resolve(result)
 			return
 		}
@@ -92,7 +91,7 @@ function weixinLogin(key) {
 }
 
 function weixinQrcode() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	util.request(Url.WEIXIN_QRCODE).then(result => {
 		deferred.resolve(result)
@@ -105,7 +104,7 @@ function weixinQrcode() {
 }
 
 function register(fields) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	util.request(Url.REGISTER, {
 		method: "POST",
@@ -126,12 +125,12 @@ function register(fields) {
 }
 
 function resetPassword(email) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	util.request(Url.FIND_PASSWORD, {
 		method: "POST",
 		data: {
-			email: email,
+			email,
 		},
 	}).then(result => {
 		deferred.resolve(result)

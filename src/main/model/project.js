@@ -1,23 +1,23 @@
-const path = require('path')
-const fs = require('fs-extra')
-const Q = require('q')
-const hasha = require('hasha')
-const log = require('electron-log')
+import path from 'path'
+import fs from 'fs-extra'
+import Q from 'q'
+import hasha from 'hasha'
+import log from 'electron-log'
 
-const util = require('../util/util')
-const Token = require('./token')
-const Url = require('../config/url')
+import util from '../util/util'
+import Token from './token'
+import Url from '../config/url'
 
 const PROJECT_EXT = ".krb"
 const PROJECT_TYPE = "krobot"
 
 const months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]
 
-var suffix = 96
-var throttleSync = util.throttle(sync, 3000)
+let suffix = 96
+let throttleSync = util.throttle(sync, 3000)
 
 function check(projectPath) {
-	if(!projectPath || path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
+	if(!projectPath || path.extname(projectPath) !== PROJECT_EXT || !fs.existsSync(projectPath)) {
 		return null
 	}
 
@@ -25,13 +25,13 @@ function check(projectPath) {
 }
 
 function read(filePath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var projectPath
+	let projectPath
 	if(check(filePath)) {
 		projectPath = filePath
 	} else {
-		var projectName = path.basename(filePath)
+		let projectName = path.basename(filePath)
 		projectPath = path.join(filePath, projectName + PROJECT_EXT)
 		if(!fs.existsSync(projectPath)) {
 			projectPath = path.join(filePath, "project.json")
@@ -56,9 +56,9 @@ function read(filePath) {
 }
 
 function open(name) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var doOpen = projectPath => {
+	let doOpen = projectPath => {
 		read(projectPath).then(result => {
 			deferred.resolve(result)
 		}, err => {
@@ -75,27 +75,27 @@ function open(name) {
 		doOpen(path.join(getProjectsDir(), name))
 
 		return deferred.promise
-	} else {
-		var options = {}
-		options.defaultPath = Token.getUser() ? getProjectsDir() : util.getAppPath("documents")
-		options.properties = ["openDirectory"]
-
-		util.showOpenDialog(options).then(openPath => {
-			doOpen(openPath)
-		}, err => {
-			err && log.info(err)
-			deferred.reject(err)
-		})
-
-		return deferred.promise
 	}
+
+	let options = {}
+	options.defaultPath = Token.getUser() ? getProjectsDir() : util.getAppPath("documents")
+	options.properties = ["openDirectory"]
+
+	util.showOpenDialog(options).then(openPath => {
+		doOpen(openPath)
+	}, err => {
+		err && log.info(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function save(projectName, projectInfo, savePath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	if(!Token.getUser()) {
-		var prefix = path.join(util.getAppPath("appDocuments"), "projects")
+		let prefix = path.join(util.getAppPath("appDocuments"), "projects")
 		if(savePath && savePath.startsWith(prefix)) {
 			savePath = null
 		}
@@ -125,9 +125,9 @@ function save(projectName, projectInfo, savePath) {
 }
 
 function saveAs(projectName, projectInfo, isTemp, savePath) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var _doSave = (_savePath, _name) => {
+	let doSaveFn = (_savePath, _name) => {
 		doSave(_savePath, _name, projectInfo).then(() => {
 			deferred.resolve({
 				project_name: projectInfo.project_name,
@@ -143,12 +143,12 @@ function saveAs(projectName, projectInfo, isTemp, savePath) {
 
 	if(isTemp) {
 		savePath = path.join(util.getAppPath("temp"), "build", `sketch_${util.stamp()}`)
-		_doSave(savePath, path.basename(savePath))
+		doSaveFn(savePath, path.basename(savePath))
 	} else if(savePath) {
-		_doSave(path.join(path.dirname(savePath), projectName), projectName)
+		doSaveFn(path.join(path.dirname(savePath), projectName), projectName)
 	} else {
-		util.showSaveDialog({defaultPath: getDefaultName()}).then(savePath => {
-			_doSave(savePath, path.basename(savePath))
+		util.showSaveDialog({defaultPath: getDefaultName()}).then(_savePath => {
+			doSaveFn(_savePath, path.basename(_savePath))
 		}, err => {
 			err && log.info(err)
 			deferred.reject(err)
@@ -159,7 +159,7 @@ function saveAs(projectName, projectInfo, isTemp, savePath) {
 }
 
 function sync() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project sync`)
 
@@ -167,7 +167,7 @@ function sync() {
 		list(),
 		loadLocalList()
 	]).then(result => {
-		var [remoteList, localList] = result
+		let [remoteList, localList] = result
 		doSync(remoteList, localList).then(() => {
 			log.debug(`project sync success`)
 			deferred.resolve()
@@ -187,16 +187,16 @@ function sync() {
 }
 
 function list() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project list`)
 
 	Token.request(Url.PROJECT_SYNC_LIST, {method: "post"}).then(result => {
-		if(result.status != 0) {
+		if(result.status !== 0) {
 			deferred.reject(result.message)
 			return
 		}
-		deferred.resolve(result.data.filter(p => p.type == PROJECT_TYPE))
+		deferred.resolve(result.data.filter(p => p.type === PROJECT_TYPE))
 	}, err => {
 		err && log.info(err)
 		deferred.reject(err)
@@ -206,23 +206,23 @@ function list() {
 }
 
 function create(name) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project create: ${name}`)
 
 	Token.request(Url.PROJECT_SYNC_CREATE, {
 		method: 'post',
 		data: {
-			name: name,
+			name,
 			type: PROJECT_TYPE
 		}
 	}).then(result => {
-		if(result.status != 0) {
+		if(result.status !== 0) {
 			deferred.reject(result.message)
 			return
 		}
 
-		var item = result.data
+		let item = result.data
 		updateLocalItem(item.name, item.modify_time, item.hash).then(() => {
 			log.debug(`project create success: ${name} ${item.hash}`)
 			deferred.resolve(item)
@@ -239,17 +239,17 @@ function create(name) {
 }
 
 function remove(name, hash) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project remove: ${hash}`)
 
 	Token.request(Url.PROJECT_SYNC_DELETE, {
 		method: "post",
 		data: {
-			hash: hash
+			hash
 		}
 	}).then(result => {
-		if(result.status != 0) {
+		if(result.status !== 0) {
 			deferred.reject(result.message)
 			return
 		}
@@ -273,22 +273,22 @@ function remove(name, hash) {
 }
 
 function upload(name, hash) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project upload: ${name}: ${hash}`)
 
 	compress(getProjectsDir(), name).then(outputPath => {
-		var url = `${Url.PROJECT_SYNC_UPLOAD}/${hash}`
+		let url = `${Url.PROJECT_SYNC_UPLOAD}/${hash}`
 		Token.request(url, {
 			method: "post",
 			body: fs.createReadStream(outputPath)
 		}).then(result => {
-			if(result.status != 0) {
+			if(result.status !== 0) {
 				deferred.reject(result.message)
 				return
 			}
 
-			var item = result.data
+			let item = result.data
 			updateLocalItem(name, item.modify_time, hash).then(() => {
 				log.debug(`project upload success: ${name}`)
 				deferred.resolve(item)
@@ -309,16 +309,16 @@ function upload(name, hash) {
 }
 
 function download(name, hash) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`project download: ${hash}`)
 
-	var url = `${Url.PROJECT_SYNC_DOWNLOAD}/${hash}`
+	let url = `${Url.PROJECT_SYNC_DOWNLOAD}/${hash}`
 	Token.request(url, {method: "post"}, false).then(res => {
-		var savePath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
+		let savePath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
 		fs.ensureDirSync(path.dirname(savePath))
 
-		var stream = fs.createWriteStream(savePath)
+		let stream = fs.createWriteStream(savePath)
 		res.body.pipe(stream)
 		res.body.on("end", () => {
 			util.uncompress(savePath, getProjectsDir()).then(() => {
@@ -346,10 +346,10 @@ function download(name, hash) {
 }
 
 function compress(projectsDir, name) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var outputPath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
-	var files = [`${name}/${name}${PROJECT_EXT}`]
+	let outputPath = path.join(util.getAppPath("appData"), 'temp', `${util.uuid(6)}.7z`)
+	let files = [`${name}/${name}${PROJECT_EXT}`]
 	util.compress(projectsDir, files, outputPath).then(() => {
 		deferred.resolve(outputPath)
 	}, err => {
@@ -365,7 +365,7 @@ function doSave(savePath, projectName, projectInfo, projectType) {
 	projectInfo.project_type = projectType || "local"
 	projectInfo.updated_at = new Date()
 
-	var projectPath = path.join(savePath, projectName + PROJECT_EXT)
+	let projectPath = path.join(savePath, projectName + PROJECT_EXT)
 	log.debug(`project save: ${projectPath}`)
 
 	return Q.all([
@@ -376,20 +376,20 @@ function doSave(savePath, projectName, projectInfo, projectType) {
 }
 
 function doSync(remoteList, localList) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var [createList, downloadList, uploadList] = findSyncList(remoteList, localList)
+	let [createList, downloadList, uploadList] = findSyncList(remoteList, localList)
 	log.debug(`doSync: createList:${createList.length}, downloadList:${downloadList.length}, uploadList:${uploadList.length}`)
-	var total = createList.length + downloadList.length + uploadList.length
-	var count = 0
+	let total = createList.length + downloadList.length + uploadList.length
+	let count = 0
 
-	var notify = (name, action) => {
+	let notify = (name, action) => {
 		count++
 		deferred.notify({
-			total: total,
-			count: count,
-			name: name,
-			action: action,
+			total,
+			count,
+			name,
+			action,
 		})
 	}
 
@@ -414,20 +414,20 @@ function doSync(remoteList, localList) {
 }
 
 function findSyncList(remoteList, localList) {
-	var remoteDic = {}
-	var localDic = {}
+	let remoteDic = {}
+	let localDic = {}
 	remoteList.forEach(item => {
 		remoteDic[`${item.name}`] = item
 	})
 	localList.forEach(item => {
 		localDic[`${item.name}`] = item
 	})
-	var downloadList = []
-	var uploadList = []
-	var createList = []
+	let downloadList = []
+	let uploadList = []
+	let createList = []
 
 	remoteList.forEach(item => {
-		var localItem = localDic[item.name]
+		let localItem = localDic[item.name]
 		if(!localItem || !localItem.modify_time || localItem.modify_time < item.modify_time) {
 			downloadList.push(item)
 		} else if(!check(path.join(getProjectsDir(), item.name, item.name + PROJECT_EXT))) {
@@ -435,7 +435,7 @@ function findSyncList(remoteList, localList) {
 		}
 	})
 	localList.forEach(item => {
-		var remoteItem = remoteDic[item.name]
+		let remoteItem = remoteDic[item.name]
 		if(!remoteItem) {
 			createList.push(item)
 			uploadList.push(item)
@@ -448,19 +448,19 @@ function findSyncList(remoteList, localList) {
 }
 
 function createSync(createList, notify) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var worker
+	let worker
 	worker = () => {
-		if(createList.length == 0) {
+		if(createList.length === 0) {
 			return util.resolvePromise(true, deferred)
 		}
 
-		var item = createList.shift()
+		let item = createList.shift()
 		create(item.name).then(it => {
 			item.hash = it.hash
 			notify(item.name, "create")
-			if(createList.length == 0) {
+			if(createList.length === 0) {
 				deferred.resolve()
 			} else {
 				setTimeout(() => worker(), 100)
@@ -476,18 +476,18 @@ function createSync(createList, notify) {
 }
 
 function uploadSync(uploadList, notify) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var worker
+	let worker
 	worker = () => {
-		if(uploadList.length == 0) {
+		if(uploadList.length === 0) {
 			return util.resolvePromise(true, deferred)
 		}
 
-		var item = uploadList.shift()
+		let item = uploadList.shift()
 		upload(item.name, item.hash).then(() => {
 			notify(item.name, "upload")
-			if(uploadList.length == 0) {
+			if(uploadList.length === 0) {
 				deferred.resolve()
 			} else {
 				setTimeout(() => worker(), 100)
@@ -503,18 +503,18 @@ function uploadSync(uploadList, notify) {
 }
 
 function downloadSync(downloadList, notify) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var worker
+	let worker
 	worker = () => {
-		if(downloadList.length == 0) {
+		if(downloadList.length === 0) {
 			return util.resolvePromise(true, deferred)
 		}
 
-		var item = downloadList.shift()
+		let item = downloadList.shift()
 		download(item.name, item.hash).then(() => {
 			notify(item.name, "download")
-			if(downloadList.length == 0) {
+			if(downloadList.length === 0) {
 				deferred.resolve()
 			} else {
 				setTimeout(() => worker(), 100)
@@ -530,13 +530,13 @@ function downloadSync(downloadList, notify) {
 }
 
 function loadLocalList() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	if(!Token.getUser()) {
 		return util.rejectPromise(null, deferred)
 	}
 
-	var listPath = getLocalListPath()
+	let listPath = getLocalListPath()
 	if(!fs.existsSync(listPath)) {
 		return util.resolvePromise([], deferred)
 	}
@@ -553,16 +553,16 @@ function saveLocalList(localList) {
 }
 
 function updateLocalItem(name, modify_time, hash) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 	modify_time = modify_time || util.stamp()
 
 	loadLocalList().then(localList => {
-		var localItem = localList.find(it => (hash && it.hash == hash) || it.name == name)
+		let localItem = localList.find(it => (hash && it.hash === hash) || it.name === name)
 		if(!localItem) {
 			localList.push({
-				name: name,
-				hash: hash,
-				modify_time: modify_time,
+				name,
+				hash,
+				modify_time,
 			})
 		} else {
 			name && (localItem.name = name)
@@ -585,10 +585,10 @@ function updateLocalItem(name, modify_time, hash) {
 }
 
 function removeLocalItem(hash) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	loadLocalList().then(localList => {
-		var index = localList.findIndex(it => it.hash == hash)
+		let index = localList.findIndex(it => it.hash === hash)
 		if(index < 0) {
 			deferred.resolve()
 			return
@@ -610,7 +610,7 @@ function removeLocalItem(hash) {
 }
 
 function getLocalListPath() {
-	var userId = Token.getUserId()
+	let userId = Token.getUserId()
 	if(!userId) {
 		return null
 	}
@@ -619,7 +619,7 @@ function getLocalListPath() {
 }
 
 function getProjectsDir() {
-	var userId = Token.getUserId()
+	let userId = Token.getUserId()
 	if(!userId) {
 		return null
 	}
@@ -638,12 +638,12 @@ function getSuffix() {
 }
 
 function getDefaultName() {
-	var date = new Date()
-	var month = months[date.getMonth()]
-	var day = (100 + date.getDate()).toString().substring(1)
-	var suffix = getSuffix()
+	let date = new Date()
+	let month = months[date.getMonth()]
+	let day = (100 + date.getDate()).toString().substring(1)
+	let s = getSuffix()
 
-	return `sketch_${month}${day}${suffix}`
+	return `sketch_${month}${day}${s}`
 }
 
 module.exports.check = check

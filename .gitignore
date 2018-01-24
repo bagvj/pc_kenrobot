@@ -3,13 +3,9 @@ dist
 bak
 log
 .sass-cache
-.vscode
 .git-completion.bash
 *.DS_Store
 .temp
-build/bin
-build/output
 build/upload.json
-app/mac.txt
 /data/packages/packages.json
 /data/packages/*.7z

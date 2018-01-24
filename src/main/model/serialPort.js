@@ -1,11 +1,10 @@
-const path = require('path')
-const log = require('electron-log')
-const Q = require('q')
+import log from 'electron-log'
+import Q from 'q'
+import SerialPort from 'serialport' // eslint-disable-line import/extensions
 
-const SerialPort = require('serialport') //串口
 const Delimiter = SerialPort.parsers.Delimiter
 
-var connectedPorts = {
+let connectedPorts = {
 	autoPortId: 0,
 	ports: {}
 }
@@ -14,7 +13,7 @@ var connectedPorts = {
  * 查询串口
  */
 function listSerialPort() {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug("listSerialPort")
 	SerialPort.list((err, ports) => {
@@ -24,7 +23,7 @@ function listSerialPort() {
 			return
 		}
 
-		if(ports.length == 0) {
+		if(ports.length === 0) {
 			deferred.reject()
 			return
 		}
@@ -42,13 +41,13 @@ function listSerialPort() {
  * @param {*} callbacks 回调
  */
 function openSerialPort(comName, options, callbacks) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
 	options.autoOpen = false
 
 
-	var port = new SerialPort(comName, options)
+	let port = new SerialPort(comName, options)
 	port.open(err => {
 		if(err) {
 			log.info(err)
@@ -56,20 +55,20 @@ function openSerialPort(comName, options, callbacks) {
 			return
 		}
 
-		var portId = ++connectedPorts.autoPortId
+		let portId = ++connectedPorts.autoPortId
 		connectedPorts.ports[portId] = port
 
-		port.on('error', err => {
-			callbacks && callbacks.onError && callbacks.onError(portId, err)
+		port.on('error', err2 => {
+			callbacks && callbacks.onError && callbacks.onError(portId, err2)
 		})
 		port.on('close', () => {
 			delete connectedPorts.ports[portId]
 			callbacks && callbacks.onClose && callbacks.onClose(portId)
 		})
 
-		var target = options.parser == "raw" ? port : port.pipe(new Delimiter({delimiter: Buffer.from(options.parser)}))
+		let target = options.parser === "raw" ? port : port.pipe(new Delimiter({delimiter: Buffer.from(options.parser)}))
 		target.on('readable', () => {
-			var data = target.read()
+			let data = target.read()
 			data && callbacks && callbacks.onData && callbacks.onData(portId, data)
 		})
 
@@ -87,10 +86,10 @@ function openSerialPort(comName, options, callbacks) {
  * @param {*} content 发送内容，Buffer | String
  */
 function writeSerialPort(portId, content) {
-	var  deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`writeSerialPort: ${portId}, ${content}`)
-	var port = connectedPorts.ports[portId]
+	let port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
@@ -116,10 +115,10 @@ function writeSerialPort(portId, content) {
  * @param {*} portId 串口id
  */
 function closeSerialPort(portId) {
-	var  deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`closeSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
+	let port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
@@ -136,10 +135,10 @@ function closeSerialPort(portId) {
  * 关闭所有串口
  */
 function closeAllSerialPort() {
-	log.debug(`closeAllSerialPort`)
-	for(var key in connectedPorts.ports) {
-		connectedPorts.ports[key].close()
-	}
+  log.debug(`closeAllSerialPort`)
+  Object.keys(connectedPorts.ports).forEach(key => {
+    connectedPorts.ports[key] && connectedPorts.ports[key].close()
+  })
 	connectedPorts.ports = {}
 }
 
@@ -149,10 +148,10 @@ function closeAllSerialPort() {
  * @param {*} options 选项
  */
 function updateSerialPort(portId, options) {
-	var  deferred = Q.defer()
+	let deferred = Q.defer()
 
 	log.debug(`updateSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
+	let port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
@@ -170,11 +169,11 @@ function updateSerialPort(portId, options) {
  * @param {*} portId 串口id
  * @param {*} options 选项
  */
-function flushSerialPort(portId, options) {
-	var  deferred = Q.defer()
+function flushSerialPort(portId) {
+	let deferred = Q.defer()
 
 	log.debug(`flushSerialPort, portId: ${portId}`)
-	var port = connectedPorts.ports[portId]
+	let port = connectedPorts.ports[portId]
 	if(!port) {
 		setTimeout(() => deferred.reject(), 10)
 		return deferred.promise
@@ -188,9 +187,9 @@ function flushSerialPort(portId, options) {
 }
 
 function resetSerialPort(comName) {
-	var deferred = Q.defer()
+	let deferred = Q.defer()
 
-	var serialPort = new SerialPort(comName, {
+	let serialPort = new SerialPort(comName, {
 		baudRate: 1200
 	})
 
