@@ -36,7 +36,7 @@ export default merge.smart(baseConfig, {
     rules: [
       // Extract all .global.css to style.css as is
       {
-        test: /\.global\.css$/,
+        test: /(antd.*\.css$)|(\.global\.css$)/,
         use: ExtractTextPlugin.extract({
           publicPath: './',
           use: {
@@ -51,6 +51,7 @@ export default merge.smart(baseConfig, {
       // Pipe other styles through css modules and append to style.css
       {
         test: /^((?!\.global).)*\.css$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           use: {
             loader: 'css-loader',
@@ -84,6 +85,7 @@ export default merge.smart(baseConfig, {
       // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.scss$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           use: [{
             loader: 'css-loader',
@@ -99,6 +101,43 @@ export default merge.smart(baseConfig, {
           }]
         }),
       },
+      // Add LESS support  - compile all .global.less files and pipe it to style.css
+      {
+        test: /(antd.*\.less$)|(\.global\.less$)/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+              }
+            },
+            {
+              loader: 'less-loader'
+            }
+          ],
+          fallback: 'style-loader',
+        })
+      },
+      // Add LESS support  - compile all other .less files and pipe it to style.css
+      {
+        test: /^((?!\.global).)*\.less$/,
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              minimize: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            }
+          },
+          {
+            loader: 'less-loader'
+          }]
+        }),
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -107,6 +146,7 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            name: 'assets/[hash].[ext]',
           }
         },
       },
@@ -118,6 +158,7 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            name: 'assets/[hash].[ext]',
           }
         }
       },
@@ -128,14 +169,20 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/octet-stream'
+            mimetype: 'application/octet-stream',
+            name: 'assets/[hash].[ext]',
           }
         }
       },
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'assets/[hash].[ext]',
+          }
+        },
       },
       // SVG Font
       {
@@ -145,13 +192,19 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
+            name: 'assets/[hash].[ext]',
           }
         }
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: 'assets/[hash].[ext]',
+          }
+        }
       }
     ]
   },

@@ -9,7 +9,6 @@ build
 node_modules
 app
 .DS_Store
-flow-typed
 dist
 .idea
 npm-debug.log.*

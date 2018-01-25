@@ -38,7 +38,7 @@
     // "**/.*": true,
     ".eslintcache": true,
     ".travis.yml": true,
-    ".babelrc": true,
+    ".babelrc": false,
     "dll": true,
     "flow-typed": true,
     "appveyor.yml": true,

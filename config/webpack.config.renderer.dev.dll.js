@@ -11,7 +11,7 @@ import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.resolve(__dirname, '../dll');
+const dist = path.resolve(__dirname, '../dll/');
 
 export default merge.smart(baseConfig, {
   context: path.resolve(__dirname, '..'),
@@ -46,7 +46,7 @@ export default merge.smart(baseConfig, {
         }
       },
       {
-        test: /\.global\.css$/,
+        test: /(antd.*\.css$)|(\.global\.css$)/,
         use: [
           {
             loader: 'style-loader'
@@ -61,6 +61,7 @@ export default merge.smart(baseConfig, {
       },
       {
         test: /^((?!\.global).)*\.css$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'style-loader'
@@ -97,6 +98,7 @@ export default merge.smart(baseConfig, {
       // SASS support - compile all other .scss files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.scss$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'style-loader'
@@ -115,6 +117,40 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
+      {
+        test: /(antd.*\.less$)|(\.global\.less$)/,
+        use: [{
+            loader: "style-loader"
+        }, {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+        }, {
+            loader: "less-loader"
+        }]
+      },
+      {
+        test: /^((?!\.global).)*\.less$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            }
+          },
+          {
+            loader: 'less-loader'
+          }
+        ]
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -123,6 +159,7 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            name: 'renderer/assets/[hash].[ext]',
           }
         },
       },
@@ -134,6 +171,7 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            name: 'renderer/assets/[hash].[ext]',
           }
         }
       },
@@ -144,14 +182,20 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/octet-stream'
+            mimetype: 'application/octet-stream',
+            name: 'renderer/assets/[hash].[ext]',
           }
         }
       },
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'renderer/assets/[hash].[ext]',
+          },
+        }
       },
       // SVG Font
       {
@@ -161,13 +205,19 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
+            name: 'renderer/assets/[hash].[ext]',
           }
         }
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: 'renderer/assets/[hash].[ext]',
+          },
+        }
       }
     ]
   },

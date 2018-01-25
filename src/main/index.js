@@ -36,9 +36,7 @@ const DEV = process.env.NODE_ENV === "development"
 const DEBUG = process.env.DEBUG_PROD === "true"
 
 const optionDefinitions = [
-	{ name: 'debug-brk', type: Number, defaultValue: false },
-	{ name: 'dev', alias: 'd', type: Boolean, defaultValue: false },
-	{ name: 'devTool', alias: 't', type: Boolean, defaultValue: false },
+	{ name: 'show-dev-tools', alias: 't', type: Boolean, defaultValue: false },
 	{ name: 'fullscreen', alias: 'f', type: Boolean, defaultValue: false},
 	{ name: 'maximize', alias: 'm', type: Boolean, defaultValue: false},
 	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
@@ -72,7 +70,7 @@ function init() {
   }
 
   if (DEV || DEBUG) {
-    require('electron-debug')({enabled: true}) // eslint-disable-line global-require
+    require('electron-debug')({enabled: true, showDevTools: args.showDevTools}) // eslint-disable-line global-require
   }
 
 	initLog()
@@ -267,7 +265,7 @@ function createWindow() {
 		height: 720,
 		minWidth: 1200,
 		minHeight: 720,
-		// frame: false,
+		frame: false,
 		show: false,
 		webPreferences: {
 			webSecurity: false,
