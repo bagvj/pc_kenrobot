@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu } from 'antd'
 import styles from './AppMenu.scss'
 
-const { SubMenu, Divider } = Menu
+const { Item, SubMenu, Divider } = Menu
 
 type Props = {};
 
@@ -13,59 +13,59 @@ export default class AppMenu extends Component<Props> {
     return (
       <Menu className={styles.menu} selectable={false} mode="horizontal">
         <SubMenu title="文件" className={styles.subMenu}>
-          <Menu.Item key="new">
+          <Item key="new">
             新建
-          </Menu.Item>
+          </Item>
           <Divider />
-          <Menu.Item key="open">
+          <Item key="open">
             打开
-          </Menu.Item>
-          <Menu.Item key="save">
+          </Item>
+          <Item key="save">
             保存
-          </Menu.Item>
-          <Menu.Item key="save-as">
+          </Item>
+          <Item key="save-as">
             另存为
-          </Menu.Item>
+          </Item>
         </SubMenu>
         <SubMenu title="编辑" className={styles.subMenu}>
-          <Menu.Item key="comment">
+          <Item key="comment">
             注释/取消注释
-          </Menu.Item>
+          </Item>
           <Divider />
-          <Menu.Item key="copy-code">
+          <Item key="copy-code">
             复制代码
-          </Menu.Item>
-          <Menu.Item key="export-code">
+          </Item>
+          <Item key="export-code">
             导出代码
-          </Menu.Item>
+          </Item>
         </SubMenu>
         <SubMenu title="案例" className={styles.subMenu}>
-          <Menu.Item key="demo-1">
+          <Item key="demo-1">
             Demo 1
-          </Menu.Item>
+          </Item>
           <Divider />
-          <Menu.Item key="demo-2">
+          <Item key="demo-2">
             Demo 1
-          </Menu.Item>
+          </Item>
           <SubMenu title="Demo 3">
-            <Menu.Item key="demo-3-1">
+            <Item key="demo-3-1">
               Demo 3-1
-            </Menu.Item>
+            </Item>
             <Divider />
-            <Menu.Item key="demo-3-2">
+            <Item key="demo-3-2">
               Demo 3-2
-            </Menu.Item>
-            <Menu.Item key="demo-3-3">
+            </Item>
+            <Item key="demo-3-3">
               Demo 3-3
-            </Menu.Item>
+            </Item>
           </SubMenu>
         </SubMenu>
-        <Menu.Item key="option">
+        <Item key="option">
           选项
-        </Menu.Item>
-        <Menu.Item key="help">
+        </Item>
+        <Item key="help">
           帮助
-        </Menu.Item>
+        </Item>
       </Menu>
     )
   }
