@@ -246,7 +246,7 @@ function loadExamples() {
 					exampleConfig.builtIn = true
 				}
 				exampleConfig.examples.forEach(e => {
-					e.path = path.join(path.dirname(p).replace(/\\/g, '/'), e.category, e.name)
+					e.path = path.join(path.dirname(p).replace(/\\/g, '/'), e.path || path.join(e.category, e.name))
 				})
 				examples.push(exampleConfig)
 			}).fin(() => d.resolve())

@@ -1,7 +1,7 @@
 {
 	"name": "Arduino",
 	"company": "Arduino",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"author": "Kenrobot",
 	"category": "built-in",
 	"help": "http://www.kenrobot.com/",
@@ -2085,30 +2085,6 @@
 		"blocks": [],
 		"imageUrl": "assets/image/components/button.svg"
 	}, {
-		"uid": "jOXP4w",
-		"name": "pot",
-		"label": "电位器",
-		"type": "pot",
-		"category": "sensor",
-		"boards": ["Arduino"],
-		"width": 72,
-		"height": 72,
-		"pins": [{
-			"name": "s",
-			"anchor": [0.5, 1],
-			"tags": ["analog-in"],
-			"label": "s",
-			"shape": "Dot",
-			"rotate": false
-		}],
-		"code": {
-			"var": "int {NAME} = {s};",
-			"setup": "pinMode({NAME}, INPUT);"
-		},
-		"raw": true,
-		"blocks": [],
-		"imageUrl": "assets/image/components/pot.svg"
-	}, {
 		"uid": "L5MW3R",
 		"name": "dht11",
 		"label": "温湿度传感器(DHT11)",
@@ -2229,14 +2205,38 @@
 		}],
 		"imageUrl": "assets/image/components/dht22.svg"
 	}, {
+		"uid": "jOXP4w",
+		"name": "pot",
+		"label": "电位器",
+		"type": "pot",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"raw": true,
+		"blocks": [],
+		"imageUrl": "assets/image/components/pot.svg"
+	}, {
 		"uid": "HRwNap",
 		"name": "encoder",
 		"label": "旋转编码器",
 		"type": "encoder",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "k",
 			"anchor": [0.25, 1],
@@ -2492,8 +2492,8 @@
 		"type": "ultrasound",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "tri",
 			"anchor": [0.333, 1],
@@ -2687,11 +2687,249 @@
 		}],
 		"imageUrl": "assets/image/components/lm35.svg"
 	}, {
-		"uid": "Ecl6qj",
-		"name": "pir",
-		"label": "人体红外感知模块",
-		"type": "pir",
+		"uid": "ZJksdg",
+		"name": "leafHumidity",
+		"label": "叶面湿度传感器",
+		"type": "leafHumidity",
 		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "leafHumidityRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取叶面湿度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "leafHumiditys"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "analogRead({SENSOR})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "leafHumidity",
+			"uid": "E4msIZ"
+		}],
+		"imageUrl": "assets/image/components/leafHumidity.svg"
+	}, {
+		"uid": "FmEovX",
+		"name": "keypad43",
+		"label": "薄膜键盘(4*3)",
+		"type": "keypad43",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 90,
+		"pins": [{
+			"name": "r1",
+			"anchor": [0, 0.2],
+			"tags": ["digital"],
+			"label": "r1",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r2",
+			"anchor": [0, 0.4],
+			"tags": ["digital"],
+			"label": "r2",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r3",
+			"anchor": [0, 0.6],
+			"tags": ["digital"],
+			"label": "r3",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r4",
+			"anchor": [0, 0.8],
+			"tags": ["digital"],
+			"label": "r4",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c1",
+			"anchor": [0.25, 0],
+			"tags": ["digital"],
+			"label": "c1",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c2",
+			"anchor": [0.5, 0],
+			"tags": ["digital"],
+			"label": "c2",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c3",
+			"anchor": [0.75, 0],
+			"tags": ["digital"],
+			"label": "c3",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Keypad.h>",
+			"var": "char hexaKeys[4][3] = {\n{'1','2','3'},\n{'4','5','6'},\n{'7','8','9'},\n{'*','0','#'}\n};\nbyte rowPins[4] = {{r1},{r2},{r3},{r4} };\nbyte colPins[3] = {{c1},{c2},{c3}};\nKeypad {NAME} = Keypad( makeKeymap(hexaKeys), rowPins, colPins, 4, 3);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "keypad43Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取薄膜键盘43"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "keypad43s"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "{SENSOR}.getKey()",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": ["module"],
+			"module": "keypad43",
+			"uid": "GolsgL"
+		}],
+		"imageUrl": "assets/image/components/keypad43.svg"
+	}, {
+		"uid": "rP3lAM",
+		"name": "keypad44",
+		"label": "薄膜键盘(4*4)",
+		"type": "keypad44",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 90,
+		"pins": [{
+			"name": "r1",
+			"anchor": [0, 0.2],
+			"tags": ["digital"],
+			"label": "r1",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r2",
+			"anchor": [0, 0.4],
+			"tags": ["digital"],
+			"label": "r2",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r3",
+			"anchor": [0, 0.6],
+			"tags": ["digital"],
+			"label": "r3",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "r4",
+			"anchor": [0, 0.8],
+			"tags": ["digital"],
+			"label": "r4",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c1",
+			"anchor": [0.2, 0],
+			"tags": ["digital"],
+			"label": "c1",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c2",
+			"anchor": [0.4, 0],
+			"tags": ["digital"],
+			"label": "c2",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c3",
+			"anchor": [0.6, 0],
+			"tags": ["digital"],
+			"label": "c3",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "c4",
+			"anchor": [0.8, 0],
+			"tags": ["digital"],
+			"label": "c4",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Keypad.h>",
+			"var": "char hexaKeys[4][4] = {\n{'1','2','3','A'},\n{'4','5','6','B'},\n{'7','8','9','C'},\n{'*','0','#','D'}\n};\nbyte rowPins[4] = {{r1},{r2},{r3},{r4} };\nbyte colPins[4] = {{c1},{c2},{c3},{c4} };\nKeypad {NAME} = Keypad( makeKeymap(hexaKeys), rowPins, colPins, 4, 4);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "keypad44Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取薄膜键盘44"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "keypad44s"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "{SENSOR}.getKey()",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": ["module"],
+			"module": "keypad44",
+			"uid": "IuTUmd"
+		}],
+		"imageUrl": "assets/image/components/keypad44.svg"
+	}, {
+		"uid": "E2ZSBW",
+		"name": "led",
+		"label": "LED",
+		"type": "led",
+		"category": "action",
 		"boards": ["Arduino"],
 		"width": 72,
 		"height": 72,
@@ -2704,40 +2942,203 @@
 			"rotate": false
 		}],
 		"code": {
-			"var": "int {NAME} = {s};"
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
 		},
+		"raw": true,
 		"blocks": [{
-			"type": "output",
-			"name": "pirRead",
+			"type": "statement",
+			"name": "led",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "LED"
+			}, {
+				"id": "LED",
+				"type": "dynamic-select",
+				"options": "leds"
+			}],
+			"code": "digitalWrite({LED},{STATE});",
+			"tags": ["module"],
+			"module": "led",
+			"uid": "kAYJem"
+		}, {
+			"type": "statement",
+			"name": "ledAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "xSxDCC"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "LED"
+			}, {
+				"blockInputId": "LED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "xSxDCC"
+			}],
+			"code": "digitalWrite({LED},{STATE});",
+			"tags": ["module", "advanced"],
+			"module": "led",
+			"uid": "U7dzAq"
+		}],
+		"imageUrl": "assets/image/components/led.svg"
+	}, {
+		"uid": "iOqSwy",
+		"name": "relay",
+		"label": "继电器",
+		"type": "relay",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "relayOutput",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
 			}],
 			"content": [{
 				"type": "text",
-				"value": "人体红外感知模块"
+				"value": "继电器"
 			}, {
-				"id": "SENSOR",
+				"id": "RELAY",
 				"type": "dynamic-select",
-				"options": "pirs"
+				"options": "relays"
 			}, {
 				"type": "text",
-				"value": "有信号"
+				"value": "输出"
+			}, {
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "高电平",
+					"value": "HIGH"
+				}, {
+					"label": "低电平",
+					"value": "LOW"
+				}]
 			}],
-			"code": "digitalRead({SENSOR})",
-			"returnType": {
-				"type": "simple",
-				"value": "int"
-			},
+			"code": "digitalWrite({RELAY},{STATE});",
 			"tags": ["module"],
-			"module": "pir",
-			"uid": "hnhNlI"
+			"module": "relay",
+			"uid": "tjpz8T"
 		}],
-		"imageUrl": "assets/image/components/pir.svg"
+		"imageUrl": "assets/image/components/relay.svg"
+	}, {
+		"uid": "JulbGU",
+		"name": "irSend",
+		"label": "红外发射",
+		"type": "irSend",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ir-send"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <IRremote.h>",
+			"var": "IRsend {NAME};"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "irSendSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "T0upij"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外发射"
+			}, {
+				"id": "IR_SEND",
+				"type": "dynamic-select",
+				"options": "irSends"
+			}, {
+				"type": "text",
+				"value": "发射编码"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "T0upij"
+			}],
+			"code": "{IR_SEND}.sendNEC({DATA}, 32);",
+			"tags": ["module"],
+			"module": "irSend",
+			"uid": "jC5Tqn"
+		}],
+		"imageUrl": "assets/image/components/irSend.svg"
 	}, {
 		"uid": "lcgpAz",
 		"name": "irRecv",
-		"label": "红外接收模块",
+		"label": "红外接收",
 		"type": "irRecv",
 		"category": "sensor",
 		"boards": ["Arduino"],
@@ -2838,12 +3239,12 @@
 	}, {
 		"uid": "qurwAO",
 		"name": "soilHumidity",
-		"label": "土壤湿度模块",
+		"label": "土壤湿度传感器",
 		"type": "soilHumidity",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "s",
 			"anchor": [0.5, 0],
@@ -2865,7 +3266,7 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "读取土壤湿度模块"
+				"value": "读取土壤湿度传感器"
 			}, {
 				"id": "SENSOR",
 				"type": "dynamic-select",
@@ -2887,12 +3288,12 @@
 	}, {
 		"uid": "u5vJkI",
 		"name": "joystick",
-		"label": "摇杆模块",
+		"label": "摇杆",
 		"type": "joystick",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "X",
 			"anchor": [0.33, 1],
@@ -2962,11 +3363,11 @@
 		}],
 		"imageUrl": "assets/image/components/joystick.svg"
 	}, {
-		"uid": "E2ZSBW",
-		"name": "led",
-		"label": "LED",
-		"type": "led",
-		"category": "action",
+		"uid": "Ecl6qj",
+		"name": "pir",
+		"label": "人体红外感知",
+		"type": "pir",
+		"category": "sensor",
 		"boards": ["Arduino"],
 		"width": 72,
 		"height": 72,
@@ -2979,82 +3380,36 @@
 			"rotate": false
 		}],
 		"code": {
-			"var": "int {NAME} = {s};",
-			"setup": "pinMode({NAME}, OUTPUT);"
+			"var": "int {NAME} = {s};"
 		},
-		"raw": true,
 		"blocks": [{
-			"type": "statement",
-			"name": "led",
+			"type": "output",
+			"name": "pirRead",
 			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
+				"type": "connector-output",
+				"accept": "connector-input"
 			}],
 			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "点亮",
-					"value": "HIGH"
-				}, {
-					"label": "关闭",
-					"value": "LOW"
-				}]
-			}, {
 				"type": "text",
-				"value": "LED"
+				"value": "人体红外感知模块"
 			}, {
-				"id": "LED",
+				"id": "SENSOR",
 				"type": "dynamic-select",
-				"options": "leds"
-			}],
-			"code": "digitalWrite({LED},{STATE});",
-			"tags": ["module"],
-			"module": "led",
-			"uid": "kAYJem"
-		}, {
-			"type": "statement",
-			"name": "ledAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "xSxDCC"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "点亮",
-					"value": "HIGH"
-				}, {
-					"label": "关闭",
-					"value": "LOW"
-				}]
+				"options": "pirs"
 			}, {
 				"type": "text",
-				"value": "LED"
-			}, {
-				"blockInputId": "LED",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "xSxDCC"
+				"value": "有信号"
 			}],
-			"code": "digitalWrite({LED},{STATE});",
-			"tags": ["module", "advanced"],
-			"module": "led",
-			"uid": "U7dzAq"
+			"code": "digitalRead({SENSOR})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "pir",
+			"uid": "hnhNlI"
 		}],
-		"imageUrl": "assets/image/components/led.svg"
+		"imageUrl": "assets/image/components/pir.svg"
 	}, {
 		"uid": "SnHrBC",
 		"name": "rgb",
@@ -3062,8 +3417,8 @@
 		"type": "rgb",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "r",
 			"anchor": [0.25, 1],
@@ -3324,8 +3679,8 @@
 		"type": "rgb2",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "r",
 			"anchor": [0.25, 1],
@@ -3579,437 +3934,6 @@
 			"uid": "YDhkmh"
 		}],
 		"imageUrl": "assets/image/components/rgb.svg"
-	}, {
-		"uid": "0dp9Yl",
-		"name": "lcd",
-		"label": "液晶模块",
-		"type": "lcd",
-		"category": "action",
-		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
-		"pins": [{
-			"name": "sda",
-			"anchor": [0.33, 0],
-			"tags": ["analog-in", "sda"],
-			"spec": ["tag", "sda"],
-			"label": "sda",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "scl",
-			"anchor": [0.67, 0],
-			"tags": ["analog-in", "scl"],
-			"spec": ["tag", "scl"],
-			"label": "scl",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}],
-		"code": {
-			"include": "#include <LiquidCrystal_I2C.h>",
-			"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
-			"setup": "{NAME}.init();{NAME}.backlight();"
-		},
-		"blocks": [{
-			"type": "statement",
-			"name": "lcdTurnOnOff",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "打开",
-					"value": "backlight"
-				}, {
-					"label": "关闭",
-					"value": "noBacklight"
-				}]
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"type": "text",
-				"value": "的背光"
-			}],
-			"code": "{LCD}.{STATE}();",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "wzKQ12"
-		}, {
-			"type": "statement",
-			"name": "lcdWrite",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"id": "TEXT",
-				"type": "string-input",
-				"placeholder": "Hi!"
-			}],
-			"code": "{LCD}.print(\"{TEXT}\");",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "cAzykL"
-		}, {
-			"type": "statement",
-			"name": "lcdWrite2",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "pptQtL"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "pptQtL"
-			}],
-			"code": "{LCD}.print({TEXT});",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "0YbNn7"
-		}, {
-			"type": "statement",
-			"name": "lcdWritePosition",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"id": "ROW",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "行"
-			}, {
-				"id": "COLUMN",
-				"type": "number-input",
-				"value": 0
-			}, {
-				"type": "text",
-				"value": "列"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"id": "TEXT",
-				"type": "string-input",
-				"placeholder": "Hi!"
-			}],
-			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print(\"{TEXT}\");",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "YpzjBM"
-		}, {
-			"type": "statement",
-			"name": "lcdWritePosition2",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "KgCJ7q"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "CSZpue"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Hsbc7o"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"blockInputId": "ROW",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "KgCJ7q"
-			}, {
-				"type": "text",
-				"value": "行"
-			}, {
-				"blockInputId": "COLUMN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "CSZpue"
-			}, {
-				"type": "text",
-				"value": "列"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Hsbc7o"
-			}],
-			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "bnATsX"
-		}, {
-			"type": "statement",
-			"name": "lcdClear",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "清屏"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}],
-			"code": "{LCD}.clear();",
-			"tags": ["module"],
-			"module": "lcd",
-			"uid": "XXhFiq"
-		}, {
-			"type": "statement",
-			"name": "lcdSetAddress",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "设置液晶"
-			}, {
-				"id": "LCD",
-				"type": "dynamic-select",
-				"options": "lcds"
-			}, {
-				"type": "text",
-				"value": "的地址"
-			}, {
-				"id": "ADDR",
-				"type": "number-input"
-			}],
-			"code": "{LCD}.setAddress({ADDR});",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "nayhFh"
-		}, {
-			"type": "statement",
-			"name": "lcdTurnOnOffAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "brQLRK"
-			}],
-			"content": [{
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "打开",
-					"value": "backlight"
-				}, {
-					"label": "关闭",
-					"value": "noBacklight"
-				}]
-			}, {
-				"blockInputId": "LCD",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "brQLRK"
-			}, {
-				"type": "text",
-				"value": "的背光"
-			}],
-			"code": "{LCD}.{STATE}();",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "eQxZOO"
-		}, {
-			"type": "statement",
-			"name": "lcdWriteAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "EAB78q"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "o04q1D"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"blockInputId": "LCD",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "EAB78q"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "o04q1D"
-			}],
-			"code": "{LCD}.print({TEXT});",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "Zfk1gV"
-		}, {
-			"type": "statement",
-			"name": "lcdWritePositionAdvanced",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "LzNxml"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "Wh3LVs"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "oHLs1N"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "ohuavW"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "在液晶"
-			}, {
-				"blockInputId": "LCD",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "LzNxml"
-			}, {
-				"blockInputId": "ROW",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "Wh3LVs"
-			}, {
-				"type": "text",
-				"value": "行"
-			}, {
-				"blockInputId": "COLUMN",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "oHLs1N"
-			}, {
-				"type": "text",
-				"value": "列"
-			}, {
-				"type": "text",
-				"value": "上显示"
-			}, {
-				"blockInputId": "TEXT",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "ohuavW"
-			}],
-			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
-			"tags": ["module", "advanced"],
-			"module": "lcd",
-			"uid": "nDEGXV"
-		}],
-		"imageUrl": "assets/image/components/lcd.svg"
 	}, {
 		"uid": "EzeAXy",
 		"name": "buzzer",
@@ -4630,14 +4554,445 @@
 		}],
 		"imageUrl": "assets/image/components/continuousServo.svg"
 	}, {
+		"uid": "0dp9Yl",
+		"name": "lcd",
+		"label": "液晶模块",
+		"type": "lcd",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "sda",
+			"anchor": [0.33, 0],
+			"tags": ["analog-in", "sda"],
+			"spec": ["tag", "sda"],
+			"label": "sda",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "scl",
+			"anchor": [0.67, 0],
+			"tags": ["analog-in", "scl"],
+			"spec": ["tag", "scl"],
+			"label": "scl",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <LiquidCrystal_I2C.h>",
+			"var": "LiquidCrystal_I2C {NAME}(0x27, 16, 2);",
+			"setup": "{NAME}.init();{NAME}.backlight();"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "lcdTurnOnOff",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "backlight"
+				}, {
+					"label": "关闭",
+					"value": "noBacklight"
+				}]
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "的背光"
+			}],
+			"code": "{LCD}.{STATE}();",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "wzKQ12"
+		}, {
+			"type": "statement",
+			"name": "lcdWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"id": "TEXT",
+				"type": "string-input",
+				"placeholder": "Hi!"
+			}],
+			"code": "{LCD}.print(\"{TEXT}\");",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "cAzykL"
+		}, {
+			"type": "statement",
+			"name": "lcdWrite2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "pptQtL"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "pptQtL"
+			}],
+			"code": "{LCD}.print({TEXT});",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "0YbNn7"
+		}, {
+			"type": "statement",
+			"name": "lcdWritePosition",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"id": "ROW",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "行"
+			}, {
+				"id": "COLUMN",
+				"type": "number-input",
+				"value": 0
+			}, {
+				"type": "text",
+				"value": "列"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"id": "TEXT",
+				"type": "string-input",
+				"placeholder": "Hi!"
+			}],
+			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print(\"{TEXT}\");",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "YpzjBM"
+		}, {
+			"type": "statement",
+			"name": "lcdWritePosition2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "KgCJ7q"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "CSZpue"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Hsbc7o"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"blockInputId": "ROW",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "KgCJ7q"
+			}, {
+				"type": "text",
+				"value": "行"
+			}, {
+				"blockInputId": "COLUMN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "CSZpue"
+			}, {
+				"type": "text",
+				"value": "列"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Hsbc7o"
+			}],
+			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "bnATsX"
+		}, {
+			"type": "statement",
+			"name": "lcdClear",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "清屏"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}],
+			"code": "{LCD}.clear();",
+			"tags": ["module"],
+			"module": "lcd",
+			"uid": "XXhFiq"
+		}, {
+			"type": "statement",
+			"name": "lcdSetAddress",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置液晶"
+			}, {
+				"id": "LCD",
+				"type": "dynamic-select",
+				"options": "lcds"
+			}, {
+				"type": "text",
+				"value": "的地址"
+			}, {
+				"id": "ADDR",
+				"type": "number-input"
+			}],
+			"code": "{LCD}.setAddress({ADDR});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "nayhFh"
+		}, {
+			"type": "statement",
+			"name": "lcdTurnOnOffAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "brQLRK"
+			}],
+			"content": [{
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "打开",
+					"value": "backlight"
+				}, {
+					"label": "关闭",
+					"value": "noBacklight"
+				}]
+			}, {
+				"blockInputId": "LCD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "brQLRK"
+			}, {
+				"type": "text",
+				"value": "的背光"
+			}],
+			"code": "{LCD}.{STATE}();",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "eQxZOO"
+		}, {
+			"type": "statement",
+			"name": "lcdWriteAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "EAB78q"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "o04q1D"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"blockInputId": "LCD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "EAB78q"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "o04q1D"
+			}],
+			"code": "{LCD}.print({TEXT});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "Zfk1gV"
+		}, {
+			"type": "statement",
+			"name": "lcdWritePositionAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "LzNxml"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Wh3LVs"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "oHLs1N"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ohuavW"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "在液晶"
+			}, {
+				"blockInputId": "LCD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "LzNxml"
+			}, {
+				"blockInputId": "ROW",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Wh3LVs"
+			}, {
+				"type": "text",
+				"value": "行"
+			}, {
+				"blockInputId": "COLUMN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "oHLs1N"
+			}, {
+				"type": "text",
+				"value": "列"
+			}, {
+				"type": "text",
+				"value": "上显示"
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ohuavW"
+			}],
+			"code": "{LCD}.setCursor({COLUMN},{ROW});{LCD}.print({TEXT});",
+			"tags": ["module", "advanced"],
+			"module": "lcd",
+			"uid": "nDEGXV"
+		}],
+		"imageUrl": "assets/image/components/lcd.svg"
+	}, {
 		"uid": "Uf0rkg",
 		"name": "L298P",
 		"label": "L298P驱动板",
 		"type": "L298P",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 120,
-		"height": 120,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "pwm1",
 			"anchor": [0.25, 0],
@@ -4884,8 +5239,8 @@
 		"type": "L298N",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 120,
-		"height": 120,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "pwm1",
 			"anchor": [0.25, 0],
@@ -5126,351 +5481,14 @@
 		}],
 		"imageUrl": "assets/image/components/L298N.svg"
 	}, {
-		"uid": "Ps9VEj",
-		"name": "car",
-		"label": "小车",
-		"type": "car",
-		"category": "action",
-		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
-		"pins": [{
-			"name": "leftPin",
-			"anchor": [0.333, 1],
-			"tags": ["analog-out"],
-			"label": "leftPin",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}, {
-			"name": "rightPin",
-			"anchor": [0.667, 1],
-			"tags": ["analog-out"],
-			"label": "rightPin",
-			"shape": "Dot",
-			"rotate": false,
-			"overlay": [0.5, -1]
-		}],
-		"code": {
-			"include": "#include <curieBot.h>",
-			"var": "Servo_Motor {NAME}({leftPin}, {rightPin});"
-		},
-		"blocks": [{
-			"type": "statement",
-			"name": "carRun",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "hAmvWG"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"type": "text",
-				"value": "运行，速度为"
-			}, {
-				"blockInputId": "SPEED",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "hAmvWG"
-			}],
-			"code": "{CAR}.run({SPEED});",
-			"tags": ["module"],
-			"module": "car",
-			"uid": "lURiJV"
-		}, {
-			"type": "statement",
-			"name": "carTurn0",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"id": "OP",
-				"type": "static-select",
-				"options": [{
-					"label": "左转",
-					"value": "turnLeft"
-				}, {
-					"label": "右转",
-					"value": "turnRight"
-				}]
-			}],
-			"code": "{CAR}.{OP}();",
-			"tags": ["module"],
-			"module": "car",
-			"uid": "DUHqhx"
-		}, {
-			"type": "statement",
-			"name": "carTurn1",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "NhyLFz"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"id": "OP",
-				"type": "static-select",
-				"options": [{
-					"label": "左转",
-					"value": "turnLeft"
-				}, {
-					"label": "右转",
-					"value": "turnRight"
-				}]
-			}, {
-				"blockInputId": "ANGLE",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "NhyLFz"
-			}, {
-				"type": "text",
-				"value": "度"
-			}],
-			"code": "{CAR}.{OP}({ANGLE});",
-			"tags": ["module"],
-			"module": "car",
-			"uid": "h6lY4O"
-		}, {
-			"type": "statement",
-			"name": "carTurn2",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "h457tm"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"id": "OP",
-				"type": "static-select",
-				"options": [{
-					"label": "左转",
-					"value": "left"
-				}, {
-					"label": "右转",
-					"value": "right"
-				}]
-			}, {
-				"type": "text",
-				"value": "速度"
-			}, {
-				"blockInputId": "SPEED",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "h457tm"
-			}],
-			"code": "'{OP}' === 'left' ? '{CAR}.turnLeft();{CAR}.motorL({SPEED});' : '{CAR}.turnRight();{CAR}.motorR({SPEED});'",
-			"eval": true,
-			"tags": ["module"],
-			"module": "car",
-			"uid": "ORA7Bd"
-		}, {
-			"type": "statement",
-			"name": "carStop",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"type": "text",
-				"value": "停止"
-			}],
-			"code": "{CAR}.stop();",
-			"tags": ["module"],
-			"module": "car",
-			"uid": "LV0hxJ"
-		}, {
-			"type": "statement",
-			"name": "carCalibrate",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "校准小车"
-			}, {
-				"id": "CAR",
-				"type": "dynamic-select",
-				"options": "cars"
-			}],
-			"code": "{CAR}.calibrate();",
-			"tags": ["module"],
-			"module": "car",
-			"uid": "oaNZtO"
-		}, {
-			"type": "output",
-			"name": "carTrackCheck",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "读取小车"
-			}, {
-				"id": "PIN",
-				"type": "dynamic-select",
-				"options": "cars"
-			}, {
-				"type": "text",
-				"value": "循迹板"
-			}, {
-				"id": "INDEX",
-				"type": "static-select",
-				"options": [{
-					"label": "左",
-					"value": "14"
-				}, {
-					"label": "中",
-					"value": "15"
-				}, {
-					"label": "右",
-					"value": "16"
-				}]
-			}, {
-				"type": "text",
-				"value": "监测点的数字量"
-			}],
-			"code": "digitalRead({INDEX})",
-			"returnType": {
-				"type": "simple",
-				"value": "int"
-			},
-			"tags": ["module"],
-			"module": "car",
-			"uid": "xWylGC"
-		}],
-		"imageUrl": "assets/image/components/car.svg"
-	}, {
-		"uid": "JulbGU",
-		"name": "irSend",
-		"label": "红外发射模块",
-		"type": "irSend",
+		"uid": "1vspZl",
+		"name": "u8g",
+		"label": "OLED显示屏(IIC)",
+		"type": "u8g",
 		"category": "action",
 		"boards": ["Arduino"],
 		"width": 72,
 		"height": 72,
-		"pins": [{
-			"name": "s",
-			"anchor": [0.5, 1],
-			"tags": ["ir-send"],
-			"label": "s",
-			"shape": "Dot",
-			"rotate": false
-		}],
-		"code": {
-			"include": "#include <IRremote.h>",
-			"var": "IRsend {NAME};"
-		},
-		"blocks": [{
-			"type": "statement",
-			"name": "irSendSend",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "T0upij"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "红外发射模块"
-			}, {
-				"id": "IR_SEND",
-				"type": "dynamic-select",
-				"options": "irSends"
-			}, {
-				"type": "text",
-				"value": "发射编码"
-			}, {
-				"blockInputId": "DATA",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "T0upij"
-			}],
-			"code": "{IR_SEND}.sendNEC({DATA}, 32);",
-			"tags": ["module"],
-			"module": "irSend",
-			"uid": "jC5Tqn"
-		}],
-		"imageUrl": "assets/image/components/irSend.svg"
-	}, {
-		"uid": "1vspZl",
-		"name": "u8g",
-		"label": "OLED模块(IIC)",
-		"type": "u8g",
-		"category": "action",
-		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
 		"pins": [{
 			"name": "sda",
 			"anchor": [0.33, 0],
@@ -6910,12 +6928,12 @@
 		"uid": "VGhS46",
 		"name": "ssd1306",
 		"defaultVarName": "display",
-		"label": "OLED模块(SPI)",
+		"label": "OLED显示屏(SPI)",
 		"type": "ssd1306",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "SCK",
 			"anchor": [0.1, 0],
@@ -7903,8 +7921,8 @@
 		"type": "nokia5110",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "RST",
 			"anchor": [0.25, 0],
@@ -8914,12 +8932,12 @@
 	}, {
 		"uid": "QQoXzM",
 		"name": "mfrc522",
-		"label": "RFID模块",
+		"label": "RFID",
 		"type": "mfrc522",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 120,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "SDA",
 			"anchor": [0.33, 1],
@@ -9130,8 +9148,8 @@
 		"type": "rtc",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "sda",
 			"anchor": [0.33, 0],
@@ -9397,8 +9415,8 @@
 		"type": "rtc1302",
 		"category": "sensor",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "CE",
 			"anchor": [0.25, 0],
@@ -9663,15 +9681,294 @@
 		}],
 		"imageUrl": "assets/image/components/ds1302.svg"
 	}, {
+		"uid": "Ps9VEj",
+		"name": "car",
+		"label": "小车",
+		"type": "car",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "leftPin",
+			"anchor": [0.333, 1],
+			"tags": ["analog-out"],
+			"label": "leftPin",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "rightPin",
+			"anchor": [0.667, 1],
+			"tags": ["analog-out"],
+			"label": "rightPin",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <curieBot.h>",
+			"var": "Servo_Motor {NAME}({leftPin}, {rightPin});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "carRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "hAmvWG"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"type": "text",
+				"value": "运行，速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "hAmvWG"
+			}],
+			"code": "{CAR}.run({SPEED});",
+			"tags": ["module"],
+			"module": "car",
+			"uid": "lURiJV"
+		}, {
+			"type": "statement",
+			"name": "carTurn0",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "左转",
+					"value": "turnLeft"
+				}, {
+					"label": "右转",
+					"value": "turnRight"
+				}]
+			}],
+			"code": "{CAR}.{OP}();",
+			"tags": ["module"],
+			"module": "car",
+			"uid": "DUHqhx"
+		}, {
+			"type": "statement",
+			"name": "carTurn1",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NhyLFz"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "左转",
+					"value": "turnLeft"
+				}, {
+					"label": "右转",
+					"value": "turnRight"
+				}]
+			}, {
+				"blockInputId": "ANGLE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NhyLFz"
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{CAR}.{OP}({ANGLE});",
+			"tags": ["module"],
+			"module": "car",
+			"uid": "h6lY4O"
+		}, {
+			"type": "statement",
+			"name": "carTurn2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "h457tm"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "左转",
+					"value": "left"
+				}, {
+					"label": "右转",
+					"value": "right"
+				}]
+			}, {
+				"type": "text",
+				"value": "速度"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "h457tm"
+			}],
+			"code": "'{OP}' === 'left' ? '{CAR}.turnLeft();{CAR}.motorL({SPEED});' : '{CAR}.turnRight();{CAR}.motorR({SPEED});'",
+			"eval": true,
+			"tags": ["module"],
+			"module": "car",
+			"uid": "ORA7Bd"
+		}, {
+			"type": "statement",
+			"name": "carStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"type": "text",
+				"value": "停止"
+			}],
+			"code": "{CAR}.stop();",
+			"tags": ["module"],
+			"module": "car",
+			"uid": "LV0hxJ"
+		}, {
+			"type": "statement",
+			"name": "carCalibrate",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "校准小车"
+			}, {
+				"id": "CAR",
+				"type": "dynamic-select",
+				"options": "cars"
+			}],
+			"code": "{CAR}.calibrate();",
+			"tags": ["module"],
+			"module": "car",
+			"uid": "oaNZtO"
+		}, {
+			"type": "output",
+			"name": "carTrackCheck",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取小车"
+			}, {
+				"id": "PIN",
+				"type": "dynamic-select",
+				"options": "cars"
+			}, {
+				"type": "text",
+				"value": "循迹板"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "左",
+					"value": "14"
+				}, {
+					"label": "中",
+					"value": "15"
+				}, {
+					"label": "右",
+					"value": "16"
+				}]
+			}, {
+				"type": "text",
+				"value": "监测点的数字量"
+			}],
+			"code": "digitalRead({INDEX})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "car",
+			"uid": "xWylGC"
+		}],
+		"imageUrl": "assets/image/components/car.svg"
+	}, {
 		"uid": "ZSysTK",
 		"name": "tm1637",
 		"defaultVarName": "display",
-		"label": "共阳数码管",
+		"label": "数码管模块(TM1637)",
 		"type": "tm1637",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 120,
-		"height": 43,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "CLK",
 			"anchor": [0.33, 1],
@@ -9920,6 +10217,385 @@
 			"uid": "PmCQqO"
 		}],
 		"imageUrl": "assets/image/components/tm1637.svg"
+	}, {
+		"uid": "Du5z0B",
+		"name": "ledControl",
+		"label": "点阵模块",
+		"type": "ledControl",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 90,
+		"pins": [{
+			"name": "DIN",
+			"anchor": [0.25, 1],
+			"tags": ["digital"],
+			"label": "DIN",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "CLK",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "CLK",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "CS",
+			"anchor": [0.75, 1],
+			"tags": ["digital"],
+			"label": "CS",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <LedControl.h>",
+			"var": "LedControl {NAME} = LedControl({DIN}, {CLK}, {CS}, 1);",
+			"setup": "{NAME}.shutdown(0, false);\n{NAME}.setIntensity(0, 8);\n{NAME}.clearDisplay(0);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ledControlSetIntensity",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"type": "text",
+				"value": "设置亮度"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}]
+			}],
+			"code": "{LED_CONTROL}.setIntensity(0, {VALUE});",
+			"tags": ["module"],
+			"module": "ledControl",
+			"uid": "vtzBbg"
+		}, {
+			"type": "statement",
+			"name": "ledControlClear",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"type": "text",
+				"value": "清屏"
+			}],
+			"code": "{LED_CONTROL}.clearDisplay(0);",
+			"tags": ["module"],
+			"module": "ledControl",
+			"uid": "vkvmos"
+		}, {
+			"type": "statement",
+			"name": "ledControlSetLed",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "true"
+				}, {
+					"label": "熄灭",
+					"value": "false"
+				}]
+			}, {
+				"id": "ROW",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}]
+			}, {
+				"type": "text",
+				"value": "行"
+			}, {
+				"id": "COLUMN",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}]
+			}, {
+				"type": "text",
+				"value": "列"
+			}],
+			"code": "{LED_CONTROL}.setLed(0, {ROW}, {COLUMN}, {STATE});",
+			"tags": ["module"],
+			"module": "ledControl",
+			"uid": "CMPXki"
+		}, {
+			"type": "statement",
+			"name": "ledControlSetRow",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "C8rDCV"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"type": "text",
+				"value": "按"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "C8rDCV",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "ROW",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}]
+			}, {
+				"type": "text",
+				"value": "行"
+			}],
+			"code": "{LED_CONTROL}.setRow(0, {ROW}, {VALUE});",
+			"tags": ["module", "advanced"],
+			"module": "ledControl",
+			"uid": "t8EgNt"
+		}, {
+			"type": "statement",
+			"name": "ledControlSetColumn",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "BgGLgI"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"type": "text",
+				"value": "按"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "BgGLgI",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "设置"
+			}, {
+				"id": "COLUMN",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}]
+			}, {
+				"type": "text",
+				"value": "行"
+			}],
+			"code": "{LED_CONTROL}.setRow(0, {COLUMN}, {VALUE});",
+			"tags": ["module", "advanced"],
+			"module": "ledControl",
+			"uid": "VuhKnl"
+		}],
+		"imageUrl": "assets/image/components/ledControl.svg"
 	}, {
 		"uid": "hr5P4L",
 		"name": "serial",
@@ -10302,8 +10978,8 @@
 		"type": "serial",
 		"category": "function",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "rxd",
 			"anchor": [0.33, 1],
@@ -10333,8 +11009,8 @@
 		"type": "serial",
 		"category": "function",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "rxd",
 			"anchor": [0.33, 1],

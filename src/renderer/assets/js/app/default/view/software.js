@@ -458,9 +458,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			});
 			codeRegion.dequeue("slide-out");
 			toggleToolButton(false);
+			topRegion.find(".tool-button.show-code").prop("title", "显示源码");
 		} else {
 			codeRegion.addClass("active").addClass("slide-in");
 			toggleToolButton(true);
+			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码");
 		}
 	}
 
