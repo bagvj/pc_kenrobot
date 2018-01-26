@@ -10597,6 +10597,435 @@
 		}],
 		"imageUrl": "assets/image/components/ledControl.svg"
 	}, {
+		"uid": "gVa3K4",
+		"name": "ps2x",
+		"label": "PS2手柄",
+		"type": "ps2x",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "DAT",
+			"anchor": [0.2, 1],
+			"tags": ["digital"],
+			"label": "DAT",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "CMD",
+			"anchor": [0.4, 1],
+			"tags": ["digital"],
+			"label": "CMD",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "SEL",
+			"anchor": [0.6, 1],
+			"tags": ["digital"],
+			"label": "SEL",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "CLK",
+			"anchor": [0.8, 1],
+			"tags": ["digital"],
+			"label": "CLK",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <PS2X_lib.h>",
+			"var": "int {NAME}_DAT = {DAT};\nint {NAME}_CMD = {CMD};\nint {NAME}_SEL = {SEL};\nint {NAME}_CLK = {CLK};\nPS2X {NAME};"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ps2xConfig",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"type": "text",
+				"value": "初始化"
+			}, {
+				"type": "text",
+				"value": "压敏"
+			}, {
+				"id": "PRESURE",
+				"type": "static-select",
+				"options": [{
+					"label": "开",
+					"value": "true"
+				}, {
+					"label": "关",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "震动"
+			}, {
+				"id": "RUMBLE",
+				"type": "static-select",
+				"options": [{
+					"label": "开",
+					"value": "true"
+				}, {
+					"label": "关",
+					"value": "false"
+				}]
+			}],
+			"code": "{PS2}.config_gamepad({PS2}_DAT, {PS2}_CMD, {PS2}_SEL, {PS2}_CLK, {PRESURE}, {RUMBLE});",
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "YXua26"
+		}, {
+			"type": "output",
+			"name": "ps2xConfigAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"type": "text",
+				"value": "初始化"
+			}, {
+				"type": "text",
+				"value": "压敏"
+			}, {
+				"id": "PRESURE",
+				"type": "static-select",
+				"options": [{
+					"label": "开",
+					"value": "true"
+				}, {
+					"label": "关",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "震动"
+			}, {
+				"id": "RUMBLE",
+				"type": "static-select",
+				"options": [{
+					"label": "开",
+					"value": "true"
+				}, {
+					"label": "关",
+					"value": "false"
+				}]
+			}],
+			"code": "{PS2}.config_gamepad({PS2}_DAT, {PS2}_CMD, {PS2}_SEL, {PS2}_CLK, {PRESURE}, {RUMBLE})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module", "advanced"],
+			"module": "ps2x",
+			"uid": "OSrmtO"
+		}, {
+			"type": "output",
+			"name": "ps2xReadType",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "检测PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"type": "text",
+				"value": "类型"
+			}],
+			"code": "{PS2}.readType()",
+			"returnType": {
+				"type": "simple",
+				"value": "byte"
+			},
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "tl7Ew8"
+		}, {
+			"type": "statement",
+			"name": "ps2xRead",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}],
+			"code": "{PS2}.read_gamepad();",
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "Iu5uyN"
+		}, {
+			"type": "output",
+			"name": "ps2xButton",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"id": "BUTTON",
+				"type": "static-select",
+				"options": [{
+					"label": "START",
+					"value": "PSB_START"
+				}, {
+					"label": "SELECT",
+					"value": "PSB_SELECT"
+				}, {
+					"label": "L1",
+					"value": "PSB_L1"
+				}, {
+					"label": "L2",
+					"value": "PSB_L2"
+				}, {
+					"label": "L3",
+					"value": "PSB_L3"
+				}, {
+					"label": "R1",
+					"value": "PSB_R1"
+				}, {
+					"label": "R2",
+					"value": "PSB_R2"
+				}, {
+					"label": "R3",
+					"value": "PSB_R3"
+				}, {
+					"label": "△",
+					"value": "PSB_TRIANGLE"
+				}, {
+					"label": "○",
+					"value": "PSB_CIRCLE"
+				}, {
+					"label": "×",
+					"value": "PSB_CROSS"
+				}, {
+					"label": "□",
+					"value": "PSB_SQUARE"
+				}, {
+					"label": "上键",
+					"value": "PSB_PAD_UP"
+				}, {
+					"label": "下键",
+					"value": "PSB_PAD_DOWN"
+				}, {
+					"label": "左键",
+					"value": "PSB_PAD_LEFT"
+				}, {
+					"label": "右键",
+					"value": "PSB_PAD_RIGHT"
+				}]
+			}, {
+				"type": "text",
+				"value": "按下"
+			}],
+			"code": "{PS2}.Button({BUTTON})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "wlxbek"
+		}, {
+			"type": "output",
+			"name": "ps2xNewButtonState",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"type": "text",
+				"value": "按钮有动作"
+			}],
+			"code": "{PS2}.NewButtonState()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "OtoX6B"
+		}, {
+			"type": "output",
+			"name": "ps2xAnalog",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"id": "PSS",
+				"type": "static-select",
+				"options": [{
+					"label": "左摇杆X",
+					"value": "PSS_LX"
+				}, {
+					"label": "左摇杆Y",
+					"value": "PSS_LY"
+				}, {
+					"label": "右摇杆X",
+					"value": "PSS_RX"
+				}, {
+					"label": "右摇杆Y",
+					"value": "PSS_RY"
+				}]
+			}, {
+				"type": "text",
+				"value": "值"
+			}],
+			"code": "{PS2}.Analog({PSS})",
+			"returnType": {
+				"type": "simple",
+				"value": "byte"
+			},
+			"tags": ["module"],
+			"module": "ps2x",
+			"uid": "Byjpmn"
+		}, {
+			"type": "output",
+			"name": "ps2xButtonAdvanced",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "PS2手柄"
+			}, {
+				"id": "PS2",
+				"type": "dynamic-select",
+				"options": "ps2xs"
+			}, {
+				"id": "BUTTON",
+				"type": "static-select",
+				"options": [{
+					"label": "START",
+					"value": "PSB_START"
+				}, {
+					"label": "SELECT",
+					"value": "PSB_SELECT"
+				}, {
+					"label": "L1",
+					"value": "PSB_L1"
+				}, {
+					"label": "L2",
+					"value": "PSB_L2"
+				}, {
+					"label": "L3",
+					"value": "PSB_L3"
+				}, {
+					"label": "R1",
+					"value": "PSB_R1"
+				}, {
+					"label": "R2",
+					"value": "PSB_R2"
+				}, {
+					"label": "R3",
+					"value": "PSB_R3"
+				}, {
+					"label": "△",
+					"value": "PSB_TRIANGLE"
+				}, {
+					"label": "○",
+					"value": "PSB_CIRCLE"
+				}, {
+					"label": "×",
+					"value": "PSB_CROSS"
+				}, {
+					"label": "□",
+					"value": "PSB_SQUARE"
+				}, {
+					"label": "上键",
+					"value": "PSB_PAD_UP"
+				}, {
+					"label": "下键",
+					"value": "PSB_PAD_DOWN"
+				}, {
+					"label": "左键",
+					"value": "PSB_PAD_LEFT"
+				}, {
+					"label": "右键",
+					"value": "PSB_PAD_RIGHT"
+				}]
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "按下",
+					"value": "ButtonPressed"
+				}, {
+					"label": "弹起",
+					"value": "ButtonReleased"
+				}, {
+					"label": "有动作",
+					"value": "NewButtonState"
+				}]
+			}],
+			"code": "{PS2}.{OP}({BUTTON})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module", "advanced"],
+			"module": "ps2x",
+			"uid": "PpOHBP"
+		}],
+		"imageUrl": "assets/image/components/ps2.svg"
+	}, {
 		"uid": "hr5P4L",
 		"name": "serial",
 		"label": "串口模块",
