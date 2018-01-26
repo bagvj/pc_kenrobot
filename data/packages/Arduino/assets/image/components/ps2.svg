@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="图层_1" viewBox="0 0 150 150">
+  <style>
+    .st5{fill:none;stroke:#363737;stroke-miterlimit:10}
+  </style>
+  <ellipse cx="91.5" cy="20.2" fill="#d13b42" rx="1.5" ry="2.5"/>
+  <ellipse cx="61.6" cy="20.2" fill="#0d8957" rx="1.5" ry="2.5"/>
+  <path fill="#505050" d="M118.9 114.8H33.7c-1.7 0-3.1-1.4-3.1-3.1V22.8c0-1.7 1.4-3.1 3.1-3.1h85.2c1.7 0 3.1 1.4 3.1 3.1v88.9c0 1.7-1.4 3.1-3.1 3.1z"/>
+  <path fill="#3b3c3c" d="M54.8 114.8h43v15h-43z"/>
+  <linearGradient id="SVGID_1_" x1="30.667" x2="82.858" y1="67.287" y2="67.287" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#c8c8c8" stop-opacity=".2"/>
+    <stop offset=".045" stop-color="#bebdbc" stop-opacity=".236"/>
+    <stop offset=".251" stop-color="#95908e" stop-opacity=".401"/>
+    <stop offset=".453" stop-color="#76716f" stop-opacity=".563"/>
+    <stop offset=".649" stop-color="#615e5d" stop-opacity=".719"/>
+    <stop offset=".835" stop-color="#545353" stop-opacity=".868"/>
+    <stop offset="1" stop-color="#505050"/>
+  </linearGradient>
+  <path fill="url(#SVGID_1_)" d="M79.7 114.8H33.9c-1.8 0-3.2-1.4-3.2-3.2V23c0-1.8 1.4-3.2 3.2-3.2h45.8c1.8 0 3.2 1.4 3.2 3.2v88.6c0 1.8-1.5 3.2-3.2 3.2z"/>
+  <path d="M53.3 42.6c5.6-5.1 14.2-8.4 24-8.4s18.4 3.3 24 8.4" class="st5"/>
+  <path d="M61.6 48.3c4.3-3.6 9.8-5.8 15.7-5.8s11.4 2.2 15.7 5.8M68 55.4c2.8-1.8 6-2.9 9.3-2.9s6.6 1 9.4 2.9" class="st5"/>
+  <path fill="#dcdddd" d="M80 127h-5.4c-.2 0-.4-.2-.4-.4v-1.9c0-.2.2-.4.4-.4H80c.2 0 .4.2.4.4v1.9c0 .2-.2.4-.4.4z"/>
+</svg>

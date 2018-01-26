@@ -1,55 +1,72 @@
 {
   "package": "Arduino",
   "examples": [{
-    "name": "AnalogReadSerial",
-    "category": "01Basic"
+    "path": "01Basic/AnalogReadSerial/AnalogReadSerial.krb",
+    "name": "串口读取模拟值",
+    "category": "基础"
   }, {
-    "name": "Blink",
-    "category": "01Basic"
+    "path": "01Basic/Blink/Blink.krb",
+    "name": "闪烁LED",
+    "category": "基础"
   }, {
-    "name": "ReadAnalogVoltage",
-    "category": "01Basic"
+    "path": "01Basic/ReadAnalogVoltage/ReadAnalogVoltage.krb",
+    "name": "读取模拟口电压",
+    "category": "基础"
   }, {
-    "name": "Button",
-    "category": "02Digital"
+    "path": "02Digital/Button/Button.krb",
+    "name": "按键",
+    "category": "数字量"
   }, {
-    "name": "Debounce",
-    "category": "02Digital"
+    "path": "02Digital/Debounce/Debounce.krb",
+    "name": "按钮消抖",
+    "category": "数字量"
   }, {
-    "name": "StateChangeDetection",
-    "category": "02Digital"
+    "path": "02Digital/StateChangeDetection/StateChangeDetection.krb",
+    "name": "检测按键状态",
+    "category": "数字量"
   }, {
-    "name": "toneKeyboard",
-    "category": "02Digital"
+    "path": "02Digital/toneKeyboard/toneKeyboard.krb",
+    "name": "蜂鸣器键盘",
+    "category": "数字量"
   }, {
-    "name": "toneLittleStar",
-    "category": "02Digital"
+    "path": "02Digital/toneLittleStar/toneLittleStar.krb",
+    "name": "蜂鸣器小星星旋律",
+    "category": "数字量"
   }, {
-    "name": "AnalogInput",
-    "category": "03Analog"
+    "path": "03Analog/AnalogInput/AnalogInput.krb",
+    "name": "模拟值输入",
+    "category": "模拟值"
   }, {
-    "name": "Calibration",
-    "category": "03Analog"
+    "path": "03Analog/Calibration/Calibration.krb",
+    "name": "光敏控制LED亮度",
+    "category": "模拟值"
   }, {
-    "name": "Fading",
-    "category": "03Analog"
+    "path": "03Analog/Fading/Fading.krb",
+    "name": "呼吸灯",
+    "category": "模拟值"
   }, {
-    "name": "SerialCallResponse",
-    "category": "04Communication"
+    "path": "04Communication/SerialCallResponse/SerialCallResponse.krb",
+    "name": "串口自发自收",
+    "category": "通信"
   }, {
-    "name": "switchCase",
-    "category": "05Control"
+    "path": "05Control/switchCase/switchCase.krb",
+    "name": "判断语句示例",
+    "category": "控制"
   }, {
-    "name": "Ping",
-    "category": "06Sensors"
+    "path": "06Sensors/Ping/Ping.krb",
+    "name": "超声波测距",
+    "category": "传感"
   }, {
-    "name": "lcd1602",
-    "category": "07Display"
+    "path": "07Display/lcd1602/lcd1602.krb",
+    "name": "LCD1602",
+    "category": "显示"
   }, {
+    "path": "07Display/OLED/OLED.krb",
     "name": "OLED",
-    "category": "07Display"
+    "category": "显示"
   }, {
-    "name": "StringLength",
-    "category": "08Strings"
+    "path": "08Strings/StringLength/StringLength.krb",
+    "name": "字符串长度",
+    "category": "字符串"
   }]
 }

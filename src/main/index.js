@@ -46,6 +46,8 @@ var firstRun
 var projectToLoad
 var isLoadReady
 
+var downloadTasks = {}
+
 init()
 
 /**
@@ -151,6 +153,7 @@ function listenMessages() {
 	listenMessage("uploadFirmware", (targetPath, options, comName) => uploadFirmware(targetPath, options, comName))
 
 	listenMessage("download", (url, options) => download(url, options))
+	listenMessage("cancelDownload", taskId => cancelDownload(taskId))
 	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", () => Package.loadExamples())
 	listenMessage("openExample", examplePath => openExample(examplePath))
@@ -603,6 +606,9 @@ function deleteLibrary(name) {
 }
 
 function onDownload(e, item, webContent) {
+	var taskId = util.uuid(6)
+	downloadTasks[taskId] = item
+
 	var url = item.getURL()
 	var pos = url.lastIndexOf("#")
 	var query = querystring.parse(url.substring(pos + 1))
@@ -629,18 +635,23 @@ function onDownload(e, item, webContent) {
 	var totalSize = item.getTotalBytes()
 	item.on('updated', (evt, state) => {
 		if(state == "interrupted") {
+			downloadTasks[taskId] && delete downloadTasks[taskId]
+
 			log.debug(`download interrupted: ${url}`)
 			util.callDefer(deferId, false, {
 				path: savePath,
 			})
 		} else if(state === 'progressing') {
 			if(item.isPaused()) {
+				downloadTasks[taskId] && delete downloadTasks[taskId]
+
 				log.debug(`download paused: ${url}`)
 				util.callDefer(deferId, false, {
 					path: savePath,
 				})
 			} else {
 				util.callDefer(deferId, "notify", {
+					taskId: taskId,
 					path: savePath,
 					totalSize: totalSize,
 					size: item.getReceivedBytes(),
@@ -650,6 +661,8 @@ function onDownload(e, item, webContent) {
 	})
 
 	item.once('done', (evt, state) => {
+		downloadTasks[taskId] && delete downloadTasks[taskId]
+
 		if(state == "completed") {
 			log.debug(`download success: ${url}, at ${savePath}`)
 			util.callDefer(deferId, true, {
@@ -685,6 +698,11 @@ function download(url, options) {
 	mainWindow.webContents.downloadURL(`${url}#${query}`)
 
 	return deferred.promise
+}
+
+function cancelDownload(taskId) {
+	var downloadItem = downloadTasks[taskId]
+	downloadItem && downloadItem.cancel()
 }
 
 /**
