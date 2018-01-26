@@ -1,0 +1,50 @@
+.menu {
+  line-height: 26px;
+  background-color: transparent;
+
+  :global &.ant-menu-horizontal {
+    .ant-menu-item,
+    .ant-menu-item-open,
+    .ant-menu-item-selected,
+    .ant-menu-item-active,
+    .ant-menu-submenu,
+    .ant-menu-submenu-open,
+    .ant-menu-submenu-selected,
+    .ant-menu-submenu-active,
+    .ant-menu-submenu:hover {
+      border-bottom: none;
+    }
+  }
+}
+
+.sub-menu {
+  line-height: 24px;
+  border-bottom: none;
+
+  :global {
+    .ant-menu-vertical {
+      .ant-menu-item, .ant-menu-submenu {
+        margin-bottom: 0;
+        margin-top: 0;
+        height: 32px;
+        line-height: 32px;
+
+        &:first-of-type {
+          margin-top: 4px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 4px;
+        }
+      }
+
+      .ant-menu-submenu-title {
+        margin: 0;
+      }
+    }
+
+    .ant-menu-item-divider {
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f9f9;
+}
+
+.left {
+  position: relative;
+  width: 300px;
+  background-color: white;
+  display: flex;
+	flex-direction: column;
+
+  &:after {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 5px;
+    top: 0;
+    bottom: 0;
+    right: -5px;
+    background-color: #eceef1;
+  }
+}
+
+.content {
+  flex: 1;
+  margin-left: 5px;
+  position: relative;
+}
+
+.right {
+  width: 200px;
+  display: none;
+}
+
+.bottom {
+  height: 300px;
+  display: none;
+}
+
+.status-bar {
+  height: 24px;
+  display: none;
+}
+
+.content-wrap {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.right-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-wrap {
+  flex: 1;
+  display: flex;
+}
+
+

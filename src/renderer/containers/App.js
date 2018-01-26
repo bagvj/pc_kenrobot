@@ -1,7 +1,7 @@
 // @flow
 import React, { Node, Component } from 'react'
 
-import AppComponent from '../components/App'
+import AppComponent from '../components/app/App'
 
 type Props = {
   children: Node
@@ -12,7 +12,7 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <AppComponent children={this.props.children} />
+      <AppComponent>{this.props.children}</AppComponent>
     )
   }
 }

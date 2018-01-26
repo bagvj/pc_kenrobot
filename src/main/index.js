@@ -42,7 +42,7 @@ const optionDefinitions = [
 	{ name: 'project', alias: 'p', type: Project.check, defaultOption: true}
 ]
 
-let args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
+let args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true, camelCase: true}) //命令行参数
 // let args = {}
 
 let cache
@@ -84,7 +84,7 @@ function init() {
 			mainWindow.isMinimized() && mainWindow.restore()
 			mainWindow.focus()
 
-      let secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true})
+      let secondArgs = commandLineArgs(optionDefinitions, {argv: argv.slice(1), partial: true, camelCase: true})
       // let secondArgs = {}
 			secondArgs.project && (projectToLoad = secondArgs.project)
 			log.debug("app second run")

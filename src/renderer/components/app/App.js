@@ -1,9 +1,9 @@
 // @flow
 import React, { Component, Node } from 'react'
-import Header from './Header'
+import Header from '../header/Header'
 
 import './App.global.css'
-import '../vendor/kenrobot/kenrobot.global.css'
+import '../../assets/vendor/kenrobot/kenrobot.global.css'
 
 import styles from './App.scss'
 

@@ -1,0 +1,20 @@
+.container {
+  height: 50px;
+  border-right: 1px solid #d3d3de;
+  align-items: center;
+  cursor: pointer;
+  line-height: 50px;
+}
+
+.photo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.name {
+  margin-left: 5px;
+  margin-right: 18px;
+  font-size: 14px;
+  color: #666;
+}

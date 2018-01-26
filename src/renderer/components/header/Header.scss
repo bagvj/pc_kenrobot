@@ -1,0 +1,102 @@
+$logo-size: 24px;
+$menu-height: 26px;
+
+.container {
+  background-color: #ededed;
+  -webkit-app-region: drag;
+  height: 50px;
+  display: flex;
+  position: relative;
+  z-index: 19;
+
+  &:after {
+		position: absolute;
+		height: 1px;
+		width: 100%;
+		top: 100%;
+		left: 0;
+    background-color: #d3d3d3;
+    content: '';
+	}
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.right {
+  -webkit-app-region: no-drag;
+}
+
+.menu-wrap {
+  display: flex;
+  flex-direction: row;
+
+  & > .placeholder {
+    flex: 1;
+  }
+}
+
+.menu {
+  -webkit-app-region: no-drag;
+  height: $menu-height;
+}
+
+.project-path {
+  margin-left: 20px;
+  font-size: 12px;
+  max-width: 500px;
+}
+
+.logo-wrap {
+  display: flex;
+  flex-shrink: 0;
+  height: $logo-size;
+  line-height: $logo-size;
+}
+
+.logo {
+  width: $logo-size;
+  height: $logo-size;
+  margin-left: 11px;
+  margin-right: 6px;
+}
+
+.btns {
+  -webkit-app-region: no-drag;
+  height: 50px;
+  width: 100px;
+
+  ul {
+    display: flex;
+    margin: 15px 10px;
+    justify-content: space-between;
+
+    li {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+
+      &:hover {
+        i {
+          color: #999;
+        }
+      }
+
+      i {
+        line-height: 20px;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        color: #ccc;
+        transition: color 0.2s;
+      }
+    }
+  }
+}
+
+.placeholder {
+  flex: 1;
+}
