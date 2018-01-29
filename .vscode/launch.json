@@ -13,11 +13,11 @@
               "--show-dev-tools"
             ],
             "env": {
-              "NODE_ENV": "production",
+              // "NODE_ENV": "production",
               // "DEBUG_PROD": "true",
 
-              // "NODE_ENV": "development",
-              // "HOT": "true",
+              "NODE_ENV": "development",
+              "HOT": "true",
             },
         }
     ]
