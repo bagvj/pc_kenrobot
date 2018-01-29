@@ -2,24 +2,16 @@
   line-height: 26px;
   background-color: transparent;
 
-  :global &.ant-menu-horizontal {
-    .ant-menu-item,
-    .ant-menu-item-open,
-    .ant-menu-item-selected,
-    .ant-menu-item-active,
-    .ant-menu-submenu,
-    .ant-menu-submenu-open,
-    .ant-menu-submenu-selected,
-    .ant-menu-submenu-active,
-    .ant-menu-submenu:hover {
-      border-bottom: none;
+  :global {
+    .ant-menu-item {
+      border-bottom: none !important;
     }
   }
 }
 
 .sub-menu {
   line-height: 24px;
-  border-bottom: none;
+  border-bottom: none !important;
 
   :global {
     .ant-menu-vertical {
@@ -47,4 +39,12 @@
       margin: 0;
     }
   }
+}
+
+.menu-text {
+
+}
+
+.menu-shortcut {
+
 }
