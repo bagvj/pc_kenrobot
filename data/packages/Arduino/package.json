@@ -1,7 +1,7 @@
 {
 	"name": "Arduino",
 	"company": "Arduino",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"author": "Kenrobot",
 	"category": "built-in",
 	"help": "http://www.kenrobot.com/",
@@ -2368,7 +2368,7 @@
 	}, {
 		"uid": "smMsxb",
 		"name": "infraredSensor",
-		"label": "光电对管",
+		"label": "红外对管",
 		"type": "infraredSensor",
 		"category": "sensor",
 		"boards": ["Arduino"],
@@ -2925,6 +2925,65 @@
 		}],
 		"imageUrl": "assets/image/components/keypad44.svg"
 	}, {
+		"uid": "iOqSwy",
+		"name": "relay",
+		"label": "继电器",
+		"type": "relay",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "relayOutput",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "继电器"
+			}, {
+				"id": "RELAY",
+				"type": "dynamic-select",
+				"options": "relays"
+			}, {
+				"type": "text",
+				"value": "输出"
+			}, {
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "高电平",
+					"value": "HIGH"
+				}, {
+					"label": "低电平",
+					"value": "LOW"
+				}]
+			}],
+			"code": "digitalWrite({RELAY},{STATE});",
+			"tags": ["module"],
+			"module": "relay",
+			"uid": "tjpz8T"
+		}],
+		"imageUrl": "assets/image/components/relay.svg"
+	}, {
 		"uid": "E2ZSBW",
 		"name": "led",
 		"label": "LED",
@@ -3018,65 +3077,6 @@
 			"uid": "U7dzAq"
 		}],
 		"imageUrl": "assets/image/components/led.svg"
-	}, {
-		"uid": "iOqSwy",
-		"name": "relay",
-		"label": "继电器",
-		"type": "relay",
-		"category": "action",
-		"boards": ["Arduino"],
-		"width": 72,
-		"height": 72,
-		"pins": [{
-			"name": "s",
-			"anchor": [0.5, 1],
-			"tags": ["digital"],
-			"label": "s",
-			"shape": "Dot",
-			"rotate": false
-		}],
-		"code": {
-			"var": "int {NAME} = {s};",
-			"setup": "pinMode({NAME}, OUTPUT);"
-		},
-		"raw": true,
-		"blocks": [{
-			"type": "statement",
-			"name": "relayOutput",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "继电器"
-			}, {
-				"id": "RELAY",
-				"type": "dynamic-select",
-				"options": "relays"
-			}, {
-				"type": "text",
-				"value": "输出"
-			}, {
-				"id": "STATE",
-				"type": "static-select",
-				"options": [{
-					"label": "高电平",
-					"value": "HIGH"
-				}, {
-					"label": "低电平",
-					"value": "LOW"
-				}]
-			}],
-			"code": "digitalWrite({RELAY},{STATE});",
-			"tags": ["module"],
-			"module": "relay",
-			"uid": "tjpz8T"
-		}],
-		"imageUrl": "assets/image/components/relay.svg"
 	}, {
 		"uid": "JulbGU",
 		"name": "irSend",
@@ -4281,6 +4281,192 @@
 			"uid": "vBhAoh"
 		}],
 		"imageUrl": "assets/image/components/dcMotor.svg"
+	}, {
+		"uid": "qOsqIB",
+		"name": "stepper",
+		"label": "步进电机(ULN2003)",
+		"type": "stepper",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "IN1",
+			"anchor": [0.2, 1],
+			"tags": ["digital"],
+			"label": "IN1",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "IN2",
+			"anchor": [0.4, 1],
+			"tags": ["digital"],
+			"label": "IN2",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "IN3",
+			"anchor": [0.6, 1],
+			"tags": ["digital"],
+			"label": "IN3",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}, {
+			"name": "IN4",
+			"anchor": [0.8, 1],
+			"tags": ["digital"],
+			"label": "IN4",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"include": "#include <Stepper.h>",
+			"var": "Stepper {NAME}(100, {IN1}, {IN3}, {IN2}, {IN4});",
+			"setup": "{NAME}.setSpeed(60);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "stepperSetSpeed",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "3e1BMD"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "steppers"
+			}, {
+				"type": "text",
+				"value": "设置速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "3e1BMD",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "100"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{STEPPER}.setSpeed({SPEED});",
+			"tags": ["module"],
+			"module": "stepper",
+			"uid": "glfXkJ"
+		}, {
+			"type": "statement",
+			"name": "stepperSetDirection",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "steppers"
+			}, {
+				"id": "STEP",
+				"type": "static-select",
+				"options": [{
+					"label": "顺时针",
+					"value": "100"
+				}, {
+					"label": "逆时针",
+					"value": "-100"
+				}]
+			}, {
+				"type": "text",
+				"value": "旋转"
+			}],
+			"code": "{STEPPER}.step({STEP});",
+			"tags": ["module"],
+			"module": "stepper",
+			"uid": "GtgMrq"
+		}, {
+			"type": "statement",
+			"name": "stepperSetSpeedAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ukLSVl"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "steppers"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "顺时针",
+					"value": ""
+				}, {
+					"label": "逆时针",
+					"value": "-"
+				}]
+			}, {
+				"type": "text",
+				"value": "旋转"
+			}, {
+				"type": "text",
+				"value": "每圈"
+			}, {
+				"blockInputId": "STEP",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ukLSVl",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "100"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "步"
+			}],
+			"code": "{STEPPER}.step({DIRECTION}abs({STEP}));",
+			"tags": ["module", "advanced"],
+			"module": "stepper",
+			"uid": "FxxZ9P"
+		}],
+		"imageUrl": "assets/image/components/stepper.svg"
 	}, {
 		"uid": "wiWnL4",
 		"name": "servo",
@@ -10224,8 +10410,8 @@
 		"type": "ledControl",
 		"category": "action",
 		"boards": ["Arduino"],
-		"width": 90,
-		"height": 90,
+		"width": 72,
+		"height": 72,
 		"pins": [{
 			"name": "DIN",
 			"anchor": [0.25, 1],
@@ -10272,37 +10458,19 @@
 				"options": "ledControls"
 			}, {
 				"type": "text",
-				"value": "设置亮度"
+				"value": "亮度"
 			}, {
 				"id": "VALUE",
 				"type": "static-select",
 				"options": [{
-					"label": "0",
-					"value": "0"
+					"label": "最亮",
+					"value": "15"
 				}, {
-					"label": "1",
-					"value": "1"
-				}, {
-					"label": "2",
-					"value": "2"
-				}, {
-					"label": "3",
-					"value": "3"
-				}, {
-					"label": "4",
-					"value": "4"
-				}, {
-					"label": "5",
-					"value": "5"
-				}, {
-					"label": "6",
-					"value": "6"
-				}, {
-					"label": "7",
-					"value": "7"
-				}, {
-					"label": "8",
+					"label": "一般",
 					"value": "8"
+				}, {
+					"label": "最暗",
+					"value": "0"
 				}]
 			}],
 			"code": "{LED_CONTROL}.setIntensity(0, {VALUE});",
@@ -10362,6 +10530,9 @@
 					"value": "false"
 				}]
 			}, {
+				"type": "text",
+				"value": "坐标 X:"
+			}, {
 				"id": "ROW",
 				"type": "static-select",
 				"options": [{
@@ -10394,7 +10565,7 @@
 				}]
 			}, {
 				"type": "text",
-				"value": "行"
+				"value": "Y:"
 			}, {
 				"id": "COLUMN",
 				"type": "static-select",
@@ -10426,14 +10597,88 @@
 					"label": "8",
 					"value": "8"
 				}]
-			}, {
-				"type": "text",
-				"value": "列"
 			}],
 			"code": "{LED_CONTROL}.setLed(0, {ROW}, {COLUMN}, {STATE});",
 			"tags": ["module"],
 			"module": "ledControl",
 			"uid": "CMPXki"
+		}, {
+			"type": "statement",
+			"name": "ledControlSetIntensityC",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵"
+			}, {
+				"id": "LED_CONTROL",
+				"type": "dynamic-select",
+				"options": "ledControls"
+			}, {
+				"type": "text",
+				"value": "设亮度值为"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}, {
+					"label": "9",
+					"value": "9"
+				}, {
+					"label": "10",
+					"value": "10"
+				}, {
+					"label": "11",
+					"value": "11"
+				}, {
+					"label": "12",
+					"value": "12"
+				}, {
+					"label": "13",
+					"value": "13"
+				}, {
+					"label": "14",
+					"value": "14"
+				}, {
+					"label": "15",
+					"value": "15"
+				}]
+			}],
+			"code": "{LED_CONTROL}.setIntensity(0, {VALUE});",
+			"tags": ["module", "advanced"],
+			"module": "ledControl",
+			"uid": "eEVlXe"
 		}, {
 			"type": "statement",
 			"name": "ledControlSetRow",
@@ -10474,7 +10719,7 @@
 				}
 			}, {
 				"type": "text",
-				"value": "设置"
+				"value": "设置整行 X："
 			}, {
 				"id": "ROW",
 				"type": "static-select",
@@ -10506,9 +10751,6 @@
 					"label": "8",
 					"value": "8"
 				}]
-			}, {
-				"type": "text",
-				"value": "行"
 			}],
 			"code": "{LED_CONTROL}.setRow(0, {ROW}, {VALUE});",
 			"tags": ["module", "advanced"],
@@ -10554,7 +10796,7 @@
 				}
 			}, {
 				"type": "text",
-				"value": "设置"
+				"value": "设置整列 Y："
 			}, {
 				"id": "COLUMN",
 				"type": "static-select",
@@ -10586,9 +10828,6 @@
 					"label": "8",
 					"value": "8"
 				}]
-			}, {
-				"type": "text",
-				"value": "行"
 			}],
 			"code": "{LED_CONTROL}.setRow(0, {COLUMN}, {VALUE});",
 			"tags": ["module", "advanced"],
