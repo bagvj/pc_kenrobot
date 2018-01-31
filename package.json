@@ -77,7 +77,7 @@
     "browserify": "^14.5.0",
     "del": "^3.0.0",
     "electron": "^1.7.10",
-    "electron-builder": "^19.52.1",
+    "electron-builder": "^19.55.3",
     "fs-extra": "^4.0.3",
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
