@@ -264,6 +264,165 @@ define(function() {
 		"uid": "7flgZS"
 	}, {
 		"type": "statement",
+		"name": "attachInterrupt",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "设置中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}, {
+			"type": "text",
+			"value": "处理函数"
+		}, {
+			"id": "HANDLER",
+			"type": "dynamic-select",
+			"options": "voidFunctions"
+		}, {
+			"id": "MODE",
+			"type": "static-select",
+			"options": [{
+				"label": "低电平触发",
+				"value": "LOW"
+			}, {
+				"label": "电平变化时触发",
+				"value": "CHANGE"
+			}, {
+				"label": "上升沿触发",
+				"value": "RISING"
+			}, {
+				"label": "下降沿触发",
+				"value": "FALLING"
+			}, {
+				"label": "高电平触发",
+				"value": "HIGH"
+			}]
+		}],
+		"code": "attachInterrupt(digitalPinToInterrupt({PIN}), {HANDLER}, {MODE});",
+		"tags": ["module"],
+		"module": "default",
+		"uid": "BCqlV7"
+	}, {
+		"type": "statement",
+		"name": "attachInterruptAdvanced",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "7SPSEw"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "设置中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}, {
+			"type": "text",
+			"value": "处理函数"
+		}, {
+			"blockInputId": "HANDLER",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "7SPSEw",
+			"value": {
+				"content": [{
+					"id": "VALUE",
+					"type": "string-input",
+					"value": "xxx_ISR"
+				}],
+				"name": "rawInput"
+			}
+		}, {
+			"id": "MODE",
+			"type": "static-select",
+			"options": [{
+				"label": "低电平触发",
+				"value": "LOW"
+			}, {
+				"label": "电平变化时触发",
+				"value": "CHANGE"
+			}, {
+				"label": "上升沿触发",
+				"value": "RISING"
+			}, {
+				"label": "下降沿触发",
+				"value": "FALLING"
+			}, {
+				"label": "高电平触发",
+				"value": "HIGH"
+			}]
+		}],
+		"code": "attachInterrupt(digitalPinToInterrupt({PIN}), {HANDLER}, {MODE});",
+		"tags": ["module", "advanced"],
+		"module": "default",
+		"uid": "wPJu0m"
+	}, {
+		"type": "statement",
+		"name": "detachInterrupt",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "取消中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}],
+		"code": "detachInterrupt(digitalPinToInterrupt{PIN});",
+		"tags": ["module"],
+		"module": "default",
+		"uid": "IJewwT"
+	}, {
+		"type": "statement",
 		"name": "motorRun",
 		"connectors": [{
 			"type": "connector-top",
