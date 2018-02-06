@@ -112,10 +112,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 				emitor.trigger("update", "download", true);
 			}, err => {
 				enableHoverCancel(false);
-				if(action == "background-download") {
-					util.error(`新版本${versionInfo.version}下载失败`);
-				}
-				downloadBtn.val("下载失败");
+				util.error(`新版本${versionInfo.version}下载失败`);
+				downloadBtn.val("重新下载");
 				action = "download";
 
 				emitor.trigger("update", "download", false);

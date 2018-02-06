@@ -3077,7 +3077,7 @@ define(function() {
 			"type": "comment-input",
 			"placeholder": "输入你的注释"
 		}],
-		"code": "// {COMMENT}",
+		"code": "// {COMMENT}\n",
 		"tags": ["code"],
 		"uid": "iKZF8b"
 	}, {
