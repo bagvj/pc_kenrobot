@@ -2248,7 +2248,7 @@
 		}, {
 			"name": "sa",
 			"anchor": [0.5, 1],
-			"tags": ["init"],
+			"tags": ["digital"],
 			"spec": ["name", "3"],
 			"label": "sa",
 			"shape": "Dot",
@@ -2257,7 +2257,7 @@
 		}, {
 			"name": "sb",
 			"anchor": [0.75, 1],
-			"tags": ["init"],
+			"tags": ["digital"],
 			"spec": ["name", "2"],
 			"label": "sb",
 			"shape": "Dot",
