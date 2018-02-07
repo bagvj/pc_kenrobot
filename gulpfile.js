@@ -266,6 +266,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		ext: ext,
 		appBit: arch == "ia32" ? 32 : 64,
 		date: parseInt(new Date().getTime() / 1000),
+		expire: args.expire
 	})
 	nconf.save()
 

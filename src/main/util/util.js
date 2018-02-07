@@ -112,6 +112,41 @@ function getAppPath(name, extra) {
 	}
 }
 
+function getExpire() {
+	return is.dev() ? false : PACKAGE.buildInfo.expire
+}
+
+function formatDate(date, format) {
+	if (typeof date === "number") {
+		date = new Date(date)
+	} else if(!date) {
+		date = new Date()
+	}
+	var o = {
+		"M+": date.getMonth() + 1,
+		"d+": date.getDate(),
+		"h+": date.getHours() % 12 == 0 ? 12 : date.getHours() % 12,
+		"H+": date.getHours(),
+		"m+": date.getMinutes(),
+		"s+": date.getSeconds(),
+		"q+": Math.floor((date.getMonth() + 3) / 3),
+		"S": date.getMilliseconds()
+	}
+	if (/(y+)/.test(format)) {
+		format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
+	}
+	if (/(E+)/.test(format)) {
+		var week = ["日", "一", "二", "三", "四", "五", "六"]
+		format = format.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "星期" : "周") : "") + week[date.getDay()])
+	}
+	for (var k in o) {
+		if (new RegExp("(" + k + ")").test(format)) {
+			format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)))
+		}
+	}
+	return format
+}
+
 function versionCompare(versionA, versionB) {
 	var reg = /(\d+)\.(\d+)\.(\d+)/
 	var matchA = reg.exec(versionA)
@@ -179,7 +214,7 @@ function callDefer(deferId, type, ...args) {
 	}
 
 	var callback
-	if(type == "notify") {
+	if(type === "notify") {
 		callback = deferred.notify
 	} else {
 		delete defers[deferId]
@@ -734,7 +769,9 @@ module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
 module.exports.getAppPath = getAppPath
+module.exports.getExpire = getExpire
 
+module.exports.formatDate = formatDate
 module.exports.versionCompare = versionCompare
 module.exports.postMessage = postMessage
 module.exports.listenMessage = listenMessage
