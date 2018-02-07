@@ -98,7 +98,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 		codeInfo = codeInfo || {};
 		var date = new Date();
 		var code = codeTemplate.replace(/\{\{name\}\}/, codeInfo.name || "我的项目")
-			.replace(/\{\{author\}\}/, codeInfo.author || "啃萝卜")
+			.replace(/\{\{author\}\}/, codeInfo.author || "KenRobot")
 			.replace(/\{\{created_at\}\}/, util.formatDate(codeInfo.created_at || date, "yyyy/MM/dd"))
 			.replace(/\{\{updated_at\}\}/, util.formatDate(codeInfo.updated_at || date, "yyyy/MM/dd"))
 			.replace(/\{\{global\}\}/, codeInfo.global ? "\n" + codeInfo.global + "\n" : "")

@@ -391,7 +391,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 		var projectInfo = getCurrentProject();
 		codeInfo.name = projectInfo.project_name;
-		codeInfo.author = "啃萝卜";
+		codeInfo.author = "KenRobot";
 		code.genCode(codeInfo);
 	}
 

@@ -29,7 +29,7 @@ define(function() {
 			text: "检查更新",
 			action: "check-update",
 		}, {
-			text: "啃萝卜官网",
+			text: "访问官网",
 			action: "visit-kenrobot",
 		}, {
 			text: "Arduino论坛",
@@ -38,7 +38,7 @@ define(function() {
 			text: "建议反馈",
 			action: "suggestion",
 		}, {
-			text: "关于啃萝卜",
+			text: "关于软件",
 			action: "about-kenrobot",
 		}]
 	}];

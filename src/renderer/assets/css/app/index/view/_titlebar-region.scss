@@ -32,10 +32,16 @@ $menu-height: 26px;
 		background-size: $logo-size;
 		margin-left: 11px;
 		margin-right: 6px;
+		display: none;
+
+		& + span {
+			display: none;
+		}
 	}
 
 	.project-path {
-		margin-left: 20px;
+		// margin-left: 20px;
+		margin-left: 12px;
 		font-size: 12px;
 		max-width: 500px;
 	}

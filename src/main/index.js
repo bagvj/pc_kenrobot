@@ -62,12 +62,12 @@ function init() {
 
 	initLog()
 
-	// var expire = util.getExpire()
-	// if(expire && expire < util.stamp()) {
-	// 	log.info(`app ${app.getName()} is expired, version ${util.getVersion()}, expire ${util.formatDate(expire, "yyyy/MM/dd")}`)
-	// 	dialog.showErrorBox("软件已过期", "软件已过期")
-	// 	app.exit(1)
-	// }
+	var expire = util.getExpire()
+	if(expire && expire < util.stamp()) {
+		log.info(`app ${app.getName()} is expired, version ${util.getVersion()}, expire ${util.formatDate(expire, "yyyy/MM/dd")}`)
+		dialog.showErrorBox("软件已过期", "软件已过期")
+		app.exit(1)
+	}
 
 	cache = new Cache(CONFIG_KEY)
 	config = cache.getItem(CONFIG_KEY, {})
