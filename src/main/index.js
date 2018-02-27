@@ -38,6 +38,10 @@ const optionDefinitions = [
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
+const DEBUG = is.dev() && args.dev
+// const DEBUG = true
+const DEV = is.dev()
+
 var cache
 var config
 
@@ -102,9 +106,9 @@ function init() {
 }
 
 function initLog() {
-	if(is.dev() && args.dev) {
+	if(DEBUG) {
 		log.transports.console.level = "debug"
-		log.transports.file = false
+		log.transports.file.level = "debug"
 	} else {
 		//非debug模式，禁用控制台输出
 		log.transports.console = false
@@ -141,6 +145,7 @@ function listenMessages() {
 	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
+	listenMessage("searchFiles", pattern => util.searchFiles(pattern))
 	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
 	listenMessage("writeJson", (filePath, data, options, sync) => util.writeJson(filePath, data, options, sync))
 	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
@@ -202,7 +207,7 @@ function listenMessages() {
 	listenMessage("projectSync", () => Project.sync())
 	listenMessage("projectList", () => Project.list())
 
-	if(is.dev()) {
+	if(DEV) {
 		listenMessage("projectCreate", name => Project.create(name))
 		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
 		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
@@ -224,7 +229,7 @@ function listenMessages() {
 function onAppReady() {
 	log.debug('app ready')
 
-	is.dev() && args.devTool && debug({showDevTools: true})
+	DEBUG && debug({enabled: true, showDevTools: true})
 	args.project && (projectToLoad = args.project)
 
 	createWindow()
@@ -311,7 +316,7 @@ function onAppErrorReport(message, type) {
 }
 
 function checkIfFirstRun() {
-	if(is.dev() || config.version == util.getVersion()) {
+	if(DEV || config.version == util.getVersion()) {
 		return
 	}
 
@@ -322,7 +327,7 @@ function checkIfFirstRun() {
 }
 
 function doReports() {
-	if(!is.dev() && !config.reportInstall) {
+	if(!DEV && !config.reportInstall) {
 		//安装report
 		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
@@ -458,10 +463,10 @@ function removeOldVersions(newVersion) {
  */
 function unzipPackages(skip) {
 	var deferred = Q.defer()
-	skip = skip !== false ? false : is.dev()
+	skip = skip !== false ? false : DEV
 
 	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
-		if(is.dev()) {
+		if(DEV) {
 			deferred.resolve()
 			return
 		}
