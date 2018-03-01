@@ -739,8 +739,7 @@ function installDriver() {
 	log.debug(`install driver: ${bit}`)
 
 	var driverPath = path.join(util.getAppPath("driver"), bit, "setup.exe")
-	var command = is.windows() ? `start /WAIT ${driverPath}` : `${driverPath}`
-	util.execCommand(command, {}, !DEV).then(() => {
+	util.execCommand(`start /WAIT "${driverPath}"`, {}, !DEV).then(() => {
 		deferred.resolve()
 	}, () => {
 		deferred.reject()
@@ -762,7 +761,7 @@ function repairDriver() {
 	log.debug(`repair driver`)
 
 	var scriptPath = path.join(util.getAppPath("driver"), "repair", "repair.bat")
-	util.execCommand(scriptPath, {}, !DEV).then(() => {
+	util.execCommand(`"${scriptPath}"`, {}, !DEV).then(() => {
 		deferred.resolve()
 	}, () => {
 		deferred.reject()
