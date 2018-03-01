@@ -286,6 +286,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		]
 
 		packageNames.length > 0 && extraFiles.push(`./data/packages/@(${packageNames.join('|')})*${platform}.7z`)
+		platform === "win" && extraFiles.push("./data/driver/**/*")
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = () => {
@@ -402,6 +403,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		]
 
 		packageNames.length > 0 && extraFiles.push(`data/packages/@(${packageNames.join('|')})*${platform}.7z`)
+		platform === "win" && extraFiles.push("./data/driver/**/*")
 
 		builder.build({
 			targets: targets,

@@ -29,6 +29,7 @@
     "node-fetch": "^2.0.0",
     "q": "^1.5.1",
     "serialport": "^6.1.1",
-    "sudo-prompt": "^8.1.0"
+    "sudo-prompt": "^8.1.0",
+    "terminate": "^2.1.0"
   }
 }

@@ -99,6 +99,8 @@ function getAppPath(name, extra) {
 			return path.join(app.getPath("documents"), app.getName())
 		case "script":
 			return path.join(getAppPath("appResource"), "scripts", `${extra}.${is.windows() ? "bat" : "sh"}`)
+		case "driver":
+			return path.join(getAppPath("appResource"), "driver")
 		case "command":
 			return path.join(getAppPath("appData"), "temp", `${uuid(6)}`)
 		case "libraries":
@@ -329,21 +331,10 @@ function rejectPromise(result, deferred) {
  * 执行可执行文件
  * @param {*} driverPath
  */
-function execFile(exePath) {
-	var deferred = Q.defer()
-
+function execFile(exePath, sudo) {
 	log.debug(`execFile: ${exePath}`)
-	var command
-	if(is.windows()) {
-		command = `start /WAIT ${exePath}`
-	} else {
-		command = `${exePath}`
-	}
-	execCommand(command, null, true).fin(() => {
-		deferred.resolve()
-	})
-
-	return deferred.promise
+	var command = is.windows() ? `start /WAIT ${exePath}` : `${exePath}`
+	return execCommand(command, null, sudo)
 }
 
 /**

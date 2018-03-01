@@ -93,8 +93,8 @@ define(function() {
 		id: "help",
 		placeholder: "帮助",
 		menu: [{
-			text: "Arduino驱动下载",
-			action: "download-arduino-driver",
+			text: "修复Arduino驱动",
+			action: "repair-arduino-driver",
 		}, "_", {
 			text: "检查更新",
 			action: "check-update",

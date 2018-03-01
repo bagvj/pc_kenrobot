@@ -140,30 +140,24 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			case "switch":
 				onSwitch(extra.type);
 				break;
-			case "download-arduino-driver":
+			case "repair-arduino-driver":
 				var info = kenrobot.appInfo;
 				if (info.platform != "win") {
 					util.message("您的系统是" + info.platform + ", 不需要安装驱动");
 					return;
 				}
-				var bit = info.bit == 64 ? "64" : "86";
-				var checksum = config.arduinoDriver.checksum[bit]
-				kenrobot.postMessage("app:download", config.url.arduinoDriver.replace("{BIT}", bit), {checksum: checksum}).then(result => {
-					util.confirm({
-						text: "驱动下载成功，是否安装?",
-						onConfirm: () => {
-							kenrobot.postMessage("app:installDriver", result.path).then(() => {
-								util.message("驱动安装成功");
-							}, err => {
-								util.message({
-									text: "驱动安装失败",
-									type: "error"
-								});
-							});
-						}
+				kenrobot.postMessage("app:installDriver").then(() => {
+					util.message("修复成功");
+				}, () => {
+					kenrobot.postMessage("app:repairDriver").then(() => {
+						kenrobot.postMessage("app:installDriver").then(() => {
+							util.message("修复成功");
+						}, () => {
+							util.message("修复失败");
+						});
+					}, () => {
+						util.message("修复失败");
 					});
-				}, err => {
-					util.message("驱动下载失败");
 				});
 				break;
 			case "check-update":

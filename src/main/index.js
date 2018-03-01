@@ -11,6 +11,7 @@ const fs = require('fs-extra')
 const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
+const terminate = require('terminate')
 
 const util = require('./util/util')
 const SerialPort = require('./model/serialPort') //串口
@@ -51,6 +52,7 @@ var projectToLoad
 var isLoadReady
 
 var downloadTasks = {}
+var forceQuit
 
 init()
 
@@ -166,9 +168,10 @@ function listenMessages() {
 
 	listenMessage("download", (url, options) => download(url, options))
 	listenMessage("cancelDownload", taskId => cancelDownload(taskId))
-	listenMessage("installDriver", driverPath => installDriver(driverPath))
 	listenMessage("loadExamples", () => Package.loadExamples())
 	listenMessage("openExample", examplePath => openExample(examplePath))
+	listenMessage("installDriver", () => installDriver())
+	listenMessage("repairDriver", () => repairDriver())
 
 	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
 	listenMessage("deletePackage", name => Package.remove(name))
@@ -217,7 +220,7 @@ function listenMessages() {
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", () => app.quit())
-	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
+	listenMessage("exit", () => (forceQuit = true) && onAppWillQuit() && terminate(process.pid))
 	listenMessage("reload", () => mainWindow.reload())
 	listenMessage("relaunch", () => onAppRelaunch())
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
@@ -288,13 +291,16 @@ function onAppOpenFile(e, filePath) {
 }
 
 function onAppBeforeQuit(e) {
-	e.preventDefault()
-	util.postMessage("app:onBeforeQuit")
+	if(!forceQuit) {
+		e.preventDefault()
+		util.postMessage("app:onBeforeQuit")
+	}
 }
 
 function onAppWillQuit(e) {
 	SerialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
+
 	return true
 }
 
@@ -719,21 +725,47 @@ function cancelDownload(taskId) {
 
 /**
  * 安装驱动
- * @param {*} driverPath
  */
-function installDriver(driverPath) {
+function installDriver() {
 	var deferred = Q.defer()
 
-	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.join(util.getAppPath("appData"), "temp")
-	util.uncompress(driverPath, dir).then(() => {
-		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
-		util.execFile(exePath).then(() => {
-			deferred.resolve()
-		})
-	}, err => {
-		err && log.info(err)
-		deferred.reject(err)
+	if(!is.windows()) {
+		return util.rejectPromise(null, deferred)
+	}
+
+	var appInfo = util.getAppInfo()
+	var bit = appInfo.bit === 64 ? "x64" : "x86"
+
+	log.debug(`install driver: ${bit}`)
+
+	var driverPath = path.join(util.getAppPath("driver"), bit, "setup.exe")
+	var command = is.windows() ? `start /WAIT ${driverPath}` : `${driverPath}`
+	util.execCommand(command, {}, !DEV).then(() => {
+		deferred.resolve()
+	}, () => {
+		deferred.reject()
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 修复驱动
+ */
+function repairDriver() {
+	var deferred = Q.defer()
+
+	if(!is.windows()) {
+		return util.rejectPromise(null, deferred)
+	}
+
+	log.debug(`repair driver`)
+
+	var scriptPath = path.join(util.getAppPath("driver"), "repair", "repair.bat")
+	util.execCommand(scriptPath, {}, !DEV).then(() => {
+		deferred.resolve()
+	}, () => {
+		deferred.reject()
 	})
 
 	return deferred.promise
