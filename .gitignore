@@ -5,6 +5,7 @@ log
 .sass-cache
 *.DS_Store
 .temp
+package-lock.json
 build/upload.json
 /data/packages/packages.json
 /data/packages/*.7z

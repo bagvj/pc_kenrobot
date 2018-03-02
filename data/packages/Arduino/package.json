@@ -4284,7 +4284,7 @@
 	}, {
 		"uid": "qOsqIB",
 		"name": "stepper",
-		"label": "步进电机(ULN2003)",
+		"label": "ULN2003驱动板",
 		"type": "stepper",
 		"category": "action",
 		"boards": ["Arduino"],
@@ -4466,7 +4466,7 @@
 			"module": "stepper",
 			"uid": "FxxZ9P"
 		}],
-		"imageUrl": "assets/image/components/stepper.svg"
+		"imageUrl": "assets/image/components/uln2003.svg"
 	}, {
 		"uid": "wiWnL4",
 		"name": "servo",

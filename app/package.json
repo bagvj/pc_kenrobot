@@ -3,7 +3,7 @@
   "main": "main/index.js",
   "name": "krobot",
   "productName": "KRobot",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "buildNumber": 45,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
@@ -14,8 +14,8 @@
   "copyright": "©2018 KenRobot",
   "homepage": "http://www.kenrobot.com",
   "dependencies": {
-    "7zip-bin": "^2.3.4",
-    "command-line-args": "^4.0.7",
+    "7zip-bin": "^3.1.0",
+    "command-line-args": "^5.0.2",
     "electron-debug": "^1.5.0",
     "electron-is": "^2.4.0",
     "electron-log": "^2.2.14",
@@ -25,10 +25,11 @@
     "hasha": "^3.0.0",
     "iconv-lite": "^0.4.19",
     "is-online": "^7.0.0",
-    "lodash": "^4.17.4",
-    "node-fetch": "^1.7.3",
+    "lodash": "^4.17.5",
+    "node-fetch": "^2.0.0",
     "q": "^1.5.1",
-    "serialport": "^6.0.4",
-    "sudo-prompt": "^8.0.0"
+    "serialport": "^6.1.1",
+    "sudo-prompt": "^8.1.0",
+    "terminate": "^2.1.0"
   }
 }
