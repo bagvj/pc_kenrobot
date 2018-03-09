@@ -719,11 +719,8 @@
 		"label": "Arduino Nano",
 		"name": "ArduinoNano",
 		"type": "nano",
-		"build": {
-			"fqbn": "arduino:avr:nano:cpu=atmega328"
-		},
 		"upload": {
-			"mcu": "atmega328"
+			"baudrate": "57600"
 		},
 		"tags": ["Arduino"],
 		"pins": [{
@@ -3380,7 +3377,8 @@
 			"rotate": false
 		}],
 		"code": {
-			"var": "int {NAME} = {s};"
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
 		},
 		"blocks": [{
 			"type": "output",
@@ -10840,7 +10838,7 @@
 		"name": "ps2x",
 		"label": "PS2手柄",
 		"type": "ps2x",
-		"category": "action",
+		"category": "sensor",
 		"boards": ["Arduino"],
 		"width": 72,
 		"height": 72,
