@@ -359,7 +359,7 @@ function execCommand(command, options, useSudo) {
 				log.info(err)
 				stdout && log.info(stdout)
 				stderr && log.info(stderr)
-				deferred.reject(stderr || stdout || err)
+				deferred.reject(err || stderr || stdout)
 				return
 			}
 
@@ -376,7 +376,7 @@ function execCommand(command, options, useSudo) {
 				log.info(err)
 				stdout && log.info(stdout)
 				stderr && log.info(stderr)
-				deferred.reject(stderr || stdout || err)
+				deferred.reject(err || stderr || stdout)
 				return
 			}
 

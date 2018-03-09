@@ -719,11 +719,8 @@
 		"label": "Arduino Nano",
 		"name": "ArduinoNano",
 		"type": "nano",
-		"build": {
-			"fqbn": "arduino:avr:nano:cpu=atmega328"
-		},
 		"upload": {
-			"mcu": "atmega328"
+			"baudrate": "57600"
 		},
 		"tags": ["Arduino"],
 		"pins": [{
@@ -747,7 +744,7 @@
 			"label": "11",
 			"shape": "Dot",
 			"radius": 4,
-			"value": "D11"
+			"value": "11"
 		}, {
 			"uid": "tBijHq",
 			"x": 0.235,
@@ -2796,7 +2793,8 @@
 		}],
 		"code": {
 			"include": "#include <Keypad.h>",
-			"var": "char hexaKeys[4][3] = {\n{'1','2','3'},\n{'4','5','6'},\n{'7','8','9'},\n{'*','0','#'}\n};\nbyte rowPins[4] = {{r1},{r2},{r3},{r4} };\nbyte colPins[3] = {{c1},{c2},{c3}};\nKeypad {NAME} = Keypad( makeKeymap(hexaKeys), rowPins, colPins, 4, 3);"
+			"const": "char Keypad_keys_43[4][3] = {\n    {'1', '2', '3'},\n    {'4', '5', '6'},\n    {'7', '8', '9'},\n    {'*', '0', '#'}\n};\n",
+			"var": "byte rowPins[4] = {{r1},{r2},{r3},{r4}};\nbyte colPins[3] = {{c1},{c2},{c3}};\nKeypad {NAME} = Keypad(makeKeymap(Keypad_keys_43), rowPins, colPins, 4, 3);"
 		},
 		"blocks": [{
 			"type": "output",
@@ -2894,7 +2892,8 @@
 		}],
 		"code": {
 			"include": "#include <Keypad.h>",
-			"var": "char hexaKeys[4][4] = {\n{'1','2','3','A'},\n{'4','5','6','B'},\n{'7','8','9','C'},\n{'*','0','#','D'}\n};\nbyte rowPins[4] = {{r1},{r2},{r3},{r4} };\nbyte colPins[4] = {{c1},{c2},{c3},{c4} };\nKeypad {NAME} = Keypad( makeKeymap(hexaKeys), rowPins, colPins, 4, 4);"
+			"const": "char Keypad_keys_44[4][4] = {\n    {'1', '2', '3', 'A'},\n    {'4', '5', '6', 'B'},\n    {'7', '8', '9', 'C'},\n    {'*', '0', '#', 'D'}\n};\n",
+			"var": "byte rowPins[4] = {{r1},{r2},{r3},{r4}};\nbyte colPins[4] = {{c1},{c2},{c3},{c4}};\nKeypad {NAME} = Keypad(makeKeymap(Keypad_keys_44), rowPins, colPins, 4, 4);"
 		},
 		"blocks": [{
 			"type": "output",
@@ -3380,7 +3379,8 @@
 			"rotate": false
 		}],
 		"code": {
-			"var": "int {NAME} = {s};"
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT);"
 		},
 		"blocks": [{
 			"type": "output",
@@ -10840,7 +10840,7 @@
 		"name": "ps2x",
 		"label": "PS2手柄",
 		"type": "ps2x",
-		"category": "action",
+		"category": "sensor",
 		"boards": ["Arduino"],
 		"width": 72,
 		"height": 72,
@@ -11430,7 +11430,7 @@
 					"value": "write"
 				}]
 			}],
-			"code": "while({SERIAL}.available() > 0) {{SERIAL}.{LN}({SERIAL}.read());}",
+			"code": "while({SERIAL}.available() > 0) {\n{SERIAL}.{LN}({SERIAL}.read());\n}",
 			"tags": ["module", "advanced"],
 			"module": "serial",
 			"uid": "jlHqUs"

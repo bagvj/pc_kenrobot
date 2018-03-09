@@ -105,14 +105,14 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 				break;
 			case "edit":
 				util.confirm({
-					text: "文本模式与图形模式不兼容，文本编程模式下暂时无法转换为图形代码。",
-					confirmLabel: "文本编程，我已了解后果",
+					text: "文本编程模式下所作出的更改，无法同步回图形模式。",
+					confirmLabel: "继续",
 					onConfirm: () => setMode("text")
 				});
 				break;
 			case "back":
 				util.confirm({
-					text: "放弃所有文本模式下的修改，返回图形模式？",
+					text: "返回图形模式将放弃此次在文本模式下的所有更改？",
 					onConfirm: () => setMode("block")
 				});
 				break;
