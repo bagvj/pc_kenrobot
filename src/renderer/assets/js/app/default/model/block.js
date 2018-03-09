@@ -677,7 +677,7 @@ define(function() {
 			found = false;
 			dragConnectors.forEach(function(dragConnectorUid) {
 				dragConnector = connectors[dragConnectorUid];
-				if ((dragConnector.data.type === dropConnector.data.accept) && itsOver(dragConnector.dom, dropConnector.dom, 10)) {
+				if ((dragConnector.data.type === dropConnector.data.accept) && itsOver(dragConnector.dom, dropConnector.dom, 2)) {
 					found = true;
 					uid = dragConnectorUid;
 					return true;

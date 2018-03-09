@@ -3,8 +3,8 @@
   "main": "main/index.js",
   "name": "krobot",
   "productName": "KRobot",
-  "version": "0.7.4",
-  "buildNumber": 45,
+  "version": "0.8.0",
+  "buildNumber": 50,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {

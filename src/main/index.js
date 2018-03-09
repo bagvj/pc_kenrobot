@@ -739,10 +739,10 @@ function installDriver() {
 	log.debug(`install driver: ${bit}`)
 
 	var driverPath = path.join(util.getAppPath("driver"), bit, "setup.exe")
-	util.execCommand(`start /WAIT "${driverPath}"`, {}, !DEV).then(() => {
+	util.execCommand(`"${driverPath}" /sw /c`, {}, !DEV).then(() => {
 		deferred.resolve()
-	}, () => {
-		deferred.reject()
+	}, err => {
+		(err && err.code !== undefined && (err.code % 256 === 0 || err.code === 1)) ? deferred.resolve() : deferred.reject((err && err.message) ? err.message : err)
 	})
 
 	return deferred.promise
