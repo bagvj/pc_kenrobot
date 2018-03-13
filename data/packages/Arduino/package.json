@@ -11330,7 +11330,7 @@
 				}]
 			}],
 			"code": "{SERIAL}.{LN}({DATA});",
-			"tags": ["always", "module"],
+			"tags": ["module"],
 			"module": "serial",
 			"uid": "p3UznJ"
 		}, {
@@ -11396,7 +11396,7 @@
 				}]
 			}],
 			"code": "{SERIAL}.{OP}({DATA}, {FORMAT});",
-			"tags": ["always", "module", "advanced"],
+			"tags": ["module", "advanced"],
 			"module": "serial",
 			"uid": "zLOiPK"
 		}, {
