@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], function($1, util, emitor) {
+define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor'], function($1, _, util, emitor) {
 	var dialogWin;
 	var portList;
 	var callback;
@@ -15,10 +15,14 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 		ports = args.ports;
 		callback = args.callback;
 
+		var groups = _.groupBy(ports, p => p.comName.indexOf("Arduino") >= 0 ? "Arduino" : "COM")
+		_.forEach(groups, (v, k) => (groups[k] = _.sortBy(v, "comName")));
+		ports = [].concat(groups.Arduino || []).concat(groups.COM || [])
+
 		reset();
 		var ul = $("> ul", portList);
 		var index = 0;
-		ports.forEach(function(port, i) {
+		ports.forEach((port, i) => {
 			if(args.selected && port.comName == args.selected) {
 				index = i;
 			}
@@ -41,7 +45,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 	function onConfirm() {
 		var comName = portList.data("value");
 		var port;
-		ports.forEach(function(p) {
+		ports.forEach(p => {
 			if(p.comName == comName) {
 				port = p;
 				return true;

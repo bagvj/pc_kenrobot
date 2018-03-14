@@ -201,7 +201,7 @@
 			"label": "1",
 			"value": "1"
 		}, {
-			"uid": "Zpi42g",
+			"uid": "wpzpwA",
 			"width": 10,
 			"height": 10,
 			"x": 0.926,
@@ -11682,7 +11682,7 @@
 			"name": "rxd",
 			"anchor": [0.33, 1],
 			"tags": ["digital", "analog-in"],
-			"label": "rxd",
+			"label": "RXD",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
@@ -11690,7 +11690,7 @@
 			"name": "txd",
 			"anchor": [0.67, 1],
 			"tags": ["digital", "analog-in"],
-			"label": "txd",
+			"label": "TXD",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
@@ -11713,7 +11713,7 @@
 			"name": "rxd",
 			"anchor": [0.33, 1],
 			"tags": ["digital", "analog-in"],
-			"label": "rxd",
+			"label": "RXD",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
@@ -11721,7 +11721,7 @@
 			"name": "txd",
 			"anchor": [0.67, 1],
 			"tags": ["digital", "analog-in"],
-			"label": "txd",
+			"label": "TXD",
 			"shape": "Dot",
 			"rotate": false,
 			"overlay": [0.5, -1]
