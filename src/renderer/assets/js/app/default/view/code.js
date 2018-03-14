@@ -17,6 +17,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 		emitor.on("code", "start-refresh", onStartRefresh)
 			.on('code', 'stop-refresh', onStopRefresh)
 			.on('code', 'toggle-comment', onToggleComment)
+			.on('code', 'undo', onUndo)
+			.on('code', 'redo', onRedo)
 			.on('app', 'will-leave', onAppWillLeave)
 			.on('app', 'start', onAppStart)
 			.on("ui", "lock", onUILock)
@@ -87,6 +89,22 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', '../m
 
 	function onStopRefresh() {
 		refreshTimerId && clearInterval(refreshTimerId);
+	}
+
+	function onUndo() {
+		if(mode !== "text") {
+			return;
+		}
+
+		codeModel.undo();
+	}
+
+	function onRedo() {
+		if(mode !== "text") {
+			return;
+		}
+
+		codeModel.redo();
 	}
 
 	function onAppStart() {

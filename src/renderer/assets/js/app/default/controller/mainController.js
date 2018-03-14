@@ -102,6 +102,12 @@ define(['vendor/jquery', 'vendor/mousetrap', 'vendor/lodash', 'app/common/util/u
 			case "open-example":
 				kenrobot.trigger("project", "open-example", extra);
 				break;
+			case "undo":
+				emitor.trigger('code', 'undo');
+				break;
+			case "redo":
+				emitor.trigger('code', 'redo');
+				break;
 		}
 	}
 

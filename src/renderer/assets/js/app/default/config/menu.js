@@ -41,6 +41,26 @@ define(function() {
 				key: ["ctrl+/", "command+/"],
 				text: "Ctrl+/",
 			}
+		}, {
+			text: "撤消",
+			action: "undo",
+			shortcut: {
+				key: ["ctrl+z", "command+z"],
+				text: "Ctrl+Z",
+			},
+			extra: {
+				condition: "text-mode"
+			}
+		}, {
+			text: "重做",
+			action: "redo",
+			shortcut: {
+				key: ["ctrl+y", "command+y"],
+				text: "Ctrl+Y",
+			},
+			extra: {
+				condition: "text-mode"
+			}
 		}, "_", {
 			text: "复制代码",
 			action: "copy",

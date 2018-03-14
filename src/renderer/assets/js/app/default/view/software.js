@@ -360,7 +360,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function onCodeChangeMode(mode) {
-		mode == "text" ? region.addClass("text-mode") : region.removeClass("text-mode");
+		if(mode == "text") {
+			region.addClass("text-mode");
+			dragContainer.removeClass("active");
+		} else {
+			region.removeClass("text-mode");
+			dragContainer.addClass("active");
+		}
+		kenrobot.trigger("app-menu", "conditionChange", "text-mode", mode);
 	}
 
 	function onBlockHoverOver(e) {
@@ -478,7 +485,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		if (name == "software") {
 			dragContainer.addClass("active");
 			emitor.trigger("software", "update-block").trigger("code", "refresh");
-
 		} else {
 			dragContainer.removeClass("active");
 		}
