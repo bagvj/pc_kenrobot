@@ -16,11 +16,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.on("user", "update", onUserUpdate);
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
-			.listenMessage("app:onBeforeQuit", onBeforeQuit)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
-			.listenMessage("app:onLoadProject", onLoadProject)
 			.on("util", "message", onUtilMessage, {canReset: false})
 			.on("shortcut", "register", onShortcutRegister, {canReset: false})
 			.on('build', 'error', onBuildError, {canReset: false})
@@ -254,19 +252,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		emitor.trigger("app", "fullscreenChange", fullscreen);
 	}
 
-	function onBeforeQuit() {
-		var doQuit = () => setTimeout(() => kenrobot.postMessage("app:exit"), 400);
-		util.confirm({
-			type: "skip",
-			confirmLabel: "是",
-			skipLabel: "否",
-			cancelLabel: "取消",
-			text: "是否保存对当前项目的更改?",
-			onSkip: doQuit,
-			onConfirm: () => kenrobot.trigger("project", "save", null, doQuit),
-		});
-	}
-
 	function onSerialPortData(portId, data) {
 		kenrobot.trigger("serialport", "data", portId, data);
 	}
@@ -277,20 +262,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onSerialPortClose(portId) {
 		kenrobot.trigger("serialport", "close", portId);
-	}
-
-	function onLoadProject(result) {
-		var doLoad = () => kenrobot.trigger("project", "load", result);
-
-		util.confirm({
-			type: "skip",
-			confirmLabel: "是",
-			skipLabel: "否",
-			cancelLabel: "取消",
-			text: "是否保存对当前项目的更改?",
-			onSkip: () => doLoad(),
-			onConfirm: () => kenrobot.trigger("project", "save", null, doLoad),
-		});
 	}
 
 	function onBuildError(message, err) {

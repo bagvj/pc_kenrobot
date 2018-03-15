@@ -19,7 +19,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 		kenrobot.on("project", "open", onProjectOpen)
 			.on('project', 'open-example', onProjectOpenExample)
 			.on("project", "save", onProjectSave)
-			.on("project", "load", onProjectLoad);
+			.on("project", "load", onProjectLoad)
+			.listenMessage("app:onLoadProject", onLoadProject)
+			.listenMessage("app:onBeforeQuit", onBeforeQuit);
 	}
 
 	function onAppStart() {
@@ -29,6 +31,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 
 			loadOpenOrRecentProject();
 		});
+	}
+
+	function onBeforeQuit() {
+		askSaveProject(() => kenrobot.postMessage("app:exit"));
 	}
 
 	function loadPackages() {
@@ -100,6 +106,12 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 			text: message || "打开成功",
 			type: "success"
 		});
+
+		currentProject.project_data = getProjectData();
+	}
+
+	function onLoadProject(result) {
+		askSaveProject(() => onProjectLoad(result));
 	}
 
 	function onProjectLoad(result) {
@@ -107,21 +119,11 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 	}
 
 	function onProjectNew() {
-		var doProjectNew = () => doLoadProject(null, getDefaultProject(), "新建成功");
-
-		util.confirm({
-			type: "skip",
-			confirmLabel: "是",
-			skipLabel: "否",
-			cancelLabel: "取消",
-			text: "是否保存对当前项目的更改?",
-			onSkip: () => doProjectNew(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectNew, 400))
-		});
+		askSaveProject(() => doLoadProject(null, getDefaultProject(), "新建成功"));
 	}
 
 	function onProjectOpen(name, callback) {
-		var doProjectOpen = () => {
+		askSaveProject(() => {
 			kenrobot.postMessage("app:projectOpen", name).then(result => {
 				onProjectLoad(result);
 				callback();
@@ -131,34 +133,14 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 					type: "error",
 				});
 			});
-		}
-
-		util.confirm({
-			type: "skip",
-			confirmLabel: "是",
-			skipLabel: "否",
-			cancelLabel: "取消",
-			text: "是否保存对当前项目的更改?",
-			onSkip: () => doProjectOpen(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectOpen, 400))
 		});
 	}
 
 	function onProjectOpenExample(extra) {
-		var doOpenExample = () => {
+		askSaveProject(() => {
 			kenrobot.postMessage("app:openExample", extra.path).then(onProjectLoad, () => {
 				util.message("打开失败");
 			});
-		}
-
-		util.confirm({
-			type: "skip",
-			confirmLabel: "是",
-			skipLabel: "否",
-			cancelLabel: "取消",
-			text: "是否保存对当前项目的更改?",
-			onSkip: () => doOpenExample(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doOpenExample, 400))
 		});
 	}
 
@@ -461,6 +443,26 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/ut
 			created_at: now,
 			updated_at: now,
 		};
+	}
+
+	function isProjectChange() {
+		return !_.isEqual(currentProject.project_data, getProjectData());
+	}
+
+	function askSaveProject(callback, delay) {
+		if(isProjectChange()) {
+			util.confirm({
+				type: "skip",
+				confirmLabel: "是",
+				skipLabel: "否",
+				cancelLabel: "取消",
+				text: "是否保存对当前项目的更改?",
+				onSkip: () => callback(),
+				onConfirm: () => onProjectSave().then(() => setTimeout(callback, delay || 400))
+			});
+		} else {
+			callback();
+		}
 	}
 
 	return {
