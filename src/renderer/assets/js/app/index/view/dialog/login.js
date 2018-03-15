@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config'], function($1, util, emitor, config) {
+define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], function($1, util, emitor) {
 	var dialogWin;
 	var tabs;
 

@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/mousetrap', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, Mousetrap, _, util, emitor, config, menu) {
+define(['vendor/jquery', 'vendor/mousetrap', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', '../config/menu'], function($1, Mousetrap, _, util, emitor, menu) {
 	function init() {
 		$(window).on('contextmenu', onContextMenu).on('click', onWindowClick).on('resize', onWindowResize);
 

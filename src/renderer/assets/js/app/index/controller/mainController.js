@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, pace, Mousetrap, util, emitor, config, menu) {
+define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', '../config/menu'], function($1, pace, Mousetrap, util, emitor, menu) {
 
 	var iframe;
 	var mousetrap;
@@ -167,19 +167,19 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				onCheckPackageLibraryUpdate();
 				break;
 			case "visit-kenrobot":
-				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
+				kenrobot.postMessage("app:openUrl", "https://www.kenrobot.com");
 				break;
 			case "visit-arduino":
-				kenrobot.postMessage("app:openUrl", config.url.arduino);
+				kenrobot.postMessage("app:openUrl", "http://www.arduino.cn");
 				break;
 			case "suggestion":
-				kenrobot.postMessage("app:openUrl", config.url.support);
+				kenrobot.postMessage("app:openUrl", "http://www.arduino.cn/forum-101-1.html");
 				break;
 			case "about-kenrobot":
 				var info = kenrobot.appInfo;
 				kenrobot.trigger("about", "show", {
 					version: info.version,
-					url: config.url.kenrobot,
+					url: "https://www.kenrobot.com",
 					date: info.date,
 					platform: info.platform,
 					appBit: info.appBit,
@@ -255,12 +255,15 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onBeforeQuit() {
+		var doQuit = () => setTimeout(() => kenrobot.postMessage("app:exit"), 400);
 		util.confirm({
-			text: "保存项目后再退出？",
-			cancelLabel: "直接退出",
-			confirmLabel: "保存后退出",
-			onCancel: value => !value && setTimeout(() => kenrobot.postMessage("app:exit"), 400),
-			onConfirm: () => kenrobot.trigger("project", "save", null, true),
+			type: "skip",
+			confirmLabel: "是",
+			skipLabel: "否",
+			cancelLabel: "取消",
+			text: "是否保存对当前项目的更改?",
+			onSkip: doQuit,
+			onConfirm: () => kenrobot.trigger("project", "save", null, doQuit),
 		});
 	}
 
@@ -277,7 +280,17 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 	}
 
 	function onLoadProject(result) {
-		kenrobot.trigger("project", "load", result);
+		var doLoad = () => kenrobot.trigger("project", "load", result);
+
+		util.confirm({
+			type: "skip",
+			confirmLabel: "是",
+			skipLabel: "否",
+			cancelLabel: "取消",
+			text: "是否保存对当前项目的更改?",
+			onSkip: () => doLoad(),
+			onConfirm: () => kenrobot.trigger("project", "save", null, doLoad),
+		});
 	}
 
 	function onBuildError(message, err) {

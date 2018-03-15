@@ -67,27 +67,29 @@ define(['vendor/jquery'], function() {
 	}
 
 	var confirmConfig = {
-		titles: {
-			"confirm": "提示",
-			"warning": "提示",
-		},
-		template: '<div class="x-confirm {type}"><i class="x-confirm-close kenrobot ken-close"></i><div class="x-confirm-title">{title}</div><div class="x-confirm-content">{text}</div><div class="x-confirm-btns clearfix"><input class="confirm" type="button" value="{confirmLabel}" /><input class="cancel" type="button" value="{cancelLabel}" /></div></div>',
-		cancelLabel: "取消",
+		title: "提示",
+		template: '<div class="x-confirm confirm-{type}"><i class="x-confirm-close kenrobot ken-close"></i><div class="x-confirm-title">{title}</div><div class="x-confirm-content">{text}</div><div class="x-confirm-btns clearfix"><input class="confirm" type="button" value="{confirmLabel}" /><input class="skip" type="button" value="{skipLabel}" /><input class="cancel" type="button" value="{cancelLabel}" /></div></div>',
 		confirmLabel: "确认",
+		skipLabel: "跳过",
+		cancelLabel: "取消",
 	}
 
 	function confirm(args) {
 		args = typeof args == "string" ? {text: args} : args;
 
 		var text = args.text;
-		var type = args.type || "confirm";
-		var title = args.title || confirmConfig.titles[type];
-		var cancelLabel = args.cancelLabel || confirmConfig.cancelLabel;
-		var confirmLabel = args.confirmLabel || confirmConfig.confirmLabel;
-		var onCancel = args.onCancel;
-		var onConfirm = args.onConfirm;
+		var type = args.type || "normal";
+		var title = args.title || confirmConfig.title;
 
-		var html = confirmConfig.template.replace(/\{type\}/g, type).replace(/\{title\}/g, title).replace(/\{text\}/, text).replace(/\{cancelLabel\}/, cancelLabel).replace(/\{confirmLabel\}/, confirmLabel);
+		var confirmLabel = args.confirmLabel || confirmConfig.confirmLabel;
+		var skipLabel = args.skipLabel || confirmConfig.skipLabel;
+		var cancelLabel = args.cancelLabel || confirmConfig.cancelLabel;
+
+		var onConfirm = args.onConfirm;
+		var onSkip = args.onSkip;
+		var onCancel = args.onCancel;
+
+		var html = confirmConfig.template.replace(/\{type\}/g, type).replace(/\{title\}/g, title).replace(/\{text\}/, text).replace(/\{confirmLabel\}/, confirmLabel).replace(/\{skipLabel\}/, skipLabel).replace(/\{cancelLabel\}/, cancelLabel);
 
 		var dialogLayer = $('.dialog-layer', top.document).addClass("active");
 		var confirmDiv = $(html).appendTo(dialogLayer);
@@ -113,6 +115,10 @@ define(['vendor/jquery'], function() {
 
 		$('.x-confirm-btns .confirm', confirmDiv).on('click', function() {
 			doClose(onConfirm);
+		});
+
+		$('.x-confirm-btns .skip', confirmDiv).on('click', function() {
+			doClose(onSkip);
 		});
 
 		mask(confirmDiv, true);

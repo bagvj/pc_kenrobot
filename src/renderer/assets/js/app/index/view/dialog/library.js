@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/common/util/util', 'app/common/config/config'], function($1, _, $2, util, config) {
+define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/common/util/util'], function($1, _, $2, util) {
 	var dialogWin;
 	var types;
 	var categories;
@@ -283,9 +283,9 @@ define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/commo
 					setTimeout(() => {
 						item.find(".versions > ul > li:eq(0)").trigger("click");
 					}, 10);
-					util.message("删除${libName}成功");
+					util.message(`删除“${libName}”成功`);
 				}, err => {
-					util.message(`删除${libName}失败`);
+					util.message(`删除“${libName}”失败`);
 				});
 			}
 		});

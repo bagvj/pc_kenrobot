@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util', 'app/common/config/config'], function($1, emitor, util, config) {
+define(['vendor/jquery', 'app/common/util/emitor', 'app/common/util/util'], function($1, emitor, util) {
 	var region;
 	var appMenu;
 
