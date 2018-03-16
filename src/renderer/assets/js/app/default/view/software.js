@@ -423,11 +423,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function onAppResize(e) {
-		toggleToolButton(topRegion.width() < 580);
+		toggleToolButton();
 	}
 
 	function toggleToolButton(value) {
-		if (value) {
+		console.log(`width: ${topRegion.width()}`);
+		if (value === true || topRegion.width() < 580) {
 			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
 			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
@@ -463,12 +464,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			codeRegion.removeClass("slide-in").addClass("slide-out").delay(200, "slide-out").queue("slide-out", function() {
 				codeRegion.removeClass("active").removeClass("slide-out");
 			});
+			setTimeout(toggleToolButton, 200);
 			codeRegion.dequeue("slide-out");
-			toggleToolButton(false);
 			topRegion.find(".tool-button.show-code").prop("title", "显示源码");
 		} else {
+			setTimeout(toggleToolButton, 200);
 			codeRegion.addClass("active").addClass("slide-in");
-			toggleToolButton(true);
 			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码");
 		}
 	}
