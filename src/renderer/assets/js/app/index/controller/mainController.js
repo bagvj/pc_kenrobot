@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', 'app/common/config/config', '../config/menu'], function($1, pace, Mousetrap, util, emitor, config, menu) {
+define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/util', 'app/common/util/emitor', '../config/menu'], function($1, pace, Mousetrap, util, emitor, menu) {
 
 	var iframe;
 	var mousetrap;
@@ -16,11 +16,9 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 			.on("user", "update", onUserUpdate);
 
 		kenrobot.listenMessage("app:onFullscreenChange", onFullscreenChange)
-			.listenMessage("app:onBeforeQuit", onBeforeQuit)
 			.listenMessage("app:onSerialPortData", onSerialPortData)
 			.listenMessage("app:onSerialPortError", onSerialPortError)
 			.listenMessage("app:onSerialPortClose", onSerialPortClose)
-			.listenMessage("app:onLoadProject", onLoadProject)
 			.on("util", "message", onUtilMessage, {canReset: false})
 			.on("shortcut", "register", onShortcutRegister, {canReset: false})
 			.on('build', 'error', onBuildError, {canReset: false})
@@ -167,19 +165,19 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 				onCheckPackageLibraryUpdate();
 				break;
 			case "visit-kenrobot":
-				kenrobot.postMessage("app:openUrl", config.url.kenrobot);
+				kenrobot.postMessage("app:openUrl", "https://www.kenrobot.com");
 				break;
 			case "visit-arduino":
-				kenrobot.postMessage("app:openUrl", config.url.arduino);
+				kenrobot.postMessage("app:openUrl", "http://www.arduino.cn");
 				break;
 			case "suggestion":
-				kenrobot.postMessage("app:openUrl", config.url.support);
+				kenrobot.postMessage("app:openUrl", "http://www.arduino.cn/forum-101-1.html");
 				break;
 			case "about-kenrobot":
 				var info = kenrobot.appInfo;
 				kenrobot.trigger("about", "show", {
 					version: info.version,
-					url: config.url.kenrobot,
+					url: "https://www.kenrobot.com",
 					date: info.date,
 					platform: info.platform,
 					appBit: info.appBit,
@@ -254,16 +252,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 		emitor.trigger("app", "fullscreenChange", fullscreen);
 	}
 
-	function onBeforeQuit() {
-		util.confirm({
-			text: "保存项目后再退出？",
-			cancelLabel: "直接退出",
-			confirmLabel: "保存后退出",
-			onCancel: value => !value && setTimeout(() => kenrobot.postMessage("app:exit"), 400),
-			onConfirm: () => kenrobot.trigger("project", "save", null, true),
-		});
-	}
-
 	function onSerialPortData(portId, data) {
 		kenrobot.trigger("serialport", "data", portId, data);
 	}
@@ -274,10 +262,6 @@ define(['vendor/jquery', 'vendor/pace', 'vendor/mousetrap', 'app/common/util/uti
 
 	function onSerialPortClose(portId) {
 		kenrobot.trigger("serialport", "close", portId);
-	}
-
-	function onLoadProject(result) {
-		kenrobot.trigger("project", "load", result);
 	}
 
 	function onBuildError(message, err) {

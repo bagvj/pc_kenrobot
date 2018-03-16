@@ -129,6 +129,14 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 		editor.execCommand("togglecomment");
 	}
 
+	function undo() {
+		editor.execCommand("undo");
+	}
+
+	function redo() {
+		editor.execCommand("redo");
+	}
+
 	function getCopyText() {
 		return editor.getCopyText() || getData();
 	}
@@ -156,5 +164,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 
 		setMode: setMode,
 		toggleComment: toggleComment,
+		redo: redo,
+		undo: undo,
 	}
 });

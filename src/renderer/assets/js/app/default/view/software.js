@@ -360,7 +360,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function onCodeChangeMode(mode) {
-		mode == "text" ? region.addClass("text-mode") : region.removeClass("text-mode");
+		if(mode == "text") {
+			region.addClass("text-mode");
+			dragContainer.removeClass("active");
+		} else {
+			region.removeClass("text-mode");
+			dragContainer.addClass("active");
+		}
+		kenrobot.trigger("app-menu", "conditionChange", "text-mode", mode);
 	}
 
 	function onBlockHoverOver(e) {
@@ -416,11 +423,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function onAppResize(e) {
-		toggleToolButton(topRegion.width() < 580);
+		toggleToolButton();
 	}
 
 	function toggleToolButton(value) {
-		if (value) {
+		console.log(`width: ${topRegion.width()}`);
+		if (value === true || topRegion.width() < 580) {
 			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
 			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
@@ -456,12 +464,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			codeRegion.removeClass("slide-in").addClass("slide-out").delay(200, "slide-out").queue("slide-out", function() {
 				codeRegion.removeClass("active").removeClass("slide-out");
 			});
+			setTimeout(toggleToolButton, 200);
 			codeRegion.dequeue("slide-out");
-			toggleToolButton(false);
 			topRegion.find(".tool-button.show-code").prop("title", "显示源码");
 		} else {
+			setTimeout(toggleToolButton, 200);
 			codeRegion.addClass("active").addClass("slide-in");
-			toggleToolButton(true);
 			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码");
 		}
 	}
@@ -478,7 +486,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		if (name == "software") {
 			dragContainer.addClass("active");
 			emitor.trigger("software", "update-block").trigger("code", "refresh");
-
 		} else {
 			dragContainer.removeClass("active");
 		}
@@ -563,7 +570,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && filters.indexOf("always") < 0 && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
 				return;
 			}
 
@@ -605,7 +612,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				return;
 			}
 
-			if (filter == "module" && filters.indexOf("always") < 0 && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
+			if (filter == "module" && modules.indexOf(blockLi.data("module")) < 0 && modules.indexOf(blockLi.data("board")) < 0) {
 				//block是模块，但没有相应硬件
 				return;
 			}

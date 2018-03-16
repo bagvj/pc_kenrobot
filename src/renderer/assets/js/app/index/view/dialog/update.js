@@ -5,6 +5,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 	var action;
 	var versionPath;
 	var taskId;
+	var userCancel;
 
 	function init() {
 		dialogWin = $('.update-dialog').on("click", ".thanks", onThanksClick).on("click", ".download", onDownloadClick);
@@ -90,6 +91,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			dialogWin.addClass("x-into-background");
 
 			kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
+				taskId = null;
+				userCancel = false;
 				versionPath = result.path;
 
 				kenrobot.postMessage("app:removeOldVersions", versionInfo.version).fin(() => {
@@ -112,9 +115,11 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 				emitor.trigger("update", "download", true);
 			}, err => {
 				enableHoverCancel(false);
-				util.error(`新版本${versionInfo.version}下载失败`);
+				!userCancel && util.error(`新版本${versionInfo.version}下载失败`);
 				downloadBtn.val("重新下载");
 				action = "download";
+				taskId = null;
+				userCancel = false;
 
 				emitor.trigger("update", "download", false);
 			}, progress => {
@@ -147,6 +152,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			taskId && kenrobot.postMessage("app:cancelDownload", taskId);
 			taskId = null;
 			util.message("取消成功");
+			userCancel = true;
 		}
 	}
 
