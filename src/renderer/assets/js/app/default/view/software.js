@@ -427,7 +427,6 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function toggleToolButton(value) {
-		console.log(`width: ${topRegion.width()}`);
 		if (value === true || topRegion.width() < 580) {
 			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
