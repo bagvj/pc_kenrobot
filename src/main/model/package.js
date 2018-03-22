@@ -45,26 +45,25 @@ function unzipAll(packages, skip, firstRun) {
 				return
 			}
 
-			var p = list.pop()
-			util.uncompress(path.join(packagesPath, p.archiveName), util.getAppPath("packages"), true).then(() => {
-				var index = packages.findIndex(o => o.name == p.name)
+			var pkg = list.pop()
+			unzip(pkg.name, path.join(packagesPath, pkg.archiveName)).then(() => {
+				var index = packages.findIndex(p => p.name == pkg.name)
 				if(index >= 0) {
-					packages.splice(index, 1, p)
+					packages.splice(index, 1, pkg)
 				} else {
-					packages.push(p)
+					packages.push(pkg)
 				}
 			}, err => {
 
 			}, progress => {
 				deferred.notify({
 					progress: progress,
-					name: p.name,
-					version: p.version,
+					name: pkg.name,
+					version: pkg.version,
 					count: total - list.length,
 					total: total,
 				})
-			})
-			.fin(() => doUnzip())
+			}).fin(() => doUnzip())
 		}
 
 		doUnzip()
@@ -246,7 +245,7 @@ function loadExamples() {
 					exampleConfig.builtIn = true
 				}
 				exampleConfig.examples.forEach(e => {
-					e.path = path.join(path.dirname(p).replace(/\\/g, '/'), e.category, e.name)
+					e.path = path.join(path.dirname(p).replace(/\\/g, '/'), e.path || path.join(e.category, e.name))
 				})
 				examples.push(exampleConfig)
 			}).fin(() => d.resolve())

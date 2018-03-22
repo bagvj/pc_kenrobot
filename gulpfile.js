@@ -1,8 +1,13 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron@1.7.10 electron-builder@19.52.1 fs-extra globby gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-imagemin gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
- * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra globby hasha iconv-lite is-online lodash node-fetch q serialport@6.0.4 sudo-prompt
- * npm install --global  gulp node-gyp electron-rebuild electron@1.7.10
+ * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron-builder@20.5.1 fs-extra globby@7 gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
+ * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra globby@7 hasha iconv-lite is-online lodash node-fetch q serialport@6.1.1 sudo-prompt terminate
+ * npm install --save-dev electron@1.8.4
+ * npm install --global  gulp node-gyp prebuild-install electron-rebuild electron@1.8.4
+ * ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+ * gem install sass
+ * ruby --version
+ * python --version
  */
 
 const gulp = require('gulp') //基础库
@@ -12,7 +17,6 @@ const cleanCSS = require('gulp-clean-css') //css压缩
 const autoprefixer = require('gulp-autoprefixer') //自动前缀
 const requirejsOptimize = require('gulp-requirejs-optimize') //requirejs打包
 const minifyHtml = require("gulp-minify-html") //html压缩
-const imagemin = require("gulp-imagemin") //图片压缩
 const sftp = require('gulp-sftp') //
 const Q = require('q')
 
@@ -266,6 +270,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		ext: ext,
 		appBit: arch == "ia32" ? 32 : 64,
 		date: parseInt(new Date().getTime() / 1000),
+		expire: args.expire
 	})
 	nconf.save()
 
@@ -284,6 +289,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		]
 
 		packageNames.length > 0 && extraFiles.push(`./data/packages/@(${packageNames.join('|')})*${platform}.7z`)
+		platform === "win" && extraFiles.push("./data/driver/**/*")
 
 		var dist = path.join(DIST, `${platform}-${arch}-dir`)
 		var taskA = () => {
@@ -400,17 +406,27 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		]
 
 		packageNames.length > 0 && extraFiles.push(`data/packages/@(${packageNames.join('|')})*${platform}.7z`)
+		platform === "win" && extraFiles.push("./data/driver/**/*")
 
 		builder.build({
 			targets: targets,
 			config: {
 				extraFiles: extraFiles,
+				win: args.sign ? {
+					certificateSubjectName: "911101083484411499",
+					certificateSha1: "CF853B3F7C8B5FFE9C40D48025EB348BBE360914",
+				}: undefined
 			},
 			appInfo: {
 				buildNumber: packageConfig.buildNumber,
 				companyName: packageConfig.companyName,
 			}
 		}).then(result => {
+			if(target == "dir") {
+				callback()
+				return
+			}
+
 			var output = result[result.length - 1]
 			var name = `${packageConfig.productName}-${packageConfig.version}-${branch}${feature ? ("-" + feature) : ""}${arch ? ("-" + arch) : ""}${path.extname(output)}`
 			var file = path.join(path.dirname(output), name)

@@ -172,9 +172,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'app/common/util/emitor', '
 			return
 		}
 
-		if(!command.endsWith("\n")) {
-			command += "\n";
-		}
+		// if(!command.endsWith("\n")) {
+		// 	command += "\n";
+		// }
 
 		if (!lastPortId) {
 			util.message({

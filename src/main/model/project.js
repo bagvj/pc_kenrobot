@@ -14,7 +14,7 @@ const PROJECT_TYPE = "uper"
 const months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]
 
 var suffix = 96
-var throttleSync = util.throttle(sync, 3000)
+var throttleSync = util.throttle(sync, 2000)
 
 function check(projectPath) {
 	if(!projectPath || path.extname(projectPath) != PROJECT_EXT || !fs.existsSync(projectPath)) {
@@ -31,8 +31,8 @@ function read(filePath) {
 	if(check(filePath)) {
 		projectPath = filePath
 	} else {
-		var projectName = path.basename(filePath)
-		projectPath = path.join(filePath, projectName + PROJECT_EXT)
+		var name = path.basename(filePath)
+		projectPath = path.join(filePath, name + PROJECT_EXT)
 		if(!fs.existsSync(projectPath)) {
 			projectPath = path.join(filePath, "project.json")
 		}
@@ -41,11 +41,11 @@ function read(filePath) {
 		}
 	}
 
-	util.readJson(projectPath).then(projectInfo => {
+	util.readJson(projectPath).then(result => {
 		deferred.resolve({
 			path: path.dirname(projectPath),
-			project_type: projectInfo.project_type || "local",
-			data: projectInfo,
+			project_type: result.project_type || "local",
+			data: result,
 		})
 	}, err => {
 		err && log.info(err)
@@ -91,7 +91,7 @@ function open(name) {
 	}
 }
 
-function save(projectName, projectInfo, savePath) {
+function save(name, data, savePath) {
 	var deferred = Q.defer()
 
 	if(!Token.getUser()) {
@@ -99,19 +99,14 @@ function save(projectName, projectInfo, savePath) {
 		if(savePath && savePath.startsWith(prefix)) {
 			savePath = null
 		}
-		return saveAs(projectName, projectInfo, false, savePath)
+		return saveAs(name, data, false, savePath)
 	}
 
-	savePath = path.join(getProjectsDir(), projectName)
-	doSave(savePath, projectName, projectInfo, "cloud").then(() => {
-		updateLocalItem(projectName).then(() => {
+	savePath = path.join(getProjectsDir(), name)
+	doSave(savePath, name, data, "cloud").then(result => {
+		updateLocalItem(name).then(() => {
 			throttleSync()
-			deferred.resolve({
-				project_name: projectInfo.project_name,
-				project_type: projectInfo.project_type,
-				updated_at: projectInfo.updated_at,
-				path: savePath,
-			})
+			deferred.resolve(result)
 		}, err => {
 			err && log.info(err)
 			deferred.reject(err)
@@ -124,17 +119,12 @@ function save(projectName, projectInfo, savePath) {
 	return deferred.promise
 }
 
-function saveAs(projectName, projectInfo, isTemp, savePath) {
+function saveAs(name, data, isTemp, savePath) {
 	var deferred = Q.defer()
 
 	var _doSave = (_savePath, _name) => {
-		doSave(_savePath, _name, projectInfo).then(() => {
-			deferred.resolve({
-				project_name: projectInfo.project_name,
-				project_type: projectInfo.project_type,
-				updated_at: projectInfo.updated_at,
-				path: _savePath,
-			})
+		doSave(_savePath, _name, data, "local").then(result => {
+			deferred.resolve(result)
 		}, err => {
 			err && log.info(err)
 			deferred.reject(err)
@@ -145,7 +135,7 @@ function saveAs(projectName, projectInfo, isTemp, savePath) {
 		savePath = path.join(util.getAppPath("temp"), "build", `sketch_${util.stamp()}`)
 		_doSave(savePath, path.basename(savePath))
 	} else if(savePath) {
-		_doSave(path.join(path.dirname(savePath), projectName), projectName)
+		_doSave(path.join(path.dirname(savePath), name), name)
 	} else {
 		util.showSaveDialog({defaultPath: getDefaultName()}).then(savePath => {
 			_doSave(savePath, path.basename(savePath))
@@ -191,7 +181,12 @@ function list() {
 
 	log.debug(`project list`)
 
-	Token.request(Url.PROJECT_SYNC_LIST, {method: "post"}).then(result => {
+	Token.request(Url.PROJECT_SYNC_LIST, {
+		method: "post",
+		data: {
+			type: PROJECT_TYPE,
+		},
+	}).then(result => {
 		if(result.status != 0) {
 			deferred.reject(result.message)
 			return
@@ -311,7 +306,7 @@ function upload(name, hash) {
 function download(name, hash) {
 	var deferred = Q.defer()
 
-	log.debug(`project download: ${hash}`)
+	log.debug(`project download: ${name} ${hash}`)
 
 	var url = `${Url.PROJECT_SYNC_DOWNLOAD}/${hash}`
 	Token.request(url, {method: "post"}, false).then(res => {
@@ -331,15 +326,18 @@ function download(name, hash) {
 				})
 			}, err => {
 				err && log.info(err)
-				deferred.reject(err)
+				// deferred.reject(err)
+				deferred.resolve()
 			})
 		}).on("error", err => {
 			err && log.info(err)
-			deferred.reject(err)
+			// deferred.reject(err)
+			deferred.resolve()
 		})
 	}, err => {
 		err && log.info(err)
-		deferred.reject(err)
+		// deferred.reject(err)
+		deferred.resolve()
 	})
 
 	return deferred.promise
@@ -360,19 +358,31 @@ function compress(projectsDir, name) {
 	return deferred.promise
 }
 
-function doSave(savePath, projectName, projectInfo, projectType) {
-	projectInfo.project_name = projectName
-	projectInfo.project_type = projectType || "local"
-	projectInfo.updated_at = new Date()
+function doSave(savePath, name, data, projectType) {
+	var deferred = Q.defer()
 
-	var projectPath = path.join(savePath, projectName + PROJECT_EXT)
+	data.type = PROJECT_TYPE
+	data.project_name = name
+	data.project_type = projectType || "local"
+	data.updated_at = util.stamp()
+
+	var projectPath = path.join(savePath, name + PROJECT_EXT)
 	log.debug(`project save: ${projectPath}`)
 
-	return Q.all([
-		util.writeJson(projectPath, projectInfo),
-		util.removeFile(path.join(savePath, `${projectName}.ino`)),
-		util.removeFile(path.join(savePath, "project.json"))
-	])
+	util.writeJson(projectPath, data).then(() => {
+		deferred.resolve({
+			type: PROJECT_TYPE,
+			project_name: data.project_name,
+			project_type: data.project_type,
+			updated_at: data.updated_at,
+			path: savePath,
+		})
+	}, err => {
+		err && log.info(err)
+		deferred.reject(err)
+	})
+
+	return deferred.promise
 }
 
 function doSync(remoteList, localList) {

@@ -4,6 +4,8 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 	var versionInfo;
 	var action;
 	var versionPath;
+	var taskId;
+	var userCancel;
 
 	function init() {
 		dialogWin = $('.update-dialog').on("click", ".thanks", onThanksClick).on("click", ".download", onDownloadClick);
@@ -21,7 +23,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 			versionInfo = args;
 			action = "download";
 
-			dialogWin.find(".download").val("立即更新").attr("disabled", false);
+			dialogWin.find(".download").val("立即更新");
 			dialogWin.find(".thanks").val("暂不下载").show();
 			dialogWin.find(".name").text(versionInfo.appname);
 			dialogWin.find(".version").text(versionInfo.version);
@@ -84,21 +86,24 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 	function onDownloadClick() {
 		if(action == "download") {
 			action = "downloading";
-			var downloadBtn = dialogWin.find(".download").val("下载中 0%").attr("disabled", true);
+			var downloadBtn = dialogWin.find(".download").val("下载中 0%");
 			var thanksBtn = dialogWin.find(".thanks").val("后台下载");
 			dialogWin.addClass("x-into-background");
 
 			kenrobot.postMessage("app:download", versionInfo.download_url, {checksum: versionInfo.checksum}).then(result => {
+				taskId = null;
+				userCancel = false;
 				versionPath = result.path;
 
 				kenrobot.postMessage("app:removeOldVersions", versionInfo.version).fin(() => {
+					enableHoverCancel(false);
 					var oldAction = action;
 					var info = kenrobot.appInfo;
 					if(info.platform == "win") {
-						downloadBtn.val("安装").attr("disabled", false);
+						downloadBtn.val("安装");
 						action = "install";
 					} else {
-						downloadBtn.val("打开").attr("disabled", false);
+						downloadBtn.val("打开");
 						action = "open";
 					}
 					thanksBtn.hide();
@@ -109,20 +114,29 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 
 				emitor.trigger("update", "download", true);
 			}, err => {
-				if(action == "background-download") {
-					util.error(`新版本${versionInfo.version}下载失败`);
-				}
-				downloadBtn.attr("disabled", false).val("下载失败");
+				enableHoverCancel(false);
+				!userCancel && util.error(`新版本${versionInfo.version}下载失败`);
+				downloadBtn.val("重新下载");
 				action = "download";
+				taskId = null;
+				userCancel = false;
 
 				emitor.trigger("update", "download", false);
 			}, progress => {
+				!taskId && (taskId = progress.taskId)
 				var totalSize = progress.totalSize || 100 * 1024 * 1024;
 				var percent = parseInt(100 * progress.size / totalSize);
-				downloadBtn.val(`下载中 ${percent}%`);
+				var text = `下载中 ${percent}%`;
+				if(downloadBtn.data("action") === "cancel") {
+					downloadBtn.data("progress", text);
+				} else {
+					downloadBtn.val(text);
+				}
 
 				emitor.trigger("update", "download", percent);
 			});
+
+			enableHoverCancel(true);
 		} else if(action == "install") {
 			onThanksClick();
 			kenrobot.postMessage("app:execFile", versionPath).then(() => {
@@ -133,7 +147,34 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 		} else if(action == "open") {
 			onThanksClick();
 			kenrobot.postMessage("app:showItemInFolder", versionPath);
+		} else if(action == "downloading") {
+			//取消
+			taskId && kenrobot.postMessage("app:cancelDownload", taskId);
+			taskId = null;
+			util.message("取消成功");
+			userCancel = true;
 		}
+	}
+
+	function enableHoverCancel(value) {
+		var downloadBtn = dialogWin.find(".download");
+
+		downloadBtn.off("mouseenter", onDownloadHoverIn);
+		downloadBtn.off("mouseleave", onDownloadHoverOut);
+
+		if(value) {
+			downloadBtn.on("mouseenter", onDownloadHoverIn);
+			downloadBtn.on("mouseleave", onDownloadHoverOut);
+		}
+	}
+
+	function onDownloadHoverIn() {
+		dialogWin.find(".download").val("取消下载").data("action", "cancel");
+	}
+
+	function onDownloadHoverOut() {
+		var btn = dialogWin.find(".download");
+		dialogWin.find(".download").val(btn.data("progress")).data("action", "").data("progress", "");
 	}
 
 	function setBackground(value) {

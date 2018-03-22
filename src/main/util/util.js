@@ -99,6 +99,8 @@ function getAppPath(name, extra) {
 			return path.join(app.getPath("documents"), app.getName())
 		case "script":
 			return path.join(getAppPath("appResource"), "scripts", `${extra}.${is.windows() ? "bat" : "sh"}`)
+		case "driver":
+			return path.join(getAppPath("appResource"), "driver")
 		case "command":
 			return path.join(getAppPath("appData"), "temp", `${uuid(6)}`)
 		case "libraries":
@@ -110,6 +112,41 @@ function getAppPath(name, extra) {
 		default:
 			return app.getPath(name)
 	}
+}
+
+function getExpire() {
+	return is.dev() ? false : PACKAGE.buildInfo.expire
+}
+
+function formatDate(date, format) {
+	if (typeof date === "number") {
+		date = new Date(date)
+	} else if(!date) {
+		date = new Date()
+	}
+	var o = {
+		"M+": date.getMonth() + 1,
+		"d+": date.getDate(),
+		"h+": date.getHours() % 12 == 0 ? 12 : date.getHours() % 12,
+		"H+": date.getHours(),
+		"m+": date.getMinutes(),
+		"s+": date.getSeconds(),
+		"q+": Math.floor((date.getMonth() + 3) / 3),
+		"S": date.getMilliseconds()
+	}
+	if (/(y+)/.test(format)) {
+		format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
+	}
+	if (/(E+)/.test(format)) {
+		var week = ["日", "一", "二", "三", "四", "五", "六"]
+		format = format.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "星期" : "周") : "") + week[date.getDay()])
+	}
+	for (var k in o) {
+		if (new RegExp("(" + k + ")").test(format)) {
+			format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)))
+		}
+	}
+	return format
 }
 
 function versionCompare(versionA, versionB) {
@@ -179,7 +216,7 @@ function callDefer(deferId, type, ...args) {
 	}
 
 	var callback
-	if(type == "notify") {
+	if(type === "notify") {
 		callback = deferred.notify
 	} else {
 		delete defers[deferId]
@@ -294,21 +331,10 @@ function rejectPromise(result, deferred) {
  * 执行可执行文件
  * @param {*} driverPath
  */
-function execFile(exePath) {
-	var deferred = Q.defer()
-
+function execFile(exePath, sudo) {
 	log.debug(`execFile: ${exePath}`)
-	var command
-	if(is.windows()) {
-		command = `start /WAIT ${exePath}`
-	} else {
-		command = `${exePath}`
-	}
-	execCommand(command, null, true).fin(() => {
-		deferred.resolve()
-	})
-
-	return deferred.promise
+	var command = is.windows() ? `start /WAIT ${exePath}` : `${exePath}`
+	return execCommand(command, null, sudo)
 }
 
 /**
@@ -333,7 +359,7 @@ function execCommand(command, options, useSudo) {
 				log.info(err)
 				stdout && log.info(stdout)
 				stderr && log.info(stderr)
-				deferred.reject(stderr || stdout || err)
+				deferred.reject(err || stderr || stdout)
 				return
 			}
 
@@ -350,7 +376,7 @@ function execCommand(command, options, useSudo) {
 				log.info(err)
 				stdout && log.info(stdout)
 				stderr && log.info(stderr)
-				deferred.reject(stderr || stdout || err)
+				deferred.reject(err || stderr || stdout)
 				return
 			}
 
@@ -734,7 +760,9 @@ module.exports.getPlatform = getPlatform
 module.exports.getVersion = getVersion
 module.exports.getAppInfo = getAppInfo
 module.exports.getAppPath = getAppPath
+module.exports.getExpire = getExpire
 
+module.exports.formatDate = formatDate
 module.exports.versionCompare = versionCompare
 module.exports.postMessage = postMessage
 module.exports.listenMessage = listenMessage

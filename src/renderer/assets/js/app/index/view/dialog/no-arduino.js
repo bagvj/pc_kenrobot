@@ -13,7 +13,7 @@ define(['vendor/jquery', 'app/common/util/util', 'app/common/util/emitor'], func
 					util.confirm({
 						type: "info",
 						title: "驱动问题",
-						text: '如果你遇到了Arduino驱动问题，请点击<br />菜单"帮助"->"Arduino驱动下载"',
+						text: '如果你遇到了Arduino驱动问题，请点击<br />菜单"帮助"->"修复Arduino驱动"',
 						confirmLabel: "我知道了",
 					});
 				}, 400);

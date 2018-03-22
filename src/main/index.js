@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, shell, clipboard} = require('electron')
+const {app, BrowserWindow, dialog, ipcMain, shell, clipboard} = require('electron')
 
 const path = require('path')
 const querystring = require('querystring')
@@ -11,6 +11,7 @@ const fs = require('fs-extra')
 const commandLineArgs = require('command-line-args') //命令行参数解析
 const hasha = require('hasha') //计算hash
 const _ = require('lodash')
+const terminate = require('terminate')
 
 const util = require('./util/util')
 const SerialPort = require('./model/serialPort') //串口
@@ -38,6 +39,10 @@ const optionDefinitions = [
 
 var args = commandLineArgs(optionDefinitions, {argv: process.argv.slice(1), partial: true}) //命令行参数
 
+const DEBUG = is.dev() && args.dev
+// const DEBUG = true
+const DEV = is.dev()
+
 var cache
 var config
 
@@ -45,6 +50,9 @@ var mainWindow
 var firstRun
 var projectToLoad
 var isLoadReady
+
+var downloadTasks = {}
+var forceQuit
 
 init()
 
@@ -59,6 +67,13 @@ function init() {
 	})
 
 	initLog()
+
+	// var expire = util.getExpire()
+	// if(expire && expire < util.stamp()) {
+	// 	log.info(`app ${app.getName()} is expired, version ${util.getVersion()}, expire ${util.formatDate(expire, "yyyy/MM/dd")}`)
+	// 	dialog.showErrorBox("软件已过期", "软件已过期")
+	// 	app.exit(1)
+	// }
 
 	cache = new Cache(CONFIG_KEY)
 	config = cache.getItem(CONFIG_KEY, {})
@@ -93,9 +108,9 @@ function init() {
 }
 
 function initLog() {
-	if(is.dev() && args.dev) {
+	if(DEBUG) {
 		log.transports.console.level = "debug"
-		log.transports.file = false
+		log.transports.file.level = "debug"
 	} else {
 		//非debug模式，禁用控制台输出
 		log.transports.console = false
@@ -132,6 +147,7 @@ function listenMessages() {
 	listenMessage("saveFile", (filePath, data, options) => util.saveFile(filePath, data, options))
 	listenMessage("moveFile", (src, dst, options) => util.moveFile(src, dst, options))
 	listenMessage("removeFile", filePath => util.removeFile(filePath))
+	listenMessage("searchFiles", pattern => util.searchFiles(pattern))
 	listenMessage("readJson", (filePath, options) => util.readJson(filePath, options))
 	listenMessage("writeJson", (filePath, data, options, sync) => util.writeJson(filePath, data, options, sync))
 	listenMessage("showOpenDialog", options => util.showOpenDialog(options))
@@ -151,9 +167,11 @@ function listenMessages() {
 	listenMessage("uploadFirmware", (targetPath, options, comName) => uploadFirmware(targetPath, options, comName))
 
 	listenMessage("download", (url, options) => download(url, options))
-	listenMessage("installDriver", driverPath => installDriver(driverPath))
+	listenMessage("cancelDownload", taskId => cancelDownload(taskId))
 	listenMessage("loadExamples", () => Package.loadExamples())
 	listenMessage("openExample", examplePath => openExample(examplePath))
+	listenMessage("installDriver", () => installDriver())
+	listenMessage("repairDriver", () => repairDriver())
 
 	listenMessage("unzipPackage", (name, packagePath, removeOld) => Package.unzip(name, packagePath, removeOld))
 	listenMessage("deletePackage", name => Package.remove(name))
@@ -192,7 +210,7 @@ function listenMessages() {
 	listenMessage("projectSync", () => Project.sync())
 	listenMessage("projectList", () => Project.list())
 
-	if(is.dev()) {
+	if(DEV) {
 		listenMessage("projectCreate", name => Project.create(name))
 		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
 		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
@@ -202,7 +220,7 @@ function listenMessages() {
 	listenMessage("log", (text, level) => (log[level] || log.debug).bind(log).call(text))
 	listenMessage("copy", (text, type) => clipboard.writeText(text, type))
 	listenMessage("quit", () => app.quit())
-	listenMessage("exit", () => onAppWillQuit() && app.exit(0))
+	listenMessage("exit", () => (forceQuit = true) && onAppWillQuit() && terminate(process.pid))
 	listenMessage("reload", () => mainWindow.reload())
 	listenMessage("relaunch", () => onAppRelaunch())
 	listenMessage("fullscreen", () => mainWindow.setFullScreen(!mainWindow.isFullScreen()))
@@ -214,7 +232,7 @@ function listenMessages() {
 function onAppReady() {
 	log.debug('app ready')
 
-	is.dev() && args.devTool && debug({showDevTools: true})
+	DEBUG && debug({enabled: true, showDevTools: true})
 	args.project && (projectToLoad = args.project)
 
 	createWindow()
@@ -273,13 +291,16 @@ function onAppOpenFile(e, filePath) {
 }
 
 function onAppBeforeQuit(e) {
-	e.preventDefault()
-	util.postMessage("app:onBeforeQuit")
+	if(!forceQuit) {
+		e.preventDefault()
+		util.postMessage("app:onBeforeQuit")
+	}
 }
 
 function onAppWillQuit(e) {
 	SerialPort.closeAllSerialPort()
 	util.removeFile(path.join(util.getAppPath("appData"), "temp"), true)
+
 	return true
 }
 
@@ -301,7 +322,7 @@ function onAppErrorReport(message, type) {
 }
 
 function checkIfFirstRun() {
-	if(is.dev() || config.version == util.getVersion()) {
+	if(DEV || config.version == util.getVersion()) {
 		return
 	}
 
@@ -312,7 +333,7 @@ function checkIfFirstRun() {
 }
 
 function doReports() {
-	if(!is.dev() && !config.reportInstall) {
+	if(!DEV && !config.reportInstall) {
 		//安装report
 		reportToServer(null, "installations").then(() => {
 			config.reportInstall = true
@@ -448,10 +469,10 @@ function removeOldVersions(newVersion) {
  */
 function unzipPackages(skip) {
 	var deferred = Q.defer()
-	skip = skip !== false ? false : is.dev()
+	skip = skip !== false ? false : DEV
 
 	Package.unzipAll(config.packages, skip, firstRun).then(packages => {
-		if(is.dev()) {
+		if(DEV) {
 			deferred.resolve()
 			return
 		}
@@ -603,6 +624,9 @@ function deleteLibrary(name) {
 }
 
 function onDownload(e, item, webContent) {
+	var taskId = util.uuid(6)
+	downloadTasks[taskId] = item
+
 	var url = item.getURL()
 	var pos = url.lastIndexOf("#")
 	var query = querystring.parse(url.substring(pos + 1))
@@ -629,18 +653,23 @@ function onDownload(e, item, webContent) {
 	var totalSize = item.getTotalBytes()
 	item.on('updated', (evt, state) => {
 		if(state == "interrupted") {
+			downloadTasks[taskId] && delete downloadTasks[taskId]
+
 			log.debug(`download interrupted: ${url}`)
 			util.callDefer(deferId, false, {
 				path: savePath,
 			})
 		} else if(state === 'progressing') {
 			if(item.isPaused()) {
+				downloadTasks[taskId] && delete downloadTasks[taskId]
+
 				log.debug(`download paused: ${url}`)
 				util.callDefer(deferId, false, {
 					path: savePath,
 				})
 			} else {
 				util.callDefer(deferId, "notify", {
+					taskId: taskId,
 					path: savePath,
 					totalSize: totalSize,
 					size: item.getReceivedBytes(),
@@ -650,6 +679,8 @@ function onDownload(e, item, webContent) {
 	})
 
 	item.once('done', (evt, state) => {
+		downloadTasks[taskId] && delete downloadTasks[taskId]
+
 		if(state == "completed") {
 			log.debug(`download success: ${url}, at ${savePath}`)
 			util.callDefer(deferId, true, {
@@ -687,23 +718,53 @@ function download(url, options) {
 	return deferred.promise
 }
 
+function cancelDownload(taskId) {
+	var downloadItem = downloadTasks[taskId]
+	downloadItem && downloadItem.cancel()
+}
+
 /**
  * 安装驱动
- * @param {*} driverPath
  */
-function installDriver(driverPath) {
+function installDriver() {
 	var deferred = Q.defer()
 
-	log.debug(`installDriver: ${driverPath}`)
-	var dir = path.join(util.getAppPath("appData"), "temp")
-	util.uncompress(driverPath, dir).then(() => {
-		var exePath = path.join(dir, path.basename(driverPath, path.extname(driverPath)), "setup.exe")
-		util.execFile(exePath).then(() => {
-			deferred.resolve()
-		})
+	if(!is.windows()) {
+		return util.rejectPromise(null, deferred)
+	}
+
+	var appInfo = util.getAppInfo()
+	var bit = appInfo.bit === 64 ? "x64" : "x86"
+
+	log.debug(`install driver: ${bit}`)
+
+	var driverPath = path.join(util.getAppPath("driver"), bit, "setup.exe")
+	util.execCommand(`"${driverPath}" /sw /c`, {}, !DEV).then(() => {
+		deferred.resolve()
 	}, err => {
-		err && log.info(err)
-		deferred.reject(err)
+		(err && err.code !== undefined && (err.code % 256 === 0 || err.code === 1)) ? deferred.resolve() : deferred.reject((err && err.message) ? err.message : err)
+	})
+
+	return deferred.promise
+}
+
+/**
+ * 修复驱动
+ */
+function repairDriver() {
+	var deferred = Q.defer()
+
+	if(!is.windows()) {
+		return util.rejectPromise(null, deferred)
+	}
+
+	log.debug(`repair driver`)
+
+	var scriptPath = path.join(util.getAppPath("driver"), "repair", "repair.bat")
+	util.execCommand(`"${scriptPath}"`, {}, !DEV).then(() => {
+		deferred.resolve()
+	}, () => {
+		deferred.reject()
 	})
 
 	return deferred.promise

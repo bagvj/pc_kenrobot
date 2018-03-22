@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/common/util/util', 'app/common/config/config'], function($1, _, $2, util, config) {
+define(['vendor/jquery', 'vendor/lodash', 'vendor/perfect-scrollbar', 'app/common/util/util'], function($1, _, $2, util) {
 	var dialogWin;
 	var toolbar;
 	var projectList;
