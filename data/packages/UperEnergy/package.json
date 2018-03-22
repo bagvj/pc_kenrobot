@@ -1,7 +1,7 @@
 {
 	"name": "UperEnergy",
 	"company": "吖扑科学",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"author": "Uper",
 	"category": "third-party",
 	"help": "http://www.uper.cc/",
@@ -67,7 +67,7 @@
 			"x": 0.415,
 			"y": 0.09,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "9",
 			"uid": "lA7QMs",
@@ -80,7 +80,7 @@
 			"x": 0.415,
 			"y": 0.151,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "8",
 			"uid": "eI5FH7",
@@ -90,10 +90,10 @@
 			"tags": ["digital"],
 			"value": "8"
 		}, {
-			"x": 0.558,
+			"x": 0.562,
 			"y": 0.09,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "7",
 			"uid": "otVL3e",
@@ -103,10 +103,10 @@
 			"tags": ["digital"],
 			"value": "7"
 		}, {
-			"x": 0.558,
+			"x": 0.562,
 			"y": 0.151,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "6",
 			"uid": "28rYEk",
@@ -119,7 +119,7 @@
 			"x": 0.71,
 			"y": 0.09,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "5",
 			"uid": "SSohOO",
@@ -132,7 +132,7 @@
 			"x": 0.71,
 			"y": 0.151,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "4",
 			"uid": "QBXO26",
@@ -145,7 +145,7 @@
 			"x": 0.858,
 			"y": 0.09,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "3",
 			"uid": "Tgpjbj",
@@ -158,7 +158,7 @@
 			"x": 0.858,
 			"y": 0.151,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "2",
 			"uid": "EUMoPE",
@@ -171,7 +171,7 @@
 			"x": 0.12,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A0",
 			"uid": "Rxz2N7",
@@ -184,7 +184,7 @@
 			"x": 0.27,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A1",
 			"uid": "QDT6MT",
@@ -197,7 +197,7 @@
 			"x": 0.415,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A2",
 			"uid": "g7yR5i",
@@ -210,7 +210,7 @@
 			"x": 0.563,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A3",
 			"uid": "IAliAW",
@@ -223,7 +223,7 @@
 			"x": 0.71,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A4",
 			"uid": "PxEdDf",
@@ -236,7 +236,7 @@
 			"x": 0.858,
 			"y": 0.878,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "A5",
 			"uid": "vwsNFr",
@@ -273,7 +273,7 @@
 			"x": 0.893,
 			"y": 0.486,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "sda",
 			"uid": "Je80id",
@@ -285,7 +285,7 @@
 			"x": 0.933,
 			"y": 0.486,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 12,
 			"name": "scl",
 			"uid": "rMyrVW",
@@ -324,7 +324,7 @@
 			"x": 0.415,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "ds66fn",
 			"rotate": false,
@@ -338,7 +338,7 @@
 			"x": 0.71,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "WXWSeb",
 			"rotate": false,
@@ -352,7 +352,7 @@
 			"x": 0.858,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "DSSGIs",
 			"rotate": false,
@@ -380,7 +380,7 @@
 			"x": 0.415,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "7fkKsP",
 			"rotate": false,
@@ -394,7 +394,7 @@
 			"x": 0.71,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "O68g7X",
 			"rotate": false,
@@ -408,7 +408,7 @@
 			"x": 0.858,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "VZL66p",
 			"rotate": false,
@@ -450,7 +450,7 @@
 			"x": 0.415,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "YkZ8z3",
 			"rotate": false,
@@ -461,10 +461,10 @@
 			"tuple": true,
 			"members": ["8", "9"]
 		}, {
-			"x": 0.558,
+			"x": 0.562,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "EsIgeG",
 			"rotate": false,
@@ -478,7 +478,7 @@
 			"x": 0.71,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "aa4rTX",
 			"rotate": false,
@@ -492,7 +492,7 @@
 			"x": 0.858,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "1ovdn3",
 			"rotate": false,
@@ -561,7 +561,7 @@
 			"x": 0.415,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "gAomBg",
 			"rotate": false,
@@ -572,10 +572,10 @@
 			"tuple": true,
 			"members": ["8", "9"]
 		}, {
-			"x": 0.558,
+			"x": 0.562,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "fGnlwi",
 			"rotate": false,
@@ -589,7 +589,7 @@
 			"x": 0.71,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "MkqGcY",
 			"rotate": false,
@@ -603,7 +603,7 @@
 			"x": 0.858,
 			"y": 0.121,
 			"shape": "Rectangle",
-			"width": 14,
+			"width": 18,
 			"height": 29,
 			"uid": "FEmHvT",
 			"rotate": false,
@@ -1582,14 +1582,14 @@
 		"pins": [{
 			"name": "s",
 			"anchor": [0.5, 1],
-			"tags": ["uper-2P-digital"],
+			"tags": ["analog-in"],
 			"label": "s",
 			"shape": "Dot",
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <SR04.h>\n#include <uper_Pin.h>",
-			"var": "SR04 {NAME}(Uper2PDigitalPort[{s}].d1, Uper2PDigitalPort[{s}].d2);"
+			"include": "#include <uper_Ultrasonic.h>",
+			"var": "UPER_Ultrasonic {NAME}({s});"
 		},
 		"raw": true,
 		"blocks": [{
@@ -1610,91 +1610,14 @@
 				"type": "text",
 				"value": "测量距离"
 			}],
-			"code": "{SENSOR}.Distance()",
+			"code": "{SENSOR}.distance()",
 			"returnType": {
 				"type": "simple",
-				"value": "float"
+				"value": "int"
 			},
 			"tags": ["module"],
 			"module": "uper_ultrasound",
 			"uid": "Vs508Z"
-		}, {
-			"type": "output",
-			"name": "uper_ultrasoundDistanceAvg",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "超声波"
-			}, {
-				"id": "SENSOR",
-				"type": "dynamic-select",
-				"options": "uper_ultrasounds"
-			}, {
-				"type": "text",
-				"value": "测量平均距离"
-			}],
-			"code": "{SENSOR}.DistanceAvg()",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": ["module", "advanced"],
-			"module": "uper_ultrasound",
-			"uid": "Y5ubgF"
-		}, {
-			"type": "statement",
-			"name": "uper_ultrasoundPing",
-			"connectors": [{
-				"type": "connector-top",
-				"accept": "connector-bottom"
-			}, {
-				"type": "connector-bottom",
-				"accept": "connector-top"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "超声波"
-			}, {
-				"id": "SENSOR",
-				"type": "dynamic-select",
-				"options": "uper_ultrasounds"
-			}, {
-				"type": "text",
-				"value": "Ping"
-			}],
-			"code": "{SENSOR}.Ping();",
-			"tags": ["module", "advanced"],
-			"module": "uper_ultrasound",
-			"uid": "q8OGtk"
-		}, {
-			"type": "output",
-			"name": "uper_ultrasoundGetDistance",
-			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
-			}],
-			"content": [{
-				"type": "text",
-				"value": "获取超声波"
-			}, {
-				"id": "SENSOR",
-				"type": "dynamic-select",
-				"options": "uper_ultrasounds"
-			}, {
-				"type": "text",
-				"value": "上次测量的距离"
-			}],
-			"code": "{SENSOR}.getDistance()",
-			"returnType": {
-				"type": "simple",
-				"value": "float"
-			},
-			"tags": ["module", "advanced"],
-			"module": "uper_ultrasound",
-			"uid": "u8Go4H"
 		}],
 		"imageUrl": "assets/image/components/ultrasonic.svg"
 	}, {
@@ -2459,7 +2382,7 @@
 				"acceptType": "all",
 				"name": "JkQfkY"
 			}],
-			"code": "{LCD}.setCursor({ROW}, {COL});{LCD}.print({DATA});",
+			"code": "{LCD}.setCursor({COL}, {ROW});{LCD}.print({DATA});",
 			"tags": ["module"],
 			"module": "uper_lcd",
 			"uid": "IPUP5l"
@@ -4640,7 +4563,7 @@
 				"name": "H4kaTg"
 			}, {
 				"type": "text",
-				"value": "X值"
+				"value": "X(1~120)"
 			}, {
 				"blockInputId": "XPOS",
 				"type": "block-input",
@@ -4648,7 +4571,7 @@
 				"name": "b5U3Zr"
 			}, {
 				"type": "text",
-				"value": "Y值"
+				"value": "Y(9~60)"
 			}, {
 				"blockInputId": "YPOS",
 				"type": "block-input",

@@ -1,4 +1,4 @@
-define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/blocks', '../view/hardware', '../view/software', '../view/code'], function($1, _, config, util, emitor, progress, blocks, hardware, software, code) {
+define(['vendor/jquery', 'vendor/lodash', 'app/common/util/util', 'app/common/util/emitor', 'app/common/util/progress', '../config/blocks', '../view/hardware', '../view/software', '../view/code'], function($1, _, util, emitor, progress, blocks, hardware, software, code) {
 	var currentProject;
 	var savePath;
 	var hasShowSave;
@@ -19,7 +19,9 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		kenrobot.on("project", "open", onProjectOpen)
 			.on('project', 'open-example', onProjectOpenExample)
 			.on("project", "save", onProjectSave)
-			.on("project", "load", onProjectLoad);
+			.on("project", "load", onProjectLoad)
+			.listenMessage("app:onLoadProject", onLoadProject)
+			.listenMessage("app:onBeforeQuit", onBeforeQuit);
 	}
 
 	function onAppStart() {
@@ -29,6 +31,10 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 
 			loadOpenOrRecentProject();
 		});
+	}
+
+	function onBeforeQuit() {
+		askSaveProject(() => kenrobot.postMessage("app:exit"));
 	}
 
 	function loadPackages() {
@@ -100,6 +106,12 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			text: message || "打开成功",
 			type: "success"
 		});
+
+		currentProject.project_data = getProjectData();
+	}
+
+	function onLoadProject(result) {
+		askSaveProject(() => onProjectLoad(result));
 	}
 
 	function onProjectLoad(result) {
@@ -107,19 +119,11 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 	}
 
 	function onProjectNew() {
-		var doProjectNew = () => doLoadProject(null, getDefaultProject(), "新建成功");
-
-		util.confirm({
-			cancelLabel: "不了",
-			confirmLabel: "好的",
-			text: "保存当前项目后再新建?",
-			onCancel: value => !value && doProjectNew(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectNew, 400))
-		});
+		askSaveProject(() => doLoadProject(null, getDefaultProject(), "新建成功"));
 	}
 
 	function onProjectOpen(name, callback) {
-		var doProjectOpen = () => {
+		askSaveProject(() => {
 			kenrobot.postMessage("app:projectOpen", name).then(result => {
 				onProjectLoad(result);
 				callback();
@@ -129,35 +133,18 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 					type: "error",
 				});
 			});
-		}
-
-		var nameTips = name ? `项目“${name}”` : "";
-		util.confirm({
-			cancelLabel: "不了",
-			confirmLabel: "好的",
-			text: `保存当前项目后再打开${nameTips}?`,
-			onCancel: value => !value && doProjectOpen(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doProjectOpen, 400))
 		});
 	}
 
 	function onProjectOpenExample(extra) {
-		var doOpenExample = () => {
+		askSaveProject(() => {
 			kenrobot.postMessage("app:openExample", extra.path).then(onProjectLoad, () => {
 				util.message("打开失败");
 			});
-		}
-
-		util.confirm({
-			cancelLabel: "不了",
-			confirmLabel: "好的",
-			text: `保存当前项目后再打开示例“${extra.name}”?`,
-			onCancel: value => !value && doOpenExample(),
-			onConfirm: () => onProjectSave().then(() => setTimeout(doOpenExample, 400))
 		});
 	}
 
-	function onProjectSave(saveAs, exitAfterSave) {
+	function onProjectSave(saveAs, callback) {
 		var promise = $.Deferred();
 		onCodeRefresh();
 
@@ -170,7 +157,7 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 				type: "success"
 			});
 
-			exitAfterSave && setTimeout(() => kenrobot.postMessage("app:exit"), 400);
+			callback && setTimeout(() => callback(), 100);
 			promise.resolve();
 		}, () => {
 			util.message({
@@ -360,8 +347,8 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 		if(targetComponent) {
 			var componentConfig = hardware.getComponentConfig(targetComponent.name);
 			util.confirm({
-				cancelLabel: "不了",
-				confirmLabel: "好的",
+				confirmLabel: "是",
+				cancelLabel: "否",
 				text: `您正在使用“${componentConfig.label}”，是否开始仿真?`,
 				onConfirm: () => {
 					var boardData = hardware.getBoardData();
@@ -456,6 +443,26 @@ define(['vendor/jquery', 'vendor/lodash', 'app/common/config/config', 'app/commo
 			created_at: now,
 			updated_at: now,
 		};
+	}
+
+	function isProjectChange() {
+		return !_.isEqual(currentProject.project_data, getProjectData());
+	}
+
+	function askSaveProject(callback, delay) {
+		if(isProjectChange()) {
+			util.confirm({
+				type: "skip",
+				confirmLabel: "是",
+				skipLabel: "否",
+				cancelLabel: "取消",
+				text: "是否保存对当前项目的更改?",
+				onSkip: () => callback(),
+				onConfirm: () => onProjectSave().then(() => setTimeout(callback, delay || 400))
+			});
+		} else {
+			callback();
+		}
 	}
 
 	return {

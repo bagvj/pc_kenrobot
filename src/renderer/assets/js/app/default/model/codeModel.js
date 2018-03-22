@@ -10,6 +10,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 			enableLiveAutocompletion: true,
 		});
 		editor.setReadOnly(true);
+		editor.setShowFoldWidgets(false);
 		editor.setShowPrintMargin(false);
 		editor.$blockScrolling = Infinity;
 		editor.setTheme("ace/theme/black");
@@ -116,13 +117,24 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 	function setMode(mode) {
 		if(mode == "text") {
 			editor.setReadOnly(false);
+			editor.setShowFoldWidgets(true);
 		} else {
 			editor.setReadOnly(true);
+			editor.setShowFoldWidgets(false);
 		}
+		editor.onChangeFold();
 	}
 
 	function toggleComment() {
 		editor.execCommand("togglecomment");
+	}
+
+	function undo() {
+		editor.execCommand("undo");
+	}
+
+	function redo() {
+		editor.execCommand("redo");
 	}
 
 	function getCopyText() {
@@ -152,5 +164,7 @@ define(['app/common/util/util', 'app/common/util/emitor', 'vendor/beautify', 've
 
 		setMode: setMode,
 		toggleComment: toggleComment,
+		redo: redo,
+		undo: undo,
 	}
 });

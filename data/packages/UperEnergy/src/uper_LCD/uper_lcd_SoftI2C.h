@@ -54,6 +54,7 @@
 class uper_lcd_SoftI2C : public Print {
 public:
   uper_lcd_SoftI2C(uint8_t lcd_Addr,uint8_t lcd_cols,uint8_t lcd_rows, uint8_t sclPin, uint8_t sdaPin);
+  void setAddress(uint8_t lcd_Addr, uint8_t sclPin, uint8_t sdaPin);
   void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS );
   void clear();
   void home();

@@ -24,7 +24,7 @@
  *
  * \修订历史
  * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
- *  
+ *  uper             2018/3/20        v180320			修正LCD的行列排序
  * \示例
  *  
  * 		1.uper_LCD.ino
@@ -80,6 +80,12 @@ uper_lcd_SoftI2C::uper_lcd_SoftI2C(uint8_t lcd_Addr,uint8_t lcd_cols,uint8_t lcd
   _rows = lcd_rows;
   _backlightval = LCD_NOBACKLIGHT;
   i2c =  SoftI2CMaster(sclPin, sdaPin, 0);
+}
+
+void uper_lcd_SoftI2C::setAddress(uint8_t lcd_Addr, uint8_t sclPin, uint8_t sdaPin){
+	_Addr = lcd_Addr;
+	i2c =  SoftI2CMaster(sclPin, sdaPin, 0);
+	init();
 }
 
 void uper_lcd_SoftI2C::init(){
@@ -164,7 +170,7 @@ void uper_lcd_SoftI2C::home(){
 	delayMicroseconds(2000);  // this command takes a long time!
 }
 
-void uper_lcd_SoftI2C::setCursor(uint8_t col, uint8_t row){
+void uper_lcd_SoftI2C::setCursor(uint8_t row, uint8_t col){
 	int row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
 	if ( row > _numlines ) {
 		row = _numlines-1;    // we count rows starting w/0

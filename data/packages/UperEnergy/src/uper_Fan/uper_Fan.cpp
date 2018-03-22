@@ -1,5 +1,5 @@
  /**
- * \著作权 
+ * \著作权
  * @名称：  uper_Fan.cpp
  * @作者：  uper
  * @版本：  v171213
@@ -11,15 +11,15 @@
  * uper_Fan 风扇驱动函数
  *
  * \公有方法列表
- * 
+ *
  * 		1.void UPER_Fan::begin()
  * 		2.void UPER_Fan::run(int speed, bool direction)
  *
  * \修订历史
  * `<Author>`      `<Time>`        `<Version>`        `<Descr>`
- *  
+ *
  * \示例
- *  
+ *
  * 		1.uper_Fan.ino
  */
 
@@ -53,6 +53,7 @@ void UPER_Fan::begin() {
 
 void UPER_Fan::run(int speed, bool direction) {
 	speed = speed < 0 ? 0 : (speed > 100 ? 255 : map(speed, 0, 100, 0, 255));
+	speed = direction ? speed : 255 - speed;
 
 	if(_fa != FAN_UN_USE) {
 		digitalWrite(_pin1, direction ? LOW : HIGH);

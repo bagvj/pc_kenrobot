@@ -26,10 +26,10 @@ $menu-height: 26px;
 	}
 
 	.logo {
-		width: 50px;
+		width: 64px;
 		height: $logo-size;
-		background: url(../image/logo2.png) center center no-repeat;
-		background-size: 50px 20px;
+		background: url(../image/logo2.svg) center center no-repeat;
+		background-size: contain;
 		margin-left: 11px;
 		margin-right: 11px;
 

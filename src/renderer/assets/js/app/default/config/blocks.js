@@ -264,6 +264,165 @@ define(function() {
 		"uid": "7flgZS"
 	}, {
 		"type": "statement",
+		"name": "attachInterrupt",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "设置中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}, {
+			"type": "text",
+			"value": "处理函数"
+		}, {
+			"id": "HANDLER",
+			"type": "dynamic-select",
+			"options": "voidFunctions"
+		}, {
+			"id": "MODE",
+			"type": "static-select",
+			"options": [{
+				"label": "低电平触发",
+				"value": "LOW"
+			}, {
+				"label": "电平变化时触发",
+				"value": "CHANGE"
+			}, {
+				"label": "上升沿触发",
+				"value": "RISING"
+			}, {
+				"label": "下降沿触发",
+				"value": "FALLING"
+			}, {
+				"label": "高电平触发",
+				"value": "HIGH"
+			}]
+		}],
+		"code": "attachInterrupt(digitalPinToInterrupt({PIN}), {HANDLER}, {MODE});",
+		"tags": ["module"],
+		"module": "default",
+		"uid": "BCqlV7"
+	}, {
+		"type": "statement",
+		"name": "attachInterruptAdvanced",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "7SPSEw"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "设置中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}, {
+			"type": "text",
+			"value": "处理函数"
+		}, {
+			"blockInputId": "HANDLER",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "7SPSEw",
+			"value": {
+				"content": [{
+					"id": "VALUE",
+					"type": "string-input",
+					"value": "xxx_ISR"
+				}],
+				"name": "rawInput"
+			}
+		}, {
+			"id": "MODE",
+			"type": "static-select",
+			"options": [{
+				"label": "低电平触发",
+				"value": "LOW"
+			}, {
+				"label": "电平变化时触发",
+				"value": "CHANGE"
+			}, {
+				"label": "上升沿触发",
+				"value": "RISING"
+			}, {
+				"label": "下降沿触发",
+				"value": "FALLING"
+			}, {
+				"label": "高电平触发",
+				"value": "HIGH"
+			}]
+		}],
+		"code": "attachInterrupt(digitalPinToInterrupt({PIN}), {HANDLER}, {MODE});",
+		"tags": ["module", "advanced"],
+		"module": "default",
+		"uid": "wPJu0m"
+	}, {
+		"type": "statement",
+		"name": "detachInterrupt",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "取消中断"
+		}, {
+			"type": "text",
+			"value": "引脚"
+		}, {
+			"id": "PIN",
+			"type": "static-select",
+			"options": [{
+				"label": "2",
+				"value": "2"
+			}, {
+				"label": "3",
+				"value": "3"
+			}]
+		}],
+		"code": "detachInterrupt(digitalPinToInterrupt{PIN});",
+		"tags": ["module"],
+		"module": "default",
+		"uid": "IJewwT"
+	}, {
+		"type": "statement",
 		"name": "motorRun",
 		"connectors": [{
 			"type": "connector-top",
@@ -1871,22 +2030,22 @@ define(function() {
 			"id": "OPERATOR",
 			"type": "static-select",
 			"options": [{
-				"label": "=",
+				"label": "等于",
 				"value": "=="
 			}, {
-				"label": "!=",
+				"label": "不等于",
 				"value": "!="
 			}, {
-				"label": ">",
+				"label": "大于",
 				"value": ">"
 			}, {
-				"label": ">=",
+				"label": "大于等于",
 				"value": ">="
 			}, {
-				"label": "<",
+				"label": "小于",
 				"value": "<"
 			}, {
-				"label": "<=",
+				"label": "小于等于",
 				"value": "<="
 			}]
 		}, {
@@ -1936,22 +2095,22 @@ define(function() {
 			"id": "OPERATOR",
 			"type": "static-select",
 			"options": [{
-				"label": "=",
+				"label": "等于",
 				"value": "=="
 			}, {
-				"label": "!=",
+				"label": "不等于",
 				"value": "!="
 			}, {
-				"label": ">",
+				"label": "大于",
 				"value": ">"
 			}, {
-				"label": ">=",
+				"label": "大于等于",
 				"value": ">="
 			}, {
-				"label": "<",
+				"label": "小于",
 				"value": "<"
 			}, {
-				"label": "<=",
+				"label": "小于等于",
 				"value": "<="
 			}]
 		}, {
@@ -1986,33 +2145,6 @@ define(function() {
 		"code": "else {\n{STATEMENTS}\n}",
 		"tags": ["logic"],
 		"uid": "ZfRdU7"
-	}, {
-		"type": "statement-input",
-		"name": "switch",
-		"connectors": [{
-			"type": "connector-top",
-			"accept": "connector-bottom"
-		}, {
-			"type": "connector-bottom",
-			"accept": "connector-top"
-		}, {
-			"type": "connector-root",
-			"accept": "connector-top"
-		}],
-		"content": [{
-			"type": "text",
-			"value": "判断变量"
-		}, {
-			"id": "VAR",
-			"type": "dynamic-select",
-			"options": "vars"
-		}, {
-			"type": "text",
-			"value": "的值为"
-		}],
-		"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
-		"tags": ["logic"],
-		"uid": "3zhrCA"
 	}, {
 		"type": "statement-input",
 		"name": "for",
@@ -2124,22 +2256,22 @@ define(function() {
 			"id": "OPERATOR",
 			"type": "static-select",
 			"options": [{
-				"label": "=",
+				"label": "等于",
 				"value": "=="
 			}, {
-				"label": "!=",
+				"label": "不等于",
 				"value": "!="
 			}, {
-				"label": ">",
+				"label": "大于",
 				"value": ">"
 			}, {
-				"label": ">=",
+				"label": "大于等于",
 				"value": ">="
 			}, {
-				"label": "<",
+				"label": "小于",
 				"value": "<"
 			}, {
-				"label": "<=",
+				"label": "小于等于",
 				"value": "<="
 			}]
 		}, {
@@ -2154,6 +2286,69 @@ define(function() {
 		"code": "while ({ARG1} {OPERATOR} {ARG2}){\n{STATEMENTS}\n}",
 		"tags": ["logic"],
 		"uid": "5RidrE"
+	}, {
+		"type": "statement-input",
+		"name": "switch",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-root",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "4rdfhv"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "判断变量"
+		}, {
+			"blockInputId": "VAR",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "4rdfhv"
+		}, {
+			"type": "text",
+			"value": "的值为"
+		}],
+		"code": "switch ({VAR}) {\n{STATEMENTS}\n}",
+		"tags": ["logic"],
+		"uid": "3zhrCA"
+	}, {
+		"type": "statement-input",
+		"name": "switchAdvanced",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-root",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "kyrV6g"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "判断变量"
+		}, {
+			"blockInputId": "VAR",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "kyrV6g"
+		}],
+		"code": "switch ({VAR}) {\n{STATEMENTS}\n}",
+		"tags": ["logic", "advanced"],
+		"uid": "Mjse7L"
 	}, {
 		"type": "statement-input",
 		"name": "case",
@@ -2178,7 +2373,7 @@ define(function() {
 			"type": "text",
 			"value": "那么"
 		}],
-		"code": "case {VAR}:{\n{STATEMENTS}\nbreak;\n}",
+		"code": "case {VAR}:\n{STATEMENTS}\nbreak;",
 		"tags": ["logic"],
 		"uid": "ff0qMf"
 	}, {
@@ -2377,36 +2572,6 @@ define(function() {
 		"uid": "0sHb8t"
 	}, {
 		"type": "statement-input",
-		"name": "switchAdvanced",
-		"connectors": [{
-			"type": "connector-top",
-			"accept": "connector-bottom"
-		}, {
-			"type": "connector-bottom",
-			"accept": "connector-top"
-		}, {
-			"type": "connector-root",
-			"accept": "connector-top"
-		}, {
-			"type": "connector-input",
-			"accept": "connector-output",
-			"acceptType": "all",
-			"name": "kyrV6g"
-		}],
-		"content": [{
-			"type": "text",
-			"value": "判断变量"
-		}, {
-			"blockInputId": "VAR",
-			"type": "block-input",
-			"acceptType": "all",
-			"name": "kyrV6g"
-		}],
-		"code": "switch (int({VAR})) {\n{STATEMENTS}\n}",
-		"tags": ["logic", "advanced"],
-		"uid": "Mjse7L"
-	}, {
-		"type": "statement-input",
 		"name": "whileAdvanced",
 		"connectors": [{
 			"type": "connector-top",
@@ -2438,6 +2603,57 @@ define(function() {
 		"code": "while ({CONDITION}){\n{STATEMENTS}\n}",
 		"tags": ["logic", "advanced"],
 		"uid": "3N9W0i"
+	}, {
+		"type": "output",
+		"name": "maxOrMin",
+		"connectors": [{
+			"type": "connector-output",
+			"accept": "connector-input"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "TE0cha"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "JLugQ1"
+		}],
+		"content": [{
+			"blockInputId": "ARG1",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "TE0cha"
+		}, {
+			"type": "text",
+			"value": "与"
+		}, {
+			"blockInputId": "ARG2",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "JLugQ1"
+		}, {
+			"type": "text",
+			"value": "的"
+		}, {
+			"type": "static-select",
+			"id": "OP",
+			"options": [{
+				"label": "最大值",
+				"value": "max",
+			}, {
+				"label": "最小值",
+				"value": "min"
+			}]
+		}],
+		"code": "{TYPE} {OP}({ARG1}, {ARG2})",
+		"returnType": {
+			"type": "fromSelect",
+			"id": "TYPE"
+		},
+		"tags": ["operation"],
+		"uid": "75hiHZ"
 	}, {
 		"type": "output",
 		"name": "not",
@@ -2492,22 +2708,22 @@ define(function() {
 			"id": "OPERATOR",
 			"type": "static-select",
 			"options": [{
-				"label": "=",
+				"label": "等于",
 				"value": "=="
 			}, {
-				"label": "!=",
+				"label": "不等于",
 				"value": "!="
 			}, {
-				"label": ">",
+				"label": "大于",
 				"value": ">"
 			}, {
-				"label": ">=",
+				"label": "大于等于",
 				"value": ">="
 			}, {
-				"label": "<",
+				"label": "小于",
 				"value": "<"
 			}, {
-				"label": "<=",
+				"label": "小于等于",
 				"value": "<="
 			}]
 		}, {
@@ -2918,7 +3134,7 @@ define(function() {
 			"type": "comment-input",
 			"placeholder": "输入你的注释"
 		}],
-		"code": "// {COMMENT}",
+		"code": "// {COMMENT}\n",
 		"tags": ["code"],
 		"uid": "iKZF8b"
 	}, {
@@ -2958,10 +3174,17 @@ define(function() {
 			"type": "number-input",
 			"value": 2000
 		}, {
-			"type": "text",
-			"value": "毫秒"
+			"type": "static-select",
+			"id": "OP",
+			"options": [{
+				"label": "毫秒",
+				"value": "delay"
+			}, {
+				"label": "微秒",
+				"value": "delayMicroseconds"
+			}]
 		}],
-		"code": "delay({TIME});",
+		"code": "{OP}({TIME});",
 		"tags": ["time"],
 		"uid": "s5clkj"
 	}, {
