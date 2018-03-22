@@ -149,11 +149,13 @@ void Motor::setDirection(int index, bool direction)
 	{
 		_direction1 = direction;
 		digitalWrite(_in1, _direction1);
+		digitalWrite(_in2, !_direction1);
 	}
 	else if(index == 2 && _index2 == 2)
 	{
 		_direction2 = direction;
 		digitalWrite(_in3, _direction2);
+		digitalWrite(_in4, !_direction2);
 	}
 }
 
