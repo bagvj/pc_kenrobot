@@ -2382,7 +2382,7 @@
 				"acceptType": "all",
 				"name": "JkQfkY"
 			}],
-			"code": "{LCD}.setCursor({COL}, {ROW});{LCD}.print({DATA});",
+			"code": "{LCD}.setCursor({ROW}, {COL});{LCD}.print({DATA});",
 			"tags": ["module"],
 			"module": "uper_lcd",
 			"uid": "IPUP5l"
