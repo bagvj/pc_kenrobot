@@ -21,6 +21,10 @@
     "name": "按钮消抖",
     "category": "数字量"
   }, {
+    "path": "02Digital/Keypad43/Keypad43.krb",
+    "name": "薄膜键盘4x3",
+    "category": "数字量"
+  }, {
     "path": "02Digital/StateChangeDetection/StateChangeDetection.krb",
     "name": "检测按键状态",
     "category": "数字量"
@@ -44,6 +48,22 @@
     "path": "03Analog/Fading/Fading.krb",
     "name": "呼吸灯",
     "category": "模拟值"
+  }, {
+    "path": "03Analog/LeafHumidity/LeafHumidity.krb",
+    "name": "叶面湿度",
+    "category": "模拟值"
+  }, {
+    "path": "03Analog/Pot/Pot.krb",
+    "name": "电位器控制舵机",
+    "category": "模拟值"
+  }, {
+    "path": "04Communication/PS2/PS2.krb",
+    "name": "PS2手柄",
+    "category": "通信"
+  }, {
+    "path": "04Communication/RFID/RFID.krb",
+    "name": "RFID射频识别",
+    "category": "通信"
   }, {
     "path": "04Communication/SerialCallResponse/SerialCallResponse.krb",
     "name": "串口自发自收",
