@@ -421,19 +421,15 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 					certificateSha1: "CF853B3F7C8B5FFE9C40D48025EB348BBE360914",
 				}: undefined,
 				afterPack: packContext => {
-					var deferred = Q.defer()
-
 					if(platform !== "arm") {
-						setTimeout(() => deferred.resolve(), 10)
-						return deferred.promise
+						return
 					}
 
-					console.log(packContext.appOutDir)
-					setTimeout(() => {
-						console.log("done")
-						deferred.resolve()
-					}, 3000)
-					return deferred.promise
+					var extraSrc = "./data/extra"
+					var extraDist = packContext.appOutDir
+					globby.sync(`${extraSrc}/**/*`).forEach(p => {
+						fs.copySync(p, p.replace(extraSrc, extraDist))
+					})
 				},
 			},
 			appInfo: {
