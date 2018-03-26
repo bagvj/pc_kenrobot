@@ -4,10 +4,18 @@
  * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra globby@7 hasha iconv-lite is-online lodash node-fetch q serialport@6.1.1 sudo-prompt terminate
  * npm install --save-dev electron@1.8.4
  * npm install --global  gulp node-gyp prebuild-install electron-rebuild electron@1.8.4
- * ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+ * export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
  * gem install sass
  * ruby --version
  * python --version
+ *    用法: gulp build --release --branch=BRANCH --platform=PLATFORM --target=TARGET --arch=ARCH [--packages=PACKAGE] [--feature=FEATURE] --standalone --compress
+ *    通用: gulp --release
+ *   win32: gulp build --release --branch=beta --platform=win   --target=nsis --arch=ia32   [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *   win64: gulp build --release --branch=beta --platform=win   --target=nsis --arch=x64    [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *     mac: gulp build --release --branch=beta --platform=mac   --target=dmg  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *   linux: gulp build --release --branch=beta --platform=linux --target=deb  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *  armv7l: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=armv7l [--packages=PACKAGE] [--feature=FEATURE]
+ *   arm64: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=arm64  [--packages=PACKAGE] [--feature=FEATURE]
  */
 
 const gulp = require('gulp') //基础库
