@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=KRobot
+GenericName=KRobot
+Comment=electronics prototyping platform graphic programming 
+Exec=<BINARY_LOCATION>
+Icon=<ICON_NAME>
+Terminal=false
+Categories=Development;IDE;Electronics;Education
+MimeType=text/x-krobot;
+Keywords=graphic programming;embedded electronics;electronics;avr;microcontroller;
+StartupWMClass=processing-app-Base
