@@ -226,11 +226,15 @@ gulp.task('pack-renderer', ['clean-renderer'], callback => {
 gulp.task('pack', ['pack-main', 'pack-renderer'])
 
 /**
- * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
- * 示例: gulp build-pack --release --branch=beta
- *       gulp build-pack --release --branch=beta --platform=arm --standalone --compress
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
+ * 用法:    gulp build --release --branch=BRANCH --platform=PLATFORM --target=TARGET --arch=ARCH [--packages=PACKAGE] [--feature=FEATURE] --standalone --compress
+ * 示例:
+ *    通用: gulp --release
+ *   win32: gulp build --release --branch=beta --platform=win   --target=nsis --arch=ia32   [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *   win64: gulp build --release --branch=beta --platform=win   --target=nsis --arch=x64    [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *     mac: gulp build --release --branch=beta --platform=mac   --target=dmg  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *   linux: gulp build --release --branch=beta --platform=linux --target=deb  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *  armv7l: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=armv7l [--packages=PACKAGE] [--feature=FEATURE]
+ *   arm64: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=arm64  [--packages=PACKAGE] [--feature=FEATURE]
  */
 gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var platform = args.platform || "win"

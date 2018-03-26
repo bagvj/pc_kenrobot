@@ -3049,7 +3049,7 @@ define(function() {
 		"code": "map({VAR},0,1023,0,{MAXVAL})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation"],
 		"uid": "2qFcus"
@@ -3279,7 +3279,7 @@ define(function() {
 		"code": "map({VAR},{INITMIN},{INITMAX},{FINMIN},{FINMAX})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation", "advanced"],
 		"uid": "SGhMsC"
