@@ -244,7 +244,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var targets
 	if (platform == "linux") {
 		arch = args.arch || "ia32"
-		target = args.target || "AppImage"
+		target = args.target || "deb"
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if (platform == "arm") {
@@ -253,6 +253,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if (platform == "mac") {
+		arch = "x64"
 		target = args.target || "dmg"
 		ext = target
 		targets = builder.Platform.MAC.createTarget(target)
@@ -269,6 +270,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		feature: feature,
 		ext: ext,
 		appBit: arch == "ia32" ? 32 : 64,
+		appArch: arch,
 		date: parseInt(new Date().getTime() / 1000),
 		expire: args.expire
 	})
@@ -278,8 +280,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var standardPackage = args.standardPackage || "Arduino"
 
 	if (args.standalone) {
+		var suffix = platform === "arm" ? `/${arch}` : ""
 		var extraFiles = [
-			`./data/arduino-${platform}/**/*`,
+			{ from: `./data/arduino/${platform}${suffix}/**/*`, to: `./data/arduino/**/*`},
 			"./data/scripts/**/*",
 			`!./data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./data/examples/**/*",
@@ -395,8 +398,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			callback()
 		})
 	} else {
+		var suffix = platform === "arm" ? `/${arch}` : ""
 		var extraFiles = [
-			`data/arduino-${platform}`,
+			{from: `data/arduino/${platform}${suffix}`, to: `data/arduino`},
 			"data/scripts",
 			`!data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"data/examples",
