@@ -111,7 +111,8 @@
 	}
 
 	.categories {
-		display: flex;
+		// display: flex;
+		display: none;
 
 		li {
 			flex: 1;
