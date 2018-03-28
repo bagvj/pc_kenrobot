@@ -78,12 +78,14 @@ function getAppInfo() {
 		info.feature = ""
 		info.date = stamp()
 		info.appBit = info.bit
+		info.appArch = info.arch
 	} else {
 		info.ext = PACKAGE.buildInfo.ext
 		info.branch = PACKAGE.buildInfo.branch
 		info.feature = PACKAGE.buildInfo.feature
 		info.date = PACKAGE.buildInfo.date
 		info.appBit = PACKAGE.buildInfo.appBit
+		info.appArch = PACKAGE.buildInfo.appArch
 	}
 
 	return info
@@ -108,7 +110,13 @@ function getAppPath(name, extra) {
 		case "packages":
 			return path.join(getAppPath("appDocuments"), "packages")
 		case "arduino":
-			return path.join(getAppPath("appResource"), `arduino-${getPlatform()}`)
+			if(!is.dev()) {
+				return path.join(getAppPath("appResource"), "arduino")
+			}
+
+			var appInfo = getAppInfo()
+			var suffix = appInfo.platform !== "arm" ? "" : appInfo.appArch
+			return path.join(getAppPath("appResource"), `arduino/${appInfo.platform}`, suffix)
 		default:
 			return app.getPath(name)
 	}

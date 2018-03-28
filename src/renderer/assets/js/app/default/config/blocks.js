@@ -2393,7 +2393,7 @@ define(function() {
 			"type": "text",
 			"value": "如果都不是，那么"
 		}],
-		"code": "default:{\n{STATEMENTS}\nbreak;\n}",
+		"code": "default:\n{STATEMENTS}\nbreak;\n",
 		"tags": ["logic"],
 		"uid": "vkklu3"
 	}, {
@@ -2667,21 +2667,188 @@ define(function() {
 			"name": "Ii8UU4"
 		}],
 		"content": [{
-			"type": "text",
-			"value": "非"
+			"id": "OP",
+			"type": "static-select",
+			"options": [{
+				"label": "非",
+				"value": "!",
+				"type": "bool"
+			}, {
+				"label": "取反",
+				"value": "~",
+				"type": "int"
+			}, {
+				"label": "取相反数",
+				"value": "-",
+				"type": "float"
+			}]
 		}, {
-			"blockInputId": "CONDITION",
+			"blockInputId": "EXP",
 			"type": "block-input",
 			"acceptType": "all",
 			"name": "Ii8UU4"
 		}],
-		"code": "!{CONDITION}",
+		"code": "{OP}{EXP}",
 		"returnType": {
-			"type": "simple",
-			"value": "bool"
+			"type": "fromSelect",
+			"id": "OP"
 		},
 		"tags": ["operation"],
 		"uid": "PPCqQ0"
+	}, {
+		"type": "statement",
+		"name": "selfAddAndMinus",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "f817Zg"
+		}],
+		"content": [{
+			"blockInputId": "EXP",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "f817Zg"
+		}, {
+			"id": "OP",
+			"type": "static-select",
+			"options": [{
+				"label": "自增",
+				"value": "++"
+			}, {
+				"label": "自减",
+				"value": "--"
+			}]
+		}],
+		"code": "{EXP}{OP};",
+		"tags": ["operation", "advanced"],
+		"uid": "GGkCwD"
+	}, {
+		"type": "output",
+		"name": "bitOperation",
+		"connectors": [{
+			"type": "connector-output",
+			"accept": "connector-input"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "OAk0HN"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "ckMVqT"
+		}],
+		"content": [{
+			"blockInputId": "ARG1",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "OAk0HN"
+		}, {
+			"id": "OP",
+			"type": "static-select",
+			"options": [{
+				"label": "位与",
+				"value": "&"
+			}, {
+				"label": "位或",
+				"value": "|"
+			}, {
+				"label": "异或",
+				"value": "^"
+			}, {
+				"label": "左移",
+				"value": "<<"
+			}, {
+				"label": "右移",
+				"value": ">>"
+			}]
+		}, {
+			"blockInputId": "ARG2",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "ckMVqT"
+		}],
+		"code": "{ARG1} {OP} {ARG2}",
+		"returnType": {
+			"type": "simple",
+			"value": "int"
+		},
+		"tags": ["operation", "advanced"],
+		"uid": "rOpi9e"
+	}, {
+		"type": "statement",
+		"name": "compositeOperation",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "qLUwbj"
+		}, {
+			"type": "connector-input",
+			"accept": "connector-output",
+			"acceptType": "all",
+			"name": "bXzoum"
+		}],
+		"content": [{
+			"blockInputId": "ARG1",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "qLUwbj"
+		}, {
+			"id": "OP",
+			"type": "static-select",
+			"options": [{
+				"label": "复合加",
+				"value": "+=",
+				"type": "float"
+			}, {
+				"label": "复合减",
+				"value": "-=",
+				"type": "float"
+			}, {
+				"label": "复合乘",
+				"value": "*=",
+				"type": "float"
+			}, {
+				"label": "复合除",
+				"value": "/=",
+				"type": "float"
+			}, {
+				"label": "复合与",
+				"value": "&=",
+				"type": "int"
+			}, {
+				"label": "复合或",
+				"value": "|=",
+				"type": "int"
+			}, {
+				"label": "复合异或",
+				"value": "^=",
+				"type": "int"
+			}]
+		}, {
+			"blockInputId": "ARG2",
+			"type": "block-input",
+			"acceptType": "all",
+			"name": "bXzoum"
+		}],
+		"code": "{ARG1} {OP} {ARG2};",
+		"tags": ["operation", "advanced"],
+		"uid": "xxiC2a"
 	}, {
 		"type": "output",
 		"name": "equalityOperations",
@@ -2882,7 +3049,7 @@ define(function() {
 		"code": "map({VAR},0,1023,0,{MAXVAL})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation"],
 		"uid": "2qFcus"
@@ -3112,7 +3279,7 @@ define(function() {
 		"code": "map({VAR},{INITMIN},{INITMAX},{FINMIN},{FINMAX})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation", "advanced"],
 		"uid": "SGhMsC"

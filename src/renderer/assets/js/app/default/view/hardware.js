@@ -491,8 +491,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				.replace(/\{\{src\}\}/, encodeURI(board.imageUrl).replace(/\(/g, "\\(").replace(/\)/g, "\\)"));
 			ul.append(li);
 		});
-		var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';
-		ul.append(defaultLi);
+		// var defaultLi = '<li class="seperator"></li><li class="board-manager" data-value="board-manager" title="开发板管理"><i class="kenrobot ken-edu-hardware"></i><span>开发板管理<span></li>';
+		// ul.append(defaultLi);
 		ul.find("> li").eq(0).click();
 	}
 
