@@ -555,21 +555,25 @@ function removeFile(filePath, sync) {
  * @param {*} filePath 路径
  * @param {*} options 选项
  */
-function readJson(filePath, options) {
+function readJson(filePath, options, sync) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	fs.readJson(filePath, options, (err, data) => {
-		if(err) {
-			log.info(err)
-			deferred.reject(err)
-			return
-		}
+	if(sync) {
+		return fs.readJsonSync(filePath, options)
+	} else {
+		fs.readJson(filePath, options, (err, data) => {
+			if(err) {
+				log.info(err)
+				deferred.reject(err)
+				return
+			}
 
-		deferred.resolve(data)
-	})
+			deferred.resolve(data)
+		})
 
-	return deferred.promise
+		return deferred.promise
+	}
 }
 
 /**
@@ -665,7 +669,7 @@ function uncompress(filePath, dist, spawn) {
 function compress(dir, files, dist, type) {
 	var deferred = Q.defer()
 
-	files = files  ? files : [files]
+	files = _.isArray(files)  ? files : [files]
 	type = type || "7z"
 	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
 

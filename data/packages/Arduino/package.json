@@ -1,7 +1,7 @@
 {
 	"name": "Arduino",
 	"company": "Arduino",
-	"version": "0.7.1",
+	"version": "0.7.2",
 	"author": "Kenrobot",
 	"category": "built-in",
 	"help": "http://www.kenrobot.com/",
@@ -4177,9 +4177,6 @@
 				}, {
 					"label": "7",
 					"value": "7"
-				}, {
-					"label": "8",
-					"value": "8"
 				}]
 			}, {
 				"type": "text",
@@ -4211,9 +4208,6 @@
 				}, {
 					"label": "7",
 					"value": "7"
-				}, {
-					"label": "8",
-					"value": "8"
 				}]
 			}],
 			"code": "{LED_CONTROL}.setLed(0, {ROW}, {COLUMN}, {STATE});",
@@ -4365,9 +4359,6 @@
 				}, {
 					"label": "7",
 					"value": "7"
-				}, {
-					"label": "8",
-					"value": "8"
 				}]
 			}],
 			"code": "{LED_CONTROL}.setRow(0, {ROW}, {VALUE});",
@@ -4442,9 +4433,6 @@
 				}, {
 					"label": "7",
 					"value": "7"
-				}, {
-					"label": "8",
-					"value": "8"
 				}]
 			}],
 			"code": "{LED_CONTROL}.setRow(0, {COLUMN}, {VALUE});",

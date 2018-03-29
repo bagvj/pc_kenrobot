@@ -1970,6 +1970,23 @@ define(function() {
 		"uid": "IWkSja"
 	}, {
 		"type": "statement",
+		"name": "returnBasic",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "返回"
+		}],
+		"code": "return;",
+		"tags": ["function"],
+		"uid": "2pkZqh"
+	}, {
+		"type": "statement",
 		"name": "return",
 		"connectors": [{
 			"type": "connector-top",
@@ -1993,7 +2010,7 @@ define(function() {
 			"name": "i7RIin"
 		}],
 		"code": "return {RETURN};",
-		"tags": ["function", "advanced"],
+		"tags": ["function"],
 		"uid": "fkkekW"
 	}, {
 		"type": "statement-input",

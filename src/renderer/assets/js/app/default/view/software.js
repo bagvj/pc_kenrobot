@@ -427,7 +427,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function toggleToolButton(value) {
-		if (value === true || topRegion.width() < 580) {
+		if (value === true || topRegion.width() < 610) {
 			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
 			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
@@ -465,11 +465,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			});
 			setTimeout(toggleToolButton, 200);
 			codeRegion.dequeue("slide-out");
-			topRegion.find(".tool-button.show-code").prop("title", "显示源码");
+			topRegion.find(".tool-button.show-code").prop("title", "显示源码").find(".text-normal").text("显示源码");
 		} else {
 			setTimeout(toggleToolButton, 200);
 			codeRegion.addClass("active").addClass("slide-in");
-			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码");
+			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码").find(".text-normal").text("隐藏源码");
 		}
 	}
 
