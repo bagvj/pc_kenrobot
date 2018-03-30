@@ -1970,6 +1970,23 @@ define(function() {
 		"uid": "IWkSja"
 	}, {
 		"type": "statement",
+		"name": "returnBasic",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "返回"
+		}],
+		"code": "return;",
+		"tags": ["function"],
+		"uid": "2pkZqh"
+	}, {
+		"type": "statement",
 		"name": "return",
 		"connectors": [{
 			"type": "connector-top",
@@ -1993,7 +2010,7 @@ define(function() {
 			"name": "i7RIin"
 		}],
 		"code": "return {RETURN};",
-		"tags": ["function", "advanced"],
+		"tags": ["function"],
 		"uid": "fkkekW"
 	}, {
 		"type": "statement-input",
@@ -3049,7 +3066,7 @@ define(function() {
 		"code": "map({VAR},0,1023,0,{MAXVAL})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation"],
 		"uid": "2qFcus"
@@ -3279,7 +3296,7 @@ define(function() {
 		"code": "map({VAR},{INITMIN},{INITMAX},{FINMIN},{FINMAX})",
 		"returnType": {
 			"type": "simple",
-			"value": "float"
+			"value": "int"
 		},
 		"tags": ["operation", "advanced"],
 		"uid": "SGhMsC"

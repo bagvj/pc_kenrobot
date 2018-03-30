@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="text/x-krobot">
+        <comment>Krobot source code</comment>
+		<comment xml:lang="ara">شفرة مصدر KRobot</comment>
+		<comment xml:lang="be@latin">Kryničny kod KRobot</comment>
+		<comment xml:lang="bg">Изходен код на KRobot</comment>
+		<comment xml:lang="ca">codi font en KRobot</comment>
+		<comment xml:lang="da">KRobotkildekode</comment>
+		<comment xml:lang="de">KRobot-Quelltext</comment>
+		<comment xml:lang="el">πηγαίος κώδικας KRobot</comment>
+		<comment xml:lang="en_GB">KRobot source code</comment>
+		<comment xml:lang="eo">KRobot-fontkodo</comment>
+		<comment xml:lang="es">código fuente en KRobot</comment>
+		<comment xml:lang="eu">KRobot iturburu-kodea</comment>
+		<comment xml:lang="fi">KRobot-lähdekoodi</comment>
+		<comment xml:lang="fr">code source KRobot</comment>
+		<comment xml:lang="ga">cód foinseach KRobot</comment>
+		<comment xml:lang="hu">KRobot-forráskód</comment>
+		<comment xml:lang="id">Kode program KRobot</comment>
+		<comment xml:lang="it">Codice sorgente KRobot</comment>
+		<comment xml:lang="ja">KRobot ソースコード</comment>
+		<comment xml:lang="lt">KRobot pradinis kodas</comment>
+		<comment xml:lang="lv">KRobot pirmkods</comment>
+		<comment xml:lang="ms">Kod sumber KRobot</comment>
+		<comment xml:lang="nb">KRobot-kildekode</comment>
+		<comment xml:lang="nl">KRobot-broncode</comment>
+		<comment xml:lang="nn">KRobot-kjeldekode</comment>
+		<comment xml:lang="pl">Kod źródłowy KRobot</comment>
+		<comment xml:lang="pt">código fonte KRobot</comment>
+		<comment xml:lang="pt_BR">Código fonte KRobot</comment>
+		<comment xml:lang="ru">исходный код KRobot</comment>
+		<comment xml:lang="sq">Kod burues KRobot</comment>
+		<comment xml:lang="sv">KRobot-källkod</comment>
+		<comment xml:lang="uk">Вихідний код на мові KRobot</comment>
+		<comment xml:lang="vi">Mã nguồn KRobot</comment>
+		<comment xml:lang="zh_CN">KRobot 源代码</comment>
+		<comment xml:lang="zh_TW">KRobot 源代碼</comment>
+        <sub-class-of type="text/x-c++src"/>
+        <glob pattern="*.krb"/>
+    </mime-type>
+</mime-info>

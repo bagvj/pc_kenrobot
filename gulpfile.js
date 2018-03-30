@@ -1,13 +1,21 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron-builder@20.5.1 fs-extra globby@7 gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
+ * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron-builder@20.8.0 fs-extra globby@7 gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
  * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra globby@7 hasha iconv-lite is-online lodash node-fetch q serialport@6.1.1 sudo-prompt terminate
  * npm install --save-dev electron@1.8.4
  * npm install --global  gulp node-gyp prebuild-install electron-rebuild electron@1.8.4
- * ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
+ * export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
  * gem install sass
  * ruby --version
  * python --version
+ *    用法: gulp build --release --branch=BRANCH --platform=PLATFORM --target=TARGET --arch=ARCH [--packages=PACKAGE] [--feature=FEATURE] --standalone --compress
+ *    通用: gulp --release
+ *   win32: gulp build --release --branch=beta --platform=win   --target=nsis --arch=ia32   [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *   win64: gulp build --release --branch=beta --platform=win   --target=nsis --arch=x64    [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *     mac: gulp build --release --branch=beta --platform=mac   --target=dmg  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *   linux: gulp build --release --branch=beta --platform=linux --target=deb  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *  armv7l: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=armv7l [--packages=PACKAGE] [--feature=FEATURE]
+ *   arm64: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=arm64  [--packages=PACKAGE] [--feature=FEATURE]
  */
 
 const gulp = require('gulp') //基础库
@@ -226,11 +234,15 @@ gulp.task('pack-renderer', ['clean-renderer'], callback => {
 gulp.task('pack', ['pack-main', 'pack-renderer'])
 
 /**
- * 用法: gulp build-pack --release --standalone --compress --platform=PLATFORM --arch=ARCH --target=TARGET --branch=BRANCH --feature=FEATURE
- * 示例: gulp build-pack --release --branch=beta
- *       gulp build-pack --release --branch=beta --platform=arm --standalone --compress
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta
- *       gulp build-pack --release --platform=win --arch=x64 --target=nsis --branch=beta --packages=Intel --feature=with-101
+ * 用法:    gulp build --release --branch=BRANCH --platform=PLATFORM --target=TARGET --arch=ARCH [--packages=PACKAGE] [--feature=FEATURE] --standalone --compress
+ * 示例:
+ *    通用: gulp --release
+ *   win32: gulp build --release --branch=beta --platform=win   --target=nsis --arch=ia32   [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *   win64: gulp build --release --branch=beta --platform=win   --target=nsis --arch=x64    [--packages=PACKAGE] [--feature=FEATURE] [--sign]
+ *     mac: gulp build --release --branch=beta --platform=mac   --target=dmg  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *   linux: gulp build --release --branch=beta --platform=linux --target=deb  --arch=x64    [--packages=PACKAGE] [--feature=FEATURE]
+ *  armv7l: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=armv7l [--packages=PACKAGE] [--feature=FEATURE]
+ *   arm64: gulp build --release --branch=beta --platform=arm   --target=dir  --arch=arm64  [--packages=PACKAGE] [--feature=FEATURE]
  */
 gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var platform = args.platform || "win"
@@ -244,7 +256,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var targets
 	if (platform == "linux") {
 		arch = args.arch || "ia32"
-		target = args.target || "AppImage"
+		target = args.target || "deb"
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if (platform == "arm") {
@@ -253,6 +265,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		ext = target
 		targets = builder.Platform.LINUX.createTarget(target, builder.archFromString(arch))
 	} else if (platform == "mac") {
+		arch = "x64"
 		target = args.target || "dmg"
 		ext = target
 		targets = builder.Platform.MAC.createTarget(target)
@@ -269,6 +282,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 		feature: feature,
 		ext: ext,
 		appBit: arch == "ia32" ? 32 : 64,
+		appArch: arch,
 		date: parseInt(new Date().getTime() / 1000),
 		expire: args.expire
 	})
@@ -278,8 +292,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	var standardPackage = args.standardPackage || "Arduino"
 
 	if (args.standalone) {
+		var suffix = platform === "arm" ? `/${arch}` : ""
 		var extraFiles = [
-			`./data/arduino-${platform}/**/*`,
+			{ from: `./data/arduino/${platform}${suffix}/**/*`, to: `./data/arduino/**/*`},
 			"./data/scripts/**/*",
 			`!./data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./data/examples/**/*",
@@ -395,8 +410,9 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			callback()
 		})
 	} else {
+		var suffix = platform === "arm" ? `/${arch}` : ""
 		var extraFiles = [
-			`data/arduino-${platform}`,
+			{from: `data/arduino/${platform}${suffix}`, to: `data/arduino`},
 			"data/scripts",
 			`!data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"data/examples",
@@ -412,10 +428,21 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			targets: targets,
 			config: {
 				extraFiles: extraFiles,
-				win: args.sign ? {
+				win: (platform === "win" && args.sign) ? {
 					certificateSubjectName: "911101083484411499",
 					certificateSha1: "CF853B3F7C8B5FFE9C40D48025EB348BBE360914",
-				}: undefined
+				}: undefined,
+				afterPack: packContext => {
+					if(platform !== "arm") {
+						return
+					}
+
+					var extraSrc = "./data/extra"
+					var extraDist = packContext.appOutDir
+					globby.sync(`${extraSrc}/**/*`).forEach(p => {
+						fs.copySync(p, p.replace(extraSrc, extraDist))
+					})
+				},
 			},
 			appInfo: {
 				buildNumber: packageConfig.buildNumber,

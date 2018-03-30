@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- See https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html -->
+<component type="desktop-application">
+  <id>com.kenrobot.krobot.desktop</id>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <developer_name>Kenrobot</developer_name>
+
+  <name>KRobot</name>
+  <summary>智能硬件学习平台</summary>
+
+  <description>
+    <p>
+	  Arduino基于灵活易用的硬件和软件，是一个开源的电子原型开发平台。
+	  它面向艺术家、设计师、爱好者以及任何对创造交互式对象和场景感兴趣的人。
+    </p>
+    <p>
+	   KRobot包含完整的Arduino集成开发环境，包含硬件设计、模块拖拽和引脚连接、
+	   图形化积木搭建代码、自动生成源代码以及部分元件仿真，为Arduino和兼容Arduino
+	   的硬件编译和上传代码，同时也支持文本模式。专为创客、老师、学生和对智能
+	   硬件感兴趣的初学爱好者们设计。
+    </p>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://mavit.fedorapeople.org/appdata/arduino-screenshot.png</image>
+      <caption>The Arduino IDE showing a simple example program</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://mavit.fedorapeople.org/appdata/arduino-photo.jpg</image>
+      <caption>Arduino hardware being connected to a breadboard</caption>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">http://www.kenrobot.com/</url>
+  <url type="help">https://www.kenrobot.com/help</url>
+  <url type="bugtracker"> </url>
+  <url type="translate"> </url>
+  <url type="donation"> </url>
+
+  <update_contact> </update_contact>
+</component>

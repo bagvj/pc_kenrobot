@@ -78,12 +78,14 @@ function getAppInfo() {
 		info.feature = ""
 		info.date = stamp()
 		info.appBit = info.bit
+		info.appArch = info.arch
 	} else {
 		info.ext = PACKAGE.buildInfo.ext
 		info.branch = PACKAGE.buildInfo.branch
 		info.feature = PACKAGE.buildInfo.feature
 		info.date = PACKAGE.buildInfo.date
 		info.appBit = PACKAGE.buildInfo.appBit
+		info.appArch = PACKAGE.buildInfo.appArch
 	}
 
 	return info
@@ -108,7 +110,13 @@ function getAppPath(name, extra) {
 		case "packages":
 			return path.join(getAppPath("appDocuments"), "packages")
 		case "arduino":
-			return path.join(getAppPath("appResource"), `arduino-${getPlatform()}`)
+			if(!is.dev()) {
+				return path.join(getAppPath("appResource"), "arduino")
+			}
+
+			var appInfo = getAppInfo()
+			var suffix = appInfo.platform !== "arm" ? "" : appInfo.appArch
+			return path.join(getAppPath("appResource"), `arduino/${appInfo.platform}`, suffix)
 		default:
 			return app.getPath(name)
 	}
@@ -547,21 +555,25 @@ function removeFile(filePath, sync) {
  * @param {*} filePath 路径
  * @param {*} options 选项
  */
-function readJson(filePath, options) {
+function readJson(filePath, options, sync) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	fs.readJson(filePath, options, (err, data) => {
-		if(err) {
-			log.info(err)
-			deferred.reject(err)
-			return
-		}
+	if(sync) {
+		return fs.readJsonSync(filePath, options)
+	} else {
+		fs.readJson(filePath, options, (err, data) => {
+			if(err) {
+				log.info(err)
+				deferred.reject(err)
+				return
+			}
 
-		deferred.resolve(data)
-	})
+			deferred.resolve(data)
+		})
 
-	return deferred.promise
+		return deferred.promise
+	}
 }
 
 /**
@@ -657,7 +669,7 @@ function uncompress(filePath, dist, spawn) {
 function compress(dir, files, dist, type) {
 	var deferred = Q.defer()
 
-	files = files  ? files : [files]
+	files = _.isArray(files)  ? files : [files]
 	type = type || "7z"
 	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
 

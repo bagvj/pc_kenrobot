@@ -3,8 +3,8 @@
   "main": "main/index.js",
   "name": "krobot",
   "productName": "KRobot",
-  "version": "0.8.2",
-  "buildNumber": 70,
+  "version": "0.8.3",
+  "buildNumber": 73,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
@@ -26,10 +26,10 @@
     "iconv-lite": "^0.4.19",
     "is-online": "^7.0.0",
     "lodash": "^4.17.5",
-    "node-fetch": "^2.1.1",
+    "node-fetch": "^2.1.2",
     "q": "^1.5.1",
     "serialport": "^6.1.1",
-    "sudo-prompt": "^8.1.0",
+    "sudo-prompt": "^8.2.0",
     "terminate": "^2.1.0"
   }
 }

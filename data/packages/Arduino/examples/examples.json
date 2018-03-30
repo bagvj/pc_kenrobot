@@ -9,6 +9,14 @@
     "name": "闪烁LED",
     "category": "基础"
   }, {
+    "path": "01Basic/CommonAnodeRGBLed/CommonAnodeRGBLed.krb",
+    "name": "三色LED(共阳)",
+    "category": "基础"
+  }, {
+    "path": "01Basic/CommonCathodeRGBLed/CommonCathodeRGBLed.krb",
+    "name": "三色LED(共阴)",
+    "category": "基础"
+  }, {
     "path": "01Basic/ReadAnalogVoltage/ReadAnalogVoltage.krb",
     "name": "读取模拟口电压",
     "category": "基础"
@@ -73,6 +81,14 @@
     "name": "判断语句示例",
     "category": "控制"
   }, {
+    "path": "06Sensors/DHT11/DHT11.krb",
+    "name": "温湿度传感器DHT11",
+    "category": "传感"
+  }, {
+    "path": "06Sensors/DHT22/DHT22.krb",
+    "name": "温湿度传感器DHT22",
+    "category": "传感"
+  }, {
     "path": "06Sensors/Ping/Ping.krb",
     "name": "超声波测距",
     "category": "传感"
@@ -83,6 +99,14 @@
   }, {
     "path": "07Display/OLED/OLED.krb",
     "name": "OLED",
+    "category": "显示"
+  }, {
+    "path": "07Display/LedControl/LedControl.krb",
+    "name": "点阵8x8",
+    "category": "显示"
+  }, {
+    "path": "07Display/EncoderAndDigitalTube/EncoderAndDigitalTube.krb",
+    "name": "旋转编码器与数码管",
     "category": "显示"
   }, {
     "path": "08Strings/StringLength/StringLength.krb",
