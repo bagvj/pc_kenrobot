@@ -13,6 +13,8 @@ class UPER_Rain
 public:
 	UPER_Rain(int pin);
     int read();
+    int open();
+    int close();
 private:
 	int _pin;
 };

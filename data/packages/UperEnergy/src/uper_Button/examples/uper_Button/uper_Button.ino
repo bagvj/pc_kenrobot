@@ -8,6 +8,8 @@ void setup()
 }
 
 void loop()
-{
-  Serial.println(uper_button.read());
+{	
+	uper_button.open();					//打开按钮
+	uper_button.close();				//关闭按钮
+  	Serial.println(uper_button.read());	//读取按钮的状态
 }

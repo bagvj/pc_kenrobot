@@ -11,9 +11,13 @@ class UPER_Ultrasonic
 {
 public:
 	UPER_Ultrasonic(uint8_t pin);
-	int distance(void);
+	UPER_Ultrasonic(uint8_t pin_1,uint8_t pin_2);
+	float distance(void);
+	float distancenum(void);
 private:
 	uint8_t _Ultrasonic_pin;
+	uint8_t _Ultrasonic_pin1;
+	uint8_t _Ultrasonic_pin2;
 };
 
 #endif

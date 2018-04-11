@@ -9,5 +9,7 @@ void setup()
 
 void loop()
 {
-  Serial.println(uper_rain.read());
+	uper_rain.open();					//打开雨水传感器
+	uper_rain.close();				//关闭雨水传感器
+  	Serial.println(uper_rain.read());	//读取雨水传感器的状态
 }

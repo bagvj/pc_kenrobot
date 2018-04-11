@@ -12,6 +12,8 @@ class UPER_Button
 public:
 	UPER_Button(int pin);
     int read();
+    void open();
+    void close();
 private:
 	int _pin;
 };

@@ -34,7 +34,7 @@ uper_Step::uper_Step(int pin, void (*callback)(void)) {
 
 void uper_Step::begin(int type) {
 	_count = 0;
-	pinMode(_pin, INPUT_PULLUP);
+	pinMode(_pin, INPUT);
 	attachInterrupt(digitalPinToInterrupt(_pin), _callback, type);
 }
 

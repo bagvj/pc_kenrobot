@@ -1,7 +1,7 @@
 {
 	"name": "UperEnergy",
 	"company": "吖扑科学",
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"author": "Uper",
 	"category": "third-party",
 	"help": "http://www.uper.cc/",
@@ -1628,11 +1628,6 @@
 			}, {
 				"type": "connector-bottom",
 				"accept": "connector-top"
-			}, {
-				"type": "connector-input",
-				"accept": "connector-output",
-				"acceptType": "all",
-				"name": "fwESxJ"
 			}],
 			"content": [{
 				"type": "text",
@@ -1645,28 +1640,30 @@
 				"type": "text",
 				"value": "设置第"
 			}, {
-				"blockInputId": "INDEX",
-				"type": "block-input",
-				"acceptType": "all",
-				"name": "fwESxJ"
+				"id": "INDEX",
+				"type": "number-input",
+				"value": "0"
 			}, {
 				"type": "text",
 				"value": "个灯的颜色，红"
 			}, {
 				"id": "RED",
-				"type": "number-input"
+				"type": "number-input",
+				"value": "255"
 			}, {
 				"type": "text",
 				"value": "绿"
 			}, {
 				"id": "BLUE",
-				"type": "number-input"
+				"type": "number-input",
+				"value": "255"
 			}, {
 				"type": "text",
 				"value": "蓝"
 			}, {
 				"id": "GREEN",
-				"type": "number-input"
+				"type": "number-input",
+				"value": "255"
 			}],
 			"code": "{RGB}.setPixelColor({INDEX}, {RED}, {BLUE}, {GREEN});",
 			"tags": ["module"],
@@ -1716,7 +1713,15 @@
 				"blockInputId": "INDEX",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "6rGDrP"
+				"name": "6rGDrP",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
 			}, {
 				"type": "text",
 				"value": "个灯的颜色，红"
@@ -1724,7 +1729,15 @@
 				"blockInputId": "RED",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "Z4TYHQ"
+				"name": "Z4TYHQ",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "255"
+					}],
+					"name": "number"
+				}
 			}, {
 				"type": "text",
 				"value": "绿"
@@ -1732,7 +1745,15 @@
 				"blockInputId": "BLUE",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "wgMiBL"
+				"name": "wgMiBL",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "255"
+					}],
+					"name": "number"
+				}
 			}, {
 				"type": "text",
 				"value": "蓝"
@@ -1740,7 +1761,15 @@
 				"blockInputId": "GREEN",
 				"type": "block-input",
 				"acceptType": "all",
-				"name": "B8JxQe"
+				"name": "B8JxQe",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "255"
+					}],
+					"name": "number"
+				}
 			}],
 			"code": "{RGB}.setPixelColor({INDEX}, {RED}, {BLUE}, {GREEN});",
 			"tags": ["module", "advanced"],
@@ -2213,7 +2242,7 @@
 		"pins": [{
 			"name": "s",
 			"anchor": [0.5, 1],
-			"tags": ["analog-in"],
+			"tags": ["uper-2P-digital"],
 			"label": "s",
 			"shape": "Dot",
 			"rotate": false
@@ -2241,10 +2270,10 @@
 				"type": "text",
 				"value": "测量距离"
 			}],
-			"code": "{SENSOR}.distance()",
+			"code": "{SENSOR}.distancenum()",
 			"returnType": {
 				"type": "simple",
-				"value": "int"
+				"value": "float"
 			},
 			"tags": ["module"],
 			"module": "uper_ultrasound",
@@ -2403,8 +2432,8 @@
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <OneWire.h>\n#include <DallasTemperature.h>",
-			"var": "OneWire {NAME}_oneWire({s});\nDallasTemperature {NAME}(&{NAME}_oneWire);",
+			"include": "#include <uper_DS18B20.h>",
+			"var": "OneWire {NAME}_oneWire({s});\nUPER_DS18B20 {NAME}(&{NAME}_oneWire);",
 			"setup": "{NAME}.begin();"
 		},
 		"raw": true,
@@ -2455,16 +2484,16 @@
 				"type": "static-select",
 				"options": [{
 					"label": "摄氏",
-					"value": "getTempC"
+					"value": "getTempCByIndex"
 				}, {
 					"label": "华氏",
-					"value": "getTempF"
+					"value": "getTempFByIndex"
 				}]
 			}, {
 				"type": "text",
 				"value": "温度"
 			}],
-			"code": "{SENSOR}.{OP}()",
+			"code": "{SENSOR}.{OP}(0)",
 			"returnType": {
 				"type": "simple",
 				"value": "float"
@@ -4152,11 +4181,14 @@
 			"module": "uper_rfid",
 			"uid": "6ygI90"
 		}, {
-			"type": "output",
+			"type": "statement",
 			"name": "uper_rfidWriteBlock",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
@@ -4195,11 +4227,7 @@
 				"acceptType": "all",
 				"name": "MNq5cg"
 			}],
-			"code": "{SENSOR}.MifareWriteBlock({BLOCK}, {BUF})",
-			"returnType": {
-				"type": "simple",
-				"value": "u8"
-			},
+			"code": "{SENSOR}.MifareWriteBlock({BLOCK}, {BUF});",
 			"tags": ["module"],
 			"module": "uper_rfid",
 			"uid": "bICzTs"
@@ -4421,11 +4449,14 @@
 			"module": "uper_nfc",
 			"uid": "pjrILs"
 		}, {
-			"type": "output",
+			"type": "statement",
 			"name": "uper_nfcWrite",
 			"connectors": [{
-				"type": "connector-output",
-				"accept": "connector-input"
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
 			}, {
 				"type": "connector-input",
 				"accept": "connector-output",
@@ -4448,11 +4479,7 @@
 				"acceptType": "all",
 				"name": "rXnIQc"
 			}],
-			"code": "{SENSOR}.write({MESSAGE})",
-			"returnType": {
-				"type": "simple",
-				"value": "boolean"
-			},
+			"code": "{SENSOR}.write({MESSAGE});",
 			"tags": ["module"],
 			"module": "uper_nfc",
 			"uid": "VFxOyt"
