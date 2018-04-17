@@ -1,7 +1,7 @@
 {
 	"name": "UperEnergy",
 	"company": "吖扑科学",
-	"version": "0.3.5",
+	"version": "0.3.6",
 	"author": "Uper",
 	"category": "third-party",
 	"help": "http://www.uper.cc/",
@@ -2248,8 +2248,8 @@
 			"rotate": false
 		}],
 		"code": {
-			"include": "#include <uper_Ultrasonic.h>",
-			"var": "UPER_Ultrasonic {NAME}({s});"
+			"include": "#include <uper_Pin.h>\n#include <uper_Ultrasonic.h>",
+			"var": "UPER_Ultrasonic {NAME}(Uper2PDigitalPort[{s}].d1, Uper2PDigitalPort[{s}].d2);"
 		},
 		"raw": true,
 		"blocks": [{
