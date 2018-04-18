@@ -306,16 +306,29 @@ function decrypt(cryptedText, key, algorithm) {
 	return plainText
 }
 
-function rsa_encrypt(plain, key) {
+function rsaPublicEncrypt(plain, key) {
 	key = key || PUBLIC_KEY
     var buffer = new Buffer(plain)
     var encrypted = crypto.publicEncrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
     return encrypted.toString("base64")
 }
 
-function rsa_decrypt(encrypted, key) {
+function rsaPrivateDecrypt(encrypted, key) {
     var buffer = new Buffer(encrypted, "base64")
     var decrypted = crypto.privateDecrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
+    return decrypted.toString("utf8")
+}
+
+function rsaPrivateEncrypt(plain, key) {
+    var buffer = new Buffer(plain)
+    var encrypted = crypto.privateEncrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
+    return encrypted.toString("base64")
+}
+
+function rsaPublicDecrypt(encrypted, key) {
+	key = key || PUBLIC_KEY
+    var buffer = new Buffer(encrypted, "base64")
+    var decrypted = crypto.publicDecrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
     return decrypted.toString("utf8")
 }
 
@@ -788,8 +801,10 @@ module.exports.throttle = throttle
 
 module.exports.encrypt = encrypt
 module.exports.decrypt = decrypt
-module.exports.rsa_encrypt = rsa_encrypt
-module.exports.rsa_decrypt = rsa_decrypt
+module.exports.rsaPublicEncrypt = rsaPublicEncrypt
+module.exports.rsaPrivateDecrypt = rsaPrivateDecrypt
+module.exports.rsaPrivateEncrypt = rsaPrivateEncrypt
+module.exports.rsaPublicDecrypt = rsaPublicDecrypt
 
 module.exports.resolvePromise = resolvePromise
 module.exports.rejectPromise = rejectPromise
