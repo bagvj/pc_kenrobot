@@ -68,14 +68,7 @@ function init() {
 	})
 
 	initLog()
-	secret()
-
-	// var expire = util.getExpire()
-	// if(expire && expire < util.stamp()) {
-	// 	log.info(`app ${app.getName()} is expired, version ${util.getVersion()}, expire ${util.formatDate(expire, "yyyy/MM/dd")}`)
-	// 	dialog.showErrorBox("软件已过期", "软件已过期")
-	// 	app.exit(1)
-	// }
+	S()
 
 	cache = new Cache(CONFIG_KEY)
 	config = cache.getItem(CONFIG_KEY, {})
@@ -121,17 +114,10 @@ function initLog() {
 	}
 }
 
-function secret() {
-	var code = `F5HeaCPxBFUOnD6oZDyDxGngRh4feqs96133SsjpGZBeMBSuyz8Qt7m77bA834vnu8udpUjImGuwdnTYPKM8tx
-GiYegiw6s/MF4dkzx1V6EJ+3aEzuaiYxUAOQSSL1bTN9d17FgY9MzqkYov6b2gvWV6obhxyPcXeratjbD3HaY=
-n1ZxAPgmiuqWXWVbVpW/3Aud/DXsRk4Z7oJFGhllxx1qU5Mr8OQwLSUYatYofHUTAstsg2mEyc1Wjw8Wy2P70Y
-Xm7YxDVV5aDu+gXaZM/QX+fdFINem1VTaW4f5DxvRN4a1dLSihvzAeGSM1LsqyeZ15ZuRBG1GWZqCVZ+OjI0I=
-Vx0sVQoxQRknovcPX/PHXY3hGdf7V6q/xEJDI+E6YECa4GkTQiopbYS1skhRRreCcKaRvuhAHCjIOsfwa6gr31
-5vkMJccZGtRlbiF9fbEqpLu4BehCV4nqX6i6NCbFRuo3PUb3BUT6UkIe/Lb0H0gFJ3WR6g64ompeiH6cdNnFc=
-UxO2tDXLEcCNal+cKqeUGBbgYZTPXN44+6GUo6zhuKEXa3uQmDLBZfv2A+05oQLw5M1XkGVM76PEOHMQvYIDle
-N0hDogGB7ZOc0QyoUgEmIHvWmKElOHcuJZSwyWTIgfDnmdPq1X4Tbui01+PrkJ1AiGLScfi4W21NretMtrU/c=`
-
-	eval(Crypto.multiRsaPublicDecrypt(code, Crypto.PUBLIC_KEY, 3))
+function S() {
+	var p = "dC2DMi1peeXuPhTLDEnae4kHfhxpj7MN/gJ0Lmsov72IYk2wrQGjzfEdQizhC+xBV3LoUi8JAZRbwRWvKLiLnz/mXVCdejJDNwVI1nvjky0k5Ewi38tVSbx65KgtKcfYzlJBx1xYVd2JlIGJrCvBiikaN+TyAL8FCYXFmcUvxF4="
+	var key = util.readFile(path.join(util.getAppPath("appResource"), Crypto.rsaPublicDecrypt(p, Crypto.PUBLIC_KEY)), null, true)
+	eval(Crypto.multiRsaPublicDecrypt(key.trim(), Crypto.PUBLIC_KEY, 3))
 }
 
 /**

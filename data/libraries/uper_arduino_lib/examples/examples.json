@@ -1,0 +1,7 @@
+{
+	"package": "UperEnergy",
+	"examples": [{
+		"name": "Blink",
+		"category": "01Basic"
+	}]
+}

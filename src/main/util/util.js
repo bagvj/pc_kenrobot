@@ -397,11 +397,11 @@ function spawnCommand(command, args, options) {
  * @param {*} options 选项
  */
 function readFile(filePath, options, sync) {
+	options = options || "utf8"
 	if(sync) {
 		return fs.readFileSync(filePath, options)
 	} else {
 		var deferred = Q.defer()
-		options = options || "utf8"
 
 		fs.readFile(filePath, options, (err, data) => {
 			if(err) {

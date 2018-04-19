@@ -298,7 +298,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"./data/scripts/**/*",
 			`!./data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"./data/examples/**/*",
-			"./data/libraries/libraries.json",
+			"./data/libraries/**/*",
 			"./data/packages/packages.json",
 			"./data/packages/${standardPackage}/**/*",
 		]
@@ -416,7 +416,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 			"data/scripts",
 			`!data/scripts/**/*.${platform == "win" ? "sh" : "bat"}`,
 			"data/examples",
-			"data/libraries/libraries.json",
+			"data/libraries",
 			"data/packages/packages.json",
 			`data/packages/${standardPackage}`
 		]
