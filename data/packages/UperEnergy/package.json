@@ -1,7 +1,7 @@
 {
 	"name": "UperEnergy",
 	"company": "吖扑科学",
-	"version": "0.3.6",
+	"version": "0.3.7",
 	"author": "Uper",
 	"category": "third-party",
 	"help": "http://www.uper.cc/",
@@ -3095,6 +3095,260 @@
 			"uid": "HX5Yqi"
 		}],
 		"imageUrl": "assets/image/components/lcd.svg"
+	}, {
+		"uid": "c2LaAe",
+		"name": "uper_digital",
+		"label": "四位数码管",
+		"type": "uper_digital",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 122,
+		"height": 47,
+		"pins": [{
+			"name": "s",
+			"anchor": [0, 0.5],
+			"tags": ["uper-soft-iic"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_Wire.h>\n#include <uper_Digital.h>",
+			"var": "UPER_Digital {NAME};",
+			"setup": "Wire.begin();\n{NAME}.init();"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_digitalControl",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "四位数码管"
+			}, {
+				"id": "DIGITAL",
+				"type": "dynamic-select",
+				"options": "uper_digitals"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "清屏",
+					"value": "clear"
+				}, {
+					"label": "开",
+					"value": "displayOn"
+				}, {
+					"label": "关",
+					"value": "displayOff"
+				}]
+			}],
+			"code": "{DIGITAL}.{OP}();",
+			"tags": ["module"],
+			"module": "uper_digital",
+			"uid": "2uNAUn"
+		}, {
+			"type": "statement",
+			"name": "uper_digitalDisplayString",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "DoCd5u"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "四位数码管"
+			}, {
+				"id": "DIGITAL",
+				"type": "dynamic-select",
+				"options": "uper_digitals"
+			}, {
+				"type": "text",
+				"value": "显示字符串"
+			}, {
+				"blockInputId": "STR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "DoCd5u",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "uper"
+					}],
+					"name": "string"
+				}
+			}],
+			"code": "{DIGITAL}.displayString({STR});",
+			"tags": ["module"],
+			"module": "uper_digital",
+			"uid": "C85MvR"
+		}, {
+			"type": "statement",
+			"name": "uper_digitalSetDot",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "TieeDE"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "四位数码管"
+			}, {
+				"id": "DIGITAL",
+				"type": "dynamic-select",
+				"options": "uper_digitals"
+			}, {
+				"type": "text",
+				"value": "第"
+			}, {
+				"blockInputId": "INDEX",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "TieeDE",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "个小数点"
+			}, {
+				"id": "STATE",
+				"type": "static-select",
+				"options": [{
+					"label": "亮",
+					"value": "true"
+				}, {
+					"label": "灭",
+					"value": "false"
+				}]
+			}],
+			"code": "{DIGITAL}.setDot({INDEX}, {STATE});",
+			"tags": ["module"],
+			"module": "uper_digital",
+			"uid": "KroOxB"
+		}],
+		"imageUrl": "assets/image/components/digital.svg"
+	}, {
+		"uid": "30zGAL",
+		"name": "uper_turn",
+		"label": "EV3马达驱动板",
+		"type": "uper_turn",
+		"category": "action",
+		"boards": ["upDuino"],
+		"width": 88,
+		"height": 100,
+		"pins": [{
+			"name": "init",
+			"anchor": [0.33, 0],
+			"tags": ["init"],
+			"label": "init",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "motor",
+			"anchor": [0.67, 0],
+			"tags": ["uper-2P-digital"],
+			"label": "motor",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <uper_Pin.h>\n#include <uper_Turn.h>",
+			"var": "Uper_Turn {NAME}({init}, Uper2PDigitalPort[{motor}].d1, Uper2PDigitalPort[{motor}].d2, &{NAME}_ISR);",
+			"funcDeclare": "void {NAME}_ISR();\n",
+			"funcImplement": "void {NAME}_ISR() {\n{NAME}.doCount();\n}\n",
+			"setup": "{NAME}.begin();"
+		},
+		"raw": true,
+		"blocks": [{
+			"type": "statement",
+			"name": "uper_turnControl",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置马达"
+			}, {
+				"id": "TURN",
+				"type": "dynamic-select",
+				"options": "uper_turns"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "turn_Forward"
+				}, {
+					"label": "反转",
+					"value": "turn_Reversal"
+				}, {
+					"label": "停止",
+					"value": "turn_Stop"
+				}]
+			}],
+			"code": "{TURN}.{OP}();",
+			"tags": ["module"],
+			"module": "uper_turn",
+			"uid": "muUw6x"
+		}, {
+			"type": "output",
+			"name": "uper_turnGetCount",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获得马达"
+			}, {
+				"id": "TURN",
+				"type": "dynamic-select",
+				"options": "uper_turns"
+			}, {
+				"type": "text",
+				"value": "脉冲"
+			}],
+			"code": "{TURN}.getCount()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "uper_turn",
+			"uid": "dhbCMG"
+		}],
+		"imageUrl": "assets/image/components/turn.svg"
 	}, {
 		"uid": "w0PoUS",
 		"name": "uper_serial",
