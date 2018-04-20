@@ -1,0 +1,59 @@
+#######################################
+# Syntax Coloring Map for library Kenblock Drive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+Gamepad_Hardware	KEYWORD1
+Gamepad_Software    KEYWORD1
+
+
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# GamePad 关键字
+ButtonPressed	KEYWORD2
+ButtonReleased	KEYWORD2
+Button	KEYWORD2
+dataRead	KEYWORD2
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+GP_UP	LITERAL1
+GP_DOWN	LITERAL1
+GP_LEFT	LITERAL1
+GP_RIGHT	LITERAL1
+GP_SELECT	LITERAL1
+GP_START	LITERAL1
+GP_L1	LITERAL1
+GP_L2	LITERAL1
+GP_R1	LITERAL1
+GP_R2	LITERAL1
+GP_L3	LITERAL1
+GP_R3	LITERAL1
+GP_TRIANGLE	LITERAL1
+GP_CROSS	LITERAL1
+GP_SQUARE	LITERAL1
+GP_CIRCLE	LITERAL1
+GP_LX	LITERAL1
+GP_LY	LITERAL1
+GP_RX	LITERAL1
+GP_RY	LITERAL1
+

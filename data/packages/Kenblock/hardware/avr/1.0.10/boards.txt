@@ -1,0 +1,37 @@
+# See: http://code.google.com/p/arduino/wiki/Platforms
+
+menu.cpu=Processor
+
+##Kenblock Core (328p)
+##############################################################
+328p.name= Kenblock NEO-328P
+
+328p.vid.0=0x2341
+328p.pid.0=0x0043
+328p.vid.1=0x2341
+328p.pid.1=0x0001
+328p.vid.2=0x2A03
+328p.pid.2=0x0043
+328p.vid.3=0x2341
+328p.pid.3=0x0243
+
+328p.upload.tool=avrdude
+328p.upload.protocol=arduino
+328p.upload.maximum_size=32256
+328p.upload.maximum_data_size=2048
+328p.upload.speed=115200
+
+328p.bootloader.tool=avrdude
+328p.bootloader.low_fuses=0xFF
+328p.bootloader.high_fuses=0xDE
+328p.bootloader.extended_fuses=0xFD
+328p.bootloader.unlock_bits=0x3F
+328p.bootloader.lock_bits=0x0F
+328p.bootloader.file=optiboot/optiboot_atmega328.hex
+
+328p.build.mcu=atmega328p
+328p.build.f_cpu=16000000L
+328p.build.board=AVR_UNO
+328p.build.core=arduino
+328p.build.variant=standard
+

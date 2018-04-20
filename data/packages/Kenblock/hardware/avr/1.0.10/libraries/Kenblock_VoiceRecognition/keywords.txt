@@ -1,0 +1,39 @@
+#######################################
+# Syntax Coloring Map for library KenblcokDrive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+VoiceRecognition		KEYWORD1
+
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# Voice 关键字
+getReturnValue	  KEYWORD2
+addKeyword	      KEYWORD2
+receive			  KEYWORD2
+erase			  KEYWORD2
+close			  KEYWORD2
+open			  KEYWORD2
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+

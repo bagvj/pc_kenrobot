@@ -1,0 +1,39 @@
+#######################################
+# Syntax Coloring Map for library KenblcokDrive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+MotorServo			KEYWORD1
+MotorServo_USART	KEYWORD1
+MotorServo_IIC		KEYWORD1
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# MotorServo 关键字
+begin				KEYWORD2
+motorRun			KEYWORD2
+motorStop			KEYWORD2
+servoWrite			KEYWORD2
+getMotorVelocity	KEYWORD2
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+

@@ -1,9 +1,9 @@
 {
   "private": true,
   "main": "main/index.js",
-  "name": "krobot",
-  "productName": "KRobot",
-  "version": "0.8.3",
+  "name": "kenblock",
+  "productName": "Kenblock",
+  "version": "0.1.0",
   "buildNumber": 73,
   "description": "啃萝卜平台",
   "companyName": "北京啃萝卜信息技术有限公司",

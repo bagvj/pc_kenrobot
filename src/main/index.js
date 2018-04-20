@@ -1072,7 +1072,7 @@ function loadBoards(forceReload) {
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 
-	var searchPath = 'arduino-' + util.getPlatform()
+	var searchPath = util.getAppPath("arduino")
 	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()

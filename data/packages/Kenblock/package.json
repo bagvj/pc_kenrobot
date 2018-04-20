@@ -1,0 +1,7316 @@
+{
+	"name": "Kenblock",
+	"company": "乐智",
+	"version": "0.5.2",
+	"author": "Lezhi",
+	"category": "third-party",
+	"help": "http://www.lzrobot.com/",
+	"logo": "assets/image/logo.png",
+	"boards": [{
+		"label": "Kenblock NEO-328P",
+		"name": "Kenblock-NEO-328P",
+		"type": "uno",
+		"build": {
+			"fqbn": "Kenblock:avr:328p"
+		},
+		"upload": {
+			"mcu": "atmega328p"
+		},
+		"tags": ["Arduino"],
+		"pins": [{
+			"x": 0.114,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 41,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["ken-IIC"],
+			"name": "IIC-1",
+			"label": "IIC",
+			"uid": "2vGiu5"
+		}, {
+			"x": 0.168,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in", "ken-digital"],
+			"name": "A0",
+			"value": "A0",
+			"label": "A0",
+			"uid": "3IGLLR"
+		}, {
+			"x": 0.219,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in", "ken-digital"],
+			"name": "A1",
+			"value": "A1",
+			"label": "A1",
+			"uid": "LwMHua"
+		}, {
+			"x": 0.269,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in", "ken-digital"],
+			"name": "A2",
+			"value": "A2",
+			"label": "A2",
+			"uid": "AObnVE"
+		}, {
+			"x": 0.32,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in", "ken-digital"],
+			"name": "A3",
+			"value": "A3",
+			"label": "A3",
+			"uid": "FiPm07"
+		}, {
+			"x": 0.371,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in"],
+			"name": "A6",
+			"value": "A6",
+			"label": "A6",
+			"uid": "kIq5Ad"
+		}, {
+			"x": 0.421,
+			"y": 0.051,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["analog-in"],
+			"name": "A7",
+			"value": "A7",
+			"label": "A7",
+			"uid": "KsETSl"
+		}, {
+			"x": 0.492,
+			"y": 0.271,
+			"shape": "Rectangle",
+			"width": 22,
+			"height": 59,
+			"ratate": false,
+			"overlay": [0.5, -0.5],
+			"tags": ["ken-motor"],
+			"name": "MB",
+			"value": "MB",
+			"label": "MB",
+			"uid": "zD24yI"
+		}, {
+			"x": 0.492,
+			"y": 0.54,
+			"shape": "Rectangle",
+			"width": 21,
+			"height": 59,
+			"ratate": false,
+			"overlay": [0.5, -0.5],
+			"tags": ["ken-motor"],
+			"name": "MA",
+			"value": "MA",
+			"label": "MA",
+			"uid": "r5uoXa"
+		}, {
+			"x": 0.492,
+			"y": 0.767,
+			"shape": "Rectangle",
+			"width": 21,
+			"height": 40,
+			"ratate": false,
+			"overlay": [0.5, -0.5],
+			"tags": ["ken-IIC"],
+			"name": "IIC-2",
+			"label": "IIC",
+			"uid": "RPSlIl"
+		}, {
+			"x": 0.114,
+			"y": 0.947,
+			"shape": "Rectangle",
+			"width": 41,
+			"height": 22,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["serial"],
+			"name": "USART-1",
+			"label": "USART",
+			"uid": "93jZ2Z"
+		}, {
+			"x": 0.168,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital"],
+			"name": "2",
+			"value": "2",
+			"label": "D2",
+			"uid": "FCH8YB"
+		}, {
+			"x": 0.219,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital", "analog-out", "ken-IR"],
+			"name": "3",
+			"value": "3",
+			"label": "D3~",
+			"uid": "th1xlU"
+		}, {
+			"x": 0.269,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital"],
+			"name": "8",
+			"value": "8",
+			"label": "D8",
+			"uid": "mlr4ol"
+		}, {
+			"x": 0.32,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital", "analog-out"],
+			"name": "9",
+			"value": "9",
+			"label": "D9~",
+			"uid": "l0q3ym"
+		}, {
+			"x": 0.371,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital", "analog-out"],
+			"name": "10",
+			"value": "10",
+			"label": "D10~",
+			"uid": "eetsJn"
+		}, {
+			"x": 0.421,
+			"y": 0.945,
+			"shape": "Rectangle",
+			"width": 37,
+			"height": 21,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["digital", "analog-out"],
+			"name": "11",
+			"value": "11",
+			"label": "D11~",
+			"uid": "bVBvsJ"
+		}, {
+			"x": 0.612,
+			"y": 0.037,
+			"shape": "Rectangle",
+			"width": 41,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-analog"],
+			"name": "PA1",
+			"value": "PA1",
+			"label": "PA1",
+			"uid": "9JBtUU",
+			"tuple": true,
+			"members": ["A0", "A1"]
+		}, {
+			"x": 0.671,
+			"y": 0.037,
+			"shape": "Rectangle",
+			"width": 41,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-analog"],
+			"name": "PA2",
+			"value": "PA2",
+			"label": "PA2",
+			"uid": "Y0CIUw",
+			"tuple": true,
+			"members": ["A2", "A3"]
+		}, {
+			"x": 0.738,
+			"y": 0.037,
+			"shape": "Rectangle",
+			"width": 55,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-4P-analog"],
+			"name": "PA3",
+			"value": "PA3",
+			"label": "PA3",
+			"uid": "2UOmfZ",
+			"tuple": true,
+			"members": ["A0", "A1", "A2", "A3"]
+		}, {
+			"x": 0.816,
+			"y": 0.037,
+			"shape": "Rectangle",
+			"width": 56,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-4P-digital", "ken-4P-init"],
+			"name": "PD5",
+			"value": "PD5",
+			"label": "PD5",
+			"uid": "3QEwYu",
+			"tuple": true,
+			"members": ["2", "3", "8", "9"]
+		}, {
+			"x": 0.892,
+			"y": 0.037,
+			"shape": "Rectangle",
+			"width": 56,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-4P-digital", "ken-SPI"],
+			"name": "PD6/SPI",
+			"value": "PD6",
+			"label": "PD6/SPI",
+			"uid": "9k6tQG",
+			"tuple": true,
+			"members": ["10", "11", "12", "13"]
+		}, {
+			"x": 0.986,
+			"y": 0.306,
+			"shape": "Rectangle",
+			"width": 11,
+			"height": 55,
+			"ratate": false,
+			"overlay": [0.5, -0.4],
+			"tags": ["ken-IIC-INT"],
+			"name": "IIC INT",
+			"value": "IIC_INT",
+			"label": "IIC INT",
+			"uid": "YXDTjV",
+			"tuple": true,
+			"members": ["2"]
+		}, {
+			"x": 0.986,
+			"y": 0.529,
+			"shape": "Rectangle",
+			"width": 11,
+			"height": 40,
+			"ratate": false,
+			"overlay": [0.5, -0.4],
+			"tags": ["ken-IIC"],
+			"name": "IIC-3",
+			"label": "IIC",
+			"uid": "CnnvH5"
+		}, {
+			"x": 0.986,
+			"y": 0.722,
+			"shape": "Rectangle",
+			"width": 11,
+			"height": 40,
+			"ratate": false,
+			"overlay": [0.5, -0.4],
+			"tags": ["ken-IIC"],
+			"name": "IIC-4",
+			"label": "IIC",
+			"uid": "xeigbb"
+		}, {
+			"x": 0.612,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["serial"],
+			"name": "USART-2",
+			"label": "USART",
+			"uid": "XxmulL",
+			"tuple": true,
+			"members": ["USART-1"]
+		}, {
+			"x": 0.67,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-digital"],
+			"name": "PD1",
+			"value": "PD1",
+			"label": "PD1",
+			"uid": "0pV3eY",
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.729,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-digital"],
+			"name": "PD2",
+			"value": "PD2",
+			"label": "PD2",
+			"uid": "9ldu6x",
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.786,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-digital"],
+			"name": "PD3",
+			"value": "PD3",
+			"label": "PD3",
+			"uid": "sG9ad6",
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.844,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-2P-digital"],
+			"name": "PD4",
+			"value": "PD4",
+			"label": "PD4",
+			"uid": "JekoUx",
+			"tuple": true,
+			"members": ["12", "13"]
+		}, {
+			"x": 0.901,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-IIC"],
+			"name": "IIC-5",
+			"label": "IIC",
+			"uid": "QG3IrB"
+		}, {
+			"x": 0.114,
+			"y": 0.947,
+			"shape": "Rectangle",
+			"width": 41,
+			"height": 22,
+			"ratate": false,
+			"overlay": [0.5, -1],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-5",
+			"uid": "Zbevcc",
+			"value": "0, 1",
+			"hide": true,
+			"tuple": true,
+			"members": ["USART-1"]
+		}, {
+			"x": 0.612,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-0",
+			"uid": "T0qEeT",
+			"value": "0, 1",
+			"hide": true,
+			"tuple": true,
+			"members": ["USART-1"]
+		}, {
+			"x": 0.67,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-1",
+			"value": "3, 2",
+			"uid": "4O6aKq",
+			"hide": true,
+			"tuple": true,
+			"members": ["2", "3"]
+		}, {
+			"x": 0.729,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-2",
+			"value": "9, 8",
+			"uid": "XhKExi",
+			"hide": true,
+			"tuple": true,
+			"members": ["8", "9"]
+		}, {
+			"x": 0.786,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-3",
+			"value": "11, 11",
+			"uid": "8S0v7R",
+			"hide": true,
+			"tuple": true,
+			"members": ["10", "11"]
+		}, {
+			"x": 0.844,
+			"y": 0.963,
+			"shape": "Rectangle",
+			"width": 40,
+			"height": 11,
+			"ratate": false,
+			"overlay": [0.5, -1.5],
+			"tags": ["ken-software-serial"],
+			"name": "software-serial-4",
+			"value": "13, 12",
+			"uid": "NUzHig",
+			"hide": true,
+			"tuple": true,
+			"members": ["12", "13"]
+		}],
+		"uid": "BrwL0E",
+		"imageUrl": "assets/image/boards/Kenblock-NEO-328P.svg",
+		"width": 770,
+		"height": 227
+	}],
+	"components": [{
+		"uid": "4nP8jf",
+		"name": "ken_switch",
+		"defaultVarName": "switch",
+		"label": "开关模块",
+		"type": "ken_switch",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_switchRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取开关的状态值"
+			}, {
+				"id": "SWITCH",
+				"type": "dynamic-select",
+				"options": "ken_switchs"
+			}],
+			"code": "digitalRead({SWITCH})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_switch",
+			"uid": "x5eUlJ"
+		}],
+		"imageUrl": "assets/image/components/switch.svg"
+	}, {
+		"uid": "tXFhpp",
+		"name": "ken_button",
+		"defaultVarName": "button",
+		"label": "按键模块",
+		"type": "ken_button",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_buttonRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取按键的状态值"
+			}, {
+				"id": "BUTTON",
+				"type": "dynamic-select",
+				"options": "ken_buttons"
+			}],
+			"code": "digitalRead({BUTTON})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_button",
+			"uid": "2wiDlG"
+		}],
+		"imageUrl": "assets/image/components/button.svg"
+	}, {
+		"uid": "SHl75E",
+		"name": "ken_touch",
+		"defaultVarName": "touch",
+		"label": "电容触摸模块",
+		"type": "ken_touch",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_touchRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取触摸模块的状态值"
+			}, {
+				"id": "TOUCH",
+				"type": "dynamic-select",
+				"options": "ken_touchs"
+			}],
+			"code": "digitalRead({TOUCH})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_touch",
+			"uid": "qdWXMh"
+		}],
+		"imageUrl": "assets/image/components/touch.svg"
+	}, {
+		"uid": "TtVTN5",
+		"name": "ken_limitSwitch",
+		"defaultVarName": "limitSwitch",
+		"label": "限位开关模块",
+		"type": "ken_limitSwitch",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "ken-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_limitSwitchRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取限位开关的状态值"
+			}, {
+				"id": "LIMIT",
+				"type": "dynamic-select",
+				"options": "ken_limitSwitchs"
+			}],
+			"code": "digitalRead({LIMIT})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_limitSwitch",
+			"uid": "k3ETiV"
+		}],
+		"imageUrl": "assets/image/components/limitSwitch.svg"
+	}, {
+		"uid": "Or8w3x",
+		"name": "ken_potentiometer",
+		"defaultVarName": "potentiometer",
+		"label": "电位器模块",
+		"type": "ken_potentiometer",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_potentiometerRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取电位器的值"
+			}, {
+				"id": "POT",
+				"type": "dynamic-select",
+				"options": "ken_potentiometers"
+			}],
+			"code": "analogRead({POT})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_potentiometer",
+			"uid": "Czvu89"
+		}],
+		"imageUrl": "assets/image/components/potentiometer.svg"
+	}, {
+		"uid": "RxSYKI",
+		"name": "ken_joystick",
+		"defaultVarName": "joystick",
+		"label": "摇杆模块",
+		"type": "ken_joystick",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 52,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-2P-analog"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "Joystick {NAME}({s});",
+			"include": "#include <Kenblock.h>\n#include <Kenblock_Joystick.h>"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_joystickReadX",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取摇杆"
+			}, {
+				"id": "JOYSTICK",
+				"type": "dynamic-select",
+				"options": "ken_joysticks"
+			}, {
+				"type": "text",
+				"value": "X轴的值(-500~500)"
+			}],
+			"code": "{JOYSTICK}.readX()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_joystick",
+			"uid": "1F9goh"
+		}, {
+			"type": "output",
+			"name": "ken_joystickReadY",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取摇杆"
+			}, {
+				"id": "JOYSTICK",
+				"type": "dynamic-select",
+				"options": "ken_joysticks"
+			}, {
+				"type": "text",
+				"value": "Y轴的值(-500~500)"
+			}],
+			"code": "{JOYSTICK}.readY()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_joystick",
+			"uid": "GVQoHq"
+		}, {
+			"type": "output",
+			"name": "ken_joystickAngle",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取摇杆"
+			}, {
+				"id": "JOYSTICK",
+				"type": "dynamic-select",
+				"options": "ken_joysticks"
+			}, {
+				"type": "text",
+				"value": "的角度值(-180~180)"
+			}],
+			"code": "{JOYSTICK}.angle()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_joystick",
+			"uid": "5kARni"
+		}, {
+			"type": "output",
+			"name": "ken_joystickOffCenter",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取摇杆"
+			}, {
+				"id": "JOYSTICK",
+				"type": "dynamic-select",
+				"options": "ken_joysticks"
+			}, {
+				"type": "text",
+				"value": "离中心的距离(0~700)"
+			}],
+			"code": "{JOYSTICK}.offcenter()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_joystick",
+			"uid": "pApY5U"
+		}],
+		"imageUrl": "assets/image/components/joystick.svg"
+	}, {
+		"uid": "i5tmzQ",
+		"name": "ken_light",
+		"defaultVarName": "lightSensor",
+		"label": "光敏传感模块",
+		"type": "ken_light",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_lightRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取光照传感器"
+			}, {
+				"id": "LIGHT",
+				"type": "dynamic-select",
+				"options": "ken_lights"
+			}, {
+				"type": "text",
+				"value": "光照强度"
+			}],
+			"code": "analogRead({LIGHT})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_light",
+			"uid": "KlSB8e"
+		}],
+		"imageUrl": "assets/image/components/light.svg"
+	}, {
+		"uid": "axx1Rk",
+		"name": "ken_sound",
+		"defaultVarName": "soundSensor",
+		"label": "声音传感模块",
+		"type": "ken_sound",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_soundRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取声音传感器"
+			}, {
+				"id": "SOUND",
+				"type": "dynamic-select",
+				"options": "ken_sounds"
+			}, {
+				"type": "text",
+				"value": "声音强度"
+			}],
+			"code": "analogRead({SOUND})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_sound",
+			"uid": "PXKSBF"
+		}],
+		"imageUrl": "assets/image/components/sound.svg"
+	}, {
+		"uid": "xrKhGw",
+		"name": "ken_pirMotion",
+		"defaultVarName": "pirMotion",
+		"label": "人体感知模块",
+		"type": "ken_pirMotion",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_pirMotionRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取人体感知模块"
+			}, {
+				"id": "PIR",
+				"type": "dynamic-select",
+				"options": "ken_pirMotions"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({PIR})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_pirMotion",
+			"uid": "OHPpUm"
+		}],
+		"imageUrl": "assets/image/components/pirMotion.svg"
+	}, {
+		"uid": "o5cMc3",
+		"name": "ken_tracking",
+		"defaultVarName": "trackingSensor",
+		"label": "巡线传感模块",
+		"type": "ken_tracking",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "ken-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_trackingRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取巡线传感模块"
+			}, {
+				"id": "TRACKING",
+				"type": "dynamic-select",
+				"options": "ken_trackings"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({TRACKING})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_tracking",
+			"uid": "eXgROv"
+		}],
+		"imageUrl": "assets/image/components/tracking.svg"
+	}, {
+		"uid": "qNZSNe",
+		"name": "ken_trackingMatrix",
+		"defaultVarName": "trackingMatrix",
+		"label": "巡线阵列模块",
+		"type": "ken_trackingMatrix",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 100,
+		"height": 50,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-4P-digital", "ken-4P-analog"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_LineTracking.h>",
+			"var": "LineTracking {NAME}({s});"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_trackingMatrixReadAll",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取巡线阵列"
+			}, {
+				"id": "TRACKING_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_trackingMatrixs"
+			}, {
+				"type": "text",
+				"value": "所有传感器的值"
+			}],
+			"code": "{TRACKING_MATRIX}.readSensors()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_trackingMatrix",
+			"uid": "FiKVSL"
+		}, {
+			"type": "output",
+			"name": "ken_trackingMatrixRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取巡线阵列"
+			}, {
+				"id": "TRACKING_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_trackingMatrixs"
+			}, {
+				"type": "text",
+				"value": "序号为"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}]
+			}, {
+				"type": "text",
+				"value": "的传感器的值"
+			}],
+			"code": "{TRACKING_MATRIX}.readSensors({INDEX})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_trackingMatrix",
+			"uid": "kA41cM"
+		}],
+		"imageUrl": "assets/image/components/trackingMatrix.svg"
+	}, {
+		"uid": "5kCrOY",
+		"name": "ken_flameD",
+		"defaultVarName": "flameSensor_D",
+		"label": "火焰传感模块(数字)",
+		"type": "ken_flameD",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_flameDRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取火焰传感器"
+			}, {
+				"id": "FLAME",
+				"type": "dynamic-select",
+				"options": "ken_flameDs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({FLAME})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_flameD",
+			"uid": "A0hmIo"
+		}],
+		"imageUrl": "assets/image/components/flame.svg"
+	}, {
+		"uid": "mcGLcE",
+		"name": "ken_flameA",
+		"defaultVarName": "flameSensor_A",
+		"label": "火焰传感模块(模拟)",
+		"type": "ken_flameA",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_flameARead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取火焰传感器"
+			}, {
+				"id": "FLAME",
+				"type": "dynamic-select",
+				"options": "ken_flameAs"
+			}, {
+				"type": "text",
+				"value": "的模拟值"
+			}],
+			"code": "analogRead({FLAME})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_flameA",
+			"uid": "MnubBX"
+		}],
+		"imageUrl": "assets/image/components/flame.svg"
+	}, {
+		"uid": "GHHBn2",
+		"name": "ken_tilt",
+		"defaultVarName": "tiltSensor",
+		"label": "倾斜传感模块",
+		"type": "ken_tilt",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_tiltRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取倾斜传感器"
+			}, {
+				"id": "TILT",
+				"type": "dynamic-select",
+				"options": "ken_tilts"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({TILT})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_tilt",
+			"uid": "cj94G9"
+		}],
+		"imageUrl": "assets/image/components/tilt.svg"
+	}, {
+		"uid": "umbHqR",
+		"name": "ken_hallD",
+		"defaultVarName": "hallSensor_D",
+		"label": "磁传感模块(数字)",
+		"type": "ken_hallD",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_hallDRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取磁传感器"
+			}, {
+				"id": "HALL",
+				"type": "dynamic-select",
+				"options": "ken_hallDs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({HALL})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_hallD",
+			"uid": "zNvacP"
+		}],
+		"imageUrl": "assets/image/components/hall.svg"
+	}, {
+		"uid": "eCz4IN",
+		"name": "ken_smokeD",
+		"defaultVarName": "smokeSensor_D",
+		"label": "烟雾传感模块(数字)",
+		"type": "ken_smokeD",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_smokeDRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取烟雾传感器"
+			}, {
+				"id": "SMOKE",
+				"type": "dynamic-select",
+				"options": "ken_smokeDs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({SMOKE})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_smokeD",
+			"uid": "qcXcrT"
+		}],
+		"imageUrl": "assets/image/components/smoke.svg"
+	}, {
+		"uid": "SKO40T",
+		"name": "ken_smokeA",
+		"defaultVarName": "smokeSensor_A",
+		"label": "烟雾传感模块(模拟)",
+		"type": "ken_smokeA",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_smokeARead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取烟雾传感器"
+			}, {
+				"id": "SMOKE",
+				"type": "dynamic-select",
+				"options": "ken_smokeAs"
+			}, {
+				"type": "text",
+				"value": "的模拟值"
+			}],
+			"code": "analogRead({SMOKE})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_smokeA",
+			"uid": "QyAcCL"
+		}],
+		"imageUrl": "assets/image/components/smoke.svg"
+	}, {
+		"uid": "msGqme",
+		"name": "ken_alcoholD",
+		"defaultVarName": "alcoholSensor_D",
+		"label": "酒精传感模块(数字)",
+		"type": "ken_alcoholD",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_alcoholDRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取酒精传感器"
+			}, {
+				"id": "ALCOHOL",
+				"type": "dynamic-select",
+				"options": "ken_alcoholDs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({ALCOHOL})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_alcoholD",
+			"uid": "hkml2y"
+		}],
+		"imageUrl": "assets/image/components/alcohol.svg"
+	}, {
+		"uid": "ttJLbO",
+		"name": "ken_alcoholA",
+		"defaultVarName": "alcoholSensor_A",
+		"label": "酒精传感模块(模拟)",
+		"type": "ken_alcoholA",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_alcoholARead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取酒精传感器"
+			}, {
+				"id": "ALCOHOL",
+				"type": "dynamic-select",
+				"options": "ken_alcoholAs"
+			}, {
+				"type": "text",
+				"value": "的模拟值"
+			}],
+			"code": "analogRead({ALCOHOL})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_alcoholA",
+			"uid": "MvWxKb"
+		}],
+		"imageUrl": "assets/image/components/alcohol.svg"
+	}, {
+		"uid": "amf84B",
+		"name": "ken_gasD",
+		"defaultVarName": "gasSensor_D",
+		"label": "气体传感模块(数字)",
+		"type": "ken_gasD",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_gasDRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取气体传感器"
+			}, {
+				"id": "GAS",
+				"type": "dynamic-select",
+				"options": "ken_gasDs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({GAS})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_gasD",
+			"uid": "6YBPKY"
+		}],
+		"imageUrl": "assets/image/components/gas.svg"
+	}, {
+		"uid": "G0YfYB",
+		"name": "ken_gasA",
+		"defaultVarName": "gasSensor_A",
+		"label": "气体传感模块(模拟)",
+		"type": "ken_gasA",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_gasARead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取气体传感器"
+			}, {
+				"id": "GAS",
+				"type": "dynamic-select",
+				"options": "ken_gasAs"
+			}, {
+				"type": "text",
+				"value": "的模拟值"
+			}],
+			"code": "analogRead({GAS})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_gasA",
+			"uid": "PLZXas"
+		}],
+		"imageUrl": "assets/image/components/gas.svg"
+	}, {
+		"uid": "Tdp4cy",
+		"name": "ken_soil",
+		"defaultVarName": "soilMoistureSensor",
+		"label": "土壤湿度传感模块",
+		"type": "ken_soil",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_soilRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取土壤湿度传感器"
+			}, {
+				"id": "SOIL",
+				"type": "dynamic-select",
+				"options": "ken_soils"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "analogRead({SOIL})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_soil",
+			"uid": "RGiFFD"
+		}],
+		"imageUrl": "assets/image/components/soil.svg"
+	}, {
+		"uid": "EIvnYW",
+		"name": "ken_infraredSwitch",
+		"defaultVarName": "infraredSwitch",
+		"label": "红外避障传感器",
+		"type": "ken_infraredSwitch",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "ken-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_infraredSwitchRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取红外避障传感器"
+			}, {
+				"id": "INFRARED_SWITCH",
+				"type": "dynamic-select",
+				"options": "ken_infraredSwitchs"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({INFRARED_SWITCH})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_infraredSwitch",
+			"uid": "SQKu9s"
+		}],
+		"imageUrl": "assets/image/components/infraredSwitch.svg"
+	}, {
+		"uid": "Nk30TR",
+		"name": "ken_metal",
+		"defaultVarName": "metalSensor",
+		"label": "金属传感器",
+		"type": "ken_metal",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 28,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_metal",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取金属传感器"
+			}, {
+				"id": "METAL",
+				"type": "dynamic-select",
+				"options": "ken_metals"
+			}, {
+				"type": "text",
+				"value": "的状态值"
+			}],
+			"code": "digitalRead({METAL})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_metal",
+			"uid": "vVwCIP"
+		}],
+		"imageUrl": "assets/image/components/metal.svg"
+	}, {
+		"uid": "TxdLxV",
+		"name": "ken_rtc",
+		"defaultVarName": "rtc",
+		"label": "时钟模块",
+		"type": "ken_rtc",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <Kenblock_RTClib.h>",
+			"var": "RTC_DS3231 {NAME};",
+			"setup": "{NAME}.begin();\nif({NAME}.lostPower())\n{{NAME}.adjust(DateTime(F(__DATE__), F(__TIME__)));\n}"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_rtcSetTime",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置时间为系统时间"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "ken_rtcs"
+			}],
+			"code": "{RTC}.adjust(DateTime(F(__DATE__), F(__TIME__)));",
+			"tags": ["module"],
+			"module": "ken_rtc",
+			"uid": "JD7vBR"
+		}, {
+			"type": "statement",
+			"name": "ken_rtcSetTime2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "KY7LxG"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "uPkMNF"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "tZ0m2X"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "RqweOC"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NUg6h5"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "FQtnZY"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置时间"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "ken_rtcs"
+			}, {
+				"type": "text",
+				"value": "为 年"
+			}, {
+				"blockInputId": "YEAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "KY7LxG",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "2017"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "/月"
+			}, {
+				"blockInputId": "MONTH",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "uPkMNF",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "10"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "/日"
+			}, {
+				"blockInputId": "DAY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "tZ0m2X",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "时"
+			}, {
+				"blockInputId": "HOUR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "RqweOC",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "9"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": ":分"
+			}, {
+				"blockInputId": "MIN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NUg6h5",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "30"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": ":秒"
+			}, {
+				"blockInputId": "SEC",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "FQtnZY",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{RTC}.adjust(DateTime({YEAR}, {MONTH}, {DAY}, {HOUR}, {MIN}, {SEC}));",
+			"tags": ["module"],
+			"module": "ken_rtc",
+			"uid": "XMMEyD"
+		}, {
+			"type": "output",
+			"name": "ken_rtcGetTime",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取"
+			}, {
+				"id": "RTC",
+				"type": "dynamic-select",
+				"options": "ken_rtcs"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "年",
+					"value": "getYear",
+					"type": "uint16_t"
+				}, {
+					"label": "月",
+					"value": "getMonth",
+					"type": "uint8_t"
+				}, {
+					"label": "日",
+					"value": "getDay",
+					"type": "uint8_t"
+				}, {
+					"label": "星期几",
+					"value": "getDayOfTheWeek",
+					"type": "uint8_t"
+				}, {
+					"label": "时",
+					"value": "getHour",
+					"type": "uint8_t"
+				}, {
+					"label": "分",
+					"value": "getMinute",
+					"type": "uint8_t"
+				}, {
+					"label": "秒",
+					"value": "getSecond",
+					"type": "uint8_t"
+				}]
+			}],
+			"code": "{RTC}.{OP}()",
+			"returnType": {
+				"type": "fromSelect",
+				"id": "OP"
+			},
+			"tags": ["module"],
+			"module": "ken_rtc",
+			"uid": "r5WZRJ"
+		}],
+		"imageUrl": "assets/image/components/rtc.svg"
+	}, {
+		"uid": "vuvDpR",
+		"name": "ken_lm35Tempreture",
+		"defaultVarName": "analogTemp",
+		"label": "LM35模拟温度传感模块",
+		"type": "ken_lm35Tempreture",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_lm35TempretureRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取LM35温度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_lm35Tempretures"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "analogRead({SENSOR}) * (500.0 / 1024 )",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_lm35Tempreture",
+			"uid": "v26cJZ"
+		}],
+		"imageUrl": "assets/image/components/lm35Tempreture.svg"
+	}, {
+		"uid": "npPmrU",
+		"name": "ken_DS18B20",
+		"defaultVarName": "temp",
+		"label": "DS18B20数字温度传感模块",
+		"type": "ken_DS18B20",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <OneWire.h>\n#include <DallasTemperature.h>",
+			"var": "OneWire oneWire_{s}({s});\nDallasTemperature {NAME}(&oneWire_{s});\nDeviceAddress {NAME}_address;",
+			"setup": "{NAME}.begin();\n{NAME}.getAddress({NAME}_address, 0);\n{NAME}.setResolution({NAME}_address, 9);",
+			"funcDeclare": "float {NAME}_getTemp();",
+			"funcImplement": "float {NAME}_getTemp() {\n{NAME}.requestTemperatures();\nreturn {NAME}.getTempC({NAME}_address);\n}\n\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_DS18B20Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取DS18B20温度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_DS18B20s"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "{SENSOR}_getTemp()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_DS18B20",
+			"uid": "JMQ3Xj"
+		}],
+		"imageUrl": "assets/image/components/DS18B20.svg"
+	}, {
+		"uid": "CUQEYe",
+		"name": "ken_dht11",
+		"defaultVarName": "dht11",
+		"label": "DHT11数字温湿度传感器",
+		"type": "ken_dht11",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <dht.h>",
+			"var": "dht {NAME};\nint {NAME}_pin = {s};",
+			"funcDeclare": "int {NAME}_getTemperature();\nint {NAME}_getHumidity();",
+			"funcImplement": "int {NAME}_getTemperature() {\nint chk = {NAME}.read11({NAME}_pin);\nint value = {NAME}.temperature;\nreturn value;\n}int {NAME}_getHumidity() {\nint chk = {NAME}.read11({NAME}_pin);\nint value = {NAME}.humidity;\nreturn value;\n}\n\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_dht11ReadTempreture",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取DHT11数字温湿度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_dht11s"
+			}, {
+				"type": "text",
+				"value": "的温度"
+			}],
+			"code": "{SENSOR}_getTemperature()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_dht11",
+			"uid": "3H0Lp1"
+		}, {
+			"type": "output",
+			"name": "ken_dht11ReadHumidity",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取DHT11数字温湿度传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_dht11s"
+			}, {
+				"type": "text",
+				"value": "的湿度"
+			}],
+			"code": "{SENSOR}_getHumidity()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_dht11",
+			"uid": "1qOobJ"
+		}],
+		"imageUrl": "assets/image/components/dht11.svg"
+	}, {
+		"uid": "HH26Uc",
+		"name": "ken_mlx96014",
+		"defaultVarName": "mlx",
+		"label": "非接触式测温模块",
+		"type": "ken_mlx96014",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <Kenblock_MLX90614.h>",
+			"var": "MLX90614 {NAME} = MLX90614();",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_mlx96014ReadObjTemp",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取非接触式测温模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_mlx96014s"
+			}, {
+				"type": "text",
+				"value": "被测物体温度"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "℃",
+					"value": "readObjectTempC"
+				}, {
+					"label": "℉",
+					"value": "readObjectTempF"
+				}]
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_mlx96014",
+			"uid": "SfI21z"
+		}, {
+			"type": "output",
+			"name": "ken_mlx96014ReadDevTemp",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取非接触式测温模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_mlx96014s"
+			}, {
+				"type": "text",
+				"value": "环境温度"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "℃",
+					"value": "readAmbientTempC"
+				}, {
+					"label": "℉",
+					"value": "readAmbientTempF"
+				}]
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_mlx96014",
+			"uid": "TSzxOS"
+		}],
+		"imageUrl": "assets/image/components/mlx96014.svg"
+	}, {
+		"uid": "Go8LQG",
+		"name": "ken_bmp085",
+		"defaultVarName": "bmp",
+		"label": "气压传感模块",
+		"type": "ken_bmp085",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <Kenblock_BMP085.h>",
+			"var": "Kenblock_BMP085 {NAME};",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_bmp085Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取气压传感模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_bmp085s"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "大气压强",
+					"value": "readPressure",
+					"type": "long"
+				}, {
+					"label": "海拔高度",
+					"value": "readAltitude",
+					"type": "float"
+				}, {
+					"label": "温度",
+					"value": "readTemperature",
+					"type": "float"
+				}]
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "fromSelect",
+				"id": "OP"
+			},
+			"tags": ["module"],
+			"module": "ken_bmp085",
+			"uid": "6MZo9d"
+		}],
+		"imageUrl": "assets/image/components/bmp085.svg"
+	}, {
+		"uid": "U91lxa",
+		"name": "ken_compass",
+		"defaultVarName": "compass",
+		"label": "电子罗盘传感模块",
+		"type": "ken_compass",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC-INT"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <I2Cdev.h>\n#include <HMC5883L.h>",
+			"var": "HMC5883L {NAME};",
+			"setup": "Wire.begin();\n{NAME}.initialize();"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_compassGetAngle",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取电子罗盘"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_compasss"
+			}, {
+				"type": "text",
+				"value": "方向值(0°~360°)"
+			}],
+			"code": "{SENSOR}.getAngle()",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_compass",
+			"uid": "lpPQnf"
+		}, {
+			"type": "output",
+			"name": "ken_compassRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取电子罗盘"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_compasss"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "X轴",
+					"value": "getHeadingX"
+				}, {
+					"label": "Y轴",
+					"value": "getHeadingY"
+				}, {
+					"label": "Z轴",
+					"value": "getHeadingZ"
+				}]
+			}, {
+				"type": "text",
+				"value": "磁场强度"
+			}],
+			"code": "{SENSOR}.{OP}()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_compass",
+			"uid": "C1BNxK"
+		}],
+		"imageUrl": "assets/image/components/compass.svg"
+	}, {
+		"uid": "Vf7LGK",
+		"name": "ken_motor",
+		"defaultVarName": "motor",
+		"label": "直流减速电机",
+		"type": "ken_motor",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 45,
+		"height": 150,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-motor"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_Motor.h>",
+			"var": "Motor {NAME}({s});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_motorRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "KS4Zwb"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "ken_motors"
+			}, {
+				"type": "text",
+				"value": "转动，方向为"
+			}, {
+				"id": "DIR",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "true"
+				}, {
+					"label": "反转",
+					"value": "false"
+				}]
+			}, {
+				"type": "text",
+				"value": "速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "KS4Zwb",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"eval": true,
+			"code": "'{DIR}' === 'true' ? '{MOTOR}.run(abs({SPEED}));' : '{MOTOR}.run(-abs({SPEED}));'",
+			"tags": ["module"],
+			"module": "ken_motor",
+			"uid": "KXfNhL"
+		}, {
+			"type": "statement",
+			"name": "ken_motorRun2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "PmXZD2"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "ken_motors"
+			}, {
+				"type": "text",
+				"value": "转动，速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "PmXZD2",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{MOTOR}.run({SPEED});",
+			"tags": ["module"],
+			"module": "ken_motor",
+			"uid": "KXfNhL"
+		}, {
+			"type": "statement",
+			"name": "ken_motorStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "MOTOR",
+				"type": "dynamic-select",
+				"options": "ken_motors"
+			}, {
+				"type": "text",
+				"value": "停止转动"
+			}],
+			"code": "{MOTOR}.stop();",
+			"tags": ["module"],
+			"module": "ken_motor",
+			"uid": "17okfB"
+		}],
+		"imageUrl": "assets/image/components/motor.svg"
+	}, {
+		"uid": "lSxbYb",
+		"name": "ken_led",
+		"defaultVarName": "led",
+		"label": "LED模块",
+		"type": "ken_led",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "analog-out", "ken-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_ledDigitalWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "点亮",
+					"value": "HIGH"
+				}, {
+					"label": "关闭",
+					"value": "LOW"
+				}]
+			}, {
+				"type": "text",
+				"value": "LED灯"
+			}, {
+				"id": "LED",
+				"type": "dynamic-select",
+				"options": "ken_leds"
+			}],
+			"code": "digitalWrite({LED}, {OP});",
+			"tags": ["module"],
+			"module": "ken_led",
+			"uid": "vmjH5R"
+		}, {
+			"type": "statement",
+			"name": "ken_ledAnalogWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Nr7hLj"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置LED灯"
+			}, {
+				"id": "LED",
+				"type": "dynamic-select",
+				"options": "ken_leds"
+			}, {
+				"type": "text",
+				"value": "亮度为"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Nr7hLj"
+			}],
+			"code": "analogWrite({LED}, {VALUE});",
+			"tags": ["module"],
+			"module": "ken_led",
+			"uid": "tg32iY"
+		}],
+		"imageUrl": "assets/image/components/led.svg"
+	}, {
+		"uid": "ozfTzu",
+		"name": "ken_rgbLed",
+		"defaultVarName": "rgbLed",
+		"label": "彩色LED灯模块",
+		"type": "ken_rgbLed",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_RGBled.h>",
+			"var": "RGBled {NAME}({s}, 4);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_rgbLedShow",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点亮彩灯"
+			}, {
+				"id": "RGB_LED",
+				"type": "dynamic-select",
+				"options": "ken_rgbLeds"
+			}, {
+				"type": "text",
+				"value": "序号为"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "全部",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}]
+			}, {
+				"type": "text",
+				"value": "灯，颜色为"
+			}, {
+				"id": "COLOR",
+				"type": "static-select",
+				"options": [{
+					"label": "白色",
+					"value": "255, 255, 255"
+				}, {
+					"label": "黄色",
+					"value": "255, 255, 0"
+				}, {
+					"label": "橙色",
+					"value": "200, 50, 0"
+				}, {
+					"label": "红色",
+					"value": "255, 0, 0"
+				}, {
+					"label": "深绿",
+					"value": "0, 60, 102"
+				}, {
+					"label": "蓝色",
+					"value": "40, 40, 255"
+				}, {
+					"label": "深蓝",
+					"value": "0, 0, 255"
+				}, {
+					"label": "粉红",
+					"value": "255, 0, 255"
+				}]
+			}],
+			"code": "{RGB_LED}.setColor({INDEX}, {COLOR});{RGB_LED}.show();",
+			"tags": ["module"],
+			"module": "ken_rgbLed",
+			"uid": "aeHiGm"
+		}, {
+			"type": "statement",
+			"name": "ken_rgbLedShow2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ops2b9"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "0WyQUe"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "UwkDph"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点亮彩灯"
+			}, {
+				"id": "RGB_LED",
+				"type": "dynamic-select",
+				"options": "ken_rgbLeds"
+			}, {
+				"type": "text",
+				"value": "序号为"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "全部",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}]
+			}, {
+				"type": "text",
+				"value": "灯，颜色值 红色"
+			}, {
+				"blockInputId": "RED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ops2b9"
+			}, {
+				"type": "text",
+				"value": "绿色"
+			}, {
+				"blockInputId": "GREEN",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "0WyQUe"
+			}, {
+				"type": "text",
+				"value": "蓝色"
+			}, {
+				"blockInputId": "BLUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "UwkDph"
+			}],
+			"code": "{RGB_LED}.setColor({INDEX}, {RED}, {GREEN}, {BLUE});{RGB_LED}.show();",
+			"tags": ["module"],
+			"module": "ken_rgbLed",
+			"uid": "FTtiJv"
+		}],
+		"imageUrl": "assets/image/components/rgbLed.svg"
+	}, {
+		"uid": "u4czzj",
+		"name": "ken_fan",
+		"defaultVarName": "fan",
+		"label": "风扇模块",
+		"type": "ken_fan",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 46,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-out"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_fanRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "rmb27f"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "风扇"
+			}, {
+				"id": "FAN",
+				"type": "dynamic-select",
+				"options": "ken_fans"
+			}, {
+				"type": "text",
+				"value": "转速为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "rmb27f",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "analogWrite({FAN}, {SPEED});",
+			"tags": ["module"],
+			"module": "ken_fan",
+			"uid": "86xpVq"
+		}, {
+			"type": "statement",
+			"name": "ken_fanStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "风扇"
+			}, {
+				"id": "FAN",
+				"type": "dynamic-select",
+				"options": "ken_fans"
+			}, {
+				"type": "text",
+				"value": "停止转动"
+			}],
+			"code": "analogWrite({FAN}, 0);",
+			"tags": ["module"],
+			"module": "ken_fan",
+			"uid": "P8JzjB"
+		}],
+		"imageUrl": "assets/image/components/fan.svg"
+	}, {
+		"uid": "SZiitg",
+		"name": "ken_buzzer",
+		"defaultVarName": "buzzer",
+		"label": "蜂鸣器模块",
+		"type": "ken_buzzer",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital", "ken-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_Buzzer.h>",
+			"var": "Buzzer {NAME}({s});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_buzzerDidi",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "ken_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出“嘀嘀”声"
+			}],
+			"code": "{BUZZER}.didi();",
+			"tags": ["module"],
+			"module": "ken_buzzer",
+			"uid": "nLJ1pv"
+		}, {
+			"type": "statement",
+			"name": "ken_buzzerTone",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "KdOVKC"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "ken_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出音阶"
+			}, {
+				"id": "FREQUENCY",
+				"type": "static-select",
+				"options": [{
+					"label": "Do",
+					"value": "Do"
+				}, {
+					"label": "Re",
+					"value": "Re"
+				}, {
+					"label": "Mi",
+					"value": "Mi"
+				}, {
+					"label": "Fa",
+					"value": "Fa"
+				}, {
+					"label": "Sol",
+					"value": "Sol"
+				}, {
+					"label": "La",
+					"value": "La"
+				}, {
+					"label": "Si",
+					"value": "Si"
+				}]
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"blockInputId": "DURATION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "KdOVKC",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1000"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "{BUZZER}.tone({FREQUENCY}, {DURATION});",
+			"tags": ["module"],
+			"module": "ken_buzzer",
+			"uid": "vXSXTE"
+		}, {
+			"type": "statement",
+			"name": "ken_buzzerTone2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "dBYyKc"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "ken_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出音阶"
+			}, {
+				"id": "FREQUENCY",
+				"type": "static-select",
+				"options": [{
+					"label": "NOTE_B0",
+					"value": "NOTE_B0"
+				}, {
+					"label": "NOTE_C1",
+					"value": "NOTE_C1"
+				}, {
+					"label": "NOTE_CS1",
+					"value": "NOTE_CS1"
+				}, {
+					"label": "NOTE_D1",
+					"value": "NOTE_D1"
+				}, {
+					"label": "NOTE_DS1",
+					"value": "NOTE_DS1"
+				}, {
+					"label": "NOTE_E1",
+					"value": "NOTE_E1"
+				}, {
+					"label": "NOTE_F1",
+					"value": "NOTE_F1"
+				}, {
+					"label": "NOTE_FS1",
+					"value": "NOTE_FS1"
+				}, {
+					"label": "NOTE_G1",
+					"value": "NOTE_G1"
+				}, {
+					"label": "NOTE_GS1",
+					"value": "NOTE_GS1"
+				}, {
+					"label": "NOTE_A1",
+					"value": "NOTE_A1"
+				}, {
+					"label": "NOTE_AS1",
+					"value": "NOTE_AS1"
+				}, {
+					"label": "NOTE_B1",
+					"value": "NOTE_B1"
+				}, {
+					"label": "NOTE_C2",
+					"value": "NOTE_C2"
+				}, {
+					"label": "NOTE_CS2",
+					"value": "NOTE_CS2"
+				}, {
+					"label": "NOTE_D2",
+					"value": "NOTE_D2"
+				}, {
+					"label": "NOTE_DS2",
+					"value": "NOTE_DS2"
+				}, {
+					"label": "NOTE_E2",
+					"value": "NOTE_E2"
+				}, {
+					"label": "NOTE_F2",
+					"value": "NOTE_F2"
+				}, {
+					"label": "NOTE_FS2",
+					"value": "NOTE_FS2"
+				}, {
+					"label": "NOTE_G2",
+					"value": "NOTE_G2"
+				}, {
+					"label": "NOTE_GS2",
+					"value": "NOTE_GS2"
+				}, {
+					"label": "NOTE_A2",
+					"value": "NOTE_A2"
+				}, {
+					"label": "NOTE_AS2",
+					"value": "NOTE_AS2"
+				}, {
+					"label": "NOTE_B2",
+					"value": "NOTE_B2"
+				}, {
+					"label": "NOTE_C3",
+					"value": "NOTE_C3"
+				}, {
+					"label": "NOTE_CS3",
+					"value": "NOTE_CS3"
+				}, {
+					"label": "NOTE_D3",
+					"value": "NOTE_D3"
+				}, {
+					"label": "NOTE_DS3",
+					"value": "NOTE_DS3"
+				}, {
+					"label": "NOTE_E3",
+					"value": "NOTE_E3"
+				}, {
+					"label": "NOTE_F3",
+					"value": "NOTE_F3"
+				}, {
+					"label": "NOTE_FS3",
+					"value": "NOTE_FS3"
+				}, {
+					"label": "NOTE_G3",
+					"value": "NOTE_G3"
+				}, {
+					"label": "NOTE_GS3",
+					"value": "NOTE_GS3"
+				}, {
+					"label": "NOTE_A3",
+					"value": "NOTE_A3"
+				}, {
+					"label": "NOTE_AS3",
+					"value": "NOTE_AS3"
+				}, {
+					"label": "NOTE_B3",
+					"value": "NOTE_B3"
+				}, {
+					"label": "NOTE_C4",
+					"value": "NOTE_C4"
+				}, {
+					"label": "NOTE_CS4",
+					"value": "NOTE_CS4"
+				}, {
+					"label": "NOTE_D4",
+					"value": "NOTE_D4"
+				}, {
+					"label": "NOTE_DS4",
+					"value": "NOTE_DS4"
+				}, {
+					"label": "NOTE_E4",
+					"value": "NOTE_E4"
+				}, {
+					"label": "NOTE_F4",
+					"value": "NOTE_F4"
+				}, {
+					"label": "NOTE_FS4",
+					"value": "NOTE_FS4"
+				}, {
+					"label": "NOTE_G4",
+					"value": "NOTE_G4"
+				}, {
+					"label": "NOTE_GS4",
+					"value": "NOTE_GS4"
+				}, {
+					"label": "NOTE_A4",
+					"value": "NOTE_A4"
+				}, {
+					"label": "NOTE_AS4",
+					"value": "NOTE_AS4"
+				}, {
+					"label": "NOTE_B4",
+					"value": "NOTE_B4"
+				}, {
+					"label": "NOTE_C5",
+					"value": "NOTE_C5"
+				}, {
+					"label": "NOTE_CS5",
+					"value": "NOTE_CS5"
+				}, {
+					"label": "NOTE_D5",
+					"value": "NOTE_D5"
+				}, {
+					"label": "NOTE_DS5",
+					"value": "NOTE_DS5"
+				}, {
+					"label": "NOTE_E5",
+					"value": "NOTE_E5"
+				}, {
+					"label": "NOTE_F5",
+					"value": "NOTE_F5"
+				}, {
+					"label": "NOTE_FS5",
+					"value": "NOTE_FS5"
+				}, {
+					"label": "NOTE_G5",
+					"value": "NOTE_G5"
+				}, {
+					"label": "NOTE_GS5",
+					"value": "NOTE_GS5"
+				}, {
+					"label": "NOTE_A5",
+					"value": "NOTE_A5"
+				}, {
+					"label": "NOTE_AS5",
+					"value": "NOTE_AS5"
+				}, {
+					"label": "NOTE_B5",
+					"value": "NOTE_B5"
+				}, {
+					"label": "NOTE_C6",
+					"value": "NOTE_C6"
+				}, {
+					"label": "NOTE_CS6",
+					"value": "NOTE_CS6"
+				}, {
+					"label": "NOTE_D6",
+					"value": "NOTE_D6"
+				}, {
+					"label": "NOTE_DS6",
+					"value": "NOTE_DS6"
+				}, {
+					"label": "NOTE_E6",
+					"value": "NOTE_E6"
+				}, {
+					"label": "NOTE_F6",
+					"value": "NOTE_F6"
+				}, {
+					"label": "NOTE_FS6",
+					"value": "NOTE_FS6"
+				}, {
+					"label": "NOTE_G6",
+					"value": "NOTE_G6"
+				}, {
+					"label": "NOTE_GS6",
+					"value": "NOTE_GS6"
+				}, {
+					"label": "NOTE_A6",
+					"value": "NOTE_A6"
+				}, {
+					"label": "NOTE_AS6",
+					"value": "NOTE_AS6"
+				}, {
+					"label": "NOTE_B6",
+					"value": "NOTE_B6"
+				}, {
+					"label": "NOTE_C7",
+					"value": "NOTE_C7"
+				}, {
+					"label": "NOTE_CS7",
+					"value": "NOTE_CS7"
+				}, {
+					"label": "NOTE_D7",
+					"value": "NOTE_D7"
+				}, {
+					"label": "NOTE_DS7",
+					"value": "NOTE_DS7"
+				}, {
+					"label": "NOTE_E7",
+					"value": "NOTE_E7"
+				}, {
+					"label": "NOTE_F7",
+					"value": "NOTE_F7"
+				}, {
+					"label": "NOTE_FS7",
+					"value": "NOTE_FS7"
+				}, {
+					"label": "NOTE_G7",
+					"value": "NOTE_G7"
+				}, {
+					"label": "NOTE_GS7",
+					"value": "NOTE_GS7"
+				}, {
+					"label": "NOTE_A7",
+					"value": "NOTE_A7"
+				}, {
+					"label": "NOTE_AS7",
+					"value": "NOTE_AS7"
+				}, {
+					"label": "NOTE_B7",
+					"value": "NOTE_B7"
+				}, {
+					"label": "NOTE_C8",
+					"value": "NOTE_C8"
+				}, {
+					"label": "NOTE_CS8",
+					"value": "NOTE_CS8"
+				}, {
+					"label": "NOTE_D8",
+					"value": "NOTE_D8"
+				}, {
+					"label": "NOTE_DS8",
+					"value": "NOTE_DS8"
+				}]
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"blockInputId": "DURATION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "dBYyKc",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1000"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "{BUZZER}.tone({FREQUENCY}, {DURATION});",
+			"tags": ["module"],
+			"module": "ken_buzzer",
+			"uid": "WHGeCD"
+		}, {
+			"type": "statement",
+			"name": "ken_buzzerTone3",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "XbiszP"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "zwaa1l"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "ken_buzzers"
+			}, {
+				"type": "text",
+				"value": "发出声音，频率为"
+			}, {
+				"blockInputId": "FREQUENCY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "XbiszP",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "500"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "持续"
+			}, {
+				"blockInputId": "DURATION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "zwaa1l",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1000"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "毫秒"
+			}],
+			"code": "{BUZZER}.tone({FREQUENCY}, {DURATION});",
+			"tags": ["module"],
+			"module": "ken_buzzer",
+			"uid": "E8PE3m"
+		}, {
+			"type": "statement",
+			"name": "ken_buzzerNoTone",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "关闭蜂鸣器"
+			}, {
+				"id": "BUZZER",
+				"type": "dynamic-select",
+				"options": "ken_buzzers"
+			}],
+			"code": "{BUZZER}.noTone();",
+			"tags": ["module"],
+			"module": "ken_buzzer",
+			"uid": "NOwzfr"
+		}],
+		"imageUrl": "assets/image/components/buzzer.svg"
+	}, {
+		"uid": "zKyird",
+		"name": "ken_relay",
+		"defaultVarName": "relay",
+		"label": "继电器模块",
+		"type": "ken_relay",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, OUTPUT);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_relayRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置继电器"
+			}, {
+				"id": "RELAY",
+				"type": "dynamic-select",
+				"options": "ken_relays"
+			}, {
+				"type": "text",
+				"value": "常开端"
+			}, {
+				"id": "STATUS",
+				"type": "static-select",
+				"options": [{
+					"label": "闭合",
+					"value": "HIGH"
+				}, {
+					"label": "断开",
+					"value": "LOW"
+				}]
+			}],
+			"code": "digitalWrite({RELAY}, {STATUS});",
+			"tags": ["module"],
+			"module": "ken_relay",
+			"uid": "G5Id1Y"
+		}],
+		"imageUrl": "assets/image/components/relay.svg"
+	}, {
+		"uid": "VIMalF",
+		"name": "ken_display",
+		"defaultVarName": "disp",
+		"label": "数码管模块",
+		"type": "ken_display",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-2P-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_4DigitalDisplay.h>",
+			"var": "FourDigitalDisplay {NAME}({s});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_displayShow",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "BQF4Eo"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "ken_displays"
+			}, {
+				"type": "text",
+				"value": "显示数字"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "BQF4Eo"
+			}],
+			"code": "{DISPLAY}.display({VALUE});",
+			"tags": ["module"],
+			"module": "ken_display",
+			"uid": "SZ1kJ5"
+		}, {
+			"type": "statement",
+			"name": "ken_displayShow2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "ken_displays"
+			}, {
+				"type": "text",
+				"value": "第"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}]
+			}, {
+				"type": "text",
+				"value": "位显示"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}, {
+					"label": "8",
+					"value": "8"
+				}, {
+					"label": "9",
+					"value": "9"
+				}, {
+					"label": "A",
+					"value": "'A'"
+				}, {
+					"label": "B",
+					"value": "'B'"
+				}, {
+					"label": "C",
+					"value": "'C'"
+				}, {
+					"label": "D",
+					"value": "'D'"
+				}, {
+					"label": "E",
+					"value": "'E'"
+				}, {
+					"label": "F",
+					"value": "'F'"
+				}]
+			}],
+			"code": "{DISPLAY}.displayBit({INDEX}, {VALUE});",
+			"tags": ["module"],
+			"module": "ken_display",
+			"uid": "SUJglZ"
+		}, {
+			"type": "statement",
+			"name": "ken_displayClean",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "清除数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "ken_displays"
+			}, {
+				"type": "text",
+				"value": "显示"
+			}],
+			"code": "{DISPLAY}.clearDisplay();",
+			"tags": ["module"],
+			"module": "ken_display",
+			"uid": "1wvXXR"
+		}, {
+			"type": "statement",
+			"name": "ken_displayBrightness",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置数码管"
+			}, {
+				"id": "DISPLAY",
+				"type": "dynamic-select",
+				"options": "ken_displays"
+			}, {
+				"type": "text",
+				"value": "亮度为"
+			}, {
+				"id": "BRIGHTNESS",
+				"type": "static-select",
+				"options": [{
+					"label": "0",
+					"value": "0"
+				}, {
+					"label": "1",
+					"value": "1"
+				}, {
+					"label": "2",
+					"value": "2"
+				}, {
+					"label": "3",
+					"value": "3"
+				}, {
+					"label": "4",
+					"value": "4"
+				}, {
+					"label": "5",
+					"value": "5"
+				}, {
+					"label": "6",
+					"value": "6"
+				}, {
+					"label": "7",
+					"value": "7"
+				}]
+			}],
+			"code": "{DISPLAY}.setBrightness({BRIGHTNESS});",
+			"tags": ["module"],
+			"module": "ken_display",
+			"uid": "3cvXXj"
+		}],
+		"imageUrl": "assets/image/components/display.svg"
+	}, {
+		"uid": "moFUYh",
+		"name": "ken_u8g",
+		"defaultVarName": "u8g",
+		"label": "OLED 12864显示模块",
+		"type": "ken_u8g",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock_OLED_U8glib.h>",
+			"var": "U8GLIB_SSD1306_128X64 {NAME}(U8G_I2C_OPT_DEV_0|U8G_I2C_OPT_NO_ACK|U8G_I2C_OPT_FAST);\nlong {NAME}_x;\nunsigned long {NAME}_timer = millis();"
+		},
+		"blocks": [{
+			"type": "statement-input",
+			"name": "ken_u8gLoop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED显示"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "屏幕"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "不翻转",
+					"value": "undoRotation"
+				}, {
+					"label": "翻转90度",
+					"value": "setRot90"
+				}, {
+					"label": "翻转180度",
+					"value": "setRot180"
+				}, {
+					"label": "翻转270度",
+					"value": "setRot270"
+				}]
+			}],
+			"code": "{U8G}.{OP}();{U8G}.firstPage();do{\n{STATEMENTS}\n}while({U8G}.nextPage());",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "q9WXFu"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "uFM15k"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ORWU58"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "e5CUqo"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "打印，字体"
+			}, {
+				"id": "FONT",
+				"type": "static-select",
+				"options": [{
+					"label": "小",
+					"value": "u8g_font_fixed_v0r"
+				}, {
+					"label": "中",
+					"value": "u8g_font_9x18"
+				}, {
+					"label": "大",
+					"value": "u8g_font_fur20"
+				}]
+			}, {
+				"type": "text",
+				"value": "X:"
+			}, {
+				"blockInputId": "XPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "uFM15k",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y:"
+			}, {
+				"blockInputId": "YPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ORWU58",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "20"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "内容"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "e5CUqo"
+			}],
+			"code": "{U8G}.setFont({FONT});{U8G}.setPrintPos({XPOS}, {YPOS});{U8G}.print({DATA});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "J8UhK3"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gDrawPoint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "7u8fIb"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "81NoWb"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "画点"
+			}, {
+				"type": "text",
+				"value": "X:"
+			}, {
+				"blockInputId": "XPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "7u8fIb",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y:"
+			}, {
+				"blockInputId": "YPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "81NoWb",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{U8G}.drawPixel({XPOS}, {YPOS});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "t9Q2L1"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gDrawLine",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "llyNz3"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "SOxU2X"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "6JIHPH"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "hzZOLa"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "画线"
+			}, {
+				"type": "text",
+				"value": "X0:"
+			}, {
+				"blockInputId": "X0",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "llyNz3",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y0:"
+			}, {
+				"blockInputId": "Y0",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "SOxU2X",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "X1:"
+			}, {
+				"blockInputId": "X1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "6JIHPH",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y1:"
+			}, {
+				"blockInputId": "Y1",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "hzZOLa",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{U8G}.drawLine({X0}, {Y0}, {X1}, {Y1});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "80jWNG"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gDrawRectangle",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "OisTWG"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "AoBYvO"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "5jCpvP"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ePrEn8"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "画"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "空心矩形",
+					"value": "drawFrame"
+				}, {
+					"label": "实心矩形",
+					"value": "drawBox"
+				}]
+			}, {
+				"type": "text",
+				"value": "X:"
+			}, {
+				"blockInputId": "X",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "OisTWG",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y:"
+			}, {
+				"blockInputId": "Y",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "AoBYvO",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "W:"
+			}, {
+				"blockInputId": "W",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "5jCpvP",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "H:"
+			}, {
+				"blockInputId": "H",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ePrEn8",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{U8G}.{OP}({X}, {Y}, {W}, {H});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "r0dfpq"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gDrawCircl",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "mqh4h4"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "LCFtp6"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "0dtcwr"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "画"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "空心圆",
+					"value": "drawCircle"
+				}, {
+					"label": "实心圆",
+					"value": "drawDisc"
+				}]
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "整个圆",
+					"value": "U8G_DRAW_ALL"
+				}, {
+					"label": "右上圆弧",
+					"value": "U8G_DRAW_UPPER_RIGHT"
+				}, {
+					"label": "右下圆弧",
+					"value": "U8G_DRAW_LOWER_RIGHT"
+				}, {
+					"label": "左上圆弧",
+					"value": "U8G_DRAW_UPPER_LEFT"
+				}, {
+					"label": "左下圆弧",
+					"value": "U8G_DRAW_LOWER_LEFT"
+				}]
+			}, {
+				"type": "text",
+				"value": "X:"
+			}, {
+				"blockInputId": "X",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "mqh4h4",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "Y:"
+			}, {
+				"blockInputId": "Y",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "LCFtp6",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "半径:"
+			}, {
+				"blockInputId": "RADIUS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "0dtcwr",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{U8G}.{OP}({X}, {Y}, {RADIUS}, {TYPE});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "oQniLX"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gSlidePrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "CIbHPG"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NoCrWm"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "FT9mkg"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "滑动显示，字体"
+			}, {
+				"id": "FONT",
+				"type": "static-select",
+				"options": [{
+					"label": "小",
+					"value": "u8g_font_fixed_v0r"
+				}, {
+					"label": "中",
+					"value": "u8g_font_9x18"
+				}, {
+					"label": "大",
+					"value": "u8g_font_fur20"
+				}]
+			}, {
+				"type": "text",
+				"value": "Y:"
+			}, {
+				"blockInputId": "YPOS",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "CIbHPG",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "20"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "停顿时间"
+			}, {
+				"blockInputId": "DURATION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NoCrWm",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "100"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "内容"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "FT9mkg",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "Hello Kenblock"
+					}],
+					"name": "string"
+				}
+			}],
+			"code": "if ({U8G}_timer > millis()) {\n{U8G}_timer = millis();\n}\nif(millis() - {U8G}_timer > {DURATION}) {\n{U8G}_x = {U8G}_x - 4;\n{U8G}_timer = millis();\n}\n{U8G}.setFont({FONT});\n{U8G}.setPrintPos({U8G}_x, {YPOS});\n{U8G}.print({DATA});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "p2bogq"
+		}, {
+			"type": "statement",
+			"name": "ken_u8gPrint2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "RgJwzR"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "OLED"
+			}, {
+				"id": "U8G",
+				"type": "dynamic-select",
+				"options": "ken_u8gs"
+			}, {
+				"type": "text",
+				"value": "打印内容"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "RgJwzR"
+			}],
+			"code": "{U8G}.print({DATA});",
+			"tags": ["module"],
+			"module": "ken_u8g",
+			"uid": "rBNaad"
+		}],
+		"imageUrl": "assets/image/components/u8g.svg"
+	}, {
+		"uid": "Txg8iW",
+		"name": "ken_ledMatrix",
+		"defaultVarName": "ledMatrix",
+		"label": "16X16点阵模块",
+		"type": "ken_ledMatrix",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 77,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-4P-digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_LedMatrix.h>",
+			"const": "uint8_t Ken_DisplayData[][4][8] = {\n    {{0, 0, 0, 30, 63, 127, 127, 127},{63, 31, 15, 7, 3, 1, 0, 0},{0, 0, 0, 120, 252, 254, 254, 254},{252, 248, 240, 224, 192, 128, 0, 0}},\n    {{0, 0, 0, 30, 63, 127, 127, 127},{63, 31, 15, 7, 3, 1, 0, 0},{0, 0, 0, 120, 252, 254, 254, 254},{252, 248, 240, 224, 192, 128, 0, 0}},\n    {{0, 0, 0, 30, 63, 127, 127, 127},{63, 31, 15, 7, 3, 1, 0, 0},{0, 0, 0, 120, 252, 254, 254, 254},{252, 248, 240, 224, 192, 128, 0, 0}},\n    {{0, 0, 0, 30, 63, 127, 127, 127},{63, 31, 15, 7, 3, 1, 0, 0},{0, 0, 0, 120, 252, 254, 254, 254},{252, 248, 240, 224, 192, 128, 0, 0}}\n};",
+			"var": "LedMatrix {NAME}({s}, 1);",
+			"setup": "int {NAME}_devices = {NAME}.getDeviceCount();\nfor(int addr = 0; addr < {NAME}_devices; addr++) \n{\n{NAME}.shutDown(addr, false);\n{NAME}.setIntensity(addr, 8);\n{NAME}.clearDisplay(addr);\n}"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_ledMatrixSetDisplayType",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵屏"
+			}, {
+				"id": "LED_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_ledMatrixs"
+			}, {
+				"type": "text",
+				"value": "显示设置：角度"
+			}, {
+				"id": "ANGLE",
+				"type": "static-select",
+				"options": [{
+					"label": "0度",
+					"value": "0"
+				}, {
+					"label": "90度",
+					"value": "1"
+				}]
+			}, {
+				"type": "text",
+				"value": "大小"
+			}, {
+				"id": "SIZE",
+				"type": "static-select",
+				"options": [{
+					"label": "8*8显示",
+					"value": "0"
+				}, {
+					"label": "8*16显示",
+					"value": "1"
+				}, {
+					"label": "16*16显示",
+					"value": "2"
+				}]
+			}],
+			"code": "{LED_MATRIX}.setDisplayType({ANGLE}, {SIZE});",
+			"tags": ["module"],
+			"module": "ken_ledMatrix",
+			"uid": "MgVAVX"
+		}, {
+			"type": "statement",
+			"name": "ken_ledMatrixDisplay",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "1kGDdg"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "bRcXQo"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵屏"
+			}, {
+				"id": "LED_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_ledMatrixs"
+			}, {
+				"type": "text",
+				"value": "第"
+			}, {
+				"blockInputId": "INDEX",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "1kGDdg",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "位"
+			}, {
+				"type": "text",
+				"value": "显示字符"
+			}, {
+				"blockInputId": "CH",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "bRcXQo",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "char-input",
+						"value": "a"
+					}],
+					"name": "char"
+				}
+			}],
+			"code": "{LED_MATRIX}.display({INDEX}, {CH});",
+			"tags": ["module"],
+			"module": "ken_ledMatrix",
+			"uid": "URwLML"
+		}, {
+			"type": "statement",
+			"name": "ken_ledMatrixDisplay2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "EH3Ef4"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "点阵屏"
+			}, {
+				"id": "LED_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_ledMatrixs"
+			}, {
+				"type": "text",
+				"value": "第"
+			}, {
+				"blockInputId": "INDEX",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "EH3Ef4",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "位"
+			}, {
+				"type": "text",
+				"value": "显示图形"
+			}, {
+				"id": "DATA",
+				"type": "static-select",
+				"options": [{
+					"label": "心形",
+					"value": "0"
+				}]
+			}],
+			"code": "{LED_MATRIX}.display({INDEX}, Ken_DisplayData[{DATA}]);",
+			"tags": ["module"],
+			"module": "ken_ledMatrix",
+			"uid": "LZgNFz"
+		}, {
+			"type": "statement",
+			"name": "ken_ledMatrixClearDisplay",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "清除点阵屏"
+			}, {
+				"id": "LED_MATRIX",
+				"type": "dynamic-select",
+				"options": "ken_ledMatrixs"
+			}, {
+				"type": "text",
+				"value": "所有显示内容"
+			}],
+			"code": "int {LED_MATRIX}_devices = {LED_MATRIX}.getDeviceCount();\nfor(int addr = 0; addr < {LED_MATRIX}_devices; addr++) \n{\n{LED_MATRIX}.clearDisplay(addr);\n}",
+			"tags": ["module"],
+			"module": "ken_ledMatrix",
+			"uid": "nc52YW"
+		}],
+		"imageUrl": "assets/image/components/ledMatrix.svg"
+	}, {
+		"uid": "0zyjVh",
+		"name": "ken_motorServoDriver",
+		"label": "电机舵机驱动模块",
+		"type": "ken_motorServoDriver",
+		"defaultVarName": "exMS",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 123,
+		"height": 150,
+		"pins": [{
+			"name": "IIC",
+			"anchor": [0.061, 0.623],
+			"width": 13,
+			"height": 25,
+			"tags": ["ken-IIC"],
+			"label": "IIC",
+			"shape": "Rectangle",
+			"rotate": false,
+			"mutex": ["USART"]
+		}, {
+			"name": "USART",
+			"anchor": [0.061, 0.443],
+			"width": 13,
+			"height": 25,
+			"tags": ["ken-software-serial"],
+			"label": "USART",
+			"shape": "Rectangle",
+			"rotate": false,
+			"mutex": ["IIC"]
+		}],
+		"code": {
+			"include": "#include <SoftwareSerial.h>\n#include <Kenblock_MotorServo.h>",
+			"var": true,
+			"setup": "{NAME}.begin();",
+			"conditionVars": {
+				"IIC": "MotorServo_IIC {NAME};",
+				"USART": "SoftwareSerial mySerial_{NAME}({USART});MotorServo_USART {NAME}(mySerial_{NAME});"
+			}
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_motorServoDriverMotorRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Gbybxf"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "MOTOA",
+					"value": "MOTOA"
+				}, {
+					"label": "MOTOB",
+					"value": "MOTOB"
+				}, {
+					"label": "MOTOC",
+					"value": "MOTOC"
+				}]
+			}, {
+				"type": "text",
+				"value": "转动，方向"
+			}, {
+				"id": "DIRECTION",
+				"type": "static-select",
+				"options": [{
+					"label": "正转",
+					"value": "abs"
+				}, {
+					"label": "反转",
+					"value": "-abs"
+				}]
+			}, {
+				"type": "text",
+				"value": "速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Gbybxf",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{EX_MS}.motorRun({INDEX}, {DIRECTION}({SPEED}));",
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "yKUSDv"
+		}, {
+			"type": "statement",
+			"name": "ken_motorServoDriverMotorRun2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "BPiIjn"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "MOTOA",
+					"value": "MOTOA"
+				}, {
+					"label": "MOTOB",
+					"value": "MOTOB"
+				}, {
+					"label": "MOTOC",
+					"value": "MOTOC"
+				}]
+			}, {
+				"type": "text",
+				"value": "转动，速度为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "BPiIjn",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{EX_MS}.motorRun({INDEX}, {SPEED});",
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "O8dECD"
+		}, {
+			"type": "statement",
+			"name": "ken_motorServoDriverMotorStop",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "电机"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "MOTOA",
+					"value": "MOTOA"
+				}, {
+					"label": "MOTOB",
+					"value": "MOTOB"
+				}, {
+					"label": "MOTOC",
+					"value": "MOTOC"
+				}]
+			}, {
+				"type": "text",
+				"value": "停止转动"
+			}],
+			"code": "{EX_MS}.motorStop({INDEX});",
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "90pq26"
+		}, {
+			"type": "statement",
+			"name": "ken_motorServoDriverMotorRun3",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "wDXBDb"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "42lZvp"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "fkzCOd"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "电机MOTOA速度"
+			}, {
+				"blockInputId": "SPEED_A",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "wDXBDb",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "MOTOB速度"
+			}, {
+				"blockInputId": "SPEED_B",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "42lZvp",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "MOTOC速度"
+			}, {
+				"blockInputId": "SPEED_C",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "fkzCOd",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "50"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{EX_MS}.motorRun(MOTOA, {SPEED_A}, MOTOB, {SPEED_B}, MOTOC, {SPEED_C});",
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "fphJrw"
+		}, {
+			"type": "output",
+			"name": "ken_motorServoDriverReadMotorSpeed",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "读取电机"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "MOTOA",
+					"value": "MOTOA"
+				}, {
+					"label": "MOTOB",
+					"value": "MOTOB"
+				}, {
+					"label": "MOTOC",
+					"value": "MOTOC"
+				}]
+			}, {
+				"type": "text",
+				"value": "的速度"
+			}],
+			"code": "{EX_MS}.getMotorVelocity({INDEX})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "5UqKY5"
+		}, {
+			"type": "statement",
+			"name": "ken_motorServoDriverServoWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "GrIvSi"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "电机舵机模块"
+			}, {
+				"id": "EX_MS",
+				"type": "dynamic-select",
+				"options": "ken_motorServoDrivers"
+			}, {
+				"type": "text",
+				"value": "舵机"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "S0",
+					"value": "1"
+				}, {
+					"label": "S1",
+					"value": "2"
+				}, {
+					"label": "S2",
+					"value": "3"
+				}, {
+					"label": "S3",
+					"value": "4"
+				}]
+			}, {
+				"type": "text",
+				"value": "角度为(0~180)"
+			}, {
+				"blockInputId": "ANGLE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "GrIvSi",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "90"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{EX_MS}.servoWrite({INDEX}, {ANGLE});",
+			"tags": ["module"],
+			"module": "ken_motorServoDriver",
+			"uid": "BDnwJL"
+		}],
+		"imageUrl": "assets/image/components/motorServoDriver.svg"
+	}, {
+		"uid": "426OXU",
+		"name": "ken_servo",
+		"label": "舵机",
+		"type": "ken_servo",
+		"defaultVarName": "servo",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Servo.h>",
+			"var": "Servo {NAME};int {NAME}_pin = {s};",
+			"setup": "{NAME}.attach({NAME}_pin);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_servoWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NhELNU"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置舵机"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "ken_servos"
+			}, {
+				"type": "text",
+				"value": "角度为(0~180)"
+			}, {
+				"blockInputId": "ANGLE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NhELNU",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "90"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "度"
+			}],
+			"code": "{SERVO}.write({ANGLE});",
+			"tags": ["module"],
+			"module": "ken_servo",
+			"uid": "zkDy1K"
+		}, {
+			"type": "statement",
+			"name": "ken_servoWrite2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Iureoi"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "DmTKu0"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置舵机"
+			}, {
+				"id": "SERVO",
+				"type": "dynamic-select",
+				"options": "ken_servos"
+			}, {
+				"type": "text",
+				"value": "角度为(0~180)"
+			}, {
+				"blockInputId": "ANGLE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Iureoi",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1000"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "度，延时(毫秒)"
+			}, {
+				"blockInputId": "DURATION",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "DmTKu0",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "90"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{SERVO}.write({ANGLE});delay({DURATION});",
+			"tags": ["module"],
+			"module": "ken_servo",
+			"uid": "pnzhi9"
+		}],
+		"imageUrl": "assets/image/components/servo.svg"
+	}, {
+		"uid": "VfvZdt",
+		"name": "ken_voiceRecognition",
+		"label": "语音识别模块",
+		"type": "ken_voiceRecognition",
+		"defaultVarName": "asr",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.617, 0.954],
+			"width": 21,
+			"height": 11,
+			"tags": ["ken-software-serial"],
+			"label": "s",
+			"shape": "Rectangle",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <SoftwareSerial.h>\n#include <Kenblock.h>\n#include <Kenblock_VoiceRecognition.h>",
+			"var": "SoftwareSerial {NAME}_Serial({s});\nVoiceRecognition {NAME}({NAME}_Serial);",
+			"setup": "{NAME}.begin(9600);"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_voiceRecognitionRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取语音识别"
+			}, {
+				"id": "VOICE",
+				"type": "dynamic-select",
+				"options": "ken_voiceRecognitions"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "{VOICE}.getReturnValue()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_voiceRecognition",
+			"uid": "9gnahI"
+		}, {
+			"type": "statement",
+			"name": "ken_voiceRecognitionAddKeyword",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "9jPeWf"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "aZXsY2"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "4ka7c2"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "语音识别"
+			}, {
+				"id": "VOICE",
+				"type": "dynamic-select",
+				"options": "ken_voiceRecognitions"
+			}, {
+				"type": "text",
+				"value": "添加关键字：第"
+			}, {
+				"blockInputId": "LINE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "9jPeWf",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "行，关键字拼音"
+			}, {
+				"blockInputId": "KEYWORD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "aZXsY2",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "ni hao"
+					}],
+					"name": "string"
+				}
+			}, {
+				"type": "text",
+				"value": "返回值"
+			}, {
+				"blockInputId": "VALUE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "4ka7c2",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "1"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{VOICE}.addKeyword({LINE}, {KEYWORD}, {VALUE});",
+			"tags": ["module"],
+			"module": "ken_voiceRecognition",
+			"uid": "i0gEWD"
+		}, {
+			"type": "statement",
+			"name": "ken_voiceRecognitionRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "语音识别"
+			}, {
+				"id": "VOICE",
+				"type": "dynamic-select",
+				"options": "ken_voiceRecognitions"
+			}, {
+				"type": "text",
+				"value": "执行"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "擦除所有关键字",
+					"value": "erase"
+				}, {
+					"label": "进入休眠",
+					"value": "close"
+				}, {
+					"label": "退出休眠",
+					"value": "open"
+				}]
+			}],
+			"code": "{VOICE}.{OP}();",
+			"tags": ["module"],
+			"module": "ken_voiceRecognition",
+			"uid": "e7SWqP"
+		}],
+		"imageUrl": "assets/image/components/voiceRecognition.svg"
+	}, {
+		"uid": "Iif02R",
+		"name": "ken_speechSynthesis",
+		"label": "语音合成模块",
+		"type": "ken_speechSynthesis",
+		"defaultVarName": "tts",
+		"category": "action",
+		"boards": ["Arduino"],
+		"width": 90,
+		"height": 120,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.383, 0.954],
+			"width": 21,
+			"height": 11,
+			"tags": ["ken-software-serial"],
+			"label": "s",
+			"shape": "Rectangle",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <SoftwareSerial.h>\n#include <Kenblock_SYN6288.h>",
+			"var": "SoftwareSerial {NAME}_Serial({s});\nSYN6288 {NAME}({NAME}_Serial);",
+			"setup": "{NAME}.begin(9600);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_speechSynthesisSpeech",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "CsLiJp"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "语音合成"
+			}, {
+				"id": "SPEECH",
+				"type": "dynamic-select",
+				"options": "ken_speechSynthesiss"
+			}, {
+				"type": "text",
+				"value": "背景音乐"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "无",
+					"value": "0"
+				}, {
+					"label": "背景音乐1",
+					"value": "1"
+				}, {
+					"label": "背景音乐2",
+					"value": "2"
+				}, {
+					"label": "背景音乐3",
+					"value": "3"
+				}, {
+					"label": "背景音乐4",
+					"value": "4"
+				}, {
+					"label": "背景音乐5",
+					"value": "5"
+				}, {
+					"label": "背景音乐6",
+					"value": "6"
+				}, {
+					"label": "背景音乐7",
+					"value": "7"
+				}, {
+					"label": "背景音乐8",
+					"value": "8"
+				}, {
+					"label": "背景音乐9",
+					"value": "9"
+				}, {
+					"label": "背景音乐10",
+					"value": "10"
+				}, {
+					"label": "背景音乐11",
+					"value": "11"
+				}, {
+					"label": "背景音乐12",
+					"value": "12"
+				}, {
+					"label": "背景音乐13",
+					"value": "13"
+				}, {
+					"label": "背景音乐14",
+					"value": "14"
+				}, {
+					"label": "背景音乐15",
+					"value": "15"
+				}]
+			}, {
+				"blockInputId": "TEXT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "CsLiJp",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "你好"
+					}],
+					"name": "string"
+				}
+			}],
+			"code": "{SPEECH}.speech({TEXT}, {INDEX});",
+			"tags": ["module"],
+			"module": "ken_speechSynthesis",
+			"uid": "VjBM4r"
+		}, {
+			"type": "statement",
+			"name": "ken_speechSynthesisSound",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "语音合成"
+			}, {
+				"id": "SPEECH",
+				"type": "dynamic-select",
+				"options": "ken_speechSynthesiss"
+			}, {
+				"type": "text",
+				"value": "提示音"
+			}, {
+				"id": "INDEX",
+				"type": "static-select",
+				"options": [{
+					"label": "出错声",
+					"value": "\"sounda\""
+				}, {
+					"label": "刷卡成功1",
+					"value": "\"soundb\""
+				}, {
+					"label": "刷卡成功2",
+					"value": "\"soundc\""
+				}, {
+					"label": "刷卡成功3",
+					"value": "\"soundd\""
+				}, {
+					"label": "刷卡成功4",
+					"value": "\"sounde\""
+				}, {
+					"label": "激光声",
+					"value": "\"soundf\""
+				}, {
+					"label": "门铃声1",
+					"value": "\"soundg\""
+				}, {
+					"label": "门铃声2",
+					"value": "\"soundh\""
+				}, {
+					"label": "电话铃声1",
+					"value": "\"soundi\""
+				}, {
+					"label": "电话铃声2",
+					"value": "\"soundj\""
+				}, {
+					"label": "广播提示音",
+					"value": "\"soundk\""
+				}, {
+					"label": "提示音1",
+					"value": "\"soundl\""
+				}, {
+					"label": "提示音2",
+					"value": "\"soundm\""
+				}, {
+					"label": "报警1",
+					"value": "\"soundn\""
+				}, {
+					"label": "报警2",
+					"value": "\"soundo\""
+				}, {
+					"label": "报警3",
+					"value": "\"soundp\""
+				}, {
+					"label": "紧急报警1",
+					"value": "\"soundq\""
+				}, {
+					"label": "紧急报警2",
+					"value": "\"soundr\""
+				}, {
+					"label": "布谷声",
+					"value": "\"sounds\""
+				}, {
+					"label": "提示音3",
+					"value": "\"soundt\""
+				}, {
+					"label": "提示音4",
+					"value": "\"soundu\""
+				}, {
+					"label": "提示音5",
+					"value": "\"soundv\""
+				}, {
+					"label": "提示音6",
+					"value": "\"soundw\""
+				}, {
+					"label": "提示音7",
+					"value": "\"soundx\""
+				}, {
+					"label": "提示音8",
+					"value": "\"soundy\""
+				}]
+			}],
+			"code": "{SPEECH}.sound({INDEX});",
+			"tags": ["module"],
+			"module": "ken_speechSynthesis",
+			"uid": "gf5yi7"
+		}, {
+			"type": "statement",
+			"name": "ken_speechSynthesisRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "语音合成"
+			}, {
+				"id": "SPEECH",
+				"type": "dynamic-select",
+				"options": "ken_speechSynthesiss"
+			}, {
+				"type": "text",
+				"value": "指令"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "停止合成",
+					"value": "stop"
+				}, {
+					"label": "暂停合成",
+					"value": "suspend"
+				}, {
+					"label": "恢复合成",
+					"value": "recover"
+				}, {
+					"label": "状态查询",
+					"value": "check"
+				}, {
+					"label": "进入休眠模式",
+					"value": "powerDown"
+				}]
+			}],
+			"code": "{SPEECH}.{OP}();",
+			"tags": ["module"],
+			"module": "ken_speechSynthesis",
+			"uid": "67vDCR"
+		}],
+		"imageUrl": "assets/image/components/speechSynthesis.svg"
+	}, {
+		"uid": "0J42Ge",
+		"name": "ken_bluetooth",
+		"label": "蓝牙转串口模块",
+		"type": "serial",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false,
+			"spec": ["tag", "serial"]
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"imageUrl": "assets/image/components/bluetooth.svg"
+	}, {
+		"uid": "zTFuGj",
+		"name": "ken_wifi",
+		"label": "WiFi转串口模块",
+		"defaultVarName": "wifi",
+		"type": "ken_wifi",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false,
+			"spec": ["tag", "serial"]
+		}],
+		"code": {
+			"include": "#include <ESP8266.h>",
+			"const": "#define SERIAL_RX_BUFFER_SIZE 256",
+			"var": "ESP8266 {NAME}(Serial);\nchar *{NAME}_sendData;"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_wifiStartServer",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "WiFi模块"
+			}, {
+				"id": "WIFI",
+				"type": "dynamic-select",
+				"options": "ken_wifis"
+			}, {
+				"type": "text",
+				"value": "设为TCP服务器，WiFi名称"
+			}, {
+				"id": "SSID",
+				"type": "string-input",
+				"value": "Kenblock_WiFi_01"
+			}, {
+				"type": "text",
+				"value": "密码"
+			}, {
+				"id": "PASSWORD",
+				"type": "string-input",
+				"value": "12345678"
+			}, {
+				"type": "text",
+				"value": "端口"
+			}, {
+				"id": "PORT",
+				"type": "number-input",
+				"value": 8090
+			}],
+			"code": "{WIFI}.begin(115200);\n{WIFI}.setOprToStationSoftAP();\n{WIFI}.setSoftAPParam(\"{SSID}\", \"{PASSWORD}\", 11, WAP_WAP2_PSK);\n{WIFI}.enableMUX();\n{WIFI}.startTCPServer({PORT});\n{WIFI}.setTCPServerTimeout(0);",
+			"tags": ["module"],
+			"module": "ken_wifi",
+			"uid": "Mn559o"
+		}, {
+			"type": "statement",
+			"name": "ken_wifiStartClient",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "WiFi模块"
+			}, {
+				"id": "WIFI",
+				"type": "dynamic-select",
+				"options": "ken_wifis"
+			}, {
+				"type": "text",
+				"value": "设为TCP客户端，连接到WiFi"
+			}, {
+				"id": "SSID",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "密码"
+			}, {
+				"id": "PASSWORD",
+				"type": "string-input"
+			}, {
+				"type": "text",
+				"value": "IP或域名"
+			}, {
+				"id": "HOST",
+				"type": "string-input",
+				"value": "192.168.0.1"
+			}, {
+				"type": "text",
+				"value": "端口"
+			}, {
+				"id": "PORT",
+				"type": "number-input",
+				"value": 8090
+			}],
+			"code": "{WIFI}.begin(115200);\n{WIFI}.setOprToStationSoftAP();\n{WIFI}.joinAP(\"{SSID}\", \"{PASSWORD}\");\n{WIFI}.disableMUX();\n{WIFI}.createTCP(\"{HOST}\", {PORT});",
+			"tags": ["module"],
+			"module": "ken_wifi",
+			"uid": "AqZbkt"
+		}, {
+			"type": "statement",
+			"name": "ken_wifiPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "kjJrPc"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "WiFi模块"
+			}, {
+				"id": "WIFI",
+				"type": "dynamic-select",
+				"options": "ken_wifis"
+			}, {
+				"type": "text",
+				"value": "发送数据(较慢)"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "kjJrPc",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "Kenblock"
+					}],
+					"name": "string"
+				}
+			}],
+			"code": "{WIFI}.print({DATA});",
+			"tags": ["module"],
+			"module": "ken_wifi",
+			"uid": "YfJzYE"
+		}, {
+			"type": "statement",
+			"name": "ken_wifiSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "QTe4qo"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "WiFi模块"
+			}, {
+				"id": "WIFI",
+				"type": "dynamic-select",
+				"options": "ken_wifis"
+			}, {
+				"type": "text",
+				"value": "发送字符串"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "QTe4qo",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "Kenblock"
+					}],
+					"name": "string"
+				}
+			}],
+			"code": "{WIFI}_sendData = {DATA};\n{WIFI}.send((const uint8_t*){WIFI}_sendData, strlen({WIFI}_sendData));",
+			"tags": ["module"],
+			"module": "ken_wifi",
+			"uid": "QTe4qo"
+		}],
+		"imageUrl": "assets/image/components/wifi.svg"
+	}, {
+		"uid": "jKGz66",
+		"name": "ken_gp2y0a21",
+		"label": "GP2Y0A21距离传感器",
+		"defaultVarName": "distanceSensor",
+		"type": "ken_gp2y0a21",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 100,
+		"height": 47,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"const": "int distance_average_value(int pin, int count) {\n    int sum = 0;\n    for (int i = 0; i < count; i++) \n        sum += pow(3027.4 / analogRead(pin), 1.2134);\n    return sum / count;\n}\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_gp2y0a21Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取距离传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_gp2y0a21s"
+			}, {
+				"type": "text",
+				"value": "的距离值(cm)"
+			}],
+			"code": "distance_average_value({SENSOR}, 20)",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_gp2y0a21",
+			"uid": "HtXY6L"
+		}],
+		"imageUrl": "assets/image/components/gy2y0a21.svg"
+	}, {
+		"uid": "ETjX14",
+		"name": "ken_keyMatrix",
+		"label": "键盘阵列模块",
+		"defaultVarName": "keyMatrix",
+		"type": "ken_keyMatrix",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 75,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"var": "int {NAME} = {s};",
+			"setup": "pinMode({NAME}, INPUT_PULLUP);",
+			"const": "uint8_t keyScan(int pin) {\n    int value = analogRead(pin);       \n    if(value >= 445 && value <= 461) return 1;\n    else if(value >= 261 && value <=  277) return 2;\n    else if(value>= 729 && value <= 745) return 3;\n    else if(value >= 863 && value <= 878) return 4;\n    else if(value >= 595 && value <= 612) return 5;\n    else return 0;\n}\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_keyMatrixScan",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取键盘阵列"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_keyMatrixs"
+			}, {
+				"type": "text",
+				"value": "的按键值(0~5)"
+			}],
+			"code": "keyScan({SENSOR})",
+			"returnType": {
+				"type": "simple",
+				"value": "uint8_t"
+			},
+			"tags": ["module"],
+			"module": "ken_keyMatrix",
+			"uid": "p5PoBj"
+		}],
+		"imageUrl": "assets/image/components/keyMatrix.svg"
+	}, {
+		"uid": "sIjbaX",
+		"name": "ken_ultrDistance",
+		"label": "超声测距模块",
+		"defaultVarName": "ultr",
+		"type": "ken_ultrDistance",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 75,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <Kenblock_Ultrasonic.h>",
+			"var": "Ultrasonic {NAME};"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_ultrDistanceBegin",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "超声测距模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_ultrDistances"
+			}, {
+				"type": "text",
+				"value": "初始化，IIC地址为"
+			}, {
+				"id": "ADDRESS",
+				"type": "static-select",
+				"options": [{
+					"label": "0xF0",
+					"value": "0xF0"
+				}, {
+					"label": "0xF1",
+					"value": "0xF1"
+				}, {
+					"label": "0xF2",
+					"value": "0xF2"
+				}, {
+					"label": "0xF3",
+					"value": "0xF3"
+				}, {
+					"label": "0xF4",
+					"value": "0xF4"
+				}, {
+					"label": "0xF5",
+					"value": "0xF5"
+				}, {
+					"label": "0xF6",
+					"value": "0xF6"
+				}, {
+					"label": "0xF7",
+					"value": "0xF7"
+				}, {
+					"label": "0xF8",
+					"value": "0xF8"
+				}, {
+					"label": "0xF9",
+					"value": "0xF9"
+				}, {
+					"label": "0xFA",
+					"value": "0xFA"
+				}, {
+					"label": "0xFB",
+					"value": "0xFB"
+				}, {
+					"label": "0xFC",
+					"value": "0xFC"
+				}, {
+					"label": "0xFD",
+					"value": "0xFD"
+				}, {
+					"label": "0xFE",
+					"value": "0xFE"
+				}, {
+					"label": "0xFF",
+					"value": "0xFF"
+				}]
+			}],
+			"code": "{SENSOR}.begin({ADDRESS});",
+			"tags": ["module"],
+			"module": "ken_ultrDistance",
+			"uid": "Ryrh4e"
+		}, {
+			"type": "output",
+			"name": "ken_ultrDistanceRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "超声测距模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_ultrDistances"
+			}, {
+				"type": "text",
+				"value": "的距离(cm)"
+			}],
+			"code": "{SENSOR}.requstDistance()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_ultrDistance",
+			"uid": "pzNqps"
+		}],
+		"imageUrl": "assets/image/components/ultrDistance.svg"
+	}, {
+		"uid": "HUIWP3",
+		"name": "ken_pm25",
+		"label": "PM2.5传感模块",
+		"defaultVarName": "pm2_5",
+		"type": "ken_pm25",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 75,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-software-serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <SoftwareSerial.h>",
+			"var": "SoftwareSerial {NAME}({s});",
+			"setup": "{NAME}.begin(2400);",
+			"const": "uint8_t PM2_5data[6];\nfloat getPMValue(SoftwareSerial &serial){\n    while(serial.read() != -1);\n    delay(30);\n    while(serial.available() > 0) {\n        if(serial.read() == 0xAA) {\n            while(serial.readBytes(PM2_5data, 6) == 6) {\n                if(PM2_5data[4] == PM2_5data[0] + PM2_5data[1] + PM2_5data[2] + PM2_5data[3] && PM2_5data[5] == 0xFF){\n                    return (PM2_5data[0] * 256.0 + PM2_5data[1]) / 1024.0 * 5.00 * 700;\n                }\n            }\n        }\n    }\n    return 0;\n}\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_pm25Read",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取PM2.5传感模块"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_pm25s"
+			}, {
+				"type": "text",
+				"value": "的值"
+			}],
+			"code": "getPMValue({SENSOR})",
+			"returnType": {
+				"type": "simple",
+				"value": "float"
+			},
+			"tags": ["module"],
+			"module": "ken_pm25",
+			"uid": "p6CDKU"
+		}],
+		"imageUrl": "assets/image/components/pm25.svg"
+	}, {
+		"uid": "oBgjQn",
+		"name": "ken_pulse",
+		"label": "心率传感模块",
+		"defaultVarName": "pulse",
+		"type": "ken_pulse",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 49,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["analog-in"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock_PulseSensor.h>",
+			"var": "PulseSensor {NAME}({s});",
+			"setup": "{NAME}.begin();"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_pulseRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "读取心率传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_pulses"
+			}, {
+				"type": "text",
+				"value": "的心率值(BPM，次/分钟)"
+			}],
+			"code": "{SENSOR}.readBPM()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_pulse",
+			"uid": "8vmG2b"
+		}],
+		"imageUrl": "assets/image/components/pulse.svg"
+	}, {
+		"uid": "cf61F7",
+		"name": "ken_irSend",
+		"label": "红外发射模块",
+		"defaultVarName": "irSend",
+		"type": "ken_irSend",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 49,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IR"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <IRremote.h>",
+			"var": "IRsend {NAME};"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_irSendSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "8cOl5b"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "IMiHuy"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_irSends"
+			}, {
+				"type": "text",
+				"value": "发射"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "NEC",
+					"value": "sendNEC"
+				}, {
+					"label": "Whynter",
+					"value": "sendWhynter"
+				}, {
+					"label": "Sony",
+					"value": "sendSony"
+				}, {
+					"label": "RC5",
+					"value": "sendRC5"
+				}, {
+					"label": "RC6",
+					"value": "sendRC6"
+				}, {
+					"label": "DISH",
+					"value": "sendDISH"
+				}, {
+					"label": "SharpRaw",
+					"value": "sendSharpRaw"
+				}, {
+					"label": "SAMSUNG",
+					"value": "sendSAMSUNG"
+				}]
+			}, {
+				"type": "text",
+				"value": "数值"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "8cOl5b",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0x89ABCDEF"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "比特数"
+			}, {
+				"blockInputId": "BIT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "IMiHuy",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "32"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{SENSOR}.{OP}({DATA}, {BIT});",
+			"tags": ["module"],
+			"module": "ken_irSend",
+			"uid": "mLQ5Fo"
+		}, {
+			"type": "statement",
+			"name": "ken_irSendSend2",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "ycwBFO"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_irSends"
+			}, {
+				"type": "text",
+				"value": "发射(RAW)数组"
+			}, {
+				"id": "BUFFER",
+				"type": "string-input",
+				"placeholder": "名字"
+			}, {
+				"type": "text",
+				"value": "(长度"
+			}, {
+				"id": "LENGTH",
+				"type": "string-input",
+				"value": "3"
+			}, {
+				"type": "text",
+				"value": "值"
+			}, {
+				"id": "DATA",
+				"type": "string-input",
+				"value": "0, 0, 0"
+			}, {
+				"type": "text",
+				"value": ")，频率"
+			}, {
+				"blockInputId": "FREQUENCY",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "ycwBFO",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "38"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "unsigned int {BUFFER}[{LENGTH}] = {{DATA}};\n{SENSOR}.sendRaw({BUFFER}, {LENGTH}, {FREQUENCY});",
+			"tags": ["module"],
+			"module": "ken_irSend",
+			"uid": "cU5yxK"
+		}],
+		"imageUrl": "assets/image/components/irSend.svg"
+	}, {
+		"uid": "Nh8bJZ",
+		"name": "ken_irRecv",
+		"label": "数字红外接收模块",
+		"defaultVarName": "irRecv",
+		"type": "ken_irRecv",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 49,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["digital"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <IRremote.h>",
+			"var": "IRrecv {NAME}({s});decode_results {NAME}_results;",
+			"setup": "{NAME}.enableIRIn();",
+			"const": "long ir_item;\nvoid dumpRaw(decode_results *results) {\n    int count = results->rawlen;\n    Serial.print(\"RawData (\");\n    Serial.print(count, DEC);\n    Serial.print(\"): \");\n    for (int i = 0; i < count; i++) {\n        Serial.print(results->rawbuf[i] * USECPERTICK, DEC);\n        i != count - 1 && Serial.print(\",\");\n    }\n    Serial.println(\"\");\n}\n"
+		},
+		"blocks": [{
+			"type": "statement-input",
+			"name": "ken_irRecvIf",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "w4mfmy"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果红外接收"
+			}, {
+				"id": "IR",
+				"type": "dynamic-select",
+				"options": "ken_irRecvs"
+			}, {
+				"type": "text",
+				"value": "有信息，并定义变量"
+			}, {
+				"blockInputId": "VAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "w4mfmy",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "string-input",
+						"value": "ir_item"
+					}],
+					"name": "rawInput"
+				}
+			}],
+			"code": "if ({IR}.decode(&{IR}_results)) {\n    {VAR} = {IR}_results.value;\n    String type = \"UNKNOWN\";\n    String typelist[14] = {\"UNKNOWN\", \"NEC\", \"SONY\", \"RC5\", \"RC6\", \"DISH\", \"SHARP\", \"PANASONIC\", \"JVC\", \"SANYO\", \"MITSUBISHI\", \"SAMSUNG\", \"LG\", \"WHYNTER\"};\n    if({IR}_results.decode_type >= 1 && {IR}_results.decode_type <= 13) {\n        type = typelist[{IR}_results.decode_type];\n    }\n    {STATEMENTS}\n    {IR}.resume();\n}",
+			"tags": ["module"],
+			"module": "ken_irRecv",
+			"uid": "YjNL4D"
+		}, {
+			"type": "statement",
+			"name": "ken_irRecvDump",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "红外接收"
+			}, {
+				"id": "IR",
+				"type": "dynamic-select",
+				"options": "ken_irRecvs"
+			}, {
+				"type": "text",
+				"value": "接收数据，并串口打印"
+			}],
+			"code": "if ({IR}.decode(&{IR}_results)) {\n    dumpRaw(&{IR}_results);\n    {IR}.resume();\n}",
+			"tags": ["module"],
+			"module": "ken_irRecv",
+			"uid": "7LHv0u"
+		}, {
+			"type": "output",
+			"name": "ken_irRecvKey",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "摇控按键值"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "CH-",
+					"value": "0xFFA52D"
+				}, {
+					"label": "CH",
+					"value": "0xFF629D"
+				}, {
+					"label": "CH+",
+					"value": "0xFFE21D"
+				}, {
+					"label": "PREV",
+					"value": "0xFF22DD"
+				}, {
+					"label": "NEXT",
+					"value": "0xFF02FD"
+				}, {
+					"label": "PLAY",
+					"value": "0xFFC23D"
+				}, {
+					"label": "VOL- ",
+					"value": "0xFFE01F"
+				}, {
+					"label": "VOL+",
+					"value": "0xFFA857"
+				}, {
+					"label": "EQ",
+					"value": "0xFF906F"
+				}, {
+					"label": "0",
+					"value": "0xFF6897"
+				}, {
+					"label": "1",
+					"value": "0xFF30CF"
+				}, {
+					"label": "2",
+					"value": "0xFF18E7"
+				}, {
+					"label": "3",
+					"value": "0xFF7A85"
+				}, {
+					"label": "4",
+					"value": "0xFF10EF"
+				}, {
+					"label": "5",
+					"value": "0xFF38C7"
+				}, {
+					"label": "6",
+					"value": "0xFF5AA5"
+				}, {
+					"label": "7",
+					"value": "0xFF42BD"
+				}, {
+					"label": "8",
+					"value": "0xFF4AB5"
+				}, {
+					"label": "9",
+					"value": "0xFF52AD"
+				}, {
+					"label": "100+",
+					"value": "0xFF9867"
+				}, {
+					"label": "200+",
+					"value": "0xFFB04F"
+				}]
+			}],
+			"code": "{VALUE}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_irRecv",
+			"uid": "LAZStT"
+		}],
+		"imageUrl": "assets/image/components/irRecv.svg"
+	}, {
+		"uid": "CPtfio",
+		"name": "ken_colorSensor",
+		"label": "颜色传感模块",
+		"defaultVarName": "color",
+		"type": "ken_colorSensor",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 49,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-4P-init"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock.h>\n#include <Kenblock_ColorSensor.h>",
+			"var": "ColorSensor {NAME}({s});",
+			"setup": "{NAME}.OutputSetting(100);\nTimer1.initialize(); \nTimer1.attachInterrupt({NAME}_Callback);\nattachInterrupt(0, {NAME}_PulseCount ,RISING);\ndelay(4000); \n{NAME}.g_SF[0] = 255.0/ {NAME}.g_array[0] ; \n{NAME}.g_SF[1] = 255.0/ {NAME}.g_array[1] ;\n{NAME}.g_SF[2] = 255.0/ {NAME}.g_array[2] ;",
+			"loop": "{NAME}.g_flag = 0;",
+			"funcDeclare": "void {NAME}_PulseCount();\nvoid {NAME}_Callback();\n",
+			"funcImplement": "void {NAME}_PulseCount() {\n    {NAME}.g_count++;\n}\nvoid {NAME}_Callback() {\n    switch({NAME}.g_flag) {\n        case 0:\n            {NAME}.WhiteBalance(LOW, LOW);       \n            break;\n        case 1:\n            {NAME}.g_array[0] = {NAME}.g_count; \n            {NAME}.WhiteBalance(HIGH, HIGH);  \n            break;    \n        case 2:\n            {NAME}.g_array[1] = {NAME}.g_count;\n            {NAME}.WhiteBalance(LOW, HIGH); \n            break; \n        case 3:\n            {NAME}.g_array[2] = {NAME}.g_count; \n            {NAME}.WhiteBalance(HIGH, LOW);\n            break;\n        default:     \n            {NAME}.g_count = 0;   \n            break; \n    }\n}\n",
+			"const": "int getRGBValue(ColorSensor &colorSensor, char rgb){\n    return int(colorSensor.g_array[rgb] * colorSensor.g_SF[rgb]);\n}"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_colorSensorRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取颜色传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_colorSensors"
+			}, {
+				"id": "RGB",
+				"type": "static-select",
+				"options": [{
+					"label": "红色",
+					"value": "0"
+				}, {
+					"label": "绿色",
+					"value": "1"
+				}, {
+					"label": "蓝色",
+					"value": "2"
+				}]
+			}],
+			"code": "getRGBValue({SENSOR}, {RGB})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_colorSensor",
+			"uid": "Sj1fzD"
+		}],
+		"imageUrl": "assets/image/components/colorSensor.svg"
+	}, {
+		"uid": "smVPRS",
+		"name": "ken_rfid",
+		"label": "RFID射频模块",
+		"defaultVarName": "rfid",
+		"type": "ken_rfid",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 75,
+		"height": 100,
+		"pins": [{
+			"name": "P0",
+			"anchor": [0.333, 1],
+			"tags": ["ken-SPI"],
+			"label": "P0",
+			"shape": "Dot",
+			"rotate": false
+		}, {
+			"name": "P1",
+			"anchor": [0.667, 1],
+			"tags": ["digital"],
+			"label": "P1",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <SPI.h>\n#include <Kenblock.h>\n#include <Kenblock_RFID.h>",
+			"var": "RFID {NAME}(Ex_Quadruple_Digital[{P0}].d1, {P1});\nint {NAME}_flag = 0;",
+			"setup": "SPI.begin();\n{NAME}.init();",
+			"const": "long cardID = 0;"
+		},
+		"blocks": [{
+			"type": "statement-input",
+			"name": "ken_rfidIf",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "MA4izx"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果RFID"
+			}, {
+				"id": "RFID",
+				"type": "dynamic-select",
+				"options": "ken_rfids"
+			}, {
+				"type": "text",
+				"value": "检测到卡，卡ID存储到变量"
+			}, {
+				"blockInputId": "VAR",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "MA4izx",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "string-input",
+						"value": "cardID"
+					}],
+					"name": "rawInput"
+				}
+			}],
+			"code": "if ({RFID}.findCard(PICC_REQIDL, {RFID}.str) == MI_OK) {\n    if ({RFID}.anticoll({RFID}.str) == MI_OK) {\n        {VAR} = ((long){RFID}.str[0] << 24) + ((long){RFID}.str[1] << 16) + ((long){RFID}.str[2] << 8) + {RFID}.str[3];\n        {RFID}_flag = 1;\n    }\n    {RFID}.selectTag({RFID}.str);\n}\n{RFID}.halt();\nif ({RFID}_flag == 1) {\n    {STATEMENTS}\n    {RFID}_flag = 0;\n}",
+			"tags": ["module"],
+			"module": "ken_rfid",
+			"uid": "EcWKyA"
+		}],
+		"imageUrl": "assets/image/components/rfid.svg"
+	}, {
+		"uid": "X1wrAh",
+		"name": "ken_apds9960",
+		"label": "手势传感模块",
+		"defaultVarName": "apds",
+		"type": "ken_apds9960",
+		"category": "sensor",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-IIC-INT"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Wire.h>\n#include <Kenblock_APDS9960.h>",
+			"var": "Kenblock_APDS9960 {NAME} = Kenblock_APDS9960();",
+			"setup": "pinMode(APDS9960_INT, INPUT);\nattachInterrupt(0, interruptRoutine, FALLING);\n{NAME}.init();\n{NAME}.enableGestureSensor(true);",
+			"const": "#define APDS9960_INT 2\nint isr_flag = 0;\nvoid interruptRoutine() {\n    isr_flag = 1;\n}\nint getGestureValue(Kenblock_APDS9960 &apds) {\n    int gestureValue = 0;\n    if (isr_flag == 1) {\n        detachInterrupt(0);\n        if (apds.isGestureAvailable()) {\n            gestureValue = apds.readGesture();\n        }\n        isr_flag = 0;\n        attachInterrupt(0, interruptRoutine, FALLING);\n    }\n    return gestureValue;\n}\n"
+		},
+		"blocks": [{
+			"type": "output",
+			"name": "ken_apds9960GetGesture",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取手势传感器"
+			}, {
+				"id": "SENSOR",
+				"type": "dynamic-select",
+				"options": "ken_apds9960s"
+			}, {
+				"type": "text",
+				"value": "的手势"
+			}],
+			"code": "getGestureValue({SENSOR})",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_apds9960",
+			"uid": "8vaPAa"
+		}, {
+			"type": "output",
+			"name": "ken_apds9960Gesture",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "手势"
+			}, {
+				"id": "VALUE",
+				"type": "static-select",
+				"options": [{
+					"label": "左",
+					"value": "DIR_LEFT"
+				}, {
+					"label": "右",
+					"value": "DIR_RIGHT"
+				}, {
+					"label": "上",
+					"value": "DIR_UP"
+				}, {
+					"label": "下",
+					"value": "DIR_DOWN"
+				}, {
+					"label": "靠近",
+					"value": "DIR_NEAR"
+				}, {
+					"label": "远离",
+					"value": "DIR_FAR"
+				}, {
+					"label": "无效手势",
+					"value": "DIR_NONE"
+				}]
+			}],
+			"code": "{VALUE}",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"module": "ken_apds9960",
+			"uid": "FqOC6K"
+		}],
+		"imageUrl": "assets/image/components/apds9960.svg"
+	}, {
+		"uid": "WTRQCO",
+		"name": "ken_gamepad",
+		"label": "2.4G转串口模块(软串口)",
+		"defaultVarName": "gamepad_software",
+		"type": "ken_gamepad",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["ken-software-serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock_Gamepad_Software.h>",
+			"var": "SoftwareSerial mySerial_{NAME}({s});\nGamepad_Software {NAME}(mySerial_{NAME});",
+			"setup": "{NAME}.begin(9600);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_gamepadDataRead",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "与手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepads"
+			}, {
+				"type": "text",
+				"value": "通信"
+			}],
+			"code": "{GAMEPAD}.dataRead();",
+			"tags": ["module"],
+			"module": "ken_gamepad",
+			"uid": "2nUzTf"
+		}, {
+			"type": "output",
+			"name": "ken_gamepadButtonPressed",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "检测手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepads"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "BUTTON",
+				"type": "static-select",
+				"options": [{
+					"label": "上",
+					"value": "GP_UP"
+				}, {
+					"label": "下",
+					"value": "GP_DOWN"
+				}, {
+					"label": "左",
+					"value": "GP_LEFT"
+				}, {
+					"label": "右",
+					"value": "GP_RIGHT"
+				}, {
+					"label": "三角",
+					"value": "GP_TRIANGLE"
+				}, {
+					"label": "圆圈",
+					"value": "GP_CIRCLE"
+				}, {
+					"label": "方块",
+					"value": "GP_SQUARE"
+				}, {
+					"label": "X",
+					"value": "GP_CROSS"
+				}, {
+					"label": "L1",
+					"value": "GP_L1"
+				}, {
+					"label": "L2",
+					"value": "GP_L2"
+				}, {
+					"label": "L3",
+					"value": "GP_L3"
+				}, {
+					"label": "R1",
+					"value": "GP_R1"
+				}, {
+					"label": "R2",
+					"value": "GP_R2"
+				}, {
+					"label": "R3",
+					"value": "GP_R3"
+				}, {
+					"label": "SELECT",
+					"value": "GP_SELECT"
+				}, {
+					"label": "START",
+					"value": "GP_START"
+				}]
+			}, {
+				"type": "text",
+				"value": "键"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "被按下",
+					"value": "ButtonPressed"
+				}, {
+					"label": "已松开",
+					"value": "ButtonReleased"
+				}, {
+					"label": "被按住",
+					"value": "Button"
+				}]
+			}],
+			"code": "{GAMEPAD}.{OP}({BUTTON})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "ken_gamepad",
+			"uid": "QXQBac"
+		}, {
+			"type": "output",
+			"name": "ken_gamepadJoystick",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepads"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "左摇杆X",
+					"value": "GP_LX"
+				}, {
+					"label": "左摇杆Y",
+					"value": "GP_LY"
+				}, {
+					"label": "右摇杆X",
+					"value": "GP_RX"
+				}, {
+					"label": "右摇杆Y",
+					"value": "GP_RY"
+				}]
+			}, {
+				"type": "text",
+				"value": "方向的值"
+			}],
+			"code": "{GAMEPAD}.Joystick({TYPE})",
+			"returnType": {
+				"type": "simple",
+				"value": "uint8_t"
+			},
+			"tags": ["module"],
+			"module": "ken_gamepad",
+			"uid": "QLoLZT"
+		}],
+		"imageUrl": "assets/image/components/gamepad.svg"
+	}, {
+		"uid": "yxzEBi",
+		"name": "ken_gamepad_hardware",
+		"label": "2.4G转串口模块(硬串口)",
+		"defaultVarName": "gamepad_hardware",
+		"type": "ken_gamepad_hardware",
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 50,
+		"height": 100,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 1],
+			"tags": ["serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock_Gamepad_Hardware.h>",
+			"var": "Gamepad_Hardware {NAME}(Serial);",
+			"setup": "{NAME}.begin(9600);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_gamepad_hardwareDataRead",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "与手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepad_hardwares"
+			}, {
+				"type": "text",
+				"value": "通信"
+			}],
+			"code": "{GAMEPAD}.dataRead();",
+			"tags": ["module"],
+			"module": "ken_gamepad_hardware",
+			"uid": "4R8E5e"
+		}, {
+			"type": "output",
+			"name": "ken_gamepad_hardwareButtonPressed",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "检测手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepad_hardwares"
+			}, {
+				"type": "text",
+				"value": "的"
+			}, {
+				"id": "BUTTON",
+				"type": "static-select",
+				"options": [{
+					"label": "上",
+					"value": "GP_UP"
+				}, {
+					"label": "下",
+					"value": "GP_DOWN"
+				}, {
+					"label": "左",
+					"value": "GP_LEFT"
+				}, {
+					"label": "右",
+					"value": "GP_RIGHT"
+				}, {
+					"label": "三角",
+					"value": "GP_TRIANGLE"
+				}, {
+					"label": "圆圈",
+					"value": "GP_CIRCLE"
+				}, {
+					"label": "方块",
+					"value": "GP_SQUARE"
+				}, {
+					"label": "X",
+					"value": "GP_CROSS"
+				}, {
+					"label": "L1",
+					"value": "GP_L1"
+				}, {
+					"label": "L2",
+					"value": "GP_L2"
+				}, {
+					"label": "L3",
+					"value": "GP_L3"
+				}, {
+					"label": "R1",
+					"value": "GP_R1"
+				}, {
+					"label": "R2",
+					"value": "GP_R2"
+				}, {
+					"label": "R3",
+					"value": "GP_R3"
+				}, {
+					"label": "SELECT",
+					"value": "GP_SELECT"
+				}, {
+					"label": "START",
+					"value": "GP_START"
+				}]
+			}, {
+				"type": "text",
+				"value": "键"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "被按下",
+					"value": "ButtonPressed"
+				}, {
+					"label": "已松开",
+					"value": "ButtonReleased"
+				}, {
+					"label": "被按住",
+					"value": "Button"
+				}]
+			}],
+			"code": "{GAMEPAD}.{OP}({BUTTON})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"module": "ken_gamepad_hardware",
+			"uid": "Gnef9P"
+		}, {
+			"type": "output",
+			"name": "ken_gamepad_hardwareJoystick",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取手柄"
+			}, {
+				"id": "GAMEPAD",
+				"type": "dynamic-select",
+				"options": "ken_gamepad_hardwares"
+			}, {
+				"id": "TYPE",
+				"type": "static-select",
+				"options": [{
+					"label": "左摇杆X",
+					"value": "GP_LX"
+				}, {
+					"label": "左摇杆Y",
+					"value": "GP_LY"
+				}, {
+					"label": "右摇杆X",
+					"value": "GP_RX"
+				}, {
+					"label": "右摇杆Y",
+					"value": "GP_RY"
+				}]
+			}, {
+				"type": "text",
+				"value": "方向的值"
+			}],
+			"code": "{GAMEPAD}.Joystick({TYPE})",
+			"returnType": {
+				"type": "simple",
+				"value": "uint8_t"
+			},
+			"tags": ["module"],
+			"module": "ken_gamepad_hardware",
+			"uid": "1fOPmd"
+		}],
+		"imageUrl": "assets/image/components/gamepad.svg"
+	}],
+	"libraries": "hardware/avr/1.0.10/libraries"
+}

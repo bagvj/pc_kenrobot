@@ -1,0 +1,41 @@
+#######################################
+# Syntax Coloring Map for library RoSysDrive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+SYN6288		KEYWORD1
+
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# SYN6288 关键字
+begin			KEYWORD2
+speech			KEYWORD2
+sound			KEYWORD2
+stop			KEYWORD2
+suspend			KEYWORD2
+recover			KEYWORD2
+powerDown		KEYWORD2
+check			KEYWORD2
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+

@@ -289,7 +289,7 @@ gulp.task('build', ['packages', 'clean-dist'], callback => {
 	nconf.save()
 
 	var packageNames = args.packages ? args.packages.split(',') : []
-	var standardPackage = args.standardPackage || "Arduino"
+	var standardPackage = args.standardPackage || "Kenblock"
 
 	if (args.standalone) {
 		var suffix = platform === "arm" ? `/${arch}` : ""
