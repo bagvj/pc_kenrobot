@@ -28,8 +28,8 @@ $menu-height: 26px;
 	.logo {
 		width: $logo-size;
 		height: $logo-size;
-		background: url(../image/logo.png) center center no-repeat;
-		background-size: $logo-size;
+		background: url(../image/logo.svg) center center no-repeat;
+		background-size: $logo-size - 4px;
 		margin-left: 11px;
 		margin-right: 6px;
 	}
