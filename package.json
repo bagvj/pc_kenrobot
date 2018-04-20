@@ -1,8 +1,8 @@
 {
   "private": true,
   "build": {
-    "appId": "com.kenrobot.KRobot",
-    "productName": "KRobot",
+    "appId": "com.kenrobot.Kenblock",
+    "productName": "Kenblock",
     "compression": "maximum",
     "files": [
       "main",
@@ -22,7 +22,7 @@
     ],
     "artifactName": "${productName}-${version}-${arch}.${ext}",
     "win": {
-      "publisherName": "KenRobot"
+      "publisherName": "Kenblock"
     },
     "nsis": {
       "oneClick": false,
@@ -31,7 +31,7 @@
       "warningsAsErrors": false,
       "menuCategory": true,
       "language": "2052",
-      "shortcutName": "KRobot"
+      "shortcutName": "Kenblock"
     },
     "mac": {
       "category": "public.app-category.education"
@@ -50,7 +50,7 @@
         }
       ],
       "iconSize": 128,
-      "title": "KRobot"
+      "title": "Kenblock"
     },
     "linux": {
       "category": "Education",
@@ -65,8 +65,8 @@
       ]
     },
     "fileAssociations": {
-      "ext": "krb",
-      "name": "KRobot"
+      "ext": "kbk",
+      "name": "Kenblock"
     }
   },
   "devDependencies": {
