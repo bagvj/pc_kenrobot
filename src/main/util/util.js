@@ -18,14 +18,6 @@ const fetch = require('node-fetch')
 
 const PACKAGE = require(is.dev() ? path.resolve('app', 'package.json') : path.resolve(__dirname, '..', 'package.json'))
 
-const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7Jat1/19NDxOObrFpW8USTia6
-uHt34Sac1Arm6F2QUzsdUEUmvGyLIOIGcdb+F6pTdx4ftY+wZi7Aomp4k3vNqXmX
-T0mE0vpQlCmsPUcMHXuUi93XTGPxLXIv9NXxCJZXSYI0JeyuhT9/ithrYlbMlyNc
-wKB/BwSpp+Py2MTT2wIDAQAB
------END PUBLIC KEY-----
-`
-
 is.dev() && app.setName(PACKAGE.productName)
 
 const defers = {}
@@ -286,39 +278,6 @@ function throttle(fn, delay) {
 	}
 }
 
-function encrypt(plainText, key, algorithm) {
-	algorithm = algorithm || "aes-128-cbc"
-	var cipher = crypto.createCipher(algorithm, key)
-	var cryptedText = cipher.update(plainText, 'utf8', 'binary')
-	cryptedText += cipher.final('binary')
-	cryptedText = new Buffer(cryptedText, 'binary').toString('base64')
-
-	return cryptedText
-}
-
-function decrypt(cryptedText, key, algorithm) {
-	algorithm = algorithm || "aes-128-cbc"
-	cryptedText = new Buffer(cryptedText, 'base64').toString('binary')
-	var decipher = crypto.createDecipher(algorithm, key)
-	var plainText = decipher.update(cryptedText, 'binary', 'utf8')
-	plainText += decipher.final('utf8')
-
-	return plainText
-}
-
-function rsa_encrypt(plain, key) {
-	key = key || PUBLIC_KEY
-    var buffer = new Buffer(plain)
-    var encrypted = crypto.publicEncrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
-    return encrypted.toString("base64")
-}
-
-function rsa_decrypt(encrypted, key) {
-    var buffer = new Buffer(encrypted, "base64")
-    var decrypted = crypto.privateDecrypt({key: key, padding: crypto.constants.RSA_PKCS1_PADDING}, buffer)
-    return decrypted.toString("utf8")
-}
-
 function resolvePromise(result, deferred) {
 	deferred = deferred || Q.defer()
 
@@ -438,11 +397,11 @@ function spawnCommand(command, args, options) {
  * @param {*} options 选项
  */
 function readFile(filePath, options, sync) {
+	options = options || "utf8"
 	if(sync) {
 		return fs.readFileSync(filePath, options)
 	} else {
 		var deferred = Q.defer()
-		options = options || "utf8"
 
 		fs.readFile(filePath, options, (err, data) => {
 			if(err) {
@@ -555,21 +514,25 @@ function removeFile(filePath, sync) {
  * @param {*} filePath 路径
  * @param {*} options 选项
  */
-function readJson(filePath, options) {
+function readJson(filePath, options, sync) {
 	var deferred = Q.defer()
 	options = options || {}
 
-	fs.readJson(filePath, options, (err, data) => {
-		if(err) {
-			log.info(err)
-			deferred.reject(err)
-			return
-		}
+	if(sync) {
+		return fs.readJsonSync(filePath, options)
+	} else {
+		fs.readJson(filePath, options, (err, data) => {
+			if(err) {
+				log.info(err)
+				deferred.reject(err)
+				return
+			}
 
-		deferred.resolve(data)
-	})
+			deferred.resolve(data)
+		})
 
-	return deferred.promise
+		return deferred.promise
+	}
 }
 
 /**
@@ -665,7 +628,7 @@ function uncompress(filePath, dist, spawn) {
 function compress(dir, files, dist, type) {
 	var deferred = Q.defer()
 
-	files = files  ? files : [files]
+	files = _.isArray(files)  ? files : [files]
 	type = type || "7z"
 	log.debug(`compress: ${dir}: ${files.length} => ${dist}: ${type}`)
 
@@ -781,11 +744,6 @@ module.exports.handleQuotes = handleQuotes
 module.exports.uuid = uuid
 module.exports.stamp = stamp
 module.exports.throttle = throttle
-
-module.exports.encrypt = encrypt
-module.exports.decrypt = decrypt
-module.exports.rsa_encrypt = rsa_encrypt
-module.exports.rsa_decrypt = rsa_decrypt
 
 module.exports.resolvePromise = resolvePromise
 module.exports.rejectPromise = rejectPromise

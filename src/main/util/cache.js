@@ -1,8 +1,3 @@
-const path = require('path')
-const crypto = require('crypto')
-const Q = require('q')
-const fs = require('fs-extra')
-const log = require('electron-log')
 const flatCache = require('flat-cache')
 
 const util = require('./util')

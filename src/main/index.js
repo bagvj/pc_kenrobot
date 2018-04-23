@@ -206,6 +206,7 @@ function listenMessages() {
 	listenMessage("projectOpen", name => Project.open(name))
 	listenMessage("projectSave", (name, data, savePath) => Project.save(name, data, savePath))
 	listenMessage("projectSaveAs", (name, data, isTemp) => Project.saveAs(name, data, isTemp))
+	listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
 
 	listenMessage("projectSync", () => Project.sync())
 	listenMessage("projectList", () => Project.list())
@@ -213,7 +214,6 @@ function listenMessages() {
 	if(DEV) {
 		listenMessage("projectCreate", name => Project.create(name))
 		listenMessage("projectUpload", (name, hash) => Project.upload(name, hash))
-		listenMessage("projectDelete", (name, hash) => Project.remove(name, hash))
 		listenMessage("projectDownload", (name, hash) => Project.download(name, hash))
 	}
 
@@ -1071,7 +1071,7 @@ function loadBoards(forceReload) {
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 
-	var searchPath = 'arduino-' + util.getPlatform()
+	var searchPath = util.getAppPath("arduino")
 	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
