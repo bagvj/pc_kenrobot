@@ -100,9 +100,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		var nameReg = new RegExp('{NAME}', 'g');
-		var components = hardwareData.components.sort(function(a, b) {
-			return a.name.localeCompare(b.name);
-		});
+		var components = hardwareData.components.sort((a, b) => a.name.localeCompare(b.name));
 
 		components.forEach(componentData => {
 			code = componentData.code;
@@ -156,6 +154,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue || "");
 					}
 				});
+
+				componentData.index !== undefined && (tempCode = tempCode.replace(/\{__n__\}/g, componentData.index));
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
 			if(code.funcDeclare) {
@@ -204,12 +204,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			}
 		});
 
-		includeCode = _.uniq(includeCode).sort().reduce((result, line) => {
-			(result.length == 0 || result[result.length - 1] != line) && result.push(line);
-			return result;
-		}, []).join('\n');
-
-		codeInfo.include = includeCode;
+		codeInfo.include = _.uniq(includeCode).sort().join('\n');
 		codeInfo.const = constCode;
 		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
