@@ -7600,5 +7600,5 @@
 		"board": "Kenblock-NEO-328P",
 		"uid": "oaNdEF"
 	}],
-	"libraries": "hardware/avr/1.0.10/libraries"
+	"libraries": "hardware/avr/1.1.0/libraries"
 }
