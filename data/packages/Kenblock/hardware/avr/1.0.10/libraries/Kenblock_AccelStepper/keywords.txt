@@ -1,0 +1,44 @@
+#######################################
+# Syntax Coloring Map for library RoSysDrive
+#######################################
+
+#######################################
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD1 数据类型关键字
+#######################################
+KenAccelStepper		KEYWORD1
+
+ 
+#######################################
+# KEYWORD2 Methods and functions
+# KEYWORD2 方法类型关键字
+#######################################
+
+# Stepper 关键字
+setAcceleration	KEYWORD2
+setMaxSpeed	KEYWORD2
+run	KEYWORD2
+moveTo	KEYWORD2
+move	KEYWORD2
+distanceToGo	KEYWORD2
+currentPosition		KEYWORD2
+runToPosition	KEYWORD2
+stop	KEYWORD2
+
+
+
+# 其他
+
+
+
+#######################################
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# KEYWORD3 
+#######################################
+
+
+#######################################
+# LITERAL1 Constants
+# LITERAL1 常量类型关键字
+#######################################
+

@@ -103,7 +103,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		var components = hardwareData.components.sort(function(a, b) {
 			return a.name.localeCompare(b.name);
 		});
-		components.forEach(function(componentData) {
+
+		components.forEach(componentData => {
 			code = componentData.code;
 			if (code.include) {
 				includeCode = includeCode.concat(code.include.split('\n'));
@@ -187,7 +188,23 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		_.uniqBy(components, 'name').filter(componentData => componentData.code.const).forEach(componentData => {
 			constCode += componentData.code.const;
 		});
-		includeCode = includeCode.sort().reduce(function(result, line) {
+
+		var softwareData = softwareModel.getData();
+		var names = [];
+		var blocks = _.concat([], softwareData.global.children, softwareData.setup.children, softwareData.loop.children);
+		while(blocks.length > 0) {
+			var blockData = blocks.shift();
+			names.push(blockData.name);
+			blockData.children && blockData.children.length > 0 && (blocks = blocks.concat(blockData.children));
+		}
+		blocks = _.uniq(names).map(name => softwareModel.getBlockConfig(name));
+		blocks.filter(blockConfig => blockConfig.condition).forEach(blockConfig => {
+			if(blockConfig.condition.include) {
+				includeCode = includeCode.concat(blockConfig.condition.include);
+			}
+		});
+
+		includeCode = _.uniq(includeCode).sort().reduce((result, line) => {
 			(result.length == 0 || result[result.length - 1] != line) && result.push(line);
 			return result;
 		}, []).join('\n');

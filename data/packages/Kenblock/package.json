@@ -1,7 +1,7 @@
 {
 	"name": "Kenblock",
 	"company": "乐智",
-	"version": "0.5.2",
+	"version": "0.5.3",
 	"author": "Lezhi",
 	"category": "third-party",
 	"help": "http://www.lzrobot.com/",
@@ -529,7 +529,8 @@
 		"uid": "BrwL0E",
 		"imageUrl": "assets/image/boards/Kenblock-NEO-328P.svg",
 		"width": 770,
-		"height": 227
+		"height": 227,
+		"module": "Kenblock-NEO-328P"
 	}],
 	"components": [{
 		"uid": "4nP8jf",
@@ -5778,6 +5779,209 @@
 		}],
 		"imageUrl": "assets/image/components/speechSynthesis.svg"
 	}, {
+		"uid": "1M6zZZ",
+		"name": "ken_stepper",
+		"label": "步进电机驱动模块",
+		"type": "ken_stepper",
+		"defaultVarName": "stepper",
+		"category": "action",
+		"boards": ["Arduino"],
+		"multiIndex": "1",
+		"width": 66,
+		"height": 90,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"width": 21,
+			"height": 11,
+			"tags": ["ken-4P-digital", "ken-4P-analog"],
+			"label": "s",
+			"shape": "Rectangle",
+			"rotate": false
+		}],
+		"code": {
+			"include": "#include <Kenblock_AccelStepper.h>",
+			"var": "KenAccelStepper {NAME}({s}, M{__n__});"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_stepperSet",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "lcrCx3"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设定步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "ken_steppers"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "速度",
+					"value": "setSpeed"
+				}, {
+					"label": "最大速度",
+					"value": "setMaxSpeed"
+				}, {
+					"label": "加速度",
+					"value": "setAcceleration"
+				}]
+			}, {
+				"type": "text",
+				"value": "为"
+			}, {
+				"blockInputId": "SPEED",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "lcrCx3",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}],
+			"code": "{STEPPER}.{OP}({SPEED});",
+			"tags": ["module"],
+			"module": "ken_stepper",
+			"uid": "rDqXww"
+		}, {
+			"type": "statement",
+			"name": "ken_stepperMove",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "Hnb0mr"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设定步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "ken_steppers"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "相对",
+					"value": "move"
+				}, {
+					"label": "绝对",
+					"value": "moveTo"
+				}]
+			}, {
+				"type": "text",
+				"value": "运行步数为"
+			}, {
+				"blockInputId": "STEP",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "Hnb0mr",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "0"
+					}],
+					"name": "number"
+				}
+			}, {
+				"type": "text",
+				"value": "步"
+			}],
+			"code": "{STEPPER}.{OP}({STEP});",
+			"tags": ["module"],
+			"module": "ken_stepper",
+			"uid": "elEkMQ"
+		}, {
+			"type": "statement",
+			"name": "ken_stepperRun",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "ken_steppers"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "开始",
+					"value": "run"
+				}, {
+					"label": "按设定速度持续",
+					"value": "runSpeed"
+				}, {
+					"label": "按设定步数匀速",
+					"value": "runSpeedToPosition"
+				}]
+			}, {
+				"type": "text",
+				"value": "运行"
+			}],
+			"code": "{STEPPER}.{OP}();",
+			"tags": ["module"],
+			"module": "ken_stepper",
+			"uid": "FBgcvr"
+		}, {
+			"type": "output",
+			"name": "ken_stepperDistance",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取步进电机"
+			}, {
+				"id": "STEPPER",
+				"type": "dynamic-select",
+				"options": "ken_steppers"
+			}, {
+				"type": "text",
+				"value": "剩余步数"
+			}],
+			"code": "{STEPPER}.distanceToGo()",
+			"returnType": {
+				"type": "simple",
+				"value": "long"
+			},
+			"tags": ["module"],
+			"module": "ken_stepper",
+			"uid": "Y9302r"
+		}],
+		"imageUrl": "assets/image/components/stepper.svg"
+	}, {
 		"uid": "0J42Ge",
 		"name": "ken_bluetooth",
 		"label": "蓝牙转串口模块",
@@ -7311,6 +7515,90 @@
 			"uid": "1fOPmd"
 		}],
 		"imageUrl": "assets/image/components/gamepad.svg"
+	}],
+	"blocks": [{
+		"type": "statement-input",
+		"name": "ken_msTimer2Interrupt",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}, {
+			"type": "connector-root",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "定时器2中断函数"
+		}],
+		"code": "void KenT2interrupt(void){\n{STATEMENTS}\n};",
+		"condition": {
+			"include": "#include <MsTimer2.h>"
+		},
+		"tags": ["module"],
+		"board": "Kenblock-NEO-328P",
+		"uid": "XMnXY0"
+	}, {
+		"type": "statement",
+		"name": "ken_msTimer2Set",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "设定定时器2的中断周期为"
+		}, {
+			"id": "DELAY",
+			"type": "number-input",
+			"value": "100"
+		}, {
+			"type": "text",
+			"value": "毫秒"
+		}],
+		"code": "MsTimer2::set({DELAY}, KenT2interrupt);",
+		"condition": {
+			"include": "#include <MsTimer2.h>"
+		},
+		"tags": ["module"],
+		"board": "Kenblock-NEO-328P",
+		"uid": "KOvwDz"
+	}, {
+		"type": "statement",
+		"name": "ken_msTimer2Control",
+		"connectors": [{
+			"type": "connector-top",
+			"accept": "connector-bottom"
+		}, {
+			"type": "connector-bottom",
+			"accept": "connector-top"
+		}],
+		"content": [{
+			"type": "text",
+			"value": "定时器2"
+		}, {
+			"id": "OP",
+			"type": "static-select",
+			"options": [{
+				"label": "启动",
+				"value": "start"
+			}, {
+				"label": "停止",
+				"value": "stop"
+			}]
+		}],
+		"code": "MsTimer2::{OP}();",
+		"condition": {
+			"include": "#include <MsTimer2.h>"
+		},
+		"tags": ["module"],
+		"board": "Kenblock-NEO-328P",
+		"uid": "oaNdEF"
 	}],
 	"libraries": "hardware/avr/1.0.10/libraries"
 }
