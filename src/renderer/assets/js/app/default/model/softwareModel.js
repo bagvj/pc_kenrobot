@@ -30,6 +30,10 @@ define(['app/common/util/util', 'app/common/util/emitor', './block'], function(u
 		};
 	}
 
+	function getBlockConfig(name) {
+		return schema.blocks[name]
+	}
+
 	function getData() {
 		var globalBlock = getGroupBlock("global");
 		var setupBlock = getGroupBlock("setup");
@@ -92,6 +96,7 @@ define(['app/common/util/util', 'app/common/util/emitor', './block'], function(u
 		getData: getData,
 		setData: setData,
 		getCode: getCode,
+		getBlockConfig: getBlockConfig,
 
 		loadSchema: loadSchema,
 		getSchema: getSchema,

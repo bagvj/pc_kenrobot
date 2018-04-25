@@ -20,6 +20,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 	var containerEvent = new CustomEvent('containerEvent');
 	var components = {};
 	var usedNames = {};
+	var usedIndexes = {};
 
 	function init(_container) {
 		container = _container;
@@ -182,6 +183,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				x: Math.round(1000 * componentDom.offsetLeft / container.offsetWidth) / 10,
 				y: Math.round(1000 * componentDom.offsetTop / container.offsetHeight) / 10,
 				endpoints: endpoints,
+				index: getComponentData(componentDom.dataset.uid).index,
 			});
 		});
 
@@ -288,7 +290,7 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 
 		components[componentData.uid] = {
 			data: componentData,
-			endpoints: {}
+			endpoints: {},
 		};
 
 		var componentDom = document.createElement('img');
@@ -532,6 +534,14 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		var targetPin = info.targetEndpoint.getParameter('pin');
 		componentData.pins[sourcePin.name] = targetPin;
 
+		var componentConfig = getComponentConfig(componentData.name)
+		if(componentConfig.multiIndex !== undefined) {
+			var indexMap = usedIndexes[componentConfig.name] || (usedIndexes[componentConfig.name] = {});
+			var index = genUsedIndex(componentConfig.name, componentConfig.multiIndex);
+			indexMap[componentUid] = index;
+			componentData.index = index;
+		}
+
 		var usedPinNames = targetPin.tuple ? targetPin.members : [targetPin.name];
 		boardData.pins.forEach(pin => {
 			var names = pin.tuple ? pin.members : [pin.name];
@@ -547,33 +557,6 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				ep && ep.setEnabled(false);
 			});
 		}
-
-
-		// 兼容代码，board里的tuples未来考虑移除
-		if(!boardData.tuples) {
-			return;
-		}
-
-		var tags = _.intersection(sourcePin.tags, targetPin.tags);
-		var tagName = tags[0];
-
-		boardData.tuples.forEach(tuple => {
-			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-			if(!tupleTag || !tuple.members.includes(targetPin.name)) {
-				return
-			}
-			tuple.members.forEach(name => {
-				if(name != targetPin.name) {
-					var pin = boardData.pins.find(p => p.name == name);
-					pin && jsPlumbInstance.getEndpoint(pin.uid).setEnabled(false);
-				}
-			});
-
-			targetPin.tupleValue = tupleTag.value;
-
-			return true;
-		});
-		// 兼容代码，board里的tuples未来考虑移除
 	}
 
 	function onConnectionDetached(info) {
@@ -591,6 +574,13 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		var sourcePin = info.sourceEndpoint.getParameter('pin');
 		var targetPin = info.targetEndpoint.getParameter('pin');
 		delete componentData.pins[sourcePin.name];
+
+		var componentConfig = getComponentConfig(componentData.name)
+		if(componentConfig.multiIndex !== undefined) {
+			var indexMap = usedIndexes[componentConfig.name];
+			delete indexMap[componentUid];
+			delete componentData.index;
+		}
 
 		var usedPinNames = targetPin.tuple ? targetPin.members : [targetPin.name];
 		usedPinNames.forEach(name => {
@@ -623,34 +613,6 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 				ep && ep.setEnabled(true);
 			});
 		}
-
-		// 兼容代码，board里的tuples未来考虑移除
-		if(!boardData.tuples) {
-			return;
-		}
-
-		var tags = _.intersection(sourcePin.tags, targetPin.tags);
-		var tagName = tags[0];
-
-		boardData.tuples.forEach(tuple => {
-			var tupleTag = tuple.tags.find(tag => tag.name == tagName)
-			if(!tupleTag || !tuple.members.includes(targetPin.name)) {
-				return
-			}
-
-			tuple.members.forEach(name => {
-				var pin = boardData.pins.find(p => p.name == name);
-				if(!pin) {
-					return
-				}
-				var ep = jsPlumbInstance.getEndpoint(pin.uid);
-				ep && ep.setEnabled(true);
-			});
-
-			delete targetPin.tupleValue;
-			return true;
-		});
-		// 兼容代码，board里的tuples未来考虑移除
 	}
 
 	function onConnectionMoved(info) {
@@ -736,6 +698,17 @@ define(['vendor/jsPlumb', 'vendor/lodash', 'app/common/util/util'], function($1,
 		}
 
 		return varName;
+	}
+
+	function genUsedIndex(name, startIndex) {
+		var indexMap = usedIndexes[name] || (usedIndexes[name] = {});
+		var indexes = Object.values(indexMap);
+		var index = startIndex;
+		while(indexes.indexOf(index) >= 0) {
+			index++;
+		}
+
+		return index;
 	}
 
 	function onContainerEvent(action, data) {

@@ -100,10 +100,9 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		}
 
 		var nameReg = new RegExp('{NAME}', 'g');
-		var components = hardwareData.components.sort(function(a, b) {
-			return a.name.localeCompare(b.name);
-		});
-		components.forEach(function(componentData) {
+		var components = hardwareData.components.sort((a, b) => a.name.localeCompare(b.name));
+
+		components.forEach(componentData => {
 			code = componentData.code;
 			if (code.include) {
 				includeCode = includeCode.concat(code.include.split('\n'));
@@ -155,6 +154,8 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 						tempCode = tempCode.replace(new RegExp(`{${pinConfig.name}}`, 'g'), pinConfig.defaultValue || "");
 					}
 				});
+
+				componentData.index !== undefined && (tempCode = tempCode.replace(/\{__n__\}/g, componentData.index));
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
 			if(code.funcDeclare) {
@@ -187,12 +188,23 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		_.uniqBy(components, 'name').filter(componentData => componentData.code.const).forEach(componentData => {
 			constCode += componentData.code.const;
 		});
-		includeCode = includeCode.sort().reduce(function(result, line) {
-			(result.length == 0 || result[result.length - 1] != line) && result.push(line);
-			return result;
-		}, []).join('\n');
 
-		codeInfo.include = includeCode;
+		var softwareData = softwareModel.getData();
+		var names = [];
+		var blocks = _.concat([], softwareData.global.children, softwareData.setup.children, softwareData.loop.children);
+		while(blocks.length > 0) {
+			var blockData = blocks.shift();
+			names.push(blockData.name);
+			blockData.children && blockData.children.length > 0 && (blocks = blocks.concat(blockData.children));
+		}
+		blocks = _.uniq(names).map(name => softwareModel.getBlockConfig(name));
+		blocks.filter(blockConfig => blockConfig.condition).forEach(blockConfig => {
+			if(blockConfig.condition.include) {
+				includeCode = includeCode.concat(blockConfig.condition.include);
+			}
+		});
+
+		codeInfo.include = _.uniq(includeCode).sort().join('\n');
 		codeInfo.const = constCode;
 		codeInfo.global = (funcDeclareCode ? funcDeclareCode + '\n\n' : '') + varCode + codeInfo.global;
 		codeInfo.setup = setupCode + codeInfo.setup;
@@ -427,7 +439,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 	}
 
 	function toggleToolButton(value) {
-		if (value === true || topRegion.width() < 580) {
+		if (value === true || topRegion.width() < 610) {
 			topRegion.find(".upload,.show-code,.switch-hardware").addClass("simple");
 		} else {
 			topRegion.find(".upload,.show-code,.switch-hardware").removeClass("simple");
@@ -465,11 +477,11 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			});
 			setTimeout(toggleToolButton, 200);
 			codeRegion.dequeue("slide-out");
-			topRegion.find(".tool-button.show-code").prop("title", "显示源码");
+			topRegion.find(".tool-button.show-code").prop("title", "显示源码").find(".text-normal").text("显示源码");
 		} else {
 			setTimeout(toggleToolButton, 200);
 			codeRegion.addClass("active").addClass("slide-in");
-			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码");
+			topRegion.find(".tool-button.show-code").prop("title", "隐藏源码").find(".text-normal").text("隐藏源码");
 		}
 	}
 
