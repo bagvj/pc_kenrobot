@@ -3,8 +3,8 @@
   "main": "main/index.js",
   "name": "kenblock",
   "productName": "Kenblock",
-  "version": "0.1.1",
-  "buildNumber": 75,
+  "version": "0.1.2",
+  "buildNumber": 81,
   "description": "啃编程平台",
   "companyName": "北京啃萝卜信息技术有限公司",
   "author": {
