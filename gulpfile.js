@@ -1,9 +1,10 @@
 /**
  * 引入 gulp及组件
- * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron-builder@20.10.0 fs-extra globby@7 gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
+ * npm install --save-dev 7zip-bin asar babel-core babel-preset-es2015 browserify del electron-builder fs-extra globby@7 gulp gulp-autoprefixer gulp-babel gulp-clean-css gulp-if gulp-minify-html gulp-requirejs-optimize gulp-ruby-sass gulp-sftp gulp-uglify hasha isutf8 minimist nconf q run-sequence vinyl-buffer vinyl-source-stream
  * npm install --save 7zip-bin command-line-args electron-debug electron-is electron-log flat-cache fs-extra globby@7 hasha iconv-lite is-online lodash node-fetch q sudo-prompt terminate serialport@6.2.0
- * npm install --save-dev electron@1.8.4
- * npm install --global  gulp node-gyp windows-build-tools prebuild-install electron-rebuild electron@1.8.4
+ * npm install --save-dev electron@2.0.0
+ * npm install --global gulp node-gyp prebuild-install electron-rebuild electron@2.0.0
+ * npm install --global windows-build-tools
  * export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
  * gem install sass
  * ruby --version
