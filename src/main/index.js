@@ -886,7 +886,7 @@ function preBuild(projectPath, options) {
 			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
 
 			var packagesPath = path.join(util.getAppPath("appResource"), "packages")
-			buildSpecs.push(`-hardware=${packagesPath}`)
+			buildSpecs.push(`-hardware="${packagesPath}"`)
 			packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
