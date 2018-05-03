@@ -254,7 +254,7 @@ function createWindow() {
 		frame: false,
 		show: false,
 		webPreferences: {
-			webSecurity: false,
+			webSecurity: true,
 		}
 	})
 

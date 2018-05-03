@@ -1,1 +1,649 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 716.88 978.77"><defs><style>.cls-1,.cls-238{fill:#191919;}.cls-16,.cls-2{fill:#d6d6d6;}.cls-3{fill:none;stroke:#0c0c0c;stroke-miterlimit:10;stroke-width:2.87px;}.cls-4{fill:#b5b5b6;}.cls-41,.cls-5{fill:#efefef;}.cls-6{fill:#dcdddd;}.cls-13,.cls-7{fill:#d3d3d3;}.cls-251,.cls-8{fill:#cecece;}.cls-10,.cls-100,.cls-101,.cls-102,.cls-103,.cls-104,.cls-105,.cls-106,.cls-107,.cls-108,.cls-109,.cls-11,.cls-110,.cls-111,.cls-112,.cls-113,.cls-114,.cls-115,.cls-116,.cls-117,.cls-118,.cls-119,.cls-12,.cls-120,.cls-121,.cls-122,.cls-123,.cls-124,.cls-125,.cls-126,.cls-127,.cls-128,.cls-129,.cls-13,.cls-130,.cls-131,.cls-132,.cls-133,.cls-134,.cls-135,.cls-136,.cls-137,.cls-138,.cls-139,.cls-14,.cls-140,.cls-141,.cls-142,.cls-143,.cls-144,.cls-145,.cls-146,.cls-147,.cls-148,.cls-149,.cls-15,.cls-150,.cls-151,.cls-152,.cls-153,.cls-154,.cls-155,.cls-156,.cls-157,.cls-158,.cls-159,.cls-16,.cls-160,.cls-161,.cls-162,.cls-163,.cls-164,.cls-165,.cls-166,.cls-167,.cls-168,.cls-169,.cls-17,.cls-170,.cls-171,.cls-172,.cls-173,.cls-174,.cls-175,.cls-176,.cls-177,.cls-178,.cls-179,.cls-18,.cls-180,.cls-181,.cls-182,.cls-183,.cls-184,.cls-185,.cls-186,.cls-187,.cls-188,.cls-189,.cls-19,.cls-190,.cls-191,.cls-192,.cls-193,.cls-194,.cls-195,.cls-196,.cls-197,.cls-198,.cls-199,.cls-20,.cls-200,.cls-201,.cls-202,.cls-203,.cls-204,.cls-205,.cls-206,.cls-207,.cls-208,.cls-209,.cls-21,.cls-210,.cls-211,.cls-212,.cls-213,.cls-214,.cls-215,.cls-216,.cls-217,.cls-218,.cls-219,.cls-22,.cls-220,.cls-221,.cls-222,.cls-223,.cls-224,.cls-225,.cls-226,.cls-227,.cls-228,.cls-229,.cls-23,.cls-230,.cls-231,.cls-232,.cls-233,.cls-234,.cls-235,.cls-236,.cls-237,.cls-238,.cls-239,.cls-24,.cls-240,.cls-241,.cls-242,.cls-243,.cls-244,.cls-245,.cls-246,.cls-25,.cls-26,.cls-27,.cls-28,.cls-29,.cls-30,.cls-31,.cls-32,.cls-33,.cls-34,.cls-35,.cls-36,.cls-37,.cls-38,.cls-39,.cls-40,.cls-41,.cls-42,.cls-43,.cls-44,.cls-45,.cls-46,.cls-47,.cls-48,.cls-49,.cls-50,.cls-51,.cls-52,.cls-53,.cls-54,.cls-55,.cls-56,.cls-57,.cls-58,.cls-59,.cls-60,.cls-61,.cls-62,.cls-63,.cls-64,.cls-65,.cls-66,.cls-67,.cls-68,.cls-69,.cls-70,.cls-71,.cls-72,.cls-73,.cls-74,.cls-75,.cls-76,.cls-77,.cls-78,.cls-79,.cls-8,.cls-80,.cls-81,.cls-82,.cls-83,.cls-84,.cls-85,.cls-86,.cls-87,.cls-88,.cls-89,.cls-9,.cls-90,.cls-91,.cls-92,.cls-93,.cls-94,.cls-95,.cls-96,.cls-97,.cls-98,.cls-99{opacity:0.32;}.cls-250,.cls-9{fill:#cfcfcf;}.cls-10,.cls-249{fill:#d0d0d0;}.cls-11,.cls-248{fill:#d1d1d1;}.cls-12,.cls-247{fill:#d2d2d2;}.cls-14{fill:#d4d4d4;}.cls-15{fill:#d5d5d5;}.cls-17{fill:#d7d7d7;}.cls-18{fill:#d8d8d8;}.cls-19{fill:#d9d9d9;}.cls-20{fill:#dadada;}.cls-21{fill:#dbdbdb;}.cls-22{fill:#dcdcdc;}.cls-23{fill:#ddd;}.cls-24{fill:#dedede;}.cls-25{fill:#dfdfdf;}.cls-26{fill:#e0e0e0;}.cls-27{fill:#e1e1e1;}.cls-28{fill:#e2e2e2;}.cls-29{fill:#e3e3e3;}.cls-30{fill:#e4e4e4;}.cls-31{fill:#e5e5e5;}.cls-32{fill:#e6e6e6;}.cls-33{fill:#e7e7e7;}.cls-34{fill:#e8e8e8;}.cls-35{fill:#e9e9e9;}.cls-36{fill:#eaeaea;}.cls-37{fill:#ebebeb;}.cls-38{fill:#ececec;}.cls-39{fill:#ededed;}.cls-40{fill:#eee;}.cls-42{fill:#f0f0f0;}.cls-43{fill:#f1f1f1;}.cls-44{fill:#f2f2f2;}.cls-45{fill:#f3f3f3;}.cls-46{fill:#f4f4f4;}.cls-47{fill:#f5f5f5;}.cls-48{fill:#f6f6f6;}.cls-49{fill:#f7f7f7;}.cls-50{fill:#f8f8f8;}.cls-51{fill:#f9f9f9;}.cls-52{fill:#fafafa;}.cls-53{fill:#fbfbfb;}.cls-54{fill:#fcfcfc;}.cls-55{fill:#fdfdfd;}.cls-56{fill:#fefefe;}.cls-57{fill:#fff;}.cls-252,.cls-58{fill:#cdcdcd;}.cls-253,.cls-59{fill:#ccc;}.cls-254,.cls-60{fill:#cbcbcb;}.cls-255,.cls-61{fill:#cacaca;}.cls-256,.cls-62{fill:#c9c9c9;}.cls-257,.cls-63{fill:#c8c8c8;}.cls-258,.cls-64{fill:#c7c7c7;}.cls-259,.cls-65{fill:#c6c6c6;}.cls-260,.cls-66{fill:#c5c5c5;}.cls-261,.cls-67{fill:#c4c4c4;}.cls-262,.cls-68{fill:#c3c3c3;}.cls-263,.cls-69{fill:#c2c2c2;}.cls-264,.cls-70{fill:#c1c1c1;}.cls-265,.cls-71{fill:silver;}.cls-266,.cls-72{fill:#bfbfbf;}.cls-267,.cls-73{fill:#bebebe;}.cls-268,.cls-74{fill:#bdbdbd;}.cls-269,.cls-75{fill:#bcbcbc;}.cls-270,.cls-76{fill:#bbb;}.cls-271,.cls-77{fill:#bababa;}.cls-272,.cls-78{fill:#b9b9b9;}.cls-273,.cls-79{fill:#b8b8b8;}.cls-274,.cls-80{fill:#b7b7b7;}.cls-275,.cls-81{fill:#b6b6b6;}.cls-276,.cls-82{fill:#b5b5b5;}.cls-277,.cls-83{fill:#b4b4b4;}.cls-278,.cls-84{fill:#b3b3b3;}.cls-279,.cls-85{fill:#b2b2b2;}.cls-280,.cls-86{fill:#b1b1b1;}.cls-281,.cls-87{fill:#b0b0b0;}.cls-282,.cls-88{fill:#afafaf;}.cls-283,.cls-89{fill:#aeaeae;}.cls-284,.cls-90{fill:#adadad;}.cls-285,.cls-91{fill:#acacac;}.cls-286,.cls-92{fill:#ababab;}.cls-287,.cls-93{fill:#aaa;}.cls-288,.cls-94{fill:#a9a9a9;}.cls-289,.cls-95{fill:#a8a8a8;}.cls-290,.cls-96{fill:#a7a7a7;}.cls-291,.cls-97{fill:#a6a6a6;}.cls-292,.cls-98{fill:#a5a5a5;}.cls-293,.cls-99{fill:#a4a4a4;}.cls-100,.cls-294{fill:#a3a3a3;}.cls-101,.cls-295{fill:#a2a2a2;}.cls-102,.cls-296{fill:#a1a1a1;}.cls-103,.cls-297{fill:#a0a0a0;}.cls-104,.cls-298{fill:#9f9f9f;}.cls-105,.cls-299{fill:#9e9e9e;}.cls-106,.cls-300{fill:#9d9d9d;}.cls-107,.cls-301{fill:#9c9c9c;}.cls-108,.cls-302{fill:#9b9b9b;}.cls-109,.cls-303{fill:#9a9a9a;}.cls-110,.cls-304{fill:#999;}.cls-111,.cls-305{fill:#989898;}.cls-112,.cls-306{fill:#979797;}.cls-113,.cls-307{fill:#969696;}.cls-114,.cls-308{fill:#959595;}.cls-115,.cls-309{fill:#949494;}.cls-116,.cls-310{fill:#939393;}.cls-117,.cls-314{fill:#929292;}.cls-118,.cls-315{fill:#919191;}.cls-119,.cls-316{fill:#909090;}.cls-120,.cls-317{fill:#8f8f8f;}.cls-121,.cls-318{fill:#8e8e8e;}.cls-122,.cls-319{fill:#8d8d8d;}.cls-123,.cls-320{fill:#8c8c8c;}.cls-124,.cls-321{fill:#8b8b8b;}.cls-125,.cls-322{fill:#8a8a8a;}.cls-126,.cls-323{fill:#898989;}.cls-127,.cls-324{fill:#888;}.cls-128,.cls-325{fill:#878787;}.cls-129,.cls-326{fill:#868686;}.cls-130,.cls-327{fill:#858585;}.cls-131,.cls-328{fill:#848484;}.cls-132,.cls-329{fill:#838383;}.cls-133,.cls-330{fill:#828282;}.cls-134,.cls-331{fill:#818181;}.cls-135,.cls-332{fill:gray;}.cls-136,.cls-333{fill:#7f7f7f;}.cls-137,.cls-334{fill:#7e7e7e;}.cls-138,.cls-335{fill:#7d7d7d;}.cls-139,.cls-336{fill:#7c7c7c;}.cls-140,.cls-337{fill:#7b7b7b;}.cls-141,.cls-338{fill:#7a7a7a;}.cls-142,.cls-339{fill:#797979;}.cls-143,.cls-340{fill:#787878;}.cls-144,.cls-341{fill:#777;}.cls-145,.cls-342{fill:#767676;}.cls-146,.cls-343{fill:#757575;}.cls-147,.cls-344{fill:#747474;}.cls-148,.cls-345{fill:#737373;}.cls-149,.cls-346{fill:#727272;}.cls-150,.cls-347{fill:#717171;}.cls-151,.cls-348{fill:#707070;}.cls-152,.cls-349{fill:#6f6f6f;}.cls-153,.cls-350{fill:#6e6e6e;}.cls-154,.cls-351{fill:#6d6d6d;}.cls-155,.cls-352{fill:#6c6c6c;}.cls-156,.cls-353{fill:#6b6b6b;}.cls-157,.cls-354{fill:#6a6a6a;}.cls-158,.cls-355{fill:#696969;}.cls-159,.cls-356{fill:#686868;}.cls-160,.cls-357{fill:#676767;}.cls-161,.cls-358{fill:#666;}.cls-162,.cls-359{fill:#656565;}.cls-163,.cls-360{fill:#646464;}.cls-164,.cls-311{fill:#636363;}.cls-165,.cls-361{fill:#626262;}.cls-166,.cls-362{fill:#616161;}.cls-167,.cls-363{fill:#606060;}.cls-168,.cls-364{fill:#5f5f5f;}.cls-169,.cls-365{fill:#5e5e5e;}.cls-170,.cls-366{fill:#5d5d5d;}.cls-171,.cls-367{fill:#5c5c5c;}.cls-172,.cls-368{fill:#5b5b5b;}.cls-173,.cls-369{fill:#5a5a5a;}.cls-174,.cls-370{fill:#595959;}.cls-175,.cls-371{fill:#585858;}.cls-176,.cls-372{fill:#575757;}.cls-177,.cls-373{fill:#565656;}.cls-178,.cls-374{fill:#555;}.cls-179,.cls-375{fill:#545454;}.cls-180,.cls-376{fill:#535353;}.cls-181,.cls-377{fill:#525252;}.cls-182,.cls-378{fill:#515151;}.cls-183,.cls-379{fill:#505050;}.cls-184,.cls-380{fill:#4f4f4f;}.cls-185,.cls-381{fill:#4e4e4e;}.cls-186,.cls-382{fill:#4d4d4d;}.cls-187,.cls-383{fill:#4c4c4c;}.cls-188,.cls-384{fill:#4b4b4b;}.cls-189,.cls-385{fill:#4a4a4a;}.cls-190,.cls-386{fill:#494949;}.cls-191,.cls-387{fill:#484848;}.cls-192,.cls-388{fill:#474747;}.cls-193,.cls-389{fill:#464646;}.cls-194,.cls-390{fill:#454545;}.cls-195,.cls-391{fill:#444;}.cls-196,.cls-392{fill:#434343;}.cls-197,.cls-393{fill:#424242;}.cls-198,.cls-394{fill:#414141;}.cls-199,.cls-395{fill:#404040;}.cls-200,.cls-312{fill:#3f3f3f;}.cls-201,.cls-396{fill:#3e3e3e;}.cls-202,.cls-397{fill:#3d3d3d;}.cls-203,.cls-399{fill:#3c3c3c;}.cls-204,.cls-400{fill:#3b3b3b;}.cls-205,.cls-401{fill:#3a3a3a;}.cls-206,.cls-402{fill:#393939;}.cls-207,.cls-403{fill:#383838;}.cls-208,.cls-404{fill:#373737;}.cls-209,.cls-405{fill:#363636;}.cls-210,.cls-406{fill:#353535;}.cls-211,.cls-407{fill:#343434;}.cls-212,.cls-408{fill:#333;}.cls-213,.cls-409{fill:#323232;}.cls-214,.cls-410{fill:#313131;}.cls-215,.cls-411{fill:#303030;}.cls-216,.cls-412{fill:#2f2f2f;}.cls-217,.cls-413{fill:#2e2e2e;}.cls-218,.cls-414{fill:#2d2d2d;}.cls-219,.cls-415{fill:#2c2c2c;}.cls-220,.cls-416{fill:#2b2b2b;}.cls-221,.cls-417{fill:#2a2a2a;}.cls-222,.cls-418{fill:#292929;}.cls-223,.cls-419{fill:#282828;}.cls-224,.cls-420{fill:#272727;}.cls-225,.cls-421{fill:#262626;}.cls-226,.cls-422{fill:#252525;}.cls-227,.cls-423{fill:#242424;}.cls-228,.cls-424{fill:#232323;}.cls-229,.cls-425{fill:#222;}.cls-230,.cls-426{fill:#212121;}.cls-231,.cls-427{fill:#202020;}.cls-232,.cls-428{fill:#1f1f1f;}.cls-233,.cls-429{fill:#1e1e1e;}.cls-234,.cls-430{fill:#1d1d1d;}.cls-235,.cls-431{fill:#1c1c1c;}.cls-236{fill:#1b1b1b;}.cls-237{fill:#1a1a1a;}.cls-239{fill:#181818;}.cls-240{fill:#171717;}.cls-241{fill:#161616;}.cls-242{fill:#151515;}.cls-243{fill:#141414;}.cls-244{fill:#131313;}.cls-245{fill:#121212;}.cls-246{fill:#111;}.cls-313{opacity:0.18;}.cls-398{opacity:0.27;}</style></defs><title>步进电机</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><rect class="cls-1" y="309.2" width="716.88" height="668.22"/><path class="cls-2" d="M595.44,307.51h-474v-15l7.88-7.88H587.56l7.88,7.88Z"/><line class="cls-3" y1="394.27" x2="716.88" y2="394.27"/><line class="cls-3" y1="399.85" x2="716.88" y2="399.85"/><line class="cls-3" y1="405.42" x2="716.88" y2="405.42"/><line class="cls-3" y1="411" x2="716.88" y2="411"/><line class="cls-3" y1="416.58" x2="716.88" y2="416.58"/><line class="cls-3" y1="422.16" x2="716.88" y2="422.16"/><line class="cls-3" y1="427.73" x2="716.88" y2="427.73"/><line class="cls-3" y1="433.31" x2="716.88" y2="433.31"/><line class="cls-3" y1="438.89" x2="716.88" y2="438.89"/><line class="cls-3" y1="444.46" x2="716.88" y2="444.46"/><line class="cls-3" y1="450.04" x2="716.88" y2="450.04"/><line class="cls-3" y1="455.62" x2="716.88" y2="455.62"/><line class="cls-3" y1="461.19" x2="716.88" y2="461.19"/><line class="cls-3" y1="466.77" x2="716.88" y2="466.77"/><line class="cls-3" y1="472.35" x2="716.88" y2="472.35"/><line class="cls-3" y1="477.93" x2="716.88" y2="477.93"/><line class="cls-3" y1="483.5" x2="716.88" y2="483.5"/><line class="cls-3" y1="489.08" x2="716.88" y2="489.08"/><line class="cls-3" y1="494.66" x2="716.88" y2="494.66"/><line class="cls-3" y1="500.23" x2="716.88" y2="500.23"/><line class="cls-3" y1="505.81" x2="716.88" y2="505.81"/><line class="cls-3" y1="511.39" x2="716.88" y2="511.39"/><line class="cls-3" y1="516.97" x2="716.88" y2="516.97"/><line class="cls-3" y1="522.54" x2="716.88" y2="522.54"/><line class="cls-3" y1="528.12" x2="716.88" y2="528.12"/><line class="cls-3" y1="533.7" x2="716.88" y2="533.7"/><line class="cls-3" y1="539.27" x2="716.88" y2="539.27"/><line class="cls-3" y1="544.85" x2="716.88" y2="544.85"/><line class="cls-3" y1="550.43" x2="716.88" y2="550.43"/><line class="cls-3" y1="556" x2="716.88" y2="556"/><line class="cls-3" y1="561.58" x2="716.88" y2="561.58"/><line class="cls-3" y1="567.16" x2="716.88" y2="567.16"/><line class="cls-3" y1="572.74" x2="716.88" y2="572.74"/><line class="cls-3" y1="578.31" x2="716.88" y2="578.31"/><line class="cls-3" y1="583.89" x2="716.88" y2="583.89"/><line class="cls-3" y1="589.47" x2="716.88" y2="589.47"/><line class="cls-3" y1="595.04" x2="716.88" y2="595.04"/><line class="cls-3" y1="600.62" x2="716.88" y2="600.62"/><line class="cls-3" y1="606.2" x2="716.88" y2="606.2"/><line class="cls-3" y1="611.77" x2="716.88" y2="611.77"/><line class="cls-3" y1="617.35" x2="716.88" y2="617.35"/><line class="cls-3" y1="622.93" x2="716.88" y2="622.93"/><line class="cls-3" y1="628.51" x2="716.88" y2="628.51"/><line class="cls-3" y1="634.08" x2="716.88" y2="634.08"/><line class="cls-3" y1="639.66" x2="716.88" y2="639.66"/><line class="cls-3" y1="645.24" x2="716.88" y2="645.24"/><line class="cls-3" y1="650.81" x2="716.88" y2="650.81"/><line class="cls-3" y1="656.39" x2="716.88" y2="656.39"/><line class="cls-3" y1="661.97" x2="716.88" y2="661.97"/><line class="cls-3" y1="667.55" x2="716.88" y2="667.55"/><line class="cls-3" y1="673.12" x2="716.88" y2="673.12"/><line class="cls-3" y1="678.7" x2="716.88" y2="678.7"/><line class="cls-3" y1="684.28" x2="716.88" y2="684.28"/><line class="cls-3" y1="689.85" x2="716.88" y2="689.85"/><line class="cls-3" y1="695.43" x2="716.88" y2="695.43"/><line class="cls-3" y1="701.01" x2="716.88" y2="701.01"/><line class="cls-3" y1="706.58" x2="716.88" y2="706.58"/><line class="cls-3" y1="712.16" x2="716.88" y2="712.16"/><line class="cls-3" y1="717.74" x2="716.88" y2="717.74"/><line class="cls-3" y1="723.32" x2="716.88" y2="723.32"/><line class="cls-3" y1="728.89" x2="716.88" y2="728.89"/><line class="cls-3" y1="734.47" x2="716.88" y2="734.47"/><line class="cls-3" y1="740.05" x2="716.88" y2="740.05"/><line class="cls-3" y1="745.62" x2="716.88" y2="745.62"/><line class="cls-3" y1="751.2" x2="716.88" y2="751.2"/><line class="cls-3" y1="756.78" x2="716.88" y2="756.78"/><line class="cls-3" y1="762.36" x2="716.88" y2="762.36"/><line class="cls-3" y1="767.93" x2="716.88" y2="767.93"/><line class="cls-3" y1="773.51" x2="716.88" y2="773.51"/><line class="cls-3" y1="779.09" x2="716.88" y2="779.09"/><line class="cls-3" y1="784.66" x2="716.88" y2="784.66"/><line class="cls-3" y1="790.24" x2="716.88" y2="790.24"/><line class="cls-3" y1="795.82" x2="716.88" y2="795.82"/><line class="cls-3" y1="801.39" x2="716.88" y2="801.39"/><line class="cls-3" y1="806.97" x2="716.88" y2="806.97"/><line class="cls-3" y1="812.55" x2="716.88" y2="812.55"/><line class="cls-3" y1="818.13" x2="716.88" y2="818.13"/><line class="cls-3" y1="823.7" x2="716.88" y2="823.7"/><line class="cls-3" y1="829.28" x2="716.88" y2="829.28"/><line class="cls-3" y1="834.86" x2="716.88" y2="834.86"/><line class="cls-3" y1="840.43" x2="716.88" y2="840.43"/><line class="cls-3" y1="846.01" x2="716.88" y2="846.01"/><rect class="cls-4" y="846.01" width="716.88" height="132.76"/><polygon class="cls-4" points="716.88 307.51 0 307.51 0 467.69 107.48 467.69 107.48 440.82 591.21 440.82 591.21 467.69 716.88 467.69 716.88 307.51"/><polyline class="cls-5" points="337.79 931.11 241.63 931.11 241.63 851.12 475.25 851.12 475.25 931.11 379.09 931.11"/><polygon class="cls-6" points="480.36 931.11 379.09 931.11 379.09 920.89 470.15 920.89 470.15 856.22 246.73 856.22 246.73 920.89 337.79 920.89 337.79 931.11 236.52 931.11 236.52 846.01 480.36 846.01 480.36 931.11"/><rect class="cls-4" x="272.03" y="884.35" width="8.41" height="8.41"/><rect class="cls-4" x="304.91" y="884.35" width="8.41" height="8.41"/><rect class="cls-4" x="337.79" y="884.35" width="8.41" height="8.41"/><rect class="cls-4" x="370.67" y="884.35" width="8.41" height="8.41"/><rect class="cls-4" x="403.56" y="884.35" width="8.41" height="8.41"/><rect class="cls-4" x="436.44" y="884.35" width="8.41" height="8.41"/><polygon class="cls-7" points="370.67 0 330.84 0 330.84 284.33 386.04 284.33 386.04 246.87 370.67 246.87 370.67 0"/><rect class="cls-8" x="383.1" width="2.94" height="284.33"/><rect class="cls-9" x="382.88" width="3" height="284.33"/><rect class="cls-10" x="382.66" width="3.06" height="284.33"/><rect class="cls-11" x="382.44" width="3.12" height="284.33"/><rect class="cls-12" x="382.22" width="3.18" height="284.33"/><rect class="cls-13" x="382" width="3.24" height="284.33"/><rect class="cls-14" x="381.78" width="3.3" height="284.33"/><rect class="cls-15" x="381.56" width="3.35" height="284.33"/><rect class="cls-16" x="381.34" width="3.41" height="284.33"/><rect class="cls-17" x="381.12" width="3.47" height="284.33"/><rect class="cls-18" x="380.9" width="3.53" height="284.33"/><rect class="cls-19" x="380.68" width="3.59" height="284.33"/><rect class="cls-20" x="380.46" width="3.65" height="284.33"/><rect class="cls-21" x="380.24" width="3.71" height="284.33"/><rect class="cls-22" x="380.02" width="3.77" height="284.33"/><rect class="cls-23" x="379.8" width="3.82" height="284.33"/><rect class="cls-24" x="379.58" width="3.88" height="284.33"/><rect class="cls-25" x="379.36" width="3.94" height="284.33"/><rect class="cls-26" x="379.14" width="4" height="284.33"/><rect class="cls-27" x="378.92" width="4.06" height="284.33"/><rect class="cls-28" x="378.7" width="4.12" height="284.33"/><rect class="cls-29" x="378.48" width="4.18" height="284.33"/><rect class="cls-30" x="378.26" width="4.24" height="284.33"/><rect class="cls-31" x="378.04" width="4.3" height="284.33"/><rect class="cls-32" x="377.82" width="4.35" height="284.33"/><rect class="cls-33" x="377.6" width="4.41" height="284.33"/><rect class="cls-33" x="377.38" width="4.47" height="284.33"/><rect class="cls-34" x="377.16" width="4.53" height="284.33"/><rect class="cls-35" x="376.94" width="4.59" height="284.33"/><rect class="cls-36" x="376.72" width="4.65" height="284.33"/><rect class="cls-37" x="376.5" width="4.71" height="284.33"/><rect class="cls-38" x="376.28" width="4.77" height="284.33"/><rect class="cls-39" x="376.06" width="4.83" height="284.33"/><rect class="cls-40" x="375.84" width="4.88" height="284.33"/><rect class="cls-41" x="375.62" width="4.94" height="284.33"/><rect class="cls-42" x="375.4" width="5" height="284.33"/><rect class="cls-43" x="375.18" width="5.06" height="284.33"/><rect class="cls-44" x="374.96" width="5.12" height="284.33"/><rect class="cls-45" x="374.74" width="5.18" height="284.33"/><rect class="cls-46" x="374.52" width="5.24" height="284.33"/><rect class="cls-47" x="374.3" width="5.3" height="284.33"/><rect class="cls-48" x="374.08" width="5.35" height="284.33"/><rect class="cls-49" x="373.86" width="5.41" height="284.33"/><rect class="cls-50" x="373.64" width="5.47" height="284.33"/><rect class="cls-51" x="373.42" width="5.53" height="284.33"/><rect class="cls-52" x="373.2" width="5.59" height="284.33"/><rect class="cls-53" x="372.98" width="5.65" height="284.33"/><rect class="cls-54" x="372.76" width="5.71" height="284.33"/><rect class="cls-55" x="372.54" width="5.77" height="284.33"/><rect class="cls-56" x="372.32" width="5.83" height="284.33"/><rect class="cls-57" x="372.1" width="5.88" height="284.33"/><rect class="cls-56" x="371.97" width="5.88" height="284.33"/><rect class="cls-55" x="371.83" width="5.88" height="284.33"/><rect class="cls-54" x="371.7" width="5.88" height="284.33"/><rect class="cls-53" x="371.57" width="5.88" height="284.33"/><rect class="cls-52" x="371.44" width="5.88" height="284.33"/><rect class="cls-51" x="371.3" width="5.88" height="284.33"/><rect class="cls-50" x="371.17" width="5.88" height="284.33"/><rect class="cls-49" x="371.04" width="5.88" height="284.33"/><rect class="cls-48" x="370.9" width="5.88" height="284.33"/><rect class="cls-47" x="370.77" width="5.88" height="284.33"/><rect class="cls-46" x="370.64" width="5.88" height="284.33"/><rect class="cls-45" x="370.5" width="5.88" height="284.33"/><rect class="cls-44" x="370.37" width="5.88" height="284.33"/><rect class="cls-43" x="370.24" width="5.88" height="284.33"/><rect class="cls-42" x="370.11" width="5.88" height="284.33"/><rect class="cls-41" x="369.97" width="5.88" height="284.33"/><rect class="cls-40" x="369.84" width="5.88" height="284.33"/><rect class="cls-39" x="369.71" width="5.88" height="284.33"/><rect class="cls-38" x="369.57" width="5.88" height="284.33"/><rect class="cls-37" x="369.44" width="5.88" height="284.33"/><rect class="cls-36" x="369.31" width="5.88" height="284.33"/><rect class="cls-35" x="369.18" width="5.88" height="284.33"/><rect class="cls-34" x="369.04" width="5.88" height="284.33"/><rect class="cls-33" x="368.91" width="5.88" height="284.33"/><rect class="cls-32" x="368.78" width="5.88" height="284.33"/><rect class="cls-31" x="368.64" width="5.88" height="284.33"/><rect class="cls-30" x="368.51" width="5.88" height="284.33"/><rect class="cls-29" x="368.38" width="5.88" height="284.33"/><rect class="cls-28" x="368.25" width="5.88" height="284.33"/><rect class="cls-27" x="368.11" width="5.88" height="284.33"/><rect class="cls-26" x="367.98" width="5.88" height="284.33"/><rect class="cls-25" x="367.85" width="5.88" height="284.33"/><rect class="cls-24" x="367.71" width="5.88" height="284.33"/><rect class="cls-23" x="367.58" width="5.88" height="284.33"/><rect class="cls-22" x="367.45" width="5.88" height="284.33"/><rect class="cls-21" x="367.32" width="5.88" height="284.33"/><rect class="cls-20" x="367.18" width="5.88" height="284.33"/><rect class="cls-19" x="367.05" width="5.88" height="284.33"/><rect class="cls-18" x="366.92" width="5.88" height="284.33"/><rect class="cls-17" x="366.78" width="5.88" height="284.33"/><rect class="cls-16" x="366.65" width="5.88" height="284.33"/><rect class="cls-15" x="366.52" width="5.88" height="284.33"/><rect class="cls-14" x="366.38" width="5.88" height="284.33"/><rect class="cls-13" x="366.25" width="5.88" height="284.33"/><rect class="cls-12" x="366.12" width="5.88" height="284.33"/><rect class="cls-11" x="365.99" width="5.88" height="284.33"/><rect class="cls-10" x="365.85" width="5.88" height="284.33"/><rect class="cls-9" x="365.72" width="5.88" height="284.33"/><rect class="cls-8" x="365.59" width="5.88" height="284.33"/><rect class="cls-58" x="365.45" width="5.88" height="284.33"/><rect class="cls-59" x="365.32" width="5.88" height="284.33"/><rect class="cls-60" x="365.19" width="5.88" height="284.33"/><rect class="cls-61" x="365.06" width="5.88" height="284.33"/><rect class="cls-62" x="364.92" width="5.88" height="284.33"/><rect class="cls-63" x="364.79" width="5.88" height="284.33"/><rect class="cls-64" x="364.66" width="5.88" height="284.33"/><rect class="cls-65" x="364.52" width="5.88" height="284.33"/><rect class="cls-66" x="364.39" width="5.88" height="284.33"/><rect class="cls-67" x="364.26" width="5.88" height="284.33"/><rect class="cls-68" x="364.13" width="5.88" height="284.33"/><rect class="cls-69" x="363.99" width="5.88" height="284.33"/><rect class="cls-70" x="363.86" width="5.88" height="284.33"/><rect class="cls-71" x="363.73" width="5.88" height="284.33"/><rect class="cls-72" x="363.59" width="5.88" height="284.33"/><rect class="cls-73" x="363.46" width="5.88" height="284.33"/><rect class="cls-74" x="363.33" width="5.88" height="284.33"/><rect class="cls-75" x="363.2" width="5.88" height="284.33"/><rect class="cls-76" x="363.06" width="5.88" height="284.33"/><rect class="cls-77" x="362.93" width="5.88" height="284.33"/><rect class="cls-78" x="362.8" width="5.88" height="284.33"/><rect class="cls-79" x="362.66" width="5.88" height="284.33"/><rect class="cls-80" x="362.53" width="5.88" height="284.33"/><rect class="cls-81" x="362.4" width="5.88" height="284.33"/><rect class="cls-82" x="362.27" width="5.88" height="284.33"/><rect class="cls-83" x="362.13" width="5.88" height="284.33"/><rect class="cls-84" x="362" width="5.88" height="284.33"/><rect class="cls-85" x="361.87" width="5.88" height="284.33"/><rect class="cls-86" x="361.73" width="5.88" height="284.33"/><rect class="cls-87" x="361.6" width="5.88" height="284.33"/><rect class="cls-88" x="361.47" width="5.88" height="284.33"/><rect class="cls-89" x="361.33" width="5.88" height="284.33"/><rect class="cls-90" x="361.2" width="5.88" height="284.33"/><rect class="cls-91" x="361.07" width="5.88" height="284.33"/><rect class="cls-92" x="360.94" width="5.88" height="284.33"/><rect class="cls-93" x="360.8" width="5.88" height="284.33"/><rect class="cls-94" x="360.67" width="5.88" height="284.33"/><rect class="cls-95" x="360.54" width="5.88" height="284.33"/><rect class="cls-96" x="360.4" width="5.88" height="284.33"/><rect class="cls-97" x="360.27" width="5.88" height="284.33"/><rect class="cls-98" x="360.14" width="5.88" height="284.33"/><rect class="cls-99" x="360.01" width="5.88" height="284.33"/><rect class="cls-100" x="359.87" width="5.88" height="284.33"/><rect class="cls-101" x="359.74" width="5.88" height="284.33"/><rect class="cls-102" x="359.61" width="5.88" height="284.33"/><rect class="cls-103" x="359.47" width="5.88" height="284.33"/><rect class="cls-104" x="359.34" width="5.88" height="284.33"/><rect class="cls-105" x="359.21" width="5.88" height="284.33"/><rect class="cls-106" x="359.08" width="5.88" height="284.33"/><rect class="cls-107" x="358.94" width="5.88" height="284.33"/><rect class="cls-108" x="358.81" width="5.88" height="284.33"/><rect class="cls-109" x="358.68" width="5.88" height="284.33"/><rect class="cls-110" x="358.54" width="5.88" height="284.33"/><rect class="cls-111" x="358.41" width="5.88" height="284.33"/><rect class="cls-112" x="358.28" width="5.88" height="284.33"/><rect class="cls-113" x="358.15" width="5.88" height="284.33"/><rect class="cls-114" x="358.01" width="5.88" height="284.33"/><rect class="cls-115" x="357.88" width="5.88" height="284.33"/><rect class="cls-116" x="357.75" width="5.88" height="284.33"/><rect class="cls-117" x="357.61" width="5.88" height="284.33"/><rect class="cls-118" x="357.48" width="5.88" height="284.33"/><rect class="cls-119" x="357.35" width="5.88" height="284.33"/><rect class="cls-120" x="357.22" width="5.88" height="284.33"/><rect class="cls-121" x="357.08" width="5.88" height="284.33"/><rect class="cls-122" x="356.95" width="5.88" height="284.33"/><rect class="cls-123" x="356.82" width="5.88" height="284.33"/><rect class="cls-124" x="356.68" width="5.88" height="284.33"/><rect class="cls-125" x="356.55" width="5.88" height="284.33"/><rect class="cls-126" x="356.42" width="5.88" height="284.33"/><rect class="cls-127" x="356.28" width="5.88" height="284.33"/><rect class="cls-128" x="356.15" width="5.88" height="284.33"/><rect class="cls-129" x="356.02" width="5.88" height="284.33"/><rect class="cls-130" x="355.89" width="5.88" height="284.33"/><rect class="cls-131" x="355.75" width="5.88" height="284.33"/><rect class="cls-132" x="355.62" width="5.88" height="284.33"/><rect class="cls-133" x="355.49" width="5.88" height="284.33"/><rect class="cls-134" x="355.35" width="5.88" height="284.33"/><rect class="cls-135" x="355.22" width="5.88" height="284.33"/><rect class="cls-136" x="355.09" width="5.88" height="284.33"/><rect class="cls-137" x="354.96" width="5.88" height="284.33"/><rect class="cls-138" x="354.82" width="5.88" height="284.33"/><rect class="cls-139" x="354.69" width="5.88" height="284.33"/><rect class="cls-140" x="354.56" width="5.88" height="284.33"/><rect class="cls-141" x="354.42" width="5.88" height="284.33"/><rect class="cls-142" x="354.29" width="5.88" height="284.33"/><rect class="cls-143" x="354.16" width="5.88" height="284.33"/><rect class="cls-144" x="354.03" width="5.88" height="284.33"/><rect class="cls-145" x="353.89" width="5.88" height="284.33"/><rect class="cls-146" x="353.76" width="5.88" height="284.33"/><rect class="cls-147" x="353.63" width="5.88" height="284.33"/><rect class="cls-148" x="353.49" width="5.88" height="284.33"/><rect class="cls-149" x="353.36" width="5.88" height="284.33"/><rect class="cls-150" x="353.23" width="5.88" height="284.33"/><rect class="cls-151" x="353.1" width="5.88" height="284.33"/><rect class="cls-152" x="352.96" width="5.88" height="284.33"/><rect class="cls-153" x="352.83" width="5.88" height="284.33"/><rect class="cls-154" x="352.7" width="5.88" height="284.33"/><rect class="cls-155" x="352.56" width="5.88" height="284.33"/><rect class="cls-156" x="352.43" width="5.88" height="284.33"/><rect class="cls-157" x="352.3" width="5.88" height="284.33"/><rect class="cls-158" x="352.17" width="5.88" height="284.33"/><rect class="cls-159" x="352.03" width="5.88" height="284.33"/><rect class="cls-160" x="351.9" width="5.88" height="284.33"/><rect class="cls-161" x="351.77" width="5.88" height="284.33"/><rect class="cls-162" x="351.63" width="5.88" height="284.33"/><rect class="cls-163" x="351.5" width="5.88" height="284.33"/><rect class="cls-164" x="351.37" width="5.88" height="284.33"/><rect class="cls-165" x="351.23" width="5.88" height="284.33"/><rect class="cls-166" x="351.1" width="5.88" height="284.33"/><rect class="cls-167" x="350.97" width="5.88" height="284.33"/><rect class="cls-168" x="350.84" width="5.88" height="284.33"/><rect class="cls-169" x="350.7" width="5.88" height="284.33"/><rect class="cls-170" x="350.57" width="5.88" height="284.33"/><rect class="cls-171" x="350.44" width="5.88" height="284.33"/><rect class="cls-172" x="350.3" width="5.88" height="284.33"/><rect class="cls-173" x="350.17" width="5.88" height="284.33"/><rect class="cls-174" x="350.04" width="5.88" height="284.33"/><rect class="cls-175" x="349.91" width="5.88" height="284.33"/><rect class="cls-176" x="349.77" width="5.88" height="284.33"/><rect class="cls-177" x="349.64" width="5.88" height="284.33"/><rect class="cls-178" x="349.51" width="5.88" height="284.33"/><rect class="cls-179" x="349.37" width="5.88" height="284.33"/><rect class="cls-180" x="349.24" width="5.88" height="284.33"/><rect class="cls-181" x="349.11" width="5.88" height="284.33"/><rect class="cls-182" x="348.98" width="5.88" height="284.33"/><rect class="cls-183" x="348.84" width="5.88" height="284.33"/><rect class="cls-184" x="348.71" width="5.88" height="284.33"/><rect class="cls-185" x="348.58" width="5.88" height="284.33"/><rect class="cls-186" x="348.44" width="5.88" height="284.33"/><rect class="cls-187" x="348.31" width="5.88" height="284.33"/><rect class="cls-188" x="348.18" width="5.88" height="284.33"/><rect class="cls-189" x="348.05" width="5.88" height="284.33"/><rect class="cls-190" x="347.91" width="5.88" height="284.33"/><rect class="cls-191" x="347.78" width="5.88" height="284.33"/><rect class="cls-192" x="347.65" width="5.88" height="284.33"/><rect class="cls-193" x="347.51" width="5.88" height="284.33"/><rect class="cls-194" x="347.38" width="5.88" height="284.33"/><rect class="cls-195" x="347.25" width="5.88" height="284.33"/><rect class="cls-196" x="347.11" width="5.88" height="284.33"/><rect class="cls-197" x="346.98" width="5.88" height="284.33"/><rect class="cls-198" x="346.85" width="5.88" height="284.33"/><rect class="cls-199" x="346.72" width="5.88" height="284.33"/><rect class="cls-200" x="346.58" width="5.88" height="284.33"/><rect class="cls-201" x="346.45" width="5.88" height="284.33"/><rect class="cls-202" x="346.32" width="5.88" height="284.33"/><rect class="cls-203" x="346.18" width="5.88" height="284.33"/><rect class="cls-204" x="346.05" width="5.88" height="284.33"/><rect class="cls-205" x="345.92" width="5.88" height="284.33"/><rect class="cls-206" x="345.79" width="5.88" height="284.33"/><rect class="cls-207" x="345.65" width="5.88" height="284.33"/><rect class="cls-208" x="345.52" width="5.88" height="284.33"/><rect class="cls-209" x="345.39" width="5.88" height="284.33"/><rect class="cls-210" x="345.25" width="5.88" height="284.33"/><rect class="cls-211" x="345.12" width="5.88" height="284.33"/><rect class="cls-212" x="344.99" width="5.88" height="284.33"/><rect class="cls-213" x="344.86" width="5.88" height="284.33"/><rect class="cls-214" x="344.72" width="5.88" height="284.33"/><rect class="cls-215" x="344.59" width="5.88" height="284.33"/><rect class="cls-216" x="344.46" width="5.88" height="284.33"/><rect class="cls-217" x="344.32" width="5.88" height="284.33"/><rect class="cls-218" x="344.19" width="5.88" height="284.33"/><rect class="cls-219" x="344.06" width="5.88" height="284.33"/><rect class="cls-220" x="343.93" width="5.88" height="284.33"/><rect class="cls-221" x="343.79" width="5.88" height="284.33"/><rect class="cls-222" x="343.66" width="5.88" height="284.33"/><rect class="cls-223" x="343.53" width="5.88" height="284.33"/><rect class="cls-224" x="343.39" width="5.88" height="284.33"/><rect class="cls-225" x="343.26" width="5.88" height="284.33"/><rect class="cls-226" x="343.13" width="5.88" height="284.33"/><rect class="cls-227" x="343" width="5.88" height="284.33"/><rect class="cls-228" x="342.86" width="5.88" height="284.33"/><rect class="cls-229" x="342.73" width="5.88" height="284.33"/><rect class="cls-230" x="342.6" width="5.88" height="284.33"/><rect class="cls-231" x="342.46" width="5.88" height="284.33"/><rect class="cls-232" x="342.33" width="5.88" height="284.33"/><rect class="cls-233" x="342.2" width="5.88" height="284.33"/><rect class="cls-234" x="342.06" width="5.88" height="284.33"/><rect class="cls-235" x="341.93" width="5.88" height="284.33"/><rect class="cls-236" x="341.8" width="5.88" height="284.33"/><rect class="cls-237" x="341.67" width="5.88" height="284.33"/><rect class="cls-238" x="341.53" width="5.88" height="284.33"/><rect class="cls-239" x="341.4" width="5.88" height="284.33"/><rect class="cls-240" x="341.27" width="5.88" height="284.33"/><rect class="cls-241" x="341.13" width="5.88" height="284.33"/><rect class="cls-242" x="341" width="5.88" height="284.33"/><rect class="cls-243" x="340.87" width="5.88" height="284.33"/><rect class="cls-244" x="340.74" width="5.88" height="284.33"/><rect class="cls-245" x="340.6" width="5.88" height="284.33"/><rect class="cls-246" x="340.47" width="5.88" height="284.33"/><rect class="cls-245" x="340.21" width="5.8" height="284.33"/><rect class="cls-244" x="339.95" width="5.73" height="284.33"/><rect class="cls-243" x="339.69" width="5.65" height="284.33"/><rect class="cls-242" x="339.43" width="5.57" height="284.33"/><rect class="cls-241" x="339.17" width="5.49" height="284.33"/><rect class="cls-240" x="338.91" width="5.41" height="284.33"/><rect class="cls-239" x="338.65" width="5.33" height="284.33"/><rect class="cls-238" x="338.39" width="5.25" height="284.33"/><rect class="cls-237" x="338.13" width="5.17" height="284.33"/><rect class="cls-236" x="337.87" width="5.09" height="284.33"/><rect class="cls-235" x="337.61" width="5.01" height="284.33"/><rect class="cls-234" x="337.35" width="4.93" height="284.33"/><rect class="cls-233" x="337.09" width="4.85" height="284.33"/><rect class="cls-232" x="336.83" width="4.77" height="284.33"/><rect class="cls-231" x="336.57" width="4.69" height="284.33"/><rect class="cls-230" x="336.31" width="4.61" height="284.33"/><rect class="cls-229" x="336.05" width="4.53" height="284.33"/><rect class="cls-228" x="335.79" width="4.45" height="284.33"/><rect class="cls-228" x="335.53" width="4.37" height="284.33"/><rect class="cls-227" x="335.27" width="4.29" height="284.33"/><rect class="cls-226" x="335.01" width="4.21" height="284.33"/><rect class="cls-225" x="334.75" width="4.13" height="284.33"/><rect class="cls-224" x="334.49" width="4.06" height="284.33"/><rect class="cls-223" x="334.23" width="3.98" height="284.33"/><rect class="cls-222" x="333.97" width="3.9" height="284.33"/><rect class="cls-221" x="333.71" width="3.82" height="284.33"/><rect class="cls-220" x="333.45" width="3.74" height="284.33"/><rect class="cls-219" x="333.19" width="3.66" height="284.33"/><rect class="cls-218" x="332.93" width="3.58" height="284.33"/><rect class="cls-217" x="332.67" width="3.5" height="284.33"/><rect class="cls-216" x="332.4" width="3.42" height="284.33"/><rect class="cls-215" x="332.14" width="3.34" height="284.33"/><rect class="cls-214" x="331.88" width="3.26" height="284.33"/><rect class="cls-213" x="331.62" width="3.18" height="284.33"/><rect class="cls-212" x="331.36" width="3.1" height="284.33"/><rect class="cls-211" x="331.1" width="3.02" height="284.33"/><rect class="cls-210" x="330.84" width="2.94" height="284.33"/><rect class="cls-7" x="52.25" y="846.01" width="38.25" height="132.76"/><rect class="cls-247" x="51.45" y="846.01" width="37.74" height="132.76"/><rect class="cls-248" x="50.64" y="846.01" width="37.23" height="132.76"/><rect class="cls-249" x="49.84" y="846.01" width="36.73" height="132.76"/><rect class="cls-250" x="49.03" y="846.01" width="36.22" height="132.76"/><rect class="cls-251" x="48.23" y="846.01" width="35.71" height="132.76"/><rect class="cls-252" x="47.43" y="846.01" width="35.2" height="132.76"/><rect class="cls-253" x="46.62" y="846.01" width="34.7" height="132.76"/><rect class="cls-254" x="45.82" y="846.01" width="34.19" height="132.76"/><rect class="cls-255" x="45.02" y="846.01" width="33.68" height="132.76"/><rect class="cls-256" x="44.21" y="846.01" width="33.17" height="132.76"/><rect class="cls-257" x="43.41" y="846.01" width="32.67" height="132.76"/><rect class="cls-258" x="42.6" y="846.01" width="32.16" height="132.76"/><rect class="cls-259" x="41.8" y="846.01" width="31.65" height="132.76"/><rect class="cls-260" x="41" y="846.01" width="31.14" height="132.76"/><rect class="cls-261" x="40.19" y="846.01" width="30.63" height="132.76"/><rect class="cls-262" x="39.39" y="846.01" width="30.13" height="132.76"/><rect class="cls-263" x="38.58" y="846.01" width="29.62" height="132.76"/><rect class="cls-264" x="37.78" y="846.01" width="29.11" height="132.76"/><rect class="cls-265" x="36.98" y="846.01" width="28.6" height="132.76"/><rect class="cls-266" x="36.17" y="846.01" width="28.1" height="132.76"/><rect class="cls-267" x="35.37" y="846.01" width="27.59" height="132.76"/><rect class="cls-268" x="34.57" y="846.01" width="27.08" height="132.76"/><rect class="cls-269" x="33.76" y="846.01" width="26.57" height="132.76"/><rect class="cls-270" x="32.96" y="846.01" width="26.07" height="132.76"/><rect class="cls-271" x="32.15" y="846.01" width="25.56" height="132.76"/><rect class="cls-272" x="31.35" y="846.01" width="25.05" height="132.76"/><rect class="cls-273" x="30.55" y="846.01" width="24.54" height="132.76"/><rect class="cls-274" x="29.74" y="846.01" width="24.03" height="132.76"/><rect class="cls-275" x="28.94" y="846.01" width="23.53" height="132.76"/><rect class="cls-276" x="28.13" y="846.01" width="23.02" height="132.76"/><rect class="cls-277" x="27.33" y="846.01" width="22.51" height="132.76"/><rect class="cls-278" x="26.53" y="846.01" width="22" height="132.76"/><rect class="cls-278" x="25.72" y="846.01" width="21.5" height="132.76"/><rect class="cls-279" x="24.92" y="846.01" width="20.99" height="132.76"/><rect class="cls-280" x="24.12" y="846.01" width="20.48" height="132.76"/><rect class="cls-281" x="23.31" y="846.01" width="19.97" height="132.76"/><rect class="cls-282" x="22.51" y="846.01" width="19.47" height="132.76"/><rect class="cls-283" x="21.7" y="846.01" width="18.96" height="132.76"/><rect class="cls-284" x="20.9" y="846.01" width="18.45" height="132.76"/><rect class="cls-285" x="20.1" y="846.01" width="17.94" height="132.76"/><rect class="cls-286" x="19.29" y="846.01" width="17.43" height="132.76"/><rect class="cls-287" x="18.49" y="846.01" width="16.93" height="132.76"/><rect class="cls-288" x="17.68" y="846.01" width="16.42" height="132.76"/><rect class="cls-289" x="16.88" y="846.01" width="15.91" height="132.76"/><rect class="cls-290" x="16.08" y="846.01" width="15.4" height="132.76"/><rect class="cls-291" x="15.27" y="846.01" width="14.9" height="132.76"/><rect class="cls-292" x="14.47" y="846.01" width="14.39" height="132.76"/><rect class="cls-293" x="13.67" y="846.01" width="13.88" height="132.76"/><rect class="cls-294" x="12.86" y="846.01" width="13.37" height="132.76"/><rect class="cls-295" x="12.06" y="846.01" width="12.87" height="132.76"/><rect class="cls-296" x="11.25" y="846.01" width="12.36" height="132.76"/><rect class="cls-297" x="10.45" y="846.01" width="11.85" height="132.76"/><rect class="cls-298" x="9.65" y="846.01" width="11.34" height="132.76"/><rect class="cls-299" x="8.84" y="846.01" width="10.83" height="132.76"/><rect class="cls-300" x="8.04" y="846.01" width="10.33" height="132.76"/><rect class="cls-301" x="7.23" y="846.01" width="9.82" height="132.76"/><rect class="cls-302" x="6.43" y="846.01" width="9.31" height="132.76"/><rect class="cls-303" x="5.63" y="846.01" width="8.8" height="132.76"/><rect class="cls-304" x="4.82" y="846.01" width="8.3" height="132.76"/><rect class="cls-305" x="4.02" y="846.01" width="7.79" height="132.76"/><rect class="cls-306" x="3.22" y="846.01" width="7.28" height="132.76"/><rect class="cls-307" x="2.41" y="846.01" width="6.77" height="132.76"/><rect class="cls-308" x="1.61" y="846.01" width="6.27" height="132.76"/><rect class="cls-309" x="0.8" y="846.01" width="5.76" height="132.76"/><rect class="cls-310" y="846.01" width="5.25" height="132.76"/><rect class="cls-7" x="626.38" y="846.01" width="38.25" height="132.76"/><rect class="cls-247" x="627.69" y="846.01" width="37.74" height="132.76"/><rect class="cls-248" x="629" y="846.01" width="37.23" height="132.76"/><rect class="cls-249" x="630.32" y="846.01" width="36.73" height="132.76"/><rect class="cls-250" x="631.63" y="846.01" width="36.22" height="132.76"/><rect class="cls-251" x="632.94" y="846.01" width="35.71" height="132.76"/><rect class="cls-252" x="634.25" y="846.01" width="35.2" height="132.76"/><rect class="cls-253" x="635.56" y="846.01" width="34.7" height="132.76"/><rect class="cls-254" x="636.87" y="846.01" width="34.19" height="132.76"/><rect class="cls-255" x="638.19" y="846.01" width="33.68" height="132.76"/><rect class="cls-256" x="639.5" y="846.01" width="33.17" height="132.76"/><rect class="cls-257" x="640.81" y="846.01" width="32.67" height="132.76"/><rect class="cls-258" x="642.12" y="846.01" width="32.16" height="132.76"/><rect class="cls-259" x="643.43" y="846.01" width="31.65" height="132.76"/><rect class="cls-260" x="644.74" y="846.01" width="31.14" height="132.76"/><rect class="cls-261" x="646.05" y="846.01" width="30.63" height="132.76"/><rect class="cls-262" x="647.37" y="846.01" width="30.13" height="132.76"/><rect class="cls-263" x="648.68" y="846.01" width="29.62" height="132.76"/><rect class="cls-264" x="649.99" y="846.01" width="29.11" height="132.76"/><rect class="cls-265" x="651.3" y="846.01" width="28.6" height="132.76"/><rect class="cls-266" x="652.61" y="846.01" width="28.1" height="132.76"/><rect class="cls-267" x="653.92" y="846.01" width="27.59" height="132.76"/><rect class="cls-268" x="655.24" y="846.01" width="27.08" height="132.76"/><rect class="cls-269" x="656.55" y="846.01" width="26.57" height="132.76"/><rect class="cls-270" x="657.86" y="846.01" width="26.07" height="132.76"/><rect class="cls-271" x="659.17" y="846.01" width="25.56" height="132.76"/><rect class="cls-272" x="660.48" y="846.01" width="25.05" height="132.76"/><rect class="cls-273" x="661.79" y="846.01" width="24.54" height="132.76"/><rect class="cls-274" x="663.1" y="846.01" width="24.03" height="132.76"/><rect class="cls-275" x="664.42" y="846.01" width="23.53" height="132.76"/><rect class="cls-276" x="665.73" y="846.01" width="23.02" height="132.76"/><rect class="cls-277" x="667.04" y="846.01" width="22.51" height="132.76"/><rect class="cls-278" x="668.35" y="846.01" width="22" height="132.76"/><rect class="cls-278" x="669.66" y="846.01" width="21.5" height="132.76"/><rect class="cls-279" x="670.97" y="846.01" width="20.99" height="132.76"/><rect class="cls-280" x="672.29" y="846.01" width="20.48" height="132.76"/><rect class="cls-281" x="673.6" y="846.01" width="19.97" height="132.76"/><rect class="cls-282" x="674.91" y="846.01" width="19.47" height="132.76"/><rect class="cls-283" x="676.22" y="846.01" width="18.96" height="132.76"/><rect class="cls-284" x="677.53" y="846.01" width="18.45" height="132.76"/><rect class="cls-285" x="678.84" y="846.01" width="17.94" height="132.76"/><rect class="cls-286" x="680.15" y="846.01" width="17.43" height="132.76"/><rect class="cls-287" x="681.47" y="846.01" width="16.93" height="132.76"/><rect class="cls-288" x="682.78" y="846.01" width="16.42" height="132.76"/><rect class="cls-289" x="684.09" y="846.01" width="15.91" height="132.76"/><rect class="cls-290" x="685.4" y="846.01" width="15.4" height="132.76"/><rect class="cls-291" x="686.71" y="846.01" width="14.9" height="132.76"/><rect class="cls-292" x="688.02" y="846.01" width="14.39" height="132.76"/><rect class="cls-293" x="689.34" y="846.01" width="13.88" height="132.76"/><rect class="cls-294" x="690.65" y="846.01" width="13.37" height="132.76"/><rect class="cls-295" x="691.96" y="846.01" width="12.87" height="132.76"/><rect class="cls-296" x="693.27" y="846.01" width="12.36" height="132.76"/><rect class="cls-297" x="694.58" y="846.01" width="11.85" height="132.76"/><rect class="cls-298" x="695.89" y="846.01" width="11.34" height="132.76"/><rect class="cls-299" x="697.2" y="846.01" width="10.83" height="132.76"/><rect class="cls-300" x="698.52" y="846.01" width="10.33" height="132.76"/><rect class="cls-301" x="699.83" y="846.01" width="9.82" height="132.76"/><rect class="cls-302" x="701.14" y="846.01" width="9.31" height="132.76"/><rect class="cls-303" x="702.45" y="846.01" width="8.8" height="132.76"/><rect class="cls-304" x="703.76" y="846.01" width="8.3" height="132.76"/><rect class="cls-305" x="705.07" y="846.01" width="7.79" height="132.76"/><rect class="cls-306" x="706.39" y="846.01" width="7.28" height="132.76"/><rect class="cls-307" x="707.7" y="846.01" width="6.77" height="132.76"/><rect class="cls-308" x="709.01" y="846.01" width="6.27" height="132.76"/><rect class="cls-309" x="710.32" y="846.01" width="5.76" height="132.76"/><rect class="cls-310" x="711.63" y="846.01" width="5.25" height="132.76"/><rect class="cls-7" x="52.25" y="307.51" width="38.25" height="160.18"/><rect class="cls-247" x="51.45" y="307.51" width="37.74" height="160.18"/><rect class="cls-248" x="50.64" y="307.51" width="37.23" height="160.18"/><rect class="cls-249" x="49.84" y="307.51" width="36.73" height="160.18"/><rect class="cls-250" x="49.03" y="307.51" width="36.22" height="160.18"/><rect class="cls-251" x="48.23" y="307.51" width="35.71" height="160.18"/><rect class="cls-252" x="47.43" y="307.51" width="35.2" height="160.18"/><rect class="cls-253" x="46.62" y="307.51" width="34.7" height="160.18"/><rect class="cls-254" x="45.82" y="307.51" width="34.19" height="160.18"/><rect class="cls-255" x="45.02" y="307.51" width="33.68" height="160.18"/><rect class="cls-256" x="44.21" y="307.51" width="33.17" height="160.18"/><rect class="cls-257" x="43.41" y="307.51" width="32.67" height="160.18"/><rect class="cls-258" x="42.6" y="307.51" width="32.16" height="160.18"/><rect class="cls-259" x="41.8" y="307.51" width="31.65" height="160.18"/><rect class="cls-260" x="41" y="307.51" width="31.14" height="160.18"/><rect class="cls-261" x="40.19" y="307.51" width="30.63" height="160.18"/><rect class="cls-262" x="39.39" y="307.51" width="30.13" height="160.18"/><rect class="cls-263" x="38.58" y="307.51" width="29.62" height="160.18"/><rect class="cls-264" x="37.78" y="307.51" width="29.11" height="160.18"/><rect class="cls-265" x="36.98" y="307.51" width="28.6" height="160.18"/><rect class="cls-266" x="36.17" y="307.51" width="28.1" height="160.18"/><rect class="cls-267" x="35.37" y="307.51" width="27.59" height="160.18"/><rect class="cls-268" x="34.57" y="307.51" width="27.08" height="160.18"/><rect class="cls-269" x="33.76" y="307.51" width="26.57" height="160.18"/><rect class="cls-270" x="32.96" y="307.51" width="26.07" height="160.18"/><rect class="cls-271" x="32.15" y="307.51" width="25.56" height="160.18"/><rect class="cls-272" x="31.35" y="307.51" width="25.05" height="160.18"/><rect class="cls-273" x="30.55" y="307.51" width="24.54" height="160.18"/><rect class="cls-274" x="29.74" y="307.51" width="24.03" height="160.18"/><rect class="cls-275" x="28.94" y="307.51" width="23.53" height="160.18"/><rect class="cls-276" x="28.13" y="307.51" width="23.02" height="160.18"/><rect class="cls-277" x="27.33" y="307.51" width="22.51" height="160.18"/><rect class="cls-278" x="26.53" y="307.51" width="22" height="160.18"/><rect class="cls-278" x="25.72" y="307.51" width="21.5" height="160.18"/><rect class="cls-279" x="24.92" y="307.51" width="20.99" height="160.18"/><rect class="cls-280" x="24.12" y="307.51" width="20.48" height="160.18"/><rect class="cls-281" x="23.31" y="307.51" width="19.97" height="160.18"/><rect class="cls-282" x="22.51" y="307.51" width="19.47" height="160.18"/><rect class="cls-283" x="21.7" y="307.51" width="18.96" height="160.18"/><rect class="cls-284" x="20.9" y="307.51" width="18.45" height="160.18"/><rect class="cls-285" x="20.1" y="307.51" width="17.94" height="160.18"/><rect class="cls-286" x="19.29" y="307.51" width="17.43" height="160.18"/><rect class="cls-287" x="18.49" y="307.51" width="16.93" height="160.18"/><rect class="cls-288" x="17.68" y="307.51" width="16.42" height="160.18"/><rect class="cls-289" x="16.88" y="307.51" width="15.91" height="160.18"/><rect class="cls-290" x="16.08" y="307.51" width="15.4" height="160.18"/><rect class="cls-291" x="15.27" y="307.51" width="14.9" height="160.18"/><rect class="cls-292" x="14.47" y="307.51" width="14.39" height="160.18"/><rect class="cls-293" x="13.67" y="307.51" width="13.88" height="160.18"/><rect class="cls-294" x="12.86" y="307.51" width="13.37" height="160.18"/><rect class="cls-295" x="12.06" y="307.51" width="12.87" height="160.18"/><rect class="cls-296" x="11.25" y="307.51" width="12.36" height="160.18"/><rect class="cls-297" x="10.45" y="307.51" width="11.85" height="160.18"/><rect class="cls-298" x="9.65" y="307.51" width="11.34" height="160.18"/><rect class="cls-299" x="8.84" y="307.51" width="10.83" height="160.18"/><rect class="cls-300" x="8.04" y="307.51" width="10.33" height="160.18"/><rect class="cls-301" x="7.23" y="307.51" width="9.82" height="160.18"/><rect class="cls-302" x="6.43" y="307.51" width="9.31" height="160.18"/><rect class="cls-303" x="5.63" y="307.51" width="8.8" height="160.18"/><rect class="cls-304" x="4.82" y="307.51" width="8.3" height="160.18"/><rect class="cls-305" x="4.02" y="307.51" width="7.79" height="160.18"/><rect class="cls-306" x="3.22" y="307.51" width="7.28" height="160.18"/><rect class="cls-307" x="2.41" y="307.51" width="6.77" height="160.18"/><rect class="cls-308" x="1.61" y="307.51" width="6.27" height="160.18"/><rect class="cls-309" x="0.8" y="307.51" width="5.76" height="160.18"/><rect class="cls-310" y="307.51" width="5.25" height="160.18"/><rect class="cls-7" x="626.38" y="307.51" width="38.25" height="160.18"/><rect class="cls-247" x="627.69" y="307.51" width="37.74" height="160.18"/><rect class="cls-248" x="629" y="307.51" width="37.23" height="160.18"/><rect class="cls-249" x="630.32" y="307.51" width="36.73" height="160.18"/><rect class="cls-250" x="631.63" y="307.51" width="36.22" height="160.18"/><rect class="cls-251" x="632.94" y="307.51" width="35.71" height="160.18"/><rect class="cls-252" x="634.25" y="307.51" width="35.2" height="160.18"/><rect class="cls-253" x="635.56" y="307.51" width="34.7" height="160.18"/><rect class="cls-254" x="636.87" y="307.51" width="34.19" height="160.18"/><rect class="cls-255" x="638.19" y="307.51" width="33.68" height="160.18"/><rect class="cls-256" x="639.5" y="307.51" width="33.17" height="160.18"/><rect class="cls-257" x="640.81" y="307.51" width="32.67" height="160.18"/><rect class="cls-258" x="642.12" y="307.51" width="32.16" height="160.18"/><rect class="cls-259" x="643.43" y="307.51" width="31.65" height="160.18"/><rect class="cls-260" x="644.74" y="307.51" width="31.14" height="160.18"/><rect class="cls-261" x="646.05" y="307.51" width="30.63" height="160.18"/><rect class="cls-262" x="647.37" y="307.51" width="30.13" height="160.18"/><rect class="cls-263" x="648.68" y="307.51" width="29.62" height="160.18"/><rect class="cls-264" x="649.99" y="307.51" width="29.11" height="160.18"/><rect class="cls-265" x="651.3" y="307.51" width="28.6" height="160.18"/><rect class="cls-266" x="652.61" y="307.51" width="28.1" height="160.18"/><rect class="cls-267" x="653.92" y="307.51" width="27.59" height="160.18"/><rect class="cls-268" x="655.24" y="307.51" width="27.08" height="160.18"/><rect class="cls-269" x="656.55" y="307.51" width="26.57" height="160.18"/><rect class="cls-270" x="657.86" y="307.51" width="26.07" height="160.18"/><rect class="cls-271" x="659.17" y="307.51" width="25.56" height="160.18"/><rect class="cls-272" x="660.48" y="307.51" width="25.05" height="160.18"/><rect class="cls-273" x="661.79" y="307.51" width="24.54" height="160.18"/><rect class="cls-274" x="663.1" y="307.51" width="24.03" height="160.18"/><rect class="cls-275" x="664.42" y="307.51" width="23.53" height="160.18"/><rect class="cls-276" x="665.73" y="307.51" width="23.02" height="160.18"/><rect class="cls-277" x="667.04" y="307.51" width="22.51" height="160.18"/><rect class="cls-278" x="668.35" y="307.51" width="22" height="160.18"/><rect class="cls-278" x="669.66" y="307.51" width="21.5" height="160.18"/><rect class="cls-279" x="670.97" y="307.51" width="20.99" height="160.18"/><rect class="cls-280" x="672.29" y="307.51" width="20.48" height="160.18"/><rect class="cls-281" x="673.6" y="307.51" width="19.97" height="160.18"/><rect class="cls-282" x="674.91" y="307.51" width="19.47" height="160.18"/><rect class="cls-283" x="676.22" y="307.51" width="18.96" height="160.18"/><rect class="cls-284" x="677.53" y="307.51" width="18.45" height="160.18"/><rect class="cls-285" x="678.84" y="307.51" width="17.94" height="160.18"/><rect class="cls-286" x="680.15" y="307.51" width="17.43" height="160.18"/><rect class="cls-287" x="681.47" y="307.51" width="16.93" height="160.18"/><rect class="cls-288" x="682.78" y="307.51" width="16.42" height="160.18"/><rect class="cls-289" x="684.09" y="307.51" width="15.91" height="160.18"/><rect class="cls-290" x="685.4" y="307.51" width="15.4" height="160.18"/><rect class="cls-291" x="686.71" y="307.51" width="14.9" height="160.18"/><rect class="cls-292" x="688.02" y="307.51" width="14.39" height="160.18"/><rect class="cls-293" x="689.34" y="307.51" width="13.88" height="160.18"/><rect class="cls-294" x="690.65" y="307.51" width="13.37" height="160.18"/><rect class="cls-295" x="691.96" y="307.51" width="12.87" height="160.18"/><rect class="cls-296" x="693.27" y="307.51" width="12.36" height="160.18"/><rect class="cls-297" x="694.58" y="307.51" width="11.85" height="160.18"/><rect class="cls-298" x="695.89" y="307.51" width="11.34" height="160.18"/><rect class="cls-299" x="697.2" y="307.51" width="10.83" height="160.18"/><rect class="cls-300" x="698.52" y="307.51" width="10.33" height="160.18"/><rect class="cls-301" x="699.83" y="307.51" width="9.82" height="160.18"/><rect class="cls-302" x="701.14" y="307.51" width="9.31" height="160.18"/><rect class="cls-303" x="702.45" y="307.51" width="8.8" height="160.18"/><rect class="cls-304" x="703.76" y="307.51" width="8.3" height="160.18"/><rect class="cls-305" x="705.07" y="307.51" width="7.79" height="160.18"/><rect class="cls-306" x="706.39" y="307.51" width="7.28" height="160.18"/><rect class="cls-307" x="707.7" y="307.51" width="6.77" height="160.18"/><rect class="cls-308" x="709.01" y="307.51" width="6.27" height="160.18"/><rect class="cls-309" x="710.32" y="307.51" width="5.76" height="160.18"/><rect class="cls-310" x="711.63" y="307.51" width="5.25" height="160.18"/><rect class="cls-4" x="236.52" y="931.1" width="243.84" height="47.66"/><rect class="cls-7" x="236.52" y="931.1" width="7.98" height="47.66"/><rect class="cls-311" x="472.38" y="931.1" width="7.98" height="47.66"/><rect class="cls-312" x="236.52" y="931.1" width="243.84" height="1.54"/><g class="cls-313"><rect class="cls-299" x="66" y="469.02" width="41" height="376.99"/><rect class="cls-300" x="65.33" y="469.01" width="40.87" height="376.99"/><rect class="cls-301" x="64.65" y="468.99" width="40.75" height="376.99"/><rect class="cls-302" x="63.98" y="468.98" width="40.62" height="376.99"/><rect class="cls-303" x="63.31" y="468.97" width="40.5" height="376.99"/><rect class="cls-304" x="62.63" y="468.95" width="40.37" height="376.99"/><rect class="cls-305" x="61.96" y="468.94" width="40.25" height="376.99"/><rect class="cls-306" x="61.29" y="468.93" width="40.12" height="376.99"/><rect class="cls-307" x="60.61" y="468.91" width="40" height="376.99"/><rect class="cls-308" x="59.94" y="468.9" width="39.87" height="376.99"/><rect class="cls-309" x="59.27" y="468.88" width="39.75" height="376.99"/><rect class="cls-310" x="58.59" y="468.87" width="39.62" height="376.99"/><rect class="cls-314" x="57.92" y="468.86" width="39.5" height="376.99"/><rect class="cls-315" x="57.24" y="468.84" width="39.37" height="376.99"/><rect class="cls-316" x="56.57" y="468.83" width="39.25" height="376.99"/><rect class="cls-317" x="55.9" y="468.82" width="39.12" height="376.99"/><rect class="cls-318" x="55.22" y="468.8" width="39" height="376.99"/><rect class="cls-319" x="54.55" y="468.79" width="38.87" height="376.99"/><rect class="cls-320" x="53.88" y="468.78" width="38.75" height="376.99"/><rect class="cls-321" x="53.2" y="468.76" width="38.62" height="376.99"/><rect class="cls-322" x="52.53" y="468.75" width="38.5" height="376.99"/><rect class="cls-323" x="51.86" y="468.74" width="38.37" height="376.99"/><rect class="cls-324" x="51.18" y="468.72" width="38.25" height="376.99"/><rect class="cls-325" x="50.51" y="468.71" width="38.12" height="376.99"/><rect class="cls-326" x="49.84" y="468.69" width="38" height="376.99"/><rect class="cls-327" x="49.16" y="468.68" width="37.87" height="376.99"/><rect class="cls-328" x="48.49" y="468.67" width="37.75" height="376.99"/><rect class="cls-329" x="47.82" y="468.65" width="37.62" height="376.99"/><rect class="cls-330" x="47.14" y="468.64" width="37.5" height="376.99"/><rect class="cls-331" x="46.47" y="468.63" width="37.37" height="376.99"/><rect class="cls-332" x="45.8" y="468.61" width="37.25" height="376.99"/><rect class="cls-333" x="45.12" y="468.6" width="37.12" height="376.99"/><rect class="cls-334" x="44.45" y="468.59" width="37" height="376.99"/><rect class="cls-335" x="43.78" y="468.57" width="36.87" height="376.99"/><rect class="cls-336" x="43.1" y="468.56" width="36.75" height="376.99"/><rect class="cls-337" x="42.43" y="468.55" width="36.62" height="376.99"/><rect class="cls-338" x="41.76" y="468.53" width="36.5" height="376.99"/><rect class="cls-339" x="41.08" y="468.52" width="36.37" height="376.99"/><rect class="cls-340" x="40.41" y="468.5" width="36.25" height="376.99"/><rect class="cls-341" x="39.73" y="468.49" width="36.12" height="376.99"/><rect class="cls-342" x="39.06" y="468.48" width="36" height="376.99"/><rect class="cls-343" x="38.39" y="468.46" width="35.87" height="376.99"/><rect class="cls-344" x="37.71" y="468.45" width="35.75" height="376.99"/><rect class="cls-345" x="37.04" y="468.44" width="35.62" height="376.99"/><rect class="cls-346" x="36.37" y="468.42" width="35.5" height="376.99"/><rect class="cls-347" x="35.69" y="468.41" width="35.37" height="376.99"/><rect class="cls-348" x="35.02" y="468.4" width="35.25" height="376.99"/><rect class="cls-349" x="34.35" y="468.38" width="35.12" height="376.99"/><rect class="cls-350" x="33.67" y="468.37" width="35" height="376.99"/><rect class="cls-351" x="33" y="468.36" width="34.87" height="376.99"/><rect class="cls-351" x="32.33" y="468.34" width="34.75" height="376.99"/><rect class="cls-352" x="31.65" y="468.33" width="34.62" height="376.99"/><rect class="cls-353" x="30.98" y="468.31" width="34.5" height="376.99"/><rect class="cls-354" x="30.31" y="468.3" width="34.37" height="376.99"/><rect class="cls-355" x="29.63" y="468.29" width="34.25" height="376.99"/><rect class="cls-356" x="28.96" y="468.27" width="34.12" height="376.99"/><rect class="cls-357" x="28.29" y="468.26" width="34" height="376.99"/><rect class="cls-358" x="27.61" y="468.25" width="33.87" height="376.99"/><rect class="cls-359" x="26.94" y="468.23" width="33.75" height="376.99"/><rect class="cls-360" x="26.27" y="468.22" width="33.62" height="376.99"/><rect class="cls-311" x="25.59" y="468.21" width="33.5" height="376.99"/><rect class="cls-361" x="24.92" y="468.19" width="33.37" height="376.99"/><rect class="cls-362" x="24.24" y="468.18" width="33.25" height="376.99"/><rect class="cls-363" x="23.57" y="468.17" width="33.12" height="376.99"/><rect class="cls-364" x="22.9" y="468.15" width="33" height="376.99"/><rect class="cls-365" x="22.22" y="468.14" width="32.87" height="376.99"/><rect class="cls-366" x="21.55" y="468.12" width="32.75" height="376.99"/><rect class="cls-367" x="20.88" y="468.11" width="32.62" height="376.99"/><rect class="cls-368" x="20.2" y="468.1" width="32.5" height="376.99"/><rect class="cls-369" x="19.53" y="468.08" width="32.37" height="376.99"/><rect class="cls-370" x="18.86" y="468.07" width="32.25" height="376.99"/><rect class="cls-371" x="18.18" y="468.06" width="32.12" height="376.99"/><rect class="cls-372" x="17.51" y="468.04" width="32" height="376.99"/><rect class="cls-373" x="16.84" y="468.03" width="31.87" height="376.99"/><rect class="cls-374" x="16.16" y="468.02" width="31.75" height="376.99"/><rect class="cls-375" x="15.49" y="468" width="31.62" height="376.99"/><rect class="cls-376" x="14.82" y="467.99" width="31.5" height="376.99"/><rect class="cls-377" x="14.14" y="467.98" width="31.37" height="376.99"/><rect class="cls-378" x="13.47" y="467.96" width="31.25" height="376.99"/><rect class="cls-379" x="12.8" y="467.95" width="31.12" height="376.99"/><rect class="cls-380" x="12.12" y="467.93" width="31" height="376.99"/><rect class="cls-381" x="11.45" y="467.92" width="30.87" height="376.99"/><rect class="cls-382" x="10.78" y="467.91" width="30.75" height="376.99"/><rect class="cls-383" x="10.1" y="467.89" width="30.62" height="376.99"/><rect class="cls-384" x="9.43" y="467.88" width="30.5" height="376.99"/><rect class="cls-385" x="8.76" y="467.87" width="30.37" height="376.99"/><rect class="cls-386" x="8.08" y="467.85" width="30.25" height="376.99"/><rect class="cls-387" x="7.41" y="467.84" width="30.12" height="376.99"/><rect class="cls-388" x="6.73" y="467.83" width="30" height="376.99"/><rect class="cls-389" x="6.06" y="467.81" width="29.87" height="376.99"/><rect class="cls-390" x="5.39" y="467.8" width="29.75" height="376.99"/><rect class="cls-391" x="4.71" y="467.79" width="29.62" height="376.99"/><rect class="cls-392" x="4.04" y="467.77" width="29.5" height="376.99"/><rect class="cls-393" x="3.37" y="467.76" width="29.37" height="376.99"/><rect class="cls-394" x="2.69" y="467.74" width="29.25" height="376.99"/><rect class="cls-395" x="2.02" y="467.73" width="29.12" height="376.99"/><rect class="cls-312" x="1.35" y="467.72" width="29" height="376.99"/><rect class="cls-396" x="0.67" y="467.7" width="28.87" height="376.99"/><rect class="cls-397" y="467.69" width="28.75" height="376.99"/></g><g class="cls-398"><rect class="cls-397" x="591.21" y="469.02" width="53.26" height="376.99"/><rect class="cls-399" x="594.53" y="469.02" width="52.07" height="376.99"/><rect class="cls-400" x="597.84" y="469.02" width="50.88" height="376.99"/><rect class="cls-401" x="601.16" y="469.02" width="49.7" height="376.99"/><rect class="cls-402" x="604.48" y="469.02" width="48.51" height="376.99"/><rect class="cls-403" x="607.8" y="469.02" width="47.32" height="376.99"/><rect class="cls-404" x="611.11" y="469.02" width="46.13" height="376.99"/><rect class="cls-405" x="614.43" y="469.02" width="44.95" height="376.99"/><rect class="cls-406" x="617.75" y="469.02" width="43.76" height="376.99"/><rect class="cls-407" x="621.07" y="469.02" width="42.57" height="376.99"/><rect class="cls-408" x="624.38" y="469.02" width="41.38" height="376.99"/><rect class="cls-409" x="627.7" y="469.02" width="40.2" height="376.99"/><rect class="cls-410" x="631.02" y="469.02" width="39.01" height="376.99"/><rect class="cls-411" x="634.34" y="469.02" width="37.82" height="376.99"/><rect class="cls-412" x="637.65" y="469.02" width="36.63" height="376.99"/><rect class="cls-413" x="640.97" y="469.02" width="35.45" height="376.99"/><rect class="cls-414" x="644.29" y="469.02" width="34.26" height="376.99"/><rect class="cls-414" x="647.61" y="469.02" width="33.07" height="376.99"/><rect class="cls-415" x="650.92" y="469.02" width="31.88" height="376.99"/><rect class="cls-416" x="654.24" y="469.02" width="30.7" height="376.99"/><rect class="cls-417" x="657.56" y="469.02" width="29.51" height="376.99"/><rect class="cls-418" x="660.87" y="469.02" width="28.32" height="376.99"/><rect class="cls-419" x="664.19" y="469.02" width="27.13" height="376.99"/><rect class="cls-420" x="667.51" y="469.02" width="25.94" height="376.99"/><rect class="cls-421" x="670.83" y="469.02" width="24.76" height="376.99"/><rect class="cls-422" x="674.14" y="469.02" width="23.57" height="376.99"/><rect class="cls-423" x="677.46" y="469.02" width="22.38" height="376.99"/><rect class="cls-424" x="680.78" y="469.02" width="21.19" height="376.99"/><rect class="cls-425" x="684.1" y="469.02" width="20.01" height="376.99"/><rect class="cls-426" x="687.41" y="469.02" width="18.82" height="376.99"/><rect class="cls-427" x="690.73" y="469.02" width="17.63" height="376.99"/><rect class="cls-428" x="694.05" y="469.02" width="16.44" height="376.99"/><rect class="cls-429" x="697.37" y="469.02" width="15.26" height="376.99"/><rect class="cls-430" x="700.68" y="469.02" width="14.07" height="376.99"/><rect class="cls-431" x="704" y="469.02" width="12.88" height="376.99"/></g></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1032.7 1268.4" style="enable-background:new 0 0 1032.7 1268.4;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#353535;}
+	.st1{fill:none;stroke:#FFFFFF;stroke-width:3.31;stroke-miterlimit:10;}
+	.st2{fill:#F2CB6B;}
+	.st3{fill:none;stroke:#FFFFFF;stroke-width:1.99;stroke-miterlimit:10;}
+	.st4{fill:#161616;}
+	.st5{fill:#C1C1C1;}
+	.st6{fill:#D0AB3C;stroke:#FFFFFF;stroke-width:1.99;stroke-miterlimit:10;}
+	.st7{fill:#F0C581;}
+	.st8{fill:#C8A266;}
+	.st9{fill:#FFFFFF;}
+	.st10{fill:#F4CB70;}
+	.st11{fill:#C6C5C5;}
+	.st12{fill:#D0AB3C;stroke:#FFFFFF;stroke-width:1.32;stroke-miterlimit:10;}
+	.st13{fill:#F99F46;stroke:#EF973F;stroke-width:0.66;stroke-miterlimit:10;}
+	.st14{fill:#AAAAAA;}
+	.st15{fill:#9B9B9B;stroke:#FFFFFF;stroke-width:0.66;stroke-miterlimit:10;}
+	.st16{fill:#D2D3D3;}
+	.st17{fill:#030000;}
+	.st18{fill:#D9B13B;stroke:#FFFFFF;stroke-width:0.77;stroke-miterlimit:10;}
+	.st19{fill:#514F50;stroke:#494646;stroke-width:0.77;stroke-miterlimit:10;}
+	.st20{fill:none;stroke:#FFFFFF;stroke-width:0.77;stroke-miterlimit:10;}
+	.st21{fill:#C7C6C6;}
+	.st22{fill:#A6A6A6;}
+	.st23{fill:#BB8C27;}
+	.st24{fill:#FF4A5C;stroke:#681216;stroke-width:0.66;stroke-miterlimit:10;}
+	.st25{fill:#E2B838;stroke:#FFFFFF;stroke-width:1.99;stroke-miterlimit:10;}
+	.st26{fill:#848484;}
+	.st27{fill:#C2C2C2;}
+	.st28{fill:#454545;}
+	.st29{fill:#E1B737;}
+	.st30{fill:#666666;}
+	.st31{fill:#F4F4F4;}
+	.st32{fill:#515151;}
+	.st33{fill:#068306;}
+	.st34{fill:#06C106;}
+	.st35{fill:#B9B9B9;}
+	.st36{fill:#8D8D8D;}
+	.st37{fill:none;stroke:#EFEFEF;stroke-width:4;stroke-miterlimit:10;}
+	.st38{fill:#EFEFEF;}
+	.st39{fill:#C8C8C8;}
+	.st40{fill:#817C75;}
+	.st41{fill:#8B1313;}
+	.st42{fill:#F4902C;}
+	.st43{fill:none;stroke:#FFFFFF;stroke-width:6;stroke-miterlimit:10;}
+	.st44{fill:#9FA0A0;stroke:#E1B737;stroke-width:4;stroke-miterlimit:10;}
+	.st45{fill:#838383;}
+	.st46{fill:#BBBBBB;}
+	.st47{font-family:'Arial-BoldMT';}
+	.st48{font-size:36.16px;}
+	.st49{fill:#EAEAEA;}
+	.st50{fill:#191919;}
+	.st51{fill:#E8E8E8;}
+	.st52{fill:#757575;}
+	.st53{fill:#E5E5E5;}
+	.st54{font-size:11.59px;}
+	.st55{font-size:9.53px;}
+</style>
+<title>步进电机驱动模块</title>
+<g id="图层_2_1_">
+	<g id="图层_1-2">
+		<path id="_复合路径_" class="st0" d="M71.4,1268.4h803.5c39.4,0,71.4-32,71.4-71.4V71.7c0-39.5-32-71.4-71.4-71.4l-803.5,0
+			C32,0.3,0,32.2,0,71.7l0,1125.3C0,1236.4,32,1268.4,71.4,1268.4C71.4,1268.4,71.4,1268.4,71.4,1268.4z M48,1224.8
+			c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0C50.5,1218.3,50.5,1222.3,48,1224.8L48,1224.8z M39,1164.5
+			c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C36.6,1171,36.6,1167,39,1164.5L39,1164.5z M39,95.1
+			c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C37.1,101.8,37.6,97.9,39,95.1L39,95.1z M69.2,1237.3
+			c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0C75.6,1234.4,72.7,1237.3,69.2,1237.3z M69.2,1218.8
+			c-13.4,0-24.2-10.8-24.2-24.2s10.8-24.2,24.2-24.2s24.2,10.8,24.2,24.2c0,0,0,0,0,0C93.4,1208,82.6,1218.8,69.2,1218.8z
+			 M69.2,1152c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0C62.8,1154.9,65.7,1152,69.2,1152L69.2,1152z
+			 M62.8,110.3c0-3.5,2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4l0,0C65.7,116.6,62.8,113.8,62.8,110.3L62.8,110.3z
+			 M90.3,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C87.9,1171,87.9,1167,90.3,1164.5z M90.3,95.1
+			c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C87.9,101.7,87.9,97.6,90.3,95.1C90.3,95.1,90.3,95.1,90.3,95.1
+			L90.3,95.1z M99.3,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C101.8,1218.3,101.8,1222.3,99.3,1224.8L99.3,1224.8z M105.5,1201c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0
+			C111.8,1198.2,109,1201,105.5,1201L105.5,1201z M856,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9c2.5-2.5,6.5-2.5,9,0
+			c0,0,0,0,0,0C858.5,1218.3,858.5,1222.3,856,1224.8z M847,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0
+			c0,0,0,0,0,0C844.5,1171,844.5,1167,847,1164.5L847,1164.5z M847,95.1c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0
+			C844.5,101.6,844.5,97.6,847,95.1z M877.1,1237.3c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0
+			C883.5,1234.4,880.7,1237.3,877.1,1237.3z M877.1,1218.8c-13.4,0-24.2-10.8-24.2-24.2s10.8-24.2,24.2-24.2s24.2,10.8,24.2,24.2
+			c0,0,0,0,0,0C901.3,1208,890.5,1218.8,877.1,1218.8z M877.1,1152c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C870.8,1154.9,873.6,1152,877.1,1152L877.1,1152z M870.8,110.3c0-3.5,2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4
+			c0,0,0,0,0,0C873.6,116.6,870.8,113.8,870.8,110.3L870.8,110.3z M898.3,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9
+			s-6.5,2.5-9,0c0,0,0,0,0,0C895.8,1171,895.8,1167,898.3,1164.5z M898.3,95.1c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9
+			s-6.5,2.5-9,0c0,0,0,0,0,0C895.8,101.7,895.8,97.6,898.3,95.1C898.3,95.1,898.3,95.1,898.3,95.1L898.3,95.1z M907.3,1224.8
+			c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0C909.8,1218.3,909.8,1222.3,907.3,1224.8L907.3,1224.8z
+			 M913.4,1201c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4c3.5,0,6.4,2.9,6.4,6.4C919.8,1198.2,916.9,1201,913.4,1201L913.4,1201z
+			 M919.8,74c0,3.5-2.9,6.4-6.4,6.4S907,77.5,907,74s2.9-6.4,6.4-6.4l0,0C916.9,67.7,919.8,70.5,919.8,74L919.8,74z M898.3,43.9
+			c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9c-2.5,2.5-6.5,2.5-9,0c0,0,0,0,0,0C895.8,50.4,895.8,46.4,898.3,43.9
+			C898.3,43.9,898.3,43.8,898.3,43.9L898.3,43.9z M877.1,31.4c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C870.8,34.2,873.6,31.4,877.1,31.4z M877.1,49.8c13.4,0,24.2,10.8,24.2,24.2c0,13.4-10.8,24.2-24.2,24.2
+			C863.8,98.2,853,87.4,853,74C852.9,60.7,863.8,49.8,877.1,49.8C877.1,49.8,877.1,49.8,877.1,49.8L877.1,49.8z M847,43.8
+			c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C846.1,51,849.2,47.3,847,43.8L847,43.8z M840.9,67.6
+			c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0C834.5,70.5,837.4,67.6,840.9,67.6L840.9,67.6z M840.9,1188.3
+			c3.5,0,6.4,2.9,6.4,6.4c0,3.5-2.9,6.4-6.4,6.4c-3.5,0-6.4-2.9-6.4-6.4l0,0C834.5,1191.1,837.4,1188.3,840.9,1188.3L840.9,1188.3
+			L840.9,1188.3z M111.9,74c0,3.5-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4l0,0C109,67.6,111.8,70.5,111.9,74L111.9,74z
+			 M90.4,43.8c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C87.9,50.4,87.9,46.3,90.4,43.8
+			C90.3,43.8,90.3,43.8,90.4,43.8L90.4,43.8z M69.2,31.4c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C62.8,34.2,65.7,31.4,69.2,31.4z M69.2,49.8c13.4,0,24.2,10.8,24.2,24.2c0,13.4-10.8,24.2-24.2,24.2C55.8,98.2,45,87.4,45,74
+			C45,60.7,55.8,49.8,69.2,49.8C69.2,49.8,69.2,49.8,69.2,49.8L69.2,49.8z M39,43.8c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0
+			c0,0,0,0,0,0c-2.5-2.5-2.6-6.5-0.1-9C38.9,43.8,39,43.8,39,43.8L39,43.8z M32.9,67.6c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4
+			s-6.4-2.9-6.4-6.4l0,0C26.6,70.5,29.4,67.6,32.9,67.6z M32.9,1188.3c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C26.6,1191.1,29.4,1188.3,32.9,1188.3L32.9,1188.3L32.9,1188.3z"/>
+		<circle id="_路径_" class="st1" cx="877.1" cy="1194.7" r="48.2"/>
+		<path id="_复合路径_2" class="st2" d="M877.1,1243c26.7,0,48.4-21.7,48.4-48.4s-21.7-48.4-48.4-48.4s-48.4,21.7-48.4,48.4l0,0
+			C828.8,1221.3,850.4,1243,877.1,1243z M856,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C858.5,1218.3,858.5,1222.3,856,1224.8L856,1224.8z M877.1,1237.3c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0
+			C883.5,1234.4,880.7,1237.3,877.1,1237.3z M907.3,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C909.8,1218.3,909.8,1222.3,907.3,1224.8z M913.4,1188.3c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4c-3.5,0-6.4-2.9-6.4-6.4
+			S909.9,1188.3,913.4,1188.3L913.4,1188.3z M898.3,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9c-2.5,2.5-6.5,2.5-9,0
+			c0,0,0,0,0,0C895.8,1171,895.8,1167,898.3,1164.5L898.3,1164.5z M877.1,1152c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4
+			s-6.4-2.9-6.4-6.4l0,0C870.8,1154.9,873.6,1152,877.1,1152C877.1,1152,877.1,1152,877.1,1152L877.1,1152z M877.1,1170.5
+			c13.4,0,24.2,10.8,24.2,24.2s-10.8,24.2-24.2,24.2S853,1208,853,1194.7C853,1181.3,863.8,1170.5,877.1,1170.5L877.1,1170.5z
+			 M847,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0C844.5,1171,844.5,1167,847,1164.5L847,1164.5z
+			 M840.9,1188.3c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0C834.5,1191.1,837.4,1188.3,840.9,1188.3
+			L840.9,1188.3z"/>
+		<circle id="_路径_2" class="st1" cx="69.2" cy="1194.7" r="48.2"/>
+		<path id="_复合路径_3" class="st2" d="M69.2,1243c26.7,0,48.4-21.7,48.4-48.4s-21.7-48.4-48.4-48.4s-48.4,21.7-48.4,48.4l0,0
+			C20.9,1221.3,42.5,1243,69.2,1243z M48,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C50.5,1218.3,50.5,1222.3,48,1224.8L48,1224.8z M69.2,1237.3c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0
+			C75.6,1234.4,72.7,1237.3,69.2,1237.3z M99.3,1224.8c-2.5,2.5-6.5,2.5-9,0c-2.5-2.5-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C101.8,1218.3,101.8,1222.3,99.3,1224.8z M105.5,1188.3c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C99.1,1191.1,102,1188.3,105.5,1188.3z M90.3,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0
+			C87.9,1171,87.9,1167,90.3,1164.5z M69.2,1152c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C62.8,1154.9,65.7,1152,69.2,1152C69.2,1152,69.2,1152,69.2,1152z M69.2,1170.5c13.4,0,24.2,10.8,24.2,24.2s-10.8,24.2-24.2,24.2
+			S45,1208,45,1194.7l0,0C45,1181.3,55.9,1170.5,69.2,1170.5z M39,1164.5c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9s-6.5,2.5-9,0
+			c0,0,0,0,0,0C36.6,1171,36.6,1167,39,1164.5L39,1164.5z M32.9,1188.3c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4
+			l0,0C26.6,1191.1,29.4,1188.3,32.9,1188.3L32.9,1188.3z"/>
+		
+			<ellipse id="_路径_3" transform="matrix(0.9996 -2.937367e-02 2.937367e-02 0.9996 -1.7949 25.797)" class="st1" cx="877.1" cy="74" rx="48.2" ry="48.2"/>
+		<path id="_复合路径_4" class="st2" d="M877.1,122.4c26.7,0,48.4-21.7,48.4-48.4s-21.7-48.4-48.4-48.4
+			c-26.7,0-48.4,21.7-48.4,48.4l0,0C828.8,100.7,850.4,122.4,877.1,122.4z M856,104.2c-2.5,2.5-6.5,2.5-9,0s-2.5-6.5,0-9
+			s6.5-2.5,9,0c0,0,0,0,0,0C856.5,96.6,849.9,100.4,856,104.2L856,104.2z M877.1,116.7c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4
+			s6.4,2.9,6.4,6.4l0,0C883.5,113.8,880.7,116.6,877.1,116.7L877.1,116.7z M907.3,104.2c-2.5,2.5-6.5,2.5-9,0s-2.5-6.5,0-9
+			s6.5-2.5,9,0c0,0,0,0,0,0C907.6,96.2,896,100.2,907.3,104.2L907.3,104.2z M913.4,67.7c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4
+			S907,77.5,907,74l0,0C907,70.5,909.9,67.6,913.4,67.7C913.4,67.6,913.4,67.6,913.4,67.7L913.4,67.7z M898.3,43.9
+			c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9c-2.5,2.5-6.5,2.5-9,0c0,0,0,0,0,0C895.8,50.4,895.8,46.4,898.3,43.9
+			C898.3,43.9,898.3,43.8,898.3,43.9L898.3,43.9z M877.1,31.4c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C870.8,34.2,873.6,31.4,877.1,31.4z M877.1,49.8c13.4,0,24.2,10.8,24.2,24.2c0,13.4-10.8,24.2-24.2,24.2
+			C863.8,98.2,853,87.4,853,74C853,60.7,863.8,49.8,877.1,49.8L877.1,49.8z M847,43.8c2.5-2.5,6.5-2.5,9,0c2.5,2.5,2.5,6.5,0,9
+			s-6.5,2.5-9,0c0,0,0,0,0,0C846.1,51,849.2,47.3,847,43.8L847,43.8z M840.9,67.6c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4
+			s-6.4-2.9-6.4-6.4l0,0C834.5,70.5,837.4,67.6,840.9,67.6L840.9,67.6z"/>
+		<circle id="_路径_4" class="st1" cx="69.2" cy="74" r="48.2"/>
+		<path id="_复合路径_5" class="st2" d="M69.2,122.4c26.7,0,48.4-21.7,48.4-48.4S95.9,25.6,69.2,25.6S20.8,47.3,20.8,74l0,0
+			C20.9,100.7,42.5,122.4,69.2,122.4z M48,104.2c-2.5,2.5-6.5,2.5-9,0s-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0c2.7,2.3,3.3,6,1,8.6
+			C48.8,104,48.6,104.3,48,104.2L48,104.2z M69.2,116.7c-3.5,0-6.4-2.9-6.4-6.4s2.9-6.4,6.4-6.4s6.4,2.9,6.4,6.4l0,0
+			C75.6,113.8,72.7,116.6,69.2,116.7L69.2,116.7z M99.3,104.2c-2.5,2.5-6.5,2.5-9,0s-2.5-6.5,0-9s6.5-2.5,9,0c0,0,0,0,0,0
+			C101.8,97.7,101.8,101.7,99.3,104.2L99.3,104.2z M105.5,67.7c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0
+			C99.1,70.5,101.9,67.6,105.5,67.7C105.5,67.6,105.5,67.6,105.5,67.7L105.5,67.7z M90.3,43.9c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9
+			s-6.5,2.5-9,0c0,0,0,0,0,0C87.8,50.4,87.8,46.4,90.3,43.9C90.3,43.9,90.3,43.8,90.3,43.9L90.3,43.9z M69.2,31.4
+			c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0C62.8,34.2,65.7,31.4,69.2,31.4z M69.2,49.8
+			c13.4,0,24.2,10.8,24.2,24.2c0,13.4-10.8,24.2-24.2,24.2C55.8,98.2,45,87.4,45,74C45,60.7,55.8,49.8,69.2,49.8L69.2,49.8z
+			 M39,43.8c2.5-2.5,6.5-2.5,9,0s2.5,6.5,0,9s-6.5,2.5-9,0c0,0,0,0,0,0c-2.5-2.5-2.6-6.5-0.1-9C38.9,43.8,39,43.8,39,43.8L39,43.8z
+			 M32.9,67.6c3.5,0,6.4,2.9,6.4,6.4s-2.9,6.4-6.4,6.4s-6.4-2.9-6.4-6.4l0,0C26.6,70.5,29.4,67.6,32.9,67.6z"/>
+		<path id="_矩形_" class="st3" d="M467.6,306.4v-31l10.8-10.8h84.4l10.8,10.8v31l-10.8,10.8h-84.4L467.6,306.4z"/>
+		<path id="_矩形_2" class="st4" d="M520.6,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L520.6,306.7z"/>
+		<rect id="_矩形_3" x="539.5" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_4" class="st4" d="M469.1,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L469.1,306.7z"/>
+		<rect id="_矩形_5" x="488.1" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_6" class="st3" d="M572.6,306.4v-31l10.8-10.8h84.4l10.8,10.8v31l-10.8,10.8h-84.4L572.6,306.4z"/>
+		<path id="_矩形_7" class="st4" d="M625.6,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L625.6,306.7z"/>
+		<rect id="_矩形_8" x="644.6" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_9" class="st4" d="M574.2,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L574.2,306.7z"/>
+		<rect id="_矩形_10" x="593.1" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_11" class="st3" d="M198.2,306.4v-31l10.8-10.8h84.4l10.8,10.8v31l-10.8,10.8H209L198.2,306.4z"/>
+		<path id="_矩形_12" class="st4" d="M251.2,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L251.2,306.7z"/>
+		<rect id="_矩形_13" x="270.2" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_14" class="st4" d="M199.8,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L199.8,306.7z"/>
+		<rect id="_矩形_15" x="218.7" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_16" class="st3" d="M303.3,306.4v-31l10.8-10.8h84.4l10.8,10.8v31l-10.8,10.8h-84.4L303.3,306.4z"/>
+		<path id="_矩形_17" class="st4" d="M356.3,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L356.3,306.7z"/>
+		<rect id="_矩形_18" x="375.2" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<path id="_矩形_19" class="st4" d="M304.8,306.7v-31.6l9.9-9.9h31.6l9.9,9.9v31.6l-9.9,9.9h-31.6L304.8,306.7z"/>
+		<rect id="_矩形_20" x="323.8" y="284.1" class="st5" width="13.6" height="13.6"/>
+		<g id="_编组_">
+			<g id="_编组_2">
+				<rect id="_矩形_21" x="713.6" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_22" class="st7" d="M722.8,166.1L722.8,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C727.9,163.8,725.7,166.1,722.8,166.1z"/>
+			</g>
+			<rect id="_矩形_23" x="717.7" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_3">
+			<g id="_编组_4">
+				<rect id="_矩形_24" x="676" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_25" class="st7" d="M685.2,166.1L685.2,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C690.4,163.8,688.1,166.1,685.2,166.1z"/>
+			</g>
+			<rect id="_矩形_26" x="680.1" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_5">
+			<g id="_编组_6">
+				<rect id="_矩形_27" x="638.4" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_28" class="st7" d="M647.6,166.1L647.6,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C652.8,163.8,650.5,166.1,647.6,166.1z"/>
+			</g>
+			<rect id="_矩形_29" x="642.5" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_7">
+			<g id="_编组_8">
+				<rect id="_矩形_30" x="600.8" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_31" class="st7" d="M610,166.1L610,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C615.2,163.8,612.9,166.1,610,166.1z"/>
+			</g>
+			<rect id="_矩形_32" x="604.9" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_9">
+			<g id="_编组_10">
+				<rect id="_矩形_33" x="563.2" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_34" class="st7" d="M572.5,166.1L572.5,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C577.6,163.8,575.3,166.1,572.5,166.1z"/>
+			</g>
+			<rect id="_矩形_35" x="567.3" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_11">
+			<g id="_编组_12">
+				<rect id="_矩形_36" x="525.6" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_37" class="st7" d="M534.9,166.1L534.9,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C540,163.8,537.7,166.1,534.9,166.1z"/>
+			</g>
+			<rect id="_矩形_38" x="529.7" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<rect id="_矩形_39" x="476.1" y="4.1" class="st9" width="305.6" height="114.3"/>
+		<rect id="_矩形_40" x="717.7" y="25.5" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_41" x="529.7" y="25.5" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_42" x="763.1" y="118.3" class="st11" width="18.5" height="32.4"/>
+		<rect id="_矩形_43" x="476.1" y="118.3" class="st11" width="18.5" height="32.4"/>
+		<path id="_矩形_44" class="st11" d="M749.7,4.1H508c-1.1,0-2-0.9-2-2v0c0-1.1,0.9-2,2-2l241.7,0c1.1,0,2,0.9,2,2v0
+			C751.7,3.2,750.8,4.1,749.7,4.1z"/>
+		<g id="_编组_13">
+			<g id="_编组_14">
+				<rect id="_矩形_45" x="395.1" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_46" class="st7" d="M404.3,166.1L404.3,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C409.5,163.8,407.2,166.1,404.3,166.1z"/>
+			</g>
+			<rect id="_矩形_47" x="399.2" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_15">
+			<g id="_编组_16">
+				<rect id="_矩形_48" x="357.5" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_49" class="st7" d="M366.7,166.1L366.7,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C371.9,163.8,369.6,166.1,366.7,166.1z"/>
+			</g>
+			<rect id="_矩形_50" x="361.6" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_17">
+			<g id="_编组_18">
+				<rect id="_矩形_51" x="319.9" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_52" class="st7" d="M329.2,166.1L329.2,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C334.3,163.8,332,166.1,329.2,166.1z"/>
+			</g>
+			<rect id="_矩形_53" x="324" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_19">
+			<g id="_编组_20">
+				<rect id="_矩形_54" x="282.3" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_55" class="st7" d="M291.6,166.1L291.6,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C296.7,163.8,294.4,166.1,291.6,166.1z"/>
+			</g>
+			<rect id="_矩形_56" x="286.4" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_21">
+			<g id="_编组_22">
+				<rect id="_矩形_57" x="244.7" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_58" class="st7" d="M254,166.1L254,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C259.1,163.8,256.8,166.1,254,166.1z"/>
+			</g>
+			<rect id="_矩形_59" x="248.8" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_23">
+			<g id="_编组_24">
+				<rect id="_矩形_60" x="207.1" y="114.7" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_61" class="st7" d="M216.4,166.1L216.4,166.1c-2.8,0-5.1-2.3-5.1-5.1v-42.7c0-2.8,2.3-5.1,5.1-5.1l0,0
+					c2.8,0,5.1,2.3,5.1,5.1V161C221.5,163.8,219.2,166.1,216.4,166.1z"/>
+			</g>
+			<rect id="_矩形_62" x="211.3" y="136.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<rect id="_矩形_63" x="157.6" y="4.1" class="st9" width="305.6" height="114.3"/>
+		<rect id="_矩形_64" x="399.2" y="25.5" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_65" x="211.3" y="25.5" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_66" x="444.6" y="118.3" class="st11" width="18.5" height="32.4"/>
+		<rect id="_矩形_67" x="157.6" y="118.3" class="st11" width="18.5" height="32.4"/>
+		<path id="_矩形_68" class="st11" d="M431.2,4.1H189.5c-1.1,0-2-0.9-2-2v0c0-1.1,0.9-2,2-2l241.7,0c1.1,0,2,0.9,2,2v0
+			C433.2,3.2,432.3,4.1,431.2,4.1z"/>
+		<g id="_编组_25">
+			<g id="_编组_26">
+				<rect id="_矩形_69" x="369.9" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_70" class="st7" d="M379.2,1102.3L379.2,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C374.1,1104.6,376.4,1102.3,379.2,1102.3z"/>
+			</g>
+			<rect id="_矩形_71" x="374.1" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_27">
+			<g id="_编组_28">
+				<rect id="_矩形_72" x="407.5" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_73" class="st7" d="M416.8,1102.3L416.8,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C411.7,1104.6,414,1102.3,416.8,1102.3z"/>
+			</g>
+			<rect id="_矩形_74" x="411.7" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_29">
+			<g id="_编组_30">
+				<rect id="_矩形_75" x="445.1" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_76" class="st7" d="M454.4,1102.3L454.4,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C449.2,1104.6,451.5,1102.3,454.4,1102.3z"/>
+			</g>
+			<rect id="_矩形_77" x="449.2" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_31">
+			<g id="_编组_32">
+				<rect id="_矩形_78" x="482.7" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_79" class="st7" d="M492,1102.3L492,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C486.8,1104.6,489.1,1102.3,492,1102.3z"/>
+			</g>
+			<rect id="_矩形_80" x="486.8" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_33">
+			<g id="_编组_34">
+				<rect id="_矩形_81" x="520.3" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_82" class="st7" d="M529.6,1102.3L529.6,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C524.4,1104.6,526.7,1102.3,529.6,1102.3z"/>
+			</g>
+			<rect id="_矩形_83" x="524.4" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<g id="_编组_35">
+			<g id="_编组_36">
+				<rect id="_矩形_84" x="557.9" y="1097.3" class="st6" width="18.5" height="56.5"/>
+				<path id="_矩形_85" class="st7" d="M567.1,1102.3L567.1,1102.3c2.8,0,5.1,2.3,5.1,5.1v42.7c0,2.8-2.3,5.1-5.1,5.1l0,0
+					c-2.8,0-5.1-2.3-5.1-5.1v-42.7C562,1104.6,564.3,1102.3,567.1,1102.3z"/>
+			</g>
+			<rect id="_矩形_86" x="562" y="1125.3" class="st8" width="10.3" height="6.8"/>
+		</g>
+		<rect id="_矩形_87" x="320.4" y="1150" class="st9" width="305.6" height="114.3"/>
+		<rect id="_矩形_88" x="374.1" y="1171.4" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_89" x="562" y="1171.4" class="st10" width="10.3" height="71.5"/>
+		<rect id="_矩形_90" x="320.4" y="1117.6" class="st11" width="18.5" height="32.4"/>
+		<rect id="_矩形_91" x="607.4" y="1117.6" class="st11" width="18.5" height="32.4"/>
+		<path id="_矩形_92" class="st11" d="M352.3,1264.3H594c1.1,0,2,0.9,2,2l0,0c0,1.1-0.9,2-2,2H352.3c-1.1,0-2-0.9-2-2l0,0
+			C350.3,1265.2,351.2,1264.3,352.3,1264.3z"/>
+		<rect id="_矩形_93" x="611.4" y="612.8" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_94" x="584.5" y="612.8" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_95" x="595" y="614.8" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_96" x="591.8" y="614.1" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_97" x="612.9" y="614.1" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_98" x="627" y="380.5" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_99" x="600.1" y="380.5" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_100" x="610.6" y="382.6" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_101" x="607.4" y="381.8" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_102" x="628.5" y="381.8" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_103" x="611.4" y="656.1" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_104" x="584.5" y="656.2" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_105" x="595" y="658.2" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_106" x="591.8" y="657.4" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_107" x="612.9" y="657.4" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_108" x="495.3" y="649.8" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_109" x="495.3" y="622.9" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_110" x="497.3" y="633.5" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_111" x="496.6" y="630.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_112" x="496.6" y="651.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_113" x="460.6" y="649.8" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_114" x="460.6" y="622.9" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_115" x="462.6" y="633.5" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_116" x="462" y="630.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_117" x="462" y="651.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_118" x="272" y="612.8" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_119" x="245.1" y="612.8" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_120" x="255.7" y="614.8" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_121" x="252.5" y="614.1" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_122" x="273.5" y="614.1" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_123" x="272" y="656.1" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_124" x="245.1" y="656.1" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_125" x="255.7" y="658.2" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_126" x="252.5" y="657.4" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_127" x="273.5" y="657.4" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_128" x="155.9" y="649.8" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_129" x="155.9" y="622.9" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_130" x="157.9" y="633.5" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_131" x="157.3" y="630.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_132" x="157.3" y="651.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_133" x="121.2" y="649.8" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_134" x="121.2" y="622.9" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_135" x="123.3" y="633.5" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_136" x="122.6" y="630.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_137" x="122.6" y="651.3" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_138" x="836.7" y="275.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_139" x="844.2" y="275.8" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_5" class="st17" points="868.6,275.8 849.4,275.8 849.4,292.4 868.6,292.4 868.6,289 867.9,289 867.9,278.6 
+			868.6,278.6 		"/>
+		<rect id="_矩形_140" x="779.3" y="275.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_141" x="786.9" y="275.8" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_6" class="st17" points="811.3,275.8 792.1,275.8 792.1,292.4 811.3,292.4 811.3,289 810.6,289 810.6,278.6 
+			811.3,278.6 		"/>
+		<rect id="_矩形_142" x="529.7" y="380.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_143" x="537.3" y="380.9" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_7" class="st17" points="561.7,380.9 542.5,380.9 542.5,397.5 561.7,397.5 561.7,394.1 561,394.1 561,383.7 
+			561.7,383.7 		"/>
+		<rect id="_矩形_144" x="460.9" y="380.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_145" x="468.5" y="380.8" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_8" class="st17" points="492.9,380.9 473.7,380.9 473.7,397.5 492.9,397.5 492.9,394.1 492.2,394.1 
+			492.2,383.7 492.9,383.7 		"/>
+		<rect id="_矩形_146" x="279.8" y="380.5" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_147" x="252.9" y="380.6" class="st12" width="13.5" height="17.3"/>
+		<rect id="_矩形_148" x="263.5" y="382.6" class="st13" width="19.5" height="13.2"/>
+		<rect id="_矩形_149" x="260.3" y="381.8" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_150" x="281.3" y="381.8" class="st14" width="4.7" height="14.7"/>
+		<rect id="_矩形_151" x="182.6" y="380.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_152" x="190.1" y="380.9" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_9" class="st17" points="214.5,380.9 195.3,380.9 195.3,397.5 214.5,397.5 214.5,394.1 213.8,394.1 
+			213.8,383.7 214.5,383.7 		"/>
+		<rect id="_矩形_153" x="113.8" y="380.5" class="st15" width="43.6" height="17.3"/>
+		<rect id="_矩形_154" x="121.3" y="380.8" class="st16" width="29.8" height="16.7"/>
+		<polygon id="_路径_10" class="st17" points="145.7,380.9 126.6,380.9 126.6,397.5 145.7,397.5 145.7,394.1 145,394.1 145,383.7 
+			145.7,383.7 		"/>
+		<rect id="_矩形_155" x="254.6" y="952.2" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_156" x="254.6" y="925.3" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_157" x="256.7" y="935.8" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_158" x="256" y="932.6" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_159" x="256" y="953.7" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_160" x="360.2" y="952.2" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_161" x="360.2" y="925.3" class="st12" width="17.3" height="13.5"/>
+		<rect id="_矩形_162" x="362.2" y="935.8" class="st13" width="13.2" height="19.5"/>
+		<rect id="_矩形_163" x="361.5" y="932.6" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_164" x="361.5" y="953.7" class="st14" width="14.7" height="4.7"/>
+		<rect id="_矩形_165" x="291.8" y="911" class="st18" width="13" height="24.5"/>
+		<rect id="_矩形_166" x="324.4" y="911" class="st18" width="13" height="24.5"/>
+		<rect id="_矩形_167" x="308.1" y="955.5" class="st18" width="13" height="24.5"/>
+		<rect id="_矩形_168" x="283.2" y="931.5" class="st19" width="62.9" height="28.7"/>
+		<polyline id="_路径_11" class="st20" points="282.4,946.7 282.4,961 291.7,961 		"/>
+		<polyline id="_路径_12" class="st20" points="346.7,946.7 346.7,961 337.4,961 		"/>
+		<rect id="_矩形_169" x="293.1" y="920" class="st21" width="10.5" height="11.5"/>
+		<rect id="_矩形_170" x="325.7" y="920" class="st21" width="10.5" height="11.5"/>
+		<rect id="_矩形_171" x="309.4" y="960.2" class="st21" width="10.5" height="11.5"/>
+		<rect id="_矩形_172" x="293.1" y="927.7" class="st22" width="10.5" height="1.2"/>
+		<rect id="_矩形_173" x="325.7" y="927.7" class="st22" width="10.5" height="1.2"/>
+		<rect id="_矩形_174" x="309.4" y="962.6" class="st22" width="10.5" height="1.2"/>
+		<rect id="_矩形_175" x="180.5" y="894.3" class="st15" width="17.3" height="43.6"/>
+		<rect id="_矩形_176" x="180.8" y="901.9" class="st16" width="16.7" height="29.8"/>
+		<polygon id="_路径_13" class="st17" points="197.5,926.3 197.5,907.1 180.9,907.1 180.9,926.3 184.3,926.3 184.3,925.6 
+			194.7,925.6 194.7,926.3 		"/>
+		<rect id="_矩形_177" x="147.2" y="894.3" class="st15" width="17.3" height="43.6"/>
+		<rect id="_矩形_178" x="147.6" y="901.9" class="st16" width="16.7" height="29.8"/>
+		<polygon id="_路径_14" class="st17" points="164.2,926.3 164.2,907.1 147.6,907.1 147.6,926.3 151,926.3 151,925.6 161.4,925.6 
+			161.4,926.3 		"/>
+		<rect id="_矩形_179" x="180.5" y="983.3" class="st15" width="17.3" height="13.5"/>
+		<rect id="_矩形_180" x="180.5" y="956.3" class="st15" width="17.3" height="13.5"/>
+		<path id="_路径_15" class="st23" d="M184.5,992.1c0-2.6,2.1-4.7,4.7-4.7c2.6,0,4.7,2.1,4.7,4.7h2.8v-8.9h-14.9v8.9H184.5z"/>
+		<path id="_路径_16" class="st23" d="M193.8,961c0,2.6-2.1,4.7-4.7,4.7c-2.6,0-4.7-2.1-4.7-4.7l0,0h-2.8v8.8h14.9V961H193.8z"/>
+		<rect id="_矩形_181" x="182.5" y="966.9" class="st24" width="13.2" height="19.5"/>
+		<rect id="_矩形_182" x="147.2" y="983.3" class="st15" width="17.3" height="13.5"/>
+		<rect id="_矩形_183" x="147.2" y="956.3" class="st15" width="17.3" height="13.5"/>
+		<path id="_路径_17" class="st23" d="M151.2,992.1c0-2.6,2.1-4.7,4.7-4.7c2.6,0,4.7,2.1,4.7,4.7h2.8v-8.9h-14.9v8.9H151.2z"/>
+		<path id="_路径_18" class="st23" d="M160.6,961c0,2.6-2.1,4.7-4.7,4.7c-2.6,0-4.7-2.1-4.7-4.7l0,0h-2.8v8.8h14.9V961H160.6z"/>
+		<rect id="_矩形_184" x="149.3" y="966.9" class="st24" width="13.2" height="19.5"/>
+		<rect id="_矩形_185" x="479.7" y="855.7" class="st25" width="32.8" height="189.9"/>
+		<polygon id="_路径_19" class="st26" points="430.1,1016.4 562.4,1016.4 562.4,905 542.4,884.9 449.9,884.9 429.6,905.2 		"/>
+		<circle id="_路径_20" class="st27" cx="496" cy="950.6" r="64.2"/>
+		<path id="_路径_21" class="st28" d="M432.5,959.9c5.2,35.1,37.9,59.3,73,54c27.9-4.2,49.9-26.1,54-54L432.5,959.9z"/>
+		<polygon class="st28" points="512.4,921.2 499.3,921.2 495.4,921.2 479.7,921.2 475.8,921.2 475.8,925 475.8,944 479.7,944 
+			479.7,925 495.4,925 495.4,944 499.3,944 499.3,925 512.4,925 512.4,944 516.3,944 516.3,925 516.3,921.2 		"/>
+		<rect x="729.9" y="690.4" class="st29" width="30.8" height="44.5"/>
+		<polygon class="st30" points="745.4,587.4 745.4,639.8 735.4,639.8 735.4,701 787.4,701 787.4,722.7 926,722.7 926,587.4 		"/>
+		<rect x="750.4" y="559.2" class="st29" width="30.8" height="28.2"/>
+		<rect x="846.1" y="559.2" class="st29" width="40.3" height="28.2"/>
+		<rect x="846.1" y="722.7" class="st29" width="40.3" height="30.3"/>
+		<polygon class="st31" points="805.6,587.4 805.6,606.6 766.6,606.6 766.6,700.4 805.6,700.4 805.6,722.7 883.6,722.7 883.6,698.3 
+			842.3,698.3 842.3,688.2 925.6,688.2 925.6,651.3 842,651.3 842,639.8 884,639.8 884,587.4 		"/>
+		<rect x="925.6" y="619.2" class="st32" width="33" height="100.5"/>
+		<path class="st9" d="M875.3,563.4c-1.6,6.8-5,11.5-9,11.5s-7.4-4.7-9-11.5h-6.8v24.5h31.6v-24.5H875.3z"/>
+		<path class="st9" d="M773.6,569c-1.2,5.2-3.9,8.8-7,8.8s-5.7-3.6-7-8.8h-5.2v18.9h24.5V569H773.6z"/>
+		<path class="st9" d="M858.3,747.2c1.6-6.8,5-11.5,9-11.5s7.4,4.7,9,11.5h6.8v-24.5h-31.7v24.5H858.3z"/>
+		<rect x="617" y="893.2" class="st29" width="37.3" height="124.9"/>
+		<rect x="601.6" y="909.8" class="st27" width="66.6" height="91.7"/>
+		<rect x="601.6" y="919" class="st33" width="66.6" height="53.1"/>
+		<rect x="601.6" y="972.1" class="st34" width="66.6" height="8.5"/>
+		<rect x="454.3" y="410.7" class="st9" width="199.5" height="189.5"/>
+		<rect x="631.2" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="587" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="542.8" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="498.6" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="454.3" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="107.4" y="410.7" class="st9" width="199.5" height="189.5"/>
+		<rect x="284.2" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="240" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="195.8" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="151.6" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="107.4" y="410.7" class="st35" width="22.5" height="189.5"/>
+		<rect x="672" y="736.5" class="st36" width="12" height="12"/>
+		<rect x="672" y="686.1" class="st36" width="12" height="12"/>
+		<rect x="672" y="635.6" class="st36" width="12" height="12"/>
+		<rect x="672" y="585.1" class="st36" width="12" height="12"/>
+		<rect x="672" y="534.6" class="st36" width="12" height="12"/>
+		<rect x="672" y="484.2" class="st36" width="12" height="12"/>
+		<rect x="672" y="433.7" class="st36" width="12" height="12"/>
+		<rect x="672" y="383.2" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="736.5" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="686.1" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="635.6" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="585.1" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="534.6" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="484.2" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="433.7" class="st36" width="12" height="12"/>
+		<rect x="419.4" y="383.2" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="736.5" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="686.1" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="635.6" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="585.1" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="534.6" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="484.2" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="433.7" class="st36" width="12" height="12"/>
+		<rect x="327.9" y="383.2" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="736.5" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="686.1" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="635.6" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="585.1" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="534.6" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="484.2" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="433.7" class="st36" width="12" height="12"/>
+		<rect x="74.4" y="383.2" class="st36" width="12" height="12"/>
+		<path class="st37" d="M668.1,1163.8H726l12,12v57.9l-12,12h-57.9l-12-12v-57.9L668.1,1163.8z"/>
+		<circle class="st37" cx="697" cy="1204.7" r="21"/>
+		<circle class="st37" cx="697" cy="1204.7" r="7.3"/>
+		<circle class="st38" cx="724.1" cy="1231.8" r="3.5"/>
+		<circle class="st38" cx="670" cy="1231.8" r="3.5"/>
+		<circle class="st38" cx="724.1" cy="1177.7" r="3.5"/>
+		<circle class="st38" cx="670" cy="1177.7" r="3.5"/>
+		<rect x="583.1" y="710" class="st39" width="44.7" height="47.3"/>
+		<circle class="st40" cx="605.4" cy="729" r="14.8"/>
+		<circle class="st41" cx="605.4" cy="729" r="4.7"/>
+		<rect x="611" y="710" class="st40" width="5.8" height="9.8"/>
+		<rect x="594" y="710" class="st40" width="5.8" height="9.8"/>
+		<rect x="543.6" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="543.6" y="713.8" class="st28" width="25.7" height="32.2"/>
+		<rect x="464.9" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="464.9" y="713.8" class="st42" width="25.7" height="32.2"/>
+		<rect x="504.2" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="504.2" y="713.8" class="st28" width="25.7" height="32.2"/>
+		<rect x="232.5" y="710" class="st39" width="44.7" height="47.3"/>
+		<circle class="st40" cx="254.9" cy="729" r="14.8"/>
+		<circle class="st41" cx="254.9" cy="729" r="4.7"/>
+		<rect x="260.4" y="710" class="st40" width="5.8" height="9.8"/>
+		<rect x="243.5" y="710" class="st40" width="5.8" height="9.8"/>
+		<rect x="193.1" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="193.1" y="713.8" class="st28" width="25.7" height="32.2"/>
+		<rect x="114.4" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="114.4" y="713.8" class="st42" width="25.7" height="32.2"/>
+		<rect x="153.7" y="709.1" class="st27" width="25.7" height="41.5"/>
+		<rect x="153.7" y="713.8" class="st28" width="25.7" height="32.2"/>
+		
+			<ellipse transform="matrix(0.1602 -0.9871 0.9871 0.1602 -277.9935 1560.6578)" class="st9" cx="778.2" cy="943.7" rx="9" ry="9"/>
+		<line class="st43" x1="778.2" y1="869.9" x2="778.2" y2="915.6"/>
+		<polygon class="st9" points="771.4,874.5 778.2,849.2 785,874.5 		"/>
+		<line class="st43" x1="778.2" y1="1017.5" x2="778.2" y2="971.8"/>
+		<polygon class="st9" points="785,1012.9 778.2,1038.2 771.4,1012.9 		"/>
+		<path class="st9" d="M746.4,986c0.1,5.4-4.3,9.9-9.7,10c-5.4,0.1-9.9-4.3-10-9.7s4.3-9.9,9.7-10c0,0,0.1,0,0.1,0
+			c5.3-0.1,9.7,4,9.8,9.3C746.4,985.8,746.4,985.9,746.4,986z M730.9,986c0.2,3.1,2.8,5.6,6,5.4c3.1-0.2,5.6-2.8,5.4-6
+			c-0.2-3-2.7-5.4-5.7-5.4c-3.2,0-5.7,2.6-5.7,5.8C730.9,985.9,730.9,986,730.9,986z"/>
+		<path class="st9" d="M716.7,984.2c1.2,1.6,2.4,3.2,3.5,4.9h0c0-1.8,0-3.6,0-5.4v-7h4v18.8h-3.9l-5.6-7.6c-1.2-1.6-2.4-3.2-3.5-4.9
+			h0c0,1.8,0,3.6,0,5.4v7h-4v-18.8h3.9L716.7,984.2z"/>
+		<path class="st9" d="M746.4,895.5c0.1,5.4-4.3,9.9-9.7,10c-5.4,0.1-9.9-4.3-10-9.7s4.3-9.9,9.7-10c0,0,0.1,0,0.1,0
+			c5.3-0.1,9.7,4,9.8,9.3C746.4,895.3,746.4,895.4,746.4,895.5z M730.9,895.5c0.2,3.1,2.8,5.6,6,5.4c3.1-0.2,5.6-2.8,5.4-6
+			c-0.2-3-2.7-5.4-5.7-5.4c-3.2,0-5.7,2.6-5.7,5.8C730.9,895.4,730.9,895.5,730.9,895.5z"/>
+		<path class="st9" d="M724.2,905h-11.9v-3.6h7.8v-4.1h-6.7v-3.4h6.7v-7.7h4.1V905z"/>
+		<path class="st9" d="M709.5,905h-11.9v-3.6h7.8v-4.1h-6.7v-3.4h6.7v-7.7h4.1V905z"/>
+		<path class="st44" d="M727.9,838.4h15c6.6,0,12,5.4,12,12v3.3c0,6.6-5.4,12-12,12h-15c-6.6,0-12-5.4-12-12v-3.3
+			C715.9,843.7,721.2,838.4,727.9,838.4z"/>
+		<path class="st44" d="M727.9,933h15c6.6,0,12,5.4,12,12v3.3c0,6.6-5.4,12-12,12h-15c-6.6,0-12-5.4-12-12V945
+			C715.9,938.4,721.2,933,727.9,933z"/>
+		<path class="st44" d="M727.9,1027.7h15c6.6,0,12,5.4,12,12v3.3c0,6.6-5.4,12-12,12h-15c-6.6,0-12-5.4-12-12v-3.3
+			C715.9,1033.1,721.2,1027.7,727.9,1027.7z"/>
+		<rect x="812.2" y="815.4" class="st45" width="129.5" height="262.5"/>
+		<rect x="885.5" y="815.4" class="st9" width="56.7" height="262.5"/>
+		<path class="st45" d="M876.8,940.6h29.8c3.4,0,6.1,2.7,6.1,6.1v0c0,3.4-2.7,6.1-6.1,6.1h-29.8c-3.4,0-6.1-2.7-6.1-6.1v0
+			C870.7,943.3,873.4,940.6,876.8,940.6z"/>
+		<path class="st45" d="M901.9,833.5H918c3.7,0,6.7,3,6.7,6.7v78c0,3.7-3,6.7-6.7,6.7h-16.1c-3.7,0-6.7-3-6.7-6.7v-78
+			C895.2,836.5,898.2,833.5,901.9,833.5z"/>
+		<path class="st45" d="M901.9,968.5H918c3.7,0,6.7,3,6.7,6.7v78c0,3.7-3,6.7-6.7,6.7h-16.1c-3.7,0-6.7-3-6.7-6.7v-78
+			C895.2,971.4,898.2,968.5,901.9,968.5z"/>
+		<rect x="942.2" y="907.2" class="st45" width="90.5" height="79"/>
+		<rect x="730.5" y="849" class="st46" width="83.3" height="6"/>
+		<rect x="730.5" y="943.7" class="st46" width="83.3" height="6"/>
+		<rect x="730.5" y="1038.4" class="st46" width="83.3" height="6"/>
+		<text transform="matrix(-1 0 0 -1 651.3799 196.1602)" class="st9 st47 st48">M2</text>
+		<text transform="matrix(-1 0 0 -1 337.3604 196.3701)" class="st9 st47 st48">M1</text>
+		<path class="st29" d="M852,507.8h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,504,856.7,507.8,852,507.8z"/>
+		<path class="st29" d="M852,482.2h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,478.4,856.7,482.2,852,482.2z"/>
+		<path class="st29" d="M852,456.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,452.7,856.7,456.5,852,456.5z"/>
+		<rect x="757" y="443.3" class="st49" width="22.5" height="9.8"/>
+		<rect x="757" y="468.7" class="st49" width="22.5" height="9.8"/>
+		<rect x="757" y="494.2" class="st49" width="22.5" height="9.8"/>
+		<path class="st29" d="M797.4,439.4H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,443.2,792.7,439.4,797.4,439.4z"/>
+		<path class="st29" d="M797.4,465.1H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,468.9,792.7,465.1,797.4,465.1z"/>
+		<path class="st29" d="M797.4,490.8H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,494.6,792.7,490.8,797.4,490.8z"/>
+		<rect x="869.9" y="494.1" class="st49" width="22.5" height="9.8"/>
+		<rect x="869.9" y="468.7" class="st49" width="22.5" height="9.8"/>
+		<rect x="869.9" y="443.3" class="st49" width="22.5" height="9.8"/>
+		<rect x="779.5" y="439.5" class="st50" width="90.3" height="70.3"/>
+		<rect x="805.8" y="491.9" class="st51" width="30.7" height="12.9"/>
+		<rect x="805.8" y="466.7" class="st51" width="30.7" height="12.9"/>
+		<rect x="805.8" y="441.6" class="st51" width="30.7" height="12.9"/>
+		<rect x="806" y="492.1" class="st52" width="11.6" height="12.4"/>
+		<rect x="806" y="466.9" class="st52" width="11.6" height="12.4"/>
+		<rect x="806" y="441.8" class="st52" width="11.6" height="12.4"/>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 445.6798)" class="st53 st47 st54">1</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 855.6309 443.3204)" class="st51 st47 st55">ON</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 855.6309 493.4103)" class="st51 st47 st55">KE</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 470.0099)" class="st53 st47 st54">2</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 495.3497)" class="st53 st47 st54">3</text>
+		<path class="st29" d="M852,402.9h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,399.1,856.7,402.9,852,402.9z"/>
+		<path class="st29" d="M852,377.3h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,373.5,856.7,377.3,852,377.3z"/>
+		<path class="st29" d="M852,351.6h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0c0-4.7,3.8-8.5,8.5-8.5H852c4.7,0,8.5,3.8,8.5,8.5l0,0
+			C860.5,347.8,856.7,351.6,852,351.6z"/>
+		<rect x="757" y="338.4" class="st49" width="22.5" height="9.8"/>
+		<rect x="757" y="363.9" class="st49" width="22.5" height="9.8"/>
+		<rect x="757" y="389.3" class="st49" width="22.5" height="9.8"/>
+		<path class="st29" d="M797.4,334.5H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,338.4,792.7,334.5,797.4,334.5z"/>
+		<path class="st29" d="M797.4,360.2H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,364,792.7,360.2,797.4,360.2z"/>
+		<path class="st29" d="M797.4,385.9H897c4.7,0,8.5,3.8,8.5,8.5l0,0c0,4.7-3.8,8.5-8.5,8.5h-99.6c-4.7,0-8.5-3.8-8.5-8.5l0,0
+			C788.9,389.7,792.7,385.9,797.4,385.9z"/>
+		<rect x="869.9" y="389.2" class="st49" width="22.5" height="9.8"/>
+		<rect x="869.9" y="363.8" class="st49" width="22.5" height="9.8"/>
+		<rect x="869.9" y="338.4" class="st49" width="22.5" height="9.8"/>
+		<rect x="779.5" y="334.6" class="st50" width="90.3" height="70.3"/>
+		<rect x="805.8" y="387" class="st51" width="30.7" height="12.9"/>
+		<rect x="805.8" y="361.8" class="st51" width="30.7" height="12.9"/>
+		<rect x="805.8" y="336.7" class="st51" width="30.7" height="12.9"/>
+		<rect x="806" y="387.2" class="st52" width="11.6" height="12.4"/>
+		<rect x="806" y="362" class="st52" width="11.6" height="12.4"/>
+		<rect x="806" y="336.9" class="st52" width="11.6" height="12.4"/>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 340.7999)" class="st53 st47 st54">1</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 855.6309 338.4396)" class="st51 st47 st55">ON</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 855.6309 388.5197)" class="st51 st47 st55">KE</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 365.13)" class="st53 st47 st54">2</text>
+		<text transform="matrix(-8.979324e-11 1 -1 -8.979324e-11 783.6797 390.4601)" class="st53 st47 st54">3</text>
+	</g>
+</g>
+</svg>

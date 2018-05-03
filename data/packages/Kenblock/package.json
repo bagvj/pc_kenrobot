@@ -5305,7 +5305,7 @@
 					"content": [{
 						"id": "VALUE",
 						"type": "number-input",
-						"value": "1000"
+						"value": "90"
 					}],
 					"name": "number"
 				}
@@ -5321,7 +5321,7 @@
 					"content": [{
 						"id": "VALUE",
 						"type": "number-input",
-						"value": "90"
+						"value": "1000"
 					}],
 					"name": "number"
 				}
@@ -5786,14 +5786,14 @@
 		"defaultVarName": "stepper",
 		"category": "action",
 		"boards": ["Arduino"],
-		"multiIndex": 1,
-		"width": 66,
-		"height": 90,
+		"width": 123,
+		"height": 150,
+		"varGroup": ["X_1", "X_2"],
 		"pins": [{
 			"name": "s",
-			"anchor": [0.5, 1],
-			"width": 21,
-			"height": 11,
+			"anchor": [0.459, 0.947],
+			"width": 35,
+			"height": 14,
 			"tags": ["ken-4P-digital", "ken-4P-analog"],
 			"label": "s",
 			"shape": "Rectangle",
@@ -5801,7 +5801,7 @@
 		}],
 		"code": {
 			"include": "#include <Kenblock_AccelStepper.h>",
-			"var": "KenAccelStepper {NAME}({s}, M{__n__});"
+			"var": "KenAccelStepper {NAME}_1({s}, M1);KenAccelStepper {NAME}_2({s}, M2);"
 		},
 		"blocks": [{
 			"type": "statement",
@@ -5981,6 +5981,319 @@
 			"uid": "Y9302r"
 		}],
 		"imageUrl": "assets/image/components/stepper.svg"
+	}, {
+		"uid": "PVfcRq",
+		"name": "ken_serial",
+		"label": "串口模块",
+		"type": "ken_serial",
+		"category": "function",
+		"serial": true,
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"tags": ["serial"],
+			"spec": ["tag", "serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"blocks": [{
+			"type": "statement",
+			"name": "ken_serialSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "QQtHUi"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口发送"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "QQtHUi"
+			}, {
+				"id": "LN",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "print"
+				}, {
+					"label": "二进制",
+					"value": "write"
+				}]
+			}],
+			"code": "Serial.{LN}({DATA});",
+			"tags": ["always", "module"],
+			"module": "ken_serial",
+			"uid": "7zsjR2"
+		}, {
+			"type": "statement",
+			"name": "ken_serialPrint",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "rmfVLP"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "WIz10f"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口发送"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "rmfVLP"
+			}, {
+				"type": "text",
+				"value": "格式"
+			}, {
+				"blockInputId": "FORMAT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "WIz10f",
+				"value": {
+					"content": [{
+						"id": "FORMAT",
+						"type": "static-select",
+						"value": "DEC"
+					}],
+					"name": "dataFormat"
+				}
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "print"
+				}]
+			}],
+			"code": "Serial.{OP}({DATA}, {FORMAT});",
+			"tags": ["always", "module", "advanced"],
+			"module": "ken_serial",
+			"uid": "yrdxuD"
+		}, {
+			"type": "statement",
+			"name": "ken_serialSendAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口打印"
+			}, {
+				"id": "LN",
+				"type": "static-select",
+				"options": [{
+					"label": "有换行符",
+					"value": "println"
+				}, {
+					"label": "没有换行符",
+					"value": "write"
+				}]
+			}],
+			"code": "while(Serial.available() > 0) {\nSerial.{LN}(Serial.read());\n}",
+			"tags": ["module", "advanced"],
+			"module": "ken_serial",
+			"uid": "gToau4"
+		}, {
+			"type": "output",
+			"name": "ken_serialReceive",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "接收串口数据"
+			}],
+			"code": "Serial.read()",
+			"returnType": {
+				"type": "simple",
+				"value": "char"
+			},
+			"tags": ["module"],
+			"module": "ken_serial",
+			"uid": "Y6xg3r"
+		}, {
+			"type": "output",
+			"name": "ken_serialAvailable",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "返回串口可读数据长度"
+			}],
+			"code": "Serial.available()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module", "advanced"],
+			"module": "ken_serial",
+			"uid": "jkv1u0"
+		}, {
+			"type": "statement-input",
+			"name": "ken_serialIfAvailable",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-root",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "如果串口有数据可读"
+			}],
+			"code": "if(Serial.available()){\n{STATEMENTS}\n}",
+			"tags": ["module"],
+			"module": "ken_serial",
+			"uid": "bbFvkI"
+		}, {
+			"type": "statement",
+			"name": "ken_serialWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "lPB412"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "串口输出二进制流"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "lPB412"
+			}],
+			"code": "Serial.write({DATA});",
+			"tags": ["module", "advanced"],
+			"module": "ken_serial",
+			"uid": "xRNqdR"
+		}, {
+			"type": "statement",
+			"name": "ken_serialBeginAdvanced",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置串口波特率"
+			}, {
+				"id": "BAUDRATE",
+				"type": "static-select",
+				"options": [{
+					"label": "300",
+					"value": "300"
+				}, {
+					"label": "1200",
+					"value": "1200"
+				}, {
+					"label": "2400",
+					"value": "2400"
+				}, {
+					"label": "4800",
+					"value": "4800"
+				}, {
+					"label": "9600",
+					"value": "9600"
+				}, {
+					"label": "19200",
+					"value": "19200"
+				}, {
+					"label": "38400",
+					"value": "38400"
+				}, {
+					"label": "57600",
+					"value": "57600"
+				}, {
+					"label": "115200",
+					"value": "115200"
+				}],
+				"value": "9600"
+			}],
+			"code": "Serial.begin({BAUDRATE});",
+			"tags": ["module", "advanced"],
+			"module": "ken_serial",
+			"uid": "c67gRU"
+		}],
+		"imageUrl": "assets/image/components/serial.svg"
+	}, {
+		"uid": "EqUnvp",
+		"name": "ken_softSerial",
+		"label": "软串口",
+		"type": "ken_serial",
+		"serial": true,
+		"category": "function",
+		"boards": ["Arduino"],
+		"width": 72,
+		"height": 72,
+		"pins": [{
+			"name": "s",
+			"anchor": [0.5, 0],
+			"tags": ["ken-software-serial"],
+			"label": "s",
+			"shape": "Dot",
+			"rotate": false,
+			"overlay": [0.5, -1]
+		}],
+		"code": {
+			"setup": "Serial.begin(9600);"
+		},
+		"blocks": [],
+		"imageUrl": "assets/image/components/serial.svg"
 	}, {
 		"uid": "0J42Ge",
 		"name": "ken_bluetooth",
@@ -6218,7 +6531,7 @@
 		"height": 47,
 		"pins": [{
 			"name": "s",
-			"anchor": [0.5, 0],
+			"anchor": [0.5, 1],
 			"tags": ["analog-in"],
 			"label": "s",
 			"shape": "Dot",
