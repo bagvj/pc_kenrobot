@@ -42,5 +42,6 @@
         "build": true,
         "node_modules": true,
         ".temp": true
-    }
+    },
+    "python.linting.pylintEnabled": false
 }

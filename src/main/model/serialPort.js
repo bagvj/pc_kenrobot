@@ -46,7 +46,8 @@ function openSerialPort(comName, options, callbacks) {
 
 	log.debug(`openSerialPort: ${comName}, options: ${JSON.stringify(options)}`)
 	options.autoOpen = false
-
+	options.parser = options.parser || "raw"
+	options.flowingMode = options.flowingMode !== false
 
 	var port = new SerialPort(comName, options)
 	port.open(err => {
@@ -68,10 +69,16 @@ function openSerialPort(comName, options, callbacks) {
 		})
 
 		var target = options.parser == "raw" ? port : port.pipe(new Delimiter({delimiter: Buffer.from(options.parser)}))
-		target.on('readable', () => {
-			var data = target.read()
-			data && callbacks && callbacks.onData && callbacks.onData(portId, data)
-		})
+		if(options.flowingMode) {
+			target.on('data', data => {
+				callbacks && callbacks.onData && callbacks.onData(portId, data)
+			})
+		} else {
+			target.on('readable', () => {
+				var data = target.read()
+				data && callbacks && callbacks.onData && callbacks.onData(portId, data)
+			})
+		}
 
 		port.flush(() => {
 			deferred.resolve(portId)

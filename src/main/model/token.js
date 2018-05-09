@@ -1,7 +1,6 @@
 const path = require('path')
-const crypto = require('crypto')
+
 const Q = require('q')
-const fs = require('fs-extra')
 const log = require('electron-log')
 const isOnline = require('is-online')
 
@@ -10,6 +9,7 @@ const Url = require('../config/url')
 const Status = require('../config/status')
 
 const Cache = require('../util/cache')
+const Crypto = require('../util/crypto')
 
 var cache
 var token
@@ -33,7 +33,7 @@ function load() {
 	}
 
 	try {
-		var plainText = util.decrypt(value, Buffer.from(key, "hex"))
+		var plainText = Crypto.decrypt(value, Buffer.from(key, "hex"))
 		token = JSON.parse(plainText)
 
 		verify().then(() => {
@@ -56,7 +56,7 @@ function save(value) {
 		var key = crypto.randomBytes(128)
 
 		getCache().setItem("key", key.toString("hex"), false)
-		getCache().setItem("value", util.encrypt(JSON.stringify(value), key), false)
+		getCache().setItem("value", Crypto.encrypt(JSON.stringify(value), key), false)
 		getCache().save()
 
 		token = value

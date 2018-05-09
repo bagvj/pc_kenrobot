@@ -23,6 +23,7 @@ const Project = require('./model/project') //同步
 const User = require('./model/user')
 const Package = require('./model/package')
 const Cache = require('./util/cache')
+const Crypto = require('./util/crypto')
 
 const CONFIG_KEY = "config"
 
@@ -67,13 +68,6 @@ function init() {
 	})
 
 	initLog()
-
-	// var expire = util.getExpire()
-	// if(expire && expire < util.stamp()) {
-	// 	log.info(`app ${app.getName()} is expired, version ${util.getVersion()}, expire ${util.formatDate(expire, "yyyy/MM/dd")}`)
-	// 	dialog.showErrorBox("软件已过期", "软件已过期")
-	// 	app.exit(1)
-	// }
 
 	cache = new Cache(CONFIG_KEY)
 	config = cache.getItem(CONFIG_KEY, {})
@@ -252,9 +246,6 @@ function createWindow() {
 		minHeight: 720,
 		frame: false,
 		show: false,
-		webPreferences: {
-			webSecurity: false,
-		}
 	})
 
 	if(args.fullscreen) {
@@ -884,7 +875,9 @@ function preBuild(projectPath, options) {
 			var buildSpecs = []
 			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
 
-			var packagesPath = util.getAppPath("packages")
+			var packagesPath = path.join(util.getAppPath("appResource"), "packages")
+			buildSpecs.push(`-hardware="${packagesPath}"`)
+			packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
 			buildSpecs.push(`-fqbn=${buildOptions.fqbn}`)
@@ -1071,7 +1064,7 @@ function loadBoards(forceReload) {
 	var vidReg = /\n(([^\.\n]+)\.vid(\.\d)?)=([^\r\n]+)/g
 	var nameReg = /\n([^\.\n]+)\.name=([^\r\n]+)/g
 
-	var searchPath = 'arduino-' + util.getPlatform()
+	var searchPath = util.getAppPath("arduino")
 	util.searchFiles(`${searchPath}/**/boards.txt`).then(pathList => {
 		Q.all(pathList.map(p => {
 			var d = Q.defer()
