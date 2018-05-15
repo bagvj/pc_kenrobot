@@ -196,7 +196,12 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 		while(blocks.length > 0) {
 			var blockData = blocks.shift();
 			names.push(blockData.name);
-			blockData.children && blockData.children.length > 0 && (blocks = blocks.concat(blockData.children));
+			if(blockData.children && blockData.children.length > 0) {
+				blocks = blocks.concat(blockData.children);
+			}
+			if(blockData.content && blockData.content.length > 0) {
+				blocks = blocks.concat(blockData.content.filter(c => c.type === "block-input").map(c => c.value));
+			}
 		}
 		blocks = _.uniq(names).map(name => softwareModel.getBlockConfig(name));
 		_.uniqWith(blocks.filter(blockConfig => blockConfig.condition), (a, b) => a.condition.name && b.condition.name && a.condition.name === b.condition.name).forEach(blockConfig => {

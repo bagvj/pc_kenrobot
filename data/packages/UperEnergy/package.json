@@ -1350,6 +1350,405 @@
 			"tags": ["module"],
 			"board": "upDuinoIOT",
 			"uid": "ar5pCD"
+		}, {
+			"type": "statement",
+			"name": "uper_wifiIOTJoinAP",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "t9MvJS"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "aWoOXQ"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "初始化WIFI，SSID"
+			}, {
+				"blockInputId": "SSID",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "t9MvJS",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "uper-energy"
+					}],
+					"name": "string"
+				}
+			}, {
+				"type": "text",
+				"value": "密码"
+			}, {
+				"blockInputId": "PASSWORD",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "aWoOXQ",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "uper"
+					}],
+					"name": "string"
+				}
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);"
+			},
+			"code": "wifi.joinAP({SSID}, {PASSWORD});",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "cp49rB"
+		}, {
+			"type": "statement",
+			"name": "uper_wifiIOTCreateTCP",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "vvGehN"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "NAOKyz"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置本地IP"
+			}, {
+				"blockInputId": "IP",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "vvGehN",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "192.168.1.100"
+					}],
+					"name": "string"
+				}
+			}, {
+				"type": "text",
+				"value": "端口"
+			}, {
+				"blockInputId": "PORT",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "NAOKyz",
+				"value": {
+					"content": [{
+						"id": "VALUE",
+						"type": "number-input",
+						"value": "8080"
+					}],
+					"name": "number"
+				}
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);"
+			},
+			"code": "wifi.createTCP({IP}, {PORT});",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "M7vNXS"
+		}, {
+			"type": "output",
+			"name": "uper_SDIOTBegin",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡就绪"
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "SD.begin()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "R5ijqm"
+		}, {
+			"type": "output",
+			"name": "uper_SDIOTOpen",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "j9z0SV"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡打开文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "j9z0SV",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "filepath"
+					}],
+					"name": "string"
+				}
+			}, {
+				"id": "MODE",
+				"type": "static-select",
+				"options": [{
+					"label": "只读",
+					"value": "FILE_READ"
+				}, {
+					"label": "读写",
+					"value": "FILE_WRITE"
+				}]
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "SD.open({FILE}, {MODE})",
+			"returnType": {
+				"type": "simple",
+				"value": "File"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "BKlhqW"
+		}, {
+			"type": "statement",
+			"name": "uper_SDIOTClose",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "File",
+				"name": "HvduNe"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡关闭文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "File",
+				"name": "HvduNe"
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "{FILE}.close();",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "JrisVg"
+		}, {
+			"type": "output",
+			"name": "uper_SDIOTRead",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "File",
+				"name": "R7Nqf8"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡读取文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "File",
+				"name": "R7Nqf8"
+			}, {
+				"type": "text",
+				"value": "内容"
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "{FILE}.read()",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "gcw0Bb"
+		}, {
+			"type": "statement",
+			"name": "uper_SDIOTWrite",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "File",
+				"name": "OU2o2e"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "BiVFM8"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡写入文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "File",
+				"name": "OU2o2e"
+			}, {
+				"type": "text",
+				"value": "内容"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "BiVFM8",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "hello, world"
+					}],
+				}
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "{FILE}.println({DATA});",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "EhFzPX"
+		}, {
+			"type": "output",
+			"name": "uper_SDIOTExist",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "I0cSlF"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡是否存在文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "I0cSlF",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "filepath"
+					}],
+					"name": "string"
+				}
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "SD.exists({FILE})",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "1O5DUT"
+		}, {
+			"type": "statement",
+			"name": "uper_SDIOTRemove",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "IIbkPE"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "SD卡删除文件"
+			}, {
+				"blockInputId": "FILE",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "IIbkPE",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "filepath"
+					}],
+					"name": "string"
+				}
+			}],
+			"condition": {
+				"name": "uper_SDIOT",
+				"include": "#include <SPI.h>\n#include <uper_SD.h>"
+			},
+			"code": "SD.remove({FILE});",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "edvcoQ"
 		}]
 	}],
 	"components": [{
