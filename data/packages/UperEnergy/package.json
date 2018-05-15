@@ -1657,7 +1657,7 @@
 						"id": "TEXT",
 						"type": "string-input",
 						"value": "hello, world"
-					}],
+					}]
 				}
 			}],
 			"condition": {
