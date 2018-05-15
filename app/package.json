@@ -23,7 +23,7 @@
     "fs-extra": "^6.0.0",
     "globby": "^7.1.1",
     "hasha": "^3.0.0",
-    "iconv-lite": "^0.4.21",
+    "iconv-lite": "^0.4.23",
     "is-online": "^7.0.0",
     "lodash": "^4.17.10",
     "node-fetch": "^2.1.2",

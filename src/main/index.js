@@ -253,9 +253,6 @@ function createWindow() {
 		minHeight: 720,
 		frame: false,
 		show: false,
-		webPreferences: {
-			webSecurity: true,
-		}
 	})
 
 	if(args.fullscreen) {
