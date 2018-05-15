@@ -285,10 +285,21 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			modules.indexOf(componentData.type) < 0 && modules.push(componentData.type);
 			groupName = componentData.type + "s";
 			group = groups[groupName] || (groups[groupName] = []);
-			group.push({
-				id: componentData.uid,
-				name: componentData.varName,
-			});
+
+			var componentConfig = hardwareModel.getComponentConfig(componentData.name);
+			if(componentConfig.varGroup) {
+				componentConfig.varGroup.forEach(name => {
+					group.push({
+						id: util.uuid(6),
+						name: name.replace("X", componentData.varName),
+					});
+				})
+			} else {
+				group.push({
+					id: componentData.uid,
+					name: componentData.varName,
+				});
+			}
 		});
 
 		var raw = {
@@ -306,7 +317,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				group: [],
 			};
 
-			hardwareData.components.forEach(function(componentData) {
+			hardwareData.components.forEach(componentData => {
 				var componentConfig = hardwareModel.getComponentConfig(componentData.name);
 				if (componentConfig.type == "serial" || componentConfig.serial) {
 					var pins = componentData.pins;

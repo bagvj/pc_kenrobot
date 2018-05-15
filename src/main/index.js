@@ -246,9 +246,6 @@ function createWindow() {
 		minHeight: 720,
 		frame: false,
 		show: false,
-		webPreferences: {
-			webSecurity: false,
-		}
 	})
 
 	if(args.fullscreen) {
@@ -879,7 +876,7 @@ function preBuild(projectPath, options) {
 			var buildOptions = _.merge({}, ArduinoOptions.default.build, options.build)
 
 			var packagesPath = path.join(util.getAppPath("appResource"), "packages")
-			buildSpecs.push(`-hardware=${packagesPath}`)
+			buildSpecs.push(`-hardware="${packagesPath}"`)
 			packagesPath = util.getAppPath("packages")
 			fs.existsSync(packagesPath) && buildSpecs.push(`-hardware=${packagesPath}`)
 
