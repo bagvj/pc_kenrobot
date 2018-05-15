@@ -158,6 +158,7 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 				componentData.index !== undefined && (tempCode = tempCode.replace(/\{__n__\}/g, componentData.index));
 				varCode += code.eval ? eval(tempCode) : tempCode;
 			}
+
 			if(code.funcDeclare) {
 				tempCode = code.funcDeclare.replace(nameReg, componentData.varName);
 				funcDeclareCode += tempCode;
@@ -198,9 +199,13 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			blockData.children && blockData.children.length > 0 && (blocks = blocks.concat(blockData.children));
 		}
 		blocks = _.uniq(names).map(name => softwareModel.getBlockConfig(name));
-		blocks.filter(blockConfig => blockConfig.condition).forEach(blockConfig => {
+		_.uniqWith(blocks.filter(blockConfig => blockConfig.condition), (a, b) => a.condition.name && b.condition.name && a.condition.name === b.condition.name).forEach(blockConfig => {
 			if(blockConfig.condition.include) {
 				includeCode = includeCode.concat(blockConfig.condition.include);
+			}
+
+			if(blockConfig.condition.var) {
+				varCode += blockConfig.condition.var;
 			}
 		});
 
