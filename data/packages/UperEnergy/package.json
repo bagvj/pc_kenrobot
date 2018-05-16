@@ -1351,6 +1351,32 @@
 			"board": "upDuinoIOT",
 			"uid": "ar5pCD"
 		}, {
+			"type": "output",
+			"name": "uper_wifiIOTStatus",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获取WIFI连接状态"
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
+			},
+			"code": "wifi.setOprToStationSoftAP()",
+			"returnType": {
+				"type": "simple",
+				"value": "boolean"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "2KKHST"
+		}, {
 			"type": "statement",
 			"name": "uper_wifiIOTJoinAP",
 			"connectors": [{
@@ -1372,7 +1398,10 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "初始化WIFI，SSID"
+				"value": "设置WIFI"
+			}, {
+				"type": "text",
+				"value": "名称"
 			}, {
 				"blockInputId": "SSID",
 				"type": "block-input",
@@ -1406,7 +1435,9 @@
 			"condition": {
 				"name": "uper_wifiIOT",
 				"include": "#include <uper_ESP8266.h>",
-				"var": "UPER_ESP8266 wifi(Serial1);"
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
 			},
 			"code": "wifi.joinAP({SSID}, {PASSWORD});",
 			"tags": ["module"],
@@ -1434,7 +1465,10 @@
 			}],
 			"content": [{
 				"type": "text",
-				"value": "设置本地IP"
+				"value": "设置TCP模式"
+			}, {
+				"type": "text",
+				"value": "IP地址"
 			}, {
 				"blockInputId": "IP",
 				"type": "block-input",
@@ -1468,12 +1502,142 @@
 			"condition": {
 				"name": "uper_wifiIOT",
 				"include": "#include <uper_ESP8266.h>",
-				"var": "UPER_ESP8266 wifi(Serial1);"
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
 			},
 			"code": "wifi.createTCP({IP}, {PORT});",
 			"tags": ["module"],
 			"board": "upDuinoIOT",
 			"uid": "M7vNXS"
+		}, {
+			"type": "statement",
+			"name": "uper_wifiIOTMUX",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "设置客户端连接模式"
+			}, {
+				"id": "OP",
+				"type": "static-select",
+				"options": [{
+					"label": "单模式",
+					"value": "disableMUX"
+				}, {
+					"label": "多模式",
+					"value": "enableMUX"
+				}]
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
+			},
+			"code": "wifi.{OP}();",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "h9sCXY"
+		}, {
+			"type": "output",
+			"name": "uper_wifiIOTRecv",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获得服务器返回值长度"
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
+			},
+			"code": "wifi.recv(wifi_recv_buffer, sizeof(wifi_recv_buffer))",
+			"returnType": {
+				"type": "simple",
+				"value": "int"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "6C9Jrv"
+		}, {
+			"type": "output",
+			"name": "uper_wifiIOTRecvBuffer",
+			"connectors": [{
+				"type": "connector-output",
+				"accept": "connector-input"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "获得服务器返回值"
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;",
+				"funcDeclare": "uint8_t *wifi_getRecvBuffer();",
+				"funcImplement": "uint8_t *wifi_getRecvBuffer() \n{\nreturn wifi_recv_buffer;\n}"
+			},
+			"code": "wifi_getRecvBuffer()",
+			"returnType": {
+				"type": "simple",
+				"value": "uint8_t *"
+			},
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "INDRAn"
+		}, {
+			"type": "statement",
+			"name": "uper_wifiIOTSend",
+			"connectors": [{
+				"type": "connector-top",
+				"accept": "connector-bottom"
+			}, {
+				"type": "connector-bottom",
+				"accept": "connector-top"
+			}, {
+				"type": "connector-input",
+				"accept": "connector-output",
+				"acceptType": "all",
+				"name": "fvXO3E"
+			}],
+			"content": [{
+				"type": "text",
+				"value": "向服务器发送数据"
+			}, {
+				"blockInputId": "DATA",
+				"type": "block-input",
+				"acceptType": "all",
+				"name": "fvXO3E",
+				"value": {
+					"content": [{
+						"id": "TEXT",
+						"type": "string-input",
+						"value": "hello"
+					}],
+					"name": "string"
+				}
+			}],
+			"condition": {
+				"name": "uper_wifiIOT",
+				"include": "#include <uper_ESP8266.h>",
+				"var": "UPER_ESP8266 wifi(Serial1);\nuint8_t wifi_recv_buffer[128] = {0};\nchar *wifi_send_buffer = NULL;"
+			},
+			"code": "wifi_send_buffer = {DATA};\nwifi.send((const uint8_t*)wifi_send_buffer, strlen(wifi_send_buffer));",
+			"tags": ["module"],
+			"board": "upDuinoIOT",
+			"uid": "RDLMjN"
 		}, {
 			"type": "output",
 			"name": "uper_SDIOTBegin",

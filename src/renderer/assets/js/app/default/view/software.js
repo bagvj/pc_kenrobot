@@ -212,6 +212,14 @@ define(['vendor/jquery', 'vendor/perfect-scrollbar', 'vendor/lodash', 'app/commo
 			if(blockConfig.condition.var) {
 				varCode += blockConfig.condition.var;
 			}
+
+			if(blockConfig.condition.funcDeclare) {
+				funcDeclareCode += blockConfig.condition.funcDeclare;
+			}
+
+			if(blockConfig.condition.funcImplement) {
+				funcImplementCode += blockConfig.condition.funcImplement;
+			}
 		});
 
 		codeInfo.include = _.uniq(includeCode).sort().join('\n');
